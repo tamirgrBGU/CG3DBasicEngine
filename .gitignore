@@ -1,5 +1,6 @@
 # Directories
-build
+cmake-build-debug
+.vscode
 external
 
 # Files
