@@ -1,9 +1,7 @@
 #include "igl/opengl/glfw/renderer.h"
 #include "Assignment1.h"
 #include "InputManager.h"
-//test push
-// ahalan
-//rtdftdrt
+
 int main(int argc,char *argv[])
 {
 	const int DISPLAY_WIDTH = 1200;
