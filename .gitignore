@@ -4,4 +4,6 @@ cmake-build-debug
 external
 .vs
 CppProperties.json
+build
+.vscode/launch.json
 # Files

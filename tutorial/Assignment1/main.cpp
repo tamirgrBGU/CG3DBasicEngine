@@ -3,6 +3,7 @@
 #include "InputManager.h"
 //test push
 // ahalan
+//rtdftdrt
 int main(int argc,char *argv[])
 {
 	const int DISPLAY_WIDTH = 1200;
