@@ -35,7 +35,7 @@ void Assignment1::Init()
     AddShader("shaders/TomsShader");
 //    AddShader("shaders/exampleShader");
 
-    AddTexture("textures/grass.bmp",2);
+    AddTexture("textures/plane.png",2);
 //    AddTexture("textures/grass.bmp", 2);
 
     AddMaterial(texIDs,slots, 1);
@@ -46,12 +46,12 @@ void Assignment1::Init()
     SetShapeMaterial(0, 0);
 
     SetShapeStatic(0);
-    coeffs[0] = 1;
-    coeffs[1] = 1;
-    coeffs[2] = 0;
-    coeffs[3] =  0;
+    coeffs[0] = 4;
+    coeffs[1] = 3;
+    coeffs[2] = 2;
+    coeffs[3] =  1;
     Eigen::Vector3cf roots = 	FindCubicRoots();
-//    std::cout<<"the roots are:\n"<< roots<<std::endl;
+    std::cout<<"the roots are:\n"<< roots<<std::endl;
     std::cout<<"first "<<roots[0]<<std::endl;
     std::cout<<"second "<< roots[1]<<std::endl;
     std::cout<<"third "<< roots[2] <<std::endl;
@@ -62,25 +62,26 @@ void Assignment1::Init()
 void Assignment1::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx)
 {
     Shader *s = shaders[shaderIndx];
-    int r = ((shapeIndx+1) & 0x000000FF) >>  0;
-    int g = ((shapeIndx+1) & 0x0000FF00) >>  8;
-    int b = ((shapeIndx+1) & 0x00FF0000) >> 16;
-//    Eigen::Vector3cf roots = 	FindCubicRoots();
-//    s->SetUniform4f("roots",roots[0],roots[1]);
-    s->SetUniform4fv("a",&coeffs,4);
+//    int r = ((shapeIndx+1) & 0x000000FF) >>  0;
+//    int g = ((shapeIndx+1) & 0x0000FF00) >>  8;
+//    int b = ((shapeIndx+1) & 0x00FF0000) >> 16;
+    Eigen::Vector3cf roots = 	FindCubicRoots();
+    s->SetUniform1f("r1r",roots[0].real());
+    s->SetUniform1f("r1i",roots[0].imag());
+    s->SetUniform1f("r2r",roots[1].real());
+    s->SetUniform1f("r2i",roots[1].imag());
+    s->SetUniform1f("r3r",roots[2].real());
+    s->SetUniform1f("r3i",roots[2].imag());
+
+    s->SetUniform1f("a",coeffs[0].real());
+    s->SetUniform1f("b",coeffs[1].real());
+    s->SetUniform1f("c",coeffs[2].real());
+    s->SetUniform1f("d",coeffs[3].real());
+    s->SetUniform1f("k",100);
 
     s->Bind();
 
-    if (data_list[shapeIndx]->GetMaterial() >= 0 && !materials.empty())
-    {
-//		materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
-        BindMaterial(s, data_list[shapeIndx]->GetMaterial());
-    }
-//    if (shaderIndx == 0)
-//        s->SetUniform4f("lightColor", r / 255.0f, g / 255.0f, b / 255.0f, 0.0f);
-//    else
-//        s->SetUniform4f("lightColor", time/10.0f, 60 / 100.0f, 99 / 100.0f, 0.5f);
-    //textures[0]->Bind(0);
+
 
 
 

@@ -9,7 +9,7 @@ class Assignment1 : public igl::opengl::glfw::Viewer
 
 public:
 
-    Eigen::Vector4f coeffs;
+    Eigen::Vector4cf coeffs;
     float x, y;
     Assignment1();
 //	Assignment1(float angle,float relationWH,float near, float far);

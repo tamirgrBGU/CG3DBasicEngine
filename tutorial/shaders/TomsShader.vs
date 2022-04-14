@@ -1,9 +1,13 @@
 #version 330
 
-layout(location = 0) in vec4 position;
+attribute vec2 texcoord;
+attribute vec4 position;
+
+out vec2 texcoord0;
 
 void main()
 {
-    gl_position = position
+    texcoord0 = texcoord;
+    gl_Position = position;
 
 }
