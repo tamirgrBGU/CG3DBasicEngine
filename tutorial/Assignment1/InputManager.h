@@ -8,7 +8,7 @@
 int pressedKey = 0;
 
 
-void glfw_mouse_callback(GLFWwindow* window,int button, int action, int mods)
+void glfw_mouse_callback(GLFWwindow* window, int button, int action, int mods)
 {
     if (action == GLFW_PRESS)
     {
@@ -65,9 +65,9 @@ void glfw_cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
     Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
     Assignment1* scn = (Assignment1*)rndr->GetScene();
 
-    rndr->UpdatePosition((float)xpos,(float)ypos);
+    rndr->UpdatePosition((float)xpos, (float)ypos);
 
-    if (rndr->CheckViewport(xpos,ypos, 0))
+    if (rndr->CheckViewport(xpos, ypos, 0))
     {
         if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
         {
@@ -92,7 +92,7 @@ void glfw_window_size_callback(GLFWwindow* window, int width, int height)
 {
     Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 
-    rndr->resize(window,width,height);
+    rndr->resize(window, width, height);
 
 }
 
@@ -155,39 +155,43 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
             case GLFW_KEY_UP:
                 switch (pressedKey) {
                     case(1):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[0]+=0.01;
-                            if(scn->Qcoeffs[0] == 0){
-                                scn->Qcoeffs[0]+=0.01;
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[0] += 0.01;
+                            if (scn->Qcoeffs[0] == 0) {
+                                scn->Qcoeffs[0] += 0.01;
                             }
-                        }else{
+                        }
+                        else {
                             scn->coeffs[0] += 0.01;
                         }
                         break;
                     case(2):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[1]+=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[1] += 0.01;
+                        }
+                        else {
                             scn->coeffs[1] += 0.01;
                         }
                         break;
                     case(3):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[2]+=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[2] += 0.01;
+                        }
+                        else {
                             scn->coeffs[2] += 0.01;
                         }
                         break;
                     case(4):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[3]+=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[3] += 0.01;
+                        }
+                        else {
                             scn->coeffs[3] += 0.01;
                         }
                         break;
                     case(5):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[4]+=0.01;
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[4] += 0.01;
                         }
                         break;
                     case(6):
@@ -204,44 +208,47 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
                             scn->r += 0.01;
                         break;
                 }
-                //rndr->MoveCamera(0, scn->xRotate, 0.05f);
                 break;
             case GLFW_KEY_DOWN:
                 switch (pressedKey) {
                     case(1):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[0]-=0.01;
-                            if(scn->Qcoeffs[0] == 0){
-                                scn->Qcoeffs[0]-=0.01;
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[0] -= 0.01;
+                            if (scn->Qcoeffs[0] == 0) {
+                                scn->Qcoeffs[0] -= 0.01;
                             }
-                        }else{
+                        }
+                        else {
                             scn->coeffs[0] -= 0.01;
                         }
                         break;
                     case(2):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[1]-=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[1] -= 0.01;
+                        }
+                        else {
                             scn->coeffs[1] -= 0.01;
                         }
                         break;
                     case(3):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[2]-=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[2] -= 0.01;
+                        }
+                        else {
                             scn->coeffs[2] -= 0.01;
                         }
                         break;
                     case(4):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[3]-=0.01;
-                        }else{
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[3] -= 0.01;
+                        }
+                        else {
                             scn->coeffs[3] -= 0.01;
                         }
                         break;
                     case(5):
-                        if(scn->isQuartic){
-                            scn->Qcoeffs[4]-=0.01;
+                        if (scn->isQuartic) {
+                            scn->Qcoeffs[4] -= 0.01;
                         }
                         break;
                     case(6):
@@ -253,7 +260,7 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
                             scn->b1 -= 0.01;
                         break;
                     case(8):
-                        if(scn->r > 0)
+                        if (scn->r > 0)
                             scn->r -= 0.01;
                         break;
                 }
@@ -267,14 +274,11 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
                 //rndr->MoveCamera(0, scn->yRotate, 0.05f);
                 break;
             case GLFW_KEY_RIGHT:
-                if(scn->iterationNumber <= 1)
+                if (scn->iterationNumber <= 1)
                     std::cout << "Cannot deceremnet IterationNum" << std::endl;
                 else
                     scn->iterationNumber -= 1;
                 std::cout << scn->iterationNumber << std::endl;
-                //scn->shapeTransformation(scn->xGlobalRotate,-5.f);
-                //cout<< "down: "<<endl;
-                //rndr->MoveCamera(0, scn->yRotate, -0.05f);
                 break;
             case GLFW_KEY_U:
                 rndr->MoveCamera(0, scn->yTranslate, 0.25f);
@@ -304,7 +308,7 @@ void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, in
 }
 
 
-void Init(Display& display, igl::opengl::glfw::imgui::ImGuiMenu *menu)
+void Init(Display& display, igl::opengl::glfw::imgui::ImGuiMenu* menu)
 {
 
     display.AddKeyCallBack(glfw_key_callback);

@@ -18,8 +18,8 @@ static void printMat(const Eigen::Matrix4d& mat)
 Assignment1::Assignment1()
 {
 
-    x=0;
-    y=0;
+    x = 0;
+    y = 0;
     r = 1.0;
     g = 1.0;
     b1 = 1.0;
@@ -28,7 +28,7 @@ Assignment1::Assignment1()
     zoom = 1;
     iterationNumber = 3;
     coeffs = Eigen::Vector4cf(1, 0, 0, -1);
-    isQuartic =1;
+    isQuartic = 1;
 
 
 }
@@ -43,7 +43,7 @@ void Assignment1::Init()
     unsigned int slots[3] = { 0 , 1, 2 };
 
     //AddShader("shaders/TomsShader");
-    AddShader("shaders/TomsShader");
+    AddShader("shaders/SITShader");
 
     AddTexture("textures/plane.png", 2);
     //    AddTexture("textures/grass.bmp", 2);
@@ -58,10 +58,10 @@ void Assignment1::Init()
     SetShapeStatic(0);
 
     FindQuarticRoots();
-//    std::cout << "the roots are:\n" << Qroots << std::endl;
-//    Eigen::Vector3cf roots = FindCubicRoots();
-//    std::cout << "the roots are:\n" << roots << std::endl;
-    std::cout << "first " << Qroots [0] << std::endl;
+    //    std::cout << "the roots are:\n" << Qroots << std::endl;
+    //    Eigen::Vector3cf roots = FindCubicRoots();
+    //    std::cout << "the roots are:\n" << roots << std::endl;
+    std::cout << "first " << Qroots[0] << std::endl;
     std::cout << "second " << Qroots[1] << std::endl;
     std::cout << "third " << Qroots[2] << std::endl;
     std::cout << "fourth " << Qroots[3] << std::endl;
@@ -80,7 +80,7 @@ void Assignment1::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
     //    int b = ((shapeIndx+1) & 0x00FF0000) >> 16;
 
     s->SetUniform1i("isQuartic", isQuartic);
-    if(isQuartic == 1){
+    if (isQuartic == 1) {
         FindQuarticRoots();
         s->SetUniform1f("r1r", Qroots[0].real());
         s->SetUniform1f("r1i", Qroots[0].imag());
@@ -97,7 +97,8 @@ void Assignment1::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
         s->SetUniform1f("d", Qcoeffs[3]);
         s->SetUniform1f("e", Qcoeffs[4]);
 
-    }else{
+    }
+    else {
         Eigen::Vector3cf roots = FindCubicRoots();
         s->SetUniform1f("r1r", roots[0].real());
         s->SetUniform1f("r1i", roots[0].imag());
@@ -123,7 +124,7 @@ void Assignment1::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
     s->SetUniform1f("g", g);
     s->SetUniform1f("b1", b1);
 
-    s->SetUniform4f("move", move[0],move[1],move[2],move[3]);
+    s->SetUniform4f("move", move[0], move[1], move[2], move[3]);
     s->SetUniform1f("zoom", zoom);
 
     s->Bind();
@@ -159,7 +160,7 @@ void Assignment1::WhenRotate(bool offset, bool xAxis)
 void Assignment1::ZoomInOrOut(bool offset) {
     if (offset)
         zoom += 0.1;
-    else if(!offset && zoom > 0.4)
+    else if (!offset && zoom > 0.4)
         zoom -= 0.1;
 
 }
@@ -251,57 +252,61 @@ Assignment1::~Assignment1(void)
 }
 
 void Assignment1::MoveHorizontal(float xpos) {
-    if(xpos>x){
-        move[0]+=0.01;
-    }else if(xpos<x){
-        move[0]-=0.01;
+    if (xpos > x) {
+        move[0] += 0.01;
     }
-    x=xpos;
+    else if (xpos < x) {
+        move[0] -= 0.01;
+    }
+    x = xpos;
 
 }
 
 void Assignment1::MoveVertical(float ypos) {
-    if(ypos>y){
-        move[1]+=0.01;
-    }else if(ypos<y){
-        move[1]-=0.01;
+    if (ypos > y) {
+        move[1] += 0.01;
     }
-    y=ypos;
+    else if (ypos < y) {
+        move[1] -= 0.01;
+    }
+    y = ypos;
 }
 
 std::complex<float> Assignment1::cuberoot(std::complex<float> z) {
     if (z.real() < 0) {
-        return -pow(-z, 1.0f/3.0f);
-    } else {
-        return pow(z, 1.0f/3.0f);
+        return -pow(-z, 1.0f / 3.0f);
+    }
+    else {
+        return pow(z, 1.0f / 3.0f);
     }
 }
 
 void Assignment1::FindQuarticRoots() {
-    std::complex<float> a = Qcoeffs[0], b = Qcoeffs[1], c =Qcoeffs[2], d = Qcoeffs[3], e = Qcoeffs[4];
-    std::complex<float> delta0 = c*c - ((std::complex<float>)3)*b*d + ((std::complex<float>)12)*a*e;
-    std::complex<float> delta1 = ((std::complex<float>)2) * c * c * c - ((std::complex<float>)9) * b * c * d + ((std::complex<float>)27 )* b * b * e + ((std::complex<float>)27 )* a * d * d - ((std::complex<float>)72 )* a * c * e;
-    std::complex<float>Q,S,p,q;
-    if(delta0 == ((std::complex<float>)0)){
+    std::complex<float> a = Qcoeffs[0], b = Qcoeffs[1], c = Qcoeffs[2], d = Qcoeffs[3], e = Qcoeffs[4];
+    std::complex<float> delta0 = c * c - ((std::complex<float>)3) * b * d + ((std::complex<float>)12) * a * e;
+    std::complex<float> delta1 = ((std::complex<float>)2) * c * c * c - ((std::complex<float>)9) * b * c * d + ((std::complex<float>)27) * b * b * e + ((std::complex<float>)27) * a * d * d - ((std::complex<float>)72) * a * c * e;
+    std::complex<float>Q, S, p, q;
+    if (delta0 == ((std::complex<float>)0)) {
         Q = cuberoot(delta1);
-    }else{
-        std::complex<float> delta = std::sqrt(delta1*delta1 - (std::complex<float>)4*delta0*delta0*delta0);
-        Q = cuberoot((delta1+delta)/((std::complex<float>)2));
     }
-    try{
-        p = (((std::complex<float>)8)*a*c - ((std::complex<float>)3)*b*b)/(((std::complex<float>)8)*a*a);
-        q = (b*b*b - ((std::complex<float>)4)*a*b*c + ((std::complex<float>)8)*a*a*d) /(((std::complex<float>)8)*a*a*a);
-        S = ((std::complex<float>)0.5) * std::sqrt(((std::complex<float>)(-2.0f/3.0f))*p + (1.0f/(3.0f*a)) * (Q+(delta0/Q)));
-        std::complex<float> delta3 = ((std::complex<float>)0.5)  * std::sqrt(((std::complex<float>)-4)*S*S - ((std::complex<float>)2)*p + q/S);
-        std::complex<float> delta4 = ((std::complex<float>)0.5)  * std::sqrt(((std::complex<float>)-4)*S*S - ((std::complex<float>)2)*p - q/S);
-        Qroots[0] = (-b/(((std::complex<float>)4)*a)) - S + delta3;
-        Qroots[1] = (-b/(((std::complex<float>)4)*a)) - S - delta3;
-        Qroots[2] = (-b/(((std::complex<float>)4)*a)) + S + delta4;
-        Qroots[3] = (-b/(((std::complex<float>)4)*a)) + S - delta4;
+    else {
+        std::complex<float> delta = std::sqrt(delta1 * delta1 - (std::complex<float>)4 * delta0 * delta0 * delta0);
+        Q = cuberoot((delta1 + delta) / ((std::complex<float>)2));
+    }
+    try {
+        p = (((std::complex<float>)8) * a * c - ((std::complex<float>)3) * b * b) / (((std::complex<float>)8) * a * a);
+        q = (b * b * b - ((std::complex<float>)4) * a * b * c + ((std::complex<float>)8) * a * a * d) / (((std::complex<float>)8) * a * a * a);
+        S = ((std::complex<float>)0.5) * std::sqrt(((std::complex<float>)(-2.0f / 3.0f)) * p + (1.0f / (3.0f * a)) * (Q + (delta0 / Q)));
+        std::complex<float> delta3 = ((std::complex<float>)0.5) * std::sqrt(((std::complex<float>) - 4) * S * S - ((std::complex<float>)2) * p + q / S);
+        std::complex<float> delta4 = ((std::complex<float>)0.5) * std::sqrt(((std::complex<float>) - 4) * S * S - ((std::complex<float>)2) * p - q / S);
+        Qroots[0] = (-b / (((std::complex<float>)4) * a)) - S + delta3;
+        Qroots[1] = (-b / (((std::complex<float>)4) * a)) - S - delta3;
+        Qroots[2] = (-b / (((std::complex<float>)4) * a)) + S + delta4;
+        Qroots[3] = (-b / (((std::complex<float>)4) * a)) + S - delta4;
 
 
     }
-    catch(const std::exception& e){
+    catch (const std::exception& e) {
         std::cout << " a standard exception was caught, with message '"
                   << e.what() << "'\n";
     }
@@ -310,8 +315,8 @@ void Assignment1::FindQuarticRoots() {
 }
 
 
-void Assignment1::changeMode(){
-    isQuartic = (isQuartic+1)%2;
+void Assignment1::changeMode() {
+    isQuartic = (isQuartic + 1) % 2;
 }
 
 
