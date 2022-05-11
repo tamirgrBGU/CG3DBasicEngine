@@ -26,29 +26,29 @@ Texture::Texture(const int dim) : m_dim(dim)
 Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
 {
 	int width, height, numComponents;
-	unsigned char* pixels = NULL;
+	unsigned char* data = NULL;
 
 	glGenTextures(1, &m_texture);
 	glBindTexture(m_type, m_texture);
 	switch (dim)
 	{
 	case 1:
-		pixels = LoadFromFile(fileName, &width, &height, &numComponents, 4);
+		data = LoadFromFile(fileName, &width, &height, &numComponents, 4);
 		glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameterf(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameterf(GL_TEXTURE_1D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glTexImage1D(GL_TEXTURE_1D, 0, GL_RGBA, width, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+		glTexImage1D(GL_TEXTURE_1D, 0, GL_RGBA, width, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		break;
 
 	case 2: 
-		pixels = LoadFromFile(fileName, &width, &height, &numComponents, 4);
+		data = LoadFromFile(fileName, &width, &height, &numComponents, 4);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.4f);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		break;
 
 	case 3: // cube map
@@ -63,14 +63,14 @@ Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
 			std::string directions[] = { "Right","Left","Top","Bottom","Front","Back" };
 			for (int i = 0; i < 6; i++)
 			{
-				pixels = LoadFromFile(fileName + directions[i] + ".bmp", &width, &height, &numComponents, 4);
-				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+				data = LoadFromFile(fileName + directions[i] + ".bmp", &width, &height, &numComponents, 4);
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			}
 		}
 		break;
 	}
 	glBindTexture(m_type, 0);
-	stbi_image_free(pixels);
+	stbi_image_free(data);
 }
 
 Texture::Texture(int internalformat, int width, int height, unsigned int format, unsigned int type, const void* data) : Texture(height > 0 ? 2 : 1)
