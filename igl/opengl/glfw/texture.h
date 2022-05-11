@@ -1,24 +1,22 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
-
+#pragma once
 #include <string>
 
 class Texture
 {
 public:
-	Texture(const std::string& fileName,const int dim);
-	Texture(int width, int height,unsigned char *data);
-	Texture(int width, int height);
-	void Bind(int slot);
 
-	inline int GetSlot(){return m_texture;}
+	Texture(const std::string& fileName, const int dim);
+	Texture(int internalformat, int width, int height, unsigned int format, unsigned int type, const void* data);
 	 ~Texture();
-protected:
-private:
-	//Texture(const Texture& texture) {}
-	void operator=(const Texture& texture) {}
-	unsigned int m_texture;
-	int texDimention;
-};
+	 void Bind(int slot);
+	 void Unbind();
 
-#endif
+private:
+
+	unsigned char* LoadFromFile(const std::string& filename, int* width, int* height, int* numComponents, int reqComponents);
+	Texture(int dim); // private constructor to initialize m_type
+
+	unsigned int m_texture = 0;
+	int m_dim;
+	int m_type = 0;
+};
