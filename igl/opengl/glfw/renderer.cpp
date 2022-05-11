@@ -56,6 +56,13 @@ void Renderer::Clear(float r, float g, float b, float a,unsigned int flags)
     glClear(GL_COLOR_BUFFER_BIT | ((GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT) & flags));
 }
 
+void Renderer::SwapDrawInfo(int indx1, int indx2)
+{
+    DrawInfo* info = drawInfos[indx1];
+    drawInfos[indx1] = drawInfos[indx2];
+    drawInfos[indx2] = info;
+}
+
 IGL_INLINE void Renderer::draw_by_info(int info_index){
     DrawInfo* info = drawInfos[info_index];
     buffers[info->buffer]->Bind();
@@ -212,7 +219,6 @@ void Renderer::AddCamera(const Eigen::Vector3d& pos, float fov, float relationWH
     if (infoIndx > 0 && infoIndx < drawInfos.size())
     {
         drawInfos[infoIndx]->SetCamera(cameras.size());
-        drawInfos[infoIndx-1]->SetCamera(cameras.size());
     }
     cameras.push_back(new igl::opengl::Camera(fov, relationWH, zNear, zFar));
     cameras.back()->MyTranslate(pos, false);
@@ -223,41 +229,6 @@ void Renderer::AddViewport(int left, int bottom, int width, int height)
     viewports.emplace_back(Eigen::Vector4i(left, bottom, width, height));
     glViewport(left, bottom, width, height);
 
-}
-
-unsigned int Renderer::AddBuffer(int infoIndx, bool stencil)
-{
-    CopyDraw(infoIndx,buffer ,buffers.size());
-
-    DrawInfo* info = drawInfos.back();
-    info->SetFlags(stencilTest | toClear | blackClear);
-    //info->ClearFlags(depthTest);
-    int width = viewports[info->viewportIndx].z(), height = viewports[info->viewportIndx].w();
-
-    unsigned int texId;
-	texId = scn->AddTexture(width, height, 0, COLOR);
-	if (stencil)
-		scn->AddTexture(width, height, 0, STENCIL);
-	else
-		scn->AddTexture(width, height, 0, DEPTH);
-    scn->BindTexture(texId, info->buffer - 1);
-    buffers.push_back(new igl::opengl::DrawBuffer(width, height, stencil, texId + 1));
-
-    return texId;
-}
-
-int Renderer::Create2Dmaterial(int texsNum)
-{
-    std::vector<unsigned int> texIds;
-    std::vector<unsigned int> slots;
-    for (size_t i = 0; i < texsNum; i++)
-    {
-        unsigned int texId = AddBuffer(1, true);
-        texIds.push_back(texId);
-        slots.push_back(i);
-    }
-	materialIndx2D = scn->AddMaterial((unsigned int*)&texIds[0], (unsigned int*)&slots[0], texsNum);
-    return materialIndx2D;
 }
 
 void Renderer::AddDraw(int viewportIndx, int cameraIndx, int shaderIndx, int buffIndx, unsigned int flags)
@@ -463,6 +434,50 @@ float Renderer::CalcMoveCoeff(int cameraIndx, int width)
     return cameras[cameraIndx]->CalcMoveCoeff(depth,width);
 }
 
+unsigned int Renderer::AddBuffer(int infoIndx)
+{
+    CopyDraw(infoIndx, buffer, buffers.size());
+
+    DrawInfo* info = drawInfos.back();
+    info->SetFlags(stencilTest );
+   // info->ClearFlags(depthTest);
+    info->SetFlags( clearDepth | clearStencil);
+    int width = viewports[info->viewportIndx].z(), height = viewports[info->viewportIndx].w();
+
+    unsigned int texId;
+    texId = scn->AddTexture(width, height, 0, COLOR);
+    scn->AddTexture(width, height, 0, DEPTH);
+    scn->BindTexture(texId, texId);
+    buffers.push_back(new igl::opengl::DrawBuffer(width, height, texId));
+
+    return texId;
+}
+
+int Renderer::Create2Dmaterial(int infoIndx, int code)
+{
+    std::vector<unsigned int> texIds;
+    std::vector<unsigned int> slots;
+    
+    unsigned int texId = AddBuffer(infoIndx);
+    texIds.push_back(texId);
+    slots.push_back(texId);
+    texIds.push_back(texId + 1);
+    slots.push_back(texId + 1);
+    
+    materialIndx2D = scn->AddMaterial((unsigned int*)&texIds[0], (unsigned int*)&slots[0], 2);
+
+    return materialIndx2D;
+}
+
+
+void Renderer::SetBuffers()
+{
+    AddCamera(Eigen::Vector3d(0, 0, 1), 0, 1, 1, 10,2);
+    int materialIndx = Create2Dmaterial(1,1);
+    scn->SetShapeMaterial(6, materialIndx);
+    SwapDrawInfo(2, 3);
+}
+
 IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>xViewport, std::list<int>yViewport,int pickingBits,igl::opengl::glfw::imgui::ImGuiMenu *_menu)
 {
     scn = scene;
@@ -477,6 +492,7 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
     yViewport.push_front(0);
     std::list<int>::iterator xit = xViewport.begin();
     int indx = 0;
+    
     for (++xit; xit != xViewport.end(); ++xit)
     {
         std::list<int>::iterator yit = yViewport.begin();
@@ -496,7 +512,7 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
                 }
                 drawInfos.emplace_back(new_draw_info);
             }
-            DrawInfo* temp = new DrawInfo(indx, 0, 1, 0, (indx < 1) | depthTest | clearDepth ,next_property_id);
+            DrawInfo* temp = new DrawInfo(indx, 0, 1, 0, (int)(indx < 1) | depthTest | clearDepth ,next_property_id);
             next_property_id <<= 1;
             drawInfos.emplace_back(temp);
             indx++;

@@ -16,15 +16,13 @@ igl::opengl::DrawBuffer::DrawBuffer()
     isStencil = false;
 }
 
-igl::opengl::DrawBuffer::DrawBuffer(int width, int height, bool stencil, unsigned int texId )
+igl::opengl::DrawBuffer::DrawBuffer(int width, int height, unsigned int texId )
 {
     bool fboUsed = true;
     CreateColorBufferAttachment(width, height, texId);
 
-    if (stencil)
-        CreateStencilBufferAttachment(width, height,texId + 1);
-    else
-        CreateDepthBufferAttachment(width, height, texId + 1);
+    CreateDepthStencilBufferAttachment(width, height,texId );
+
     GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (status != GL_FRAMEBUFFER_COMPLETE)
     {
@@ -32,17 +30,17 @@ igl::opengl::DrawBuffer::DrawBuffer(int width, int height, bool stencil, unsigne
         std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl;
     }
     UnBind();
-    isStencil = stencil;
+    isStencil = true;
 }
 
 void igl::opengl::DrawBuffer::Bind()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-    //glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
+   // glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
     //if(isStencil)
     //	glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
     //else
-    //	glBindRenderbuffer(GL_RENDERBUFFER, depthStencilBuffer);
+    //glBindRenderbuffer(GL_RENDERBUFFER, depthStencilBuffer);
     //glBindRenderbuffer(GL_RENDERBUFFER, stencilBuffer);
 
 }
@@ -62,41 +60,26 @@ void igl::opengl::DrawBuffer::CreateColorBufferAttachment(int width, int height,
 {
     glGenFramebuffers(1, &frameBuffer);
     glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texId, 0);
-    //glGenRenderbuffers(1, &renderBuffer);
-    //glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
-    //glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
-    //glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + attachmentNum , GL_RENDERBUFFER, renderBuffer);
-    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
-    //glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texId+1, 0);
+
 }
 
 
 
-void igl::opengl::DrawBuffer::CreateDepthBufferAttachment(int width, int height, unsigned int texId)
+void igl::opengl::DrawBuffer::CreateDepthStencilBufferAttachment(int width, int height, unsigned int texId)
 {
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, texId, 0);
+    glGenRenderbuffers(1, &depthStencilBuffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, depthStencilBuffer);
 
-    //glGenRenderbuffers(1, &depthBuffer);
-    //glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
-    //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
-    //glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
-}
-
-void igl::opengl::DrawBuffer::CreateStencilBufferAttachment(int width, int height, unsigned int texId)
-{
-    glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, texId, 0);
-    //glGenRenderbuffers(1, &depthStencilBuffer);
-    //glBindRenderbuffer(GL_RENDERBUFFER, depthStencilBuffer);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilBuffer);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, texId + 2, 0);
+ 
     //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-    //glBindRenderbuffer(GL_RENDERBUFFER, 0);
-    //glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilBuffer);
-
-
+    //glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT, width, height);
+    
+    
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
-
 
 void igl::opengl::DrawBuffer::resize(int width, int height, unsigned int texId)
 {
@@ -104,26 +87,25 @@ void igl::opengl::DrawBuffer::resize(int width, int height, unsigned int texId)
     glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer);
     //glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_RGBA8, width, height);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
-
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_RENDERBUFFER, renderBuffer);
-
-    glBindRenderbuffer(GL_RENDERBUFFER, depthBuffer);
-
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depthStencilBuffer);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_TEXTURE_2D, texId + 2, 0);
+  
+    //glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
     //glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_DEPTH_COMPONENT, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthBuffer);
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+    
 }
 
 igl::opengl::DrawBuffer::~DrawBuffer(void)
 {
     glDeleteFramebuffers(1, &frameBuffer);
     glDeleteFramebuffers(1, &renderBuffer);
-    if(isStencil)
-        glDeleteRenderbuffers(1, &depthStencilBuffer);
-    else
-        glDeleteRenderbuffers(1, &depthBuffer);
+
+    glDeleteRenderbuffers(1, &depthStencilBuffer);
+ 
 }
 
 void igl::opengl::DrawBuffer::clearFrameBuffers(Eigen::Vector4i viewport, Eigen::Vector4f background_color)

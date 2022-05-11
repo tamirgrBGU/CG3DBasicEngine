@@ -48,7 +48,6 @@
 		{
 			rndr->MoveCamera(0, rndr->zTranslate, (float)yoffset);
 		}
-		
 	}
 	
 	void glfw_cursor_position_callback(GLFWwindow* window, double xpos, double ypos)

@@ -118,9 +118,9 @@ public:
 
     void AddViewport(int left, int bottom, int width, int height);
 
-    unsigned int AddBuffer(int infoIndx, bool stencil = false);
+    unsigned int AddBuffer(int infoIndx);
 
-    int Create2Dmaterial(int texsNum);
+    int Create2Dmaterial(int infoIndx, int code);
 
     void AddDraw(int viewportIndx, int cameraIndx, int shaderIndx, int buffIndx, unsigned int flags);
 
@@ -163,6 +163,8 @@ public:
     inline int GetViewportsSize() { return viewports.size(); }
 
     float CalcMoveCoeff(int cameraIndx, int width);
+
+    void SetBuffers();
 
     inline void UpdateZpos(int ypos) { zrel = ypos; }
 
@@ -212,5 +214,6 @@ private:
 
     void Clear(float r, float g, float b, float a, unsigned int flags);
 
+    void SwapDrawInfo(int indx1, int indx2);
 };
 
