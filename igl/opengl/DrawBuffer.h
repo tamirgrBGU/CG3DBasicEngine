@@ -16,11 +16,11 @@ namespace igl
             unsigned int depthStencilBuffer;
             bool isStencil;
 
-            void CreateDepthBufferAttachment(int width, int height, unsigned int texId);
+            void CreateDepthStencilBufferAttachment(int width, int height, unsigned int texId);
 
             void CreateColorBufferAttachment(int width, int height, unsigned int texId);
 
-            void CreateStencilBufferAttachment(int width, int height, unsigned int texId);
+      
 
 
         public:
@@ -36,7 +36,7 @@ namespace igl
 
             DrawBuffer();
 
-            DrawBuffer(int width, int height, bool stencil, unsigned int texId);
+            DrawBuffer(int width, int height, unsigned int texId);
 
             void resize(int width, int height, unsigned int texId);
 

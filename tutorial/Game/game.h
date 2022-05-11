@@ -3,7 +3,7 @@
 
 class Game : public igl::opengl::glfw::Viewer
 {
-	
+	int time;
 public:
 	
 	Game();
@@ -14,7 +14,7 @@ public:
 	void WhenTranslate();
 	void Animate() override;
 	void ScaleAllShapes(float amt, int viewportIndx);
-	
+	unsigned int Game::CreateTex(int width, int height);
 	~Game(void);
 };
 

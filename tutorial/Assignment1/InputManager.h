@@ -57,7 +57,9 @@
 		Assignment1* scn = (Assignment1*)rndr->GetScene();
 
 		rndr->UpdatePosition((float)xpos,(float)ypos);
-
+		
+		scn->x = 1-xpos/800.0;
+		scn->y = 1-ypos/800.0;
 		if (rndr->CheckViewport(xpos,ypos, 0))
 		{
 			if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
@@ -154,5 +156,6 @@ void Init(Display& display, igl::opengl::glfw::imgui::ImGuiMenu *menu)
     display.AddKeyCallBack(glfw_key_callback);
     display.AddMouseCallBacks(glfw_mouse_callback, glfw_scroll_callback, glfw_cursor_position_callback);
     display.AddResizeCallBack(glfw_window_size_callback);
-    menu->init(&display);
+	if(menu)
+    	menu->init(&display);
 }
