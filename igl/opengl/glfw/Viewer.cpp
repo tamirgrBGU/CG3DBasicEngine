@@ -796,23 +796,18 @@ IGL_INLINE bool
 
     int Viewer::AddTexture(int width, int height, unsigned char* data, int mode)
     {
-        textures.push_back(new Texture(width, height));
-
         switch (mode)
         {
-            case COLOR:
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); //note GL_RED internal format, to save memory.
-                break;
-            case DEPTH:
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT32, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, data);
-                break;
-            case STENCIL:
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, data);
-                break;
-            default:
-                glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); //note GL_RED internal format, to save memory.
+        case DEPTH:
+            textures.push_back(new Texture(GL_DEPTH_COMPONENT32, width, height, GL_DEPTH_COMPONENT, GL_FLOAT, data));
+            break;
+        case STENCIL:
+            textures.push_back(new Texture(GL_DEPTH24_STENCIL8, width, height, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, data));
+            break;
+        case COLOR:
+        default:
+            textures.push_back(new Texture(GL_RGBA, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data)); //note GL_RED internal format, to save memory.
         }
-        glBindTexture(GL_TEXTURE_2D, 0);
         return(textures.size() - 1);
     }
 
@@ -826,7 +821,6 @@ IGL_INLINE bool
             s->SetUniformMat4f("Model", Model);
         }
     }
-
 
     void Viewer::SetParent(int indx, int newValue, bool savePosition)
     {
