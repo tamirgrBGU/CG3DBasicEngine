@@ -357,7 +357,6 @@ IGL_INLINE void Renderer::post_resize(GLFWwindow* window, int w, int h)
         }
         float ratio_x = (float)w/(float)x;
         float ratio_y = (float)h/(float)y;
-        std::cout << "called" << std::endl;
         for(auto & viewport : viewports){
             viewport = Eigen::Vector4i((int)((float)viewport.x()*ratio_x),(int)((float)viewport.y()*ratio_y),(int)((float)viewport.z()*ratio_x),(int)((float)viewport.w()*ratio_y));
         }

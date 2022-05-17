@@ -42,66 +42,65 @@ unsigned int Game::CreateTex(int width,int height)
 
 void Game::Init()
 {		
-	unsigned int texIDs[4] = { 0 , 1, 2, 3};
-	unsigned int slots[4] = { 0 , 1, 2, 3 };
+	unsigned int shaderIDs[4], texIDs[4], matIDs[4], shapeIDs[8], slotIDs[4] = { 0, 1, 2, 3 };
 	
-	AddShader("shaders/pickingShader");
-	AddShader("shaders/cubemapShader");
-	AddShader("shaders/basicShader");
-	//AddShader("shaders/pickingShader");
-	AddShader("shaders/basicShader2");
+	shaderIDs[0] = AddShader("shaders/pickingShader");
+	shaderIDs[1] = AddShader("shaders/cubemapShader");
+	shaderIDs[2] = AddShader("shaders/basicShader");
+	shaderIDs[3] = AddShader("shaders/basicShader2");
+	//shaderIDs[3] = AddShader("shaders/pickingShader");
+
+	texIDs[0] = AddTexture("textures/grass.bmp", 2);
+	texIDs[1] = AddTexture("textures/cubemaps/Daylight Box_", 3);
+	texIDs[2] = AddTexture("textures/box0.bmp", 2);
+	texIDs[3] = CreateTex(800, 800);
+	// texIDs[3] = AddTexture("../res/textures/Cat_bump.jpg", 2);
+
+	matIDs[0] = AddMaterial(&texIDs[0], &slotIDs[0], 1);
+	matIDs[1] = AddMaterial(&texIDs[1], &slotIDs[1], 1);
+	matIDs[2] = AddMaterial(&texIDs[2], &slotIDs[2], 1);
+	matIDs[3] = AddMaterial(&texIDs[3], &slotIDs[3], 1);
 	
-	AddTexture("textures/grass.bmp", 2);
-	AddTexture("textures/cubemaps/Daylight Box_", 3);
-	AddTexture("textures/box0.bmp", 2);
-	CreateTex(800, 800);
-	//AddTexture("../res/textures/Cat_bump.jpg", 2);
+	shapeIDs[0] = AddShape(Cube, -2, TRIANGLES);
+	shapeIDs[1] = AddShape(Tethrahedron, -1, TRIANGLES);
+	shapeIDs[2] = AddShape(Octahedron, -1, TRIANGLES);
+	shapeIDs[3] = AddShape(Octahedron, 2, LINE_LOOP);
+	shapeIDs[4] = AddShape(Tethrahedron, 1, LINE_LOOP);
+	shapeIDs[5] = AddShapeFromFile("data/sphere.obj", -1, TRIANGLES);
+	shapeIDs[6] = AddShape(Plane, -1, TRIANGLES, 1);
+	//shapeIDs[7] = AddShape(Cube, -1, TRIANGLES);
+	//shapeIDs[8] = AddShapeFromFile("../res/objs/Cat_v1.obj", -1, TRIANGLES);
 
-	AddMaterial(texIDs,slots, 1);
-	AddMaterial(texIDs+1, slots+1, 1);
-	AddMaterial(texIDs + 2, slots + 2, 1);
-	AddMaterial(texIDs + 3, slots + 3, 1);
-	
-	AddShape(Cube, -2, TRIANGLES);
-	AddShape(Tethrahedron, -1, TRIANGLES);
-	
-	AddShape(Octahedron, -1, TRIANGLES);
-	AddShape(Octahedron, 2, LINE_LOOP);
-    AddShape(Tethrahedron, 1, LINE_LOOP);
+	SetShapeShader(shapeIDs[1], shaderIDs[2]);
+	SetShapeShader(shapeIDs[2], shaderIDs[2]);
+	SetShapeShader(shapeIDs[5], shaderIDs[2]);
+	SetShapeShader(shapeIDs[6], shaderIDs[3]);
 
-//    AddShape(Cube, -1, TRIANGLES);
-	AddShapeFromFile("data/sphere.obj", -1, TRIANGLES);
-	//AddShapeFromFile("../res/objs/Cat_v1.obj", -1, TRIANGLES);
-	AddShape(Plane, -1, TRIANGLES,1);
+	SetShapeMaterial(shapeIDs[1], matIDs[0]);
+	SetShapeMaterial(shapeIDs[0], matIDs[1]);
+	SetShapeMaterial(shapeIDs[2], matIDs[3]);
+	SetShapeMaterial(shapeIDs[5], matIDs[2]);
+	//SetShapeMaterial(shapeIDs[6], matIDs[0]);
 
-	SetShapeShader(1, 2);
-	SetShapeShader(2, 2);
-	SetShapeShader(5, 2);
-	SetShapeShader(6, 3);
-//	SetShapeMaterial(7, 2);
-
-	SetShapeMaterial(1, 0);
-	SetShapeMaterial(0, 1);
-	SetShapeMaterial(2, 3);
-	SetShapeMaterial(5, 2);
-	//SetShapeMaterial(6, 0);
 	pickedShape = 0;
 	float s = 60;
-	ShapeTransformation(scaleAll, s,0);
+	ShapeTransformation(scaleAll, s, 0);
 	pickedShape = 1;
-	ShapeTransformation(xTranslate, 10,0);
+	ShapeTransformation(xTranslate, 10, 0);
+
 	//pickedShape = 2;
 	//ShapeTransformation(yTranslate, 10, 0);
 	pickedShape = 5;
-	ShapeTransformation(xTranslate, -10,0);
+	ShapeTransformation(xTranslate, -10, 0);
 	//pickedShape = 6;
 	//ShapeTransformation(zTranslate, -1.1,0);
 	pickedShape = -1;
-	SetShapeStatic(0);
-	SetShapeStatic(6);
+	SetShapeStatic(shapeIDs[0]);
+	SetShapeStatic(shapeIDs[6]);
+
 	//SetShapeViewport(0, -1);
 	//SetShapeViewport(6, 1);
-//	ReadPixel(); //uncomment when you are reading from the z-buffer
+	//ReadPixel(); //uncomment when you are reading from the z-buffer
 }
 
 void Game::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx)
