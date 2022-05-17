@@ -117,8 +117,3 @@ void Texture::Bind(int slot)
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(m_type, m_texture);
 }
-
-void Texture::Unbind()
-{
-	glBindTexture(m_type, 0);
-}
