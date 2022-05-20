@@ -360,8 +360,10 @@ if(LIBIGL_WITH_OPENGL)
 
   # glad module
   if(NOT TARGET glad)
-    igl_download_glad()
-    add_subdirectory(${LIBIGL_EXTERNAL}/glad glad)
+    # Tal - replacing igl default glad with a generated one that supports OpenGL up to version 4.3
+    # igl_download_glad()
+    # add_subdirectory(${LIBIGL_EXTERNAL}/glad glad)
+	add_subdirectory(${LIBIGL_ROOT}/glad glad)
   endif()
   target_link_libraries(igl_opengl ${IGL_SCOPE} glad)
 endif()

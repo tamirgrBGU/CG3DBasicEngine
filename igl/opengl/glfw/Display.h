@@ -8,8 +8,8 @@ struct GLFWwindow;
 class Display
 {
 public:
-	Display(int windowWidth, int windowHeight, const std::string& title);
-	
+	Display(int windowWidth, int windowHeight, const std::string& title, bool compatibilityMode = true);
+
 	bool launch_rendering(bool loop);
 
 	void SwapBuffers();
@@ -21,12 +21,10 @@ public:
 	void AddMouseCallBacks(void (*mousebuttonfun)(GLFWwindow*, int, int, int), void(*scrollfun)(GLFWwindow*, double, double), void (*cursorposfun)(GLFWwindow*, double, double));
 	void AddResizeCallBack(void (*windowsizefun)(GLFWwindow*, int, int));
 
-	
 	~Display();
-//private:
+	//private:
 	GLFWwindow* window;
 	//Renderer* renderer;
 	//int highdpi;  //relation between width and height?
-
 };
 
