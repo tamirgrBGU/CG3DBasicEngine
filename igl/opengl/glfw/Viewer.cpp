@@ -796,18 +796,12 @@ IGL_INLINE bool
 
     int Viewer::AddTexture(int width, int height, unsigned char* data, int mode)
     {
-        textures.push_back(new Texture(width, height));
-
         if (mode)
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, data);
-        }
+            textures.push_back(new Texture(GL_DEPTH24_STENCIL8, width, height, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, data));
         else
-        {
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data); //note GL_RED internal format, to save memory.
-        }
-        glBindTexture(GL_TEXTURE_2D, 0);
-        return(textures.size() -1);
+            textures.push_back(new Texture(GL_RGBA, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data)); //note GL_RED internal format, to save memory.
+
+        return(textures.size() - 1);
     }
 
     void Viewer::Update_overlay(const Eigen::Matrix4f &Proj, const Eigen::Matrix4f &View, const Eigen::Matrix4f &Model, unsigned int shapeIndx,bool is_points) {
@@ -820,7 +814,6 @@ IGL_INLINE bool
             s->SetUniformMat4f("Model", Model);
         }
     }
-
 
     void Viewer::SetParent(int indx, int newValue, bool savePosition)
     {
