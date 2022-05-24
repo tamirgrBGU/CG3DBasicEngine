@@ -796,18 +796,11 @@ IGL_INLINE bool
 
     int Viewer::AddTexture(int width, int height, unsigned char* data, int mode)
     {
-        switch (mode)
-        {
-        case DEPTH:
-            textures.push_back(new Texture(GL_DEPTH_COMPONENT32, width, height, GL_DEPTH_COMPONENT, GL_FLOAT, data));
-            break;
-        case STENCIL:
+        if (mode)
             textures.push_back(new Texture(GL_DEPTH24_STENCIL8, width, height, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, data));
-            break;
-        case COLOR:
-        default:
+        else
             textures.push_back(new Texture(GL_RGBA, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data)); //note GL_RED internal format, to save memory.
-        }
+
         return(textures.size() - 1);
     }
 
