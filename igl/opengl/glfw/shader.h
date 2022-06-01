@@ -24,6 +24,8 @@ public:
 	void SetUniformMat4f(const std::string& name, const Eigen::Matrix4f&  matrix);
 	void SetUniformMat4fv(const std::string& name,const Eigen::Matrix4f *matrix,const int length);
 	void SetUniform4fv(const std::string& name, const Eigen::Vector4f * arr, const int length);
+	void SetUniform4iv(const std::string& name, const Eigen::Vector4i* arr, const int length);
+
 
 	 ~Shader();
 
@@ -49,7 +51,7 @@ private:
     };
 	static const unsigned int NUM_SHADERS = 2;
 	void operator=(const Shader& shader) {}
-	Shader(const Shader& shader) {}
+	Shader(const Shader& shader) = delete;
 	
 	std::string LoadShader(const std::string& fileName);
 	unsigned int CreateShader(const std::string& text, unsigned int type);

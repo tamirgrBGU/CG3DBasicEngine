@@ -452,30 +452,30 @@ unsigned int Renderer::AddBuffer(int infoIndx)
     return texId;
 }
 
-int Renderer::Create2Dmaterial(int infoIndx, int code)
-{
-    std::vector<unsigned int> texIds;
-    std::vector<unsigned int> slots;
-    
-    unsigned int texId = AddBuffer(infoIndx);
-    texIds.push_back(texId);
-    slots.push_back(texId);
-    texIds.push_back(texId + 1);
-    slots.push_back(texId + 1);
-    
-    materialIndx2D = scn->AddMaterial((unsigned int*)&texIds[0], (unsigned int*)&slots[0], 2);
+//int Renderer::Create2Dmaterial(int infoIndx, int code)
+//{
+//    std::vector<unsigned int> texIds;
+//    std::vector<unsigned int> slots;
+//    
+//    unsigned int texId = AddBuffer(infoIndx);
+//    texIds.push_back(texId);
+//    slots.push_back(texId);
+//    texIds.push_back(texId + 1);
+//    slots.push_back(texId + 1);
+//    
+//    materialIndx2D = scn->AddMaterial((unsigned int*)&texIds[0], (unsigned int*)&slots[0], 2);
+//
+//    return materialIndx2D;
+//}
 
-    return materialIndx2D;
-}
 
-
-void Renderer::SetBuffers()
-{
-    AddCamera(Eigen::Vector3d(0, 0, 1), 0, 1, 1, 10,2);
-    int materialIndx = Create2Dmaterial(1,1);
-    scn->SetShapeMaterial(6, materialIndx);
-    SwapDrawInfo(2, 3);
-}
+//void Renderer::SetBuffers()
+//{
+//    AddCamera(Eigen::Vector3d(0, 0, 1), 0, 1, 1, 10,2);
+//    int materialIndx = Create2Dmaterial(1,1);
+//    scn->SetShapeMaterial(6, materialIndx);
+//    SwapDrawInfo(2, 3);
+//}
 
 IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>xViewport, std::list<int>yViewport,int pickingBits,igl::opengl::glfw::imgui::ImGuiMenu *_menu)
 {

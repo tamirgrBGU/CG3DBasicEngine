@@ -48,7 +48,7 @@
 	{
 		Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 		Assignment2* scn = (Assignment2*)rndr->GetScene();
-		scn->scnData.eye[2] += ((float)yoffset * 0.2);
+		scn->sceneData.eye[2] += ((float)yoffset * 0.2);
 		/*if (rndr->IsPicked())
 		{
 			rndr->UpdateZpos((int)yoffset);

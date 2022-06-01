@@ -56,7 +56,7 @@ void IndexBuffer::Init(const unsigned int *data, unsigned int count) {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(unsigned int), data, GL_STATIC_DRAW);
 }
 
-void IndexBuffer::ChageData(const void* data, unsigned int count)
+void IndexBuffer::ChangeData(const void* data, unsigned int count)
 {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned)*count, data, GL_DYNAMIC_DRAW);
 }

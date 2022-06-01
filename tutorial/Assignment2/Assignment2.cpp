@@ -1,21 +1,15 @@
 #include "Assignment2.h"
 #include <iostream>
 
+using namespace std;
 
-static void printMat(const Eigen::Matrix4d& mat)
-{
-	std::cout<<" matrix:"<<std::endl;
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-			std::cout<< mat(j,i)<<" ";
-		std::cout<<std::endl;
-	}
-}
+using Eigen::Matrix4f;
+using Eigen::Vector4cf;
+using Eigen::Vector3cf;
 
 Assignment2::Assignment2()
 {
-	SceneParser("data/scenes/scene1.txt",&scnData);
+	SceneParser("data/scenes/scene1.txt", &sceneData);
 	xResolution = 800;
 	yResolution = 800;
 	//x = 0.5f;
@@ -26,42 +20,17 @@ Assignment2::Assignment2()
 	time = 0;
 }
 
-//Assignment2::Assignment2(float angle ,float relationWH, float near, float far) : Scene(angle,relationWH,near,far)
-//{ 	
-//}
-
 void Assignment2::Init()
-{	
-	unsigned int texIDs[3] = { 0 , 1, 2};
-	unsigned int slots[3] = { 0 , 1, 2 };
-
-	AddShader("shaders/pickingShader");
-	AddShader("shaders/raytracingShader");
-	
-	AddTexture("textures/box0.bmp",2);
-	AddTexture("textures/grass.bmp", 2);
-
-	AddMaterial(texIDs,slots, 1);
-	AddMaterial(texIDs+1, slots+1, 1);
-	
-	AddShape(Plane, -1, TRIANGLES,0);
-	SetShapeShader(0,1);
-	SetShapeMaterial(0, 0);
-	// pickedShape = 0;
-	// ShapeTransformation(zTranslate,-5,0);
-	// pickedShape = -1;
-	SetShapeStatic(0);
-		
-	//SetShapeViewport(6, 1);
-//	ReadPixel(); //uncomment when you are reading from the z-buffer
+{
+	SetShapeStatic(AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/raytracingShader", false, next_data_id++))));
 }
 
-void Assignment2::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx)
+void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material)
 {
-	Shader *s = shaders[shaderIndx];
-	int r = ((shapeIndx+1) & 0x000000FF) >>  0;
-	int g = ((shapeIndx+1) & 0x0000FF00) >>  8;
-	int b = ((shapeIndx+1) & 0x00FF0000) >> 16;
+	shared_ptr<Shader> s = material->Bind();
+	int r = ((s->m_id + 1) & 0x000000FF) >>  0;
+	int g = ((s->m_id + 1) & 0x0000FF00) >>  8;
+	int b = ((s->m_id + 1) & 0x00FF0000) >> 16;
 
 	s->Bind();	
 	s->SetUniform1f("time",time);
@@ -73,36 +42,16 @@ void Assignment2::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
 	s->SetUniformMat4f("View", View);
 	s->SetUniformMat4f("Model", Model);
 
-	s->SetUniform4fv("eye",&scnData.eye,1);
-	s->SetUniform4fv("ambient", &scnData.ambient, 1);
-	s->SetUniform4fv("objects",&scnData.objects[0], scnData.objects.size());
-	s->SetUniform4fv("objColors", &scnData.colors[0], scnData.colors.size());
-	s->SetUniform4fv("lightsPosition", &scnData.lights[0], scnData.lights.size());
-	s->SetUniform4fv("lightsDirection", &scnData.directions[0], scnData.directions.size());
-	s->SetUniform4fv("lightsIntensity", &scnData.intensities[0], scnData.intensities.size());
+	s->SetUniform4fv("eye",&sceneData.eye,1);
+	s->SetUniform4fv("ambient", &sceneData.ambient, 1);
+	s->SetUniform4fv("objects",&sceneData.objects[0], sceneData.objects.size());
+	s->SetUniform4fv("objColors", &sceneData.colors[0], sceneData.colors.size());
+	s->SetUniform4fv("lightsPosition", &sceneData.lights[0], sceneData.lights.size());
+	s->SetUniform4fv("lightsDirection", &sceneData.directions[0], sceneData.directions.size());
+	s->SetUniform4fv("lightsIntensity", &sceneData.intensities[0], sceneData.intensities.size());
 	
-	s->SetUniform4i("sizes", scnData.sizes[0], scnData.sizes[1], scnData.sizes[2], scnData.sizes[3]);
-	if (data_list[shapeIndx]->GetMaterial() >= 0 && !materials.empty())
-	{
-//		materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
-		BindMaterial(s, data_list[shapeIndx]->GetMaterial());
-	}
-	// if (shaderIndx == 0)
-	// 	s->SetUniform4f("lightColor", r / 255.0f, g / 255.0f, b / 255.0f, 0.0f);
-	// else
-	// 	s->SetUniform4f("lightColor", 4/100.0f, 60 / 100.0f, 99 / 100.0f, 0.5f);
-	//textures[0]->Bind(0);
+	s->SetUniform4i("sizes", sceneData.sizes[0], sceneData.sizes[1], sceneData.sizes[2], sceneData.sizes[3]);
 
-	
-	
-
-	//s->SetUniform1i("sampler2", materials[shapes[pickedShape]->GetMaterial()]->GetSlot(1));
-	//s->SetUniform4f("lightDirection", 0.0f , 0.0f, -1.0f, 0.0f);
-//	if(shaderIndx == 0)
-//		s->SetUniform4f("lightColor",r/255.0f, g/255.0f, b/255.0f,1.0f);
-//	else 
-//		s->SetUniform4f("lightColor",0.7f,0.8f,0.1f,1.0f);
-	s->Unbind();
 }
 
 void Assignment2::SetPosition(int x, int y)
@@ -118,14 +67,14 @@ void Assignment2::SetPosition(int x, int y)
 		{
 			if (sourceIndx >= 0)
 			{
-				scnData.objects[sourceIndx][0] += xRel * 2;
-				scnData.objects[sourceIndx][1] += yRel * 2;
+				sceneData.objects[sourceIndx][0] += xRel * 2;
+				sceneData.objects[sourceIndx][1] += yRel * 2;
 			}
 		}
 		else
 		{
-			scnData.eye[0] += xRel * 2;
-			scnData.eye[1] += yRel * 2;
+			sceneData.eye[0] += xRel * 2;
+			sceneData.eye[1] += yRel * 2;
 		}
 	}
 	else
@@ -166,16 +115,16 @@ void Assignment2::ScaleAllShapes(float amt,int viewportIndx)
 
 float Assignment2::Intersection(Eigen::Vector3f sourcePoint)
 {
-	Eigen::Vector3f v = (sourcePoint - Eigen::Vector3f(0, 0, scnData.eye[2] - scnData.eye[3])).normalized();
-	sourcePoint = sourcePoint + Eigen::Vector3f(scnData.eye[0], scnData.eye[1], scnData.eye[3]);
+	Eigen::Vector3f v = (sourcePoint - Eigen::Vector3f(0, 0, sceneData.eye[2] - sceneData.eye[3])).normalized();
+	sourcePoint = sourcePoint + Eigen::Vector3f(sceneData.eye[0], sceneData.eye[1], sceneData.eye[3]);
 	float tmin = 1.0e10;
 	int indx = -1;
-	for (int i = 0; i < scnData.sizes[0]; i++) //every object
+	for (int i = 0; i < sceneData.sizes[0]; i++) //every object
 	{
-		if (scnData.objects[i][3] > 0) //sphere
+		if (sceneData.objects[i][3] > 0) //sphere
 		{
-			Eigen::Vector3f p0o = (scnData.objects[i].head(3)) - sourcePoint;
-			float r = scnData.objects[i][3];
+			Eigen::Vector3f p0o = (sceneData.objects[i].head(3)) - sourcePoint;
+			float r = sceneData.objects[i][3];
 			float b = v.dot(p0o);
 			float delta = b * b - p0o.dot(p0o) + r * r;
 			float t;
@@ -194,8 +143,8 @@ float Assignment2::Intersection(Eigen::Vector3f sourcePoint)
 		}
 		else  //plane
 		{
-			Eigen::Vector3f n = ((scnData.objects[i]).head(3)).normalized();
-			Eigen::Vector3f p0o = ( - scnData.objects[i][3] * n) - scnData.objects[i].head(3);
+			Eigen::Vector3f n = ((sceneData.objects[i]).head(3)).normalized();
+			Eigen::Vector3f p0o = ( -sceneData.objects[i][3] * n) - sceneData.objects[i].head(3);
 			
 			float t = (n.dot(p0o)) / (n.dot(v));
 			if (t > 0 && t < tmin)
@@ -206,17 +155,17 @@ float Assignment2::Intersection(Eigen::Vector3f sourcePoint)
 		}
 	}
 	sourceIndx = indx;
-	//std::cout<<"indx "<<indx<<std::endl;
+	//cout<<"indx "<<indx<<endl;
 	return tmin;
 }
 
 void Assignment2::RotateEye(float amt, bool upDown)
 {
-	float n = scnData.eye.norm();
+	float n = sceneData.eye.norm();
 	if (upDown)
-		scnData.eye[1] += amt;
+		sceneData.eye[1] += amt;
 	else
-		scnData.eye[0] += amt;
+		sceneData.eye[0] += amt;
 	//scnData.eye = scnData.eye.normalized()*n;
 }
 
@@ -224,3 +173,24 @@ Assignment2::~Assignment2(void)
 {
 }
 
+#define LoadFloatArrayToShader(obj) \
+	for (int i = 0; i < sceneData.obj.size(); i++) \
+	{ \
+		sprintf(var, "%s[%d]", #obj, i); \
+		s->SetUniform4fv(#obj, &sceneData.obj[i], 1); \
+	}
+
+void Assignment2::LoadSceneDataToShader(Shader* s)
+{
+	char var[20]; // for the LoadFloatArrayToShader macro
+
+	s->SetUniform4fv("eye", &sceneData.eye, 1);
+	s->SetUniform4fv("ambient", &sceneData.ambient, 1);
+	s->SetUniform4iv("sizes", &sceneData.sizes, 1);
+
+	LoadFloatArrayToShader(objects);
+	LoadFloatArrayToShader(lights);
+	LoadFloatArrayToShader(directions);
+	LoadFloatArrayToShader(colors);
+	LoadFloatArrayToShader(intensities);
+}

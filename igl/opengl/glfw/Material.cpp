@@ -1,53 +1,30 @@
 #include "Material.h"
 
+using std::make_shared;
+using std::move;
 
+Material::Material(shared_ptr<Shader> shader) :
+	m_shader(move(shader)) {}
 
-Material::Material(unsigned int textureIDs[], unsigned int slots[], unsigned int size)
+Material::Material(const string& shaderFileName, bool overlay, unsigned int shaderId) :
+	Material(move(make_shared<Shader>(shaderFileName, overlay, shaderId))) {}
+
+void Material::AddTexture(int slot, shared_ptr<Texture> texture)
 {
-	numOfTexs = size;
-	for (int i = 0; i < size; i++)
-	{
-		texIDs.push_back(textureIDs[i]);
-		slotIDs.push_back(slots[i]);
-	}
+	m_textures.push_back(move(texture));
+	m_textureSlots.push_back(slot);
 }
 
-unsigned int Material::GetTexture(unsigned int indx)
+void Material::AddTexture(int slot, const string& textureFileName, int dim)
 {
-	if (indx < numOfTexs)
-		return texIDs[indx];
-	return 0;
-}
- unsigned int Material::GetSlot(unsigned int indx)
-{
-	if (indx < numOfTexs)
-		return slotIDs[indx];
-	return 0;
+	AddTexture(slot, move(make_shared<Texture>(textureFileName, dim)));
 }
 
- void Material::Bind(const std::vector<Texture*> textures , int indx)
- {
-	 //for (int i = 0; i < numOfTexs; i++)
-	// {
-		 textures[texIDs[indx]]->Bind(slotIDs[indx]);
-		// shaders[shaderIndices[shaderIndx]]->Bind();
-	// }
- }
-
- void Material::rotateTexs()
- {
-	 unsigned int tmp = texIDs[0],i=1;
-	 for (; i < numOfTexs; i++)
-	 {
-		 texIDs[i - 1] = texIDs[i]; 
-	 }
-	 texIDs[i - 1] = tmp;
- }
-
-
-Material::~Material()
+shared_ptr<Shader> Material::Bind()
 {
-	
+	for (int i = 0; i < m_textures.size(); i++)
+		m_textures[i]->Bind(m_textureSlots[i]);
+
+	m_shader->Bind();
+	return m_shader;
 }
-
-

@@ -11,6 +11,7 @@
 #include "MeshGL.h"
 #include "glfw/VertexArray.hpp"
 #include "glfw/shader.h"
+#include "glfw/Material.h"
 #include <igl/igl_inline.h>
 #include <igl/colormap.h>
 #include <cassert>
@@ -48,12 +49,17 @@ private:
     bool isStatic;
 
 public:
+
+    shared_ptr<Material> m_material; // TODO: TAL: do something with this...
+
   ViewerData();
     IGL_INLINE void Draw(Shader* shader, bool cond);
+    /* TAL: removing getter and setter as a first step to get rid of these ids
     IGL_INLINE void SetShader(const int id) { shaderID = id; }
     IGL_INLINE int GetShader() const{
         return shaderID;
     }
+    */
   // Empty all fields
   IGL_INLINE void clear();
 
@@ -333,7 +339,7 @@ public:
 
     void Draw_overlay(Shader *shader, bool cond);
 
-    void Draw_overlay_pints(Shader *shader, bool cond);
+    void Draw_overlay_points(Shader *shader, bool cond);
 };
 
 } // namespace opengl

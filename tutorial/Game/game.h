@@ -1,19 +1,20 @@
 #pragma once
 #include "igl/opengl/glfw/Viewer.h"
 
+using Eigen::Matrix4f;
+
 class Game : public igl::opengl::glfw::Viewer
 {
+private:
 	int time;
-public:
-	
-	Game();
-//	Game(float angle,float relationWH,float near, float far);
-	void Init();
-	void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx);
-	void WhenRotate();
-	void WhenTranslate();
-	void Animate() override;
 	void ScaleAllShapes(float amt, int viewportIndx);
+
+public:
+	Game();
+	//	Game(float angle,float relationWH,float near, float far);
+	void Init();
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material) override;
+	void Animate() override;
 	unsigned int Game::CreateTex(int width, int height);
 	~Game(void);
 };

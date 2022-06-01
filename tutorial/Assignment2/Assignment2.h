@@ -1,6 +1,9 @@
 #pragma once
 #include "igl/opengl/glfw/Viewer.h"
 #include "./sceneParser.h"
+
+using Eigen::Matrix4f;
+
 class Assignment2 : public igl::opengl::glfw::Viewer
 {
 	int xResolution, yResolution;
@@ -8,15 +11,15 @@ class Assignment2 : public igl::opengl::glfw::Viewer
 	bool isPressed;
 	bool isRightPressed;
 	int sourceIndx;
+	float time;
+
 public:
 
-	float time;
+	SceneData sceneData;
+
 	Assignment2();
-	SceneData scnData;
-//	Assignment2(float angle,float relationWH,float near, float far);
-	
 	void Init();
-	void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx);
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material);
 	void SetPosition(int x, int y);
 	void WhenRotate();
 	void WhenTranslate();
@@ -26,7 +29,8 @@ public:
 	void SetRightPress() { isRightPressed = !isRightPressed; }
 	float Intersection(Eigen::Vector3f sourcePoint);
 	void RotateEye(float amt, bool upDown);
-	~Assignment2(void);
+	void LoadSceneDataToShader(Shader* s);
+	~Assignment2();
 };
 
 

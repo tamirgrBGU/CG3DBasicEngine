@@ -32,7 +32,7 @@ public:
 	}
 
 
-    void ChageData(const void *data, unsigned int count);
+    void ChangeData(const void *data, unsigned int count);
 };
 
 

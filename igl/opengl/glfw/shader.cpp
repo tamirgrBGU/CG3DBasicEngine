@@ -158,9 +158,13 @@ void Shader::SetUniformMat4fv(const std::string& name,const Eigen::Matrix4f *mat
 {
 	glUniformMatrix4fv(GetUniformLocation(name), length, GL_FALSE, matrices[0].data());
 }
-void Shader::SetUniform4fv(const std::string& name, const Eigen::Vector4f * arr, const int length)
+void Shader::SetUniform4fv(const std::string& name, const Eigen::Vector4f* arr, const int length)
 {
-	glUniform4fv(GetUniformLocation(name), length, arr[0].data());
+    glUniform4fv(GetUniformLocation(name), length, arr[0].data());
+}
+void Shader::SetUniform4iv(const std::string& name, const Eigen::Vector4i* arr, const int length)
+{
+    glUniform4iv(GetUniformLocation(name), length, arr[0].data());
 }
 
 int Shader::GetUniformLocation(const std::string& name) {

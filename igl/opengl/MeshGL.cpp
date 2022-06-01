@@ -103,7 +103,7 @@ IGL_INLINE void igl::opengl::MeshGL::bind_mesh(unsigned int shader_mesh, unsigne
 
   vbo_F.Bind();
   if (dirty & MeshGL::DIRTY_FACE)
-    vbo_F.ChageData(F_vbo.data(),F_vbo.size());
+    vbo_F.ChangeData(F_vbo.data(),F_vbo.size());
   if (dirty_mesh_shader & (1 << shader_id))
       dirty_mesh_shader &= ~(1 << shader_id);
   else
@@ -120,7 +120,7 @@ IGL_INLINE void igl::opengl::MeshGL::bind_overlay_lines(unsigned int shader_over
 
   vbo_lines_F.Bind();
   if (is_dirty)
-    vbo_lines_F.ChageData(lines_F_vbo.data(),lines_F_vbo.size());
+    vbo_lines_F.ChangeData(lines_F_vbo.data(),lines_F_vbo.size());
   if (dirty_mesh_shader & (1 << shader_id))
     dirty_mesh_shader &= ~(1 << shader_id);
   else
@@ -137,7 +137,7 @@ IGL_INLINE void igl::opengl::MeshGL::bind_overlay_points(unsigned int shader_ove
 
  vbo_points_F.Bind();
   if (is_dirty)
-      vbo_points_F.ChageData(points_F_vbo.data(),points_F_vbo.size());
+      vbo_points_F.ChangeData(points_F_vbo.data(),points_F_vbo.size());
   if (dirty_mesh_shader & (1 << shader_id))
     dirty_mesh_shader &= ~(1 << shader_id);
   else

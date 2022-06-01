@@ -1,28 +1,33 @@
 #pragma once
 #include "igl/opengl/glfw/Viewer.h"
+#include "igl/opengl/glfw/renderer.h"
+
+using Eigen::Matrix4f;
+using Eigen::Vector4cf;
+using Eigen::Vector3cf;
 
 class Assignment1 : public igl::opengl::glfw::Viewer
 {
-	float time;
-	Eigen::Vector3cf FindRootsOfReduceEquation(Eigen::Vector2cf reduceCoeffs);	
-	std::complex<float> Assignment1::NewtonCubicRoot(std::complex<float> num);
+	int active_coeff = 1;
+	int iterations = 20;
+	float scale = 1.0f;
+	Vector4cf coeffs;
+	Vector3cf roots;
+	int cursor_xpos, cursor_ypos;
+	float xpos = 0, ypos = 0;
+	void CalcRoots();
+	int width, height;
+	Renderer* rndr;
 
 public:
-	
-	Eigen::Vector4cf coeffs;
-	float x, y;
+
 	Assignment1();
-//	Assignment1(float angle,float relationWH,float near, float far);
-	void Init();
-	void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int  shaderIndx, unsigned int shapeIndx);
-	void WhenRotate();
-	void WhenTranslate();
-	void Animate() override;
-	void ScaleAllShapes(float amt, int viewportIndx);
-	
-	Eigen::Vector3cf FindCubicRoots();
-
-	~Assignment1(void);
+	void Init(int width, int height);
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material);
+	void KeyPressed(int key);
+	void Scroll(int yoffset);
+	void UpdateCursorPosition(int x, int y);
+	void DragTo(int x, int y);
+	void Resize(int width, int height);
 };
-
 

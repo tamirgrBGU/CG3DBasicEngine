@@ -3,22 +3,58 @@
 #include "texture.h"
 #include "shader.h"
 
+using std::vector;
+using std::shared_ptr;
+using std::string;
+
 class Material
 {
-	//Should use smart pointers for two materials with the same texture.
-	unsigned int numOfTexs;
-	std::vector<unsigned int> texIDs;
-	std::vector<unsigned int> slotIDs;
-	std::vector<unsigned int> shaderIndices;
+private:
+
+	shared_ptr<Shader> m_shader;
+	vector<shared_ptr<Texture>> m_textures;
+	vector<int> m_textureSlots;
+
 public:
-	Material(unsigned int textureIDs[],unsigned int slots[],unsigned int size);
-	 unsigned int GetTexture(unsigned int indx);
-	 unsigned int GetSlot(unsigned int indx);
-	 inline unsigned int GetNumOfTexs() { return numOfTexs; }
-	 void Bind(const std::vector<Texture*> textures, int indx);
-	 void rotateTexs();
 
+ /**
+	 @brief Create a material with a given shader object
+	 @param shader - shared pointer to the shader object
 
-	~Material();
+ **/
+	explicit Material(shared_ptr<Shader> shader);
+
+ /**
+	 @brief Create a shader object and use it to create a material object
+	 (use for convenience when the shader object is exclusive to this material)
+	 @param shaderFileName - filename of the shader object
+	 @param overlay        - overlay of the shader object
+	 @param shaderId       - id of the shader object
+ **/
+	Material(const string& shaderFileName, bool overlay, unsigned int shaderId);
+
+ /**
+	 @brief Add a given texture object to the material
+	 @param slot    - the slot to bind the texture to when binding the material
+	 @param texture - shared pointer to the texture object
+ **/
+	void AddTexture(int slot, shared_ptr<Texture> texture);
+
+ /**
+	 @brief Creates a texture object and add it to the material
+	 (use for convenience when the texture object is exclusive to this material)
+	 @param slot            - the slot to bind the texture to when binding the material
+	 @param textureFileName - the filename of the texture
+	 @param dim             - the dimensions of the texture data
+ **/
+	void AddTexture(int slot, const string& textureFileName, int dim);
+
+ /**
+	 @brief Bind all material objects
+	 @retval  - a shared pointer to the shader object
+ **/
+	shared_ptr<Shader> Bind();
+
+	inline shared_ptr<Shader> GetShader() { return m_shader; }
 };
 

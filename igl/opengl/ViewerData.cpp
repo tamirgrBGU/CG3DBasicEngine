@@ -958,7 +958,7 @@ void igl::opengl::ViewerData::Draw(Shader *shader, bool cond) {
         dirty = MeshGL::DIRTY_NONE;
     }
     shader->Bind();
-    meshgl.bind_mesh(shader->m_program,shader->m_id);
+    meshgl.bind_mesh(shader->m_program, shader->m_id);
     meshgl.draw_mesh(cond,mode);
 
 }
@@ -977,7 +977,7 @@ void igl::opengl::ViewerData::Draw_overlay(Shader *shader, bool cond) {
     }
 }
 
-void igl::opengl::ViewerData::Draw_overlay_pints(Shader *shader, bool cond) {
+void igl::opengl::ViewerData::Draw_overlay_points(Shader *shader, bool cond) {
     if (dirty)
     {
         updateGL(invert_normals, meshgl);

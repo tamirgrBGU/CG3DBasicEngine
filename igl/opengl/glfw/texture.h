@@ -9,6 +9,7 @@ public:
 	Texture(int internalformat, int width, int height, unsigned int format, unsigned int type, const void* data);
 	 ~Texture();
 	 void Bind(int slot);
+	 void Unbind(int slot);
 
 private:
 
