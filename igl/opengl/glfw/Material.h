@@ -9,8 +9,6 @@ using std::string;
 
 class Material
 {
-private:
-
 	shared_ptr<Shader> m_shader;
 	vector<shared_ptr<Texture>> m_textures;
 	vector<int> m_textureSlots;
@@ -41,10 +39,10 @@ public:
 	void AddTexture(int slot, shared_ptr<Texture> texture);
 
  /**
-	 @brief Creates a texture object and add it to the material
+	 @brief Creates a texture object from an existing image file and add it to the material
 	 (use for convenience when the texture object is exclusive to this material)
 	 @param slot            - the slot to bind the texture to when binding the material
-	 @param textureFileName - the filename of the texture
+	 @param textureFileName - the name of the image file
 	 @param dim             - the dimensions of the texture data
  **/
 	void AddTexture(int slot, const string& textureFileName, int dim);
