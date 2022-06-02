@@ -100,7 +100,6 @@ unsigned char* Texture::LoadFromFile(const std::string& fileName, int* width, in
 
 void Texture::Bind(int slot)
 {
-	std::cout << "binding texture " << m_texture << " to slot " << slot << std::endl;
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(m_type, m_texture);
 }
