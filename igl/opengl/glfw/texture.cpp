@@ -1,9 +1,12 @@
 #define GLEW_STATIC
-#include "texture.h"
+#include "Texture.h"
 #include "../gl.h"
+#include "../Debug.h"
 #include "stb_image.h"
 #include <iostream>
 #include <cassert>
+
+using namespace std;
 
 Texture::Texture(const int dim) : m_dim(dim)
 {
@@ -23,16 +26,18 @@ Texture::Texture(const int dim) : m_dim(dim)
 	}
 }
 
-Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
+Texture::Texture(const string& fileName, const int dim) : Texture(dim)
 {
 	int width, height, numComponents;
 	unsigned char* data = NULL;
+
 
 	glGenTextures(1, &m_texture);
 	glBindTexture(m_type, m_texture);
 	switch (dim)
 	{
 	case 1:
+		debug("loading ", dim, " dimensions texture file ", fileName);
 		data = LoadFromFile(fileName, &width, &height, &numComponents, 4);
 		glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameterf(GL_TEXTURE_1D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -41,6 +46,7 @@ Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
 		break;
 
 	case 2: 
+		debug("loading ", dim, " dimensions texture file ", fileName);
 		data = LoadFromFile(fileName, &width, &height, &numComponents, 4);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -60,10 +66,12 @@ Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 		{
-			std::string directions[] = { "Right","Left","Top","Bottom","Front","Back" };
+			string directions[] = { "Right","Left","Top","Bottom","Front","Back" };
 			for (int i = 0; i < 6; i++)
 			{
-				data = LoadFromFile(fileName + directions[i] + ".bmp", &width, &height, &numComponents, 4);
+				string fullFileName = fileName + directions[i] + ".bmp";
+				debug("loading cube map texture file ", fullFileName);
+				data = LoadFromFile(fullFileName, &width, &height, &numComponents, 4);
 				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			}
 		}
@@ -75,6 +83,7 @@ Texture::Texture(const std::string& fileName, const int dim) : Texture(dim)
 
 Texture::Texture(int internalformat, int width, int height, unsigned int format, unsigned int type, const void* data) : Texture(height > 0 ? 2 : 1)
 {
+	debug("creating ", height > 0 ? 2 : 1, " dimensions texture file of size ", width, "x", height, " pixels");
 	glGenTextures(1, &m_texture);
 	glBindTexture(m_type, m_texture);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -90,11 +99,11 @@ Texture::~Texture()
 	glDeleteTextures(1, &m_texture);
 }
 
-unsigned char* Texture::LoadFromFile(const std::string& fileName, int* width, int* height, int* numComponents, int reqComponents)
+unsigned char* Texture::LoadFromFile(const string& fileName, int* width, int* height, int* numComponents, int reqComponents)
 {
 	unsigned char* data = stbi_load(fileName.c_str(), width, height, numComponents, reqComponents);
 	if (data == NULL)
-		throw new std::runtime_error(fileName + " stbi_load error");
+		throw new runtime_error(fileName + " stbi_load error");
 	return data;
 }
 

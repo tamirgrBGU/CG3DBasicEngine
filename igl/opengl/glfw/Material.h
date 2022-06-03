@@ -29,7 +29,7 @@ public:
 	 @param overlay        - overlay of the shader object
 	 @param shaderId       - id of the shader object
  **/
-	Material(const string& shaderFileName, bool overlay, unsigned int shaderId);
+	Material(const string& shaderFileName, unsigned int shaderId, bool overlay = false);
 
  /**
 	 @brief Add a given texture object to the material

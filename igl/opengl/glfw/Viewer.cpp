@@ -63,9 +63,9 @@ void Viewer::SetPickingShader(shared_ptr<Shader> shader)
 	m_pickingMaterial = make_shared<Material>(shader);
 }
 
-void Viewer::SetPickingShader(const string& shaderFileName, bool overlay, unsigned int shaderId)
+void Viewer::SetPickingShader(const string& shaderFileName, unsigned int shaderId, bool overlay)
 {
-	SetPickingShader(make_shared<Shader>(shaderFileName, overlay, shaderId));
+	SetPickingShader(make_shared<Shader>(shaderFileName, shaderId, overlay));
 }
 
 void Viewer::Init(const std::string config)
@@ -498,19 +498,13 @@ int Viewer::AddShader(const std::string& fileName) {
 	return (shaders.size() - 1);
 }
 
-int Viewer::AddShader(const std::string& Vertex_Shader, const std::string& Fragment_shader) {
-	shaders.push_back(new Shader(Vertex_Shader, Fragment_shader, false, next_data_id));
-	next_data_id += 1;
-	return (shaders.size() - 1);
-}
-
 void Viewer::SetShader_overlay(const std::string& fileName) {
-	overlay_shader = new Shader(fileName, true, next_data_id);
+	overlay_shader = new Shader(fileName, next_data_id, true);
 	next_data_id += 1;
 }
 
 void Viewer::SetShader_point_overlay(const std::string& fileName) {
-	overlay_point_shader = new Shader(fileName, true, next_data_id);
+	overlay_point_shader = new Shader(fileName, next_data_id, true);
 	next_data_id += 1;
 }
 
@@ -843,9 +837,9 @@ void Viewer::Update_overlay(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& 
 	Shader* s = is_points ? overlay_point_shader : overlay_shader;
 	if (s != nullptr) {
 		s->Bind();
-		s->SetUniformMat4f("Proj", Proj);
-		s->SetUniformMat4f("View", View);
-		s->SetUniformMat4f("Model", Model);
+		s->SetUniformMatrix4f("Proj", &Proj);
+		s->SetUniformMatrix4f("View", &View);
+		s->SetUniformMatrix4f("Model", &Model);
 	}
 }
 

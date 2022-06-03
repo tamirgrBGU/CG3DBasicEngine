@@ -49,7 +49,7 @@ private:
 
 protected:
 	void SetPickingShader(shared_ptr<Shader> shader);
-	void SetPickingShader(const string& shaderFileName, bool overlay, unsigned int shaderId);
+	void SetPickingShader(const string& shaderFileName, unsigned int shaderId, bool overlay = false);
 
 public:
 	enum axis { xAxis, yAxis, zAxis };
@@ -235,8 +235,6 @@ public:
 
 	int AddShapeFromData(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, const Eigen::MatrixXd& UV_V,
 		const Eigen::MatrixXi& UV_F, int type, int parent, unsigned int mode, int viewport);
-
-	int AddShader(const std::string& Vertex_Shader, const std::string& Fragment_shader);
 
 	void SetParent(int indx, int newValue, bool savePosition);
 };

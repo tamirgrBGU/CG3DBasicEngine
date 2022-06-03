@@ -81,7 +81,7 @@ void Assignment1::Init(int init_width, int init_height)
 	width = init_width;
 	height = init_height;
 	
-	AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/shader", false, next_data_id++)));
+	AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/shader", next_data_id++)));
 
 	cout.precision(3);
 
@@ -105,9 +105,9 @@ void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matri
 {
 	shared_ptr<Shader> s = material->Bind();
 
-	s->SetUniformMat4f("Proj", Proj);
-	s->SetUniformMat4f("View", View);
-	s->SetUniformMat4f("Model", Model);
+	s->SetUniformMatrix4f("Proj", &Proj);
+	s->SetUniformMatrix4f("View", &View);
+	s->SetUniformMatrix4f("Model", &Model);
 
 	s->SetUniform4f("coeffs", coeffs[0].real(), coeffs[1].real(), coeffs[2].real(), coeffs[3].real());
 	s->SetUniform4f("roots[0]", roots[0].real(), roots[0].imag(), 0.0f, 0.0f);
@@ -117,8 +117,6 @@ void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matri
 	s->SetUniform1f("scale", scale);
 	s->SetUniform1f("xpos", xpos);
 	s->SetUniform1f("ypos", ypos);
-
-	s->Unbind();
 }
 
 void Assignment1::KeyPressed(int key)

@@ -958,7 +958,7 @@ void igl::opengl::ViewerData::Draw(Shader *shader, bool cond) {
         dirty = MeshGL::DIRTY_NONE;
     }
     shader->Bind();
-    meshgl.bind_mesh(shader->m_program, shader->m_id);
+    meshgl.bind_mesh(shader->GetProgram(), shader->GetId());
     meshgl.draw_mesh(cond,mode);
 
 }
@@ -972,7 +972,7 @@ void igl::opengl::ViewerData::Draw_overlay(Shader *shader, bool cond) {
     if(shader) {
         shader->Bind();
         glLineWidth(this->line_width);
-        meshgl.bind_overlay_lines(shader->m_program,shader->m_id);
+        meshgl.bind_overlay_lines(shader->GetProgram(), shader->GetId());
         meshgl.draw_overlay_lines();
     }
 }
@@ -986,7 +986,7 @@ void igl::opengl::ViewerData::Draw_overlay_points(Shader *shader, bool cond) {
     if(shader) {
         shader->Bind();
         glPointSize(this->point_size);
-        meshgl.bind_overlay_points(shader->m_program,shader->m_id);
+        meshgl.bind_overlay_points(shader->GetProgram(), shader->GetId());
         meshgl.draw_overlay_points();
     }
 }

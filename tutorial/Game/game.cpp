@@ -46,20 +46,20 @@ void Game::Init()
 {
 	unsigned int shapeIDs[8];
 
-	SetPickingShader("shaders/pickingShader", false, next_data_id++);
+	SetPickingShader("shaders/pickingShader", next_data_id++);
 
-	auto shader = make_shared<Shader>("shaders/basicShader", false, next_data_id++);
+	auto shader = make_shared<Shader>("shaders/basicShader", next_data_id++);
 	auto bricks = make_shared<Material>(shader);
 	auto grass = make_shared<Material>(shader);
 
-	auto daylight = make_shared<Material>("shaders/cubemapShader", false, next_data_id++);
-	auto black = make_shared<Material>("shaders/blackShader", false, next_data_id++);
+	auto daylight = make_shared<Material>("shaders/cubemapShader", next_data_id++);
+	auto black = make_shared<Material>("shaders/blackShader", next_data_id++);
 
 	bricks->AddTexture(0, "textures/bricks.bmp", 2);
 	grass->AddTexture(0, "textures/grass.bmp", 2);
 	daylight->AddTexture(0, "textures/cubemaps/Daylight Box_", 3);
 
-	//texIDs[3] = CreateTex(800, 800);
+	CreateTex(800, 800);
 	// texIDs[3] = AddTexture("../res/textures/Cat_bump.jpg", 2);
 
 	shapeIDs[0] = AddShape(Cube, -2, TRIANGLES, daylight);
@@ -86,14 +86,12 @@ void Game::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Mo
 {
 	shared_ptr<Shader> s = material->Bind();
 
-	s->SetUniformMat4f("Proj", Proj);
-	s->SetUniformMat4f("View", View);
-	s->SetUniformMat4f("Model", Model);
+	s->SetUniformMatrix4f("Proj", &Proj);
+	s->SetUniformMatrix4f("View", &View);
+	s->SetUniformMatrix4f("Model", &Model);
 	s->SetUniform1i("time", time);
 
 	s->SetUniform4f("lightColor", 4 / 100.0f, 6 / 100.0f, 99 / 100.0f, 0.5f);
-
-	s->Unbind();
 }
 
 

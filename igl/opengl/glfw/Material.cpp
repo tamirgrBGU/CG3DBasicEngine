@@ -6,8 +6,8 @@ using std::move;
 Material::Material(shared_ptr<Shader> shader) :
 	m_shader(move(shader)) {}
 
-Material::Material(const string& shaderFileName, bool overlay, unsigned int shaderId) :
-	Material(move(make_shared<Shader>(shaderFileName, overlay, shaderId))) {}
+Material::Material(const string& shaderFileName, unsigned int shaderId, bool overlay) :
+	Material(move(make_shared<Shader>(shaderFileName, shaderId, overlay))) {}
 
 void Material::AddTexture(int slot, shared_ptr<Texture> texture)
 {

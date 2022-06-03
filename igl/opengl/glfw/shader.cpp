@@ -1,200 +1,217 @@
 #define GLEW_STATIC
-#include "shader.h"
+#include "Shader.h"
+#include "../Debug.h"
 #include "../gl.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
-static void printMat(Eigen::Matrix4d phi)
+Shader::Shader(const string& fileName, unsigned int id, bool overlay) : m_id(id)
 {
-	printf(" matrix: \n");
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
-				printf("%f ", phi(j,i));
-			printf("\n");
-		}
+	m_program = glCreateProgram();
+
+	m_shaders[0] = LoadAndCreateShader(fileName + ".vs", GL_VERTEX_SHADER);
+	m_shaders[1] = LoadAndCreateShader(fileName + ".glsl", GL_FRAGMENT_SHADER);
+
+	for (unsigned int i = 0; i < NUM_SHADERS; i++)
+		glAttachShader(m_program, m_shaders[i]);
+
+	if (overlay)
+	{
+		glBindAttribLocation(m_program, (int)AttributesOverlay::OV_POSITION_VB, "position");
+		glBindAttribLocation(m_program, (int)AttributesOverlay::OV_COLOR, "color");
+	}
+	else
+	{
+		glBindAttribLocation(m_program, (int)Attributes::POSITION_VB, "position");
+		glBindAttribLocation(m_program, (int)Attributes::NORMAL_VB, "normal");
+		glBindAttribLocation(m_program, (int)Attributes::KA_VB, "Ka");
+		glBindAttribLocation(m_program, (int)Attributes::KD_VB, "Kd");
+		glBindAttribLocation(m_program, (int)Attributes::KS_VB, "Ks");
+		glBindAttribLocation(m_program, (int)Attributes::TEXCOORD_VB, "texcoord");
+	}
+
+	glLinkProgram(m_program);
+	glValidateProgram(m_program);
+
+	debug("program object ", m_program, " id ", id, " linked and validated");
 }
-
-Shader::Shader(const std::string& fileName,unsigned int id): Shader(fileName, false,id)
-{
-	
-}
-
-Shader::Shader(const std::string& fileName,bool overlay,unsigned int id):m_id(id)
-{
-    m_program = glCreateProgram();
-    m_shaders[0] = CreateShader(LoadShader(fileName + ".vs"), GL_VERTEX_SHADER);
-    m_shaders[1] = CreateShader(LoadShader(fileName + ".glsl"), GL_FRAGMENT_SHADER);
-    for(unsigned int i = 0; i < NUM_SHADERS; i++)
-        glAttachShader(m_program, m_shaders[i]);
-    if(overlay){
-        glBindAttribLocation(m_program, OV_POSITION_VB, "position");
-        glBindAttribLocation(m_program, OV_COLOR, "color");
-    }else{
-        glBindAttribLocation(m_program, POSITION_VB, "position");
-        glBindAttribLocation(m_program, NORMAL_VB, "normal");
-        glBindAttribLocation(m_program, KA_VB, "Ka");
-        glBindAttribLocation(m_program, KD_VB, "Kd");
-        glBindAttribLocation(m_program, KS_VB, "Ks");
-        glBindAttribLocation(m_program, TEXCOORD_VB, "texcoord");
-    }
-    glLinkProgram(m_program);
-    glValidateProgram(m_program);
-
-}
-
-
-Shader::Shader(const std::string& vertex_shader,const std::string& fragment_shader,bool overlay,unsigned int id):m_id(id)
-{
-    m_program = glCreateProgram();
-    m_shaders[0] = CreateShader(vertex_shader, GL_VERTEX_SHADER);
-    m_shaders[1] = CreateShader(fragment_shader, GL_FRAGMENT_SHADER);
-    for(unsigned int i = 0; i < NUM_SHADERS; i++)
-        glAttachShader(m_program, m_shaders[i]);
-    if(overlay){
-        glBindAttribLocation(m_program, OV_POSITION_VB, "position");
-        glBindAttribLocation(m_program, OV_COLOR, "color");
-    }else{
-        glBindAttribLocation(m_program, POSITION_VB, "position");
-        glBindAttribLocation(m_program, NORMAL_VB, "normal");
-        glBindAttribLocation(m_program, KA_VB, "Ka");
-        glBindAttribLocation(m_program, KD_VB, "Kd");
-        glBindAttribLocation(m_program, KS_VB, "Ks");
-        glBindAttribLocation(m_program, TEXCOORD_VB, "texcoord");
-    }
-    glLinkProgram(m_program);
-    glValidateProgram(m_program);
-
-}
-
 
 Shader::~Shader()
 {
-	for(unsigned int i = 0; i < NUM_SHADERS; i++)
-    {
-        glDetachShader(m_program, m_shaders[i]);
+	for (unsigned int i = 0; i < NUM_SHADERS; i++)
+	{
+		glDetachShader(m_program, m_shaders[i]);
 		glDeleteShader(m_shaders[i]);
-    }
+		debug("shader object ", m_shaders[i], " was deleted");
+	}
 
 	glDeleteProgram(m_program);
+	debug("program object ", m_program, " was deleted");
 }
 
 void Shader::Bind() const {
 	glUseProgram(m_program);
 }
 
-void Shader::Unbind() const {
-	glUseProgram(0);
-}
-
-std::string Shader::LoadShader(const std::string& fileName)
+string Shader::LoadShader(const string& fileName)
 {
-    std::ifstream file;
-    file.open((fileName).c_str());
+	debug("loading shader file ", fileName);
+	ifstream file(fileName);
+	if (!file.is_open())
+		throw new invalid_argument("error opening shader file " + fileName);
 
-    std::string output;
-    std::string line;
-
-    if(file.is_open())
-    {
-        while(file.good())
-        {
-            getline(file, line);
-			output.append(line + "\n");
-        }
-    }
-    else
-    {
-		std::cerr << "Unable to load shader: " << fileName << std::endl;
-    }
-
-    return output;
+	file.seekg(0, ios::end);
+	size_t len = file.tellg();
+	file.seekg(0);
+	string contents(len + 1, '\0');
+	file.read(&contents[0], len);
+	return contents;
 }
 
-
-
-unsigned int Shader::CreateShader(const std::string& text, unsigned int type)
+unsigned int Shader::CreateShader(const string& contents, unsigned int type)
 {
-    GLuint shader ;
-	shader = glCreateShader(type);
-
-    if(shader == 0)
-		std::cerr << "Error compiling shader type " << type << std::endl;
-
-    const GLchar* p[1];
-    p[0] = text.c_str();
-    int lengths[1];
-    lengths[0] = text.length();
-
-    glShaderSource(shader, 1, p, lengths);
-    glCompileShader(shader);
-	CheckShaderError(shader, GL_COMPILE_STATUS, false, "Error compiling shader!");
-
-    return shader;
+	GLuint shader = glCreateShader(type);
+	const GLchar* p[1] = { contents.c_str() };
+	int lengths[1] = { (int)contents.length() };
+	glShaderSource(shader, 1, p, lengths);
+	glCompileShader(shader);
+	return shader;
 }
 
-
-void Shader::SetUniform1i(const std::string& name, int value) {
-	glUniform1i(GetUniformLocation(name),value);
-}
-
-void Shader::SetUniform4i(const std::string& name,  int vi0,int vi1,int vi2,int vi3) {
-	glUniform4i(GetUniformLocation(name),vi0,vi1,vi2,vi3);
-}
-
-void Shader::SetUniform1f(const std::string& name, float value) {
-	glUniform1f(GetUniformLocation(name),value);
-}
-
-void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3) {
-	glUniform4f(GetUniformLocation(name),v0,v1,v2,v3);
-}
-
-void Shader::SetUniformMat4f(const std::string& name, const Eigen::Matrix4f&  matrix) {
-	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, matrix.data());
-}
-
-void Shader::SetUniformMat4fv(const std::string& name,const Eigen::Matrix4f *matrices,const int length)
+unsigned int Shader::LoadAndCreateShader(const string& fileName, unsigned int type)
 {
-	glUniformMatrix4fv(GetUniformLocation(name), length, GL_FALSE, matrices[0].data());
-}
-void Shader::SetUniform4fv(const std::string& name, const Eigen::Vector4f* arr, const int length)
-{
-    glUniform4fv(GetUniformLocation(name), length, arr[0].data());
-}
-void Shader::SetUniform4iv(const std::string& name, const Eigen::Vector4i* arr, const int length)
-{
-    glUniform4iv(GetUniformLocation(name), length, arr[0].data());
+	GLuint shader = CreateShader(LoadShader(fileName), type);
+	CheckCompileStatus(shader);
+	debug("shader object ", shader, " compiled");
+	return shader;
 }
 
-int Shader::GetUniformLocation(const std::string& name) {
-	if (m_UniformLocationCache.find(name)!= m_UniformLocationCache.end())
-		return m_UniformLocationCache[name];
+void Shader::CheckCompileStatus(unsigned int shader)
+{
+	GLchar info[1024] = { 0 };
+	glGetShaderInfoLog(shader, sizeof(info), NULL, info);
+	debug(info[0] == 0 ? "no warnings or errors" : string("\n") + info);
+}
+
+void Shader::SetUniform1f(const string& name, float v0) {
+	glUniform1f(GetUniformLocation(name), v0);
+}
+
+void Shader::SetUniform2f(const string& name, float v0, float v1)
+{
+	glUniform2f(GetUniformLocation(name), v0, v1);
+}
+
+void Shader::SetUniform3f(const string& name, float v0, float v1, float v2)
+{
+	glUniform3f(GetUniformLocation(name), v0, v1, v2);
+}
+
+void Shader::SetUniform4f(const string& name, float v0, float v1, float v2, float v3) {
+	glUniform4f(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void Shader::SetUniform1i(const string& name, int v0) {
+	glUniform1i(GetUniformLocation(name), v0);
+}
+
+void Shader::SetUniform2i(const string& name, int v0, int v1)
+{
+	glUniform2i(GetUniformLocation(name), v0, v1);
+}
+
+void Shader::SetUniform3i(const string& name, int v0, int v1, int v2)
+{
+	glUniform3i(GetUniformLocation(name), v0, v1, v2);
+}
+
+void Shader::SetUniform4i(const string& name, int v0, int v1, int v2, int v3) {
+	glUniform4i(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void Shader::SetUniform1ui(const string& name, unsigned int v0) {
+	glUniform1ui(GetUniformLocation(name), v0);
+}
+
+void Shader::SetUniform2ui(const string& name, unsigned int v0, unsigned int v1)
+{
+	glUniform2ui(GetUniformLocation(name), v0, v1);
+}
+
+void Shader::SetUniform3ui(const string& name, unsigned int v0, unsigned int v1, unsigned int v2)
+{
+	glUniform3ui(GetUniformLocation(name), v0, v1, v2);
+}
+
+void Shader::SetUniform4ui(const string& name, unsigned int v0, unsigned int v1, unsigned int v2, unsigned int v3) {
+	glUniform4ui(GetUniformLocation(name), v0, v1, v2, v3);
+}
+
+void Shader::SetUniform2fv(const string& name, int count, const Vector2f* vectors)
+{
+	glUniform2fv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniform3fv(const string& name, int count, const Vector3f* vectors)
+{
+	glUniform3fv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniform4fv(const string& name, int count, const Vector4f* vectors)
+{
+	glUniform4fv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniform2iv(const string& name, int count, const Vector2i* vectors)
+{
+	glUniform2iv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniform3iv(const string& name, int count, const Vector3i* vectors)
+{
+	glUniform3iv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniform4iv(const string& name, int count, const Vector4i* vectors)
+{
+	glUniform4iv(GetUniformLocation(name), count, vectors[0].data());
+}
+
+void Shader::SetUniformMatrix2f(const string& name, const Matrix2f* matrix) {
+	glUniformMatrix2fv(GetUniformLocation(name), 1, GL_FALSE, matrix->data());
+}
+
+void Shader::SetUniformMatrix3f(const string& name, const Matrix3f* matrix) {
+	glUniformMatrix3fv(GetUniformLocation(name), 1, GL_FALSE, matrix->data());
+}
+
+void Shader::SetUniformMatrix4f(const string& name, const Matrix4f* matrix) {
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, matrix->data());
+}
+
+void Shader::SetUniformMatrix2fv(const string& name, int count, const Matrix2f* matrices)
+{
+	glUniformMatrix2fv(GetUniformLocation(name), count, GL_FALSE, matrices[0].data());
+}
+
+void Shader::SetUniformMatrix3fv(const string& name, int count, const Matrix3f* matrices)
+{
+	glUniformMatrix3fv(GetUniformLocation(name), count, GL_FALSE, matrices[0].data());
+}
+
+void Shader::SetUniformMatrix4fv(const string& name, int count, const Matrix4f* matrices)
+{
+	glUniformMatrix4fv(GetUniformLocation(name), count, GL_FALSE, matrices[0].data());
+}
+
+int Shader::GetUniformLocation(const string& name) {
+	if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
+		return m_uniformLocationCache[name];
 
 	int location = glGetUniformLocation(m_program, name.c_str());
-	if (location == -1 )
-		std::cout<< "Warning: uniform '" << name << "' doesn't exist!" << std::endl;
-	m_UniformLocationCache[name]= location;
+	if (location == -1)
+		cout << "Warning: uniform '" << name << "' doesn't exist!" << endl;
+	m_uniformLocationCache[name] = location;
 	return location;
-}
-
-void Shader::CheckShaderError(unsigned int shader, unsigned int flag, bool isProgram, const std::string& errorMessage)
-{
-    GLint success = 0;
-    GLchar error[1024] = { 0 };
-
-    if(isProgram)
-        glGetProgramiv(shader, flag, &success);
-    else
-        glGetShaderiv(shader, flag, &success);
-
-    if(success == GL_FALSE)
-    {
-        if(isProgram)
-            glGetProgramInfoLog(shader, sizeof(error), NULL, error);
-        else
-            glGetShaderInfoLog(shader, sizeof(error), NULL, error);
-
-        std::cerr << errorMessage << ": '" << error << "'" << std::endl;
-    }
 }
