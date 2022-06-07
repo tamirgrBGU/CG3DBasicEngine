@@ -53,8 +53,8 @@ public:
         clearStencil = 1024,
         passStencil = 2048,
         inAction2 = 4096,
-        none = 8192,
-        scaleAbit = 16384,
+        scaleAbit = 8192,
+        clearColor = 16384,
         stencil2 = 32768,
         onPicking = 65536
     };

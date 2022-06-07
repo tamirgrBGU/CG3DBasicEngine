@@ -46,11 +46,9 @@ void Game::Init()
 {
 	unsigned int shapeIDs[8];
 
-	SetPickingShader("shaders/pickingShader", next_data_id++);
-
-	auto shader = make_shared<Shader>("shaders/basicShader", next_data_id++);
-	auto bricks = make_shared<Material>(shader);
-	auto grass = make_shared<Material>(shader);
+	auto program = make_shared<Program>("shaders/basicShader", next_data_id++);
+	auto bricks = make_shared<Material>(program);
+	auto grass = make_shared<Material>(program);
 
 	auto daylight = make_shared<Material>("shaders/cubemapShader", next_data_id++);
 	auto black = make_shared<Material>("shaders/blackShader", next_data_id++);
@@ -63,35 +61,33 @@ void Game::Init()
 	// texIDs[3] = AddTexture("../res/textures/Cat_bump.jpg", 2);
 
 	shapeIDs[0] = AddShape(Cube, -2, TRIANGLES, daylight);
-	shapeIDs[1] = AddShape(Tethrahedron, -1, TRIANGLES, grass);
-	shapeIDs[2] = AddShape(Octahedron, -1, TRIANGLES, bricks);
-	shapeIDs[3] = AddShape(Octahedron, 2, LINE_LOOP, black);
-	shapeIDs[4] = AddShape(Tethrahedron, 1, LINE_LOOP, black);
-	shapeIDs[5] = AddShapeFromFile("data/sphere.obj", -1, TRIANGLES, bricks);
-	shapeIDs[6] = AddShape(Plane, -1, TRIANGLES, grass, 1);
+	//shapeIDs[1] = AddShape(Tethrahedron, -1, TRIANGLES, grass);
+	shapeIDs[2] = AddShape(Octahedron, -1, LINES, bricks);
+	//shapeIDs[3] = AddShape(Octahedron, 2, LINE_LOOP, black);
+	//shapeIDs[4] = AddShape(Tethrahedron, 1, LINE_LOOP, black);
+	//shapeIDs[5] = AddShapeFromFile("data/sphere.obj", -1, TRIANGLES, bricks);
+	//shapeIDs[6] = AddShape(Plane, -1, TRIANGLES, grass, 1);
 
 	pickedShape = 0;
 	ShapeTransformation(scaleAll, 60.0, 0);
-	pickedShape = 1;
-	ShapeTransformation(xTranslate, 3, 0);
+	//pickedShape = 1;
+	//ShapeTransformation(xTranslate, 3, 0);
 
-	pickedShape = 5;
-	ShapeTransformation(xTranslate, -3, 0);
-	pickedShape = -1;
+	//pickedShape = 5;
+	//ShapeTransformation(xTranslate, -3, 0);
+	//pickedShape = -1;
 	SetShapeStatic(shapeIDs[0]);
-	SetShapeStatic(shapeIDs[6]);
+	//SetShapeStatic(shapeIDs[6]);
 }
 
-void Game::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material)
+void Game::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
 {
-	shared_ptr<Shader> s = material->Bind();
+	p->SetUniformMatrix4f("Proj", &Proj);
+	p->SetUniformMatrix4f("View", &View);
+	p->SetUniformMatrix4f("Model", &Model);
+	p->SetUniform1i("time", time);
 
-	s->SetUniformMatrix4f("Proj", &Proj);
-	s->SetUniformMatrix4f("View", &View);
-	s->SetUniformMatrix4f("Model", &Model);
-	s->SetUniform1i("time", time);
-
-	s->SetUniform4f("lightColor", 4 / 100.0f, 6 / 100.0f, 99 / 100.0f, 0.5f);
+	p->SetUniform4f("lightColor", 4 / 100.0f, 6 / 100.0f, 99 / 100.0f, 0.5f);
 }
 
 

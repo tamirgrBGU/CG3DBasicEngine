@@ -23,7 +23,7 @@ public:
 
 	Assignment1();
 	void Init(int width, int height);
-	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material);
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> program);
 	void KeyPressed(int key);
 	void Scroll(int yoffset);
 	void UpdateCursorPosition(int x, int y);

@@ -19,7 +19,7 @@ public:
 
 	Assignment2();
 	void Init();
-	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material);
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> program);
 	void SetPosition(int x, int y);
 	void WhenRotate();
 	void WhenTranslate();
@@ -29,7 +29,7 @@ public:
 	void SetRightPress() { isRightPressed = !isRightPressed; }
 	float Intersection(Eigen::Vector3f sourcePoint);
 	void RotateEye(float amt, bool upDown);
-	void LoadSceneDataToShader(Shader* s);
+	void LoadSceneDataToProgram(Program* s);
 	~Assignment2();
 };
 

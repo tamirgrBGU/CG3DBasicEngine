@@ -25,32 +25,29 @@ void Assignment2::Init()
 	SetShapeStatic(AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/raytracingShader", next_data_id++))));
 }
 
-void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material)
+void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
 {
-	shared_ptr<Shader> s = material->Bind();
-	int r = ((s->GetId() + 1) & 0x000000FF) >> 0;
-	int g = ((s->GetId() + 1) & 0x0000FF00) >>  8;
-	int b = ((s->GetId() + 1) & 0x00FF0000) >> 16;
+	int r = ((p->GetId() + 1) & 0x000000FF) >> 0;
+	int g = ((p->GetId() + 1) & 0x0000FF00) >>  8;
+	int b = ((p->GetId() + 1) & 0x00FF0000) >> 16;
 
-	s->Bind();	
-	s->SetUniform1f("time",time);
-	//s->SetUniform1f("x",x);
-	//s->SetUniform1f("y",y);
+	p->SetUniform1f("time",time);
+	//p->SetUniform1f("x",x);
+	//p->SetUniform1f("y",y);	
 	
-	
-	s->SetUniformMatrix4f("Proj", &Proj);
-	s->SetUniformMatrix4f("View", &View);
-	s->SetUniformMatrix4f("Model", &Model);
+	p->SetUniformMatrix4f("Proj", &Proj);
+	p->SetUniformMatrix4f("View", &View);
+	p->SetUniformMatrix4f("Model", &Model);
 
-	s->SetUniform4fv("eye",1,&sceneData.eye);
-	s->SetUniform4fv("ambient", 1, &sceneData.ambient);
-	s->SetUniform4fv("objects",sceneData.objects.size(), &sceneData.objects[0]);
-	s->SetUniform4fv("objColors", sceneData.colors.size(), &sceneData.colors[0]);
-	s->SetUniform4fv("lightsPosition", sceneData.lights.size(), &sceneData.lights[0]);
-	s->SetUniform4fv("lightsDirection", sceneData.directions.size(), &sceneData.directions[0]);
-	s->SetUniform4fv("lightsIntensity", sceneData.intensities.size(), &sceneData.intensities[0]);
+	p->SetUniform4fv("eye",1,&sceneData.eye);
+	p->SetUniform4fv("ambient", 1, &sceneData.ambient);
+	p->SetUniform4fv("objects",sceneData.objects.size(), &sceneData.objects[0]);
+	p->SetUniform4fv("objColors", sceneData.colors.size(), &sceneData.colors[0]);
+	p->SetUniform4fv("lightsPosition", sceneData.lights.size(), &sceneData.lights[0]);
+	p->SetUniform4fv("lightsDirection", sceneData.directions.size(), &sceneData.directions[0]);
+	p->SetUniform4fv("lightsIntensity", sceneData.intensities.size(), &sceneData.intensities[0]);
 	
-	s->SetUniform4i("sizes", sceneData.sizes[0], sceneData.sizes[1], sceneData.sizes[2], sceneData.sizes[3]);
+	p->SetUniform4i("sizes", sceneData.sizes[0], sceneData.sizes[1], sceneData.sizes[2], sceneData.sizes[3]);
 
 }
 
@@ -177,16 +174,16 @@ Assignment2::~Assignment2(void)
 	for (int i = 0; i < sceneData.obj.size(); i++) \
 	{ \
 		sprintf(var, "%s[%d]", #obj, i); \
-		s->SetUniform4fv(#obj, 1, &sceneData.obj[i]); \
+		p->SetUniform4fv(#obj, 1, &sceneData.obj[i]); \
 	}
 
-void Assignment2::LoadSceneDataToShader(Shader* s)
+void Assignment2::LoadSceneDataToProgram(Program* p)
 {
 	char var[20]; // for the LoadFloatArrayToShader macro
 
-	s->SetUniform4fv("eye", 1, &sceneData.eye);
-	s->SetUniform4fv("ambient", 1, &sceneData.ambient);
-	s->SetUniform4iv("sizes", 1, &sceneData.sizes);
+	p->SetUniform4fv("eye", 1, &sceneData.eye);
+	p->SetUniform4fv("ambient", 1, &sceneData.ambient);
+	p->SetUniform4iv("sizes", 1, &sceneData.sizes);
 
 	LoadFloatArrayToShader(objects);
 	LoadFloatArrayToShader(lights);

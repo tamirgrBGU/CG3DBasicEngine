@@ -20,7 +20,7 @@ int main(int argc, char* argv[])
 	Assignment1* scn = new Assignment1();  //initializing scene
 
 	Init(disp, menu); //adding callback functions
-	scn->Init(DISPLAY_WIDTH, DISPLAY_HEIGHT);    //adding shaders, textures, shapes to scene
+	scn->Init(DISPLAY_WIDTH, DISPLAY_HEIGHT);    //adding programs, textures, shapes to scene
 	rndr->Init(scn, x, y, 1, menu); // adding scene and viewports to the renderer
 	disp.SetRenderer(rndr);
 

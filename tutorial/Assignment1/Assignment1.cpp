@@ -101,22 +101,20 @@ void Assignment1::CalcRoots()
 		<< " roots: " << roots[0] << ", " << roots[1] << ", " << roots[2] << endl;
 }
 
-void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material)
+void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
 {
-	shared_ptr<Shader> s = material->Bind();
+	p->SetUniformMatrix4f("Proj", &Proj);
+	p->SetUniformMatrix4f("View", &View);
+	p->SetUniformMatrix4f("Model", &Model);
 
-	s->SetUniformMatrix4f("Proj", &Proj);
-	s->SetUniformMatrix4f("View", &View);
-	s->SetUniformMatrix4f("Model", &Model);
-
-	s->SetUniform4f("coeffs", coeffs[0].real(), coeffs[1].real(), coeffs[2].real(), coeffs[3].real());
-	s->SetUniform4f("roots[0]", roots[0].real(), roots[0].imag(), 0.0f, 0.0f);
-	s->SetUniform4f("roots[1]", roots[1].real(), roots[1].imag(), 0.0f, 0.0f);
-	s->SetUniform4f("roots[2]", roots[2].real(), roots[2].imag(), 0.0f, 0.0f);
-	s->SetUniform1i("iterations", iterations);
-	s->SetUniform1f("scale", scale);
-	s->SetUniform1f("xpos", xpos);
-	s->SetUniform1f("ypos", ypos);
+	p->SetUniform4f("coeffs", coeffs[0].real(), coeffs[1].real(), coeffs[2].real(), coeffs[3].real());
+	p->SetUniform4f("roots[0]", roots[0].real(), roots[0].imag(), 0.0f, 0.0f);
+	p->SetUniform4f("roots[1]", roots[1].real(), roots[1].imag(), 0.0f, 0.0f);
+	p->SetUniform4f("roots[2]", roots[2].real(), roots[2].imag(), 0.0f, 0.0f);
+	p->SetUniform1i("iterations", iterations);
+	p->SetUniform1f("scale", scale);
+	p->SetUniform1f("xpos", xpos);
+	p->SetUniform1f("ypos", ypos);
 }
 
 void Assignment1::KeyPressed(int key)

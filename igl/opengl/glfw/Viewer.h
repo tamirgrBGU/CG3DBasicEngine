@@ -44,13 +44,6 @@ namespace glfw
 // GLFW-based mesh viewer
 class Viewer : public Movable
 {
-private:
-	shared_ptr<Material> m_pickingMaterial = nullptr;
-
-protected:
-	void SetPickingShader(shared_ptr<Shader> shader);
-	void SetPickingShader(const string& shaderFileName, unsigned int shaderId, bool overlay = false);
-
 public:
 	enum axis { xAxis, yAxis, zAxis };
 	enum transformations { xTranslate, yTranslate, zTranslate, xRotate, yRotate, zRotate, xScale, yScale, zScale, scaleAll, reset };
@@ -71,7 +64,7 @@ public:
 	//IGL_INLINE void shutdown_plugins();
 	Viewer();
 	virtual ~Viewer();
-	virtual void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, shared_ptr<Material> material) {};
+	virtual void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, shared_ptr<const Program> program) {};
 	virtual void Update_overlay(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int shapeIndx, bool is_points);
 	virtual int AddShape(int type, int parent, unsigned int mode, shared_ptr<Material> material, int viewport = 0);
 	virtual int AddShapeFromFile(const std::string& fileName, int parent, unsigned int mode, shared_ptr<Material> material, int viewport = 0);
@@ -147,7 +140,7 @@ public:
 	inline  bool  IsActive() const { return isActive; }
 	inline void Activate() { isActive = true; }
 	inline void Deactivate() { isActive = false; }
-	int AddShader(const std::string& fileName);
+	int AddProgram(const std::string& fileName);
 public:
 	//////////////////////
 	// Member variables //
@@ -165,13 +158,13 @@ public:
 	Eigen::Vector3d pickedNormal;
 	size_t selected_data_index;
 	int next_data_id;
-	int next_shader_id; // for flags to mack sure all shaders are initlize with data
+	int next_shader_id; // for flags to make sure all shaders are initialized with data
 	bool isActive;
 	unsigned int staticScene;
 
-	Shader* overlay_shader;
-	Shader* overlay_point_shader;
-	std::vector<Shader*> shaders; // TAL: new in AddShader but no delete
+	Program* overlay_program;
+	Program* overlay_point_program;
+	std::vector<Program*> programs; // TAL: new in AddProgram without a delete
 
 
 
@@ -219,9 +212,9 @@ public:
 	inline void UpdateNormal(unsigned char data[]) { pickedNormal = (Eigen::Vector3d(data[0], data[1], data[2])).normalized(); }
 	IGL_INLINE void SetShapeMaterial(int shpIndx, int materialIndx) { data_list[shpIndx]->SetMaterial(materialIndx); }
 
-	void SetShader_overlay(const std::string& fileName);
+	void SetProgram_overlay(const std::string& fileName);
 
-	void SetShader_point_overlay(const std::string& fileName);
+	void SetProgram_point_overlay(const std::string& fileName);
 
 	int AddShapeCopy(int indx, int parent, unsigned int mode, int viewport = 0);
 

@@ -58,20 +58,8 @@ namespace opengl
 namespace glfw
 {
 
-void Viewer::SetPickingShader(shared_ptr<Shader> shader)
-{
-	m_pickingMaterial = make_shared<Material>(shader);
-}
-
-void Viewer::SetPickingShader(const string& shaderFileName, unsigned int shaderId, bool overlay)
-{
-	SetPickingShader(make_shared<Shader>(shaderFileName, shaderId, overlay));
-}
-
 void Viewer::Init(const std::string config)
 {
-
-
 }
 
 IGL_INLINE Viewer::Viewer() :
@@ -85,16 +73,16 @@ IGL_INLINE Viewer::Viewer() :
 	data_list.front() = new ViewerData();
 	data_list.front()->id = 0;
 	staticScene = 0;
-	overlay_point_shader = nullptr;
-	overlay_shader = nullptr;
+	overlay_point_program = nullptr;
+	overlay_program = nullptr;
 
 
 	// Temporary variables initialization
    // down = false;
   //  hack_never_moved = true;
 	scroll_position = 0.0f;
-	SetShader_overlay("shaders/overlay");
-	SetShader_point_overlay("shaders/overlay_points");
+	SetProgram_overlay("shaders/overlay");
+	SetProgram_point_overlay("shaders/overlay_points");
 
 	// Per face
 	data()->set_face_based(false);
@@ -427,7 +415,6 @@ IGL_INLINE void Viewer::Draw(int shaderIndx, const Eigen::Matrix4f& Proj, const 
 	{
 		auto shape = data_list[i];
 		auto material = shape->m_material;
-		auto shader = material->GetShader();
 		if (shape->Is2Render(viewportIndx))
 		{
 
@@ -443,14 +430,16 @@ IGL_INLINE void Viewer::Draw(int shaderIndx, const Eigen::Matrix4f& Proj, const 
 			}
 			if (!(flgs & 65536))
 			{
-				Update(Proj, View, Model, material);
+				auto program = material->BindProgram();
+
+				Update(Proj, View, Model, program);
 
 				// Draw fill
 				if (shape->show_faces & property_id)
-					shape->Draw(shader.get(), true);
+					shape->Draw(program.get(), true);
 				if (shape->show_lines & property_id) {
 					glLineWidth(shape->line_width);
-					shape->Draw(shader.get(), false);
+					shape->Draw(program.get(), false);
 				}
 				// overlay draws
 				if (shape->show_overlay & property_id) {
@@ -462,49 +451,50 @@ IGL_INLINE void Viewer::Draw(int shaderIndx, const Eigen::Matrix4f& Proj, const 
 					{
 						Update_overlay(Proj, View, Model, i, false);
 						glEnable(GL_LINE_SMOOTH);
-						shape->Draw_overlay(overlay_shader, false);
+						overlay_program->Bind();
+						shape->Draw_overlay(overlay_program, false);
 					}
 					if (shape->points.rows() > 0)
 					{
 						Update_overlay(Proj, View, Model, i, true);
-						shape->Draw_overlay_points(overlay_point_shader, false);
+						overlay_point_program->Bind();
+						shape->Draw_overlay_points(overlay_point_program, false);
 					}
 					glEnable(GL_DEPTH_TEST);
 				}
 			}
 			else
 			{ //picking
-				assert(m_pickingMaterial != nullptr);
-
-				if (flgs & 16384)
+				auto program = material->BindPicking();
+				if (flgs & 8192) // TODO: TAL: check if this flag value is correct
 				{
 					Eigen::Affine3f scale_mat = Eigen::Affine3f::Identity();
 					scale_mat.scale(Eigen::Vector3f(1.1f, 1.1f, 1.1f));
-					Update(Proj, View * Normal, Normal.inverse() * Model * scale_mat.matrix(), m_pickingMaterial);
+					Update(Proj, View * Normal, Normal.inverse() * Model * scale_mat.matrix(), program);
 				}
 				else
 				{
-					Update(Proj, View * Normal, Normal.inverse() * Model, m_pickingMaterial);
+					Update(Proj, View * Normal, Normal.inverse() * Model, program);
 				}
-				shape->Draw(m_pickingMaterial->GetShader().get(), true);
+				shape->Draw(program.get(), true);
 			}
 		}
 	}
 }
 
-int Viewer::AddShader(const std::string& fileName) {
-	shaders.push_back(new Shader(fileName, next_data_id));
+int Viewer::AddProgram(const std::string& fileName) {
+	programs.push_back(new Program(fileName, next_data_id));
 	next_data_id += 1;
-	return (shaders.size() - 1);
+	return (programs.size() - 1);
 }
 
-void Viewer::SetShader_overlay(const std::string& fileName) {
-	overlay_shader = new Shader(fileName, next_data_id, true);
+void Viewer::SetProgram_overlay(const std::string& fileName) {
+	overlay_program = new Program(fileName, next_data_id, true);
 	next_data_id += 1;
 }
 
-void Viewer::SetShader_point_overlay(const std::string& fileName) {
-	overlay_point_shader = new Shader(fileName, next_data_id, true);
+void Viewer::SetProgram_point_overlay(const std::string& fileName) {
+	overlay_point_program = new Program(fileName, next_data_id, true);
 	next_data_id += 1;
 }
 
@@ -575,8 +565,6 @@ int Viewer::AddShape(int type, int parent, unsigned int mode, shared_ptr<Materia
 	this->parents.emplace_back(parent);
 	return data_list.size() - 1;
 }
-
-
 
 int Viewer::AddShapeCopy(int indx, int parent, unsigned int mode, int viewport)
 {
@@ -812,16 +800,6 @@ int Viewer::AddTexture(const std::string& textureFileName, int dim)
 	return(textures.size() - 1);
 }
 
-//void Viewer::BindMaterial(Shader* s, unsigned int materialIndx)
-//{
-
-//    for (int i = 0; i < materials[materialIndx]->GetNumOfTexs(); i++)
-//    {
-//        materials[materialIndx]->Bind(textures, i);
-//        s->SetUniform1i("sampler" + std::to_string(i + 1), materials[materialIndx]->GetSlot(i));
-//    }
-//}
-
 int Viewer::AddTexture(int width, int height, unsigned char* data, int mode)
 {
 	if (mode)
@@ -834,12 +812,12 @@ int Viewer::AddTexture(int width, int height, unsigned char* data, int mode)
 
 void Viewer::Update_overlay(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int shapeIndx, bool is_points) {
 	auto data = data_list[shapeIndx];
-	Shader* s = is_points ? overlay_point_shader : overlay_shader;
-	if (s != nullptr) {
-		s->Bind();
-		s->SetUniformMatrix4f("Proj", &Proj);
-		s->SetUniformMatrix4f("View", &View);
-		s->SetUniformMatrix4f("Model", &Model);
+	Program* p = is_points ? overlay_point_program : overlay_program;
+	if (p != nullptr) {
+		p->Bind();
+		p->SetUniformMatrix4f("Proj", &Proj);
+		p->SetUniformMatrix4f("View", &View);
+		p->SetUniformMatrix4f("Model", &Model);
 	}
 }
 
@@ -853,7 +831,6 @@ void Viewer::SetParent(int indx, int newValue, bool savePosition)
 		data_list[indx]->MyTranslate(-tmp.head<3>(), false);
 	}
 }
-
 
 } // end namespace
 } // end namespace

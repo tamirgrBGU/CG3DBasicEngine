@@ -53,7 +53,7 @@ void Renderer::Clear(float r, float g, float b, float a,unsigned int flags)
 {
     glClearColor(r, g, b, a);
 
-    glClear(GL_COLOR_BUFFER_BIT | ((GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT) & flags));
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT & flags);
 }
 
 void Renderer::SwapDrawInfo(int indx1, int indx2)

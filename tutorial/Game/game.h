@@ -13,7 +13,7 @@ public:
 	Game();
 	//	Game(float angle,float relationWH,float near, float far);
 	void Init();
-	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<Material> material) override;
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> program) override;
 	void Animate() override;
 	unsigned int CreateTex(int width, int height);
 	~Game(void);

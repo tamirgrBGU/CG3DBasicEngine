@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "texture.h"
-#include "shader.h"
+#include "Texture.h"
+#include "Program.h"
 
 using std::vector;
 using std::shared_ptr;
@@ -9,27 +9,27 @@ using std::string;
 
 class Material
 {
-	shared_ptr<Shader> m_shader;
+	shared_ptr<const Program> m_program, m_pickingProgram;
 	vector<shared_ptr<Texture>> m_textures;
 	vector<int> m_textureSlots;
 
 public:
 
  /**
-	 @brief Create a material with a given shader object
-	 @param shader - shared pointer to the shader object
+	 @brief Create a material with a given program object
+	 @param program - shared pointer to the program object
 
  **/
-	explicit Material(shared_ptr<Shader> shader);
+	explicit Material(shared_ptr<const Program> program, bool overlay = false);
 
  /**
-	 @brief Create a shader object and use it to create a material object
-	 (use for convenience when the shader object is exclusive to this material)
-	 @param shaderFileName - filename of the shader object
-	 @param overlay        - overlay of the shader object
-	 @param shaderId       - id of the shader object
+	 @brief Create a program object from the shader files and use it to create a material object
+	 (use for convenience when the shader objects are exclusive to this material)
+	 @param shaderFileName - filename (without extension) of the shaders
+	 @param overlay        - overlay of the program object
+	 @param programId      - id of the program object
  **/
-	Material(const string& shaderFileName, unsigned int shaderId, bool overlay = false);
+	Material(const string& shaderFileName, unsigned int programId, bool overlay = false);
 
  /**
 	 @brief Add a given texture object to the material
@@ -48,11 +48,15 @@ public:
 	void AddTexture(int slot, const string& textureFileName, int dim);
 
  /**
-	 @brief Bind all material objects
-	 @retval  - a shared pointer to the shader object
+	 @brief Bind all textures and the main material program
+	 @retval  - a shared pointer to the program object
  **/
-	shared_ptr<Shader> Bind();
-
-	inline shared_ptr<Shader> GetShader() { return m_shader; }
+	shared_ptr<const Program> BindProgram() const;
+	
+ /**
+	 @brief Bind the picking material program
+	 @retval  - a shared pointer to the picking program object
+ **/
+	shared_ptr<const Program> BindPicking() const;
 };
 

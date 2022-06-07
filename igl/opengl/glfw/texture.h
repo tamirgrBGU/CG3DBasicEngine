@@ -5,13 +5,6 @@ using std::string;
 
 class Texture
 {
-    unsigned char* LoadFromFile(const string& filename, int* width, int* height, int* numComponents, int reqComponents);
-    Texture(int dim); // private constructor to initialize m_type according to dim
-
-    unsigned int m_texture = 0;
-    int m_dim;
-    int m_type = 0;
-
 public:
 
  /**
@@ -32,7 +25,18 @@ public:
      @param data           - a pointer to the image data in memory
  **/
 	Texture(int internalformat, int width, int height, unsigned int format, unsigned int type, const void* data);
-	 ~Texture();
-	 void Bind(int slot);
-	 void Unbind(int slot);
+
+    void Bind(int slot);
+    void Unbind(int slot);
+
+    ~Texture();
+
+private:
+
+     unsigned char* LoadFromFile(const string& filename, int* width, int* height, int* numComponents, int reqComponents);
+     Texture(int dim); // private constructor to initialize m_type according to dim
+
+     unsigned int m_texture = 0;
+     int m_dim;
+     int m_type = 0;
 };

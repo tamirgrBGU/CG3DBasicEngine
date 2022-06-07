@@ -57,7 +57,7 @@ void APIENTRY glDebugOutput(GLenum source,
 	
 	std::cout << std::endl;
 
-#if defined(_DEBUG) && defined(_MSC_VER)
+#if !defined(NDEBUG) && defined(_MSC_VER)
 	__debugbreak();
 #endif
 }

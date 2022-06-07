@@ -10,7 +10,7 @@
 
 #include "MeshGL.h"
 #include "glfw/VertexArray.hpp"
-#include "glfw/shader.h"
+#include "glfw/Program.h"
 #include "glfw/Material.h"
 #include <igl/igl_inline.h>
 #include <igl/colormap.h>
@@ -53,10 +53,10 @@ public:
     shared_ptr<Material> m_material; // TODO: TAL: do something with this...
 
   ViewerData();
-    IGL_INLINE void Draw(Shader* shader, bool cond);
+    IGL_INLINE void Draw(const Program * program, bool cond);
     /* TAL: removing getter and setter as a first step to get rid of these ids
     IGL_INLINE void SetShader(const int id) { shaderID = id; }
-    IGL_INLINE int GetShader() const{
+    IGL_INLINE int BindProgram() const{
         return shaderID;
     }
     */
@@ -337,9 +337,9 @@ public:
     inline void Hide() { hide = true; }
     inline void UnHide() { hide = false; }
 
-    void Draw_overlay(Shader *shader, bool cond);
+    void Draw_overlay(Program * program, bool cond);
 
-    void Draw_overlay_points(Shader *shader, bool cond);
+    void Draw_overlay_points(Program * program, bool cond);
 };
 
 } // namespace opengl

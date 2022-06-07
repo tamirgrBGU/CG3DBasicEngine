@@ -16,7 +16,6 @@ public:
 
 	void Bind() const;
 	void Unbind() const;
-	void Draw(int mode,const IndexBuffer& ib,const Shader& shader);
 };
 
 

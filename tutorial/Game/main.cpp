@@ -20,7 +20,7 @@ int main(int argc,char *argv[])
 	Game *scn = new Game();  //initializing scene
 	
     Init(disp,menu); //adding callback functions
-	scn->Init();    //adding shaders, textures, shapes to scene
+	scn->Init();    //adding programs, textures, shapes to scene
     rndr->Init(scn,x,y,1,menu); // adding scene and viewports to the renderer
 	//rndr->SetBuffers();
 	disp.SetRenderer(rndr);
