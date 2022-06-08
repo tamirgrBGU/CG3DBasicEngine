@@ -7,15 +7,17 @@ Material::Material(shared_ptr<const Program> program, bool overlay)
 {
 	// create another program for picking using the given program's vertex shader and the
 	// hard-coded fixed color shader
-	m_pickingProgram = move(make_shared<Program>(move(program->GetVertexShader()), 
-		move(Program::GetFixedColorShader()), program->GetId(), overlay));
+	m_fixedColorProgram = move(make_shared<const Program>(move(program->GetVertexShader()), 
+		move(Shader::GetFixedColorShader()), program->GetId(), overlay, false));
 	// TODO: TAL: check if i need a different id for the picking shader program
+
+	//m_fixedColorProgram = move(make_shared<const Program>("shaders/pickingShader", program->GetId() + 1, overlay));
 
 	m_program = move(program);
 }
 
 Material::Material(const string& shaderFileName, unsigned int programId, bool overlay) :
-	Material(move(make_shared<Program>(shaderFileName, programId, overlay))) {}
+	Material(move(make_shared<Program>(shaderFileName, programId, overlay, true))) {}
 
 void Material::AddTexture(int slot, shared_ptr<Texture> texture)
 {
@@ -38,9 +40,9 @@ shared_ptr<const Program> Material::BindProgram() const
 	return m_program;
 }
 
-shared_ptr<const Program> Material::BindPicking() const
+shared_ptr<const Program> Material::BindFixedColorProgram() const
 {
-	m_pickingProgram->Bind();
+	m_fixedColorProgram->Bind();
 
-	return m_pickingProgram;
+	return m_fixedColorProgram;
 }

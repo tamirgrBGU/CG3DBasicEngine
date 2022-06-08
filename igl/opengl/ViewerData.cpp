@@ -953,7 +953,7 @@ IGL_INLINE void igl::opengl::ViewerData::updateGL(
 	}
 }
 
-void igl::opengl::ViewerData::Draw(const Program* program, bool cond) {
+void igl::opengl::ViewerData::Draw(const Program* program, bool solid) {
 	/* Bind and potentially refresh mesh/line/point data */
 	if (dirty)
 	{
@@ -961,7 +961,7 @@ void igl::opengl::ViewerData::Draw(const Program* program, bool cond) {
 		dirty = MeshGL::DIRTY_NONE;
 	}
 	meshgl.bind_mesh(program->GetHandle(), program->GetId());
-	meshgl.draw_mesh(cond, mode);
+	meshgl.draw_mesh(solid);
 }
 
 void igl::opengl::ViewerData::Draw_overlay(Program * program, bool cond) {

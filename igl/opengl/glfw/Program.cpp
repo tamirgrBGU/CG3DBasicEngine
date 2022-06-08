@@ -5,29 +5,14 @@
 #include <fstream>
 #include <sstream>
 
-shared_ptr<const Shader> Program::GetFixedColorShader()
-{
-	const shared_ptr<const Shader> FIXED_COLOR_SHADER = move(make_shared<const Shader>(GL_FRAGMENT_SHADER,
-		R"(
-			#version 330
-			uniform vec4 fixedColor;
-			out vec4 Color;
-			void main()
-			{
-				Color = fixedColor;
-			}
-		)"));
-
-	return FIXED_COLOR_SHADER;
-}
-
-Program::Program(const string& fileName, unsigned int id, bool overlay) :
+Program::Program(const string& fileName, unsigned int id, bool overlay, bool warnings) :
 	Program(move(make_shared<Shader>(GL_VERTEX_SHADER, ReadFile(fileName + ".vs"))),
-		move(make_shared<Shader>(GL_FRAGMENT_SHADER, ReadFile(fileName + ".glsl"))), id, overlay)
+		move(make_shared<Shader>(GL_FRAGMENT_SHADER, ReadFile(fileName + ".glsl"))), id, overlay, warnings)
 {}
 
-Program::Program(shared_ptr<const Shader> vertexShader, shared_ptr<const Shader> fragmentShader, unsigned int id, bool overlay) :
-	m_id(id), m_vertexShader(move(vertexShader)), m_fragmentShader(move(fragmentShader))
+Program::Program(shared_ptr<const Shader> vertexShader, shared_ptr<const Shader> fragmentShader, 
+	unsigned int id, bool overlay, bool warnings) :
+	m_id(id), m_warnings(warnings), m_vertexShader(move(vertexShader)), m_fragmentShader(move(fragmentShader))
 {
 	m_handle = glCreateProgram();
 
@@ -208,8 +193,8 @@ int Program::GetUniformLocation(const string& name) const
 		return m_uniformLocationCache[name];
 
 	int location = glGetUniformLocation(m_handle, name.c_str());
-	if (location == -1)
-		cerr << "Warning: ignoring uniform " << name << " (doesn't exist in program)" << endl;
+	if (location == -1 && m_warnings)
+		cerr << "Warning: ignoring uniform '" << name << "' (doesn't exist in program " << m_id << ")" << endl;
 
 	m_uniformLocationCache[name] = location;
 	return location;

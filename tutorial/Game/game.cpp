@@ -60,24 +60,26 @@ void Game::Init()
 	CreateTex(800, 800);
 	// texIDs[3] = AddTexture("../res/textures/Cat_bump.jpg", 2);
 
-	shapeIDs[0] = AddShape(Cube, -2, TRIANGLES, daylight);
-	//shapeIDs[1] = AddShape(Tethrahedron, -1, TRIANGLES, grass);
-	shapeIDs[2] = AddShape(Octahedron, -1, LINES, bricks);
-	//shapeIDs[3] = AddShape(Octahedron, 2, LINE_LOOP, black);
-	//shapeIDs[4] = AddShape(Tethrahedron, 1, LINE_LOOP, black);
-	//shapeIDs[5] = AddShapeFromFile("data/sphere.obj", -1, TRIANGLES, bricks);
-	//shapeIDs[6] = AddShape(Plane, -1, TRIANGLES, grass, 1);
+	shapeIDs[0] = AddShape(Cube, -2, daylight);
+	shapeIDs[1] = AddShape(Tethrahedron, -1, grass);
+	shapeIDs[2] = AddShape(Octahedron, -1, bricks);
+	shapeIDs[3] = AddShapeFromFile("data/sphere.obj", -1, bricks);
+	shapeIDs[4] = AddShape(Plane, -1, grass, 1);
+
+	SetShapeWireframe(shapeIDs[1], true);
+	SetShapeWireframe(shapeIDs[2], true);
+	SetShapeWireframe(shapeIDs[3], true);
 
 	pickedShape = 0;
 	ShapeTransformation(scaleAll, 60.0, 0);
-	//pickedShape = 1;
-	//ShapeTransformation(xTranslate, 3, 0);
+	pickedShape = 1;
+	ShapeTransformation(xTranslate, 3, 0);
 
-	//pickedShape = 5;
-	//ShapeTransformation(xTranslate, -3, 0);
-	//pickedShape = -1;
+	pickedShape = 3;
+	ShapeTransformation(xTranslate, -3, 0);
+	pickedShape = -1;
 	SetShapeStatic(shapeIDs[0]);
-	//SetShapeStatic(shapeIDs[6]);
+	SetShapeStatic(shapeIDs[4]);
 }
 
 void Game::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
@@ -90,12 +92,10 @@ void Game::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Mo
 	p->SetUniform4f("lightColor", 4 / 100.0f, 6 / 100.0f, 99 / 100.0f, 0.5f);
 }
 
-
-void Game::Animate() {
+void Game::Animate() 
+{
 	if (isActive)
-	{
 		time = 1;
-	}
 	else
 		time = 0;
 }

@@ -17,6 +17,8 @@ public:
  **/
 	Shader(unsigned int type, const string& contents);
 
+	static shared_ptr<const Shader> GetFixedColorShader();
+
 	unsigned int GetHandle() const;
 
 	~Shader();

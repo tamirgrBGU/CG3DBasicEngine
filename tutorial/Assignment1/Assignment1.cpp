@@ -81,7 +81,7 @@ void Assignment1::Init(int init_width, int init_height)
 	width = init_width;
 	height = init_height;
 	
-	AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/shader", next_data_id++)));
+	AddShape(Plane, -1, move(make_shared<Material>("shaders/shader", next_data_id++)));
 
 	cout.precision(3);
 

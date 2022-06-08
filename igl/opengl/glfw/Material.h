@@ -9,7 +9,7 @@ using std::string;
 
 class Material
 {
-	shared_ptr<const Program> m_program, m_pickingProgram;
+	shared_ptr<const Program> m_program, m_fixedColorProgram;
 	vector<shared_ptr<Texture>> m_textures;
 	vector<int> m_textureSlots;
 
@@ -57,6 +57,6 @@ public:
 	 @brief Bind the picking material program
 	 @retval  - a shared pointer to the picking program object
  **/
-	shared_ptr<const Program> BindPicking() const;
+	shared_ptr<const Program> BindFixedColorProgram() const;
 };
 

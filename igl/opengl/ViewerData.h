@@ -53,7 +53,7 @@ public:
     shared_ptr<Material> m_material; // TODO: TAL: do something with this...
 
   ViewerData();
-    IGL_INLINE void Draw(const Program * program, bool cond);
+    IGL_INLINE void Draw(const Program * program, bool solid);
     /* TAL: removing getter and setter as a first step to get rid of these ids
     IGL_INLINE void SetShader(const int id) { shaderID = id; }
     IGL_INLINE int BindProgram() const{
@@ -291,7 +291,6 @@ public:
   unsigned int show_face_labels;
   unsigned int show_custom_labels;
   unsigned int viewports;
-  unsigned int mode;
   unsigned int type;
   bool hide;
   bool show_vertid; // shared across viewports for now

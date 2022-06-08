@@ -66,8 +66,8 @@ public:
 	virtual ~Viewer();
 	virtual void Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, shared_ptr<const Program> program) {};
 	virtual void Update_overlay(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, const Eigen::Matrix4f& Model, unsigned int shapeIndx, bool is_points);
-	virtual int AddShape(int type, int parent, unsigned int mode, shared_ptr<Material> material, int viewport = 0);
-	virtual int AddShapeFromFile(const std::string& fileName, int parent, unsigned int mode, shared_ptr<Material> material, int viewport = 0);
+	virtual int AddShape(int type, int parent, shared_ptr<Material> material, int viewport = 0);
+	virtual int AddShapeFromFile(const std::string& fileName, int parent, shared_ptr<Material> material, int viewport = 0);
 	virtual void WhenTranslate(float dx, float dy) {}
 	virtual void WhenRotate(float dx, float dy) {}
 	virtual void WhenScroll(float dy) {}
@@ -208,6 +208,7 @@ public:
 	void BindTexture(int texIndx, int slot) { textures[texIndx]->Bind(slot); }
 	IGL_INLINE void SetShapeShader(int shpIndx, int shdrIndx) { data_list[shpIndx]->shaderID = shdrIndx; }
 	IGL_INLINE void SetShapeStatic(int shpIndx) { data_list[shpIndx]->SetStatic(); }
+	IGL_INLINE void SetShapeWireframe(int shpIndx, bool show = true) { data_list[shpIndx]->show_lines = show; }
 	IGL_INLINE void SetShapeViewport(int shpIndx, int vpIndx) { vpIndx > 0 ? data_list[shpIndx]->AddViewport(vpIndx) : data_list[shpIndx]->RemoveViewport(~vpIndx); }
 	inline void UpdateNormal(unsigned char data[]) { pickedNormal = (Eigen::Vector3d(data[0], data[1], data[2])).normalized(); }
 	IGL_INLINE void SetShapeMaterial(int shpIndx, int materialIndx) { data_list[shpIndx]->SetMaterial(materialIndx); }
@@ -216,7 +217,7 @@ public:
 
 	void SetProgram_point_overlay(const std::string& fileName);
 
-	int AddShapeCopy(int indx, int parent, unsigned int mode, int viewport = 0);
+	int AddShapeCopy(int indx, int parent, int viewport = 0);
 
 	void ShapeTransformation(int type, float amt, int mode);
 
@@ -227,7 +228,7 @@ public:
 		const Eigen::MatrixXi& UV_F);
 
 	int AddShapeFromData(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, const Eigen::MatrixXd& UV_V,
-		const Eigen::MatrixXi& UV_F, int type, int parent, unsigned int mode, int viewport);
+		const Eigen::MatrixXi& UV_F, int type, int parent, int viewport);
 
 	void SetParent(int indx, int newValue, bool savePosition);
 };

@@ -90,7 +90,6 @@ IGL_INLINE void igl::opengl::MeshGL::TextGL::free_buffers()
 IGL_INLINE void igl::opengl::MeshGL::bind_mesh(unsigned int shader_mesh, unsigned int shader_id)
 {
   vao_mesh.Bind();
-//  glUseProgram(shader_mesh); Bind out side
   if(dirty_mesh_shader &= ~(1 << shader_id)){
       dirty |= MeshGL::DIRTY_MESH;
   }
@@ -181,7 +180,7 @@ IGL_INLINE void igl::opengl::MeshGL::bind_labels(const TextGL& labels,unsigned i
   dirty &= ~labels.dirty_flag;
 }
 
-IGL_INLINE void igl::opengl::MeshGL::draw_mesh(bool solid, unsigned int mode)
+IGL_INLINE void igl::opengl::MeshGL::draw_mesh(bool solid)
 {
   glPolygonMode(GL_FRONT_AND_BACK, solid ? GL_FILL : GL_LINE);
 
@@ -191,7 +190,7 @@ IGL_INLINE void igl::opengl::MeshGL::draw_mesh(bool solid, unsigned int mode)
     glEnable(GL_POLYGON_OFFSET_FILL);
     glPolygonOffset(1.0, 1.0);
   }
-  glDrawElements(mode, 3*F_vbo.rows(), GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, 3*F_vbo.rows(), GL_UNSIGNED_INT, 0);
 
   glDisable(GL_POLYGON_OFFSET_FILL);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

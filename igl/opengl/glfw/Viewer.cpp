@@ -437,35 +437,40 @@ IGL_INLINE void Viewer::Draw(int shaderIndx, const Eigen::Matrix4f& Proj, const 
 				// Draw fill
 				if (shape->show_faces & property_id)
 					shape->Draw(program.get(), true);
-				if (shape->show_lines & property_id) {
+				if (shape->show_lines) { // TODO: TAL: why was there | &property_id here?
 					glLineWidth(shape->line_width);
+					program = material->BindFixedColorProgram(); // TODO: TAL: temporary hack - change this
+					Update(Proj, View, Model, program);
+					program->SetUniform4f("fixedColor", 0.0f, 0.0f, 0.0f, 1.0f);
 					shape->Draw(program.get(), false);
+					program->SetUniform4f("fixedColor", 0.0f, 0.0f, 0.0f, 0.0f);
+					program = material->BindProgram(); // TODO: TAL: temporary hack - change this
 				}
 				// overlay draws
-				if (shape->show_overlay & property_id) {
-					if (shape->show_overlay_depth & property_id)
-						glEnable(GL_DEPTH_TEST);
-					else
-						glDisable(GL_DEPTH_TEST);
-					if (shape->lines.rows() > 0)
-					{
-						Update_overlay(Proj, View, Model, i, false);
-						glEnable(GL_LINE_SMOOTH);
-						overlay_program->Bind();
-						shape->Draw_overlay(overlay_program, false);
-					}
-					if (shape->points.rows() > 0)
-					{
-						Update_overlay(Proj, View, Model, i, true);
-						overlay_point_program->Bind();
-						shape->Draw_overlay_points(overlay_point_program, false);
-					}
-					glEnable(GL_DEPTH_TEST);
-				}
+				//if (shape->show_overlay & property_id) {
+				//	if (shape->show_overlay_depth & property_id)
+				//		glEnable(GL_DEPTH_TEST);
+				//	else
+				//		glDisable(GL_DEPTH_TEST);
+				//	if (shape->lines.rows() > 0)
+				//	{
+				//		Update_overlay(Proj, View, Model, i, false);
+				//		glEnable(GL_LINE_SMOOTH);
+				//		overlay_program->Bind();
+				//		shape->Draw_overlay(overlay_program, false);
+				//	}
+				//	if (shape->points.rows() > 0)
+				//	{
+				//		Update_overlay(Proj, View, Model, i, true);
+				//		overlay_point_program->Bind();
+				//		shape->Draw_overlay_points(overlay_point_program, false);
+				//	}
+				//	glEnable(GL_DEPTH_TEST);
+				//}
 			}
 			else
 			{ //picking
-				auto program = material->BindPicking();
+				auto program = material->BindFixedColorProgram();
 				if (flgs & 8192) // TODO: TAL: check if this flag value is correct
 				{
 					Eigen::Affine3f scale_mat = Eigen::Affine3f::Identity();
@@ -498,13 +503,12 @@ void Viewer::SetProgram_point_overlay(const std::string& fileName) {
 	next_data_id += 1;
 }
 
-int Viewer::AddShapeFromFile(const std::string& fileName, int parent, unsigned int mode, shared_ptr<Material> material, int viewport)
+int Viewer::AddShapeFromFile(const std::string& fileName, int parent, shared_ptr<Material> material, int viewport)
 {
 	this->load_mesh_from_file(fileName);
 	ViewerData* d = data();
 
 	d->type = MeshCopy;
-	d->mode = mode;
 	d->shaderID = 1;
 	d->viewports = 1 << viewport;
 	d->is_visible = true;
@@ -518,7 +522,7 @@ int Viewer::AddShapeFromFile(const std::string& fileName, int parent, unsigned i
 }
 
 
-int Viewer::AddShape(int type, int parent, unsigned int mode, shared_ptr<Material> material, int viewport)
+int Viewer::AddShape(int type, int parent, shared_ptr<Material> material, int viewport)
 {
 	switch (type) {
 		// Axis, Plane, Cube, Octahedron, Tethrahedron, LineCopy, MeshCopy
@@ -546,7 +550,6 @@ int Viewer::AddShape(int type, int parent, unsigned int mode, shared_ptr<Materia
 	ViewerData* d = data();
 
 	d->type = type;
-	d->mode = mode;
 	d->shaderID = 1;
 	d->viewports = 1 << viewport;
 	d->is_visible = 0x1;
@@ -566,13 +569,12 @@ int Viewer::AddShape(int type, int parent, unsigned int mode, shared_ptr<Materia
 	return data_list.size() - 1;
 }
 
-int Viewer::AddShapeCopy(int indx, int parent, unsigned int mode, int viewport)
+int Viewer::AddShapeCopy(int indx, int parent, int viewport)
 {
 	load_mesh_from_data(data_list[indx]->V, data_list[indx]->F, data_list[indx]->V_uv, data_list[indx]->F_uv);
 	ViewerData* d = data();
 
 	d->type = data_list[indx]->type;
-	d->mode = mode;
 	d->shaderID = data_list[indx]->shaderID;
 	d->viewports = 1 << viewport;
 	d->is_visible = true;
@@ -587,13 +589,12 @@ int Viewer::AddShapeFromData(const Eigen::MatrixXd& V,
 	const Eigen::MatrixXi& F,
 	const Eigen::MatrixXd& UV_V,
 	const Eigen::MatrixXi& UV_F, 
-	int type, int parent, unsigned int mode, int viewport)
+	int type, int parent, int viewport)
 {
 	load_mesh_from_data(V, F, UV_V, UV_F);
 	ViewerData* d = data();
 
 	d->type = type;
-	d->mode = mode;
 	d->shaderID = 1;
 	d->viewports = 1 << viewport;
 	d->is_visible = true;

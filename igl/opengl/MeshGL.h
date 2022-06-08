@@ -133,7 +133,7 @@ public:
   IGL_INLINE void bind_mesh(unsigned int shader_mesh, unsigned int shader_id);
 
   /// Draw the currently buffered mesh (either solid or wireframe)
-  IGL_INLINE void draw_mesh(bool solid, unsigned int mode);
+  IGL_INLINE void draw_mesh(bool solid);
 
   // Bind the underlying OpenGL buffer objects for subsequent line overlay draw calls
   IGL_INLINE void bind_overlay_lines(unsigned int shader_overlay_lines,unsigned int shader_id);

@@ -22,7 +22,7 @@ Assignment2::Assignment2()
 
 void Assignment2::Init()
 {
-	SetShapeStatic(AddShape(Plane, -1, TRIANGLES, move(make_shared<Material>("shaders/raytracingShader", next_data_id++))));
+	SetShapeStatic(AddShape(Plane, -1, move(make_shared<Material>("shaders/raytracingShader", next_data_id++))));
 }
 
 void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)

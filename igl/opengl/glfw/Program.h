@@ -18,7 +18,7 @@ public:
 	 @param id       - id of the shader (must be 0 to ???) // TODO: TAL
 	 @param overlay  - true for full overlay data, false for partial data
  **/
-	Program(const string& fileName, unsigned int id, bool overlay = false);
+	Program(const string& fileName, unsigned int id, bool overlay = false, bool warnings = true);
 
 /**
 	 @brief Create a program object from the given vertex and fragement shader objects
@@ -27,7 +27,8 @@ public:
 	 @param id				- id of the shader (must be 0 to ???) // TODO: TAL
 	 @param overlay			- true for full overlay data, false for partial data
  **/
-	Program(shared_ptr<const Shader> vertexShader, shared_ptr<const Shader> fragmentShader, unsigned int id, bool overlay);
+	Program(shared_ptr<const Shader> vertexShader, shared_ptr<const Shader> fragmentShader, 
+		unsigned int id, bool overlay, bool warnings);
 
  /**
 	 @brief Bind the program object
@@ -37,7 +38,6 @@ public:
 	inline unsigned int GetHandle() const { return m_handle; }
 	inline unsigned int GetId() const { return m_id; }
 	inline shared_ptr<const Shader> GetVertexShader() const { return m_vertexShader; }
-	static shared_ptr<const Shader> GetFixedColorShader();
 
 	~Program();
 
@@ -74,6 +74,13 @@ public:
 
 private:
 
+	int GetUniformLocation(const string& name) const;
+	static string ReadFile(const string& fileName);
+
+	// disable copy constructor and assignment operator
+	void operator=(const Program& shader) = delete;
+	Program(const Program& shader) = delete;
+
 	static const shared_ptr<const Shader> FIXED_COLOR_SHADER;
 
 	shared_ptr<const Shader> m_vertexShader;
@@ -81,8 +88,7 @@ private:
 	unsigned int m_handle;
 	unsigned int m_id;
 	mutable unordered_map<string, int> m_uniformLocationCache;
-
-	int GetUniformLocation(const string& name) const;
+	bool m_warnings;
 
 	enum class Attributes
 	{
@@ -100,10 +106,4 @@ private:
 		OV_POSITION_VB,
 		OV_COLOR,
 	};
-
-	static string ReadFile(const string& fileName);
-
-	// disable copy constructor and assignment operator
-	void operator=(const Program& shader) = delete;
-	Program(const Program& shader) = delete;
 };
