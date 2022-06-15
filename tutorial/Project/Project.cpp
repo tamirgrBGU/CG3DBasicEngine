@@ -27,7 +27,8 @@ void Project::Init()
 	unsigned int slots[3] = { 0 , 1, 2 };
 	
 	AddShader("shaders/pickingShader");
-	AddShader("shaders/cubemapShader");
+	// AddShader("shaders/cubemapShader");
+	AddShader("shaders/bezierShader");
 	AddShader("shaders/basicShaderTex");
 	AddShader("shaders/basicShader");
 	
@@ -39,6 +40,7 @@ void Project::Init()
 	AddMaterial(texIDs,slots, 1);
 	AddMaterial(texIDs+1, slots+1, 1);
 	AddMaterial(texIDs + 2, slots + 2, 1);
+
 	
 	AddShape(Cube, -2, TRIANGLES);
 	AddShape(zCylinder, -1, TRIANGLES);
@@ -93,13 +95,14 @@ void Project::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, c
 	int b = ((shapeIndx+1) & 0x00FF0000) >> 16;
 
 
-		s->Bind();
+	s->Bind();
 	s->SetUniformMat4f("Proj", Proj);
 	s->SetUniformMat4f("View", View);
 	s->SetUniformMat4f("Model", Model);
+	s->SetUniform4f("coeffs",1,1,1,1);
 	if (data_list[shapeIndx]->GetMaterial() >= 0 && !materials.empty())
 	{
-//		materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
+		// materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
 		BindMaterial(s, data_list[shapeIndx]->GetMaterial());
 	}
 	if (shaderIndx == 0)
@@ -111,7 +114,7 @@ void Project::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& View, c
 	
 	
 
-	//s->SetUniform1i("sampler2", materials[shapes[pickedShape]->GetMaterial()]->GetSlot(1));
+	// s->SetUniform1i("sampler2", materials[shapes[pickedShape]->GetMaterial()]->GetSlot(1));
 	//s->SetUniform4f("lightDirection", 0.0f , 0.0f, -1.0f, 0.0f);
 //	if(shaderIndx == 0)
 //		s->SetUniform4f("lightColor",r/255.0f, g/255.0f, b/255.0f,1.0f);
