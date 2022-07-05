@@ -9,7 +9,7 @@ HunterGate(
 		SHA1 "5d68bcca78eee347239ca5f4d34f4b6c12683154"
 )
 
-project(EnigeRework)
+project(EngineRework)
 
 # Detects whether this is a top-level project
 get_directory_property(LIBIGL_PARENT_DIR PARENT_DIRECTORY)

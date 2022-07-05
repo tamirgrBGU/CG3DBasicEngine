@@ -2,8 +2,8 @@
 // Created by hedi1 on 24/01/2022.
 //
 
-#ifndef ENIGEREWORK_CAMERA_H
-#define ENIGEREWORK_CAMERA_H
+#ifndef ENGINEREWORK_CAMERA_H
+#define ENGINEREWORK_CAMERA_H
 #include "Movable.h"
 #include <igl/igl_inline.h>
 #include <Eigen/Geometry>
@@ -78,4 +78,4 @@ namespace igl {
 //    }
 //}
 
-#endif //ENIGEREWORK_CAMERA_H
+#endif //ENGINEREWORK_CAMERA_H

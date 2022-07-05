@@ -4,3 +4,7 @@ external
 igl/doc
 
 # Files
+/.vs/slnx.sqlite
+/.vs/VSWorkspaceState.json
+/.vs/ProjectSettings.json
+/.vs/CMake Overview

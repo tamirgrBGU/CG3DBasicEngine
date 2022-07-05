@@ -17,7 +17,10 @@ public:
  **/
 	Shader(unsigned int type, const string& contents);
 
-	static shared_ptr<const Shader> GetFixedColorShader();
+	static shared_ptr<const Shader> GetFixedColorFragmentShader();
+	static shared_ptr<const Shader> GetOverlayVertexShader();
+	static shared_ptr<const Shader> GetOverlayFragmentShader();
+	static shared_ptr<const Shader> GetOverlayPointsFragmentShader();
 
 	unsigned int GetHandle() const;
 

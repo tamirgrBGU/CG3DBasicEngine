@@ -8,7 +8,7 @@ Material::Material(shared_ptr<const Program> program, bool overlay)
 	// create another program for picking using the given program's vertex shader and the
 	// hard-coded fixed color shader
 	m_fixedColorProgram = move(make_shared<const Program>(move(program->GetVertexShader()), 
-		move(Shader::GetFixedColorShader()), program->GetId(), overlay, false));
+		move(Shader::GetFixedColorFragmentShader()), program->GetId(), overlay, false));
 	// TODO: TAL: check if i need a different id for the picking shader program
 
 	//m_fixedColorProgram = move(make_shared<const Program>("shaders/pickingShader", program->GetId() + 1, overlay));

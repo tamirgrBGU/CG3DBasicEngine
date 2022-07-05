@@ -1,8 +1,8 @@
 #define GLEW_STATIC
 #include "Texture.h"
-#include "../gl.h"
-#include "../Debug.h"
-#include "stb_image.h"
+#include "gl.h"
+#include "Debug.h"
+#include "glfw/stb_image.h"
 #include <iostream>
 #include <cassert>
 

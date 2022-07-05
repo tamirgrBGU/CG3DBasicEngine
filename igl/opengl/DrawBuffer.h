@@ -2,14 +2,14 @@
 // Created by hedi1 on 24/01/2022.
 //
 
-#ifndef ENIGEREWORK_DRAWBUFFER_H
-#define ENIGEREWORK_DRAWBUFFER_H
+#ifndef ENGINEREWORK_DRAWBUFFER_H
+#define ENGINEREWORK_DRAWBUFFER_H
 #include <Eigen/Core>
 namespace igl
 {
     namespace opengl {
         class DrawBuffer {
-            //NOTE: old enigen
+            //NOTE: old engine
             unsigned int frameBuffer;
             unsigned int renderBuffer;
             unsigned int depthBuffer;
@@ -24,7 +24,7 @@ namespace igl
 
 
         public:
-            //NOTE: old enigen
+            //NOTE: old engine
             enum {
                 COLOR,
                 DEPTH,
@@ -53,4 +53,4 @@ namespace igl
     }
 }
 
-#endif //ENIGEREWORK_DRAWBUFFER_H
+#endif //ENGINEREWORK_DRAWBUFFER_H

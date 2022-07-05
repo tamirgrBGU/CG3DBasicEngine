@@ -1,6 +1,6 @@
 #include "Program.h"
-#include "../Debug.h"
-#include "../gl.h"
+#include "Debug.h"
+#include "gl.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>

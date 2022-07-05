@@ -18,7 +18,7 @@
 #include "../ViewerData.h"
 #include "ViewerPlugin.h"
 #include "igl/opengl/Movable.h"
-#include "igl/opengl/glfw/Material.h"
+#include "igl/opengl/Material.h"
 
 
 #include <Eigen/Core>
