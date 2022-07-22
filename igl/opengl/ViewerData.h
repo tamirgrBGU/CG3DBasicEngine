@@ -1,12 +1,4 @@
-// This file is part of libigl, a simple c++ geometry processing library.
-//
-// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>
-//
-// This Source Code Form is subject to the terms of the Mozilla Public License
-// v. 2.0. If a copy of the MPL was not distributed with this file, You can
-// obtain one at http://mozilla.org/MPL/2.0/.
-#ifndef IGL_VIEWERDATA_H
-#define IGL_VIEWERDATA_H
+#pragma once
 
 #include "MeshGL.h"
 #include "glfw/VertexArray.hpp"
@@ -284,7 +276,6 @@ public:
 	unsigned int show_texture; // TODO: TAL: remove
 	unsigned int use_matcap; // ?
 	unsigned int show_faces; // TODO: TAL: nice-to-have
-	unsigned int show_lines;
 	unsigned int show_vertex_labels; // TODO: TAL: nice-to-have
 	unsigned int show_face_labels; // TODO: TAL: nice-to-have
 	unsigned int show_custom_labels; // TODO: TAL: nice-to-have
@@ -327,8 +318,6 @@ public:
 
 	bool Is2Render(int viewport) { return  (viewports & (1 << viewport)) && !hide; } // TODO: TAL: maybe move
 
-	inline bool IsStatic() { return isStatic; }
-	inline void SetStatic() { isStatic = !isStatic; }
 	inline void Hide() { hide = true; }
 	inline void UnHide() { hide = false; }
 
@@ -338,73 +327,5 @@ public:
 };
 
 } // namespace opengl
+
 } // namespace igl
-
-////////////////////////////////////////////////////////////////////////////////
-
-#include <igl/serialize.h>
-namespace igl
-{
-namespace serialization // TODO: TAL: nice-to-have
-{
-inline void serialization(bool s, igl::opengl::ViewerData& obj, std::vector<char>& buffer)
-{
-	SERIALIZE_MEMBER(V);
-	SERIALIZE_MEMBER(F);
-	SERIALIZE_MEMBER(F_normals);
-	SERIALIZE_MEMBER(F_material_ambient);
-	SERIALIZE_MEMBER(F_material_diffuse);
-	SERIALIZE_MEMBER(F_material_specular);
-	SERIALIZE_MEMBER(V_normals);
-	SERIALIZE_MEMBER(V_material_ambient);
-	SERIALIZE_MEMBER(V_material_diffuse);
-	SERIALIZE_MEMBER(V_material_specular);
-	SERIALIZE_MEMBER(V_uv);
-	SERIALIZE_MEMBER(F_uv);
-	SERIALIZE_MEMBER(texture_R);
-	SERIALIZE_MEMBER(texture_G);
-	SERIALIZE_MEMBER(texture_B);
-	SERIALIZE_MEMBER(texture_A);
-	SERIALIZE_MEMBER(lines);
-	SERIALIZE_MEMBER(points);
-	SERIALIZE_MEMBER(labels_positions);
-	SERIALIZE_MEMBER(labels_strings);
-	SERIALIZE_MEMBER(dirty);
-	SERIALIZE_MEMBER(face_based);
-	SERIALIZE_MEMBER(show_faces);
-	SERIALIZE_MEMBER(show_lines);
-	SERIALIZE_MEMBER(invert_normals);
-	SERIALIZE_MEMBER(show_overlay);
-	SERIALIZE_MEMBER(show_overlay_depth);
-	SERIALIZE_MEMBER(show_vertid);
-	SERIALIZE_MEMBER(show_faceid);
-	SERIALIZE_MEMBER(show_vertex_labels);
-	SERIALIZE_MEMBER(show_face_labels);
-	SERIALIZE_MEMBER(show_custom_labels);
-	SERIALIZE_MEMBER(show_texture);
-	SERIALIZE_MEMBER(double_sided);
-	SERIALIZE_MEMBER(point_size);
-	SERIALIZE_MEMBER(line_width);
-	SERIALIZE_MEMBER(line_color);
-	SERIALIZE_MEMBER(shininess);
-	SERIALIZE_MEMBER(id);
-}
-template<>
-inline void serialize(const igl::opengl::ViewerData& obj, std::vector<char>& buffer)
-{
-	serialization(true, const_cast<igl::opengl::ViewerData&>(obj), buffer);
-}
-template<>
-inline void deserialize(igl::opengl::ViewerData& obj, const std::vector<char>& buffer)
-{
-	serialization(false, obj, const_cast<std::vector<char>&>(buffer));
-	obj.dirty = igl::opengl::MeshGL::DIRTY_ALL;
-}
-}
-}
-
-#ifndef IGL_STATIC_LIBRARY
-#  include "ViewerData.cpp"
-#endif
-
-#endif

@@ -66,7 +66,7 @@
 		Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 		Assignment2* scn = (Assignment2*)rndr->GetScene();
 
-		rndr->UpdatePosition((float)xpos,(float)ypos);
+		rndr->UpdatePosition(xpos, ypos);
 		//scn->x = 1-xpos/800.0;
 		//scn->y = 1-ypos/800.0;
 		scn->SetPosition((int)xpos, (int)ypos);

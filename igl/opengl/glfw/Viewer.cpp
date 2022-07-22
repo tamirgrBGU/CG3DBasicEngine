@@ -56,10 +56,6 @@ namespace opengl
 namespace glfw
 {
 
-void Viewer::Init(const std::string config)
-{
-}
-
 Viewer::Viewer() :
 	selected_data_index(0),
 	next_data_id(1),
@@ -76,12 +72,6 @@ Viewer::Viewer() :
 
 	// Temporary variables initialization
 	scroll_position = 0.0f;
-	SetProgram_overlay("shaders/overlay");
-	SetProgram_point_overlay("shaders/overlay_points");
-}
-
-Viewer::~Viewer()
-{
 }
 
 Matrix4d Viewer::CalcParentsTrans(int indx)
@@ -109,13 +99,13 @@ void Viewer::Draw(const Matrix4f& Proj, const Matrix4f& View, int viewportIndx, 
 	for (int i = 0; i < data_list.size(); i++)
 	{
 		auto shape = data_list[i];
-		auto material = shape->shape ? shape->shape->material : nullptr;
+		auto material = shape->shape ? shape->shape->GetMaterial() : nullptr;
 		if (shape->Is2Render(viewportIndx))
 		{
 
 			Matrix4f Model = shape->shape->MakeTransScale();
 
-			if (!shape->IsStatic())
+			if (!shape->shape->IsStatic())
 			{
 
 				Model = Normal * GetPreviousTrans(View.cast<double>(), i).cast<float>() * Model;
@@ -132,7 +122,7 @@ void Viewer::Draw(const Matrix4f& Proj, const Matrix4f& View, int viewportIndx, 
 				// Draw fill
 				if (shape->show_faces & property_id)
 					shape->Draw(program.get(), true);
-				if (shape->show_lines) { // TODO: TAL: why was there | &property_id here?
+				if (shape->shape->IsShowWireframe()) { // TODO: TAL: why was there | &property_id here?
 					glLineWidth(shape->line_width);
 					program = material->BindFixedColorProgram(); // TODO: TAL: temporary hack - change this
 					Update(Proj, View, Model, program);
@@ -182,23 +172,7 @@ void Viewer::Draw(const Matrix4f& Proj, const Matrix4f& View, int viewportIndx, 
 	}
 }
 
-int Viewer::AddProgram(const std::string& fileName) {
-	programs.push_back(new Program(fileName, next_data_id));
-	next_data_id += 1;
-	return (programs.size() - 1);
-}
-
-void Viewer::SetProgram_overlay(const std::string& fileName) {
-	overlay_program = new Program(fileName, next_data_id, true);
-	next_data_id += 1;
-}
-
-void Viewer::SetProgram_point_overlay(const std::string& fileName) {
-	overlay_point_program = new Program(fileName, next_data_id, true);
-	next_data_id += 1;
-}
-
-ViewerData* Viewer::AddViewerData(shared_ptr<Mesh> mesh, shared_ptr<Material> material, int parent, int viewport)
+ViewerData* Viewer::AddViewerData(shared_ptr<const Mesh> mesh, shared_ptr<const Material> material, int parent, int viewport)
 {
 	auto d = new ViewerData();
 	data_list.emplace_back(d);
@@ -221,7 +195,6 @@ ViewerData* Viewer::AddViewerData(shared_ptr<Mesh> mesh, shared_ptr<Material> ma
 	d->viewports = 1 << viewport;
 	d->is_visible = true;
 	d->hide = false;
-	d->show_lines = 0;
 	d->show_overlay = 0;
 
 	this->parents.emplace_back(parent);
@@ -247,14 +220,20 @@ string Viewer::ShapeTypeToFileName(int type) {
 	throw runtime_error("Unknown shape type");
 }
 
-shared_ptr<Shape> Viewer::AddShapeFromFile(const std::string& file, shared_ptr<Material> material, int parent, int viewport)
+shared_ptr<Shape> Viewer::AddShapeFromFile(const std::string& file, shared_ptr<const Material> material, int parent, int viewport)
 {
-	shared_ptr<Mesh>& mesh = make_shared<Mesh>(file);
+	shared_ptr<const Mesh>& mesh = make_shared<const Mesh>(file);
 	auto d = AddViewerData(mesh, material, parent, viewport);
 	return d->shape;
 }
 
-shared_ptr<Shape> Viewer::AddShape(int type, shared_ptr<Material> material, int parent, int viewport)
+shared_ptr<Shape> Viewer::AddShapeFromMesh(shared_ptr<const Mesh> mesh, shared_ptr<const Material> material, int parent, int viewport)
+{
+	auto d = AddViewerData(mesh, material, parent, viewport);
+	return d->shape;
+}
+
+shared_ptr<Shape> Viewer::AddShape(int type, shared_ptr<const Material> material, int parent, int viewport)
 {
 	shared_ptr<Mesh>& mesh = make_shared<Mesh>(ShapeTypeToFileName(type));
 	auto d = AddViewerData(mesh, material, parent, viewport);
@@ -262,7 +241,6 @@ shared_ptr<Shape> Viewer::AddShape(int type, shared_ptr<Material> material, int 
 	if (type == Axis) {
 		d->is_visible = 0;
 		d->show_faces = 0;
-		d->show_lines = 0;
 		d->show_overlay = 0xFF;
 		d->add_edges((RowVector3d::UnitX() * 4), -(RowVector3d::UnitX() * 4), RowVector3d(255, 0, 0));
 		d->add_edges((RowVector3d::UnitY() * 4), -(RowVector3d::UnitY() * 4), RowVector3d(0, 255, 0));
@@ -320,39 +298,6 @@ void Viewer::MouseProccessing(int button, int xrel, int yrel, float movCoeff, Ma
 	}
 }
 
-void Viewer::ShapeTransformation(int type, float amt, int mode)
-{
-	if (abs(amt) > 1e-5 && !data_list[pickedShape]->IsStatic())
-	{
-		switch (type)
-		{
-		case xTranslate:
-			data_list[pickedShape]->shape->Translate(Vector3d(amt, 0, 0), mode);
-			break;
-		case yTranslate:
-			data_list[pickedShape]->shape->Translate(Vector3d(0, amt, 0), mode);
-			break;
-		case zTranslate:
-			data_list[pickedShape]->shape->Translate(Vector3d(0, 0, amt), mode);
-			break;
-		case xRotate:
-			data_list[pickedShape]->shape->Rotate(Vector3d(1, 0, 0), amt, mode);
-			break;
-		case yRotate:
-			data_list[pickedShape]->shape->Rotate(Vector3d(0, 1, 0), amt, mode);
-			break;
-		case zRotate:
-			data_list[pickedShape]->shape->Rotate(Vector3d(0, 0, 1), amt, mode);
-			break;
-		case reset:
-			data_list[pickedShape]->shape->ZeroTrans();
-			break;
-		default:
-			break;
-		}
-	}
-}
-
 bool Viewer::Picking(unsigned char data[4], int newViewportIndx)
 {
 	return false;
@@ -361,7 +306,7 @@ bool Viewer::Picking(unsigned char data[4], int newViewportIndx)
 void Viewer::WhenTranslate(const Matrix4d& preMat, float dx, float dy)
 {
 	Movable* obj;
-	if (pickedShape == -1 || data_list[pickedShape]->IsStatic())
+	if (pickedShape == -1 || data_list[pickedShape]->shape->IsStatic())
 		obj = (Movable*)this;
 	else { obj = (Movable*)data_list[pickedShape]; }
 	obj->TranslateInSystem(preMat.block<3, 3>(0, 0), Vector3d(dx, 0, 0));
@@ -372,7 +317,7 @@ void Viewer::WhenTranslate(const Matrix4d& preMat, float dx, float dy)
 void Viewer::WhenRotate(const Matrix4d& preMat, float dx, float dy)
 {
 	Movable* obj;
-	if (pickedShape == -1 || data_list[pickedShape]->IsStatic())
+	if (pickedShape == -1 || data_list[pickedShape]->shape->IsStatic())
 		obj = (Movable*)this;
 	else
 	{
@@ -380,14 +325,14 @@ void Viewer::WhenRotate(const Matrix4d& preMat, float dx, float dy)
 		for (; parents[ps] > -1; ps = parents[ps]);
 		obj = (Movable*)data_list[ps];
 	}
-	obj->RotateInSystem(Vector3d(0, 1, 0), dx);
-	obj->RotateInSystem(Vector3d(1, 0, 0), dy);
+	obj->RotateInSystem(dx, Axis::X);
+	obj->RotateInSystem(dy, Axis::Y);
 	WhenRotate(dx, dy);
 }
 
 void Viewer::WhenScroll(const Matrix4d& preMat, float dy)
 {
-	if (pickedShape == -1 || data_list[pickedShape]->IsStatic())
+	if (pickedShape == -1 || data_list[pickedShape]->shape->IsStatic())
 		this->TranslateInSystem(preMat.block<3, 3>(0, 0), Vector3d(0, 0, dy));
 	else
 		data_list[pickedShape]->shape->TranslateInSystem(preMat.block<3, 3>(0, 0), Vector3d(0, 0, dy));

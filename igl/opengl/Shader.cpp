@@ -88,23 +88,23 @@ shared_ptr<const Shader> Shader::GetOverlayPointsFragmentShader()
 
 Shader::Shader(unsigned int type, const string& contents)
 {
-	m_handle = glCreateShader(type);
+	handle = glCreateShader(type);
 	const GLchar* p[1] = { contents.c_str() };
 	int lengths[1] = { (int)contents.length() };
-	glShaderSource(m_handle, 1, p, lengths);
-	glCompileShader(m_handle);
-	CheckCompileStatus(m_handle);
+	glShaderSource(handle, 1, p, lengths);
+	glCompileShader(handle);
+	CheckCompileStatus(handle);
 }
 
 unsigned int Shader::GetHandle() const
 {
-	return m_handle;
+	return handle;
 }
 
 Shader::~Shader()
 {
-	glDeleteShader(m_handle);
-	debug("shader object ", m_handle, " was deleted");
+	glDeleteShader(handle);
+	debug("shader object ", handle, " was deleted");
 }
 
 void Shader::CheckCompileStatus(unsigned int shader)

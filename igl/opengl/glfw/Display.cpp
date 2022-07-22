@@ -10,6 +10,15 @@
 #include <igl/get_seconds.h>
 #include "igl/opengl/glfw/renderer.h"
 
+namespace igl
+{
+
+namespace opengl
+{
+
+namespace glfw
+{
+
 void APIENTRY glDebugOutput(GLenum source,
 	GLenum type,
 	unsigned int id,
@@ -277,3 +286,8 @@ Display::~Display()
 	glfwTerminate();
 }
 
+} // glfw
+
+} // opengl
+
+} // igl

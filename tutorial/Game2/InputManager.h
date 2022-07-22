@@ -3,6 +3,8 @@
 #include "igl/opengl/glfw/renderer.h"
 #include "game.h"
 
+using namespace igl::opengl::glfw;
+
 void glfw_mouse_callback(GLFWwindow* window, int button, int action, int mods)
 {
 	if (action == GLFW_PRESS)
@@ -23,7 +25,6 @@ void glfw_mouse_callback(GLFWwindow* window, int button, int action, int mods)
 		{
 			rndr->UnPick(2);
 		}
-
 	}
 	else
 	{
@@ -53,9 +54,9 @@ void glfw_cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 	Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 	Game* scn = (Game*)rndr->GetScene();
 
-	rndr->UpdatePosition((float)xpos, (float)ypos);
+	rndr->UpdatePosition(xpos, ypos);
 
-	if (rndr->CheckViewport(xpos, ypos, 0))
+	if (rndr->CheckViewport((int)xpos, (int)ypos, 0))
 	{
 		if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 		{
@@ -69,7 +70,6 @@ void glfw_cursor_position_callback(GLFWwindow* window, double xpos, double ypos)
 		}
 		else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_RELEASE && rndr->IsPicked() && rndr->IsMany())
 			rndr->MouseProccessing(GLFW_MOUSE_BUTTON_RIGHT);
-
 	}
 }
 
@@ -78,7 +78,6 @@ void glfw_window_size_callback(GLFWwindow* window, int width, int height)
 	Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 
 	rndr->resize(window, width, height);
-
 }
 
 void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)

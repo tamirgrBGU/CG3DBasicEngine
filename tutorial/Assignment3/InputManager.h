@@ -56,7 +56,7 @@
 		Renderer* rndr = (Renderer*)glfwGetWindowUserPointer(window);
 		Assignment3* scn = (Assignment3*)rndr->GetScene();
 
-		rndr->UpdatePosition((float)xpos,(float)ypos);
+		rndr->UpdatePosition(xpos, ypos);
 
 		if (rndr->CheckViewport(xpos,ypos, 0))
 		{

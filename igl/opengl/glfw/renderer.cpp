@@ -5,12 +5,20 @@
 #include <utility>
 #include "igl/look_at.h"
 
-//#include <Eigen/Dense>
-
 #ifndef M_PI
 #define M_PI 3.1415926535897932384626433832795
 #endif
 
+using namespace std;
+
+namespace igl
+{
+
+namespace opengl
+{
+
+namespace glfw
+{
 
 Renderer::Renderer(float angle, float relationWH, float near, float far)
 {
@@ -35,7 +43,7 @@ Renderer::Renderer(float angle, float relationWH, float near, float far)
     callback_key_down_data = nullptr;
     callback_key_up_data = nullptr;
     glLineWidth(5);
-    cameras.push_back(new igl::opengl::Camera(angle, relationWH, near, far));
+    cameras.push_back(new Camera(angle, relationWH, near, far));
     isPressed = false;
     isMany = false;
     xold = 0;
@@ -46,8 +54,6 @@ Renderer::Renderer(float angle, float relationWH, float near, float far)
     currentViewport = 0;
     isPicked = false;
 }
-
-
 
 void Renderer::Clear(float r, float g, float b, float a,unsigned int flags)
 {
@@ -70,9 +76,9 @@ IGL_INLINE void Renderer::draw_by_info(int info_index){
     if (info->flags & scissorTest)
     {
         glEnable(GL_SCISSOR_TEST);
-        int x = std::min(xWhenPress, xold);
-        int y = std::min(viewports[info->viewportIndx].w() - yWhenPress, viewports[info->viewportIndx].w() - yold);
-        glScissor(x, y, std::abs(xWhenPress - xold), std::abs( yWhenPress - yold));
+        int x = min(xWhenPress, xold);
+        int y = min(viewports[info->viewportIndx].w() - yWhenPress, viewports[info->viewportIndx].w() - yold);
+        glScissor(x, y, abs(xWhenPress - xold), abs( yWhenPress - yold));
     }
     else
         glDisable(GL_SCISSOR_TEST);
@@ -115,8 +121,8 @@ IGL_INLINE void Renderer::draw_by_info(int info_index){
     else
         glDisable(GL_BLEND);
 
-    Eigen::Matrix4f Proj = cameras[info->cameraIndx]->GetViewProjection().cast<float>();
-    Eigen::Matrix4f View = cameras[info->cameraIndx]->MakeTransScaled().inverse().cast<float>();
+    Matrix4f Proj = cameras[info->cameraIndx]->GetViewProjection().cast<float>();
+    Matrix4f View = cameras[info->cameraIndx]->MakeTransScaled().inverse().cast<float>();
 
     if (info->flags & toClear)
     {
@@ -174,47 +180,36 @@ void Renderer::SetScene(igl::opengl::glfw::Viewer* viewer)
 	scn = viewer;
 }
 
-
-void Renderer::UpdatePosition(double xpos, double ypos)
-{
-	xrel = xold - xpos;
-	yrel = yold - ypos;
-	xold = xpos;
-	yold = ypos;
-}
-
-
-void Renderer::TranslateCamera(Eigen::Vector3f amt)
+void Renderer::TranslateCamera(Vector3f amt)
 {
 	cameras[0]->Translate(amt.cast<double>(), true);
 }
 
 //void Renderer::RotateCamera(float amtX, float amtY)
 //{
-//	core().camera_eye = core().camera_eye + Eigen::Vector3f(0,amtY,0);
-//	Eigen::Matrix3f Mat;
+//	core().camera_eye = core().camera_eye + Vector3f(0,amtY,0);
+//	Matrix3f Mat;
 //		Mat << cos(amtY),0,sin(amtY),  0, 1, 0 ,  -sin(amtY), 0, cos(amtY) ;
 //	core().camera_eye = Mat* core().camera_eye;
 //
 //}
 
 
-float Renderer::UpdatePosition(float xpos, float ypos)
+void Renderer::UpdatePosition(double xpos, double ypos)
 {
     xrel = xold - xpos;
     yrel = yold - ypos;
     xold = xpos;
     yold = ypos;
-    return yrel;
 }
 
-void Renderer::UpdatePress(float xpos, float ypos)
+void Renderer::UpdatePress(double xpos, double ypos)
 {
     xWhenPress = xpos;
     yWhenPress = ypos;
 }
 
-void Renderer::AddCamera(const Eigen::Vector3d& pos, float fov, float relationWH, float zNear, float zFar, int infoIndx)
+void Renderer::AddCamera(const Vector3d& pos, float fov, float relationWH, float zNear, float zFar, int infoIndx)
 {
     if (infoIndx > 0 && infoIndx < drawInfos.size())
     {
@@ -226,7 +221,7 @@ void Renderer::AddCamera(const Eigen::Vector3d& pos, float fov, float relationWH
 
 void Renderer::AddViewport(int left, int bottom, int width, int height)
 {
-    viewports.emplace_back(Eigen::Vector4i(left, bottom, width, height));
+    viewports.emplace_back(Vector4i(left, bottom, width, height));
     glViewport(left, bottom, width, height);
 
 }
@@ -263,7 +258,7 @@ void Renderer::CopyDraw(int infoIndx, int property, int indx)
 
 void Renderer::SetViewport(int left, int bottom, int width, int height, int indx)
 {
-    viewports[indx] = Eigen::Vector4i(left, bottom, width, height);
+    viewports[indx] = Vector4i(left, bottom, width, height);
     glViewport(left, bottom, width, height);
 }
 
@@ -279,7 +274,7 @@ Renderer::~Renderer()
 bool Renderer::Picking(int x, int y)
 {
 
-    Eigen::Vector4d pos;
+    Vector4d pos;
 
     unsigned char data[4];
     //glGetIntegerv(GL_VIEWPORT, viewport); //reading viewport parameters
@@ -299,10 +294,10 @@ void Renderer::PickMany(int viewportIndx)
     if (!isPicked)
     {
         int viewportCurrIndx = 0;
-        int xMin = std::min(xWhenPress, xold);
-        int yMin = std::min(viewports[viewportCurrIndx].w() - yWhenPress, viewports[viewportCurrIndx].w() - yold);
-        int xMax = std::max(xWhenPress, xold);
-        int yMax = std::max(viewports[viewportCurrIndx].w() - yWhenPress, viewports[viewportCurrIndx].w() - yold);
+        int xMin = min(xWhenPress, xold);
+        int yMin = min(viewports[viewportCurrIndx].w() - yWhenPress, viewports[viewportCurrIndx].w() - yold);
+        int xMax = max(xWhenPress, xold);
+        int yMax = max(viewports[viewportCurrIndx].w() - yWhenPress, viewports[viewportCurrIndx].w() - yold);
 		depth = scn->AddPickedShapes(cameras[0]->GetViewProjection().cast<double>() * (cameras[0]->MakeTransd()).inverse(), viewports[viewportCurrIndx], viewportCurrIndx, xMin, xMax, yMin, yMax,viewportIndx);
         if (depth != -1)
         {
@@ -338,13 +333,6 @@ IGL_INLINE void Renderer::resize(GLFWwindow* window,int w, int h)
 	{
 		post_resize(window,w, h);
 	}
-// _________________________
-// |           *            |
-// |           *            |
-// |************************|
-// |           *            |
-// |           *            |
-// _________________________
 
 IGL_INLINE void Renderer::post_resize(GLFWwindow* window, int w, int h)
 	{
@@ -352,13 +340,13 @@ IGL_INLINE void Renderer::post_resize(GLFWwindow* window, int w, int h)
         int x = 0;
         int y = 0;
         for(auto & viewport : viewports){
-            x = std::max(x,viewport.x()+viewport.z());
-            y = std::max(y,viewport.y()+viewport.w());
+            x = max(x,viewport.x()+viewport.z());
+            y = max(y,viewport.y()+viewport.w());
         }
         float ratio_x = (float)w/(float)x;
         float ratio_y = (float)h/(float)y;
         for(auto & viewport : viewports){
-            viewport = Eigen::Vector4i((int)((float)viewport.x()*ratio_x),(int)((float)viewport.y()*ratio_y),(int)((float)viewport.z()*ratio_x),(int)((float)viewport.w()*ratio_y));
+            viewport = Vector4i((int)((float)viewport.x()*ratio_x),(int)((float)viewport.y()*ratio_y),(int)((float)viewport.z()*ratio_x),(int)((float)viewport.w()*ratio_y));
         }
 		if (callback_post_resize)
 		{
@@ -367,30 +355,30 @@ IGL_INLINE void Renderer::post_resize(GLFWwindow* window, int w, int h)
 	}
 
 
-void Renderer::MoveCamera(int cameraIndx, int type, float amt)
+void Renderer::MoveCamera(int cameraIndx, int type, float amount)
 {
     switch (type)
     {
         case xTranslate:
-            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0), Eigen::Vector3d(amt, 0, 0)); //MakeTransNoScale was here
+            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0), Vector3d(amount, 0, 0));
             break;
         case yTranslate:
-            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0),Eigen::Vector3d(0, amt, 0)); //MakeTransNoScale was here
+            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0), Vector3d(0, amount, 0));
             break;
         case zTranslate:
-            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0),Eigen::Vector3d(0, 0, amt)); //MakeTransNoScale was here
+            cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0), Vector3d(0, 0, amount));
             break;
         case xRotate:
-            cameras[cameraIndx]->Rotate(Eigen::Vector3d(1, 0, 0), amt);
+            cameras[cameraIndx]->Rotate(amount, Viewer::Axis::X);
             break;
         case yRotate:
-            cameras[cameraIndx]->Rotate(Eigen::Vector3d(0, 1, 0), amt);
+            cameras[cameraIndx]->Rotate(amount, Viewer::Axis::Y);
             break;
         case zRotate:
-            cameras[cameraIndx]->Rotate(Eigen::Vector3d(0, 0, 1), amt);
+            cameras[cameraIndx]->Rotate(amount, Viewer::Axis::Z);
             break;
         case scaleAll:
-            cameras[cameraIndx]->Scale(amt);
+            cameras[cameraIndx]->Scale(amount);
             break;
         default:
             break;
@@ -454,8 +442,8 @@ unsigned int Renderer::AddBuffer(int infoIndx)
 
 //int Renderer::Create2Dmaterial(int infoIndx, int code)
 //{
-//    std::vector<unsigned int> texIds;
-//    std::vector<unsigned int> slots;
+//    vector<unsigned int> texIds;
+//    vector<unsigned int> slots;
 //    
 //    unsigned int texId = AddBuffer(infoIndx);
 //    texIds.push_back(texId);
@@ -471,33 +459,33 @@ unsigned int Renderer::AddBuffer(int infoIndx)
 
 //void Renderer::SetBuffers()
 //{
-//    AddCamera(Eigen::Vector3d(0, 0, 1), 0, 1, 1, 10,2);
+//    AddCamera(Vector3d(0, 0, 1), 0, 1, 1, 10,2);
 //    int materialIndx = Create2Dmaterial(1,1);
 //    scn->SetShapeMaterial(6, materialIndx);
 //    SwapDrawInfo(2, 3);
 //}
 
-IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>xViewport, std::list<int>yViewport, int pickingBits)
+IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, list<int>xViewport, list<int>yViewport, int pickingBits)
 {
     scn = scene;
     //menu = _menu;
     MoveCamera(0, zTranslate, 10);
-    Eigen::Vector4i viewport;
+    Vector4i viewport;
     glGetIntegerv(GL_VIEWPORT, viewport.data());
     buffers.push_back(new igl::opengl::DrawBuffer());
     maxPixX = viewport.z();
     maxPixY = viewport.w();
     xViewport.push_front(0);
     yViewport.push_front(0);
-    std::list<int>::iterator xit = xViewport.begin();
+    list<int>::iterator xit = xViewport.begin();
     int indx = 0;
 
     for (++xit; xit != xViewport.end(); ++xit)
     {
-        std::list<int>::iterator yit = yViewport.begin();
+        list<int>::iterator yit = yViewport.begin();
         for (++yit; yit != yViewport.end(); ++yit)
         {
-            viewports.emplace_back(*std::prev(xit), *std::prev(yit), *xit - *std::prev(xit), *yit - *std::prev(yit));
+            viewports.emplace_back(*prev(xit), *prev(yit), *xit - *prev(xit), *yit - *prev(yit));
 
             if ((1 << indx) & pickingBits) {
                 DrawInfo* new_draw_info = new DrawInfo(indx, 0, 0, 0,
@@ -523,8 +511,14 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
     //    menu->callback_draw_viewer_menu = [&]()
     //    {
     //        // Draw parent menu content
-    //        auto temp = Eigen::Vector4i(0, 0, 0, 0); // set imgui to min size and top left corner
+    //        auto temp = Vector4i(0, 0, 0, 0); // set imgui to min size and top left corner
     //        menu->draw_viewer_menu(scn, cameras, temp, drawInfos);
     //    };
     //}
 }
+
+} // glfw
+
+} // opengl
+
+} // igl

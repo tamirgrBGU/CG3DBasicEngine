@@ -29,7 +29,6 @@ namespace opengl
 ViewerData::ViewerData()
 	: dirty(MeshGL::DIRTY_ALL),
 	show_faces(~unsigned(0)),
-	show_lines(~unsigned(0)),
 	face_based(false),
 	double_sided(false),
 	invert_normals(false),

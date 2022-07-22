@@ -2,8 +2,6 @@
 #include <iostream>
 #include <cmath>
 
-using namespace Eigen;
-
 namespace igl
 {
 
@@ -32,7 +30,6 @@ Matrix4d Movable::MakeTransScaled()
 	return (Tout.matrix() * Tin.matrix());
 }
 
-
 Matrix4d Movable::MakeTransd()
 {
 	Matrix4d mat = Matrix4d::Identity();
@@ -41,14 +38,6 @@ Matrix4d Movable::MakeTransd()
 	return (Tout.matrix() * mat);
 }
 
-void Movable::Translate(Vector3d amt, bool preRotation)
-{
-
-	if (preRotation)
-		Tout.pretranslate(amt);
-	else
-		Tin.pretranslate(amt);
-}
 void Movable::TranslateInSystem(Matrix3d rot, Vector3d amt)
 {
 	Tout.pretranslate(rot.transpose() * amt);
@@ -60,24 +49,16 @@ void Movable::SetCenterOfRotation(Vector3d amt)
 	Tin.pretranslate(-amt);
 }
 
-void Movable::Rotate(const Vector3d& rotAxis, double angle, int mode)
+void Movable::Rotate(double angle, Axis axis)
 {
-	if (mode == 1)
-		RotateInSystem(rotAxis, angle);
-	else
-		Rotate(rotAxis, angle);
+	const Vector3d vec = axis == Axis::X ? VecAxisX() : axis == Axis::Y ? VecAxisY() : VecAxisZ();
+	Tout.rotate(AngleAxisd(angle, vec.normalized()));
 }
 
-
-//angle in radians
-void Movable::Rotate(Vector3d rotAxis, double angle)
+void Movable::RotateInSystem(double angle, Axis axis)
 {
-	Tout.rotate(AngleAxisd(angle, rotAxis.normalized()));
-}
-
-void Movable::RotateInSystem(Vector3d rotAxis, double angle)
-{
-	Tout.rotate(AngleAxisd(angle, Tout.rotation().transpose() * (rotAxis.normalized())));
+	const Vector3d vec = axis == Axis::X ? VecAxisX() : axis == Axis::Y ? VecAxisY() : VecAxisZ();
+	Tout.rotate(AngleAxisd(angle, Tout.rotation().transpose() * (vec.normalized())));
 }
 
 void Movable::Rotate(const Matrix3d& rot)
@@ -85,23 +66,67 @@ void Movable::Rotate(const Matrix3d& rot)
 	Tout.rotate(rot);
 }
 
-void Movable::Scale(float factor, Axis axis)
+void Movable::Translate(const Vector3d vec, bool x)
 {
-	if (abs(factor) < 1e-5)
-		return; // factor is too small
+	// TODO: TAL
+}
 
-	Vector3d factorVec(
-		axis == Axis::X || axis == Axis::All ? factor : 1,
-		axis == Axis::Y || axis == Axis::All ? factor : 1,
-		axis == Axis::Z || axis == Axis::All ? factor : 1
+void Movable::Translate(const Vector3d vec)
+{
+	Tin.pretranslate(vec);
+}
+
+void Movable::Translate(float dist, Axis axis)
+{
+	Vector3d vec(
+		axis == Axis::X || axis == Axis::All ? dist : 0.0,
+		axis == Axis::Y || axis == Axis::All ? dist : 0.0,
+		axis == Axis::Z || axis == Axis::All ? dist : 0.0
 	);
 
-	Tin.scale(factorVec);
+	Translate(vec);
+
+	//if (preRotation)
+	//	Tout.pretranslate(amt);
+	//else
+	//	Tin.pretranslate(amt);
+}
+
+void Movable::Scale(float factor, Axis axis)
+{
+	//if (abs(factor) < 1e-5)
+	//	return; // factor is too small
+
+	Vector3d vec(
+		axis == Axis::X || axis == Axis::All ? factor : 1.0,
+		axis == Axis::Y || axis == Axis::All ? factor : 1.0,
+		axis == Axis::Z || axis == Axis::All ? factor : 1.0
+	);
+
+	Tin.scale(vec);
 }
 
 void Movable::ZeroTrans() {
 	Tin = Affine3d::Identity();
 	Tout = Affine3d::Identity();
+}
+
+const Vector3d Movable::VecAxisX()
+{
+	const static Vector3d vec = { 0.0, 1.0, 0.0 };
+	return vec;
+}
+
+const Vector3d Movable::VecAxisY()
+{
+	const static Vector3d vec = { 1.0, 0.0, 0.0 };
+	return vec;
+}
+
+const Vector3d Movable::VecAxisZ()
+{
+	const static Vector3d vec = { 0.0, 0.0, 1.0 };
+	return vec;
 }
 
 } // opengl

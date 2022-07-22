@@ -1,9 +1,17 @@
 #pragma once
 #include <string>
 #include <GLFW/glfw3.h>
-//#include "igl/opengl/glfw/renderer.h"
 #define EXIT_FAILURE 1
 struct GLFWwindow;
+
+namespace igl
+{
+
+namespace opengl
+{
+
+namespace glfw
+{
 
 class Display
 {
@@ -28,3 +36,8 @@ public:
 	//int highdpi;  //relation between width and height?
 };
 
+} // glfw
+
+} // opengl
+
+} // igl

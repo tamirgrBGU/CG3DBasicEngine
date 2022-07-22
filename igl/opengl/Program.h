@@ -41,9 +41,9 @@ public:
  **/
 	void Bind() const;
 
-	inline unsigned int GetHandle() const { return m_handle; }
-	inline unsigned int GetId() const { return m_id; }
-	inline shared_ptr<const Shader> GetVertexShader() const { return m_vertexShader; }
+	inline unsigned int GetHandle() const { return handle; }
+	inline unsigned int GetId() const { return id; }
+	inline shared_ptr<const Shader> GetVertexShader() const { return vertexShader; }
 
 	~Program();
 
@@ -89,12 +89,12 @@ private:
 
 	static const shared_ptr<const Shader> FIXED_COLOR_SHADER;
 
-	shared_ptr<const Shader> m_vertexShader;
-	shared_ptr<const Shader> m_fragmentShader;
-	unsigned int m_handle;
-	unsigned int m_id;
-	mutable unordered_map<string, int> m_uniformLocationCache;
-	bool m_warnings;
+	shared_ptr<const Shader> vertexShader;
+	shared_ptr<const Shader> fragmentShader;
+	unsigned int handle;
+	unsigned int id;
+	mutable unordered_map<string, int> uniformLocationCache;
+	bool warnings;
 
 	enum class Attributes
 	{

@@ -18,44 +18,44 @@ Program::Program(const string& fileName, unsigned int id, bool overlay, bool war
 
 Program::Program(shared_ptr<const Shader> vertexShader, shared_ptr<const Shader> fragmentShader, 
 	unsigned int id, bool overlay, bool warnings) :
-	m_id(id), m_warnings(warnings), m_vertexShader(move(vertexShader)), m_fragmentShader(move(fragmentShader))
+	id(id), warnings(warnings), vertexShader(vertexShader), fragmentShader(fragmentShader)
 {
-	m_handle = glCreateProgram();
+	handle = glCreateProgram();
 
-	glAttachShader(m_handle, m_vertexShader->GetHandle());
-	glAttachShader(m_handle, m_fragmentShader->GetHandle());
+	glAttachShader(handle, vertexShader->GetHandle());
+	glAttachShader(handle, fragmentShader->GetHandle());
 
 	if (overlay)
 	{
-		glBindAttribLocation(m_handle, (int)AttributesOverlay::OV_POSITION_VB, "position");
-		glBindAttribLocation(m_handle, (int)AttributesOverlay::OV_COLOR, "color");
+		glBindAttribLocation(handle, (int)AttributesOverlay::OV_POSITION_VB, "position");
+		glBindAttribLocation(handle, (int)AttributesOverlay::OV_COLOR, "color");
 	}
 	else
 	{
-		glBindAttribLocation(m_handle, (int)Attributes::POSITION_VB, "position");
-		glBindAttribLocation(m_handle, (int)Attributes::NORMAL_VB, "normal");
-		glBindAttribLocation(m_handle, (int)Attributes::KA_VB, "Ka");
-		glBindAttribLocation(m_handle, (int)Attributes::KD_VB, "Kd");
-		glBindAttribLocation(m_handle, (int)Attributes::KS_VB, "Ks");
-		glBindAttribLocation(m_handle, (int)Attributes::TEXCOORD_VB, "texcoord");
+		glBindAttribLocation(handle, (int)Attributes::POSITION_VB, "position");
+		glBindAttribLocation(handle, (int)Attributes::NORMAL_VB, "normal");
+		glBindAttribLocation(handle, (int)Attributes::KA_VB, "Ka");
+		glBindAttribLocation(handle, (int)Attributes::KD_VB, "Kd");
+		glBindAttribLocation(handle, (int)Attributes::KS_VB, "Ks");
+		glBindAttribLocation(handle, (int)Attributes::TEXCOORD_VB, "texcoord");
 	}
 
-	glLinkProgram(m_handle);
-	glValidateProgram(m_handle);
+	glLinkProgram(handle);
+	glValidateProgram(handle);
 
-	debug("program object ", m_handle, " id ", m_id, " linked and validated");
+	debug("program object ", handle, " id ", id, " linked and validated");
 }
 
 Program::~Program()
 {
-	glDetachShader(m_handle, m_vertexShader->GetHandle());
-	glDetachShader(m_handle, m_fragmentShader->GetHandle());
-	glDeleteProgram(m_handle);
-	debug("program object ", m_handle, " was deleted");
+	glDetachShader(handle, vertexShader->GetHandle());
+	glDetachShader(handle, fragmentShader->GetHandle());
+	glDeleteProgram(handle);
+	debug("program object ", handle, " was deleted");
 }
 
 void Program::Bind() const {
-	glUseProgram(m_handle);
+	glUseProgram(handle);
 }
 
 void Program::SetUniform1f(const string& name, float v0) const
@@ -195,14 +195,14 @@ string Program::ReadFile(const string& fileName)
 
 int Program::GetUniformLocation(const string& name) const
 {
-	if (m_uniformLocationCache.find(name) != m_uniformLocationCache.end())
-		return m_uniformLocationCache[name];
+	if (uniformLocationCache.find(name) != uniformLocationCache.end())
+		return uniformLocationCache[name];
 
-	int location = glGetUniformLocation(m_handle, name.c_str());
-	if (location == -1 && m_warnings)
-		cerr << "Warning: ignoring uniform '" << name << "' (doesn't exist in program " << m_id << ")" << endl;
+	int location = glGetUniformLocation(handle, name.c_str());
+	if (location == -1 && warnings)
+		cerr << "Warning: ignoring uniform '" << name << "' (doesn't exist in program " << id << ")" << endl;
 
-	m_uniformLocationCache[name] = location;
+	uniformLocationCache[name] = location;
 	return location;
 }
 

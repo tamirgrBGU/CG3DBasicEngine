@@ -34,7 +34,7 @@ public:
 
 private:
 
-	unsigned int m_handle;
+	unsigned int handle;
 
 	static void CheckCompileStatus(unsigned int shader);
 
