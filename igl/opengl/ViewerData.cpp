@@ -20,8 +20,13 @@
 
 #include <iostream>
 
+namespace igl
+{
 
-IGL_INLINE igl::opengl::ViewerData::ViewerData()
+namespace opengl
+{
+
+ViewerData::ViewerData()
 	: dirty(MeshGL::DIRTY_ALL),
 	show_faces(~unsigned(0)),
 	show_lines(~unsigned(0)),
@@ -45,12 +50,11 @@ IGL_INLINE igl::opengl::ViewerData::ViewerData()
 	materialID(0),
 	isCopy(false),
 	isStatic(false)
-
 {
 	clear();
 };
 
-IGL_INLINE void igl::opengl::ViewerData::set_face_based(bool newvalue)
+void ViewerData::set_face_based(bool newvalue)
 {
 	if (face_based != newvalue)
 	{
@@ -60,8 +64,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_face_based(bool newvalue)
 }
 
 // Helpers that draws the most common meshes
-IGL_INLINE void igl::opengl::ViewerData::set_mesh(
-	const Eigen::MatrixXd& _V, const Eigen::MatrixXi& _F)
+void ViewerData::set_mesh(const Eigen::MatrixXd& _V, const Eigen::MatrixXi& _F)
 {
 	using namespace std;
 
@@ -86,11 +89,6 @@ IGL_INLINE void igl::opengl::ViewerData::set_mesh(
 			Eigen::Vector3d(GOLD_AMBIENT[0], GOLD_AMBIENT[1], GOLD_AMBIENT[2]),
 			Eigen::Vector3d(GOLD_DIFFUSE[0], GOLD_DIFFUSE[1], GOLD_DIFFUSE[2]),
 			Eigen::Vector3d(GOLD_SPECULAR[0], GOLD_SPECULAR[1], GOLD_SPECULAR[2]));
-	  //      std::filesystem::path p = "foo.c";
-	  //      std::cout << "Current path is " << std::filesystem::current_path() << '\n';
-	  //      std::cout << "Absolute path for " << p << " is "
-	  //                << std::filesystem::absolute(p) << '\n';
-	  //      image_texture("textures/snake1.png");
 		grid_texture();
 	}
 	else
@@ -106,14 +104,14 @@ IGL_INLINE void igl::opengl::ViewerData::set_mesh(
 	dirty |= MeshGL::DIRTY_FACE | MeshGL::DIRTY_POSITION;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_vertices(const Eigen::MatrixXd& _V)
+void ViewerData::set_vertices(const Eigen::MatrixXd& _V)
 {
 	V = _V;
 	assert(F.size() == 0 || F.maxCoeff() < V.rows());
 	dirty |= MeshGL::DIRTY_POSITION;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_normals(const Eigen::MatrixXd& N)
+void ViewerData::set_normals(const Eigen::MatrixXd& N)
 {
 	using namespace std;
 	if (N.rows() == V.rows())
@@ -131,7 +129,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_normals(const Eigen::MatrixXd& N)
 	dirty |= MeshGL::DIRTY_NORMAL;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_visible(bool value, unsigned int property_id /*= 1*/)
+void ViewerData::set_visible(bool value, unsigned int property_id /*= 1*/)
 {
 	if (value)
 		is_visible |= property_id;
@@ -139,16 +137,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_visible(bool value, unsigned int pr
 		is_visible &= ~property_id;
 }
 
-//IGL_INLINE void igl::opengl::ViewerData::copy_options(const ViewerCore &from, const ViewerCore &to)
-//{
-//  to.set(show_overlay      , from.is_set(show_overlay)      );
-//  to.set(show_overlay_depth, from.is_set(show_overlay_depth));
-//  to.set(show_texture      , from.is_set(show_texture)      );
-//  to.set(show_faces        , from.is_set(show_faces)        );
-//  to.set(show_lines        , from.is_set(show_lines)        );
-//}
-
-IGL_INLINE void igl::opengl::ViewerData::set_colors(const Eigen::MatrixXd& C)
+void ViewerData::set_colors(const Eigen::MatrixXd& C)
 {
 	using namespace std;
 	using namespace Eigen;
@@ -231,10 +220,9 @@ IGL_INLINE void igl::opengl::ViewerData::set_colors(const Eigen::MatrixXd& C)
 	else
 		cerr << "ERROR (set_colors): Please provide a single color, or a color per face or per vertex." << endl;
 	dirty |= MeshGL::DIRTY_DIFFUSE | MeshGL::DIRTY_SPECULAR | MeshGL::DIRTY_AMBIENT;
-
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_uv(const Eigen::MatrixXd& UV)
+void ViewerData::set_uv(const Eigen::MatrixXd& UV)
 {
 	using namespace std;
 	if (UV.rows() == V.rows())
@@ -247,7 +235,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_uv(const Eigen::MatrixXd& UV)
 	dirty |= MeshGL::DIRTY_UV;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_uv(const Eigen::MatrixXd& UV_V, const Eigen::MatrixXi& UV_F)
+void ViewerData::set_uv(const Eigen::MatrixXd& UV_V, const Eigen::MatrixXi& UV_F)
 {
 	set_face_based(true);
 	V_uv = UV_V.block(0, 0, UV_V.rows(), 2);
@@ -255,7 +243,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_uv(const Eigen::MatrixXd& UV_V, con
 	dirty |= MeshGL::DIRTY_UV;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_texture(
+void ViewerData::set_texture(
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& R,
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& G,
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& B)
@@ -267,7 +255,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_texture(
 	dirty |= MeshGL::DIRTY_TEXTURE;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_texture(
+void ViewerData::set_texture(
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& R,
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& G,
 	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& B,
@@ -280,7 +268,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_texture(
 	dirty |= MeshGL::DIRTY_TEXTURE;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_data(
+void ViewerData::set_data(
 	const Eigen::VectorXd& D,
 	double caxis_min,
 	double caxis_max,
@@ -296,14 +284,14 @@ IGL_INLINE void igl::opengl::ViewerData::set_data(
 	set_uv(((D.array() - caxis_min) / (caxis_max - caxis_min)).replicate(1, 2));
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_data(const Eigen::VectorXd& D, igl::ColorMapType cmap, int num_steps)
+void ViewerData::set_data(const Eigen::VectorXd& D, igl::ColorMapType cmap, int num_steps)
 {
 	const double caxis_min = D.minCoeff();
 	const double caxis_max = D.maxCoeff();
 	return set_data(D, caxis_min, caxis_max, cmap, num_steps);
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_colormap(const Eigen::MatrixXd& CM)
+void ViewerData::set_colormap(const Eigen::MatrixXd& CM)
 {
 	assert(CM.cols() == 3 && "colormap CM should have 3 columns");
 	// Convert to R,G,B textures
@@ -320,7 +308,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_colormap(const Eigen::MatrixXd& CM)
 	meshgl.tex_wrap = GL_CLAMP_TO_EDGE;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_points(
+void ViewerData::set_points(
 	const Eigen::MatrixXd& P,
 	const Eigen::MatrixXd& C)
 {
@@ -329,7 +317,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_points(
 	add_points(P, C);
 }
 
-IGL_INLINE void igl::opengl::ViewerData::add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C)
+void ViewerData::add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C)
 {
 	Eigen::MatrixXd P_temp;
 
@@ -350,12 +338,12 @@ IGL_INLINE void igl::opengl::ViewerData::add_points(const Eigen::MatrixXd& P, co
 	dirty |= MeshGL::DIRTY_OVERLAY_POINTS;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::clear_points()
+void ViewerData::clear_points()
 {
 	points.resize(0, 6);
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_edges(
+void ViewerData::set_edges(
 	const Eigen::MatrixXd& P,
 	const Eigen::MatrixXi& E,
 	const Eigen::MatrixXd& C)
@@ -379,7 +367,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_edges(
 	dirty |= MeshGL::DIRTY_OVERLAY_LINES;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_edges_from_vector_field(
+void ViewerData::set_edges_from_vector_field(
 	const Eigen::MatrixXd& P,
 	const Eigen::MatrixXd& V,
 	const Eigen::MatrixXd& C)
@@ -397,7 +385,7 @@ IGL_INLINE void igl::opengl::ViewerData::set_edges_from_vector_field(
 	set_edges(PV, E, C.rows() == 1 ? C : C.replicate<2, 1>());
 }
 
-IGL_INLINE void igl::opengl::ViewerData::add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C)
+void ViewerData::add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C)
 {
 	Eigen::MatrixXd P1_temp, P2_temp;
 
@@ -423,12 +411,12 @@ IGL_INLINE void igl::opengl::ViewerData::add_edges(const Eigen::MatrixXd& P1, co
 	dirty |= MeshGL::DIRTY_OVERLAY_LINES;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::clear_edges()
+void ViewerData::clear_edges()
 {
 	lines.resize(0, 9);
 }
 
-IGL_INLINE void igl::opengl::ViewerData::add_label(const Eigen::VectorXd& P, const std::string& str)
+void ViewerData::add_label(const Eigen::VectorXd& P, const std::string& str)
 {
 	Eigen::RowVectorXd P_temp;
 
@@ -449,7 +437,7 @@ IGL_INLINE void igl::opengl::ViewerData::add_label(const Eigen::VectorXd& P, con
 	dirty |= MeshGL::DIRTY_CUSTOM_LABELS;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str)
+void ViewerData::set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str)
 {
 	assert(P.rows() == str.size() && "position # and label # do not match!");
 	assert(P.cols() == 3 && "dimension of label positions incorrect!");
@@ -459,13 +447,13 @@ IGL_INLINE void igl::opengl::ViewerData::set_labels(const Eigen::MatrixXd& P, co
 	dirty |= MeshGL::DIRTY_CUSTOM_LABELS;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::clear_labels()
+void ViewerData::clear_labels()
 {
 	labels_positions.resize(0, 3);
 	labels_strings.clear();
 }
 
-IGL_INLINE void igl::opengl::ViewerData::clear()
+void ViewerData::clear()
 {
 	V = Eigen::MatrixXd(0, 3);
 	F = Eigen::MatrixXi(0, 3);
@@ -501,7 +489,7 @@ IGL_INLINE void igl::opengl::ViewerData::clear()
 	use_matcap = false;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::compute_normals()
+void ViewerData::compute_normals()
 {
 	if (V.cols() == 2)
 	{
@@ -517,7 +505,7 @@ IGL_INLINE void igl::opengl::ViewerData::compute_normals()
 	dirty |= MeshGL::DIRTY_NORMAL;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::uniform_colors(
+void ViewerData::uniform_colors(
 	const Eigen::Vector3d& ambient,
 	const Eigen::Vector3d& diffuse,
 	const Eigen::Vector3d& specular)
@@ -533,7 +521,7 @@ IGL_INLINE void igl::opengl::ViewerData::uniform_colors(
 	uniform_colors(ambient4, diffuse4, specular4);
 }
 
-IGL_INLINE void igl::opengl::ViewerData::uniform_colors(
+void ViewerData::uniform_colors(
 	const Eigen::Vector4d& ambient,
 	const Eigen::Vector4d& diffuse,
 	const Eigen::Vector4d& specular)
@@ -562,20 +550,7 @@ IGL_INLINE void igl::opengl::ViewerData::uniform_colors(
 	dirty |= MeshGL::DIRTY_SPECULAR | MeshGL::DIRTY_DIFFUSE | MeshGL::DIRTY_AMBIENT;
 }
 
-//IGL_INLINE void igl::opengl::ViewerData::image_texture(const std::string& fileName)
-//{
-//    //unsigned int texId;
-//    //if (igl::png::texture_from_png(fileName, false, texId))
-//    if(igl::png::texture_from_png(fileName,texture_R, texture_G, texture_B, texture_A))
-//        dirty |= MeshGL::DIRTY_TEXTURE;
-//    else
-//        std::cout<<"can't open texture file"<<std::endl;
-//
-//
-//
-//}
-
-IGL_INLINE void igl::opengl::ViewerData::normal_matcap()
+void ViewerData::normal_matcap()
 {
 	const int size = 512;
 	texture_R.resize(size, size);
@@ -600,7 +575,7 @@ IGL_INLINE void igl::opengl::ViewerData::normal_matcap()
 	dirty |= MeshGL::DIRTY_TEXTURE;
 }
 
-IGL_INLINE void igl::opengl::ViewerData::grid_texture()
+void ViewerData::grid_texture()
 {
   // Don't do anything for an empty mesh
 	if (V.rows() == 0)
@@ -639,9 +614,9 @@ IGL_INLINE void igl::opengl::ViewerData::grid_texture()
 }
 
 // Populate VBOs of a particular label stype (Vert, Face, Custom)
-IGL_INLINE void igl::opengl::ViewerData::update_labels(
-	igl::opengl::MeshGL& meshgl,
-	igl::opengl::MeshGL::TextGL& GL_labels,
+void ViewerData::update_labels(
+	MeshGL& meshgl,
+	MeshGL::TextGL& GL_labels,
 	const Eigen::MatrixXd& positions,
 	const std::vector<std::string>& strings
 ) {
@@ -673,9 +648,9 @@ IGL_INLINE void igl::opengl::ViewerData::update_labels(
 	}
 }
 
-IGL_INLINE void igl::opengl::ViewerData::updateGL(
+void ViewerData::updateGL(
 	const bool invert_normals,
-	igl::opengl::MeshGL& meshgl
+	MeshGL& meshgl
 )
 {
 	if (!meshgl.is_initialized)
@@ -853,20 +828,6 @@ IGL_INLINE void igl::opengl::ViewerData::updateGL(
 		}
 	}
 
-  //  if (meshgl.dirty & MeshGL::DIRTY_TEXTURE)
-  //  {
-  //    meshgl.tex_u = this->texture_R.rows();
-  //    meshgl.tex_v = this->texture_R.cols();
-  //    meshgl.tex.resize(this->texture_R.size()*4);
-  //    for (unsigned i=0;i<this->texture_R.size();++i)
-  //    {
-  //      meshgl.tex(i*4+0) = this->texture_R(i);
-  //      meshgl.tex(i*4+1) = this->texture_G(i);
-  //      meshgl.tex(i*4+2) = this->texture_B(i);
-  //      meshgl.tex(i*4+3) = this->texture_A(i);
-  //    }
-  //  }
-
 	if (meshgl.dirty & MeshGL::DIRTY_OVERLAY_LINES)
 	{
 		meshgl.lines_V_vbo.resize(this->lines.rows() * 2, 3);
@@ -953,7 +914,7 @@ IGL_INLINE void igl::opengl::ViewerData::updateGL(
 	}
 }
 
-void igl::opengl::ViewerData::Draw(const Program* program, bool solid) {
+void ViewerData::Draw(const Program* program, bool solid) {
 	/* Bind and potentially refresh mesh/line/point data */
 	if (dirty)
 	{
@@ -964,7 +925,7 @@ void igl::opengl::ViewerData::Draw(const Program* program, bool solid) {
 	meshgl.draw_mesh(solid);
 }
 
-void igl::opengl::ViewerData::Draw_overlay(Program * program, bool cond) {
+void ViewerData::Draw_overlay(Program* program, bool cond) {
 	if (dirty)
 	{
 		updateGL(invert_normals, meshgl);
@@ -977,7 +938,7 @@ void igl::opengl::ViewerData::Draw_overlay(Program * program, bool cond) {
 	}
 }
 
-void igl::opengl::ViewerData::Draw_overlay_points(Program * program, bool cond) {
+void ViewerData::Draw_overlay_points(Program* program, bool cond) {
 	if (dirty)
 	{
 		updateGL(invert_normals, meshgl);
@@ -989,3 +950,7 @@ void igl::opengl::ViewerData::Draw_overlay_points(Program * program, bool cond) 
 		meshgl.draw_overlay_points();
 	}
 }
+
+} // opengl
+
+} // igl

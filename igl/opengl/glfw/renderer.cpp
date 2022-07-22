@@ -126,7 +126,7 @@ IGL_INLINE void Renderer::draw_by_info(int info_index){
             Clear(info->Clear_RGBA.x(), info->Clear_RGBA.y(), info->Clear_RGBA.z(), info->Clear_RGBA.w(),info->flags);
     }
 
-    scn->Draw(info->shaderIndx, Proj, View, info->viewportIndx, info->flags,info->property_id);
+    scn->Draw(Proj, View, info->viewportIndx, info->flags,info->property_id);
 }
 
 IGL_INLINE void Renderer::draw( GLFWwindow* window)
@@ -147,11 +147,11 @@ IGL_INLINE void Renderer::draw( GLFWwindow* window)
 		post_resize(window,width, height);
 		highdpi = highdpi_tmp;
 	}
-	if (menu)
-	{
-		menu->pre_draw();
-		menu->callback_draw_viewer_menu();
-    }
+	//if (menu)
+	//{
+	//	menu->pre_draw();
+	//	menu->callback_draw_viewer_menu();
+ //   }
     int indx = 0;
     for (auto& info : drawInfos)
     {
@@ -160,11 +160,11 @@ IGL_INLINE void Renderer::draw( GLFWwindow* window)
         indx++;
     }
 
-    if (menu)
-	{
-		menu->post_draw();
+ //   if (menu)
+	//{
+	//	menu->post_draw();
 
-	}
+	//}
 
 
 }
@@ -186,7 +186,7 @@ void Renderer::UpdatePosition(double xpos, double ypos)
 
 void Renderer::TranslateCamera(Eigen::Vector3f amt)
 {
-	cameras[0]->MyTranslate(amt.cast<double>(), true);
+	cameras[0]->Translate(amt.cast<double>(), true);
 }
 
 //void Renderer::RotateCamera(float amtX, float amtY)
@@ -221,7 +221,7 @@ void Renderer::AddCamera(const Eigen::Vector3d& pos, float fov, float relationWH
         drawInfos[infoIndx]->SetCamera(cameras.size());
     }
     cameras.push_back(new igl::opengl::Camera(fov, relationWH, zNear, zFar));
-    cameras.back()->MyTranslate(pos, false);
+    cameras.back()->Translate(pos, false);
 }
 
 void Renderer::AddViewport(int left, int bottom, int width, int height)
@@ -318,21 +318,21 @@ void Renderer::PickMany(int viewportIndx)
 
 void Renderer::ActionDraw(int viewportIndx)
 {
-    if (menu)
-    {
-        menu->pre_draw();
-        menu->callback_draw_viewer_menu();
-    }
+    //if (menu)
+    //{
+    //    menu->pre_draw();
+    //    menu->callback_draw_viewer_menu();
+    //}
     for (int i = 0; i < drawInfos.size(); i++)
     {
         if ((drawInfos[i]->flags & inAction) && viewportIndx == drawInfos[i]->viewportIndx)
             draw_by_info(i);
     }
-    if (menu)
-    {
-        menu->post_draw();
+    //if (menu)
+    //{
+    //    menu->post_draw();
 
-    }
+    //}
 }
 IGL_INLINE void Renderer::resize(GLFWwindow* window,int w, int h)
 	{
@@ -381,16 +381,16 @@ void Renderer::MoveCamera(int cameraIndx, int type, float amt)
             cameras[cameraIndx]->TranslateInSystem(cameras[cameraIndx]->MakeTransd().block<3,3>(0,0),Eigen::Vector3d(0, 0, amt)); //MakeTransNoScale was here
             break;
         case xRotate:
-            cameras[cameraIndx]->MyRotate(Eigen::Vector3d(1, 0, 0), amt);
+            cameras[cameraIndx]->Rotate(Eigen::Vector3d(1, 0, 0), amt);
             break;
         case yRotate:
-            cameras[cameraIndx]->MyRotate(Eigen::Vector3d(0, 1, 0), amt);
+            cameras[cameraIndx]->Rotate(Eigen::Vector3d(0, 1, 0), amt);
             break;
         case zRotate:
-            cameras[cameraIndx]->MyRotate(Eigen::Vector3d(0, 0, 1), amt);
+            cameras[cameraIndx]->Rotate(Eigen::Vector3d(0, 0, 1), amt);
             break;
         case scaleAll:
-            cameras[cameraIndx]->MyScale( Eigen::Vector3d(amt, amt,  amt));
+            cameras[cameraIndx]->Scale(amt);
             break;
         default:
             break;
@@ -477,10 +477,10 @@ unsigned int Renderer::AddBuffer(int infoIndx)
 //    SwapDrawInfo(2, 3);
 //}
 
-IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>xViewport, std::list<int>yViewport,int pickingBits,igl::opengl::glfw::imgui::ImGuiMenu *_menu)
+IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>xViewport, std::list<int>yViewport, int pickingBits)
 {
     scn = scene;
-    menu = _menu;
+    //menu = _menu;
     MoveCamera(0, zTranslate, 10);
     Eigen::Vector4i viewport;
     glGetIntegerv(GL_VIEWPORT, viewport.data());
@@ -491,7 +491,7 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
     yViewport.push_front(0);
     std::list<int>::iterator xit = xViewport.begin();
     int indx = 0;
-    
+
     for (++xit; xit != xViewport.end(); ++xit)
     {
         std::list<int>::iterator yit = yViewport.begin();
@@ -501,9 +501,9 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
 
             if ((1 << indx) & pickingBits) {
                 DrawInfo* new_draw_info = new DrawInfo(indx, 0, 0, 0,
-                                                  1 | inAction | depthTest | stencilTest | passStencil | blackClear |
-                                                  clearStencil | clearDepth | onPicking ,
-                                                  next_property_id);
+                    1 | inAction | depthTest | stencilTest | passStencil | blackClear |
+                    clearStencil | clearDepth | onPicking,
+                    next_property_id);
                 next_property_id <<= 1;
                 for (auto& data : scn->data_list)
                 {
@@ -511,22 +511,20 @@ IGL_INLINE void Renderer::Init(igl::opengl::glfw::Viewer* scene, std::list<int>x
                 }
                 drawInfos.emplace_back(new_draw_info);
             }
-            DrawInfo* temp = new DrawInfo(indx, 0, 1, 0, (int)(indx < 1) | depthTest | clearDepth ,next_property_id);
+            DrawInfo* temp = new DrawInfo(indx, 0, 1, 0, (int)(indx < 1) | depthTest | clearDepth, next_property_id);
             next_property_id <<= 1;
             drawInfos.emplace_back(temp);
             indx++;
         }
     }
 
-    if (menu)
-    {
-        menu->callback_draw_viewer_menu = [&]()
-        {
-            // Draw parent menu content
-            auto temp = Eigen::Vector4i(0,0,0,0); // set imgui to min size and top left corner
-            menu->draw_viewer_menu(scn,cameras,temp, drawInfos);
-        };
-    }
+    //if (menu)
+    //{
+    //    menu->callback_draw_viewer_menu = [&]()
+    //    {
+    //        // Draw parent menu content
+    //        auto temp = Eigen::Vector4i(0, 0, 0, 0); // set imgui to min size and top left corner
+    //        menu->draw_viewer_menu(scn, cameras, temp, drawInfos);
+    //    };
+    //}
 }
-
-

@@ -6,6 +6,12 @@
 
 using namespace std;
 
+namespace igl
+{
+
+namespace opengl
+{
+
 class Shader
 {
 public:
@@ -36,3 +42,7 @@ private:
 	void operator=(const Shader& shader) = delete;
 	Shader(const Shader& shader) = delete;
 };
+
+} // opengl
+
+} // igl

@@ -8,6 +8,9 @@ using namespace std;
 
 using Eigen::Vector2cf;
 
+//using namespace igl::opengl;
+
+
 complex<float> NewtonCubicRoot(complex<float> num)
 {
 	complex<float> root = num;
@@ -81,7 +84,7 @@ void Assignment1::Init(int init_width, int init_height)
 	width = init_width;
 	height = init_height;
 	
-	AddShape(Plane, -1, move(make_shared<Material>("shaders/shader", next_data_id++)));
+	AddShape(Plane, -1, move(make_shared<igl::opengl::Material>("shaders/shader", next_data_id++)));
 
 	cout.precision(3);
 
@@ -101,7 +104,7 @@ void Assignment1::CalcRoots()
 		<< " roots: " << roots[0] << ", " << roots[1] << ", " << roots[2] << endl;
 }
 
-void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
+void Assignment1::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const igl::opengl::Program> p)
 {
 	p->SetUniformMatrix4f("Proj", &Proj);
 	p->SetUniformMatrix4f("View", &View);

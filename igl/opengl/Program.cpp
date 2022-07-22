@@ -5,6 +5,12 @@
 #include <fstream>
 #include <sstream>
 
+namespace igl
+{
+
+namespace opengl
+{
+
 Program::Program(const string& fileName, unsigned int id, bool overlay, bool warnings) :
 	Program(move(make_shared<Shader>(GL_VERTEX_SHADER, ReadFile(fileName + ".vs"))),
 		move(make_shared<Shader>(GL_FRAGMENT_SHADER, ReadFile(fileName + ".glsl"))), id, overlay, warnings)
@@ -199,3 +205,7 @@ int Program::GetUniformLocation(const string& name) const
 	m_uniformLocationCache[name] = location;
 	return location;
 }
+
+} // opengl
+
+} // igl

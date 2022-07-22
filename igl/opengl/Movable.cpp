@@ -1,9 +1,19 @@
 #include "Movable.h"
 #include <iostream>
+#include <cmath>
+
+using namespace Eigen;
+
+namespace igl
+{
+
+namespace opengl
+{
+
 Movable::Movable()
 {
-	Tout = Eigen::Affine3d::Identity();
-	Tin = Eigen::Affine3d::Identity();
+	Tout = Affine3d::Identity();
+	Tin = Affine3d::Identity();
 }
 
 Movable::Movable(const Movable& mov)
@@ -12,79 +22,91 @@ Movable::Movable(const Movable& mov)
 	Tin = mov.Tin;
 }
 
-Eigen::Matrix4f Movable::MakeTransScale()
+Matrix4f Movable::MakeTransScale()
 {
-	return (Tout.matrix()*Tin.matrix()).cast<float>();
+	return (Tout.matrix() * Tin.matrix()).cast<float>();
 }
 
-Eigen::Matrix4d Movable::MakeTransScaled()
+Matrix4d Movable::MakeTransScaled()
 {
 	return (Tout.matrix() * Tin.matrix());
 }
 
 
-Eigen::Matrix4d Movable::MakeTransd()
+Matrix4d Movable::MakeTransd()
 {
-	Eigen::Matrix4d mat = Eigen::Matrix4d::Identity();
+	Matrix4d mat = Matrix4d::Identity();
 	mat.col(3) << Tin.translation(), 1;
 
 	return (Tout.matrix() * mat);
 }
 
-void Movable::MyTranslate(Eigen::Vector3d amt, bool preRotation)
+void Movable::Translate(Vector3d amt, bool preRotation)
 {
-	
-	if(preRotation)
+
+	if (preRotation)
 		Tout.pretranslate(amt);
 	else
 		Tin.pretranslate(amt);
 }
-void Movable::TranslateInSystem(Eigen::Matrix3d rot, Eigen::Vector3d amt)
+void Movable::TranslateInSystem(Matrix3d rot, Vector3d amt)
 {
-	Tout.pretranslate(rot.transpose()*amt);
+	Tout.pretranslate(rot.transpose() * amt);
 }
 
-void Movable::SetCenterOfRotation(Eigen::Vector3d amt)
+void Movable::SetCenterOfRotation(Vector3d amt)
 {
 	Tout.pretranslate(amt);
 	Tin.pretranslate(-amt);
 }
 
-void Movable::MyRotate(const Eigen::Vector3d& rotAxis, double angle, int mode)
+void Movable::Rotate(const Vector3d& rotAxis, double angle, int mode)
 {
-    if(mode == 1)
-        RotateInSystem(rotAxis,angle);
-    else
-        MyRotate(rotAxis,angle);
+	if (mode == 1)
+		RotateInSystem(rotAxis, angle);
+	else
+		Rotate(rotAxis, angle);
 }
 
 
 //angle in radians
-void Movable::MyRotate(Eigen::Vector3d rotAxis, double angle)
+void Movable::Rotate(Vector3d rotAxis, double angle)
 {
-	Tout.rotate(Eigen::AngleAxisd(angle, rotAxis.normalized()));
+	Tout.rotate(AngleAxisd(angle, rotAxis.normalized()));
 }
 
-void Movable::RotateInSystem(Eigen::Vector3d rotAxis, double angle)
+void Movable::RotateInSystem(Vector3d rotAxis, double angle)
 {
-	Tout.rotate(Eigen::AngleAxisd(angle, Tout.rotation().transpose()*(rotAxis.normalized())));
+	Tout.rotate(AngleAxisd(angle, Tout.rotation().transpose() * (rotAxis.normalized())));
 }
 
-void Movable::MyRotate(const Eigen::Matrix3d& rot)
+void Movable::Rotate(const Matrix3d& rot)
 {
 	Tout.rotate(rot);
 }
 
-void Movable::MyScale(Eigen::Vector3d amt)
+void Movable::Scale(float factor, Axis axis)
 {
-	Tin.scale(amt);
+	if (abs(factor) < 1e-5)
+		return; // factor is too small
+
+	Vector3d factorVec(
+		axis == Axis::X || axis == Axis::All ? factor : 1,
+		axis == Axis::Y || axis == Axis::All ? factor : 1,
+		axis == Axis::Z || axis == Axis::All ? factor : 1
+	);
+
+	Tin.scale(factorVec);
 }
 
 void Movable::ZeroTrans() {
-    Tin = Eigen::Affine3d::Identity();
-    Tout = Eigen::Affine3d::Identity();
+	Tin = Affine3d::Identity();
+	Tout = Affine3d::Identity();
 }
 
+} // opengl
+
+} // igl
 
 
 
@@ -111,26 +133,26 @@ void Movable::ZeroTrans() {
 
 
 
-//void Movable::TranslateInSystem(Eigen::Matrix4d Mat, Eigen::Vector3d amt, bool preRotation)
+//void Movable::TranslateInSystem(Matrix4d Mat, Vector3d amt, bool preRotation)
 //{
-//	Eigen::Vector3d v = Mat.transpose().block<3, 3>(0, 0) * amt; //transpose instead of inverse
-//	MyTranslate(v, preRotation);
+//	Vector3d v = Mat.transpose().block<3, 3>(0, 0) * amt; //transpose instead of inverse
+//	Translate(v, preRotation);
 //}
 //
-//void Movable::RotateInSystem(Eigen::Matrix4d Mat, Eigen::Vector3d rotAxis, double angle)
+//void Movable::RotateInSystem(Matrix4d Mat, Vector3d rotAxis, double angle)
 //{
-//	Eigen::Vector3d v = Mat.transpose().block<3, 3>(0, 0) * rotAxis; //transpose instead of inverse
-//	MyRotate(v.normalized(), angle);
+//	Vector3d v = Mat.transpose().block<3, 3>(0, 0) * rotAxis; //transpose instead of inverse
+//	Rotate(v.normalized(), angle);
 //}
 //
 //
-//void Movable::SetCenterOfRotation(Eigen::Vector3d amt)
+//void Movable::SetCenterOfRotation(Vector3d amt)
 //{
 //	Tout.pretranslate(Tout.rotation().matrix().block<3, 3>(0, 0) * amt);
 //	Tin.translate(-amt);
 //}
 //
-//Eigen::Vector3d Movable::GetCenterOfRotation()
+//Vector3d Movable::GetCenterOfRotation()
 //{
 //	return Tin.translation();
 //}

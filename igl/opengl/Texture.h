@@ -3,6 +3,12 @@
 
 using std::string;
 
+namespace igl
+{
+
+namespace opengl
+{
+
 class Texture
 {
 public:
@@ -40,3 +46,7 @@ private:
      int m_dim;
      int m_type = 0;
 };
+
+} // opengl
+
+} // igl

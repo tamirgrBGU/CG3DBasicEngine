@@ -3,10 +3,17 @@
 #include <Eigen/Geometry>
 #include <Eigen/Dense>
 
+namespace igl
+{
+
+namespace opengl
+{
 
 class Movable
 {
 public:
+	enum class Axis { X, Y, Z, All, Reset }; // TODO: separate to 2 enums?
+
 	enum{preRot,postRot,phiRot,thetaRot,psiRot,psiPhiRot};
 
 	Movable();
@@ -14,15 +21,15 @@ public:
 	Eigen::Matrix4f MakeTransScale();
 	Eigen::Matrix4d MakeTransd();
 	Eigen::Matrix4d MakeTransScaled();
-	void MyTranslate(Eigen::Vector3d amt, bool preRotation);
+	void Translate(Eigen::Vector3d amt, bool preRotation);
 	void TranslateInSystem(Eigen::Matrix3d rot, Eigen::Vector3d amt);
 	Eigen::Matrix3d GetRotation() { return Tout.rotation(); }
 	void SetCenterOfRotation(Eigen::Vector3d amt);
-    void MyRotate(const Eigen::Vector3d& rotAxis, double angle, int mode);
-    void MyRotate(Eigen::Vector3d rotAxis, double angle);
+    void Rotate(const Eigen::Vector3d& rotAxis, double angle, int mode);
+    void Rotate(Eigen::Vector3d rotAxis, double angle);
     void RotateInSystem(Eigen::Vector3d rotAxis, double angle);
-    void MyRotate(const Eigen::Matrix3d &rot);
-    void MyScale(Eigen::Vector3d amt);
+    void Rotate(const Eigen::Matrix3d &rot);
+    void Scale(float factor, Axis axis = Axis::All);
 
 	void ZeroTrans();
 
@@ -33,3 +40,7 @@ private:
 	Eigen::Affine3d Tout,Tin;
 };
 
+
+} // opengl
+
+} // igl

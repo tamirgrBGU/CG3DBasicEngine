@@ -11,7 +11,6 @@
 #include "MeshGL.h"
 #include "glfw/VertexArray.hpp"
 #include "Program.h"
-#include "Material.h"
 #include <igl/igl_inline.h>
 #include <igl/colormap.h>
 #include <cassert>
@@ -20,6 +19,7 @@
 #include <Eigen/Core>
 #include <memory>
 #include <vector>
+#include <igl/opengl/Shape.h>
 
 // Alec: This is a mesh class containing a variety of data types (normals,
 // overlays, material colors, etc.)
@@ -41,7 +41,7 @@ namespace opengl
 // Forward declaration
 class ViewerCore;
 
-class ViewerData : public Movable
+class ViewerData
 {
 private:
 	unsigned int materialID;
@@ -50,47 +50,47 @@ private:
 
 public:
 
-	shared_ptr<Material> m_material; // TODO: TAL: do something with this...
+	shared_ptr<Shape> shape;
 
 	ViewerData();
-	IGL_INLINE void Draw(const Program* program, bool solid);
+	void Draw(const Program* program, bool solid);
 	/* TAL: removing getter and setter as a first step to get rid of these ids
-	IGL_INLINE void SetShader(const int id) { shaderID = id; }
-	IGL_INLINE int BindProgram() const{
+	void SetShader(const int id) { shaderID = id; }
+	int BindProgram() const{
 		return shaderID;
 	}
 	*/
   // Empty all fields
-	IGL_INLINE void clear();
+	void clear();
 
 	// Change the visualization mode, invalidating the cache if necessary
-	IGL_INLINE void set_face_based(bool newvalue);
+	void set_face_based(bool newvalue);
 
 	// Helpers that can draw the most common meshes
-	IGL_INLINE void set_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F);
-	IGL_INLINE void set_vertices(const Eigen::MatrixXd& V);
-	IGL_INLINE void set_normals(const Eigen::MatrixXd& N);
+	void set_mesh(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F);
+	void set_vertices(const Eigen::MatrixXd& V);
+	void set_normals(const Eigen::MatrixXd& N);
 
-	IGL_INLINE void set_visible(bool value, unsigned int property_id = 1);
+	void set_visible(bool value, unsigned int property_id = 1);
 
 	// Set the color of the mesh
 	//
 	// Inputs:
 	//   C  #V|#F|1 by 3 list of colors
-	IGL_INLINE void set_colors(const Eigen::MatrixXd& C); // TODO: TAL: remove
+	void set_colors(const Eigen::MatrixXd& C); // TODO: TAL: remove
 
 	// Set per-vertex UV coordinates
 	//
 	// Inputs:
 	//   UV  #V by 2 list of UV coordinates (indexed by F)
-	IGL_INLINE void set_uv(const Eigen::MatrixXd& UV);
+	void set_uv(const Eigen::MatrixXd& UV);
 
 	// Set per-corner UV coordinates
 	//
 	// Inputs:
 	//   UV_V  #UV by 2 list of UV coordinates
 	//   UV_F  #F by 3 list of UV indices into UV_V
-	IGL_INLINE void set_uv(const Eigen::MatrixXd& UV_V, const Eigen::MatrixXi& UV_F);
+	void set_uv(const Eigen::MatrixXd& UV_V, const Eigen::MatrixXi& UV_F);
 
 	// Set the texture associated with the mesh.
 	//
@@ -99,7 +99,7 @@ public:
 	//   G  width by height image matrix of green channel
 	//   B  width by height image matrix of blue channel
 	//
-	IGL_INLINE void set_texture( // TODO: TAL: remove?
+	void set_texture( // TODO: TAL: remove?
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& R,
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& G,
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& B);
@@ -112,7 +112,7 @@ public:
 	  //   B  width by height image matrix of blue channel
 	  //   A  width by height image matrix of alpha channel
 	  //
-	IGL_INLINE void set_texture( // TODO: TAL: remove?
+	void set_texture( // TODO: TAL: remove?
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& R,
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& G,
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& B,
@@ -128,7 +128,7 @@ public:
 	  //   num_steps number of intervals to discretize the colormap
 	  //
 	  // To-do: support #F by 1 per-face data
-	IGL_INLINE void set_data(
+	void set_data(
 		const Eigen::VectorXd& D,
 		double caxis_min,
 		double caxis_max,
@@ -136,7 +136,7 @@ public:
 		int num_steps = 21);
 
 	  // Use min(D) and max(D) to set caxis.
-	IGL_INLINE void set_data(const Eigen::VectorXd& D,
+	void set_data(const Eigen::VectorXd& D,
 		igl::ColorMapType cmap = igl::COLOR_MAP_TYPE_VIRIDIS,
 		int num_steps = 21);
 
@@ -145,7 +145,7 @@ public:
 	  //
 	  // Inputs:
 	  //   CM  #CM by 3 list of colors
-	IGL_INLINE void set_colormap(const Eigen::MatrixXd& CM); // TODO: TAL: remove
+	void set_colormap(const Eigen::MatrixXd& CM); // TODO: TAL: remove
 
 	// Sets points given a list of point vertices. In constrast to `add_points`
 	// this will (purposefully) clober existing points.
@@ -153,13 +153,13 @@ public:
 	// Inputs:
 	//   P  #P by 3 list of vertex positions
 	//   C  #P|1 by 3 color(s)
-	IGL_INLINE void set_points(
+	void set_points(
 		const Eigen::MatrixXd& P,
 		const Eigen::MatrixXd& C);
-	IGL_INLINE void add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C);
+	void add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C);
 
 	// Clear the point data
-	IGL_INLINE void clear_points();
+	void clear_points();
 
 	// Sets edges given a list of edge vertices and edge indices. In constrast
 	// to `add_edges` this will (purposefully) clober existing edges.
@@ -169,53 +169,51 @@ public:
 	//   E  #E by 2 list of edge indices into P
 	//   C  #E|1 by 3 color(s)
 
-	IGL_INLINE void set_edges(const Eigen::MatrixXd& P, const Eigen::MatrixXi& E, const Eigen::MatrixXd& C);
+	void set_edges(const Eigen::MatrixXd& P, const Eigen::MatrixXi& E, const Eigen::MatrixXd& C);
 	// Alec: This is very confusing. Why does add_edges have a different API from
 	// set_edges?
-	IGL_INLINE void add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C);
+	void add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C);
 	// Sets edges given a list of points and eminating vectors
-	IGL_INLINE void set_edges_from_vector_field(
+	void set_edges_from_vector_field(
 		const Eigen::MatrixXd& P,
 		const Eigen::MatrixXd& V,
 		const Eigen::MatrixXd& C);
 
 	  // Clear the edge data
-	IGL_INLINE void clear_edges();
+	void clear_edges();
 
 	// Sets / Adds text labels at the given positions in 3D.
 	// Note: This requires the ImGui viewer plugin to display text labels.
-	IGL_INLINE void add_label(const Eigen::VectorXd& P, const std::string& str);
-	IGL_INLINE void set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str);
+	void add_label(const Eigen::VectorXd& P, const std::string& str);
+	void set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str);
 
 	// Clear the label data
-	IGL_INLINE void clear_labels();
+	void clear_labels();
 
 	// Computes the normals of the mesh
-	IGL_INLINE void compute_normals();
+	void compute_normals();
 
 	// Assigns uniform colors to all faces/vertices
-	IGL_INLINE void uniform_colors(
+	void uniform_colors(
 		const Eigen::Vector3d& diffuse,
 		const Eigen::Vector3d& ambient,
 		const Eigen::Vector3d& specular);
 
 	  // Assigns uniform colors to all faces/vertices
-	IGL_INLINE void uniform_colors(
+	void uniform_colors(
 		const Eigen::Vector4d& ambient,
 		const Eigen::Vector4d& diffuse,
 		const Eigen::Vector4d& specular);
 
 	  // Generate a normal image matcap
-	IGL_INLINE void normal_matcap();
+	void normal_matcap();
 
 	// Generates a default grid texture (without uvs)
-	IGL_INLINE void grid_texture();
-  //  IGL_INLINE void image_texture(const std::string& fileName );
+	void grid_texture();
+  //  void image_texture(const std::string& fileName );
 
 	// Copy visualization options from one viewport to another
-	// IGL_INLINE void copy_options(const ViewerCore &from, const ViewerCore &to);
-	IGL_INLINE void SetMaterial(const unsigned int id) { materialID = id; }
-	IGL_INLINE unsigned int GetMaterial() { return materialID; }
+	// void copy_options(const ViewerCore &from, const ViewerCore &to);
 	Eigen::MatrixXd V; // Vertices of the current mesh (#V x 3)
 	Eigen::MatrixXi F; // Faces of the mesh (#F x 3)
 
@@ -315,19 +313,19 @@ public:
 	igl::opengl::MeshGL meshgl; // TODO: TAL: remove?
 
 	// Update contents from a 'Data' instance
-	IGL_INLINE void update_labels(
+	void update_labels(
 		igl::opengl::MeshGL& meshgl,
 		igl::opengl::MeshGL::TextGL& GL_labels,
 		const Eigen::MatrixXd& positions,
 		const std::vector<std::string>& strings
 	);
-	IGL_INLINE void updateGL(const bool invert_normals, igl::opengl::MeshGL& meshgl);
+	void updateGL(const bool invert_normals, igl::opengl::MeshGL& meshgl);
 
-	IGL_INLINE void AddViewport(int viewport) { viewports = viewports | (1 << viewport); } // TODO: TAL: maybe move
+	void AddViewport(int viewport) { viewports = viewports | (1 << viewport); } // TODO: TAL: maybe move
 
-	IGL_INLINE void RemoveViewport(int viewport) { viewports = viewports & ~(1 << viewport); } // TODO: TAL: maybe move
+	void RemoveViewport(int viewport) { viewports = viewports & ~(1 << viewport); } // TODO: TAL: maybe move
 
-	IGL_INLINE bool Is2Render(int viewport) { return  (viewports & (1 << viewport)) && !hide; } // TODO: TAL: maybe move
+	bool Is2Render(int viewport) { return  (viewports & (1 << viewport)) && !hide; } // TODO: TAL: maybe move
 
 	inline bool IsStatic() { return isStatic; }
 	inline void SetStatic() { isStatic = !isStatic; }

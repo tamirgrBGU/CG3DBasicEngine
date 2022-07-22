@@ -8,6 +8,12 @@
 using namespace std;
 using namespace Eigen;
 
+namespace igl
+{
+
+namespace opengl
+{
+
 class Program
 {
 public:
@@ -107,3 +113,7 @@ private:
 		OV_COLOR,
 	};
 };
+
+} // opengl
+
+} // igl

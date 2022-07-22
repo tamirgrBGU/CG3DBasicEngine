@@ -1,10 +1,15 @@
 #include "Shader.h"
-#include "Shader.h"
 #include "Debug.h"
 #include "gl.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+namespace igl
+{
+
+namespace opengl
+{
 
 shared_ptr<const Shader> Shader::GetFixedColorFragmentShader()
 {
@@ -108,3 +113,7 @@ void Shader::CheckCompileStatus(unsigned int shader)
 	glGetShaderInfoLog(shader, sizeof(info), NULL, info);
 	debug("shader ", shader, " compile status: ", info[0] == 0 ? "no warnings or errors" : string("\n") + info);
 }
+
+} // opengl
+
+} // igl

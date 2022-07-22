@@ -3,6 +3,12 @@
 using std::make_shared;
 using std::move;
 
+namespace igl
+{
+
+namespace opengl
+{
+
 Material::Material(shared_ptr<const Program> program, bool overlay)
 {
 	// create another program for picking using the given program's vertex shader and the
@@ -46,3 +52,7 @@ shared_ptr<const Program> Material::BindFixedColorProgram() const
 
 	return m_fixedColorProgram;
 }
+
+} // opengl
+
+} // igl

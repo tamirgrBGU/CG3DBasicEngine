@@ -22,10 +22,10 @@ Assignment2::Assignment2()
 
 void Assignment2::Init()
 {
-	SetShapeStatic(AddShape(Plane, -1, move(make_shared<Material>("shaders/raytracingShader", next_data_id++))));
+	SetShapeStatic(AddShape(Plane, -1, move(make_shared<igl::opengl::Material>("shaders/raytracingShader", next_data_id++))));
 }
 
-void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> p)
+void Assignment2::Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const igl::opengl::Program> p)
 {
 	int r = ((p->GetId() + 1) & 0x000000FF) >> 0;
 	int g = ((p->GetId() + 1) & 0x0000FF00) >>  8;
@@ -105,7 +105,7 @@ void Assignment2::ScaleAllShapes(float amt,int viewportIndx)
 	{
 		if (data_list[i]->Is2Render(viewportIndx))
 		{
-            data_list[i]->MyScale(Eigen::Vector3d(amt, amt, amt));
+            data_list[i]->Scale(Eigen::Vector3d(amt, amt, amt));
 		}
 	}
 }
@@ -177,7 +177,7 @@ Assignment2::~Assignment2(void)
 		p->SetUniform4fv(#obj, 1, &sceneData.obj[i]); \
 	}
 
-void Assignment2::LoadSceneDataToProgram(Program* p)
+void Assignment2::LoadSceneDataToProgram(igl::opengl::Program* p)
 {
 	char var[20]; // for the LoadFloatArrayToShader macro
 

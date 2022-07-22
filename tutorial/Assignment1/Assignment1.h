@@ -6,6 +6,9 @@ using Eigen::Matrix4f;
 using Eigen::Vector4cf;
 using Eigen::Vector3cf;
 
+using igl::opengl::Program;
+using igl::opengl::Material;
+
 class Assignment1 : public igl::opengl::glfw::Viewer
 {
 	int active_coeff = 1;

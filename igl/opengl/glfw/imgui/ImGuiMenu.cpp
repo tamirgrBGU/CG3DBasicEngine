@@ -199,24 +199,8 @@ IGL_INLINE void ImGuiMenu::draw_viewer_menu(igl::opengl::glfw::Viewer *viewer, s
   {
     float w = ImGui::GetContentRegionAvailWidth();
     float p = ImGui::GetStyle().FramePadding.x;
-    if (ImGui::Button("Load##Mesh", ImVec2((w-p)/2.f, 0)))
-    {
-        int savedIndx = viewer->selected_data_index;
-      viewer->open_dialog_load_mesh();
-      if (viewer->data_list.size() > viewer->parents.size())
-      {
-          viewer->parents.push_back(-1);
-          viewer->data_list.back()->set_visible(false, 1);
-          viewer->data_list.back()->set_visible(true, 2);
-          viewer->data_list.back()->show_faces = 3;
-          viewer->selected_data_index = savedIndx;
-      }
-    }
+
     ImGui::SameLine(0, p);
-    if (ImGui::Button("Save##Mesh", ImVec2((w-p)/2.f, 0)))
-    {
-      viewer->open_dialog_save_mesh();
-    }
   }
 
   // Viewing options
@@ -269,10 +253,6 @@ IGL_INLINE void ImGuiMenu::draw_viewer_menu(igl::opengl::glfw::Viewer *viewer, s
   // Draw options
   if (ImGui::CollapsingHeader("Draw Options", ImGuiTreeNodeFlags_DefaultOpen))
   {
-    if (ImGui::Checkbox("Face-based", &(viewer->data()->face_based)))
-    {
-      viewer->data()->dirty = MeshGL::DIRTY_ALL;
-    }
 //
 //    make_checkbox("Show texture", viewer->data().show_texture);
 //    if (ImGui::Checkbox("Invert normals", &(viewer->data().invert_normals)))

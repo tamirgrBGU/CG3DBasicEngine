@@ -1,11 +1,16 @@
 #pragma once
+
 #include <vector>
 #include "Texture.h"
 #include "Program.h"
 
-using std::vector;
-using std::shared_ptr;
-using std::string;
+using namespace std;
+
+namespace igl
+{
+
+namespace opengl
+{
 
 class Material
 {
@@ -52,7 +57,7 @@ public:
 	 @retval  - a shared pointer to the program object
  **/
 	shared_ptr<const Program> BindProgram() const;
-	
+
  /**
 	 @brief Bind the picking material program
 	 @retval  - a shared pointer to the picking program object
@@ -60,3 +65,6 @@ public:
 	shared_ptr<const Program> BindFixedColorProgram() const;
 };
 
+} // opengl
+
+} // igl

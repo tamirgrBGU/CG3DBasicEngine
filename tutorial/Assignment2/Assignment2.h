@@ -4,6 +4,9 @@
 
 using Eigen::Matrix4f;
 
+using igl::opengl::Program;
+using igl::opengl::Material;
+
 class Assignment2 : public igl::opengl::glfw::Viewer
 {
 	int xResolution, yResolution;
@@ -19,7 +22,7 @@ public:
 
 	Assignment2();
 	void Init();
-	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const Program> program);
+	void Update(const Matrix4f& Proj, const Matrix4f& View, const Matrix4f& Model, shared_ptr<const igl::opengl::Program> program);
 	void SetPosition(int x, int y);
 	void WhenRotate();
 	void WhenTranslate();

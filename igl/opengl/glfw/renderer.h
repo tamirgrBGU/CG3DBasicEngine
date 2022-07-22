@@ -2,19 +2,16 @@
 #include <igl/igl_inline.h>
 #include <vector>
 #include <functional>
-//#include <igl/opengl/ViewerCore.h>
 #include "DrawInfo.h"
 #include <igl/opengl/glfw/Viewer.h>
-#include <igl/opengl/glfw/imgui/ImGuiMenu.h>
-#include <igl/opengl/glfw/imgui/ImGuiHelpers.h>
-#include <../imgui/imgui.h>
+//#include <igl/opengl/glfw/imgui/ImGuiMenu.h>
+//#include <igl/opengl/glfw/imgui/ImGuiHelpers.h>
+//#include <../imgui/imgui.h>
 #include "../DrawBuffer.h"
 #include "../Camera.h"
 #include "../ViewerData.h"
 
 struct GLFWwindow;
-
-
 
 class Renderer 
 {
@@ -179,10 +176,9 @@ public:
     }
     inline bool IsPicked() { return isPicked; }
     inline bool IsMany() const { return isMany; }
-    void Init(igl::opengl::glfw::Viewer *scene, std::list<int> xViewport, std::list<int> yViewport, int pickingBits,igl::opengl::glfw::imgui::ImGuiMenu *_menu);
+    void Init(igl::opengl::glfw::Viewer *scene, std::list<int> xViewport, std::list<int> yViewport, int pickingBits);
 
-
-private:
+protected:
     // Stores all the viewing options
 //    std::vector<igl::opengl::ViewerCore> core_list;
     std::vector<igl::opengl::Camera*> cameras;
@@ -205,7 +201,7 @@ private:
 	float depth;
 	unsigned int left_view, right_view;
 	double doubleVariable;
-	igl::opengl::glfw::imgui::ImGuiMenu* menu;
+	//igl::opengl::glfw::imgui::ImGuiMenu* menu;
 	double z;
 
     void draw_by_info(int info_index = 1);

@@ -8,6 +8,12 @@
 
 using namespace std;
 
+namespace igl
+{
+
+namespace opengl
+{
+
 Texture::Texture(const int dim) : m_dim(dim)
 {
 	assert(dim > 0 && dim < 4);
@@ -118,3 +124,7 @@ void Texture::Unbind(int slot)
 	glActiveTexture(GL_TEXTURE0 + slot);
 	glBindTexture(m_type, 0);
 }
+
+} // opengl
+
+} // igl

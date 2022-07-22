@@ -2,7 +2,6 @@
 #define SRC_VERTEXARRAY_HPP_
 #include "VertexBuffer.hpp"
 #include "IndexBuffer.hpp"
-#include "shader.h"
 
 class VertexArray{
 private:

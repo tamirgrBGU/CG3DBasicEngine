@@ -51,7 +51,7 @@ void Assignment3::ScaleAllShapes(float amt,int viewportIndx)
 	{
 		if (data_list[i]->Is2Render(viewportIndx))
 		{
-            data_list[i]->MyScale(Eigen::Vector3d(amt, amt, amt));
+            data_list[i]->Scale(Eigen::Vector3d(amt, amt, amt));
 		}
 	}
 }
