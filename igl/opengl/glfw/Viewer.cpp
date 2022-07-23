@@ -181,9 +181,6 @@ ViewerData* Viewer::AddViewerData(shared_ptr<const Mesh> mesh, shared_ptr<const 
 	d->set_uv(mesh->V_uv);
 	d->set_normals(mesh->V_normals);
 	//d->compute_normals(); // TODO: TAL: does this needs to be called if V_normals is empty?
-	d->uniform_colors(Vector3d(255.0 / 255.0, 255.0 / 255.0, 0.0 / 255.0),
-		Vector3d(255.0 / 255.0, 228.0 / 255.0, 58.0 / 255.0),
-		Vector3d(255.0 / 255.0, 235.0 / 255.0, 80.0 / 255.0));
 	// Elik: why?
 	if (d->V_uv.rows() == 0)
 	{
@@ -242,8 +239,6 @@ shared_ptr<Shape> Viewer::AddShape(int type, shared_ptr<const Material> material
 		d->is_visible = 0;
 		d->show_faces = 0;
 		d->show_overlay = 0xFF;
-		d->add_edges((RowVector3d::UnitX() * 4), -(RowVector3d::UnitX() * 4), RowVector3d(255, 0, 0));
-		d->add_edges((RowVector3d::UnitY() * 4), -(RowVector3d::UnitY() * 4), RowVector3d(0, 255, 0));
 	}
 	return d->shape;
 }

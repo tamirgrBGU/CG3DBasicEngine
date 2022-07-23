@@ -84,10 +84,6 @@ void ViewerData::set_mesh(const Eigen::MatrixXd& _V, const Eigen::MatrixXi& _F)
 		F = _F;
 
 		compute_normals();
-		uniform_colors(
-			Eigen::Vector3d(GOLD_AMBIENT[0], GOLD_AMBIENT[1], GOLD_AMBIENT[2]),
-			Eigen::Vector3d(GOLD_DIFFUSE[0], GOLD_DIFFUSE[1], GOLD_DIFFUSE[2]),
-			Eigen::Vector3d(GOLD_SPECULAR[0], GOLD_SPECULAR[1], GOLD_SPECULAR[2]));
 		grid_texture();
 	}
 	else
@@ -136,91 +132,6 @@ void ViewerData::set_visible(bool value, unsigned int property_id /*= 1*/)
 		is_visible &= ~property_id;
 }
 
-void ViewerData::set_colors(const Eigen::MatrixXd& C)
-{
-	using namespace std;
-	using namespace Eigen;
-	// This Gouraud coloring should be deprecated in favor of Phong coloring in
-	// set-data
-	if (C.rows() > 0 && C.cols() == 1)
-	{
-		Eigen::MatrixXd C3;
-		igl::parula(C, true, C3);
-		return set_colors(C3);
-	}
-	// Ambient color should be darker color
-	const auto ambient = [](const MatrixXd& C)->MatrixXd
-	{
-		MatrixXd T = 0.1 * C;
-		T.col(3) = C.col(3);
-		return T;
-	};
-	// Specular color should be a less saturated and darker color: dampened
-	// highlights
-	const auto specular = [](const MatrixXd& C)->MatrixXd
-	{
-		const double grey = 0.3;
-		MatrixXd T = grey + 0.1 * (C.array() - grey);
-		T.col(3) = C.col(3);
-		return T;
-	};
-	if (C.rows() == 1)
-	{
-		for (unsigned i = 0; i < V_material_diffuse.rows(); ++i)
-		{
-			if (C.cols() == 3)
-				V_material_diffuse.row(i) << C.row(0), 1;
-			else if (C.cols() == 4)
-				V_material_diffuse.row(i) << C.row(0);
-		}
-		V_material_ambient = ambient(V_material_diffuse);
-		V_material_specular = specular(V_material_diffuse);
-
-		for (unsigned i = 0; i < F_material_diffuse.rows(); ++i)
-		{
-			if (C.cols() == 3)
-				F_material_diffuse.row(i) << C.row(0), 1;
-			else if (C.cols() == 4)
-				F_material_diffuse.row(i) << C.row(0);
-		}
-		F_material_ambient = ambient(F_material_diffuse);
-		F_material_specular = specular(F_material_diffuse);
-	}
-	else if (C.rows() == V.rows() || C.rows() == F.rows())
-	{
-	  // face based colors?
-		if ((C.rows() == F.rows()) && (C.rows() != V.rows() || face_based))
-		{
-			set_face_based(true);
-			for (unsigned i = 0; i < F_material_diffuse.rows(); ++i)
-			{
-				if (C.cols() == 3)
-					F_material_diffuse.row(i) << C.row(i), 1;
-				else if (C.cols() == 4)
-					F_material_diffuse.row(i) << C.row(i);
-			}
-			F_material_ambient = ambient(F_material_diffuse);
-			F_material_specular = specular(F_material_diffuse);
-		}
-		else/*(C.rows() == V.rows())*/
-		{
-			set_face_based(false);
-			for (unsigned i = 0; i < V_material_diffuse.rows(); ++i)
-			{
-				if (C.cols() == 3)
-					V_material_diffuse.row(i) << C.row(i), 1;
-				else if (C.cols() == 4)
-					V_material_diffuse.row(i) << C.row(i);
-			}
-			V_material_ambient = ambient(V_material_diffuse);
-			V_material_specular = specular(V_material_diffuse);
-		}
-	}
-	else
-		cerr << "ERROR (set_colors): Please provide a single color, or a color per face or per vertex." << endl;
-	dirty |= MeshGL::DIRTY_DIFFUSE | MeshGL::DIRTY_SPECULAR | MeshGL::DIRTY_AMBIENT;
-}
-
 void ViewerData::set_uv(const Eigen::MatrixXd& UV)
 {
 	using namespace std;
@@ -265,191 +176,6 @@ void ViewerData::set_texture(
 	texture_B = B;
 	texture_A = A;
 	dirty |= MeshGL::DIRTY_TEXTURE;
-}
-
-void ViewerData::set_data(
-	const Eigen::VectorXd& D,
-	double caxis_min,
-	double caxis_max,
-	igl::ColorMapType cmap,
-	int num_steps)
-{
-	if (!show_texture)
-	{
-		Eigen::MatrixXd CM;
-		igl::colormap(cmap, Eigen::VectorXd::LinSpaced(num_steps, 0, 1).eval(), 0, 1, CM);
-		set_colormap(CM);
-	}
-	set_uv(((D.array() - caxis_min) / (caxis_max - caxis_min)).replicate(1, 2));
-}
-
-void ViewerData::set_data(const Eigen::VectorXd& D, igl::ColorMapType cmap, int num_steps)
-{
-	const double caxis_min = D.minCoeff();
-	const double caxis_max = D.maxCoeff();
-	return set_data(D, caxis_min, caxis_max, cmap, num_steps);
-}
-
-void ViewerData::set_colormap(const Eigen::MatrixXd& CM)
-{
-	assert(CM.cols() == 3 && "colormap CM should have 3 columns");
-	// Convert to R,G,B textures
-	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> R =
-		(CM.col(0) * 255.0).cast<unsigned char>();
-	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> G =
-		(CM.col(1) * 255.0).cast<unsigned char>();
-	const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic> B =
-		(CM.col(2) * 255.0).cast<unsigned char>();
-	set_colors(Eigen::RowVector3d(1, 1, 1));
-	set_texture(R, G, B);
-	show_texture = ~unsigned(0);
-	meshgl.tex_filter = GL_NEAREST;
-	meshgl.tex_wrap = GL_CLAMP_TO_EDGE;
-}
-
-void ViewerData::set_points(
-	const Eigen::MatrixXd& P,
-	const Eigen::MatrixXd& C)
-{
-  // clear existing points
-	points.resize(0, 0);
-	add_points(P, C);
-}
-
-void ViewerData::add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C)
-{
-	Eigen::MatrixXd P_temp;
-
-	// If P only has two columns, pad with a column of zeros
-	if (P.cols() == 2)
-	{
-		P_temp = Eigen::MatrixXd::Zero(P.rows(), 3);
-		P_temp.block(0, 0, P.rows(), 2) = P;
-	}
-	else
-		P_temp = P;
-
-	int lastid = points.rows();
-	points.conservativeResize(points.rows() + P_temp.rows(), 6);
-	for (unsigned i = 0; i < P_temp.rows(); ++i)
-		points.row(lastid + i) << P_temp.row(i), i < C.rows() ? C.row(i) : C.row(C.rows() - 1);
-
-	dirty |= MeshGL::DIRTY_OVERLAY_POINTS;
-}
-
-void ViewerData::clear_points()
-{
-	points.resize(0, 6);
-}
-
-void ViewerData::set_edges(
-	const Eigen::MatrixXd& P,
-	const Eigen::MatrixXi& E,
-	const Eigen::MatrixXd& C)
-{
-	using namespace Eigen;
-	lines.resize(E.rows(), 9);
-	assert(C.cols() == 3);
-	for (int e = 0; e < E.rows(); e++)
-	{
-		RowVector3d color;
-		if (C.size() == 3)
-		{
-			color << C;
-		}
-		else if (C.rows() == E.rows())
-		{
-			color << C.row(e);
-		}
-		lines.row(e) << P.row(E(e, 0)), P.row(E(e, 1)), color;
-	}
-	dirty |= MeshGL::DIRTY_OVERLAY_LINES;
-}
-
-void ViewerData::set_edges_from_vector_field(
-	const Eigen::MatrixXd& P,
-	const Eigen::MatrixXd& V,
-	const Eigen::MatrixXd& C)
-{
-	assert(P.rows() == V.rows());
-	Eigen::MatrixXi E(P.rows(), 2);
-	const Eigen::MatrixXd PV =
-		(Eigen::MatrixXd(P.rows() + V.rows(), 3) << P, P + V).finished();
-	for (int i = 0; i < P.rows(); i++)
-	{
-		E(i, 0) = i;
-		E(i, 1) = i + P.rows();
-	}
-	const Eigen::MatrixXd CC = C.replicate<2, 1>();
-	set_edges(PV, E, C.rows() == 1 ? C : C.replicate<2, 1>());
-}
-
-void ViewerData::add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C)
-{
-	Eigen::MatrixXd P1_temp, P2_temp;
-
-	// If P1 only has two columns, pad with a column of zeros
-	if (P1.cols() == 2)
-	{
-		P1_temp = Eigen::MatrixXd::Zero(P1.rows(), 3);
-		P1_temp.block(0, 0, P1.rows(), 2) = P1;
-		P2_temp = Eigen::MatrixXd::Zero(P2.rows(), 3);
-		P2_temp.block(0, 0, P2.rows(), 2) = P2;
-	}
-	else
-	{
-		P1_temp = P1;
-		P2_temp = P2;
-	}
-
-	int lastid = lines.rows();
-	lines.conservativeResize(lines.rows() + P1_temp.rows(), 9);
-	for (unsigned i = 0; i < P1_temp.rows(); ++i)
-		lines.row(lastid + i) << P1_temp.row(i), P2_temp.row(i), i < C.rows() ? C.row(i) : C.row(C.rows() - 1);
-
-	dirty |= MeshGL::DIRTY_OVERLAY_LINES;
-}
-
-void ViewerData::clear_edges()
-{
-	lines.resize(0, 9);
-}
-
-void ViewerData::add_label(const Eigen::VectorXd& P, const std::string& str)
-{
-	Eigen::RowVectorXd P_temp;
-
-	// If P only has two columns, pad with a column of zeros
-	if (P.size() == 2)
-	{
-		P_temp = Eigen::RowVectorXd::Zero(3);
-		P_temp << P.transpose(), 0;
-	}
-	else
-		P_temp = P;
-
-	int lastid = labels_positions.rows();
-	labels_positions.conservativeResize(lastid + 1, 3);
-	labels_positions.row(lastid) = P_temp;
-	labels_strings.push_back(str);
-
-	dirty |= MeshGL::DIRTY_CUSTOM_LABELS;
-}
-
-void ViewerData::set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str)
-{
-	assert(P.rows() == str.size() && "position # and label # do not match!");
-	assert(P.cols() == 3 && "dimension of label positions incorrect!");
-	labels_positions = P;
-	labels_strings = str;
-
-	dirty |= MeshGL::DIRTY_CUSTOM_LABELS;
-}
-
-void ViewerData::clear_labels()
-{
-	labels_positions.resize(0, 3);
-	labels_strings.clear();
 }
 
 void ViewerData::clear()
@@ -502,51 +228,6 @@ void ViewerData::compute_normals()
 		igl::per_vertex_normals(V, F, F_normals, V_normals);
 	}
 	dirty |= MeshGL::DIRTY_NORMAL;
-}
-
-void ViewerData::uniform_colors(
-	const Eigen::Vector3d& ambient,
-	const Eigen::Vector3d& diffuse,
-	const Eigen::Vector3d& specular)
-{
-	Eigen::Vector4d ambient4;
-	Eigen::Vector4d diffuse4;
-	Eigen::Vector4d specular4;
-
-	ambient4 << ambient, 1;
-	diffuse4 << diffuse, 1;
-	specular4 << specular, 1;
-
-	uniform_colors(ambient4, diffuse4, specular4);
-}
-
-void ViewerData::uniform_colors(
-	const Eigen::Vector4d& ambient,
-	const Eigen::Vector4d& diffuse,
-	const Eigen::Vector4d& specular)
-{
-	V_material_ambient.resize(V.rows(), 4);
-	V_material_diffuse.resize(V.rows(), 4);
-	V_material_specular.resize(V.rows(), 4);
-
-	for (unsigned i = 0; i < V.rows(); ++i)
-	{
-		V_material_ambient.row(i) = ambient;
-		V_material_diffuse.row(i) = diffuse;
-		V_material_specular.row(i) = specular;
-	}
-
-	F_material_ambient.resize(F.rows(), 4);
-	F_material_diffuse.resize(F.rows(), 4);
-	F_material_specular.resize(F.rows(), 4);
-
-	for (unsigned i = 0; i < F.rows(); ++i)
-	{
-		F_material_ambient.row(i) = ambient;
-		F_material_diffuse.row(i) = diffuse;
-		F_material_specular.row(i) = specular;
-	}
-	dirty |= MeshGL::DIRTY_SPECULAR | MeshGL::DIRTY_DIFFUSE | MeshGL::DIRTY_AMBIENT;
 }
 
 void ViewerData::normal_matcap()
@@ -678,6 +359,17 @@ void ViewerData::updateGL(
 				X_vbo.row(i * 3 + j) = X.row(i).cast<float>();
 	};
 
+	const auto per_face_duplicate = [this](
+		const Eigen::MatrixXf& X,
+		MeshGL::RowMatrixXf& X_vbo)
+	{
+		assert(X.cols() == 4);
+		X_vbo.resize(this->F.rows() * 3, 4);
+		for (unsigned i = 0; i < this->F.rows(); ++i)
+			for (unsigned j = 0; j < 3; ++j)
+				X_vbo.row(i * 3 + j) = X;
+	};
+
 	// Input:
 	//   X  #V by dim quantity
 	// Output:
@@ -692,6 +384,16 @@ void ViewerData::updateGL(
 				X_vbo.row(i * 3 + j) = X.row(this->F(i, j)).cast<float>();
 	};
 
+	const auto per_corner_duplicate = [this](
+		const Eigen::MatrixXf& X,
+		MeshGL::RowMatrixXf& X_vbo)
+	{
+		X_vbo.resize(this->F.rows() * 3, X.cols());
+		for (unsigned i = 0; i < this->F.rows(); ++i)
+			for (unsigned j = 0; j < 3; ++j)
+				X_vbo.row(i * 3 + j) = X;
+	};
+	
 	if (!this->face_based)
 	{
 		if (!(per_corner_uv || per_corner_normals))
@@ -707,14 +409,6 @@ void ViewerData::updateGL(
 				if (invert_normals)
 					meshgl.V_normals_vbo = -meshgl.V_normals_vbo;
 			}
-
-			// Per-vertex material settings
-			if (meshgl.dirty & MeshGL::DIRTY_AMBIENT)
-				meshgl.V_ambient_vbo = this->V_material_ambient.cast<float>();
-			if (meshgl.dirty & MeshGL::DIRTY_DIFFUSE)
-				meshgl.V_diffuse_vbo = this->V_material_diffuse.cast<float>();
-			if (meshgl.dirty & MeshGL::DIRTY_SPECULAR)
-				meshgl.V_specular_vbo = this->V_material_specular.cast<float>();
 
 			  // Face indices
 			if (meshgl.dirty & MeshGL::DIRTY_FACE)
@@ -738,17 +432,17 @@ void ViewerData::updateGL(
 			if (meshgl.dirty & MeshGL::DIRTY_AMBIENT)
 			{
 				meshgl.V_ambient_vbo.resize(this->F.rows() * 3, 4);
-				per_corner(this->V_material_ambient, meshgl.V_ambient_vbo);
+				per_corner_duplicate(shape->GetAmbient(), meshgl.V_ambient_vbo);
 			}
 			if (meshgl.dirty & MeshGL::DIRTY_DIFFUSE)
 			{
 				meshgl.V_diffuse_vbo.resize(this->F.rows() * 3, 4);
-				per_corner(this->V_material_diffuse, meshgl.V_diffuse_vbo);
+				per_corner_duplicate(shape->GetDiffuse(), meshgl.V_diffuse_vbo);
 			}
 			if (meshgl.dirty & MeshGL::DIRTY_SPECULAR)
 			{
 				meshgl.V_specular_vbo.resize(this->F.rows() * 3, 4);
-				per_corner(this->V_material_specular, meshgl.V_specular_vbo);
+				per_corner_duplicate(shape->GetSpecular(), meshgl.V_specular_vbo);
 			}
 
 			if (meshgl.dirty & MeshGL::DIRTY_NORMAL)
@@ -786,15 +480,15 @@ void ViewerData::updateGL(
 		}
 		if (meshgl.dirty & MeshGL::DIRTY_AMBIENT)
 		{
-			per_face(this->F_material_ambient, meshgl.V_ambient_vbo);
+			per_face_duplicate(shape->GetAmbient(), meshgl.V_ambient_vbo);
 		}
 		if (meshgl.dirty & MeshGL::DIRTY_DIFFUSE)
 		{
-			per_face(this->F_material_diffuse, meshgl.V_diffuse_vbo);
+			per_face_duplicate(shape->GetDiffuse(), meshgl.V_diffuse_vbo);
 		}
 		if (meshgl.dirty & MeshGL::DIRTY_SPECULAR)
 		{
-			per_face(this->F_material_specular, meshgl.V_specular_vbo);
+			per_face_duplicate(shape->GetSpecular(), meshgl.V_specular_vbo);
 		}
 
 		if (meshgl.dirty & MeshGL::DIRTY_NORMAL)

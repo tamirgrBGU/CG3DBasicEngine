@@ -65,12 +65,6 @@ public:
 
 	void set_visible(bool value, unsigned int property_id = 1);
 
-	// Set the color of the mesh
-	//
-	// Inputs:
-	//   C  #V|#F|1 by 3 list of colors
-	void set_colors(const Eigen::MatrixXd& C); // TODO: TAL: remove
-
 	// Set per-vertex UV coordinates
 	//
 	// Inputs:
@@ -110,92 +104,8 @@ public:
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& B,
 		const Eigen::Matrix<unsigned char, Eigen::Dynamic, Eigen::Dynamic>& A);
 
-	  // Set pseudo-colorable scalar data associated with the mesh.
-	  //
-	  // Inputs:
-	  //   caxis_min  caxis minimum bound
-	  //   caxis_max  caxis maximum bound
-	  //   D  #V by 1 list of scalar values
-	  //   cmap colormap type
-	  //   num_steps number of intervals to discretize the colormap
-	  //
-	  // To-do: support #F by 1 per-face data
-	void set_data(
-		const Eigen::VectorXd& D,
-		double caxis_min,
-		double caxis_max,
-		igl::ColorMapType cmap = igl::COLOR_MAP_TYPE_VIRIDIS,
-		int num_steps = 21);
-
-	  // Use min(D) and max(D) to set caxis.
-	void set_data(const Eigen::VectorXd& D,
-		igl::ColorMapType cmap = igl::COLOR_MAP_TYPE_VIRIDIS,
-		int num_steps = 21);
-
-	  // Not to be confused with set_colors, this creates a _texture_ that will be
-	  // referenced to pseudocolor according to the scalar field passed to set_data.
-	  //
-	  // Inputs:
-	  //   CM  #CM by 3 list of colors
-	void set_colormap(const Eigen::MatrixXd& CM); // TODO: TAL: remove
-
-	// Sets points given a list of point vertices. In constrast to `add_points`
-	// this will (purposefully) clober existing points.
-	//
-	// Inputs:
-	//   P  #P by 3 list of vertex positions
-	//   C  #P|1 by 3 color(s)
-	void set_points(
-		const Eigen::MatrixXd& P,
-		const Eigen::MatrixXd& C);
-	void add_points(const Eigen::MatrixXd& P, const Eigen::MatrixXd& C);
-
-	// Clear the point data
-	void clear_points();
-
-	// Sets edges given a list of edge vertices and edge indices. In constrast
-	// to `add_edges` this will (purposefully) clober existing edges.
-	//
-	// Inputs:
-	//   P  #P by 3 list of vertex positions
-	//   E  #E by 2 list of edge indices into P
-	//   C  #E|1 by 3 color(s)
-
-	void set_edges(const Eigen::MatrixXd& P, const Eigen::MatrixXi& E, const Eigen::MatrixXd& C);
-	// Alec: This is very confusing. Why does add_edges have a different API from
-	// set_edges?
-	void add_edges(const Eigen::MatrixXd& P1, const Eigen::MatrixXd& P2, const Eigen::MatrixXd& C);
-	// Sets edges given a list of points and eminating vectors
-	void set_edges_from_vector_field(
-		const Eigen::MatrixXd& P,
-		const Eigen::MatrixXd& V,
-		const Eigen::MatrixXd& C);
-
-	  // Clear the edge data
-	void clear_edges();
-
-	// Sets / Adds text labels at the given positions in 3D.
-	// Note: This requires the ImGui viewer plugin to display text labels.
-	void add_label(const Eigen::VectorXd& P, const std::string& str);
-	void set_labels(const Eigen::MatrixXd& P, const std::vector<std::string>& str);
-
-	// Clear the label data
-	void clear_labels();
-
 	// Computes the normals of the mesh
 	void compute_normals();
-
-	// Assigns uniform colors to all faces/vertices
-	void uniform_colors(
-		const Eigen::Vector3d& diffuse,
-		const Eigen::Vector3d& ambient,
-		const Eigen::Vector3d& specular);
-
-	  // Assigns uniform colors to all faces/vertices
-	void uniform_colors(
-		const Eigen::Vector4d& ambient,
-		const Eigen::Vector4d& diffuse,
-		const Eigen::Vector4d& specular);
 
 	  // Generate a normal image matcap
 	void normal_matcap();
