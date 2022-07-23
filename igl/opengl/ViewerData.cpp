@@ -34,15 +34,11 @@ ViewerData::ViewerData()
 	invert_normals(false),
 	show_overlay(~unsigned(0)),
 	show_overlay_depth(~unsigned(0)),
-	show_vertex_labels(0),
-	show_face_labels(0),
-	show_custom_labels(0),
 	show_texture(false),
 	use_matcap(false),
 	point_size(30),
 	line_width(1.5f),
 	line_color(0, 0, 0, 1),
-	label_color(0, 0, 0.04, 1),
 	shininess(35.0f),
 	id(-1),
 	is_visible(~unsigned(0)),
@@ -50,7 +46,7 @@ ViewerData::ViewerData()
 	isCopy(false),
 	isStatic(false)
 {
-	clear();
+	// clear();
 };
 
 void ViewerData::set_face_based(bool newvalue)
@@ -97,13 +93,6 @@ void ViewerData::set_mesh(const Eigen::MatrixXd& _V, const Eigen::MatrixXi& _F)
 			cerr << "ERROR (set_mesh): The new mesh has a different number of vertices/faces. Please clear the mesh before plotting." << endl;
 	}
 	dirty |= MeshGL::DIRTY_FACE | MeshGL::DIRTY_POSITION;
-}
-
-void ViewerData::set_vertices(const Eigen::MatrixXd& _V)
-{
-	V = _V;
-	assert(F.size() == 0 || F.maxCoeff() < V.rows());
-	dirty |= MeshGL::DIRTY_POSITION;
 }
 
 void ViewerData::set_normals(const Eigen::MatrixXd& N)
@@ -200,13 +189,6 @@ void ViewerData::clear()
 	lines = Eigen::MatrixXd(0, 9);
 	points = Eigen::MatrixXd(0, 6);
 
-	vertex_labels_positions = Eigen::MatrixXd(0, 3);
-	face_labels_positions = Eigen::MatrixXd(0, 3);
-	labels_positions = Eigen::MatrixXd(0, 3);
-	vertex_labels_strings.clear();
-	face_labels_strings.clear();
-	labels_strings.clear();
-
 	face_based = false;
 	double_sided = false;
 	invert_normals = false;
@@ -293,41 +275,6 @@ void ViewerData::grid_texture()
 	dirty |= MeshGL::DIRTY_TEXTURE;
 }
 
-// Populate VBOs of a particular label stype (Vert, Face, Custom)
-void ViewerData::update_labels(
-	MeshGL& meshgl,
-	MeshGL::TextGL& GL_labels,
-	const Eigen::MatrixXd& positions,
-	const std::vector<std::string>& strings
-) {
-	if (positions.rows() > 0)
-	{
-		int numCharsToRender = 0;
-		for (size_t p = 0; p < positions.rows(); p++)
-		{
-			numCharsToRender += strings.at(p).length();
-		}
-		GL_labels.label_pos_vbo.resize(numCharsToRender, 3);
-		GL_labels.label_char_vbo.resize(numCharsToRender, 1);
-		GL_labels.label_offset_vbo.resize(numCharsToRender, 1);
-		GL_labels.label_indices_vbo.resize(numCharsToRender, 1);
-		int idx = 0;
-		assert(strings.size() == positions.rows());
-		for (size_t s = 0; s < strings.size(); s++)
-		{
-			const auto& label = strings.at(s);
-			for (size_t c = 0; c < label.length(); c++)
-			{
-				GL_labels.label_pos_vbo.row(idx) = positions.row(s).cast<float>();
-				GL_labels.label_char_vbo(idx) = (float)(label.at(c));
-				GL_labels.label_offset_vbo(idx) = c;
-				GL_labels.label_indices_vbo(idx) = idx;
-				idx++;
-			}
-		}
-	}
-}
-
 void ViewerData::updateGL(
 	const bool invert_normals,
 	MeshGL& meshgl
@@ -367,7 +314,7 @@ void ViewerData::updateGL(
 		X_vbo.resize(this->F.rows() * 3, 4);
 		for (unsigned i = 0; i < this->F.rows(); ++i)
 			for (unsigned j = 0; j < 3; ++j)
-				X_vbo.row(i * 3 + j) = X;
+				X_vbo.row(i * 3 + j) = X.row(0);
 	};
 
 	// Input:
@@ -391,7 +338,7 @@ void ViewerData::updateGL(
 		X_vbo.resize(this->F.rows() * 3, X.cols());
 		for (unsigned i = 0; i < this->F.rows(); ++i)
 			for (unsigned j = 0; j < 3; ++j)
-				X_vbo.row(i * 3 + j) = X;
+				X_vbo.row(i * 3 + j) = X.row(0);
 	};
 	
 	if (!this->face_based)
@@ -523,7 +470,7 @@ void ViewerData::updateGL(
 
 	if (meshgl.dirty & MeshGL::DIRTY_OVERLAY_LINES)
 	{
-		meshgl.lines_V_vbo.resize(this->lines.rows() * 2, 3);
+ 		meshgl.lines_V_vbo.resize(this->lines.rows() * 2, 3);
 		meshgl.lines_V_colors_vbo.resize(this->lines.rows() * 2, 3);
 		meshgl.lines_F_vbo.resize(this->lines.rows() * 2, 1);
 		for (unsigned i = 0; i < this->lines.rows(); ++i)
@@ -548,62 +495,6 @@ void ViewerData::updateGL(
 			meshgl.points_V_colors_vbo.row(i) = this->points.block<1, 3>(i, 3).cast<float>();
 			meshgl.points_F_vbo(i) = i;
 		}
-	}
-
-	if (meshgl.dirty & MeshGL::DIRTY_FACE_LABELS)
-	{
-		if (face_labels_positions.rows() == 0)
-		{
-			face_labels_positions.conservativeResize(F.rows(), 3);
-			Eigen::MatrixXd faceNormals = F_normals.normalized();
-			for (int f = 0; f < F.rows(); ++f)
-			{
-				std::string faceName = std::to_string(f);
-				face_labels_positions.row(f) = V.row(F.row(f)(0));
-				face_labels_positions.row(f) += V.row(F.row(f)(1));
-				face_labels_positions.row(f) += V.row(F.row(f)(2));
-				face_labels_positions.row(f) /= 3.;
-				face_labels_positions.row(f) = (faceNormals * 0.05).row(f) + face_labels_positions.row(f);
-				face_labels_strings.push_back(faceName);
-			}
-		}
-		update_labels(
-			meshgl,
-			meshgl.face_labels,
-			face_labels_positions,
-			face_labels_strings
-		);
-	}
-
-	if (meshgl.dirty & MeshGL::DIRTY_VERTEX_LABELS)
-	{
-		if (vertex_labels_positions.rows() == 0)
-		{
-			vertex_labels_positions.conservativeResize(V.rows(), 3);
-			Eigen::MatrixXd normalized = V_normals.normalized();
-			for (int v = 0; v < V.rows(); ++v)
-			{
-				std::string vertName = std::to_string(v);
-				vertex_labels_positions.row(v) = (normalized * 0.1).row(v) + V.row(v);
-				vertex_labels_strings.push_back(vertName);
-			}
-		}
-		update_labels(
-			meshgl,
-			meshgl.vertex_labels,
-			vertex_labels_positions,
-			vertex_labels_strings
-		);
-	}
-
-	if (meshgl.dirty & MeshGL::DIRTY_CUSTOM_LABELS)
-	{
-		update_labels(
-			meshgl,
-			meshgl.custom_labels,
-			labels_positions,
-			labels_strings
-		);
 	}
 }
 
