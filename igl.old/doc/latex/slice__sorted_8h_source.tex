@@ -1,0 +1,48 @@
+\hypertarget{slice__sorted_8h_source}{}\doxysection{slice\+\_\+sorted.\+h}
+\label{slice__sorted_8h_source}\index{igl/slice\_sorted.h@{igl/slice\_sorted.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Jérémie Dumas <jeremie.dumas@ens-\/lyon.org>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_SLICE\_SORTED\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_SLICE\_SORTED\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Act like the matlab X(row\_indices,col\_indices) operator, where row\_indices,}}
+\DoxyCodeLine{19   \textcolor{comment}{// col\_indices are non-\/negative integer indices. This version is about 2x faster}}
+\DoxyCodeLine{20   \textcolor{comment}{// than igl::slice, but it assumes that the indices to slice with are already sorted.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   X  m by n matrix}}
+\DoxyCodeLine{24   \textcolor{comment}{//   R  list of row indices}}
+\DoxyCodeLine{25   \textcolor{comment}{//   C  list of column indices}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   Y  \#R by \#C matrix}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <\textcolor{keyword}{typename} TX, \textcolor{keyword}{typename} TY, \textcolor{keyword}{typename} DerivedR, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} slice\_sorted(\textcolor{keyword}{const} Eigen::SparseMatrix<TX> \&X,}
+\DoxyCodeLine{32                                \textcolor{keyword}{const} Eigen::DenseBase<DerivedR> \&R,}
+\DoxyCodeLine{33                                \textcolor{keyword}{const} Eigen::DenseBase<DerivedC> \&C,}
+\DoxyCodeLine{34                                Eigen::SparseMatrix<TY> \&Y);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \}  \textcolor{comment}{// namespace igl}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include "{}slice\_sorted.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,52 @@
+\hypertarget{verbose_8h_source}{}\doxysection{verbose.\+h}
+\label{verbose_8h_source}\index{igl/verbose.h@{igl/verbose.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VERBOSE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VERBOSE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// This function is only useful as a header-\/only inlined function}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Provide a wrapper for printf, called verbose that functions exactly like}}
+\DoxyCodeLine{16   \textcolor{comment}{// printf if VERBOSE is defined and does exactly nothing if VERBOSE is}}
+\DoxyCodeLine{17   \textcolor{comment}{// undefined}}
+\DoxyCodeLine{18   \textcolor{keyword}{inline} \textcolor{keywordtype}{int} verbose(\textcolor{keyword}{const} \textcolor{keywordtype}{char} * msg,...);}
+\DoxyCodeLine{19 \}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifdef VERBOSE}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#  include <cstdarg>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{29 \textcolor{comment}{// http://channel9.msdn.com/forums/techoff/254707-\/wrapping-\/printf-\/in-\/c/}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifdef VERBOSE}}
+\DoxyCodeLine{31 \textcolor{keyword}{inline} \textcolor{keywordtype}{int} igl::verbose(\textcolor{keyword}{const} \textcolor{keywordtype}{char} * msg,...)}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33   va\_list argList;}
+\DoxyCodeLine{34   va\_start(argList, msg);}
+\DoxyCodeLine{35   \textcolor{keywordtype}{int} count = vprintf(msg, argList);}
+\DoxyCodeLine{36   va\_end(argList);}
+\DoxyCodeLine{37   \textcolor{keywordflow}{return} count;}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{40 \textcolor{keyword}{inline} \textcolor{keywordtype}{int} igl::verbose(\textcolor{keyword}{const} \textcolor{keywordtype}{char} * \textcolor{comment}{/*msg*/},...)}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{43 \}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

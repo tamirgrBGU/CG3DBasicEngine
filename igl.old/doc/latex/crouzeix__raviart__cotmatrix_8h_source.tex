@@ -1,0 +1,55 @@
+\hypertarget{crouzeix__raviart__cotmatrix_8h_source}{}\doxysection{crouzeix\+\_\+raviart\+\_\+cotmatrix.\+h}
+\label{crouzeix__raviart__cotmatrix_8h_source}\index{igl/crouzeix\_raviart\_cotmatrix.h@{igl/crouzeix\_raviart\_cotmatrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_CROUZEIX\_RAVIART\_COTMATRIX}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_CROUZEIX\_RAVIART\_COTMATRIX}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// CROUZEIX\_RAVIART\_COTMATRIX Compute the Crouzeix-\/Raviart cotangent}}
+\DoxyCodeLine{16   \textcolor{comment}{// stiffness matrix.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// See for example "{}Discrete Quadratic Curvature Energies"{} [Wardetzky, Bergou,}}
+\DoxyCodeLine{19   \textcolor{comment}{// Harmon, Zorin, Grinspun 2007]}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   F  \#F by 3/4 list of triangle/tetrahedron indices}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   L  \#E by \#E edge/face-\/based diagonal cotangent matrix}}
+\DoxyCodeLine{26   \textcolor{comment}{//   E  \#E by 2/3 list of edges/faces}}
+\DoxyCodeLine{27   \textcolor{comment}{//   EMAP  \#F*3/4 list of indices mapping allE to E}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// See also: crouzeix\_raviart\_massmatrix}}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} LT, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{31   \textcolor{keywordtype}{void} crouzeix\_raviart\_cotmatrix(}
+\DoxyCodeLine{32       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{33       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{34       Eigen::SparseMatrix<LT> \& L,}
+\DoxyCodeLine{35       Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{36       Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{37   \textcolor{comment}{// wrapper if E and EMAP are already computed (better match!)}}
+\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedEMAP, \textcolor{keyword}{typename} LT>}
+\DoxyCodeLine{39   \textcolor{keywordtype}{void} crouzeix\_raviart\_cotmatrix(}
+\DoxyCodeLine{40       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{41       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{42       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{43       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{44       Eigen::SparseMatrix<LT> \& L);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}crouzeix\_raviart\_cotmatrix.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

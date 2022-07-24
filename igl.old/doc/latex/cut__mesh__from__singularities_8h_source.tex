@@ -1,0 +1,48 @@
+\hypertarget{cut__mesh__from__singularities_8h_source}{}\doxysection{cut\+\_\+mesh\+\_\+from\+\_\+singularities.\+h}
+\label{cut__mesh__from__singularities_8h_source}\index{igl/cut\_mesh\_from\_singularities.h@{igl/cut\_mesh\_from\_singularities.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>, Olga Diamanti <olga.diam@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_CUT\_MESH\_FROM\_SINGULARITIES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_CUT\_MESH\_FROM\_SINGULARITIES\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Given a mesh (V,F) and the integer mismatch of a cross field per edge}}
+\DoxyCodeLine{16   \textcolor{comment}{// (mismatch), finds the cut\_graph connecting the singularities (seams) and the}}
+\DoxyCodeLine{17   \textcolor{comment}{// degree of the singularities singularity\_index}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F  \#F by 3 list of faces}}
+\DoxyCodeLine{22   \textcolor{comment}{//   mismatch  \#F by 3 list of per corner integer mismatch}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   seams  \#F by 3 list of per corner booleans that denotes if an edge is a}}
+\DoxyCodeLine{25   \textcolor{comment}{//     seam or not}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedM, }
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedO> }
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} cut\_mesh\_from\_singularities(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \&V, }
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \&F, }
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \&MMatch,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedO> \&seams);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include "{}cut\_mesh\_from\_singularities.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

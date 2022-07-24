@@ -1,0 +1,275 @@
+\hypertarget{_re_ant_tweak_bar_x_m_l_serialization_8h_source}{}\doxysection{Re\+Ant\+Tweak\+Bar\+XMLSerialization.\+h}
+\label{_re_ant_tweak_bar_x_m_l_serialization_8h_source}\index{igl/xml/ReAntTweakBarXMLSerialization.h@{igl/xml/ReAntTweakBarXMLSerialization.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_XML\_REANTTWEAKBAR\_XML\_SERIALIZATION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_XML\_REANTTWEAKBAR\_XML\_SERIALIZATION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}serialize\_xml.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#undef IGL\_HEADER\_ONLY}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../anttweakbar/ReAntTweakBar.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{comment}{// Forward declarations}}
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{namespace }anttweakbar}
+\DoxyCodeLine{20   \{}
+\DoxyCodeLine{21     \textcolor{keyword}{class }ReTwBar;}
+\DoxyCodeLine{22   \}}
+\DoxyCodeLine{23 \};}
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }tinyxml2}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \textcolor{keyword}{class }XMLDocument;}
+\DoxyCodeLine{27 \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \textcolor{keyword}{namespace }xml}
+\DoxyCodeLine{32   \{}
+\DoxyCodeLine{33   }
+\DoxyCodeLine{34 \textcolor{comment}{//  namespace}}
+\DoxyCodeLine{35 \textcolor{comment}{//  \{}}
+\DoxyCodeLine{36   }
+\DoxyCodeLine{37 \textcolor{comment}{//    IGL\_INLINE bool save\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, const char* file\_name);}}
+\DoxyCodeLine{38 \textcolor{comment}{//    IGL\_INLINE bool save\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, tinyxml2::XMLDocument* doc);}}
+\DoxyCodeLine{39 \textcolor{comment}{//    IGL\_INLINE bool load\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, const char *file\_name);}}
+\DoxyCodeLine{40 \textcolor{comment}{//    IGL\_INLINE bool load\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, tinyxml2::XMLDocument* doc);}}
+\DoxyCodeLine{41     }
+\DoxyCodeLine{42     }
+\DoxyCodeLine{43     IGL\_INLINE \textcolor{keywordtype}{bool} save\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* file\_name)}
+\DoxyCodeLine{44     \{}
+\DoxyCodeLine{45       \textcolor{keyword}{const} \textcolor{keywordtype}{char} * name\_chars = TwGetBarName(bar-\/>bar);}
+\DoxyCodeLine{46       std::string name = std::string(name\_chars) + \textcolor{stringliteral}{"{}\_AntTweakBar"{}};}
+\DoxyCodeLine{47       }
+\DoxyCodeLine{48       \textcolor{keyword}{const} std::vector< ::igl::anttweakbar::ReTwRWItem>\& rw\_items = bar-\/>get\_rw\_items();}
+\DoxyCodeLine{49       \textcolor{keywordflow}{for}(std::vector< ::igl::anttweakbar::ReTwRWItem>::const\_iterator it = rw\_items.begin(); it != rw\_items.end(); it++)}
+\DoxyCodeLine{50       \{}
+\DoxyCodeLine{51         std::string val = bar-\/>get\_value\_as\_string(it-\/>var,it-\/>type);}
+\DoxyCodeLine{52         \textcolor{comment}{//::igl::XMLSerializer::SaveObject(val,it-\/>name,name,file\_name,false);}}
+\DoxyCodeLine{53         ::igl::serialize\_xml(val,it-\/>name,file\_name,\textcolor{keyword}{false},\textcolor{keyword}{false});}
+\DoxyCodeLine{54       \}}
+\DoxyCodeLine{55       }
+\DoxyCodeLine{56       \textcolor{keywordtype}{char} var[REANTTWEAKBAR\_MAX\_CB\_VAR\_SIZE];}
+\DoxyCodeLine{57       \textcolor{comment}{// Print all CB variables}}
+\DoxyCodeLine{58       \textcolor{keyword}{const} std::vector< ::igl::anttweakbar::ReTwCBItem>\& cb\_items = bar-\/>get\_cb\_items();}
+\DoxyCodeLine{59       \textcolor{keywordflow}{for}(std::vector< ::igl::anttweakbar::ReTwCBItem>::const\_iterator it = cb\_items.begin(); it != cb\_items.end(); it++)}
+\DoxyCodeLine{60       \{}
+\DoxyCodeLine{61         TwType type = it-\/>type;}
+\DoxyCodeLine{62         \textcolor{comment}{//TwSetVarCallback setCallback = it-\/>setCallback;}}
+\DoxyCodeLine{63         TwGetVarCallback getCallback = it-\/>getCallback;}
+\DoxyCodeLine{64         \textcolor{keywordtype}{void} * clientData = it-\/>clientData;}
+\DoxyCodeLine{65         \textcolor{comment}{// I'm not sure how to do what I want to do. getCallback needs to be sure}}
+\DoxyCodeLine{66         \textcolor{comment}{// that it can write to var. So var needs to point to a valid and big}}
+\DoxyCodeLine{67         \textcolor{comment}{// enough chunk of memory}}
+\DoxyCodeLine{68         getCallback(var,clientData);}
+\DoxyCodeLine{69         }
+\DoxyCodeLine{70         std::string val = bar-\/>get\_value\_as\_string(var,type);}
+\DoxyCodeLine{71         \textcolor{comment}{//::igl::XMLSerializer::SaveObject(val,it-\/>name,name,file\_name,false);}}
+\DoxyCodeLine{72         ::igl::serialize\_xml(val,it-\/>name,file\_name,\textcolor{keyword}{false},\textcolor{keyword}{false});}
+\DoxyCodeLine{73       \}}
+\DoxyCodeLine{74       }
+\DoxyCodeLine{75       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77     }
+\DoxyCodeLine{78     \textcolor{comment}{/*IGL\_INLINE bool save\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, tinyxml2::XMLDocument* doc)}}
+\DoxyCodeLine{79 \textcolor{comment}{    \{}}
+\DoxyCodeLine{80 \textcolor{comment}{      std::vector<char**> buffer;}}
+\DoxyCodeLine{81 \textcolor{comment}{      }}
+\DoxyCodeLine{82 \textcolor{comment}{      const char * name\_chars = TwGetBarName(bar-\/>bar);}}
+\DoxyCodeLine{83 \textcolor{comment}{      std::string name = std::string(name\_chars) + "{}\_AntTweakBar"{};}}
+\DoxyCodeLine{84 \textcolor{comment}{      ::igl::XMLSerializer* s = new ::igl::XMLSerializer(name);}}
+\DoxyCodeLine{85 \textcolor{comment}{      }}
+\DoxyCodeLine{86 \textcolor{comment}{      const std::vector< ::igl::anttweakbar::ReTwRWItem>\& rw\_items = bar-\/>get\_rw\_items();}}
+\DoxyCodeLine{87 \textcolor{comment}{      for(std::vector< ::igl::anttweakbar::ReTwRWItem>::const\_iterator it = rw\_items.begin(); it != rw\_items.end(); it++)}}
+\DoxyCodeLine{88 \textcolor{comment}{      \{}}
+\DoxyCodeLine{89 \textcolor{comment}{        std::string val = bar-\/>get\_value\_as\_string(it-\/>var,it-\/>type);}}
+\DoxyCodeLine{90 \textcolor{comment}{        char** cval = new char*; // create char* on heap}}
+\DoxyCodeLine{91 \textcolor{comment}{        *cval = new char[val.size()+1];}}
+\DoxyCodeLine{92 \textcolor{comment}{        buffer.push\_back(cval);}}
+\DoxyCodeLine{93 \textcolor{comment}{        strcpy(*cval,val.c\_str());}}
+\DoxyCodeLine{94 \textcolor{comment}{        s-\/>Add(*cval,it-\/>name);}}
+\DoxyCodeLine{95 \textcolor{comment}{      \}}}
+\DoxyCodeLine{96 \textcolor{comment}{      }}
+\DoxyCodeLine{97 \textcolor{comment}{      char var[REANTTWEAKBAR\_MAX\_CB\_VAR\_SIZE];}}
+\DoxyCodeLine{98 \textcolor{comment}{      // Print all CB variables}}
+\DoxyCodeLine{99 \textcolor{comment}{      const std::vector< ::igl::anttweakbar::ReTwCBItem>\& cb\_items = bar-\/>get\_cb\_items();}}
+\DoxyCodeLine{100 \textcolor{comment}{      for(std::vector< ::igl::anttweakbar::ReTwCBItem>::const\_iterator it = cb\_items.begin(); it != cb\_items.end(); it++)}}
+\DoxyCodeLine{101 \textcolor{comment}{      \{}}
+\DoxyCodeLine{102 \textcolor{comment}{        TwType type = it-\/>type;}}
+\DoxyCodeLine{103 \textcolor{comment}{        //TwSetVarCallback setCallback = it-\/>setCallback;}}
+\DoxyCodeLine{104 \textcolor{comment}{        TwGetVarCallback getCallback = it-\/>getCallback;}}
+\DoxyCodeLine{105 \textcolor{comment}{        void * clientData = it-\/>clientData;}}
+\DoxyCodeLine{106 \textcolor{comment}{        // I'm not sure how to do what I want to do. getCallback needs to be sure}}
+\DoxyCodeLine{107 \textcolor{comment}{        // that it can write to var. So var needs to point to a valid and big}}
+\DoxyCodeLine{108 \textcolor{comment}{        // enough chunk of memory}}
+\DoxyCodeLine{109 \textcolor{comment}{        getCallback(var,clientData);}}
+\DoxyCodeLine{110 \textcolor{comment}{        }}
+\DoxyCodeLine{111 \textcolor{comment}{        std::string val = bar-\/>get\_value\_as\_string(var,type);}}
+\DoxyCodeLine{112 \textcolor{comment}{        char** cval = new char*; // create char* on heap}}
+\DoxyCodeLine{113 \textcolor{comment}{        *cval = new char[val.size()+1];}}
+\DoxyCodeLine{114 \textcolor{comment}{        buffer.push\_back(cval);}}
+\DoxyCodeLine{115 \textcolor{comment}{        strcpy(*cval,val.c\_str());}}
+\DoxyCodeLine{116 \textcolor{comment}{        s-\/>Add(*cval,it-\/>name);}}
+\DoxyCodeLine{117 \textcolor{comment}{      \}}}
+\DoxyCodeLine{118 \textcolor{comment}{      }}
+\DoxyCodeLine{119 \textcolor{comment}{      s-\/>SaveToXMLDoc(name,doc);}}
+\DoxyCodeLine{120 \textcolor{comment}{      }}
+\DoxyCodeLine{121 \textcolor{comment}{      // delete pointer buffers}}
+\DoxyCodeLine{122 \textcolor{comment}{      for(unsigned int i=0;i<buffer.size();i++)}}
+\DoxyCodeLine{123 \textcolor{comment}{      \{}}
+\DoxyCodeLine{124 \textcolor{comment}{        delete[] *buffer[i];}}
+\DoxyCodeLine{125 \textcolor{comment}{        delete buffer[i];}}
+\DoxyCodeLine{126 \textcolor{comment}{      \}}}
+\DoxyCodeLine{127 \textcolor{comment}{      }}
+\DoxyCodeLine{128 \textcolor{comment}{      delete s;}}
+\DoxyCodeLine{129 \textcolor{comment}{      }}
+\DoxyCodeLine{130 \textcolor{comment}{      return true;}}
+\DoxyCodeLine{131 \textcolor{comment}{    \}*/}}
+\DoxyCodeLine{132     }
+\DoxyCodeLine{133     IGL\_INLINE \textcolor{keywordtype}{bool} load\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *file\_name)}
+\DoxyCodeLine{134     \{}
+\DoxyCodeLine{135       \textcolor{keywordtype}{char} type\_str[REANTTWEAKBAR\_MAX\_WORD];}
+\DoxyCodeLine{136       \textcolor{keywordtype}{char} value\_str[REANTTWEAKBAR\_MAX\_WORD];}
+\DoxyCodeLine{137       TwType type;}
+\DoxyCodeLine{138       }
+\DoxyCodeLine{139       \textcolor{keyword}{const} \textcolor{keywordtype}{char} * name\_chars = TwGetBarName(bar-\/>bar);}
+\DoxyCodeLine{140       std::string name = std::string(name\_chars) + \textcolor{stringliteral}{"{}\_AntTweakBar"{}};}
+\DoxyCodeLine{141       }
+\DoxyCodeLine{142       \textcolor{keyword}{const} std::vector< ::igl::anttweakbar::ReTwRWItem>\& rw\_items = bar-\/>get\_rw\_items();}
+\DoxyCodeLine{143       \textcolor{keywordflow}{for}(std::vector< ::igl::anttweakbar::ReTwRWItem>::const\_iterator it = rw\_items.begin(); it != rw\_items.end(); it++)}
+\DoxyCodeLine{144       \{}
+\DoxyCodeLine{145         \textcolor{keywordtype}{char}* val;}
+\DoxyCodeLine{146         \textcolor{comment}{//::igl::XMLSerializer::LoadObject(val,it-\/>name,name,file\_name);}}
+\DoxyCodeLine{147         ::igl::deserialize\_xml(val,it-\/>name,file\_name);}
+\DoxyCodeLine{148         sscanf(val,\textcolor{stringliteral}{"{}\%s \%[\string^\(\backslash\)n]"{}},type\_str,value\_str);}
+\DoxyCodeLine{149         }
+\DoxyCodeLine{150         \textcolor{keywordflow}{if}(!bar-\/>type\_from\_string(type\_str,type))}
+\DoxyCodeLine{151         \{}
+\DoxyCodeLine{152           printf(\textcolor{stringliteral}{"{}ERROR: \%s type not found... Skipping...\(\backslash\)n"{}},type\_str);}
+\DoxyCodeLine{153           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{154         \}}
+\DoxyCodeLine{155         }
+\DoxyCodeLine{156         bar-\/>set\_value\_from\_string(it-\/>name.c\_str(),type,value\_str);}
+\DoxyCodeLine{157         \textcolor{keyword}{delete}[] val;}
+\DoxyCodeLine{158       \}}
+\DoxyCodeLine{159       }
+\DoxyCodeLine{160       \textcolor{keyword}{const} std::vector< ::igl::anttweakbar::ReTwCBItem>\& cb\_items = bar-\/>get\_cb\_items();}
+\DoxyCodeLine{161       \textcolor{keywordflow}{for}(std::vector< ::igl::anttweakbar::ReTwCBItem>::const\_iterator it = cb\_items.begin(); it != cb\_items.end(); it++)}
+\DoxyCodeLine{162       \{}
+\DoxyCodeLine{163         \textcolor{keywordtype}{char}* val;}
+\DoxyCodeLine{164         \textcolor{comment}{//::igl::XMLSerializer::LoadObject(val,it-\/>name,name,file\_name);}}
+\DoxyCodeLine{165         ::igl::deserialize\_xml(val,it-\/>name,file\_name);}
+\DoxyCodeLine{166         sscanf(val,\textcolor{stringliteral}{"{}\%s \%[\string^\(\backslash\)n]"{}},type\_str,value\_str);}
+\DoxyCodeLine{167         }
+\DoxyCodeLine{168         \textcolor{keywordflow}{if}(!bar-\/>type\_from\_string(type\_str,type))}
+\DoxyCodeLine{169         \{}
+\DoxyCodeLine{170           printf(\textcolor{stringliteral}{"{}ERROR: \%s type not found... Skipping...\(\backslash\)n"{}},type\_str);}
+\DoxyCodeLine{171           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{172         \}}
+\DoxyCodeLine{173         }
+\DoxyCodeLine{174         bar-\/>set\_value\_from\_string(it-\/>name.c\_str(),type,value\_str);}
+\DoxyCodeLine{175         \textcolor{keyword}{delete}[] val;}
+\DoxyCodeLine{176       \}}
+\DoxyCodeLine{177       }
+\DoxyCodeLine{178       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{179     \}}
+\DoxyCodeLine{180     }
+\DoxyCodeLine{181     \textcolor{comment}{/*IGL\_INLINE bool load\_ReAntTweakBar(::igl::anttweakbar::ReTwBar* bar, tinyxml2::XMLDocument* doc)}}
+\DoxyCodeLine{182 \textcolor{comment}{    \{}}
+\DoxyCodeLine{183 \textcolor{comment}{      std::map<std::string,char*> variables;}}
+\DoxyCodeLine{184 \textcolor{comment}{      std::map<std::string,char*> cbVariables;}}
+\DoxyCodeLine{185 \textcolor{comment}{      }}
+\DoxyCodeLine{186 \textcolor{comment}{      const char * name\_chars = TwGetBarName(bar-\/>bar);}}
+\DoxyCodeLine{187 \textcolor{comment}{      std::string name = std::string(name\_chars) + "{}\_AntTweakBar"{};}}
+\DoxyCodeLine{188 \textcolor{comment}{      ::igl::XMLSerializer* s = new ::igl::XMLSerializer(name);}}
+\DoxyCodeLine{189 \textcolor{comment}{      }}
+\DoxyCodeLine{190 \textcolor{comment}{      std::map<std::string,char*>::iterator iter;}}
+\DoxyCodeLine{191 \textcolor{comment}{      const std::vector< ::igl::anttweakbar::ReTwRWItem>\& rw\_items = bar-\/>get\_rw\_items();}}
+\DoxyCodeLine{192 \textcolor{comment}{      for(std::vector< ::igl::anttweakbar::ReTwRWItem>::const\_iterator it = rw\_items.begin(); it != rw\_items.end(); it++)}}
+\DoxyCodeLine{193 \textcolor{comment}{      \{}}
+\DoxyCodeLine{194 \textcolor{comment}{        variables[it-\/>name] = NULL;}}
+\DoxyCodeLine{195 \textcolor{comment}{        iter = variables.find(it-\/>name);}}
+\DoxyCodeLine{196 \textcolor{comment}{        s-\/>Add(iter-\/>second,iter-\/>first);}}
+\DoxyCodeLine{197 \textcolor{comment}{      \}}}
+\DoxyCodeLine{198 \textcolor{comment}{      }}
+\DoxyCodeLine{199 \textcolor{comment}{      // Add all CB variables}}
+\DoxyCodeLine{200 \textcolor{comment}{      const std::vector< ::igl::anttweakbar::ReTwCBItem>\& cb\_items = bar-\/>get\_cb\_items();}}
+\DoxyCodeLine{201 \textcolor{comment}{      for(std::vector< ::igl::anttweakbar::ReTwCBItem>::const\_iterator it = cb\_items.begin(); it != cb\_items.end(); it++)}}
+\DoxyCodeLine{202 \textcolor{comment}{      \{}}
+\DoxyCodeLine{203 \textcolor{comment}{        cbVariables[it-\/>name] = NULL;}}
+\DoxyCodeLine{204 \textcolor{comment}{        iter = cbVariables.find(it-\/>name);}}
+\DoxyCodeLine{205 \textcolor{comment}{        s-\/>Add(iter-\/>second,iter-\/>first);}}
+\DoxyCodeLine{206 \textcolor{comment}{      \}}}
+\DoxyCodeLine{207 \textcolor{comment}{      }}
+\DoxyCodeLine{208 \textcolor{comment}{      s-\/>LoadFromXMLDoc(doc);}}
+\DoxyCodeLine{209 \textcolor{comment}{      }}
+\DoxyCodeLine{210 \textcolor{comment}{      // Set loaded values}}
+\DoxyCodeLine{211 \textcolor{comment}{      char type\_str[REANTTWEAKBAR\_MAX\_WORD];}}
+\DoxyCodeLine{212 \textcolor{comment}{      char value\_str[REANTTWEAKBAR\_MAX\_WORD];}}
+\DoxyCodeLine{213 \textcolor{comment}{      TwType type;}}
+\DoxyCodeLine{214 \textcolor{comment}{      }}
+\DoxyCodeLine{215 \textcolor{comment}{      for(iter = variables.begin(); iter != variables.end(); iter++)}}
+\DoxyCodeLine{216 \textcolor{comment}{      \{}}
+\DoxyCodeLine{217 \textcolor{comment}{        if(iter-\/>second == NULL)}}
+\DoxyCodeLine{218 \textcolor{comment}{        \{}}
+\DoxyCodeLine{219 \textcolor{comment}{          printf("{}ERROR: '\%s' entry not found... Skipping...\(\backslash\)n"{},iter-\/>first.c\_str());}}
+\DoxyCodeLine{220 \textcolor{comment}{          continue;}}
+\DoxyCodeLine{221 \textcolor{comment}{        \}}}
+\DoxyCodeLine{222 \textcolor{comment}{        }}
+\DoxyCodeLine{223 \textcolor{comment}{        sscanf(iter-\/>second,"{}\%s \%[\string^\(\backslash\)n]"{},type\_str,value\_str);}}
+\DoxyCodeLine{224 \textcolor{comment}{        }}
+\DoxyCodeLine{225 \textcolor{comment}{        if(!bar-\/>type\_from\_string(type\_str,type))}}
+\DoxyCodeLine{226 \textcolor{comment}{        \{}}
+\DoxyCodeLine{227 \textcolor{comment}{          printf("{}ERROR: Type '\%s' of '\%s' not found... Skipping...\(\backslash\)n"{},type\_str,iter-\/>first.c\_str());}}
+\DoxyCodeLine{228 \textcolor{comment}{          continue;}}
+\DoxyCodeLine{229 \textcolor{comment}{        \}}}
+\DoxyCodeLine{230 \textcolor{comment}{        }}
+\DoxyCodeLine{231 \textcolor{comment}{        bar-\/>set\_value\_from\_string(iter-\/>first.c\_str(),type,value\_str);}}
+\DoxyCodeLine{232 \textcolor{comment}{      \}}}
+\DoxyCodeLine{233 \textcolor{comment}{      }}
+\DoxyCodeLine{234 \textcolor{comment}{      for(iter = cbVariables.begin(); iter != cbVariables.end(); iter++)}}
+\DoxyCodeLine{235 \textcolor{comment}{      \{}}
+\DoxyCodeLine{236 \textcolor{comment}{        if(iter-\/>second == NULL)}}
+\DoxyCodeLine{237 \textcolor{comment}{        \{}}
+\DoxyCodeLine{238 \textcolor{comment}{          printf("{}ERROR: '\%s' entry not found... Skipping...\(\backslash\)n"{},iter-\/>first.c\_str());}}
+\DoxyCodeLine{239 \textcolor{comment}{          continue;}}
+\DoxyCodeLine{240 \textcolor{comment}{        \}}}
+\DoxyCodeLine{241 \textcolor{comment}{}}
+\DoxyCodeLine{242 \textcolor{comment}{        sscanf(iter-\/>second,"{}\%s \%[\string^\(\backslash\)n]"{},type\_str,value\_str);}}
+\DoxyCodeLine{243 \textcolor{comment}{        }}
+\DoxyCodeLine{244 \textcolor{comment}{        if(!bar-\/>type\_from\_string(type\_str,type))}}
+\DoxyCodeLine{245 \textcolor{comment}{        \{}}
+\DoxyCodeLine{246 \textcolor{comment}{          printf("{}ERROR: Type '\%s' of '\%s' not found... Skipping...\(\backslash\)n"{},type\_str,iter-\/>first.c\_str());}}
+\DoxyCodeLine{247 \textcolor{comment}{          continue;}}
+\DoxyCodeLine{248 \textcolor{comment}{        \}}}
+\DoxyCodeLine{249 \textcolor{comment}{        }}
+\DoxyCodeLine{250 \textcolor{comment}{        bar-\/>set\_value\_from\_string(iter-\/>first.c\_str(),type,value\_str);}}
+\DoxyCodeLine{251 \textcolor{comment}{      \}}}
+\DoxyCodeLine{252 \textcolor{comment}{      }}
+\DoxyCodeLine{253 \textcolor{comment}{      // delete buffers}}
+\DoxyCodeLine{254 \textcolor{comment}{      for(iter = variables.begin(); iter != variables.end(); iter++)}}
+\DoxyCodeLine{255 \textcolor{comment}{        delete[] iter-\/>second;}}
+\DoxyCodeLine{256 \textcolor{comment}{      }}
+\DoxyCodeLine{257 \textcolor{comment}{      for(iter = cbVariables.begin(); iter != cbVariables.end(); iter++)}}
+\DoxyCodeLine{258 \textcolor{comment}{        delete[] iter-\/>second;}}
+\DoxyCodeLine{259 \textcolor{comment}{      }}
+\DoxyCodeLine{260 \textcolor{comment}{      delete s;}}
+\DoxyCodeLine{261 \textcolor{comment}{      }}
+\DoxyCodeLine{262 \textcolor{comment}{      return true;}}
+\DoxyCodeLine{263 \textcolor{comment}{    \}*/}}
+\DoxyCodeLine{264     }
+\DoxyCodeLine{265 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{266   \}}
+\DoxyCodeLine{267 \}}
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

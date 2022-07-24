@@ -1,0 +1,116 @@
+\hypertarget{closest__facet_8h_source}{}\doxysection{closest\+\_\+facet.\+h}
+\label{closest__facet_8h_source}\index{igl/copyleft/cgal/closest\_facet.h@{igl/copyleft/cgal/closest\_facet.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COPYLET\_CGAL\_CLOSEST\_FACET\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COPYLET\_CGAL\_CLOSEST\_FACET\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <CGAL/AABB\_tree.h>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <CGAL/AABB\_traits.h>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <CGAL/AABB\_triangle\_primitive.h>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <CGAL/intersections.h>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{25   \{}
+\DoxyCodeLine{26     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28       \textcolor{comment}{// Determine the closest facet for each of the input points.}}
+\DoxyCodeLine{29       \textcolor{comment}{//}}
+\DoxyCodeLine{30       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{31       \textcolor{comment}{//   V  \#V by 3 array of vertices.}}
+\DoxyCodeLine{32       \textcolor{comment}{//   F  \#F by 3 array of faces.}}
+\DoxyCodeLine{33       \textcolor{comment}{//   I  \#I list of triangle indices to consider.}}
+\DoxyCodeLine{34       \textcolor{comment}{//   P  \#P by 3 array of query points.}}
+\DoxyCodeLine{35       \textcolor{comment}{//}}
+\DoxyCodeLine{36       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{37       \textcolor{comment}{//   R  \#P list of closest facet indices.}}
+\DoxyCodeLine{38       \textcolor{comment}{//   S  \#P list of bools indicating on which side of the closest facet}}
+\DoxyCodeLine{39       \textcolor{comment}{//      each query point lies.}}
+\DoxyCodeLine{40       \textcolor{keyword}{template}<}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{47         \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{48         \textcolor{keyword}{typename} DerivedS >}
+\DoxyCodeLine{49       IGL\_INLINE \textcolor{keywordtype}{void} closest\_facet(}
+\DoxyCodeLine{50         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{51         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{52         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{54         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{56               Eigen::PlainObjectBase<DerivedR>\& R,}
+\DoxyCodeLine{57               Eigen::PlainObjectBase<DerivedS>\& S);}
+\DoxyCodeLine{58       \textcolor{keyword}{template}<}
+\DoxyCodeLine{59         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{60         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{61         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{62         \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{63         \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{64         \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{65         \textcolor{keyword}{typename} DerivedS >}
+\DoxyCodeLine{66       IGL\_INLINE \textcolor{keywordtype}{void} closest\_facet(}
+\DoxyCodeLine{67         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{68         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{69         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{70         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{71         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{72         Eigen::PlainObjectBase<DerivedR>\& R,}
+\DoxyCodeLine{73         Eigen::PlainObjectBase<DerivedS>\& S);}
+\DoxyCodeLine{74       \textcolor{keyword}{template}<}
+\DoxyCodeLine{75         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{76         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{77         \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{78         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{79         \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{80         \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{81         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{82         \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{83         \textcolor{keyword}{typename} DerivedS >}
+\DoxyCodeLine{84       IGL\_INLINE \textcolor{keywordtype}{void} closest\_facet(}
+\DoxyCodeLine{85           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{86           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{87           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{88           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{89           \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{90           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{91           \textcolor{keyword}{const} std::vector<std::vector<size\_t> > \& VF,}
+\DoxyCodeLine{92           \textcolor{keyword}{const} std::vector<std::vector<size\_t> > \& VFi,}
+\DoxyCodeLine{93           \textcolor{keyword}{const} CGAL::AABB\_tree<}
+\DoxyCodeLine{94             CGAL::AABB\_traits<}
+\DoxyCodeLine{95               Kernel, }
+\DoxyCodeLine{96               CGAL::AABB\_triangle\_primitive<}
+\DoxyCodeLine{97                 Kernel, \textcolor{keyword}{typename} std::vector<}
+\DoxyCodeLine{98                   \textcolor{keyword}{typename} Kernel::Triangle\_3 >::iterator > > > \& tree,}
+\DoxyCodeLine{99           \textcolor{keyword}{const} std::vector<typename Kernel::Triangle\_3 > \& triangles,}
+\DoxyCodeLine{100           \textcolor{keyword}{const} std::vector<bool> \& in\_I,}
+\DoxyCodeLine{101           Eigen::PlainObjectBase<DerivedR>\& R,}
+\DoxyCodeLine{102           Eigen::PlainObjectBase<DerivedS>\& S);}
+\DoxyCodeLine{103     \}}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105 \}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#include "{}closest\_facet.cpp"{}}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,49 @@
+\hypertarget{progressive__hulls_8h_source}{}\doxysection{progressive\+\_\+hulls.\+h}
+\label{progressive__hulls_8h_source}\index{igl/copyleft/progressive\_hulls.h@{igl/copyleft/progressive\_hulls.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_PROGRESSIVE\_HULLS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_PROGRESSIVE\_HULLS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{// Assumes (V,F) is a closed manifold mesh }}
+\DoxyCodeLine{18     \textcolor{comment}{// Collapses edges until desired number of faces is achieved but ensures}}
+\DoxyCodeLine{19     \textcolor{comment}{// that new vertices are placed outside all previous meshes as per}}
+\DoxyCodeLine{20     \textcolor{comment}{// "{}progressive hulls"{} in "{}Silhouette clipping"{} [Sander et al. 2000].}}
+\DoxyCodeLine{21     \textcolor{comment}{//}}
+\DoxyCodeLine{22     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23     \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{24     \textcolor{comment}{//   F  \#F by 3 list of face indices into V.}}
+\DoxyCodeLine{25     \textcolor{comment}{//   max\_m  desired number of output faces}}
+\DoxyCodeLine{26     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27     \textcolor{comment}{//   U  \#U by dim list of output vertex posistions (can be same ref as V)}}
+\DoxyCodeLine{28     \textcolor{comment}{//   G  \#G by 3 list of output face indices into U (can be same ref as G)}}
+\DoxyCodeLine{29     \textcolor{comment}{//   J  \#G list of indices into F of birth faces}}
+\DoxyCodeLine{30     \textcolor{comment}{// Returns true if m was reached (otherwise \#G > m)}}
+\DoxyCodeLine{31     IGL\_INLINE \textcolor{keywordtype}{bool} progressive\_hulls(}
+\DoxyCodeLine{32       \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{33       \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{34       \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} max\_m,}
+\DoxyCodeLine{35       Eigen::MatrixXd \& U,}
+\DoxyCodeLine{36       Eigen::MatrixXi \& G,}
+\DoxyCodeLine{37       Eigen::VectorXi \& J);}
+\DoxyCodeLine{38   \}}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#  include "{}progressive\_hulls.cpp"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

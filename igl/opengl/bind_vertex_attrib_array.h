@@ -4,8 +4,6 @@
 #include "../igl_inline.h"
 #include <Eigen/Core>
 #include <string>
-#include "glfw/VertexBuffer.hpp"
-
 namespace igl
 {
   namespace opengl
@@ -22,14 +20,10 @@ namespace igl
     // Returns id of named attribute in shader
     IGL_INLINE GLint bind_vertex_attrib_array(
       const GLuint program_shader,
-      const std::string &name,
-      VertexBuffer& vbo,
-      const Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor> &M,
+      const std::string &name, 
+      GLuint bufferID, 
+      const Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor> &M, 
       bool refresh);
-
-      GLint bind_vertex_attrib_array(const GLuint program_shader, const std::string &name, GLuint bufferID,
-                                     const Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> &M,
-                                     bool refresh);
   }
 }
 #ifndef IGL_STATIC_LIBRARY

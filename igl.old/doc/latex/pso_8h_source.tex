@@ -1,0 +1,65 @@
+\hypertarget{pso_8h_source}{}\doxysection{pso.\+h}
+\label{pso_8h_source}\index{igl/pso.h@{igl/pso.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_PSO\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_PSO\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// Solve the problem:}}
+\DoxyCodeLine{10   \textcolor{comment}{//}}
+\DoxyCodeLine{11   \textcolor{comment}{//   minimize f(x)}}
+\DoxyCodeLine{12   \textcolor{comment}{//   subject to lb ≤ x ≤ ub }}
+\DoxyCodeLine{13   \textcolor{comment}{// }}
+\DoxyCodeLine{14   \textcolor{comment}{// by particle swarm optimization (PSO).}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   f  function that evaluates the objective for a given "{}particle"{} location}}
+\DoxyCodeLine{18   \textcolor{comment}{//   LB  \#X vector of lower bounds }}
+\DoxyCodeLine{19   \textcolor{comment}{//   UB  \#X vector of upper bounds }}
+\DoxyCodeLine{20   \textcolor{comment}{//   max\_iters  maximum number of iterations}}
+\DoxyCodeLine{21   \textcolor{comment}{//   population  number of particles in swarm}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   X  best particle seen so far}}
+\DoxyCodeLine{24   \textcolor{comment}{// Returns objective corresponding to best particle seen so far}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} Scalar, }
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedX,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedLB, }
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedUB>}
+\DoxyCodeLine{30   IGL\_INLINE Scalar pso(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} std::function< Scalar (DerivedX \&) > f,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedLB> \& LB,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUB> \& UB,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_iters,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{int} population,}
+\DoxyCodeLine{36     DerivedX \& X);}
+\DoxyCodeLine{37   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{38   \textcolor{comment}{//   P  whether each DOF is periodic}}
+\DoxyCodeLine{39   \textcolor{keyword}{template} <}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} Scalar, }
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedX,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedLB, }
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedUB,}
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{45   IGL\_INLINE Scalar pso(}
+\DoxyCodeLine{46     \textcolor{keyword}{const} std::function< Scalar (DerivedX \&) > f,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedLB> \& LB,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUB> \& UB,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::DenseBase<DerivedP> \& P,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_iters,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keywordtype}{int} population,}
+\DoxyCodeLine{52     DerivedX \& X);}
+\DoxyCodeLine{53 \}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#  include "{}pso.cpp"{}}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

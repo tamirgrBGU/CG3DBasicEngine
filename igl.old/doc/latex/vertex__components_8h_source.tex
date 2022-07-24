@@ -1,0 +1,65 @@
+\hypertarget{vertex__components_8h_source}{}\doxysection{vertex\+\_\+components.\+h}
+\label{vertex__components_8h_source}\index{igl/vertex\_components.h@{igl/vertex\_components.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COMPONENTS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COMPONENTS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Compute connected components of a graph represented by an adjacency}}
+\DoxyCodeLine{16   \textcolor{comment}{// matrix.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Returns a component ID per vertex of the graph where connectivity is established by edges.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   A  n by n adjacency matrix}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   C  n list of component ids (starting with 0)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   counts  \#components list of counts for each component}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} Derivedcounts>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_components(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedA> \& A,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<Derivedcounts> \& counts);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_components(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedA> \& A,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37   \textcolor{comment}{// Compute the connected components for a mesh given its faces.}}
+\DoxyCodeLine{38   \textcolor{comment}{// Returns a component ID per vertex of the mesh where connectivity is established by edges.}}
+\DoxyCodeLine{39   \textcolor{comment}{//}}
+\DoxyCodeLine{40   \textcolor{comment}{// For computing connected components per face see igl::facet\_components}}
+\DoxyCodeLine{41   \textcolor{comment}{//}}
+\DoxyCodeLine{42   \textcolor{comment}{//}}
+\DoxyCodeLine{43   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{44   \textcolor{comment}{//   F  n by 3 list of triangle indices}}
+\DoxyCodeLine{45   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   C  max(F) list of component ids}}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_components(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{50     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#  include "{}vertex\_components.cpp"{}}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 }
+
+\end{DoxyCode}

@@ -1,0 +1,65 @@
+\hypertarget{mosek__linprog_8h_source}{}\doxysection{mosek\+\_\+linprog.\+h}
+\label{mosek__linprog_8h_source}\index{igl/mosek/mosek\_linprog.h@{igl/mosek/mosek\_linprog.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MOSEK\_MOSEK\_LINPROG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MOSEK\_MOSEK\_LINPROG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <mosek.h>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }mosek}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{comment}{// Solve a linear program using mosek:}}
+\DoxyCodeLine{19     \textcolor{comment}{// }}
+\DoxyCodeLine{20     \textcolor{comment}{// min c'x}}
+\DoxyCodeLine{21     \textcolor{comment}{// s.t. lc <= A x <= uc}}
+\DoxyCodeLine{22     \textcolor{comment}{//      lx <= x <= ux}}
+\DoxyCodeLine{23     \textcolor{comment}{//}}
+\DoxyCodeLine{24     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25     \textcolor{comment}{//   c  \#x list of linear objective coefficients}}
+\DoxyCodeLine{26     \textcolor{comment}{//   A  \#A by \#x matrix of linear inequality constraint coefficients}}
+\DoxyCodeLine{27     \textcolor{comment}{//   lc  \#A list of lower constraint bounds}}
+\DoxyCodeLine{28     \textcolor{comment}{//   uc  \#A list of upper constraint bounds}}
+\DoxyCodeLine{29     \textcolor{comment}{//   lx  \#x list of lower variable bounds}}
+\DoxyCodeLine{30     \textcolor{comment}{//   ux  \#x list of upper variable bounds}}
+\DoxyCodeLine{31     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{32     \textcolor{comment}{//   x  \#x list of solution values}}
+\DoxyCodeLine{33     \textcolor{comment}{// Returns true iff success.}}
+\DoxyCodeLine{34     IGL\_INLINE \textcolor{keywordtype}{bool} mosek\_linprog(}
+\DoxyCodeLine{35         \textcolor{keyword}{const} Eigen::VectorXd \& c,}
+\DoxyCodeLine{36         \textcolor{keyword}{const} Eigen::SparseMatrix<double> \& A,}
+\DoxyCodeLine{37         \textcolor{keyword}{const} Eigen::VectorXd \& lc,}
+\DoxyCodeLine{38         \textcolor{keyword}{const} Eigen::VectorXd \& uc,}
+\DoxyCodeLine{39         \textcolor{keyword}{const} Eigen::VectorXd \& lx,}
+\DoxyCodeLine{40         \textcolor{keyword}{const} Eigen::VectorXd \& ux,}
+\DoxyCodeLine{41         Eigen::VectorXd \& x);}
+\DoxyCodeLine{42     \textcolor{comment}{// Wrapper that keeps mosek environment alive (if licence checking is}}
+\DoxyCodeLine{43     \textcolor{comment}{// becoming a bottleneck)}}
+\DoxyCodeLine{44     IGL\_INLINE \textcolor{keywordtype}{bool} mosek\_linprog(}
+\DoxyCodeLine{45         \textcolor{keyword}{const} Eigen::VectorXd \& c,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::SparseMatrix<double> \& A,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} Eigen::VectorXd \& lc,}
+\DoxyCodeLine{48         \textcolor{keyword}{const} Eigen::VectorXd \& uc,}
+\DoxyCodeLine{49         \textcolor{keyword}{const} Eigen::VectorXd \& lx,}
+\DoxyCodeLine{50         \textcolor{keyword}{const} Eigen::VectorXd \& ux,}
+\DoxyCodeLine{51         \textcolor{keyword}{const} MSKenv\_t \& env,}
+\DoxyCodeLine{52         Eigen::VectorXd \& x);}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#  include "{}mosek\_linprog.cpp"{}}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

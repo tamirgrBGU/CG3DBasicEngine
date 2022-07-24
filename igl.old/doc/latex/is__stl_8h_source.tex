@@ -1,0 +1,27 @@
+\hypertarget{is__stl_8h_source}{}\doxysection{is\+\_\+stl.\+h}
+\label{is__stl_8h_source}\index{igl/is\_stl.h@{igl/is\_stl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_IS\_STL\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_IS\_STL\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7   \textcolor{comment}{// Given a file pointer, determine if it contains an .stl file and then}}
+\DoxyCodeLine{8   \textcolor{comment}{// rewind it.}}
+\DoxyCodeLine{9   \textcolor{comment}{// }}
+\DoxyCodeLine{10   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{11   \textcolor{comment}{//   stl\_file  pointer to file }}
+\DoxyCodeLine{12   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   is\_ascii  flag whether stl is ascii}}
+\DoxyCodeLine{14   \textcolor{comment}{// Returns  whether stl\_file is an .stl file}}
+\DoxyCodeLine{15   IGL\_INLINE \textcolor{keywordtype}{bool} is\_stl(FILE * stl\_file, \textcolor{keywordtype}{bool} \& is\_ascii);}
+\DoxyCodeLine{16   IGL\_INLINE \textcolor{keywordtype}{bool} is\_stl(FILE * stl\_file);}
+\DoxyCodeLine{17 \};}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#  include "{}is\_stl.cpp"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

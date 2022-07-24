@@ -1,0 +1,48 @@
+\hypertarget{assign_8h_source}{}\doxysection{assign.\+h}
+\label{assign_8h_source}\index{igl/copyleft/cgal/assign.h@{igl/copyleft/cgal/assign.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_ASSIGN\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_ASSIGN\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedD>}
+\DoxyCodeLine{21       IGL\_INLINE \textcolor{keywordtype}{void} assign(}
+\DoxyCodeLine{22         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{23         Eigen::PlainObjectBase<DerivedD> \& D);}
+\DoxyCodeLine{24       \textcolor{keyword}{template} <\textcolor{keyword}{typename} ReturnScalar, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{25       IGL\_INLINE }
+\DoxyCodeLine{26       Eigen::Matrix<}
+\DoxyCodeLine{27         ReturnScalar,}
+\DoxyCodeLine{28         DerivedC::RowsAtCompileTime, }
+\DoxyCodeLine{29         DerivedC::ColsAtCompileTime, }
+\DoxyCodeLine{30         1,}
+\DoxyCodeLine{31         DerivedC::MaxRowsAtCompileTime, }
+\DoxyCodeLine{32         DerivedC::MaxColsAtCompileTime> }
+\DoxyCodeLine{33       assign(}
+\DoxyCodeLine{34         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C);}
+\DoxyCodeLine{35     \}}
+\DoxyCodeLine{36   \}}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#  include "{}assign.cpp"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

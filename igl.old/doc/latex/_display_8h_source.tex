@@ -1,0 +1,36 @@
+\hypertarget{_display_8h_source}{}\doxysection{Display.\+h}
+\label{_display_8h_source}\index{igl/opengl/glfw/Display.h@{igl/opengl/glfw/Display.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <GLFW/glfw3.h>}}
+\DoxyCodeLine{4 \textcolor{comment}{//\#include "{}igl/opengl/glfw/renderer.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#define EXIT\_FAILURE 1}}
+\DoxyCodeLine{6 \textcolor{keyword}{struct }GLFWwindow;}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_display}{Display}}}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     \mbox{\hyperlink{class_display}{Display}}(\textcolor{keywordtype}{int} windowWidth, \textcolor{keywordtype}{int} windowHeight, \textcolor{keyword}{const} std::string\& title, \textcolor{keywordtype}{bool} compatibilityMode = \textcolor{keyword}{true});}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13     \textcolor{keywordtype}{bool} launch\_rendering(\textcolor{keywordtype}{bool} loop);}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keywordtype}{void} SwapBuffers();}
+\DoxyCodeLine{16     \textcolor{keywordtype}{void} PollEvents();}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} SetRenderer(\textcolor{keywordtype}{void}* userPointer);}
+\DoxyCodeLine{19     \textcolor{keywordtype}{void}* GetScene();}
+\DoxyCodeLine{20     \textcolor{keywordtype}{void} AddKeyCallBack(\textcolor{keywordtype}{void}(*func)(GLFWwindow*, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}));}
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} AddMouseCallBacks(\textcolor{keywordtype}{void} (*mousebuttonfun)(GLFWwindow*, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}), \textcolor{keywordtype}{void}(*scrollfun)(GLFWwindow*, \textcolor{keywordtype}{double}, \textcolor{keywordtype}{double}), \textcolor{keywordtype}{void} (*cursorposfun)(GLFWwindow*, \textcolor{keywordtype}{double}, \textcolor{keywordtype}{double}));}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} AddResizeCallBack(\textcolor{keywordtype}{void} (*windowsizefun)(GLFWwindow*, \textcolor{keywordtype}{int}, \textcolor{keywordtype}{int}));}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24     \mbox{\hyperlink{class_display}{\string~Display}}();}
+\DoxyCodeLine{25     \textcolor{comment}{//private:}}
+\DoxyCodeLine{26     GLFWwindow* window;}
+\DoxyCodeLine{27     \textcolor{comment}{//Renderer* renderer;}}
+\DoxyCodeLine{28     \textcolor{comment}{//int highdpi;  //relation between width and height?}}
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 }
+
+\end{DoxyCode}

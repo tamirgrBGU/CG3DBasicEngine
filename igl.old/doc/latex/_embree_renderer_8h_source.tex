@@ -1,0 +1,267 @@
+\hypertarget{_embree_renderer_8h_source}{}\doxysection{Embree\+Renderer.\+h}
+\label{_embree_renderer_8h_source}\index{igl/embree/EmbreeRenderer.h@{igl/embree/EmbreeRenderer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2020 Vladimir Fonov <vladimir.fonov@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{//               2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{6 \textcolor{comment}{//               2014 Christian Schüller <schuellchr@gmail.com>}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{9 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{10 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{11 \textcolor{comment}{//}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef IGL\_EMBREE\_EMBREE\_RENDERER\_H}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define IGL\_EMBREE\_EMBREE\_RENDERER\_H}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <igl/colormap.h>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <embree3/rtcore.h>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <embree3/rtcore\_ray.h>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include "{}EmbreeDevice.h"{}}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keyword}{namespace }embree}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     \textcolor{comment}{// embree-\/based mesh renderer}}
+\DoxyCodeLine{35     \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}}}
+\DoxyCodeLine{36     \{}
+\DoxyCodeLine{37     \textcolor{keyword}{public}:}
+\DoxyCodeLine{38       \textcolor{keyword}{typedef} Eigen::RowVector3f Vec3f;}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1embree_1_1_embree_renderer_1_1_hit}{Hit}}}
+\DoxyCodeLine{41       \{}
+\DoxyCodeLine{42         \textcolor{keywordtype}{int} id;    \textcolor{comment}{// primitive id}}
+\DoxyCodeLine{43         \textcolor{keywordtype}{int} gid;   \textcolor{comment}{// geometry id}}
+\DoxyCodeLine{44         \textcolor{keywordtype}{float} u,v; \textcolor{comment}{// barycentric coordinates}}
+\DoxyCodeLine{45         \textcolor{keywordtype}{float} t;   \textcolor{comment}{// distance = direction*t to intersection}}
+\DoxyCodeLine{46         Vec3f N;    \textcolor{comment}{// element normal}}
+\DoxyCodeLine{47       \};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49     \textcolor{keyword}{public}:}
+\DoxyCodeLine{50       \textcolor{keyword}{typedef} Eigen::Matrix<float,Eigen::Dynamic,3> PointMatrixType;}
+\DoxyCodeLine{51       \textcolor{keyword}{typedef} Eigen::Matrix<float,Eigen::Dynamic,3> ColorMatrixType;}
+\DoxyCodeLine{52       \textcolor{keyword}{typedef} Eigen::Matrix<int,  Eigen::Dynamic,3> FaceMatrixType;}
+\DoxyCodeLine{53       \textcolor{keyword}{typedef} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> PixelMatrixType;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{keyword}{public}:}
+\DoxyCodeLine{56       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}}();}
+\DoxyCodeLine{57     \textcolor{keyword}{private}:}
+\DoxyCodeLine{58       \textcolor{comment}{// Copying and assignment are not allowed.}}
+\DoxyCodeLine{59       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}}(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}} \& that);}
+\DoxyCodeLine{60       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}} \& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{EmbreeRenderer}} \&);}
+\DoxyCodeLine{61     \textcolor{keyword}{public}:}
+\DoxyCodeLine{62       \textcolor{keyword}{virtual} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_renderer}{\string~EmbreeRenderer}}();}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64       \textcolor{comment}{// Specify mesh, this call reinitializes embree structures}}
+\DoxyCodeLine{65       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{66       \textcolor{comment}{//   V  \#V x dim matrix of vertex coordinates}}
+\DoxyCodeLine{67       \textcolor{comment}{//   F  \#F x simplex\_size  matrix of indices of simplex corners into V}}
+\DoxyCodeLine{68       \textcolor{comment}{//   is\_static -\/ optimize for static thene (HQ rendering)}}
+\DoxyCodeLine{69       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{70       \textcolor{keywordtype}{void} set\_mesh(\textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{71                     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{72                     \textcolor{keywordtype}{bool} is\_static=\textcolor{keyword}{true});}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74       \textcolor{comment}{// Specify per-\/vertex or per-\/face color}}
+\DoxyCodeLine{75       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{76       \textcolor{comment}{//   C  \#V x 3 matrix of vertex colors}}
+\DoxyCodeLine{77       \textcolor{comment}{//    or \#F x 3 matrix of face colors}}
+\DoxyCodeLine{78       \textcolor{comment}{//    or 1 x 3 matrix of uniform color}}
+\DoxyCodeLine{79       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{80       \textcolor{keywordtype}{void} set\_colors(\textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82       \textcolor{comment}{// Use min(D) and max(D) to set caxis.}}
+\DoxyCodeLine{83       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedD>}
+\DoxyCodeLine{84       \textcolor{keywordtype}{void} set\_data(\textcolor{keyword}{const} Eigen::MatrixBase<DerivedD> \& D,}
+\DoxyCodeLine{85                     igl::ColorMapType cmap = igl::COLOR\_MAP\_TYPE\_VIRIDIS);}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87       \textcolor{comment}{// Specify per-\/vertex or per-\/face scalar field}}
+\DoxyCodeLine{88       \textcolor{comment}{//   that will be converted to color using jet color map}}
+\DoxyCodeLine{89       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{90       \textcolor{comment}{//   caxis\_min  caxis minimum bound}}
+\DoxyCodeLine{91       \textcolor{comment}{//   caxis\_max  caxis maximum bound}}
+\DoxyCodeLine{92       \textcolor{comment}{//   D  \#V by 1 list of scalar values}}
+\DoxyCodeLine{93       \textcolor{comment}{//   cmap colormap type}}
+\DoxyCodeLine{94       \textcolor{comment}{//   num\_steps number of intervals to discretize the colormap}}
+\DoxyCodeLine{95       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedD, \textcolor{keyword}{typename} T>}
+\DoxyCodeLine{96       \textcolor{keywordtype}{void} set\_data(}
+\DoxyCodeLine{97         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedD> \& D,}
+\DoxyCodeLine{98         T caxis\_min,}
+\DoxyCodeLine{99         T caxis\_max,}
+\DoxyCodeLine{100         igl::ColorMapType cmap = igl::COLOR\_MAP\_TYPE\_VIRIDIS);}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102       \textcolor{comment}{// Specify mesh rotation}}
+\DoxyCodeLine{103       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{104       \textcolor{comment}{//   r  3 x 3 rotaton matrix}}
+\DoxyCodeLine{105       \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedr>}
+\DoxyCodeLine{106       \textcolor{keywordtype}{void} set\_rot(\textcolor{keyword}{const} Eigen::MatrixBase<Derivedr> \&r);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108       \textcolor{comment}{// Specify mesh magnification}}
+\DoxyCodeLine{109       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{110       \textcolor{comment}{//   z  magnification ratio}}
+\DoxyCodeLine{111       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{112       \textcolor{keywordtype}{void} set\_zoom(T z);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114       \textcolor{comment}{// Specify mesh translation}}
+\DoxyCodeLine{115       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{116       \textcolor{comment}{//   tr  translation vector}}
+\DoxyCodeLine{117       \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedtr>}
+\DoxyCodeLine{118       \textcolor{keywordtype}{void} set\_translation(\textcolor{keyword}{const} Eigen::MatrixBase<Derivedtr> \&tr);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120       \textcolor{comment}{// Specify that color is face based}}
+\DoxyCodeLine{121       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{122       \textcolor{comment}{//    f -\/ face or vertex colours}}
+\DoxyCodeLine{123       \textcolor{keywordtype}{void} set\_face\_based(\textcolor{keywordtype}{bool} f);}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{125       \textcolor{comment}{// Use orthographic projection}}
+\DoxyCodeLine{126       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{127       \textcolor{comment}{//    f -\/ orthographic or perspective projection}}
+\DoxyCodeLine{128       \textcolor{keywordtype}{void} set\_orthographic(\textcolor{keywordtype}{bool} f );}
+\DoxyCodeLine{129 }
+\DoxyCodeLine{130 }
+\DoxyCodeLine{131       \textcolor{comment}{// Render both sides of triangles}}
+\DoxyCodeLine{132       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{133       \textcolor{comment}{//    f -\/ double sided}}
+\DoxyCodeLine{134       \textcolor{keywordtype}{void} set\_double\_sided(\textcolor{keywordtype}{bool} f);}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136       \textcolor{comment}{// render full buffer}}
+\DoxyCodeLine{137       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{138       \textcolor{comment}{//   all outputs should have the same size (size of the output picture)}}
+\DoxyCodeLine{139       \textcolor{comment}{//     area outside of the visible object will have zero alpha component (transparant)}}
+\DoxyCodeLine{140       \textcolor{comment}{//   R -\/ red channel}}
+\DoxyCodeLine{141       \textcolor{comment}{//   G -\/ green channel}}
+\DoxyCodeLine{142       \textcolor{comment}{//   B -\/ blue channel}}
+\DoxyCodeLine{143       \textcolor{comment}{//   A -\/ alpha channel}}
+\DoxyCodeLine{144       \textcolor{keywordtype}{void} render\_buffer(PixelMatrixType \&R,}
+\DoxyCodeLine{145                          PixelMatrixType \&G,}
+\DoxyCodeLine{146                          PixelMatrixType \&B,}
+\DoxyCodeLine{147                          PixelMatrixType \&A);}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149       \textcolor{comment}{// Given a ray find the first hit}}
+\DoxyCodeLine{150       \textcolor{comment}{//}}
+\DoxyCodeLine{151       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{152       \textcolor{comment}{//   origin     3d origin point of ray}}
+\DoxyCodeLine{153       \textcolor{comment}{//   direction  3d (not necessarily normalized) direction vector of ray}}
+\DoxyCodeLine{154       \textcolor{comment}{//   tnear      start of ray segment}}
+\DoxyCodeLine{155       \textcolor{comment}{//   tfar       end of ray segment}}
+\DoxyCodeLine{156       \textcolor{comment}{//   mask      a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{157       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{158       \textcolor{comment}{//   hit        information about hit}}
+\DoxyCodeLine{159       \textcolor{comment}{// Returns true if and only if there was a hit}}
+\DoxyCodeLine{160       \textcolor{keywordtype}{bool} intersect\_ray(}
+\DoxyCodeLine{161         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{162         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{163         \mbox{\hyperlink{structigl_1_1embree_1_1_embree_renderer_1_1_hit}{Hit}}\& hit,}
+\DoxyCodeLine{164         \textcolor{keywordtype}{float} tnear = 0,}
+\DoxyCodeLine{165         \textcolor{keywordtype}{float} tfar = std::numeric\_limits<float>::infinity(),}
+\DoxyCodeLine{166         \textcolor{keywordtype}{int} mask = 0xFFFFFFFF) \textcolor{keyword}{const};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168     \textcolor{keyword}{private}:}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170       \textcolor{comment}{// Initialize with a given mesh.}}
+\DoxyCodeLine{171       \textcolor{comment}{//}}
+\DoxyCodeLine{172       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{173       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{174       \textcolor{comment}{//   F  \#F by 3 list of Oriented triangles}}
+\DoxyCodeLine{175       \textcolor{comment}{//   isStatic  scene is optimized for static geometry}}
+\DoxyCodeLine{176       \textcolor{comment}{// Side effects:}}
+\DoxyCodeLine{177       \textcolor{comment}{//   The first time this is ever called the embree engine is initialized.}}
+\DoxyCodeLine{178       \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{179         \textcolor{keyword}{const} PointMatrixType\& V,}
+\DoxyCodeLine{180         \textcolor{keyword}{const} FaceMatrixType\& F,}
+\DoxyCodeLine{181         \textcolor{keywordtype}{bool} isStatic = \textcolor{keyword}{false});}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183       \textcolor{comment}{// Initialize embree with a given mesh.}}
+\DoxyCodeLine{184       \textcolor{comment}{//}}
+\DoxyCodeLine{185       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{186       \textcolor{comment}{//   V  vector of \#V by 3 list of vertex positions for each geometry}}
+\DoxyCodeLine{187       \textcolor{comment}{//   F  vector of \#F by 3 list of Oriented triangles for each geometry}}
+\DoxyCodeLine{188       \textcolor{comment}{//   masks  a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{189       \textcolor{comment}{//   isStatic  scene is optimized for static geometry}}
+\DoxyCodeLine{190       \textcolor{comment}{// Side effects:}}
+\DoxyCodeLine{191       \textcolor{comment}{//   The first time this is ever called the embree engine is initialized.}}
+\DoxyCodeLine{192       \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{193         \textcolor{keyword}{const} std::vector<const PointMatrixType*>\& V,}
+\DoxyCodeLine{194         \textcolor{keyword}{const} std::vector<const FaceMatrixType*>\& F,}
+\DoxyCodeLine{195         \textcolor{keyword}{const} std::vector<int>\& masks,}
+\DoxyCodeLine{196         \textcolor{keywordtype}{bool} isStatic = \textcolor{keyword}{false});}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199       \textcolor{comment}{// Deinitialize embree datasctructures for current mesh.  Also called on}}
+\DoxyCodeLine{200       \textcolor{comment}{// destruction: no need to call if you just want to init() once and}}
+\DoxyCodeLine{201       \textcolor{comment}{// destroy.}}
+\DoxyCodeLine{202       \textcolor{keywordtype}{void} deinit();}
+\DoxyCodeLine{203       \textcolor{comment}{// initialize view parameters}}
+\DoxyCodeLine{204       \textcolor{keywordtype}{void} init\_view();}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206       \textcolor{comment}{// scene data}}
+\DoxyCodeLine{207       PointMatrixType V; \textcolor{comment}{// vertices}}
+\DoxyCodeLine{208       FaceMatrixType  F; \textcolor{comment}{// faces}}
+\DoxyCodeLine{209       ColorMatrixType C; \textcolor{comment}{// colours}}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211       Eigen::RowVector3f uC; \textcolor{comment}{// uniform color}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213       \textcolor{keywordtype}{bool} face\_based;}
+\DoxyCodeLine{214       \textcolor{keywordtype}{bool} uniform\_color;}
+\DoxyCodeLine{215       \textcolor{keywordtype}{bool} double\_sided ;}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217       \textcolor{comment}{// Camera parameters}}
+\DoxyCodeLine{218       \textcolor{keywordtype}{float} camera\_base\_zoom;}
+\DoxyCodeLine{219       \textcolor{keywordtype}{float} camera\_zoom;}
+\DoxyCodeLine{220 }
+\DoxyCodeLine{221       Eigen::Vector3f camera\_base\_translation;}
+\DoxyCodeLine{222       Eigen::Vector3f camera\_translation;}
+\DoxyCodeLine{223       Eigen::Vector3f camera\_eye;}
+\DoxyCodeLine{224       Eigen::Vector3f camera\_up;}
+\DoxyCodeLine{225       Eigen::Vector3f camera\_center;}
+\DoxyCodeLine{226       \textcolor{keywordtype}{float} camera\_view\_angle;}
+\DoxyCodeLine{227       \textcolor{keywordtype}{float} camera\_dnear;}
+\DoxyCodeLine{228       \textcolor{keywordtype}{float} camera\_dfar;}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{230       \textcolor{comment}{// projection matrixes}}
+\DoxyCodeLine{231       Eigen::Matrix4f view;}
+\DoxyCodeLine{232       Eigen::Matrix4f proj;}
+\DoxyCodeLine{233       Eigen::Matrix4f norm;}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235       Eigen::Matrix3f rot\_matrix;}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{237       \textcolor{keywordtype}{bool} orthographic;}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239       \textcolor{comment}{// embree data}}
+\DoxyCodeLine{240       RTCScene scene;}
+\DoxyCodeLine{241       \textcolor{keywordtype}{unsigned} geomID;}
+\DoxyCodeLine{242       \textcolor{keywordtype}{bool} initialized;}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244       RTCDevice device;}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246       \textcolor{keywordtype}{void} create\_ray(}
+\DoxyCodeLine{247         RTCRayHit\& ray,}
+\DoxyCodeLine{248         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{249         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{250         \textcolor{keywordtype}{float} tnear,}
+\DoxyCodeLine{251         \textcolor{keywordtype}{float} tfar,}
+\DoxyCodeLine{252         \textcolor{keywordtype}{int} mask) \textcolor{keyword}{const};}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254     \};}
+\DoxyCodeLine{255   \}}
+\DoxyCodeLine{256 \}}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{259 \textcolor{preprocessor}{\#  include "{}EmbreeRenderer.cpp"{}}}
+\DoxyCodeLine{260 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{261 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//IGL\_EMBREE\_EMBREE\_RENDERER\_H}}
+
+\end{DoxyCode}

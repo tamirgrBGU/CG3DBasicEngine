@@ -1,0 +1,73 @@
+\hypertarget{jet_8h_source}{}\doxysection{jet.\+h}
+\label{jet_8h_source}\index{igl/jet.h@{igl/jet.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_JET\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_JET\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{comment}{//\#ifndef IGL\_NO\_EIGEN}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#  include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// JET like MATLAB's jet.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Note that we actually use the Turbo colormap instead, since jet is a bad colormap:}}
+\DoxyCodeLine{19   \textcolor{comment}{// https://ai.googleblog.com/2019/08/turbo-\/improved-\/rainbow-\/colormap-\/for.html}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   m  number of colors}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   J  m by list of RGB colors between 0 and 1}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26 \textcolor{comment}{//\#ifndef IGL\_NO\_EIGEN}}
+\DoxyCodeLine{27 \textcolor{comment}{//  void jet(const int m, Eigen::MatrixXd \& J);}}
+\DoxyCodeLine{28 \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{29   \textcolor{comment}{// Wrapper for directly computing [r,g,b] values for a given factor f between}}
+\DoxyCodeLine{30   \textcolor{comment}{// 0 and 1}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{33   \textcolor{comment}{//   f  factor determining color value as if 0 was min and 1 was max}}
+\DoxyCodeLine{34   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   r  red value}}
+\DoxyCodeLine{36   \textcolor{comment}{//   g  green value}}
+\DoxyCodeLine{37   \textcolor{comment}{//   b  blue value}}
+\DoxyCodeLine{38   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{39   IGL\_INLINE \textcolor{keywordtype}{void} jet(\textcolor{keyword}{const} T f, T * rgb);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} jet(\textcolor{keyword}{const} T f, T \& r, T \& g, T \& b);}
+\DoxyCodeLine{42   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{43   \textcolor{comment}{//   Z  \#Z list of factors}}
+\DoxyCodeLine{44   \textcolor{comment}{//   normalize  whether to normalize Z to be tightly between [0,1]}}
+\DoxyCodeLine{45   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   C  \#C by 3 list of rgb colors}}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedZ, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{void} jet(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedZ> \& Z,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} normalize,}
+\DoxyCodeLine{51     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{52   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   min\_z  value at blue}}
+\DoxyCodeLine{54   \textcolor{comment}{//   max\_z  value at red}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedZ, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} jet(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedZ> \& Z,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} \textcolor{keywordtype}{double} min\_Z,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{double} max\_Z,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#  include "{}jet.cpp"{}}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

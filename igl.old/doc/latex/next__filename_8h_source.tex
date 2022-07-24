@@ -1,0 +1,42 @@
+\hypertarget{next__filename_8h_source}{}\doxysection{next\+\_\+filename.\+h}
+\label{next__filename_8h_source}\index{igl/next\_filename.h@{igl/next\_filename.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NEXT\_FILENAME\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NEXT\_FILENAME\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Find the file with the first filename of the form}}
+\DoxyCodeLine{15   \textcolor{comment}{// "{}prefix\%0[zeros]dsuffix"{}}}
+\DoxyCodeLine{16   \textcolor{comment}{// }}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   prefix  path to containing dir and filename prefix}}
+\DoxyCodeLine{19   \textcolor{comment}{//   zeros number of leading zeros as if digit printed with printf}}
+\DoxyCodeLine{20   \textcolor{comment}{//   suffix  suffix of filename and extension (should include dot)}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   next  path to next file}}
+\DoxyCodeLine{23   \textcolor{comment}{// Returns true if found, false if exceeding range in zeros}}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{bool} next\_filename(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} std::string \& prefix, }
+\DoxyCodeLine{26     \textcolor{keyword}{const} \textcolor{keywordtype}{int} zeros,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} std::string \& suffix,}
+\DoxyCodeLine{28     std::string \& next);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#  include "{}next\_filename.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 }
+
+\end{DoxyCode}

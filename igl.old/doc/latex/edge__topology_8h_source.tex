@@ -1,0 +1,56 @@
+\hypertarget{edge__topology_8h_source}{}\doxysection{edge\+\_\+topology.\+h}
+\label{edge__topology_8h_source}\index{igl/edge\_topology.h@{igl/edge\_topology.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_EDGE\_TOPOLOGY\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_EDGE\_TOPOLOGY\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Initialize Edges and their topological relations (assumes an edge-\/manifold}}
+\DoxyCodeLine{19   \textcolor{comment}{// mesh)}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions (unused)}}
+\DoxyCodeLine{23   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   EV  \#Ex2 matrix storing the edge description as pair of indices to}}
+\DoxyCodeLine{26   \textcolor{comment}{//       vertices}}
+\DoxyCodeLine{27   \textcolor{comment}{//   FE  \#Fx3 matrix storing the Triangle-\/Edge relation}}
+\DoxyCodeLine{28   \textcolor{comment}{//   EF  \#Ex2 matrix storing the Edge-\/Triangle relation}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// TODO: This seems to be a inferior duplicate of edge\_flaps.h:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   -\/ unused input parameter V}}
+\DoxyCodeLine{32   \textcolor{comment}{//   -\/ roughly 2x slower than edge\_flaps}}
+\DoxyCodeLine{33   \textcolor{comment}{//   -\/ outputs less information: edge\_flaps reveals corner opposite edge}}
+\DoxyCodeLine{34   \textcolor{comment}{//   -\/ FE uses non-\/standard and ambiguous order: FE(f,c) is merely an edge}}
+\DoxyCodeLine{35   \textcolor{comment}{//     incident on corner c of face f. In contrast, edge\_flaps's EMAP(f,c)}}
+\DoxyCodeLine{36   \textcolor{comment}{//     reveals the edge \_opposite\_ corner c of face f}}
+\DoxyCodeLine{37 \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{void} edge\_topology(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F, }
+\DoxyCodeLine{41     Eigen::PlainObjectBase<DerivedE>\& EV, }
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedE>\& FE, }
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedE>\& EF);}
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}edge\_topology.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

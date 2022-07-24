@@ -1,0 +1,40 @@
+\hypertarget{dated__copy_8h_source}{}\doxysection{dated\+\_\+copy.\+h}
+\label{dated__copy_8h_source}\index{igl/dated\_copy.h@{igl/dated\_copy.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{// Known issues: This function does not work under windows}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef IGL\_DATED\_COPY\_H}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define IGL\_DATED\_COPY\_H}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Copy the given file to a new file with the same basename in `dir`}}
+\DoxyCodeLine{18   \textcolor{comment}{// directory with the current date and time as a suffix.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   src\_path  path to source file}}
+\DoxyCodeLine{22   \textcolor{comment}{//   dir  directory of destination file}}
+\DoxyCodeLine{23   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   dated\_copy("{}/path/to/foo"{},"{}/bar/"{});}}
+\DoxyCodeLine{25   \textcolor{comment}{//   // copies /path/to/foo to /bar/foo-\/2013-\/12-\/12T18-\/10-\/56}}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{bool} dated\_copy(\textcolor{keyword}{const} std::string \& src\_path, \textcolor{keyword}{const} std::string \& dir);}
+\DoxyCodeLine{27   \textcolor{comment}{// Wrapper using directory of source file}}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{bool} dated\_copy(\textcolor{keyword}{const} std::string \& src\_path);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}dated\_copy.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{34 }
+
+\end{DoxyCode}

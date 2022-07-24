@@ -1,0 +1,62 @@
+\hypertarget{unproject__on__line_8h_source}{}\doxysection{unproject\+\_\+on\+\_\+line.\+h}
+\label{unproject__on__line_8h_source}\index{igl/unproject\_on\_line.h@{igl/unproject\_on\_line.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_UNPROJECT\_ON\_LINE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_UNPROJECT\_ON\_LINE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Given a screen space point (u,v) and the current projection matrix (e.g.}}
+\DoxyCodeLine{9   \textcolor{comment}{// gl\_proj * gl\_modelview) and viewport, \_unproject\_ the point into the scene}}
+\DoxyCodeLine{10   \textcolor{comment}{// so that it lies on given line (origin and dir) and projects as closely as}}
+\DoxyCodeLine{11   \textcolor{comment}{// possible to the given screen space point.}}
+\DoxyCodeLine{12   \textcolor{comment}{//}}
+\DoxyCodeLine{13   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   UV  2-\/long uv-\/coordinates of screen space point}}
+\DoxyCodeLine{15   \textcolor{comment}{//   M  4 by 4 projection matrix}}
+\DoxyCodeLine{16   \textcolor{comment}{//   VP  4-\/long viewport: (corner\_u, corner\_v, width, height)}}
+\DoxyCodeLine{17   \textcolor{comment}{//   origin  point on line}}
+\DoxyCodeLine{18   \textcolor{comment}{//   dir  vector parallel to line}}
+\DoxyCodeLine{19   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   t  line parameter so that closest poin on line to viewer ray through UV}}
+\DoxyCodeLine{21   \textcolor{comment}{//     lies at origin+t*dir}}
+\DoxyCodeLine{22   \textcolor{keyword}{template} <}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedUV,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedVP,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} Derivedorigin,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} Deriveddir>}
+\DoxyCodeLine{28   \textcolor{keywordtype}{void} unproject\_on\_line(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUV> \& UV,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVP> \& VP,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedorigin> \& origin,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<Deriveddir> \& dir,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedUV::Scalar \& t);}
+\DoxyCodeLine{35   \textcolor{comment}{//   Z  3d position of closest point on line to viewing ray through UV}}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedUV,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedVP,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} Derivedorigin,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} Deriveddir,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedZ>}
+\DoxyCodeLine{43   \textcolor{keywordtype}{void} unproject\_on\_line(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUV> \& UV,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVP> \& VP,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedorigin> \& origin,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<Deriveddir> \& dir,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedZ> \& Z);}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#  include "{}unproject\_on\_line.cpp"{}}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

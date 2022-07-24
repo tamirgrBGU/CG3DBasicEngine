@@ -1,0 +1,66 @@
+\hypertarget{mosek_2bbw_8h_source}{}\doxysection{bbw.\+h}
+\label{mosek_2bbw_8h_source}\index{igl/mosek/bbw.h@{igl/mosek/bbw.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MOSEK\_BBW\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MOSEK\_BBW\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}mosek\_quadprog.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../bbw.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }mosek}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Compute Bounded Biharmonic Weights on a given domain (V,Ele) with a given}}
+\DoxyCodeLine{20     \textcolor{comment}{// set of boundary conditions}}
+\DoxyCodeLine{21     \textcolor{comment}{//}}
+\DoxyCodeLine{22     \textcolor{comment}{// Templates}}
+\DoxyCodeLine{23     \textcolor{comment}{//   DerivedV  derived type of eigen matrix for V (e.g. MatrixXd)}}
+\DoxyCodeLine{24     \textcolor{comment}{//   DerivedF  derived type of eigen matrix for F (e.g. MatrixXi)}}
+\DoxyCodeLine{25     \textcolor{comment}{//   Derivedb  derived type of eigen matrix for b (e.g. VectorXi)}}
+\DoxyCodeLine{26     \textcolor{comment}{//   Derivedbc  derived type of eigen matrix for bc (e.g. MatrixXd)}}
+\DoxyCodeLine{27     \textcolor{comment}{//   DerivedW  derived type of eigen matrix for W (e.g. MatrixXd)}}
+\DoxyCodeLine{28     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{29     \textcolor{comment}{//   V  \#V by dim vertex positions}}
+\DoxyCodeLine{30     \textcolor{comment}{//   Ele  \#Elements by simplex-\/size list of element indices}}
+\DoxyCodeLine{31     \textcolor{comment}{//   b  \#b boundary indices into V}}
+\DoxyCodeLine{32     \textcolor{comment}{//   bc \#b by \#W list of boundary values}}
+\DoxyCodeLine{33     \textcolor{comment}{//   data  object containing options, initial guess -\/-\/> solution and results}}
+\DoxyCodeLine{34     \textcolor{comment}{//   mosek\_data  object containing mosek options}}
+\DoxyCodeLine{35     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36     \textcolor{comment}{//   W  \#V by \#W list of *unnormalized* weights to normalize use}}
+\DoxyCodeLine{37     \textcolor{comment}{//    igl::normalize\_row\_sums(W,W);}}
+\DoxyCodeLine{38     \textcolor{comment}{// Returns true on success, false on failure}}
+\DoxyCodeLine{39     \textcolor{keyword}{template} <}
+\DoxyCodeLine{40       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{41       \textcolor{keyword}{typename} DerivedEle,}
+\DoxyCodeLine{42       \textcolor{keyword}{typename} Derivedb,}
+\DoxyCodeLine{43       \textcolor{keyword}{typename} Derivedbc,}
+\DoxyCodeLine{44       \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{45     IGL\_INLINE \textcolor{keywordtype}{bool} bbw(}
+\DoxyCodeLine{46       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{47       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedEle> \& Ele,}
+\DoxyCodeLine{48       \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedb> \& b,}
+\DoxyCodeLine{49       \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedbc> \& bc,}
+\DoxyCodeLine{50       \mbox{\hyperlink{classigl_1_1_b_b_w_data}{igl::BBWData}} \& data,}
+\DoxyCodeLine{51       \mbox{\hyperlink{structigl_1_1mosek_1_1_mosek_data}{igl::mosek::MosekData}} \& mosek\_data,}
+\DoxyCodeLine{52       Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#  include "{}bbw.cpp"{}}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

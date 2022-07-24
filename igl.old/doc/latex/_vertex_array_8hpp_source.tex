@@ -1,0 +1,29 @@
+\hypertarget{_vertex_array_8hpp_source}{}\doxysection{Vertex\+Array.\+hpp}
+\label{_vertex_array_8hpp_source}\index{igl/opengl/glfw/VertexArray.hpp@{igl/opengl/glfw/VertexArray.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef SRC\_VERTEXARRAY\_HPP\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define SRC\_VERTEXARRAY\_HPP\_}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}VertexBuffer.hpp"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}IndexBuffer.hpp"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}shader.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{class }\mbox{\hyperlink{class_vertex_array}{VertexArray}}\{}
+\DoxyCodeLine{8 \textcolor{keyword}{private}:}
+\DoxyCodeLine{9     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_RendererID;}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{public}:}
+\DoxyCodeLine{12     \mbox{\hyperlink{class_vertex_array}{VertexArray}}();}
+\DoxyCodeLine{13     \mbox{\hyperlink{class_vertex_array}{\string~VertexArray}}();}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15     \textcolor{keywordtype}{void} AddBuffer(\textcolor{keyword}{const} \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}\& vb,\textcolor{keywordtype}{int} attribNum,\textcolor{keywordtype}{int} count,\textcolor{keywordtype}{int} type);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     \textcolor{keywordtype}{void} Bind() \textcolor{keyword}{const};}
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} Unbind() \textcolor{keyword}{const};}
+\DoxyCodeLine{19     \textcolor{keywordtype}{void} Draw(\textcolor{keywordtype}{int} mode,\textcolor{keyword}{const} \mbox{\hyperlink{class_index_buffer}{IndexBuffer}}\& ib,\textcolor{keyword}{const} \mbox{\hyperlink{class_shader}{Shader}}\& shader);}
+\DoxyCodeLine{20 \};}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

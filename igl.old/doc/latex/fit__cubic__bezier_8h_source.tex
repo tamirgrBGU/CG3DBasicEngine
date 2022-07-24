@@ -1,0 +1,63 @@
+\hypertarget{fit__cubic__bezier_8h_source}{}\doxysection{fit\+\_\+cubic\+\_\+bezier.\+h}
+\label{fit__cubic__bezier_8h_source}\index{igl/fit\_cubic\_bezier.h@{igl/fit\_cubic\_bezier.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef FIT\_CUBIC\_BEZIER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define FIT\_CUBIC\_BEZIER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Fit a cubic bezier spline (G1 continuous) to an ordered list of input}}
+\DoxyCodeLine{16   \textcolor{comment}{// points in any dimension, according to "{}An algorithm for automatically}}
+\DoxyCodeLine{17   \textcolor{comment}{// fitting digitized curves"{} [Schneider 1990].}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   d  \#d by dim list of points along a curve to be fit with a cubic bezier}}
+\DoxyCodeLine{21   \textcolor{comment}{//     spline (should probably be roughly uniformly spaced). If d(0)==d(end),}}
+\DoxyCodeLine{22   \textcolor{comment}{//     then will treat as a closed curve.}}
+\DoxyCodeLine{23   \textcolor{comment}{//   error  maximum squared distance allowed}}
+\DoxyCodeLine{24   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   cubics \#cubics list of 4 by dim lists of cubic control points}}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} fit\_cubic\_bezier(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixXd \& d,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} \textcolor{keywordtype}{double} error,}
+\DoxyCodeLine{29     std::vector<Eigen::MatrixXd> \& cubics);}
+\DoxyCodeLine{30   \textcolor{comment}{// Recursive helper function. }}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{33   \textcolor{comment}{//    first  index of first point in d of substring}}
+\DoxyCodeLine{34   \textcolor{comment}{//    last  index of last point in d of substring}}
+\DoxyCodeLine{35   \textcolor{comment}{//    tHat1  tangent to use at beginning of spline}}
+\DoxyCodeLine{36   \textcolor{comment}{//    tHat2  tangent to use at end of spline}}
+\DoxyCodeLine{37   \textcolor{comment}{//    error  see above}}
+\DoxyCodeLine{38   \textcolor{comment}{//    force\_split  whether to force a split (i.e., force a recursive call)}}
+\DoxyCodeLine{39   \textcolor{comment}{//    cubics  running list of cubics so far}}
+\DoxyCodeLine{40   \textcolor{comment}{// Outputs}}
+\DoxyCodeLine{41   \textcolor{comment}{//    cubics  running list of cubics so far (new cubics appended)}}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} fit\_cubic\_bezier\_substring(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixXd \& d,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keywordtype}{int} first,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} \textcolor{keywordtype}{int} last,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::RowVectorXd \& tHat1,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::RowVectorXd \& tHat2,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} \textcolor{keywordtype}{double} error,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} force\_split, }
+\DoxyCodeLine{50     std::vector<Eigen::MatrixXd> \& cubics);}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#include "{}fit\_cubic\_bezier.cpp"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

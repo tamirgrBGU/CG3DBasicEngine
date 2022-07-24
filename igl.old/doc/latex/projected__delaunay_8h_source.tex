@@ -1,0 +1,52 @@
+\hypertarget{projected__delaunay_8h_source}{}\doxysection{projected\+\_\+delaunay.\+h}
+\label{projected__delaunay_8h_source}\index{igl/copyleft/cgal/projected\_delaunay.h@{igl/copyleft/cgal/projected\_delaunay.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_PROJECTED\_DELAUNAY\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_PROJECTED\_DELAUNAY\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}CGAL\_includes.hpp"{}}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{15   \{}
+\DoxyCodeLine{16     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{17     \{}
+\DoxyCodeLine{18       \textcolor{comment}{// Compute 2D delaunay triangulation of a given 3d triangle and a list of}}
+\DoxyCodeLine{19       \textcolor{comment}{// intersection objects (points,segments,triangles). CGAL uses an affine}}
+\DoxyCodeLine{20       \textcolor{comment}{// projection rather than an isometric projection, so we're not guaranteed}}
+\DoxyCodeLine{21       \textcolor{comment}{// that the 2D delaunay triangulation here will be a delaunay triangulation}}
+\DoxyCodeLine{22       \textcolor{comment}{// in 3D.}}
+\DoxyCodeLine{23       \textcolor{comment}{//}}
+\DoxyCodeLine{24       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25       \textcolor{comment}{//   A  triangle in 3D}}
+\DoxyCodeLine{26       \textcolor{comment}{//   A\_objects\_3  updated list of intersection objects for A}}
+\DoxyCodeLine{27       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28       \textcolor{comment}{//   cdt  Contrained delaunay triangulation in projected 2D plane}}
+\DoxyCodeLine{29       \textcolor{keyword}{template} <\textcolor{keyword}{typename} Kernel>}
+\DoxyCodeLine{30       IGL\_INLINE \textcolor{keywordtype}{void} projected\_delaunay(}
+\DoxyCodeLine{31         \textcolor{keyword}{const} CGAL::Triangle\_3<Kernel> \& A,}
+\DoxyCodeLine{32         \textcolor{keyword}{const} std::vector<CGAL::Object> \& A\_objects\_3,}
+\DoxyCodeLine{33         CGAL::Constrained\_triangulation\_plus\_2<}
+\DoxyCodeLine{34           CGAL::Constrained\_Delaunay\_triangulation\_2<}
+\DoxyCodeLine{35             Kernel,}
+\DoxyCodeLine{36             CGAL::Triangulation\_data\_structure\_2<}
+\DoxyCodeLine{37               CGAL::Triangulation\_vertex\_base\_2<Kernel>,}
+\DoxyCodeLine{38               CGAL::Constrained\_triangulation\_face\_base\_2<Kernel> >,}
+\DoxyCodeLine{39             CGAL::Exact\_intersections\_tag> > \& cdt);}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41   \}}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#  include "{}projected\_delaunay.cpp"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

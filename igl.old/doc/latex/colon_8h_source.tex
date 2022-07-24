@@ -1,0 +1,71 @@
+\hypertarget{colon_8h_source}{}\doxysection{colon.\+h}
+\label{colon_8h_source}\index{igl/colon.h@{igl/colon.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COLON\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COLON\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Note:}}
+\DoxyCodeLine{15   \textcolor{comment}{// This should be potentially replaced with eigen's LinSpaced() function}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// If step = 1, it's about 5 times faster to use:}}
+\DoxyCodeLine{18   \textcolor{comment}{//     X = Eigen::VectorXi::LinSpaced(n,0,n-\/1);}}
+\DoxyCodeLine{19   \textcolor{comment}{// than }}
+\DoxyCodeLine{20   \textcolor{comment}{//     X = igl::colon<int>(0,n-\/1);}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23   \textcolor{comment}{// Colon operator like matlab's colon operator. Enumerats values between low}}
+\DoxyCodeLine{24   \textcolor{comment}{// and hi with step step.}}
+\DoxyCodeLine{25   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   L  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{27   \textcolor{comment}{//   S  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{28   \textcolor{comment}{//   H  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{29   \textcolor{comment}{//   T  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{30   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   low  starting value if step is valid then this is *always* the first}}
+\DoxyCodeLine{32   \textcolor{comment}{//     element of I}}
+\DoxyCodeLine{33   \textcolor{comment}{//   step  step difference between sequential elements returned in I,}}
+\DoxyCodeLine{34   \textcolor{comment}{//     remember this will be cast to template T at compile time. If low<hi}}
+\DoxyCodeLine{35   \textcolor{comment}{//     then step must be positive. If low>hi then step must be negative.}}
+\DoxyCodeLine{36   \textcolor{comment}{//     Otherwise I will be set to empty.}}
+\DoxyCodeLine{37   \textcolor{comment}{//   hi  ending value, if (hi-\/low)\%step is zero then this will be the last}}
+\DoxyCodeLine{38   \textcolor{comment}{//     element in I. If step is positive there will be no elements greater}}
+\DoxyCodeLine{39   \textcolor{comment}{//     than hi, vice versa if hi<low}}
+\DoxyCodeLine{40   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{41   \textcolor{comment}{//   I  list of values from low to hi with step size step}}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L,\textcolor{keyword}{typename} S,\textcolor{keyword}{typename} H,\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} colon(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} L low, }
+\DoxyCodeLine{45     \textcolor{keyword}{const} S step, }
+\DoxyCodeLine{46     \textcolor{keyword}{const} H hi, }
+\DoxyCodeLine{47     Eigen::Matrix<T,Eigen::Dynamic,1> \& I);}
+\DoxyCodeLine{48   \textcolor{comment}{// Same as above but step == (T)1}}
+\DoxyCodeLine{49   \textcolor{keyword}{template} <\textcolor{keyword}{typename} L,\textcolor{keyword}{typename} H,\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{50   IGL\_INLINE \textcolor{keywordtype}{void} colon(}
+\DoxyCodeLine{51     \textcolor{keyword}{const} L low, }
+\DoxyCodeLine{52     \textcolor{keyword}{const} H hi, }
+\DoxyCodeLine{53     Eigen::Matrix<T,Eigen::Dynamic,1> \& I);}
+\DoxyCodeLine{54   \textcolor{comment}{// Return output rather than set in reference}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keyword}{typename} L,\textcolor{keyword}{typename} H>}
+\DoxyCodeLine{56   IGL\_INLINE Eigen::Matrix<T,Eigen::Dynamic,1> colon(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} L low, }
+\DoxyCodeLine{58     \textcolor{keyword}{const} H hi);}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#  include "{}colon.cpp"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

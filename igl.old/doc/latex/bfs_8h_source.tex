@@ -1,0 +1,60 @@
+\hypertarget{bfs_8h_source}{}\doxysection{bfs.\+h}
+\label{bfs_8h_source}\index{igl/bfs.h@{igl/bfs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_BFS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_BFS\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// Traverse a **directed** graph represented by an adjacency list using}}
+\DoxyCodeLine{10   \textcolor{comment}{// breadth first search}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   A  \#V list of adjacency lists  or \#V by \#V adjacency matrix}}
+\DoxyCodeLine{14   \textcolor{comment}{//   s  starting node (index into A)}}
+\DoxyCodeLine{15   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{16   \textcolor{comment}{//   D  \#V list of indices into rows of A in the order in which graph nodes}}
+\DoxyCodeLine{17   \textcolor{comment}{//     are discovered.}}
+\DoxyCodeLine{18   \textcolor{comment}{//   P  \#V list of indices into rows of A of predecessor in resulting}}
+\DoxyCodeLine{19   \textcolor{comment}{//     spanning tree \{-\/1 indicates root/not discovered), order corresponds to}}
+\DoxyCodeLine{20   \textcolor{comment}{//     V **not** D.}}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <}
+\DoxyCodeLine{22     \textcolor{keyword}{typename} AType,}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedD,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{void} bfs(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} AType \& A,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} s,}
+\DoxyCodeLine{28     Eigen::PlainObjectBase<DerivedD> \& D,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedP> \& P);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   \textcolor{keyword}{template} <}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} AType,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DType,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} PType>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} bfs(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} std::vector<std::vector<AType> > \& A,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} s,}
+\DoxyCodeLine{38     std::vector<DType> \& D,}
+\DoxyCodeLine{39     std::vector<PType> \& P);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} AType,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DType,}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} PType>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{void} bfs(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::SparseCompressedBase<AType> \& A,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} s,}
+\DoxyCodeLine{47     std::vector<DType> \& D,}
+\DoxyCodeLine{48     std::vector<PType> \& P);}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#  include "{}bfs.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+
+\end{DoxyCode}

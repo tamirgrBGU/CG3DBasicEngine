@@ -1,0 +1,87 @@
+\hypertarget{_camera_8h_source}{}\doxysection{Camera.\+h}
+\label{_camera_8h_source}\index{igl/opengl/Camera.h@{igl/opengl/Camera.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by hedi1 on 24/01/2022.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef EngineREWORK\_CAMERA\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define EngineREWORK\_CAMERA\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}Movable.h"{}}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }opengl \{}
+\DoxyCodeLine{13         \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1_camera}{Camera}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_movable}{Movable}} \{}
+\DoxyCodeLine{14         \textcolor{keyword}{public}:}
+\DoxyCodeLine{15             IGL\_INLINE \mbox{\hyperlink{classigl_1_1opengl_1_1_camera}{Camera}}();}
+\DoxyCodeLine{16             IGL\_INLINE \mbox{\hyperlink{classigl_1_1opengl_1_1_camera}{Camera}}(\textcolor{keywordtype}{float} fov, \textcolor{keywordtype}{float} relationWH, \textcolor{keywordtype}{float} zNear, \textcolor{keywordtype}{float} zFar);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18             IGL\_INLINE Eigen::Matrix4f GetViewProjection()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{19                 \textcolor{keywordflow}{return} \_projection;}
+\DoxyCodeLine{20             \}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22             IGL\_INLINE \textcolor{keywordtype}{float} GetAngle()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{23                 \textcolor{keywordflow}{return} \_fov;}
+\DoxyCodeLine{24             \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26             IGL\_INLINE \textcolor{keywordtype}{float} GetNear()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{27                 \textcolor{keywordflow}{return} \_near;}
+\DoxyCodeLine{28             \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30             IGL\_INLINE \textcolor{keywordtype}{float} GetFar()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{31                 \textcolor{keywordflow}{return} \_far;}
+\DoxyCodeLine{32             \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34             IGL\_INLINE \textcolor{keywordtype}{float} GetRelationWH()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{35                 \textcolor{keywordflow}{return} \_relationWH;}
+\DoxyCodeLine{36             \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38             IGL\_INLINE \textcolor{keywordtype}{void} SetProjection(\textcolor{keywordtype}{float} fov, \textcolor{keywordtype}{float} relationWH);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40             IGL\_INLINE \textcolor{keywordtype}{float} CalcMoveCoeff(\textcolor{keywordtype}{float} depth, \textcolor{keywordtype}{int} width) \textcolor{keyword}{const};}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42             Eigen::Matrix4f \_projection;}
+\DoxyCodeLine{43             \textcolor{keywordtype}{float} \_fov, \_relationWH;}
+\DoxyCodeLine{44             \textcolor{keywordtype}{float} \_far, \_near, \_length;}
+\DoxyCodeLine{45             \textcolor{keywordtype}{bool} \_ortho;}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         \};}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{comment}{//\#include <igl/serialize.h>}}
+\DoxyCodeLine{53 \textcolor{comment}{//namespace igl \{}}
+\DoxyCodeLine{54 \textcolor{comment}{//    namespace serialization \{}}
+\DoxyCodeLine{55 \textcolor{comment}{//}}
+\DoxyCodeLine{56 \textcolor{comment}{//        IGL\_INLINE void serialization(bool s, igl::opengl::Camera\& obj, std::vector<char>\& buffer)}}
+\DoxyCodeLine{57 \textcolor{comment}{//        \{}}
+\DoxyCodeLine{58 \textcolor{comment}{//}}
+\DoxyCodeLine{59 \textcolor{comment}{//            SERIALIZE\_MEMBER(projection);}}
+\DoxyCodeLine{60 \textcolor{comment}{//            SERIALIZE\_MEMBER(fov);}}
+\DoxyCodeLine{61 \textcolor{comment}{//            SERIALIZE\_MEMBER(relationWH);}}
+\DoxyCodeLine{62 \textcolor{comment}{//            SERIALIZE\_MEMBER(\_far);}}
+\DoxyCodeLine{63 \textcolor{comment}{//            SERIALIZE\_MEMBER(\_near);}}
+\DoxyCodeLine{64 \textcolor{comment}{//}}
+\DoxyCodeLine{65 \textcolor{comment}{//        \}}}
+\DoxyCodeLine{66 \textcolor{comment}{//}}
+\DoxyCodeLine{67 \textcolor{comment}{//        template<>}}
+\DoxyCodeLine{68 \textcolor{comment}{//        inline void serialize(const igl::opengl::Camera\& obj, std::vector<char>\& buffer)}}
+\DoxyCodeLine{69 \textcolor{comment}{//        \{}}
+\DoxyCodeLine{70 \textcolor{comment}{//            serialization(true, const\_cast<igl::opengl::Camera\&>(obj), buffer);}}
+\DoxyCodeLine{71 \textcolor{comment}{//        \}}}
+\DoxyCodeLine{72 \textcolor{comment}{//}}
+\DoxyCodeLine{73 \textcolor{comment}{//        template<>}}
+\DoxyCodeLine{74 \textcolor{comment}{//        inline void deserialize(igl::opengl::Camera\& obj, const std::vector<char>\& buffer)}}
+\DoxyCodeLine{75 \textcolor{comment}{//        \{}}
+\DoxyCodeLine{76 \textcolor{comment}{//            serialization(false, obj, const\_cast<std::vector<char>\&>(buffer));}}
+\DoxyCodeLine{77 \textcolor{comment}{//        \}}}
+\DoxyCodeLine{78 \textcolor{comment}{//    \}}}
+\DoxyCodeLine{79 \textcolor{comment}{//\}}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//EngineREWORK\_CAMERA\_H}}
+
+\end{DoxyCode}

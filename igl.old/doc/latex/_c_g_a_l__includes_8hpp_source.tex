@@ -1,0 +1,55 @@
+\hypertarget{_c_g_a_l__includes_8hpp_source}{}\doxysection{CGAL\+\_\+includes.\+hpp}
+\label{_c_g_a_l__includes_8hpp_source}\index{igl/copyleft/cgal/CGAL\_includes.hpp@{igl/copyleft/cgal/CGAL\_includes.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_CGAL\_INCLUDES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_CGAL\_INCLUDES\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// This causes unknown bugs during intersection meshing:}}
+\DoxyCodeLine{13 \textcolor{comment}{}\textcolor{comment}{//\#define CGAL\_INTERSECTION\_VERSION 1}}
+\DoxyCodeLine{14 \textcolor{comment}{// Use this instead to mute errors resulting from bad CGAL assertions}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define CGAL\_KERNEL\_NO\_ASSERTIONS}}
+\DoxyCodeLine{16 \textcolor{comment}{// Triangle triangle intersection}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <CGAL/intersections.h>}}
+\DoxyCodeLine{18 \textcolor{comment}{// THIS CANNOT BE INCLUDED IN THE SAME FILE AS <CGAL/intersections.h>}}
+\DoxyCodeLine{19 \textcolor{comment}{// \#include <CGAL/Boolean\_set\_operations\_2.h>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{comment}{// Constrained Delaunay Triangulation types}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <CGAL/Constrained\_Delaunay\_triangulation\_2.h>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <CGAL/Constrained\_triangulation\_plus\_2.h>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{comment}{// Axis-\/align boxes for all-\/pairs self-\/intersection detection}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <CGAL/point\_generators\_3.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <CGAL/Bbox\_3.h>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <CGAL/box\_intersection\_d.h>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <CGAL/function\_objects.h>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <CGAL/Join\_input\_iterator.h>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <CGAL/algorithm.h>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{comment}{// Axis-\/aligned bounding box tree for tet tri intersection}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <CGAL/AABB\_tree.h>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <CGAL/AABB\_traits.h>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <CGAL/AABB\_triangle\_primitive.h>}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{comment}{// Boolean operations}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <CGAL/Polyhedron\_3.h>}}
+\DoxyCodeLine{41 \textcolor{comment}{// Is this actually used?}}
+\DoxyCodeLine{42 \textcolor{comment}{//\#include <CGAL/Nef\_polyhedron\_3.h>}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{comment}{// Delaunay Triangulation in 3D}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include <CGAL/Delaunay\_triangulation\_3.h>}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_inexact\_constructions\_kernel.h>}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

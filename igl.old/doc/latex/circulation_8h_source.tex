@@ -1,0 +1,70 @@
+\hypertarget{circulation_8h_source}{}\doxysection{circulation.\+h}
+\label{circulation_8h_source}\index{igl/circulation.h@{igl/circulation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_CIRCULATION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_CIRCULATION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Return list of faces around the end point of an edge. Assumes}}
+\DoxyCodeLine{17   \textcolor{comment}{// data-\/structures are built from an edge-\/manifold **closed** mesh.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   e  index into E of edge to circulate}}
+\DoxyCodeLine{21   \textcolor{comment}{//   ccw  whether to \_continue\_ in ccw direction of edge (circulate around}}
+\DoxyCodeLine{22   \textcolor{comment}{//     E(e,1))}}
+\DoxyCodeLine{23   \textcolor{comment}{//   EMAP \#F*3 list of indices into E, mapping each directed edge to unique}}
+\DoxyCodeLine{24   \textcolor{comment}{//     unique edge in E}}
+\DoxyCodeLine{25   \textcolor{comment}{//   EF  \#E by 2 list of edge flaps, EF(e,0)=f means e=(i-\/-\/>j) is the edge of}}
+\DoxyCodeLine{26   \textcolor{comment}{//     F(f,:) opposite the vth corner, where EI(e,0)=v. Similarly EF(e,1) "{}}}
+\DoxyCodeLine{27   \textcolor{comment}{//     e=(j-\/>i)}}
+\DoxyCodeLine{28   \textcolor{comment}{//   EI  \#E by 2 list of edge flap corners (see above).}}
+\DoxyCodeLine{29   \textcolor{comment}{// Returns list of faces touched by circulation (in cyclically order).}}
+\DoxyCodeLine{30   \textcolor{comment}{//   }}
+\DoxyCodeLine{31   \textcolor{comment}{// See also: edge\_flaps}}
+\DoxyCodeLine{32   IGL\_INLINE std::vector<int> circulation(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ccw,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixXi \& EI);}
+\DoxyCodeLine{38   \textcolor{comment}{// Wrapper with VectorXi output.}}
+\DoxyCodeLine{39   IGL\_INLINE \textcolor{keywordtype}{void} circulation(}
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ccw,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{45     Eigen::VectorXi \& vN);}
+\DoxyCodeLine{46   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{48 \textcolor{comment}{}  \textcolor{comment}{//   Nv  \#Nv list of "{}next"{} vertex indices}}
+\DoxyCodeLine{49   \textcolor{comment}{//   Nf  \#Nf list of face indices}}
+\DoxyCodeLine{50   IGL\_INLINE \textcolor{keywordtype}{void} circulation(}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ccw,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{57     \textcolor{comment}{/*std::vector<int> \& Ne,*/}}
+\DoxyCodeLine{58     std::vector<int> \& Nv,}
+\DoxyCodeLine{59     std::vector<int> \& Nf);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#  include "{}circulation.cpp"{}}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

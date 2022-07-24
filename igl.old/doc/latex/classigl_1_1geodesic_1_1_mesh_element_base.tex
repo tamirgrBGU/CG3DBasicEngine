@@ -1,0 +1,61 @@
+\hypertarget{classigl_1_1geodesic_1_1_mesh_element_base}{}\doxysection{igl\+::geodesic\+::Mesh\+Element\+Base Class Reference}
+\label{classigl_1_1geodesic_1_1_mesh_element_base}\index{igl::geodesic::MeshElementBase@{igl::geodesic::MeshElementBase}}
+Inheritance diagram for igl\+::geodesic\+::Mesh\+Element\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.876047cm]{classigl_1_1geodesic_1_1_mesh_element_base}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a030c4bbdec492d73faf5669742dd8f20}\label{classigl_1_1geodesic_1_1_mesh_element_base_a030c4bbdec492d73faf5669742dd8f20}} 
+typedef \mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{Simple\+Vector}}$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_vertex}{vertex\+\_\+pointer}} $>$ {\bfseries vertex\+\_\+pointer\+\_\+vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a0680d5c5dcd98f92c9ba142f4d7fd9f6}\label{classigl_1_1geodesic_1_1_mesh_element_base_a0680d5c5dcd98f92c9ba142f4d7fd9f6}} 
+typedef \mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{Simple\+Vector}}$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_edge}{edge\+\_\+pointer}} $>$ {\bfseries edge\+\_\+pointer\+\_\+vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_ae982c352b190f31c313f968b731d0f9d}\label{classigl_1_1geodesic_1_1_mesh_element_base_ae982c352b190f31c313f968b731d0f9d}} 
+typedef \mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{Simple\+Vector}}$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_face}{face\+\_\+pointer}} $>$ {\bfseries face\+\_\+pointer\+\_\+vector}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_aa97b2d1832f8bbaafe892e6c294a8fe6}\label{classigl_1_1geodesic_1_1_mesh_element_base_aa97b2d1832f8bbaafe892e6c294a8fe6}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{vertex\+\_\+pointer\+\_\+vector}} \& {\bfseries adjacent\+\_\+vertices} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a326ddec0d0e01ba517d2c801fdc79e8a}\label{classigl_1_1geodesic_1_1_mesh_element_base_a326ddec0d0e01ba517d2c801fdc79e8a}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{edge\+\_\+pointer\+\_\+vector}} \& {\bfseries adjacent\+\_\+edges} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a31878b6643b35c9443fd0237eedbbcaa}\label{classigl_1_1geodesic_1_1_mesh_element_base_a31878b6643b35c9443fd0237eedbbcaa}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{face\+\_\+pointer\+\_\+vector}} \& {\bfseries adjacent\+\_\+faces} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a440ac36d0dd396330415543730d2f65e}\label{classigl_1_1geodesic_1_1_mesh_element_base_a440ac36d0dd396330415543730d2f65e}} 
+unsigned \& {\bfseries id} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a3fa032f37c5e02de748d644b146291cd}\label{classigl_1_1geodesic_1_1_mesh_element_base_a3fa032f37c5e02de748d644b146291cd}} 
+Point\+Type {\bfseries type} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a76b64242c329be043f47dfcf810e1bba}\label{classigl_1_1geodesic_1_1_mesh_element_base_a76b64242c329be043f47dfcf810e1bba}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{vertex\+\_\+pointer\+\_\+vector}} {\bfseries m\+\_\+adjacent\+\_\+vertices}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a758addb171937062edb9b2eb5bf62f9b}\label{classigl_1_1geodesic_1_1_mesh_element_base_a758addb171937062edb9b2eb5bf62f9b}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{edge\+\_\+pointer\+\_\+vector}} {\bfseries m\+\_\+adjacent\+\_\+edges}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a719f2961a2f7c8221f5819eca8326704}\label{classigl_1_1geodesic_1_1_mesh_element_base_a719f2961a2f7c8221f5819eca8326704}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_simple_vector}{face\+\_\+pointer\+\_\+vector}} {\bfseries m\+\_\+adjacent\+\_\+faces}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_a657e3999c3b00db5d3c514f7719d1667}\label{classigl_1_1geodesic_1_1_mesh_element_base_a657e3999c3b00db5d3c514f7719d1667}} 
+unsigned {\bfseries m\+\_\+id}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_mesh_element_base_ae7bb8ff121fd33da437b2c69dde6fd3a}\label{classigl_1_1geodesic_1_1_mesh_element_base_ae7bb8ff121fd33da437b2c69dde6fd3a}} 
+Point\+Type {\bfseries m\+\_\+type}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/exact\+\_\+geodesic.\+cpp\end{DoxyCompactItemize}

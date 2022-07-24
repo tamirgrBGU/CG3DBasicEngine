@@ -1,0 +1,77 @@
+\hypertarget{points__inside__component_8h_source}{}\doxysection{points\+\_\+inside\+\_\+component.\+h}
+\label{points__inside__component_8h_source}\index{igl/copyleft/cgal/points\_inside\_component.h@{igl/copyleft/cgal/points\_inside\_component.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_POINTS\_INSIDE\_COMPONENTS}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_POINTS\_INSIDE\_COMPONENTS}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cgal \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21       \textcolor{comment}{// Determine if queries points P are inside of connected facet component}}
+\DoxyCodeLine{22       \textcolor{comment}{// (V, F, I), where I indicates a subset of facets that forms the}}
+\DoxyCodeLine{23       \textcolor{comment}{// component.}}
+\DoxyCodeLine{24       \textcolor{comment}{//}}
+\DoxyCodeLine{25       \textcolor{comment}{// Precondition:}}
+\DoxyCodeLine{26       \textcolor{comment}{// The input mesh must be a closed, self-\/intersection free,}}
+\DoxyCodeLine{27       \textcolor{comment}{// non-\/degenerated surface.  Queries points must be either inside or}}
+\DoxyCodeLine{28       \textcolor{comment}{// outside of the mesh (i.e. not on the surface of the mesh).}}
+\DoxyCodeLine{29       \textcolor{comment}{//}}
+\DoxyCodeLine{30       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{31       \textcolor{comment}{//   V  \#V by 3 array of vertex positions.}}
+\DoxyCodeLine{32       \textcolor{comment}{//   F  \#F by 3 array of triangles.}}
+\DoxyCodeLine{33       \textcolor{comment}{//   I  \#I list of triangle indices to consider.}}
+\DoxyCodeLine{34       \textcolor{comment}{//   P  \#P by 3 array of query points.}}
+\DoxyCodeLine{35       \textcolor{comment}{//}}
+\DoxyCodeLine{36       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{37       \textcolor{comment}{//   inside  \#P list of booleans that is true iff the corresponding}}
+\DoxyCodeLine{38       \textcolor{comment}{//           query point is inside of the mesh.}}
+\DoxyCodeLine{39       \textcolor{keyword}{template}<}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{45       IGL\_INLINE \textcolor{keywordtype}{void} points\_inside\_component(}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{48         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{49         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{50         Eigen::PlainObjectBase<DerivedB>\& inside);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52       \textcolor{comment}{// Determine if query points P is inside of the mesh (V, F).}}
+\DoxyCodeLine{53       \textcolor{comment}{// See above for precondition and I/O specs.}}
+\DoxyCodeLine{54       \textcolor{keyword}{template}<}
+\DoxyCodeLine{55         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{56         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{57         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{58         \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{59       IGL\_INLINE \textcolor{keywordtype}{void} points\_inside\_component(}
+\DoxyCodeLine{60           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{61           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{62           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{63           Eigen::PlainObjectBase<DerivedB>\& inside);}
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65   \}}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#include "{}points\_inside\_component.cpp"{}}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

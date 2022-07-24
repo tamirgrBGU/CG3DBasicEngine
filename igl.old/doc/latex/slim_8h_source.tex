@@ -1,0 +1,121 @@
+\hypertarget{slim_8h_source}{}\doxysection{slim.\+h}
+\label{slim_8h_source}\index{igl/slim.h@{igl/slim.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Michael Rabinovich}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef SLIM\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define SLIM\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}MappingEnergyType.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{comment}{// This option makes the iterations faster (all except the first) by caching the }}
+\DoxyCodeLine{17 \textcolor{comment}{// sparsity pattern of the matrix involved in the assembly. It should be on if you plan to do many iterations, off if you have to change the matrix structure at every iteration.}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define SLIM\_CACHED }}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#ifdef SLIM\_CACHED}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <igl/AtA\_cached.h>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{comment}{// Compute a SLIM map as derived in "{}Scalable Locally Injective Maps"{} [Rabinovich et al. 2016].}}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_s_l_i_m_data}{SLIMData}}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{comment}{// Input}}
+\DoxyCodeLine{31   Eigen::MatrixXd V; \textcolor{comment}{// \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{32   Eigen::MatrixXi F; \textcolor{comment}{// \#F by 3/3 list of mesh faces (triangles/tets)}}
+\DoxyCodeLine{33   MappingEnergyType slim\_energy;}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35   \textcolor{comment}{// Optional Input}}
+\DoxyCodeLine{36   \textcolor{comment}{// soft constraints}}
+\DoxyCodeLine{37   Eigen::VectorXi b;}
+\DoxyCodeLine{38   Eigen::MatrixXd bc;}
+\DoxyCodeLine{39   \textcolor{keywordtype}{double} soft\_const\_p;}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41   \textcolor{keywordtype}{double} exp\_factor; \textcolor{comment}{// used for exponential energies, ignored otherwise}}
+\DoxyCodeLine{42   \textcolor{keywordtype}{bool} mesh\_improvement\_3d; \textcolor{comment}{// only supported for 3d}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{comment}{// Output}}
+\DoxyCodeLine{45   Eigen::MatrixXd V\_o; \textcolor{comment}{// \#V by dim list of mesh vertex positions (dim = 2 for parametrization, 3 otherwise)}}
+\DoxyCodeLine{46   \textcolor{keywordtype}{double} energy; \textcolor{comment}{// objective value}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{comment}{// INTERNAL}}
+\DoxyCodeLine{49   Eigen::VectorXd M;}
+\DoxyCodeLine{50   \textcolor{keywordtype}{double} mesh\_area;}
+\DoxyCodeLine{51   \textcolor{keywordtype}{double} avg\_edge\_length;}
+\DoxyCodeLine{52   \textcolor{keywordtype}{int} v\_num;}
+\DoxyCodeLine{53   \textcolor{keywordtype}{int} f\_num;}
+\DoxyCodeLine{54   \textcolor{keywordtype}{double} proximal\_p;}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   Eigen::VectorXd WGL\_M;}
+\DoxyCodeLine{57   Eigen::VectorXd rhs;}
+\DoxyCodeLine{58   Eigen::MatrixXd Ri,Ji;}
+\DoxyCodeLine{59   Eigen::MatrixXd W;}
+\DoxyCodeLine{60   Eigen::SparseMatrix<double> Dx,Dy,Dz;}
+\DoxyCodeLine{61   \textcolor{keywordtype}{int} f\_n,v\_n;}
+\DoxyCodeLine{62   \textcolor{keywordtype}{bool} first\_solve;}
+\DoxyCodeLine{63   \textcolor{keywordtype}{bool} has\_pre\_calc = \textcolor{keyword}{false};}
+\DoxyCodeLine{64   \textcolor{keywordtype}{int} dim;}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{  \#ifdef SLIM\_CACHED}}
+\DoxyCodeLine{67   Eigen::SparseMatrix<double> A;}
+\DoxyCodeLine{68   Eigen::VectorXi A\_data;}
+\DoxyCodeLine{69   Eigen::SparseMatrix<double> AtA;}
+\DoxyCodeLine{70   \mbox{\hyperlink{structigl_1_1_at_a__cached__data}{igl::AtA\_cached\_data}} AtA\_data;}
+\DoxyCodeLine{71 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{72 \};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{comment}{// Compute necessary information to start using SLIM}}
+\DoxyCodeLine{75 \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{76 \textcolor{comment}{//      V           \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{77 \textcolor{comment}{//      F           \#F by 3/3 list of mesh faces (triangles/tets)}}
+\DoxyCodeLine{78 \textcolor{comment}{//    b           list of boundary indices into V}}
+\DoxyCodeLine{79 \textcolor{comment}{//    bc          \#b by dim list of boundary conditions}}
+\DoxyCodeLine{80 \textcolor{comment}{//    soft\_p      Soft penalty factor (can be zero)}}
+\DoxyCodeLine{81 \textcolor{comment}{//    slim\_energy Energy to minimize}}
+\DoxyCodeLine{82 IGL\_INLINE \textcolor{keywordtype}{void} slim\_precompute(}
+\DoxyCodeLine{83   \textcolor{keyword}{const} Eigen::MatrixXd\& V,}
+\DoxyCodeLine{84   \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{85   \textcolor{keyword}{const} Eigen::MatrixXd\& V\_init,}
+\DoxyCodeLine{86   \mbox{\hyperlink{structigl_1_1_s_l_i_m_data}{SLIMData}}\& data,}
+\DoxyCodeLine{87   MappingEnergyType slim\_energy,}
+\DoxyCodeLine{88   \textcolor{keyword}{const} Eigen::VectorXi\& b,}
+\DoxyCodeLine{89   \textcolor{keyword}{const} Eigen::MatrixXd\& bc,}
+\DoxyCodeLine{90   \textcolor{keywordtype}{double} soft\_p);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{comment}{// Run iter\_num iterations of SLIM}}
+\DoxyCodeLine{93 \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{94 \textcolor{comment}{//    V\_o (in SLIMData): \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{95 IGL\_INLINE Eigen::MatrixXd slim\_solve(\mbox{\hyperlink{structigl_1_1_s_l_i_m_data}{SLIMData}}\& data, \textcolor{keywordtype}{int} iter\_num);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 \textcolor{comment}{// Internal Routine. Exposed for Integration with SCAF}}
+\DoxyCodeLine{98 IGL\_INLINE \textcolor{keywordtype}{void} slim\_update\_weights\_and\_closest\_rotations\_with\_jacobians(\textcolor{keyword}{const} Eigen::MatrixXd \&Ji,}
+\DoxyCodeLine{99                                                                     igl::MappingEnergyType slim\_energy,}
+\DoxyCodeLine{100                                                                     \textcolor{keywordtype}{double} exp\_factor,}
+\DoxyCodeLine{101                                                                     Eigen::MatrixXd \&W,}
+\DoxyCodeLine{102                                                                     Eigen::MatrixXd \&Ri);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 IGL\_INLINE \textcolor{keywordtype}{void} slim\_buildA(\textcolor{keyword}{const} Eigen::SparseMatrix<double> \&Dx,}
+\DoxyCodeLine{105                         \textcolor{keyword}{const} Eigen::SparseMatrix<double> \&Dy,}
+\DoxyCodeLine{106                         \textcolor{keyword}{const} Eigen::SparseMatrix<double> \&Dz,}
+\DoxyCodeLine{107                         \textcolor{keyword}{const} Eigen::MatrixXd \&W,}
+\DoxyCodeLine{108                         std::vector<Eigen::Triplet<double> > \& IJV);}
+\DoxyCodeLine{109 \} \textcolor{comment}{// END NAMESPACE}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#  include "{}slim.cpp"{}}}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// SLIM\_H}}
+
+\end{DoxyCode}

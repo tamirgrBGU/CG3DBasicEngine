@@ -1,0 +1,143 @@
+\hypertarget{classigl_1_1_a_a_b_b}{}\doxysection{igl\+::AABB\texorpdfstring{$<$}{<} DerivedV, DIM \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_a_a_b_b}\index{igl::AABB$<$ DerivedV, DIM $>$@{igl::AABB$<$ DerivedV, DIM $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a6ca257118a7e22bb815a0a00bd2ef63d}\label{classigl_1_1_a_a_b_b_a6ca257118a7e22bb815a0a00bd2ef63d}} 
+typedef Derived\+V\+::\+Scalar {\bfseries Scalar}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ac5abf414cbc2c2eec477945798d08261}\label{classigl_1_1_a_a_b_b_ac5abf414cbc2c2eec477945798d08261}} 
+typedef Eigen\+::\+Matrix$<$ Scalar, 1, DIM $>$ {\bfseries Row\+Vector\+DIMS}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a115da153746506529eaaa70fb01ffffb}\label{classigl_1_1_a_a_b_b_a115da153746506529eaaa70fb01ffffb}} 
+typedef Eigen\+::\+Matrix$<$ Scalar, DIM, 1 $>$ {\bfseries Vector\+DIMS}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_aa509e281d53292cd5a54a186d166a741}\label{classigl_1_1_a_a_b_b_aa509e281d53292cd5a54a186d166a741}} 
+typedef Eigen\+::\+Matrix$<$ Scalar, Eigen\+::\+Dynamic, DIM $>$ {\bfseries Matrix\+XDIMS}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ac0cb52fddbfdec22343fadb68e1858d3}\label{classigl_1_1_a_a_b_b_ac0cb52fddbfdec22343fadb68e1858d3}} 
+{\bfseries AABB} (const \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} \&other)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a7e482151d6bb8a6e2b114ac40b2f4282}\label{classigl_1_1_a_a_b_b_a7e482151d6bb8a6e2b114ac40b2f4282}} 
+\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} \& {\bfseries operator=} (\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} other)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ac01565c7a74dc15aa36ab2634e82950f}\label{classigl_1_1_a_a_b_b_ac01565c7a74dc15aa36ab2634e82950f}} 
+{\bfseries AABB} (\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} \&\&other)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a647ecd569c050df0ff6eb64f5181406f}\label{classigl_1_1_a_a_b_b_a647ecd569c050df0ff6eb64f5181406f}} 
+IGL\+\_\+\+INLINE void {\bfseries deinit} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a15c01f34f8720540a720f8e916d26679}\label{classigl_1_1_a_a_b_b_a15c01f34f8720540a720f8e916d26679}} 
+{\footnotesize template$<$typename Derived\+Ele , typename Derivedbb\+\_\+mins , typename Derivedbb\+\_\+maxs , typename Derivedelements $>$ }\\IGL\+\_\+\+INLINE void {\bfseries init} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Eigen\+::\+Matrix\+Base$<$ Derivedbb\+\_\+mins $>$ \&bb\+\_\+mins, const Eigen\+::\+Matrix\+Base$<$ Derivedbb\+\_\+maxs $>$ \&bb\+\_\+maxs, const Eigen\+::\+Matrix\+Base$<$ Derivedelements $>$ \&elements, const int i=0)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a78edb75957a1a751c484148206e93622}\label{classigl_1_1_a_a_b_b_a78edb75957a1a751c484148206e93622}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE void {\bfseries init} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a9536e0b163e920704d22262aaf0eb5dd}\label{classigl_1_1_a_a_b_b_a9536e0b163e920704d22262aaf0eb5dd}} 
+{\footnotesize template$<$typename Derived\+Ele , typename Derived\+SI , typename DerivedI $>$ }\\IGL\+\_\+\+INLINE void {\bfseries init} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Eigen\+::\+Matrix\+Base$<$ Derived\+SI $>$ \&SI, const Eigen\+::\+Matrix\+Base$<$ DerivedI $>$ \&I)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a24935012c54ca405bb515ae96e2549d1}\label{classigl_1_1_a_a_b_b_a24935012c54ca405bb515ae96e2549d1}} 
+IGL\+\_\+\+INLINE bool {\bfseries is\+\_\+leaf} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a05a70628fcd4f87981ebff25ed58055b}\label{classigl_1_1_a_a_b_b_a05a70628fcd4f87981ebff25ed58055b}} 
+{\footnotesize template$<$typename Derived\+Ele , typename Derivedq $>$ }\\IGL\+\_\+\+INLINE std\+::vector$<$ int $>$ {\bfseries find} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Eigen\+::\+Matrix\+Base$<$ Derivedq $>$ \&q, const bool first=false) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_aa10facd7366f1a368b86e45eaa25f316}\label{classigl_1_1_a_a_b_b_aa10facd7366f1a368b86e45eaa25f316}} 
+IGL\+\_\+\+INLINE int {\bfseries subtree\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ad4cae218326d31c60636f6e8b399604a}\label{classigl_1_1_a_a_b_b_ad4cae218326d31c60636f6e8b399604a}} 
+{\footnotesize template$<$typename Derivedbb\+\_\+mins , typename Derivedbb\+\_\+maxs , typename Derivedelements $>$ }\\IGL\+\_\+\+INLINE void {\bfseries serialize} (Eigen\+::\+Plain\+Object\+Base$<$ Derivedbb\+\_\+mins $>$ \&bb\+\_\+mins, Eigen\+::\+Plain\+Object\+Base$<$ Derivedbb\+\_\+maxs $>$ \&bb\+\_\+maxs, Eigen\+::\+Plain\+Object\+Base$<$ Derivedelements $>$ \&elements, const int i=0) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a96a7347d4780172b8c88ffab2be93e0f}\label{classigl_1_1_a_a_b_b_a96a7347d4780172b8c88ffab2be93e0f}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ab82da3a68c7fb585068468b1a47d695c}\label{classigl_1_1_a_a_b_b_ab82da3a68c7fb585068468b1a47d695c}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, const Scalar low\+\_\+sqr\+\_\+d, const Scalar up\+\_\+sqr\+\_\+d, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ac6cda1a6e31e015f72b2c5cf5143cb5b}\label{classigl_1_1_a_a_b_b_ac6cda1a6e31e015f72b2c5cf5143cb5b}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, const Scalar up\+\_\+sqr\+\_\+d, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ac29bfe91eaf75f2f28180345a478cbd5}\label{classigl_1_1_a_a_b_b_ac29bfe91eaf75f2f28180345a478cbd5}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE bool {\bfseries intersect\+\_\+ray} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&origin, const Row\+Vector\+DIMS \&dir, std\+::vector$<$ \mbox{\hyperlink{structigl_1_1_hit}{igl\+::\+Hit}} $>$ \&hits) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a8482291a47ef3c018869057c892b6766}\label{classigl_1_1_a_a_b_b_a8482291a47ef3c018869057c892b6766}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE bool {\bfseries intersect\+\_\+ray} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&origin, const Row\+Vector\+DIMS \&dir, \mbox{\hyperlink{structigl_1_1_hit}{igl\+::\+Hit}} \&hit) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a8de34081730915384b218bedb16a7b07}\label{classigl_1_1_a_a_b_b_a8de34081730915384b218bedb16a7b07}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE bool {\bfseries intersect\+\_\+ray} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&origin, const Row\+Vector\+DIMS \&dir, const Scalar min\+\_\+t, \mbox{\hyperlink{structigl_1_1_hit}{igl\+::\+Hit}} \&hit) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a634a96258fec901ee54613d51b4e9b64}\label{classigl_1_1_a_a_b_b_a634a96258fec901ee54613d51b4e9b64}} 
+{\footnotesize template$<$typename Derived\+Ele , typename DerivedP , typename DerivedsqrD , typename DerivedI , typename DerivedC $>$ }\\IGL\+\_\+\+INLINE void {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Eigen\+::\+Matrix\+Base$<$ DerivedP $>$ \&P, Eigen\+::\+Plain\+Object\+Base$<$ DerivedsqrD $>$ \&sqrD, Eigen\+::\+Plain\+Object\+Base$<$ DerivedI $>$ \&I, Eigen\+::\+Plain\+Object\+Base$<$ DerivedC $>$ \&C) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a222114f494110d3e536bca03b86b8c12}\label{classigl_1_1_a_a_b_b_a222114f494110d3e536bca03b86b8c12}} 
+{\footnotesize template$<$typename Derived\+Ele , typename Derivedother\+\_\+V , typename Derivedother\+\_\+\+Ele , typename DerivedsqrD , typename DerivedI , typename DerivedC $>$ }\\IGL\+\_\+\+INLINE void {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}$<$ Derivedother\+\_\+V, DIM $>$ \&other, const Eigen\+::\+Matrix\+Base$<$ Derivedother\+\_\+V $>$ \&other\+\_\+V, const Eigen\+::\+Matrix\+Base$<$ Derivedother\+\_\+\+Ele $>$ \&other\+\_\+\+Ele, Eigen\+::\+Plain\+Object\+Base$<$ DerivedsqrD $>$ \&sqrD, Eigen\+::\+Plain\+Object\+Base$<$ DerivedI $>$ \&I, Eigen\+::\+Plain\+Object\+Base$<$ DerivedC $>$ \&C) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a365473602af9a00bf592d2a2662fb297}\label{classigl_1_1_a_a_b_b_a365473602af9a00bf592d2a2662fb297}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\void {\bfseries init} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a25f1d0d8ff7135bed163ff92a20c06a3}\label{classigl_1_1_a_a_b_b_a25f1d0d8ff7135bed163ff92a20c06a3}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl\+::\+AABB}}$<$ DerivedV, DIM $>$\+::\+Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a1717646780e2368a144f6481e2e018ae}\label{classigl_1_1_a_a_b_b_a1717646780e2368a144f6481e2e018ae}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl\+::\+AABB}}$<$ DerivedV, DIM $>$\+::\+Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, Scalar low\+\_\+sqr\+\_\+d, Scalar up\+\_\+sqr\+\_\+d, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a8f8f1cc3aeb81b626609f37b6c7795c3}\label{classigl_1_1_a_a_b_b_a8f8f1cc3aeb81b626609f37b6c7795c3}} 
+{\footnotesize template$<$typename Derived\+Ele $>$ }\\IGL\+\_\+\+INLINE \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl\+::\+AABB}}$<$ DerivedV, DIM $>$\+::\+Scalar {\bfseries squared\+\_\+distance} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const Row\+Vector\+DIMS \&p, Scalar up\+\_\+sqr\+\_\+d, int \&i, Eigen\+::\+Plain\+Object\+Base$<$ Row\+Vector\+DIMS $>$ \&c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a3ff05ed4e4fa3da630544f972be09236}\label{classigl_1_1_a_a_b_b_a3ff05ed4e4fa3da630544f972be09236}} 
+{\footnotesize template$<$typename Derived\+Ele , typename Derivedother\+\_\+V , typename Derivedother\+\_\+\+Ele , typename DerivedsqrD , typename DerivedI , typename DerivedC $>$ }\\IGL\+\_\+\+INLINE \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl\+::\+AABB}}$<$ DerivedV, DIM $>$\+::\+Scalar {\bfseries squared\+\_\+distance\+\_\+helper} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ Derived\+Ele $>$ \&Ele, const \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}$<$ Derivedother\+\_\+V, DIM $>$ $\ast$other, const Eigen\+::\+Matrix\+Base$<$ Derivedother\+\_\+V $>$ \&other\+\_\+V, const Eigen\+::\+Matrix\+Base$<$ Derivedother\+\_\+\+Ele $>$ \&other\+\_\+\+Ele, const Scalar, Eigen\+::\+Plain\+Object\+Base$<$ DerivedsqrD $>$ \&sqrD, Eigen\+::\+Plain\+Object\+Base$<$ DerivedI $>$ \&I, Eigen\+::\+Plain\+Object\+Base$<$ DerivedC $>$ \&C) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a1a1b014ee7e2df9164f04c3ef7662f27}\label{classigl_1_1_a_a_b_b_a1a1b014ee7e2df9164f04c3ef7662f27}} 
+IGL\+\_\+\+INLINE float {\bfseries squared\+\_\+distance} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ float, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ const \&, int \&, Eigen\+::\+Plain\+Object\+Base$<$ Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ $>$ \&) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a33dce4dd02a7bee619dc8383974ea7b3}\label{classigl_1_1_a_a_b_b_a33dce4dd02a7bee619dc8383974ea7b3}} 
+IGL\+\_\+\+INLINE float {\bfseries squared\+\_\+distance} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ float, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ const \&, float, float, int \&, Eigen\+::\+Plain\+Object\+Base$<$ Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ $>$ \&) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a9ff4c1fb7d7c67ff44d7b5c1fad0d91c}\label{classigl_1_1_a_a_b_b_a9ff4c1fb7d7c67ff44d7b5c1fad0d91c}} 
+IGL\+\_\+\+INLINE void {\bfseries init} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ float, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ab376e5bc0334f7ade6b543a71d01dc22}\label{classigl_1_1_a_a_b_b_ab376e5bc0334f7ade6b543a71d01dc22}} 
+IGL\+\_\+\+INLINE double {\bfseries squared\+\_\+distance} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ double, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix$<$ double, 1, 2, 1, 1, 2 $>$ const \&, int \&, Eigen\+::\+Plain\+Object\+Base$<$ Eigen\+::\+Matrix$<$ double, 1, 2, 1, 1, 2 $>$ $>$ \&) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ada24f1f37e13bce5ddedf795e8aabfea}\label{classigl_1_1_a_a_b_b_ada24f1f37e13bce5ddedf795e8aabfea}} 
+IGL\+\_\+\+INLINE double {\bfseries squared\+\_\+distance} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ double, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix$<$ double, 1, 2, 1, 1, 2 $>$ const \&, double, double, int \&, Eigen\+::\+Plain\+Object\+Base$<$ Eigen\+::\+Matrix$<$ double, 1, 2, 1, 1, 2 $>$ $>$ \&) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a311faf3921973dce13ba8667894ab857}\label{classigl_1_1_a_a_b_b_a311faf3921973dce13ba8667894ab857}} 
+IGL\+\_\+\+INLINE void {\bfseries init} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ double, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 1, -\/1, 3 $>$ $>$ const \&)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_aa1f25f8f349c82a81947856f13cb1c5d}\label{classigl_1_1_a_a_b_b_aa1f25f8f349c82a81947856f13cb1c5d}} 
+IGL\+\_\+\+INLINE void {\bfseries init} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ float, -\/1, 3, 0, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 0, -\/1, 3 $>$ $>$ const \&)
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_aa8eeb108a7813d5f34467625c9df0fb1}\label{classigl_1_1_a_a_b_b_aa8eeb108a7813d5f34467625c9df0fb1}} 
+IGL\+\_\+\+INLINE float {\bfseries squared\+\_\+distance} (Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ float, -\/1, 3, 0, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix\+Base$<$ Eigen\+::\+Matrix$<$ int, -\/1, 3, 0, -\/1, 3 $>$ $>$ const \&, Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ const \&, float, float, int \&, Eigen\+::\+Plain\+Object\+Base$<$ Eigen\+::\+Matrix$<$ float, 1, 2, 1, 1, 2 $>$ $>$ \&) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a235d9f0789affa75050a75fe1d9a3e84}\label{classigl_1_1_a_a_b_b_a235d9f0789affa75050a75fe1d9a3e84}} 
+\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} $\ast$ {\bfseries m\+\_\+left}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a9abce242119d9e709b8e447480b27bf5}\label{classigl_1_1_a_a_b_b_a9abce242119d9e709b8e447480b27bf5}} 
+\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} $\ast$ {\bfseries m\+\_\+right}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_ae5a1a951d07db942eed6d14f45af6e6b}\label{classigl_1_1_a_a_b_b_ae5a1a951d07db942eed6d14f45af6e6b}} 
+Eigen\+::\+Aligned\+Box$<$ Scalar, DIM $>$ {\bfseries m\+\_\+box}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a5ea4da975626dc7c471a0405b48ed3b4}\label{classigl_1_1_a_a_b_b_a5ea4da975626dc7c471a0405b48ed3b4}} 
+int {\bfseries m\+\_\+primitive}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_a_a_b_b_a9703efef4dfa78aa20be159b0ea57b0f}\label{classigl_1_1_a_a_b_b_a9703efef4dfa78aa20be159b0ea57b0f}} 
+void {\bfseries swap} (\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} \&first, \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} \&second)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/AABB.\+h\item 
+igl/AABB.\+cpp\end{DoxyCompactItemize}

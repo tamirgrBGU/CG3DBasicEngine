@@ -1,0 +1,39 @@
+\hypertarget{imgui__impl__glfw_8h_source}{}\doxysection{imgui\+\_\+impl\+\_\+glfw.\+h}
+\label{imgui__impl__glfw_8h_source}\index{igl/opengl/glfw/imgui/imgui\_impl\_glfw.h@{igl/opengl/glfw/imgui/imgui\_impl\_glfw.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// dear imgui: Platform Binding for GLFW}}
+\DoxyCodeLine{2 \textcolor{comment}{// This needs to be used along with a Renderer (e.g. OpenGL3, Vulkan..)}}
+\DoxyCodeLine{3 \textcolor{comment}{// (Info: GLFW is a cross-\/platform general purpose library for handling windows, inputs, OpenGL/Vulkan graphics context creation, etc.)}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{comment}{// Implemented features:}}
+\DoxyCodeLine{6 \textcolor{comment}{//  [X] Platform: Clipboard support.}}
+\DoxyCodeLine{7 \textcolor{comment}{//  [X] Platform: Gamepad support. Enable with 'io.ConfigFlags |= ImGuiConfigFlags\_NavEnableGamepad'.}}
+\DoxyCodeLine{8 \textcolor{comment}{//  [x] Platform: Mouse cursor shape and visibility. Disable with 'io.ConfigFlags |= ImGuiConfigFlags\_NoMouseCursorChange'. FIXME: 3 cursors types are missing from GLFW.}}
+\DoxyCodeLine{9 \textcolor{comment}{//  [X] Platform: Keyboard arrays indexed using GLFW\_KEY\_* codes, e.g. ImGui::IsKeyPressed(GLFW\_KEY\_SPACE).}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// You can copy and use unmodified imgui\_impl\_* files in your project. See main.cpp for an example of using this.}}
+\DoxyCodeLine{12 \textcolor{comment}{// If you are new to dear imgui, read examples/README.txt and read the documentation at the top of imgui.cpp.}}
+\DoxyCodeLine{13 \textcolor{comment}{// https://github.com/ocornut/imgui}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{comment}{// About GLSL version:}}
+\DoxyCodeLine{16 \textcolor{comment}{// The 'glsl\_version' initialization parameter defaults to "{}\#version 150"{} if NULL.}}
+\DoxyCodeLine{17 \textcolor{comment}{// Only override if your GL version doesn't handle this GLSL version. Keep NULL if unsure!}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{struct }GLFWwindow;}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 IMGUI\_IMPL\_API \textcolor{keywordtype}{bool}     ImGui\_ImplGlfw\_InitForOpenGL(GLFWwindow* window, \textcolor{keywordtype}{bool} install\_callbacks);}
+\DoxyCodeLine{24 IMGUI\_IMPL\_API \textcolor{keywordtype}{bool}     ImGui\_ImplGlfw\_InitForVulkan(GLFWwindow* window, \textcolor{keywordtype}{bool} install\_callbacks);}
+\DoxyCodeLine{25 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_Shutdown();}
+\DoxyCodeLine{26 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_NewFrame();}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{comment}{// InitXXX function with 'install\_callbacks=true': install GLFW callbacks. They will call user's previously installed callbacks, if any.}}
+\DoxyCodeLine{29 \textcolor{comment}{// InitXXX function with 'install\_callbacks=false': do not install GLFW callbacks. You will need to call them yourself from your own GLFW callbacks.}}
+\DoxyCodeLine{30 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_MouseButtonCallback(GLFWwindow* window, \textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} action, \textcolor{keywordtype}{int} mods);}
+\DoxyCodeLine{31 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_ScrollCallback(GLFWwindow* window, \textcolor{keywordtype}{double} xoffset, \textcolor{keywordtype}{double} yoffset);}
+\DoxyCodeLine{32 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_KeyCallback(GLFWwindow* window, \textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} scancode, \textcolor{keywordtype}{int} action, \textcolor{keywordtype}{int} mods);}
+\DoxyCodeLine{33 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplGlfw\_CharCallback(GLFWwindow* window, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} c);}
+
+\end{DoxyCode}

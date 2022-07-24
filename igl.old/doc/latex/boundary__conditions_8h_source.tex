@@ -1,0 +1,61 @@
+\hypertarget{boundary__conditions_8h_source}{}\doxysection{boundary\+\_\+conditions.\+h}
+\label{boundary__conditions_8h_source}\index{igl/boundary\_conditions.h@{igl/boundary\_conditions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BOUNDARY\_CONDITIONS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BOUNDARY\_CONDITIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16   \textcolor{comment}{// Compute boundary conditions for automatic weights computation. This}}
+\DoxyCodeLine{17   \textcolor{comment}{// function expects that the given mesh (V,Ele) has sufficient samples}}
+\DoxyCodeLine{18   \textcolor{comment}{// (vertices) exactly at point handle locations and exactly along bone and}}
+\DoxyCodeLine{19   \textcolor{comment}{// cage edges.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by dim list of domain vertices}}
+\DoxyCodeLine{23   \textcolor{comment}{//   Ele  \#Ele by simplex-\/size list of simplex indices}}
+\DoxyCodeLine{24   \textcolor{comment}{//   C  \#C by dim list of handle positions}}
+\DoxyCodeLine{25   \textcolor{comment}{//   P  \#P by 1 list of point handle indices into C}}
+\DoxyCodeLine{26   \textcolor{comment}{//   BE  \#BE by 2 list of bone edge indices into C}}
+\DoxyCodeLine{27   \textcolor{comment}{//   CE  \#CE by 2 list of cage edge indices into *P*}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   b  \#b list of boundary indices (indices into V of vertices which have}}
+\DoxyCodeLine{30   \textcolor{comment}{//     known, fixed values)}}
+\DoxyCodeLine{31   \textcolor{comment}{//   bc \#b by \#weights list of known/fixed values for boundary vertices}}
+\DoxyCodeLine{32   \textcolor{comment}{//     (notice the \#b != \#weights in general because \#b will include all the}}
+\DoxyCodeLine{33   \textcolor{comment}{//     intermediary samples along each bone, etc.. The ordering of the}}
+\DoxyCodeLine{34   \textcolor{comment}{//     weights corresponds to [P;BE]}}
+\DoxyCodeLine{35   \textcolor{comment}{// Returns false if boundary conditions are suspicious:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   P and BE are empty}}
+\DoxyCodeLine{37   \textcolor{comment}{//   bc is empty}}
+\DoxyCodeLine{38   \textcolor{comment}{//   some column of bc doesn't have a 0 (assuming bc has >1 columns)}}
+\DoxyCodeLine{39   \textcolor{comment}{//   some column of bc doesn't have a 1 (assuming bc has >1 columns)}}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{bool} boundary\_conditions(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixXi \& Ele,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixXd \& C,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::VectorXi \& P,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixXi \& BE,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixXi \& CE,}
+\DoxyCodeLine{47     Eigen::VectorXi \& b,}
+\DoxyCodeLine{48     Eigen::MatrixXd \& bc);}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#  include "{}boundary\_conditions.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

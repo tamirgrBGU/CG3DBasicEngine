@@ -1,0 +1,44 @@
+\hypertarget{covariance__scatter__matrix_8h_source}{}\doxysection{covariance\+\_\+scatter\+\_\+matrix.\+h}
+\label{covariance__scatter__matrix_8h_source}\index{igl/covariance\_scatter\_matrix.h@{igl/covariance\_scatter\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COVARIANCE\_SCATTER\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COVARIANCE\_SCATTER\_MATRIX\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}ARAPEnergyType.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15  }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Construct the covariance scatter matrix for a given arap energy}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by Vdim list of initial domain positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{22   \textcolor{comment}{//   energy  ARAPEnergyType enum value defining which energy is being used.}}
+\DoxyCodeLine{23   \textcolor{comment}{//     See ARAPEnergyType.h for valid options and explanations.}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   CSM dim*\#V/\#F by dim*\#V sparse matrix containing special laplacians along}}
+\DoxyCodeLine{26   \textcolor{comment}{//     the diagonal so that when multiplied by V gives covariance matrix}}
+\DoxyCodeLine{27   \textcolor{comment}{//     elements, can be used to speed up covariance matrix computation}}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} covariance\_scatter\_matrix(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} ARAPEnergyType energy,}
+\DoxyCodeLine{32     Eigen::SparseMatrix<double>\& CSM);}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include "{}covariance\_scatter\_matrix.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

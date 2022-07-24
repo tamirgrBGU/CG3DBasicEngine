@@ -1,0 +1,44 @@
+\hypertarget{swept__volume__bounding__box_8h_source}{}\doxysection{swept\+\_\+volume\+\_\+bounding\+\_\+box.\+h}
+\label{swept__volume__bounding__box_8h_source}\index{igl/swept\_volume\_bounding\_box.h@{igl/swept\_volume\_bounding\_box.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SWEPT\_VOLUME\_BOUNDING\_BOX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SWEPT\_VOLUME\_BOUNDING\_BOX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Construct an axis-\/aligned bounding box containing a shape undergoing a}}
+\DoxyCodeLine{17   \textcolor{comment}{// motion sampled at `steps` discrete momements.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   n  number of mesh vertices}}
+\DoxyCodeLine{21   \textcolor{comment}{//   V  function handle so that V(i,t) returns the 3d position of vertex}}
+\DoxyCodeLine{22   \textcolor{comment}{//     i at time t, for t∈[0,1]}}
+\DoxyCodeLine{23   \textcolor{comment}{//   steps  number of time steps: steps=3 -\/-\/> t∈\{0,0.5,1\}}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   box  box containing mesh under motion}}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} swept\_volume\_bounding\_box(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \& n,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} std::function<}
+\DoxyCodeLine{29       Eigen::RowVector3d(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} vi, \textcolor{keyword}{const} \textcolor{keywordtype}{double} t)> \& V,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \& steps,}
+\DoxyCodeLine{31     Eigen::AlignedBox3d \& box);}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#  include "{}swept\_volume\_bounding\_box.cpp"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

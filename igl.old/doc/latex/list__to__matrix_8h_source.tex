@@ -1,0 +1,68 @@
+\hypertarget{list__to__matrix_8h_source}{}\doxysection{list\+\_\+to\+\_\+matrix.\+h}
+\label{list__to__matrix_8h_source}\index{igl/list\_to\_matrix.h@{igl/list\_to\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_LIST\_TO\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_LIST\_TO\_MATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Convert a list (std::vector) of row vectors of the same length to a matrix}}
+\DoxyCodeLine{18   \textcolor{comment}{// Template:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   T  type that can be safely cast to type in Mat via '='}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Mat  Matrix type, must implement:}}
+\DoxyCodeLine{21   \textcolor{comment}{//     .resize(m,n)}}
+\DoxyCodeLine{22   \textcolor{comment}{//     .row(i) = Row}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   V  a m-\/long list of vectors of size n}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   M  an m by n matrix}}
+\DoxyCodeLine{27   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{bool} list\_to\_matrix(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} std::vector<std::vector<T > > \& V,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<Derived>\& M);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keywordtype}{size\_t} N, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{bool} list\_to\_matrix(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} std::vector<std::array<T, N> > \& V,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<Derived>\& M);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{comment}{// Convert a list of row vectors of `n` or less to a matrix and pad on}}
+\DoxyCodeLine{39   \textcolor{comment}{// the right with `padding`:}}
+\DoxyCodeLine{40   \textcolor{comment}{//}}
+\DoxyCodeLine{41   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{42   \textcolor{comment}{//   V  a m-\/long list of vectors of size <=n}}
+\DoxyCodeLine{43   \textcolor{comment}{//   n  number of columns}}
+\DoxyCodeLine{44   \textcolor{comment}{//   padding  value to fill in from right for short rows}}
+\DoxyCodeLine{45   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   M  an m by n matrix}}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{bool} list\_to\_matrix(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} std::vector<std::vector<T > > \& V,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} \textcolor{keywordtype}{int} n,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} T \& padding,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<Derived>\& M);}
+\DoxyCodeLine{53   \textcolor{comment}{// Vector wrapper}}
+\DoxyCodeLine{54   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{55   IGL\_INLINE \textcolor{keywordtype}{bool} list\_to\_matrix(\textcolor{keyword}{const} std::vector<T > \& V,Eigen::PlainObjectBase<Derived>\& M);}
+\DoxyCodeLine{56 \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#  include "{}list\_to\_matrix.cpp"{}}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

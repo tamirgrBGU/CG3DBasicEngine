@@ -1,0 +1,510 @@
+\hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array}{}\doxysection{igl\+::Fast\+Winding\+Number\+::UT\+\_\+\+Array\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_fast_winding_number_1_1_u_t___array}\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+Inheritance diagram for igl\+::Fast\+Winding\+Number\+::UT\+\_\+\+Array\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classigl_1_1_fast_winding_number_1_1_u_t___array}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{base\+\_\+iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_acc0fceb96e6d3b0a756fdffea9992993}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_acc0fceb96e6d3b0a756fdffea9992993}} 
+typedef T {\bfseries value\+\_\+type}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a19efa86ef702cae8d5ad3dc4478ef5b4}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a19efa86ef702cae8d5ad3dc4478ef5b4}} 
+typedef int($\ast$ {\bfseries Comparator}) (const T $\ast$, const T $\ast$)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a44e87609a80ec269f8025cf40f4e7bbb}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a44e87609a80ec269f8025cf40f4e7bbb}} 
+typedef \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{base\+\_\+iterator}}$<$ T, true $>$ {\bfseries iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a5d11d269bd20cb0d4949d0c8f12d66ff}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a5d11d269bd20cb0d4949d0c8f12d66ff}} 
+typedef \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{base\+\_\+iterator}}$<$ const T, true $>$ {\bfseries const\+\_\+iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a75cebaa3cf5cd9aa828d845924459fc5}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a75cebaa3cf5cd9aa828d845924459fc5}} 
+typedef \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{base\+\_\+iterator}}$<$ T, false $>$ {\bfseries reverse\+\_\+iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a79523ebc10138d3b17edc091c2e5b588}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a79523ebc10138d3b17edc091c2e5b588}} 
+typedef \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{base\+\_\+iterator}}$<$ const T, false $>$ {\bfseries const\+\_\+reverse\+\_\+iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae0e52dd0aeea0d07e7ca627b3741cf56}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae0e52dd0aeea0d07e7ca627b3741cf56}} 
+typedef \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+iterator}} {\bfseries traverser}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_adf8f280759fd78e07705b71d95f11121}{UT\+\_\+\+Array}} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&a)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad75e0f5fc58140f76dd97cab3d20e23d}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad75e0f5fc58140f76dd97cab3d20e23d}} 
+{\bfseries UT\+\_\+\+Array} (\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&\&a) noexcept
+\begin{DoxyCompactList}\small\item\em Move constructor. Steals the working data from the original. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a5c7ba715d86bb6d5404cb9d8c26cb407}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a5c7ba715d86bb6d5404cb9d8c26cb407}} 
+{\bfseries UT\+\_\+\+Array} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity}}, exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size}})
+\begin{DoxyCompactList}\small\item\em Construct based on given capacity and size. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a41d2390f758b6ab0cdf2e1c28f799058}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a41d2390f758b6ab0cdf2e1c28f799058}} 
+{\bfseries UT\+\_\+\+Array} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity}}=0)
+\begin{DoxyCompactList}\small\item\em Construct based on given capacity with a size of 0. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_acda6dfe0e5137c7af4becaf2f787969b}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_acda6dfe0e5137c7af4becaf2f787969b}} 
+{\bfseries UT\+\_\+\+Array} (std\+::initializer\+\_\+list$<$ T $>$ init)
+\begin{DoxyCompactList}\small\item\em Construct with the contents of an initializer list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_af1acf73c6e60c5b7f1ffd3d2634b925c}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_af1acf73c6e60c5b7f1ffd3d2634b925c}} 
+void {\bfseries swap} (\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&other)
+\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a140ad48b73ba1dbc8033b8f5c96683a7}{append}} (void)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ac010b68b9f753179e6f054a3205866ac}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ac010b68b9f753179e6f054a3205866ac}} 
+exint {\bfseries append} (const T \&t)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a0ee7d40555670e3993ccb43d04024257}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a0ee7d40555670e3993ccb43d04024257}} 
+exint {\bfseries append} (T \&\&t)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a0bd9847b31e7d3a7ca89170228884745}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a0bd9847b31e7d3a7ca89170228884745}} 
+void {\bfseries append} (const T $\ast$pt, exint count)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ac84c26806788d2137bbf7e6390f643bf}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ac84c26806788d2137bbf7e6390f643bf}} 
+void {\bfseries append\+Multiple} (const T \&t, exint count)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a9074d041348a0858d51e09097ccc17c2}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a9074d041348a0858d51e09097ccc17c2}} 
+exint {\bfseries insert} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}})
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_afeea0079f2066978b8d473b49f4cc0a7}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_afeea0079f2066978b8d473b49f4cc0a7}} 
+exint {\bfseries insert} (const T \&t, exint i)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_aa0642f7072460406271b53b3488ca50c}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_aa0642f7072460406271b53b3488ca50c}} 
+exint {\bfseries insert} (T \&\&t, exint i)
+\item 
+{\footnotesize template$<$typename... S$>$ }\\exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a3c4b53174ad7d2486a42ee2232ea5a07}{emplace\+\_\+back}} (S \&\&... s)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a2695ad1a0b9198290835213bad2abeff}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a2695ad1a0b9198290835213bad2abeff}} 
+exint {\bfseries concat} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&a)
+\begin{DoxyCompactList}\small\item\em Takes another T array and concatenate it onto my end. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad98fccddfe22f12e28c70bdad680b43b}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad98fccddfe22f12e28c70bdad680b43b}} 
+exint {\bfseries multiple\+Insert} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}}, exint count)
+\begin{DoxyCompactList}\small\item\em Insert an element \char`\"{}count\char`\"{} times at the given index. Return the index. \end{DoxyCompactList}\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ad07b6a46428de2308d40950073c18bc5}{insert\+At}} (const T \&t, exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}})
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a3ed4961c1ea673be6f70038f356c1c91}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a3ed4961c1ea673be6f70038f356c1c91}} 
+bool {\bfseries is\+Valid\+Index} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}}) const
+\begin{DoxyCompactList}\small\item\em Return true if given index is valid. \end{DoxyCompactList}\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a29690cf75558aff875f4c02237c8d464}{remove\+Index}} (exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}})
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ac951d26be104bae01bb58b4df8834952}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ac951d26be104bae01bb58b4df8834952}} 
+void {\bfseries remove\+Last} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a36de43c7e9ad2d445035c9dcbf25c6d8}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a36de43c7e9ad2d445035c9dcbf25c6d8}} 
+void {\bfseries remove\+Range} (exint begin\+\_\+i, exint end\+\_\+i)
+\begin{DoxyCompactList}\small\item\em Remove the range \mbox{[}begin\+\_\+i,end\+\_\+i) of elements from the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_aeefb8a486a04d0e5f08f6c58f68541b5}{extract\+Range}} (exint begin\+\_\+i, exint end\+\_\+i, \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&dest)
+\item 
+{\footnotesize template$<$typename Is\+Equal $>$ }\\exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a8c52782319006f1e504153f530e63039}{remove\+If}} (Is\+Equal is\+\_\+equal)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a9c735e26b1335e8dd86b73df69736947}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a9c735e26b1335e8dd86b73df69736947}} 
+{\footnotesize template$<$typename Is\+Equal $>$ }\\void {\bfseries collapse\+If} (Is\+Equal is\+\_\+equal)
+\begin{DoxyCompactList}\small\item\em Remove all matching elements. Also sets the capacity of the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a4694703a9ef2fcf451d05eab8d3e5d64}{move}} (exint src\+Idx, exint dest\+Idx, exint how\+Many)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a8d1f5ecad22c57062c6fe539578f34dd}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a8d1f5ecad22c57062c6fe539578f34dd}} 
+void {\bfseries cycle} (exint how\+Many)
+\begin{DoxyCompactList}\small\item\em Cyclically shifts the entire array by how\+Many. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_af902775ca5cde5654c7091b7dd5b4de0}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_af902775ca5cde5654c7091b7dd5b4de0}} 
+void {\bfseries constant} (const T \&v)
+\begin{DoxyCompactList}\small\item\em Quickly set the array to a single value. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a5dfd58c3d8280d2343309edbeac874ee}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a5dfd58c3d8280d2343309edbeac874ee}} 
+void {\bfseries zero} ()
+\begin{DoxyCompactList}\small\item\em Zeros the array if a POD type, else trivial constructs if a class type. \end{DoxyCompactList}\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}} (const T \&t) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a9e5137a8ba095d150bdbacaaa833742d}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a9e5137a8ba095d150bdbacaaa833742d}} 
+exint {\bfseries safe\+Index} (const T \&t) const
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ae442a75d1123fab261704d6aa2eb09bf}{set\+Capacity}} (exint newcapacity)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a2d3c46f8dd1bbe414156c79e3ece8ab4}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a2d3c46f8dd1bbe414156c79e3ece8ab4}} 
+void {\bfseries set\+Capacity\+If\+Needed} (exint mincapacity)
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_acb75b18b779a3e20eef93231e94bd475}{bump\+Capacity}} (exint mincapacity)
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a02efc2b417601c33a99655bc9ef343a3}{bump\+Size}} (exint newsize)
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ae3218d5d79170fef5f15e93ed0b2ebb4}{bump\+Entries}} (exint newsize)
+\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity}} () const
+\item 
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size}} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_acfc8b5fe5a95f37100cf5e32e46251f8}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_acfc8b5fe5a95f37100cf5e32e46251f8}} 
+exint {\bfseries entries} () const
+\begin{DoxyCompactList}\small\item\em Alias of \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size()}}. \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size()}} is preferred. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a5e773ca0915a12741f0b0e12b8f91e18}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a5e773ca0915a12741f0b0e12b8f91e18}} 
+bool {\bfseries is\+Empty} () const
+\begin{DoxyCompactList}\small\item\em Returns true iff there are no occupied elements in the array. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9fd969d3ad868d31090bf6eb7a4bce14}{set\+Size}} (exint newsize)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae228c8c3e710413d67c11f2b206d106b}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae228c8c3e710413d67c11f2b206d106b}} 
+void {\bfseries entries} (exint newsize)
+\begin{DoxyCompactList}\small\item\em Alias of \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9fd969d3ad868d31090bf6eb7a4bce14}{set\+Size()}}. \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9fd969d3ad868d31090bf6eb7a4bce14}{set\+Size()}} is preferred. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a7573f544d51dc701670a7cf8211222a5}{set\+Size\+No\+Init}} (exint newsize)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ab86494e23ca4943fdf687807c119f6ab}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ab86494e23ca4943fdf687807c119f6ab}} 
+void {\bfseries truncate} (exint maxsize)
+\begin{DoxyCompactList}\small\item\em Decreases, but never expands, to the given maxsize. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a755013053c091a0bd13e0f370838f434}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a755013053c091a0bd13e0f370838f434}} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Resets list to an empty list. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a60ebaaaf5fa3b90dc980983447486bae}{operator=}} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&a)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_af8505b2f5f49e28c072c70d31813c4ba}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_af8505b2f5f49e28c072c70d31813c4ba}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \& {\bfseries operator=} (std\+::initializer\+\_\+list$<$ T $>$ ilist)
+\begin{DoxyCompactList}\small\item\em Replace the contents with those from the initializer\+\_\+list ilist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad173599c56da1be877e35488f9caefdb}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad173599c56da1be877e35488f9caefdb}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \& {\bfseries operator=} (\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&\&a)
+\begin{DoxyCompactList}\small\item\em Move the contents of array a to this array. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a922ba8f243621b5e78cad499bc041c4e}{operator==}} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&a) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae0c87d7854b9b3362bb2b32cb81a7a00}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae0c87d7854b9b3362bb2b32cb81a7a00}} 
+bool {\bfseries operator!=} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&a) const
+\item 
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a8951054a7dd3dd2a9471a2b1b63b27fd}{operator()}} (exint i)
+\item 
+const T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a3349de76ae0b1c267cb9a980e2a2ba3b}{operator()}} (exint i) const
+\item 
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a29d5332bd0f094ad9ac78d0f6b936e5d}{operator\mbox{[}$\,$\mbox{]}}} (exint i)
+\item 
+const T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_abfc788c700438a0f838e5420420f4fb8}{operator\mbox{[}$\,$\mbox{]}}} (exint i) const
+\item 
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ac85611bc8d8cc844dcc7f466e4cd539f}{forced\+Ref}} (exint i)
+\item 
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a482514e3e5cd51ff06549884fbaf415e}{forced\+Get}} (exint i) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ab8dd678a83ecc34a3fd4650bc1095e21}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ab8dd678a83ecc34a3fd4650bc1095e21}} 
+T \& {\bfseries last} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_af6acb142aacf3e98475c1bcb11e5bf23}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_af6acb142aacf3e98475c1bcb11e5bf23}} 
+const T \& {\bfseries last} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_afcaade04703fc7998d9e14f662178fea}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_afcaade04703fc7998d9e14f662178fea}} 
+T $\ast$ {\bfseries get\+Array} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad8aa9a31422b9ef05a9c88f91841c91f}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad8aa9a31422b9ef05a9c88f91841c91f}} 
+const T $\ast$ {\bfseries get\+Raw\+Array} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad348fdc8127784b1f890ce75f0334d10}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad348fdc8127784b1f890ce75f0334d10}} 
+T $\ast$ {\bfseries array} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a635d9aa1fe7715d13d6c7a3352f35883}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a635d9aa1fe7715d13d6c7a3352f35883}} 
+const T $\ast$ {\bfseries array} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_adfd2bf97b6e55a35a59b4d0f8ec7a1df}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_adfd2bf97b6e55a35a59b4d0f8ec7a1df}} 
+T $\ast$ {\bfseries data} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae134280217c3430803621ed502bdd0ba}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae134280217c3430803621ed502bdd0ba}} 
+const T $\ast$ {\bfseries data} () const
+\item 
+T $\ast$ \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_af7c3f9cf557153194b32b80d23bcc043}{alias\+Array}} (T $\ast$newdata)
+\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{iterator}} \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2056589651b7e0d340552fab32a268aa}{begin}} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ac06da7d0367e9c745cf58692a80e6c9d}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ac06da7d0367e9c745cf58692a80e6c9d}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{iterator}} {\bfseries end} ()
+\begin{DoxyCompactList}\small\item\em End iterator. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a6c546c81d9f5b098dd419e53c1388314}{begin}} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a436c829d467a4af51483ab6464d5dd1b}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a436c829d467a4af51483ab6464d5dd1b}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+iterator}} {\bfseries end} () const
+\begin{DoxyCompactList}\small\item\em End const iterator. Consider using it.\+at\+End() instead. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a7b7a9f4c44e40defff47d921b6d62c6a}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a7b7a9f4c44e40defff47d921b6d62c6a}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{reverse\+\_\+iterator}} {\bfseries rbegin} ()
+\begin{DoxyCompactList}\small\item\em Begin iterating over the array in reverse. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a3d9916be348e380351e2a925f3a4df34}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a3d9916be348e380351e2a925f3a4df34}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{reverse\+\_\+iterator}} {\bfseries rend} ()
+\begin{DoxyCompactList}\small\item\em End reverse iterator. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_adc952164afa717a651fa469b9ff31a9a}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_adc952164afa717a651fa469b9ff31a9a}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+reverse\+\_\+iterator}} {\bfseries rbegin} () const
+\begin{DoxyCompactList}\small\item\em Begin iterating over the array in reverse. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ab0098151cabadb8e0fb0ba40327d736f}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ab0098151cabadb8e0fb0ba40327d736f}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+reverse\+\_\+iterator}} {\bfseries rend} () const
+\begin{DoxyCompactList}\small\item\em End reverse iterator. Consider using it.\+at\+End() instead. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad0e9e8593d6f28cefa4dc0c4d5b8f843}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad0e9e8593d6f28cefa4dc0c4d5b8f843}} 
+void {\bfseries remove\+Item} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{reverse\+\_\+iterator}} \&it)
+\begin{DoxyCompactList}\small\item\em Remove item specified by the reverse\+\_\+iterator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a6359db526d4c3f8243a695da3913d54f}{unsafe\+Share\+Data}} (\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&src)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_aa23496ee9b71a7db8b67a469d2ad55b1}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_aa23496ee9b71a7db8b67a469d2ad55b1}} 
+void {\bfseries unsafe\+Share\+Data} (T $\ast$src, exint srcsize)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae65481d5882cc9e65d8dd64877f6c383}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae65481d5882cc9e65d8dd64877f6c383}} 
+void {\bfseries unsafe\+Share\+Data} (T $\ast$src, exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size}}, exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity}})
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a8eeb2b85f13a08ca015869e7697feec4}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a8eeb2b85f13a08ca015869e7697feec4}} 
+void {\bfseries unsafe\+Clear\+Data} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a724e8c9e2217d7114933f1cbddc5a9c4}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a724e8c9e2217d7114933f1cbddc5a9c4}} 
+bool {\bfseries is\+Heap\+Buffer} () const
+\begin{DoxyCompactList}\small\item\em Returns true if the data used by the array was allocated on the heap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a7fb3e0ad77b9c6d1d679d205bff79f6d}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a7fb3e0ad77b9c6d1d679d205bff79f6d}} 
+bool {\bfseries is\+Heap\+Buffer} (T $\ast$data) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename S $>$ }\\exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_aa381b185ffc8552f7e3c1196760095d6}{append\+Impl}} (S \&\&s)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a398e9d9ad062b8c91722add065fe9534}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a398e9d9ad062b8c91722add065fe9534}} 
+{\footnotesize template$<$typename S $>$ }\\exint {\bfseries insert\+Impl} (S \&\&s, exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index}})
+\begin{DoxyCompactList}\small\item\em Similar to \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_aa381b185ffc8552f7e3c1196760095d6}{append\+Impl()}} but for insertion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a039d5119db6959a435b974588515ebb2}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a039d5119db6959a435b974588515ebb2}} 
+static constexpr SYS\+\_\+\+FORCE\+\_\+\+INLINE bool {\bfseries is\+POD} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae6daf430fe0a15eba39bdcbf9c59df63}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae6daf430fe0a15eba39bdcbf9c59df63}} 
+{\footnotesize template$<$typename... S$>$ }\\static void {\bfseries construct} (T \&dst, S \&\&... s)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a74a3e137246210510bd80890c9d615d8}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a74a3e137246210510bd80890c9d615d8}} 
+static void {\bfseries copy\+Construct} (T \&dst, const T \&src)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_aa55e3a7469a4916c4a05a503498fe7eb}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_aa55e3a7469a4916c4a05a503498fe7eb}} 
+static void {\bfseries copy\+Construct\+Range} (T $\ast$dst, const T $\ast$src, exint n)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a3abd104c37be838f24beb067378188da}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a3abd104c37be838f24beb067378188da}} 
+static void {\bfseries trivial\+Construct} (T \&dst)
+\begin{DoxyCompactList}\small\item\em Element Constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ace7aba7afa397baecfb38fed11e8cc3c}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ace7aba7afa397baecfb38fed11e8cc3c}} 
+static void {\bfseries trivial\+Construct\+Range} (T $\ast$dst, exint n)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a2bd68eba1f6f35361e7fda3502d785bf}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a2bd68eba1f6f35361e7fda3502d785bf}} 
+static void {\bfseries trivial\+Destruct} (T \&dst)
+\begin{DoxyCompactList}\small\item\em Element Destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_abf87b499ab50b5b96debd0dc277f3e22}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_abf87b499ab50b5b96debd0dc277f3e22}} 
+static void {\bfseries trivial\+Destruct\+Range} (T $\ast$dst, exint n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_adf8f280759fd78e07705b71d95f11121}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_adf8f280759fd78e07705b71d95f11121}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!UT\_Array@{UT\_Array}}
+\index{UT\_Array@{UT\_Array}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{UT\_Array()}{UT\_Array()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::\+UT\+\_\+\+Array (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [explicit]}}
+
+Copy constructor. It duplicates the data. It\textquotesingle{}s marked explicit so that it\textquotesingle{}s not accidentally passed by value. You can always pass by reference and then copy it, if needed. If you have a line like\+: UT\+\_\+\+Array$<$int$>$ a = otherarray; and it really does need to copy instead of referencing, you can rewrite it as\+: UT\+\_\+\+Array$<$int$>$ a(otherarray); 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_af7c3f9cf557153194b32b80d23bcc043}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_af7c3f9cf557153194b32b80d23bcc043}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!aliasArray@{aliasArray}}
+\index{aliasArray@{aliasArray}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{aliasArray()}{aliasArray()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T $\ast$ \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::alias\+Array (\begin{DoxyParamCaption}\item[{T $\ast$}]{newdata }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+This method allows you to swap in a new raw T array, which must be the same size as my\+Capacity. Use caution with this method. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a140ad48b73ba1dbc8033b8f5c96683a7}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a140ad48b73ba1dbc8033b8f5c96683a7}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!append@{append}}
+\index{append@{append}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{append()}{append()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::append (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Append an element to the current elements and return its index in the array, or insert the element at a specified position; if necessary, insert() grows the array to accommodate the element. The insert methods use the assignment operator \textquotesingle{}=\textquotesingle{} to place the element into the right spot; be aware that \textquotesingle{}=\textquotesingle{} works differently on objects and pointers. The test for duplicates uses the logical equal operator \textquotesingle{}==\textquotesingle{}; as with \textquotesingle{}=\textquotesingle{}, the behaviour of the equality operator on pointers versus objects is not the same. Use the subscript operators instead of insert() if you are appending to the array, or if you don\textquotesingle{}t mind overwriting the element already inserted at the given index. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_aa381b185ffc8552f7e3c1196760095d6}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_aa381b185ffc8552f7e3c1196760095d6}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!appendImpl@{appendImpl}}
+\index{appendImpl@{appendImpl}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{appendImpl()}{appendImpl()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename S $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::append\+Impl (\begin{DoxyParamCaption}\item[{S \&\&}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+Implements both append(const T \&) and append(\+T \&\&) via perfect forwarding. Unlike the variadic \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a3c4b53174ad7d2486a42ee2232ea5a07}{emplace\+\_\+back()}}, its argument may be a reference to another element in the array. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a2056589651b7e0d340552fab32a268aa}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a2056589651b7e0d340552fab32a268aa}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!begin@{begin}}
+\index{begin@{begin}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{iterator}} \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Begin iterating over the array. The contents of the array may be modified during the traversal. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a6c546c81d9f5b098dd419e53c1388314}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a6c546c81d9f5b098dd419e53c1388314}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!begin@{begin}}
+\index{begin@{begin}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_1_1base__iterator}{const\+\_\+iterator}} \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Begin iterating over the array. The array may not be modified during the traversal. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_acb75b18b779a3e20eef93231e94bd475}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_acb75b18b779a3e20eef93231e94bd475}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!bumpCapacity@{bumpCapacity}}
+\index{bumpCapacity@{bumpCapacity}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{bumpCapacity()}{bumpCapacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::bump\+Capacity (\begin{DoxyParamCaption}\item[{exint}]{mincapacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+If the capacity is smaller than mincapacity, expand the array to at least mincapacity and to at least a constant factor of the array\textquotesingle{}s previous capacity, to avoid having a linear number of reallocations in a linear number of calls to bump\+Capacity. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae3218d5d79170fef5f15e93ed0b2ebb4}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae3218d5d79170fef5f15e93ed0b2ebb4}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!bumpEntries@{bumpEntries}}
+\index{bumpEntries@{bumpEntries}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{bumpEntries()}{bumpEntries()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::bump\+Entries (\begin{DoxyParamCaption}\item[{exint}]{newsize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+NOTE\+: \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ae3218d5d79170fef5f15e93ed0b2ebb4}{bump\+Entries()}} will be deprecated in favour of \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a02efc2b417601c33a99655bc9ef343a3}{bump\+Size()}} in a future version. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a02efc2b417601c33a99655bc9ef343a3}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a02efc2b417601c33a99655bc9ef343a3}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!bumpSize@{bumpSize}}
+\index{bumpSize@{bumpSize}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{bumpSize()}{bumpSize()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::bump\+Size (\begin{DoxyParamCaption}\item[{exint}]{newsize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+First bump\+Capacity to ensure that there\textquotesingle{}s space for newsize, expanding either not at all or by at least a constant factor of the array\textquotesingle{}s previous capacity, then set the size to newsize. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!capacity@{capacity}}
+\index{capacity@{capacity}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{capacity()}{capacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::capacity (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Query the capacity, i.\+e. the allocated length of the array. NOTE\+: \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity()}} \texorpdfstring{$>$}{>}= \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size()}}. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a3c4b53174ad7d2486a42ee2232ea5a07}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a3c4b53174ad7d2486a42ee2232ea5a07}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!emplace\_back@{emplace\_back}}
+\index{emplace\_back@{emplace\_back}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{emplace\_back()}{emplace\_back()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename... S$>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::emplace\+\_\+back (\begin{DoxyParamCaption}\item[{S \&\&...}]{s }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Adds a new element to the array (resizing if necessary) and forwards the given arguments to T\textquotesingle{}s constructor. NOTE\+: Unlike \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a140ad48b73ba1dbc8033b8f5c96683a7}{append()}}, the arguments cannot reference any existing elements in the array. Checking for and handling such cases would remove most of the performance gain versus append(\+T(...)). Debug builds will assert that the arguments are valid. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_aeefb8a486a04d0e5f08f6c58f68541b5}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_aeefb8a486a04d0e5f08f6c58f68541b5}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!extractRange@{extractRange}}
+\index{extractRange@{extractRange}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{extractRange()}{extractRange()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::extract\+Range (\begin{DoxyParamCaption}\item[{exint}]{begin\+\_\+i,  }\item[{exint}]{end\+\_\+i,  }\item[{\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&}]{dest }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove the range \mbox{[}begin\+\_\+i, end\+\_\+i) of elements from this array and place them in the dest array, shrinking/growing the dest array as necessary. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a482514e3e5cd51ff06549884fbaf415e}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a482514e3e5cd51ff06549884fbaf415e}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!forcedGet@{forcedGet}}
+\index{forcedGet@{forcedGet}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forcedGet()}{forcedGet()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::forced\+Get (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+forced\+Get(exint) does NOT grow the array, and will return default objects for out of bound array indices. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ac85611bc8d8cc844dcc7f466e4cd539f}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ac85611bc8d8cc844dcc7f466e4cd539f}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!forcedRef@{forcedRef}}
+\index{forcedRef@{forcedRef}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{forcedRef()}{forcedRef()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::forced\+Ref (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_ac85611bc8d8cc844dcc7f466e4cd539f}{forced\+Ref(exint)}} will grow the array if necessary, initializing any new elements to zero for POD types and default constructing for class types. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!index@{index}}
+\index{index@{index}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::index (\begin{DoxyParamCaption}\item[{const T \&}]{t }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+The fastest search possible, which does pointer arithmetic to find the index of the element. WARNING\+: \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a9958794c572494cb740e8a22de4a8d3e}{index()}} does no out-\/of-\/bounds checking. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ad07b6a46428de2308d40950073c18bc5}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ad07b6a46428de2308d40950073c18bc5}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!insertAt@{insertAt}}
+\index{insertAt@{insertAt}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{insertAt()}{insertAt()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::insert\+At (\begin{DoxyParamCaption}\item[{const T \&}]{t,  }\item[{exint}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+An alias for unique element insertion at a certain index. Also used by the other insertion methods. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a4694703a9ef2fcf451d05eab8d3e5d64}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a4694703a9ef2fcf451d05eab8d3e5d64}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!move@{move}}
+\index{move@{move}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::move (\begin{DoxyParamCaption}\item[{exint}]{src\+Idx,  }\item[{exint}]{dest\+Idx,  }\item[{exint}]{how\+Many }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Move how\+Many objects starting at index src\+Index to dest\+Index; This method will remove the elements at \mbox{[}src\+Idx, src\+Idx+how\+Many) and then insert them at dest\+Idx. This method can be used in place of the old shift() operation. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a8951054a7dd3dd2a9471a2b1b63b27fd}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a8951054a7dd3dd2a9471a2b1b63b27fd}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Subscript operator NOTE\+: This does NOT do any bounds checking unless paranoid asserts are enabled. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a3349de76ae0b1c267cb9a980e2a2ba3b}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a3349de76ae0b1c267cb9a980e2a2ba3b}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator()@{operator()}}
+\index{operator()@{operator()}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator() (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Const subscript operator NOTE\+: This does NOT do any bounds checking unless paranoid asserts are enabled. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a60ebaaaf5fa3b90dc980983447486bae}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a60ebaaaf5fa3b90dc980983447486bae}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assign array a to this array by copying each of a\textquotesingle{}s elements with memcpy for POD types, and with copy construction for class types. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a922ba8f243621b5e78cad499bc041c4e}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a922ba8f243621b5e78cad499bc041c4e}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator==@{operator==}}
+\index{operator==@{operator==}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+bool \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&}]{a }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compare two array and return true if they are equal and false otherwise. Two elements are checked against each other using operator \textquotesingle{}==\textquotesingle{} or compare() respectively. NOTE\+: The capacities of the arrays are not checked when determining whether they are equal. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a29d5332bd0f094ad9ac78d0f6b936e5d}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a29d5332bd0f094ad9ac78d0f6b936e5d}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Subscript operator NOTE\+: This does NOT do any bounds checking unless paranoid asserts are enabled. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_abfc788c700438a0f838e5420420f4fb8}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_abfc788c700438a0f838e5420420f4fb8}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const T \& \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{exint}]{i }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Const subscript operator NOTE\+: This does NOT do any bounds checking unless paranoid asserts are enabled. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a8c52782319006f1e504153f530e63039}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a8c52782319006f1e504153f530e63039}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!removeIf@{removeIf}}
+\index{removeIf@{removeIf}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeIf()}{removeIf()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename Is\+Equal $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::remove\+If (\begin{DoxyParamCaption}\item[{Is\+Equal}]{is\+\_\+equal }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Removes all matching elements from the list, shuffling down and changing the size appropriately. Returns the number of elements left. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a29690cf75558aff875f4c02237c8d464}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a29690cf75558aff875f4c02237c8d464}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!removeIndex@{removeIndex}}
+\index{removeIndex@{removeIndex}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{removeIndex()}{removeIndex()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::remove\+Index (\begin{DoxyParamCaption}\item[{exint}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Remove one element from the array given its position in the list, and fill the gap by shifting the elements down by one position. Return the index of the element removed or -\/1 if the index was out of bounds. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_ae442a75d1123fab261704d6aa2eb09bf}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_ae442a75d1123fab261704d6aa2eb09bf}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!setCapacity@{setCapacity}}
+\index{setCapacity@{setCapacity}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setCapacity()}{setCapacity()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::set\+Capacity (\begin{DoxyParamCaption}\item[{exint}]{newcapacity }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the capacity of the array, i.\+e. grow it or shrink it. The function copies the data after reallocating space for the array. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a9fd969d3ad868d31090bf6eb7a4bce14}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a9fd969d3ad868d31090bf6eb7a4bce14}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!setSize@{setSize}}
+\index{setSize@{setSize}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setSize()}{setSize()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::set\+Size (\begin{DoxyParamCaption}\item[{exint}]{newsize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the size, the number of occupied elements in the array. NOTE\+: This will not do bump\+Capacity, so if you call this n times to increase the size, it may take n$^\wedge$2 time. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a7573f544d51dc701670a7cf8211222a5}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a7573f544d51dc701670a7cf8211222a5}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!setSizeNoInit@{setSizeNoInit}}
+\index{setSizeNoInit@{setSizeNoInit}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{setSizeNoInit()}{setSizeNoInit()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::set\+Size\+No\+Init (\begin{DoxyParamCaption}\item[{exint}]{newsize }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Set the size, but unlike set\+Size(newsize), this function will not initialize new POD elements to zero. Non-\/\+POD data types will still have their constructors called. This function is faster than set\+Size(ne) if you intend to fill in data for all elements. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!size@{size}}
+\index{size@{size}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+exint \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Query the size, i.\+e. the number of occupied elements in the array. NOTE\+: \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a2479417859af5f4c89b35e044f8bbb10}{capacity()}} \texorpdfstring{$>$}{>}= \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array_a625a85de3ac591c9bbce3fcaad595a7f}{size()}}. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_u_t___array_a6359db526d4c3f8243a695da3913d54f}\label{classigl_1_1_fast_winding_number_1_1_u_t___array_a6359db526d4c3f8243a695da3913d54f}} 
+\index{igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}!unsafeShareData@{unsafeShareData}}
+\index{unsafeShareData@{unsafeShareData}!igl::FastWindingNumber::UT\_Array$<$ T $>$@{igl::FastWindingNumber::UT\_Array$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{unsafeShareData()}{unsafeShareData()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{igl\+::\+Fast\+Winding\+Number\+::\+UT\+\_\+\+Array}}$<$ T $>$\+::unsafe\+Share\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___array}{UT\+\_\+\+Array}}$<$ T $>$ \&}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Very dangerous methods to share arrays. The array is not aware of the sharing, so ensure you clear out the array prior a destructor or set\+Capacity operation. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/Fast\+Winding\+Number\+For\+Soups.\+h\end{DoxyCompactItemize}

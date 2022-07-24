@@ -1,0 +1,115 @@
+\hypertarget{class_material}{}\doxysection{Material Class Reference}
+\label{class_material}\index{Material@{Material}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_material_a77a02746e229fc44a3667f70da9bbbb1}{Material}} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ shader)
+\begin{DoxyCompactList}\small\item\em Create a material with a given shader object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_material_a398c0118fd5b5dc6383633bfb82a71f7}{Material}} (const string \&shader\+File\+Name, bool overlay, unsigned int shader\+Id)
+\begin{DoxyCompactList}\small\item\em Create a shader object and use it to create a material object (use for convenience when the shader object is exclusive to this material) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_material_a6d6bcdc6f1f6fe46632e1c8afec5b242}{Add\+Texture}} (int slot, shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$ texture)
+\begin{DoxyCompactList}\small\item\em Add a given texture object to the material. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_material_a1364a34f37542933db4f79cab19b70bf}{Add\+Texture}} (int slot, const string \&texture\+File\+Name, int dim)
+\begin{DoxyCompactList}\small\item\em Creates a texture object from an existing image file and add it to the material (use for convenience when the texture object is exclusive to this material) \end{DoxyCompactList}\item 
+shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ \mbox{\hyperlink{class_material_af412ccc5ddad9cd3649e16f9625047c3}{Bind}} ()
+\begin{DoxyCompactList}\small\item\em Bind all material objects. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_material_ab66fbabef1e508ab2beae49b7abd9fd4}\label{class_material_ab66fbabef1e508ab2beae49b7abd9fd4}} 
+shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ {\bfseries Get\+Shader} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_material_a77a02746e229fc44a3667f70da9bbbb1}\label{class_material_a77a02746e229fc44a3667f70da9bbbb1}} 
+\index{Material@{Material}!Material@{Material}}
+\index{Material@{Material}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Material\+::\+Material (\begin{DoxyParamCaption}\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$}]{shader }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Create a material with a given shader object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shader} & -\/ shared pointer to the shader object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_material_a398c0118fd5b5dc6383633bfb82a71f7}\label{class_material_a398c0118fd5b5dc6383633bfb82a71f7}} 
+\index{Material@{Material}!Material@{Material}}
+\index{Material@{Material}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Material()}{Material()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Material\+::\+Material (\begin{DoxyParamCaption}\item[{const string \&}]{shader\+File\+Name,  }\item[{bool}]{overlay,  }\item[{unsigned int}]{shader\+Id }\end{DoxyParamCaption})}
+
+
+
+Create a shader object and use it to create a material object (use for convenience when the shader object is exclusive to this material) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em shader\+File\+Name} & -\/ filename of the shader object \\
+\hline
+{\em overlay} & -\/ overlay of the shader object \\
+\hline
+{\em shader\+Id} & -\/ id of the shader object \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_material_a1364a34f37542933db4f79cab19b70bf}\label{class_material_a1364a34f37542933db4f79cab19b70bf}} 
+\index{Material@{Material}!AddTexture@{AddTexture}}
+\index{AddTexture@{AddTexture}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{AddTexture()}{AddTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Material\+::\+Add\+Texture (\begin{DoxyParamCaption}\item[{int}]{slot,  }\item[{const string \&}]{texture\+File\+Name,  }\item[{int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Creates a texture object from an existing image file and add it to the material (use for convenience when the texture object is exclusive to this material) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em slot} & -\/ the slot to bind the texture to when binding the material \\
+\hline
+{\em texture\+File\+Name} & -\/ the name of the image file \\
+\hline
+{\em dim} & -\/ the dimensions of the texture data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_material_a6d6bcdc6f1f6fe46632e1c8afec5b242}\label{class_material_a6d6bcdc6f1f6fe46632e1c8afec5b242}} 
+\index{Material@{Material}!AddTexture@{AddTexture}}
+\index{AddTexture@{AddTexture}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{AddTexture()}{AddTexture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Material\+::\+Add\+Texture (\begin{DoxyParamCaption}\item[{int}]{slot,  }\item[{shared\+\_\+ptr$<$ \mbox{\hyperlink{class_texture}{Texture}} $>$}]{texture }\end{DoxyParamCaption})}
+
+
+
+Add a given texture object to the material. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em slot} & -\/ the slot to bind the texture to when binding the material \\
+\hline
+{\em texture} & -\/ shared pointer to the texture object \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_material_af412ccc5ddad9cd3649e16f9625047c3}\label{class_material_af412ccc5ddad9cd3649e16f9625047c3}} 
+\index{Material@{Material}!Bind@{Bind}}
+\index{Bind@{Bind}!Material@{Material}}
+\doxysubsubsection{\texorpdfstring{Bind()}{Bind()}}
+{\footnotesize\ttfamily shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ Material\+::\+Bind (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Bind all material objects. 
+
+
+\begin{DoxyRetVals}{Return values}
+{\em -\/} & a shared pointer to the shader object \\
+\hline
+\end{DoxyRetVals}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/Material.\+h\item 
+igl/opengl/glfw/Material.\+cpp\end{DoxyCompactItemize}

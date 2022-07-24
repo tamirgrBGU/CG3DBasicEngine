@@ -1,0 +1,48 @@
+\hypertarget{grid__search_8h_source}{}\doxysection{grid\+\_\+search.\+h}
+\label{grid__search_8h_source}\index{igl/grid\_search.h@{igl/grid\_search.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_GRID\_SEARCH\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_GRID\_SEARCH\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Solve the problem:}}
+\DoxyCodeLine{9   \textcolor{comment}{//}}
+\DoxyCodeLine{10   \textcolor{comment}{//   minimize f(x)}}
+\DoxyCodeLine{11   \textcolor{comment}{//   subject to lb ≤ x ≤ ub }}
+\DoxyCodeLine{12   \textcolor{comment}{// }}
+\DoxyCodeLine{13   \textcolor{comment}{// by exhaustive grid search.}}
+\DoxyCodeLine{14   \textcolor{comment}{//}}
+\DoxyCodeLine{15   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{16   \textcolor{comment}{//   f  function to minimize}}
+\DoxyCodeLine{17   \textcolor{comment}{//   LB  \#X vector of finite lower bounds}}
+\DoxyCodeLine{18   \textcolor{comment}{//   UB  \#X vector of finite upper bounds}}
+\DoxyCodeLine{19   \textcolor{comment}{//   I  \#X vector of number of steps for each variable}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   X  \#X optimal parameter vector}}
+\DoxyCodeLine{22   \textcolor{comment}{// Returns f(X)}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} Scalar, }
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedX, }
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedLB, }
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedUB, }
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{30   IGL\_INLINE Scalar grid\_search(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} std::function< Scalar (DerivedX \&) > f,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedLB> \& LB,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUB> \& UB,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{35     DerivedX \& X);}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  include "{}grid\_search.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,57 @@
+\hypertarget{ear__clipping_8h_source}{}\doxysection{ear\+\_\+clipping.\+h}
+\label{ear__clipping_8h_source}\index{igl/predicates/ear\_clipping.h@{igl/predicates/ear\_clipping.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Hanxiao Shen <hanxiao@cs.nyu.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_PREDICATES\_EAR\_CLIPPING\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_PREDICATES\_EAR\_CLIPPING\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }predicates}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20     \textcolor{comment}{// Implementation of ear clipping triangulation algorithm for a 2D polygon.}}
+\DoxyCodeLine{21     \textcolor{comment}{// https://www.geometrictools.com/Documentation/TriangulationByEarClipping.pdf}}
+\DoxyCodeLine{22     \textcolor{comment}{// If the polygon is simple, all vertices will be clipped and the result mesh is (P,eF)}}
+\DoxyCodeLine{23     \textcolor{comment}{// Otherwise, the function will try to clip as many ears as possible.}}
+\DoxyCodeLine{24     \textcolor{comment}{//}}
+\DoxyCodeLine{25     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{26     \textcolor{comment}{// P : n*2, size n 2D polygon}}
+\DoxyCodeLine{27     \textcolor{comment}{// RT: n*1, preserved vertices (do not clip) marked as 1, otherwise 0}}
+\DoxyCodeLine{28     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{29     \textcolor{comment}{// I : size \#nP vector, maps index from nP to P, e.g. nP's ith vertex is origianlly I(i) in P}}
+\DoxyCodeLine{30     \textcolor{comment}{// eF: clipped ears, in original index of P}}
+\DoxyCodeLine{31     \textcolor{comment}{// nP: leftover vertices after clipping}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedP, \textcolor{keyword}{typename} DerivedRT,}
+\DoxyCodeLine{34               \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{35     IGL\_INLINE \textcolor{keywordtype}{void} ear\_clipping(}
+\DoxyCodeLine{36       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{37       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedRT>\& RT,}
+\DoxyCodeLine{38       Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{39       Eigen::PlainObjectBase<DerivedF>\& eF, }
+\DoxyCodeLine{40       Eigen::PlainObjectBase<DerivedP>\& nP}
+\DoxyCodeLine{41     );}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}ear\_clipping.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

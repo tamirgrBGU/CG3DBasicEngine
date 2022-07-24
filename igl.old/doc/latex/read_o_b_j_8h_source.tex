@@ -1,0 +1,149 @@
+\hypertarget{read_o_b_j_8h_source}{}\doxysection{read\+OBJ.\+h}
+\label{read_o_b_j_8h_source}\index{igl/readOBJ.h@{igl/readOBJ.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_READOBJ\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_READOBJ\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{comment}{// History:}}
+\DoxyCodeLine{13 \textcolor{comment}{//  return type changed from void to bool  Alec 18 Sept 2011}}
+\DoxyCodeLine{14 \textcolor{comment}{//  added pure vector of vectors version that has much more support Alec 31 Oct}}
+\DoxyCodeLine{15 \textcolor{comment}{//    2011}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#ifndef IGL\_NO\_EIGEN}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#  include <Eigen/Core>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \textcolor{comment}{// Read a mesh from an ascii obj file, filling in vertex positions, normals}}
+\DoxyCodeLine{27   \textcolor{comment}{// and texture coordinates. Mesh may have faces of any number of degree}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   Scalar  type for positions and vectors (will be read as double and cast}}
+\DoxyCodeLine{31   \textcolor{comment}{//     to Scalar)}}
+\DoxyCodeLine{32   \textcolor{comment}{//   Index  type for indices (will be read as int and cast to Index)}}
+\DoxyCodeLine{33   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{34   \textcolor{comment}{//  str  path to .obj file}}
+\DoxyCodeLine{35   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   V  double matrix of vertex positions  \#V by 3}}
+\DoxyCodeLine{37   \textcolor{comment}{//   TC  double matrix of texture coordinats \#TC by 2}}
+\DoxyCodeLine{38   \textcolor{comment}{//   N  double matrix of corner normals \#N by 3}}
+\DoxyCodeLine{39   \textcolor{comment}{//   F  \#F list of face indices into vertex positions}}
+\DoxyCodeLine{40   \textcolor{comment}{//   FTC  \#F list of face indices into vertex texture coordinates}}
+\DoxyCodeLine{41   \textcolor{comment}{//   FN  \#F list of face indices into vertex normals}}
+\DoxyCodeLine{42   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{43   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} std::string obj\_file\_name, }
+\DoxyCodeLine{46     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{47     std::vector<std::vector<Scalar > > \& TC,}
+\DoxyCodeLine{48     std::vector<std::vector<Scalar > > \& N,}
+\DoxyCodeLine{49     std::vector<std::vector<Index > > \& F,}
+\DoxyCodeLine{50     std::vector<std::vector<Index > > \& FTC,}
+\DoxyCodeLine{51     std::vector<std::vector<Index > > \& FN);}
+\DoxyCodeLine{52   \textcolor{comment}{// Read a mesh from an ascii obj file, filling in vertex positions, normals}}
+\DoxyCodeLine{53   \textcolor{comment}{// and texture coordinates. Mesh may have faces of any number of degree}}
+\DoxyCodeLine{54   \textcolor{comment}{//}}
+\DoxyCodeLine{55   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{56   \textcolor{comment}{//   Scalar  type for positions and vectors (will be read as double and cast}}
+\DoxyCodeLine{57   \textcolor{comment}{//     to Scalar)}}
+\DoxyCodeLine{58   \textcolor{comment}{//   Index  type for indices (will be read as int and cast to Index)}}
+\DoxyCodeLine{59   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{60   \textcolor{comment}{//  str  path to .obj file}}
+\DoxyCodeLine{61   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{62   \textcolor{comment}{//   V  double matrix of vertex positions  \#V by 3}}
+\DoxyCodeLine{63   \textcolor{comment}{//   TC  double matrix of texture coordinats \#TC by 2}}
+\DoxyCodeLine{64   \textcolor{comment}{//   N  double matrix of corner normals \#N by 3}}
+\DoxyCodeLine{65   \textcolor{comment}{//   F  \#F list of face indices into vertex positions}}
+\DoxyCodeLine{66   \textcolor{comment}{//   FTC  \#F list of face indices into vertex texture coordinates}}
+\DoxyCodeLine{67   \textcolor{comment}{//   FN  \#F list of face indices into vertex normals}}
+\DoxyCodeLine{68   \textcolor{comment}{//   FM \#tuple list containing (vertex index, normal index, texture coordinates index, material)}}
+\DoxyCodeLine{69   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{70   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{71   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{72     \textcolor{keyword}{const} std::string obj\_file\_name, }
+\DoxyCodeLine{73     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{74     std::vector<std::vector<Scalar > > \& TC,}
+\DoxyCodeLine{75     std::vector<std::vector<Scalar > > \& N,}
+\DoxyCodeLine{76     std::vector<std::vector<Index > > \& F,}
+\DoxyCodeLine{77     std::vector<std::vector<Index > > \& FTC,}
+\DoxyCodeLine{78     std::vector<std::vector<Index > > \& FN,}
+\DoxyCodeLine{79     std::vector<std::tuple<std::string, Index, Index >> \&FM}
+\DoxyCodeLine{80     );}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{83   \textcolor{comment}{//   obj\_file  pointer to already opened .obj file }}
+\DoxyCodeLine{84   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{85   \textcolor{comment}{//   obj\_file  closed file}}
+\DoxyCodeLine{86   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{87   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{88     FILE * obj\_file,}
+\DoxyCodeLine{89     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{90     std::vector<std::vector<Scalar > > \& TC,}
+\DoxyCodeLine{91     std::vector<std::vector<Scalar > > \& N,}
+\DoxyCodeLine{92     std::vector<std::vector<Index > > \& F,}
+\DoxyCodeLine{93     std::vector<std::vector<Index > > \& FTC,}
+\DoxyCodeLine{94     std::vector<std::vector<Index > > \& FN,}
+\DoxyCodeLine{95     std::vector<std::tuple<std::string, Index, Index >> \&FM);}
+\DoxyCodeLine{96   \textcolor{comment}{// Just V and F}}
+\DoxyCodeLine{97   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{98   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{99     \textcolor{keyword}{const} std::string obj\_file\_name, }
+\DoxyCodeLine{100     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{101     std::vector<std::vector<Index > > \& F);}
+\DoxyCodeLine{102   \textcolor{comment}{// Eigen Wrappers. These will return true only if the data is perfectly}}
+\DoxyCodeLine{103   \textcolor{comment}{// "{}rectangular"{}: All faces are the same degree, all have the same number of}}
+\DoxyCodeLine{104   \textcolor{comment}{// textures/normals etc.}}
+\DoxyCodeLine{105   \textcolor{keyword}{template} <}
+\DoxyCodeLine{106     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{107     \textcolor{keyword}{typename} DerivedTC, }
+\DoxyCodeLine{108     \textcolor{keyword}{typename} DerivedCN, }
+\DoxyCodeLine{109     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{110     \textcolor{keyword}{typename} DerivedFTC,}
+\DoxyCodeLine{111     \textcolor{keyword}{typename} DerivedFN>}
+\DoxyCodeLine{112   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{113     \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{114     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{115     Eigen::PlainObjectBase<DerivedTC>\& TC,}
+\DoxyCodeLine{116     Eigen::PlainObjectBase<DerivedCN>\& CN,}
+\DoxyCodeLine{117     Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{118     Eigen::PlainObjectBase<DerivedFTC>\& FTC,}
+\DoxyCodeLine{119     Eigen::PlainObjectBase<DerivedFN>\& FN);}
+\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{121   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{122     \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{123     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{124     Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{125   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{126   \textcolor{comment}{//   I  \#I vectorized list of polygon corner indices into rows of some matrix V}}
+\DoxyCodeLine{127   \textcolor{comment}{//   C  \#P+1 list of cumulative polygon sizes so that C(i+1)-\/C(i) = size of}}
+\DoxyCodeLine{128   \textcolor{comment}{//     the ith polygon, and so I(C(i)) through I(C(i+1)-\/1) are the indices of}}
+\DoxyCodeLine{129   \textcolor{comment}{//     the ith polygon}}
+\DoxyCodeLine{130   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedI, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{131   IGL\_INLINE \textcolor{keywordtype}{bool} readOBJ(}
+\DoxyCodeLine{132     \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{133     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{134     Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{135     Eigen::PlainObjectBase<DerivedC>\& C);}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137 \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{140 \textcolor{preprocessor}{\#  include "{}readOBJ.cpp"{}}}
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

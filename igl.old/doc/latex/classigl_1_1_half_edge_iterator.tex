@@ -1,0 +1,51 @@
+\hypertarget{classigl_1_1_half_edge_iterator}{}\doxysection{igl\+::Half\+Edge\+Iterator\texorpdfstring{$<$}{<} DerivedF, Derived\+FF, Derived\+FFi \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_half_edge_iterator}\index{igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$@{igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a99205593b42f141223cad1097a6f115e}\label{classigl_1_1_half_edge_iterator_a99205593b42f141223cad1097a6f115e}} 
+IGL\+\_\+\+INLINE {\bfseries Half\+Edge\+Iterator} (const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&\+\_\+F, const Eigen\+::\+Matrix\+Base$<$ Derived\+FF $>$ \&\+\_\+\+FF, const Eigen\+::\+Matrix\+Base$<$ Derived\+FFi $>$ \&\+\_\+\+FFi, int \+\_\+fi, int \+\_\+ei, bool \+\_\+reverse=false)
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a51b327db094cb5d909b7083cb66578dd}\label{classigl_1_1_half_edge_iterator_a51b327db094cb5d909b7083cb66578dd}} 
+IGL\+\_\+\+INLINE void {\bfseries flipF} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_ab57a13ca002ce5f08994f9b006d4b5a7}\label{classigl_1_1_half_edge_iterator_ab57a13ca002ce5f08994f9b006d4b5a7}} 
+IGL\+\_\+\+INLINE void {\bfseries flipE} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a7ca19a453a2eb8c513aafdcb2b61b713}\label{classigl_1_1_half_edge_iterator_a7ca19a453a2eb8c513aafdcb2b61b713}} 
+IGL\+\_\+\+INLINE void {\bfseries flipV} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_abd228e16c6d7bebe0dd5c12e8eab74f9}\label{classigl_1_1_half_edge_iterator_abd228e16c6d7bebe0dd5c12e8eab74f9}} 
+IGL\+\_\+\+INLINE bool {\bfseries is\+Border} ()
+\item 
+IGL\+\_\+\+INLINE bool \mbox{\hyperlink{classigl_1_1_half_edge_iterator_a1ea267706e47efceb9c0b791b2c6d225}{Next\+FE}} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a5a9a94a6f3bb3f463cb306663920d283}\label{classigl_1_1_half_edge_iterator_a5a9a94a6f3bb3f463cb306663920d283}} 
+IGL\+\_\+\+INLINE int {\bfseries Vi} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a1971db96d43ea7b26b227cc224169763}\label{classigl_1_1_half_edge_iterator_a1971db96d43ea7b26b227cc224169763}} 
+IGL\+\_\+\+INLINE int {\bfseries Fi} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_afea519f6ce55fd42528bdb95e1969ec7}\label{classigl_1_1_half_edge_iterator_afea519f6ce55fd42528bdb95e1969ec7}} 
+IGL\+\_\+\+INLINE int {\bfseries Ei} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a7e6b8f63fba7682599bbc7fd56acb904}\label{classigl_1_1_half_edge_iterator_a7e6b8f63fba7682599bbc7fd56acb904}} 
+IGL\+\_\+\+INLINE bool {\bfseries operator==} (\mbox{\hyperlink{classigl_1_1_half_edge_iterator}{Half\+Edge\+Iterator}} \&p2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_half_edge_iterator_a1ea267706e47efceb9c0b791b2c6d225}\label{classigl_1_1_half_edge_iterator_a1ea267706e47efceb9c0b791b2c6d225}} 
+\index{igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$@{igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$}!NextFE@{NextFE}}
+\index{NextFE@{NextFE}!igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$@{igl::HalfEdgeIterator$<$ DerivedF, DerivedFF, DerivedFFi $>$}}
+\doxysubsubsection{\texorpdfstring{NextFE()}{NextFE()}}
+{\footnotesize\ttfamily template$<$typename DerivedF , typename Derived\+FF , typename Derived\+FFi $>$ \\
+IGL\+\_\+\+INLINE bool \mbox{\hyperlink{classigl_1_1_half_edge_iterator}{igl\+::\+Half\+Edge\+Iterator}}$<$ DerivedF, Derived\+FF, Derived\+FFi $>$\+::\+Next\+FE}
+
+Returns the next edge skipping the border \DoxyHorRuler{0}
+ /\textbackslash{} c $\vert$ b /\textbackslash{} / \textbackslash{} $\vert$ / \textbackslash{} / d \textbackslash{} $\vert$ / a \textbackslash{} /\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+$|$/\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\+\_\+\textbackslash{} v In this example, if a and d are of-\/border and the pos is iterating counterclockwise, this method iterate through the faces incident on vertex v, producing the sequence a, b, c, d, a, b, c, ... 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/Half\+Edge\+Iterator.\+h\item 
+igl/Half\+Edge\+Iterator.\+cpp\end{DoxyCompactItemize}

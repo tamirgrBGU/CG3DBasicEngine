@@ -1,0 +1,60 @@
+\hypertarget{polar__svd_8h_source}{}\doxysection{polar\+\_\+svd.\+h}
+\label{polar__svd_8h_source}\index{igl/polar\_svd.h@{igl/polar\_svd.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_POLAR\_SVD}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_POLAR\_SVD}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Computes the polar decomposition (R,T) of a matrix A using SVD singular}}
+\DoxyCodeLine{16   \textcolor{comment}{// value decomposition}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   A  3 by 3 matrix to be decomposed}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   R  3 by 3 rotation matrix part of decomposition (**always rotataion**)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   T  3 by 3 stretch matrix part of decomposition}}
+\DoxyCodeLine{23   \textcolor{comment}{//   U  3 by 3 left-\/singular vectors}}
+\DoxyCodeLine{24   \textcolor{comment}{//   S  3 by 1 singular values}}
+\DoxyCodeLine{25   \textcolor{comment}{//   V  3 by 3 right-\/singular vectors}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedT,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedU,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} polar\_svd(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedT> \& T,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedU> \& U,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedS> \& S,}
+\DoxyCodeLine{41     Eigen::PlainObjectBase<DerivedV> \& V);}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DerivedT>}
+\DoxyCodeLine{46   IGL\_INLINE \textcolor{keywordtype}{void} polar\_svd(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedT> \& T);}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#  include "{}polar\_svd.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

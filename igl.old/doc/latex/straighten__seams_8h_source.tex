@@ -1,0 +1,63 @@
+\hypertarget{straighten__seams_8h_source}{}\doxysection{straighten\+\_\+seams.\+h}
+\label{straighten__seams_8h_source}\index{igl/straighten\_seams.h@{igl/straighten\_seams.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_STRAIGHTEN\_SEAMS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_STRAIGHTEN\_SEAMS\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// STRAIGHTEN\_SEAMS Given a obj-\/style mesh with (V,F) defining the geometric}}
+\DoxyCodeLine{10   \textcolor{comment}{// surface of the mesh and (VT,FT) defining the}}
+\DoxyCodeLine{11   \textcolor{comment}{// parameterization/texture-\/mapping of the mesh in the uv-\/domain, find all}}
+\DoxyCodeLine{12   \textcolor{comment}{// seams and boundaries in the texture-\/mapping and "{}straighten"{} them,}}
+\DoxyCodeLine{13   \textcolor{comment}{// remapping vertices along the boundary and in the interior. This will be}}
+\DoxyCodeLine{14   \textcolor{comment}{// careful to consistently straighten multiple seams in the texture-\/mesh}}
+\DoxyCodeLine{15   \textcolor{comment}{// corresponding to the same edge chains in the surface-\/mesh. }}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// [UT] = straighten\_seams(V,F,VT,FT)}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//  V  \#V by 3 list of vertices}}
+\DoxyCodeLine{21   \textcolor{comment}{//  F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{22   \textcolor{comment}{//  VT  \#VT by 2 list of texture coordinates}}
+\DoxyCodeLine{23   \textcolor{comment}{//  FT  \#F by 3 list of triangle texture coordinates}}
+\DoxyCodeLine{24   \textcolor{comment}{//  Optional:}}
+\DoxyCodeLine{25   \textcolor{comment}{//    'Tol'  followed by Ramer-\/Douglas-\/Peucker tolerance as a fraction of the}}
+\DoxyCodeLine{26   \textcolor{comment}{//      curves bounding box diagonal (see dpsimplify)}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   UE  \#UE by 2 list of indices into VT of coarse output polygon edges}}
+\DoxyCodeLine{29   \textcolor{comment}{//   UT  \#VT by 3 list of new texture coordinates}}
+\DoxyCodeLine{30   \textcolor{comment}{//   OT  \#OT by 2 list of indices into VT of boundary edges }}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// See also: simplify\_curve, dpsimplify}}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedVT,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedFT,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedUE,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedUT,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedOT>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} straighten\_seams(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVT> \& VT,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFT> \& FT,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Scalar tol,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedUE> \& UE,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedUT> \& UT,}
+\DoxyCodeLine{50     Eigen::PlainObjectBase<DerivedOT> \& OT);}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#  include "{}straighten\_seams.cpp"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

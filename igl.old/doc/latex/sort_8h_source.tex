@@ -1,0 +1,100 @@
+\hypertarget{sort_8h_source}{}\doxysection{sort.\+h}
+\label{sort_8h_source}\index{igl/sort.h@{igl/sort.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SORT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SORT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17   \textcolor{comment}{// Sort the elements of a matrix X along a given dimension like matlabs sort}}
+\DoxyCodeLine{18   \textcolor{comment}{// function}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   DerivedX derived scalar type, e.g. MatrixXi or MatrixXd}}
+\DoxyCodeLine{22   \textcolor{comment}{//   DerivedIX derived integer type, e.g. MatrixXi}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   X  m by n matrix whose entries are to be sorted}}
+\DoxyCodeLine{25   \textcolor{comment}{//   dim  dimensional along which to sort:}}
+\DoxyCodeLine{26   \textcolor{comment}{//     1  sort each column (matlab default)}}
+\DoxyCodeLine{27   \textcolor{comment}{//     2  sort each row}}
+\DoxyCodeLine{28   \textcolor{comment}{//   ascending  sort ascending (true, matlab default) or descending (false)}}
+\DoxyCodeLine{29   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   Y  m by n matrix whose entries are sorted}}
+\DoxyCodeLine{31   \textcolor{comment}{//   IX  m by n matrix of indices so that if dim = 1, then in matlab notation}}
+\DoxyCodeLine{32   \textcolor{comment}{//     for j = 1:n, Y(:,j) = X(I(:,j),j); end}}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY, \textcolor{keyword}{typename} DerivedIX>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{void} sort(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX>\& X,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedY>\& Y,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedIX>\& IX);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} sort(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX>\& X,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<DerivedY>\& Y);}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY, \textcolor{keyword}{typename} DerivedIX>}
+\DoxyCodeLine{47   \textcolor{comment}{// Only better if size(X,dim) is small}}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{void} sort\_new(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX>\& X,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<DerivedY>\& Y,}
+\DoxyCodeLine{53     Eigen::PlainObjectBase<DerivedIX>\& IX);}
+\DoxyCodeLine{54   \textcolor{comment}{// Special case if size(X,dim) == 2}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY, \textcolor{keyword}{typename} DerivedIX>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} sort2(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX>\& X,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedY>\& Y,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedIX>\& IX);}
+\DoxyCodeLine{62   \textcolor{comment}{// Special case if size(X,dim) == 3}}
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY, \textcolor{keyword}{typename} DerivedIX>}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} sort3(}
+\DoxyCodeLine{65     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX>\& X,}
+\DoxyCodeLine{66     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{68     Eigen::PlainObjectBase<DerivedY>\& Y,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DerivedIX>\& IX);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   \textcolor{comment}{// Act like matlab's [Y,I] = SORT(X) for std library vectors}}
+\DoxyCodeLine{73   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{74   \textcolor{comment}{//   T  should be a class that implements the '<' comparator operator}}
+\DoxyCodeLine{75   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{76   \textcolor{comment}{//   unsorted  unsorted vector}}
+\DoxyCodeLine{77   \textcolor{comment}{//   ascending  sort ascending (true, matlab default) or descending (false)}}
+\DoxyCodeLine{78   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{79   \textcolor{comment}{//   sorted     sorted vector, allowed to be same as unsorted}}
+\DoxyCodeLine{80   \textcolor{comment}{//   index\_map  an index map such that sorted[i] = unsorted[index\_map[i]]}}
+\DoxyCodeLine{81   \textcolor{keyword}{template} <\textcolor{keyword}{class} T>}
+\DoxyCodeLine{82   IGL\_INLINE \textcolor{keywordtype}{void} sort(}
+\DoxyCodeLine{83     \textcolor{keyword}{const} std::vector<T> \&unsorted,}
+\DoxyCodeLine{84     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascending,}
+\DoxyCodeLine{85     std::vector<T> \&sorted,}
+\DoxyCodeLine{86     std::vector<size\_t> \&index\_map);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#  include "{}sort.cpp"{}}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

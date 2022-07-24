@@ -1,0 +1,63 @@
+\hypertarget{copyleft_2cgal_2triangulate_8h_source}{}\doxysection{triangulate.\+h}
+\label{copyleft_2cgal_2triangulate_8h_source}\index{igl/copyleft/cgal/triangulate.h@{igl/copyleft/cgal/triangulate.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2021 Alec Jacobson}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_TRIANGULATE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_TRIANGULATE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21       \textcolor{comment}{// Triangulate the interior of a polygon using the triangle library.}}
+\DoxyCodeLine{22       \textcolor{comment}{//}}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   V \#V by 2 list of 2D vertex positions}}
+\DoxyCodeLine{25       \textcolor{comment}{//   E \#E by 2 list of vertex ids forming unoriented edges of the boundary of the polygon}}
+\DoxyCodeLine{26       \textcolor{comment}{//   H \#H by 2 coordinates of points contained inside holes of the polygon}}
+\DoxyCodeLine{27       \textcolor{comment}{//   retain\_convex\_hull  whether to retain convex hull \{true\} or trim away}}
+\DoxyCodeLine{28       \textcolor{comment}{//     all faces reachable from infinite by traversing across}}
+\DoxyCodeLine{29       \textcolor{comment}{//     non-\/constrained edges \{false\}.  \{true → "{}c"{} flag in `triangle`\}}}
+\DoxyCodeLine{30       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{31       \textcolor{comment}{//   V2  \#V2 by 2  coordinates of the vertives of the generated triangulation}}
+\DoxyCodeLine{32       \textcolor{comment}{//   F2  \#F2 by 3  list of indices forming the faces of the generated triangulation}}
+\DoxyCodeLine{33       \textcolor{comment}{//}}
+\DoxyCodeLine{34       \textcolor{comment}{// See also: igl::triangle::triangulate}}
+\DoxyCodeLine{35       \textcolor{keyword}{template} <}
+\DoxyCodeLine{36         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{37         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{38         \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{39         \textcolor{keyword}{typename} DerivedH,}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedV2,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedF2>}
+\DoxyCodeLine{42       IGL\_INLINE \textcolor{keywordtype}{void} triangulate(}
+\DoxyCodeLine{43         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{44         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{45         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedH> \& H,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} \textcolor{keywordtype}{bool} retain\_convex\_hull,}
+\DoxyCodeLine{47         Eigen::PlainObjectBase<DerivedV2> \& V2,}
+\DoxyCodeLine{48         Eigen::PlainObjectBase<DerivedF2> \& F2);}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#  include "{}triangulate.cpp"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

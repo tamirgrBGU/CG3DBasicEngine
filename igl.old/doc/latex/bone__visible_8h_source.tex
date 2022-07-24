@@ -1,0 +1,74 @@
+\hypertarget{bone__visible_8h_source}{}\doxysection{bone\+\_\+visible.\+h}
+\label{bone__visible_8h_source}\index{igl/embree/bone\_visible.h@{igl/embree/bone\_visible.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_EMBREE\_BONE\_VISIBLE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_EMBREE\_BONE\_VISIBLE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}EmbreeIntersector.h"{}}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }embree}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{//}}
+\DoxyCodeLine{18     \textcolor{comment}{// BONE\_VISIBLE  test whether vertices of mesh are "{}visible"{} to a given bone,}}
+\DoxyCodeLine{19     \textcolor{comment}{// where "{}visible"{} is defined as in [Baran \& Popovic 07]. Instead of checking}}
+\DoxyCodeLine{20     \textcolor{comment}{// whether each point can see *any* of the bone, we just check if each point}}
+\DoxyCodeLine{21     \textcolor{comment}{// can see its own projection onto the bone segment. In other words, we project}}
+\DoxyCodeLine{22     \textcolor{comment}{// each vertex v onto the bone, projv. Then we check if there are any}}
+\DoxyCodeLine{23     \textcolor{comment}{// intersections between the line segment (projv-\/-\/>v) and the mesh.}}
+\DoxyCodeLine{24     \textcolor{comment}{//}}
+\DoxyCodeLine{25     \textcolor{comment}{// [flag] = bone\_visible(V,F,s,d);}}
+\DoxyCodeLine{26     \textcolor{comment}{//}}
+\DoxyCodeLine{27     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{28     \textcolor{comment}{//    V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{29     \textcolor{comment}{//    F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{30     \textcolor{comment}{//    s  row vector of position of start end point of bone}}
+\DoxyCodeLine{31     \textcolor{comment}{//    d  row vector of position of dest end point of bone}}
+\DoxyCodeLine{32     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{33     \textcolor{comment}{//    flag  \#V by 1 list of bools (true) visible, (false) obstructed}}
+\DoxyCodeLine{34     \textcolor{comment}{//}}
+\DoxyCodeLine{35     \textcolor{comment}{// Note: This checks for hits along the segment which are facing in *any*}}
+\DoxyCodeLine{36     \textcolor{comment}{// direction from the ray.}}
+\DoxyCodeLine{37     \textcolor{comment}{//}}
+\DoxyCodeLine{38     \textcolor{keyword}{template} <}
+\DoxyCodeLine{39       \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{40       \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{41       \textcolor{keyword}{typename} DerivedSD,}
+\DoxyCodeLine{42       \textcolor{keyword}{typename} Derivedflag>}
+\DoxyCodeLine{43     IGL\_INLINE \textcolor{keywordtype}{void} bone\_visible(}
+\DoxyCodeLine{44       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{45       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{46       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSD> \& s,}
+\DoxyCodeLine{47       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSD> \& d,}
+\DoxyCodeLine{48       Eigen::PlainObjectBase<Derivedflag>  \& flag);}
+\DoxyCodeLine{49     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{50     \textcolor{comment}{//  ei  EmbreeIntersector for mesh (V,F) should be double sided}}
+\DoxyCodeLine{51     \textcolor{keyword}{template} <}
+\DoxyCodeLine{52       \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{53       \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{54       \textcolor{keyword}{typename} DerivedSD,}
+\DoxyCodeLine{55       \textcolor{keyword}{typename} Derivedflag>}
+\DoxyCodeLine{56     IGL\_INLINE \textcolor{keywordtype}{void} bone\_visible(}
+\DoxyCodeLine{57       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{58       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{59       \textcolor{keyword}{const} EmbreeIntersector \& ei,}
+\DoxyCodeLine{60       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSD> \& s,}
+\DoxyCodeLine{61       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSD> \& d,}
+\DoxyCodeLine{62       Eigen::PlainObjectBase<Derivedflag>  \& flag);}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#  include "{}bone\_visible.cpp"{}}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

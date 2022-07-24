@@ -1,0 +1,55 @@
+\hypertarget{smooth__corner__adjacency_8h_source}{}\doxysection{smooth\+\_\+corner\+\_\+adjacency.\+h}
+\label{smooth__corner__adjacency_8h_source}\index{igl/smooth\_corner\_adjacency.h@{igl/smooth\_corner\_adjacency.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_SMOOTH\_CORNER\_ADJACENCY\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_SMOOTH\_CORNER\_ADJACENCY\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// Determine the corner-\/to-\/face adjacency relationship that can be used for}}
+\DoxyCodeLine{10   \textcolor{comment}{// computing crease-\/aware per-\/corner normals.}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{14   \textcolor{comment}{//   F  \#F by 3 list of triangle mesh indices into rows of V}}
+\DoxyCodeLine{15   \textcolor{comment}{//   corner\_threshold\_radians  dihedral angle considered non-\/smooth (in}}
+\DoxyCodeLine{16   \textcolor{comment}{//     radians)}}
+\DoxyCodeLine{17   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   CI  \#CI list of face neighbors as indices into rows of F}}
+\DoxyCodeLine{19   \textcolor{comment}{//   CC  3*\#F+1 list of cumulative sizes so that CC(i*3+j+1) -\/ CC(i*3+j) is}}
+\DoxyCodeLine{20   \textcolor{comment}{//     the number of faces considered smoothly incident on corner at F(i,j)}}
+\DoxyCodeLine{21   \textcolor{keywordtype}{void} smooth\_corner\_adjacency(}
+\DoxyCodeLine{22     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{23     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{24     \textcolor{keyword}{const} \textcolor{keywordtype}{double} corner\_threshold\_radians,}
+\DoxyCodeLine{25     Eigen::VectorXi \& CI,}
+\DoxyCodeLine{26     Eigen::VectorXi \& CC);}
+\DoxyCodeLine{27   \textcolor{comment}{// Determine the effective corner-\/to-\/face adjacency relationship implied by a}}
+\DoxyCodeLine{28   \textcolor{comment}{// set of indexed vertex positions (FV) and normals (FV) (e.g., those read in}}
+\DoxyCodeLine{29   \textcolor{comment}{// from a .obj file).}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   FV  \#F by 3 list of triangle mesh indices into rows of some V}}
+\DoxyCodeLine{33   \textcolor{comment}{//   FN  \#F by 3 list of triangle mesh indices into rows of some N}}
+\DoxyCodeLine{34   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   CI  \#CI list of face neighbors as indices into rows of F}}
+\DoxyCodeLine{36   \textcolor{comment}{//   CC  3*\#F+1 list of cumulative sizes so that CC(i*3+j+1) -\/ CC(i*3+j) is}}
+\DoxyCodeLine{37   \textcolor{comment}{//     the number of faces considered smoothly incident on corner at F(i,j)}}
+\DoxyCodeLine{38   \textcolor{keywordtype}{void} smooth\_corner\_adjacency(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXi \& FV,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixXi \& FN,}
+\DoxyCodeLine{41     Eigen::VectorXi \& CI,}
+\DoxyCodeLine{42     Eigen::VectorXi \& CC);}
+\DoxyCodeLine{43 \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#  include "{}smooth\_corner\_adjacency.cpp"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,134 @@
+\hypertarget{shapeup_8h_source}{}\doxysection{shapeup.\+h}
+\label{shapeup_8h_source}\index{igl/shapeup.h@{igl/shapeup.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Amir Vaxman <avaxman@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SHAPEUP\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SHAPEUP\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <igl/min\_quad\_with\_fixed.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <igl/setdiff.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <igl/cat.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <igl/PI.h>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{comment}{//This file implements the following algorithm:}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{comment}{//Boaziz et al.}}
+\DoxyCodeLine{23 \textcolor{comment}{//Shape-\/Up: Shaping Discrete Geometry with Projections}}
+\DoxyCodeLine{24 \textcolor{comment}{//Computer Graphics Forum (Proc. SGP) 31(5), 2012}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_shapeup_data}{ShapeupData}}\{}
+\DoxyCodeLine{29     \textcolor{comment}{//input data}}
+\DoxyCodeLine{30     Eigen::MatrixXd P;}
+\DoxyCodeLine{31     Eigen::VectorXi SC;}
+\DoxyCodeLine{32     Eigen::MatrixXi S;}
+\DoxyCodeLine{33     Eigen::VectorXi b;}
+\DoxyCodeLine{34     \textcolor{keywordtype}{int} maxIterations; \textcolor{comment}{//referring to number of local-\/global pairs.}}
+\DoxyCodeLine{35     \textcolor{keywordtype}{double} pTolerance;   \textcolor{comment}{//algorithm stops when max(|P\_k-\/P\_\{k-\/1\}|)<pTolerance.}}
+\DoxyCodeLine{36     \textcolor{keywordtype}{double} shapeCoeff, closeCoeff, smoothCoeff;}
+\DoxyCodeLine{37           }
+\DoxyCodeLine{38     \textcolor{comment}{//Internally-\/used matrices}}
+\DoxyCodeLine{39     Eigen::SparseMatrix<double> DShape, DClose, DSmooth, Q, A, At, W;}
+\DoxyCodeLine{40           }
+\DoxyCodeLine{41     \mbox{\hyperlink{structigl_1_1min__quad__with__fixed__data}{min\_quad\_with\_fixed\_data<double>}} solver\_data;}
+\DoxyCodeLine{42           }
+\DoxyCodeLine{43     \mbox{\hyperlink{structigl_1_1_shapeup_data}{ShapeupData}}():}
+\DoxyCodeLine{44     maxIterations(50),}
+\DoxyCodeLine{45     pTolerance(10e-\/6),}
+\DoxyCodeLine{46     shapeCoeff(1.0),}
+\DoxyCodeLine{47     closeCoeff(100.0),}
+\DoxyCodeLine{48     smoothCoeff(0.0)\{\}}
+\DoxyCodeLine{49   \};}
+\DoxyCodeLine{50       }
+\DoxyCodeLine{51   \textcolor{comment}{//Every function here defines a local projection for ShapeUp, and must have the following structure to qualify:}}
+\DoxyCodeLine{52   \textcolor{comment}{//Input:}}
+\DoxyCodeLine{53   \textcolor{comment}{//    P       \#P by 3             the set of points, either the initial solution, or from previous iteration.}}
+\DoxyCodeLine{54   \textcolor{comment}{//  SC        \#Set by 1           cardinalities of sets in S}}
+\DoxyCodeLine{55   \textcolor{comment}{//  S     \#Sets by max(SC)    independent sets where the local projection applies. Values beyond column SC(i)-\/1 in row S(i,:) are "{}don't care"{}}}
+\DoxyCodeLine{56   \textcolor{comment}{//Output:}}
+\DoxyCodeLine{57   \textcolor{comment}{//    projP   \#S by 3*max(SC) in format xyzxyzxyz,  where the projected points correspond to each set in S in the same order.}}
+\DoxyCodeLine{58   \textcolor{keyword}{typedef} std::function<bool(\textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXd>\&, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::VectorXi>\&, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXi>\&, Eigen::PlainObjectBase<Eigen::MatrixXd>\&)> shapeup\_projection\_function;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   }
+\DoxyCodeLine{61   \textcolor{comment}{//This projection does nothing but render points into projP. Mostly used for "{}echoing"{} the global step}}
+\DoxyCodeLine{62   IGL\_INLINE \textcolor{keywordtype}{bool} shapeup\_identity\_projection(\textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXd>\& P, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::VectorXi>\& SC, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXi>\& S,  Eigen::PlainObjectBase<Eigen::MatrixXd>\& projP);}
+\DoxyCodeLine{63   }
+\DoxyCodeLine{64   \textcolor{comment}{//the projection assumes that the sets are vertices of polygons in cyclic order}}
+\DoxyCodeLine{65   IGL\_INLINE \textcolor{keywordtype}{bool} shapeup\_regular\_face\_projection(\textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXd>\& P, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::VectorXi>\& SC, \textcolor{keyword}{const} Eigen::PlainObjectBase<Eigen::MatrixXi>\& S,  Eigen::PlainObjectBase<Eigen::MatrixXd>\& projP);}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67     }
+\DoxyCodeLine{68   \textcolor{comment}{//This function precomputation the necessary matrices for the ShapeUp process, and prefactorizes them.}}
+\DoxyCodeLine{69     }
+\DoxyCodeLine{70   \textcolor{comment}{//input:}}
+\DoxyCodeLine{71   \textcolor{comment}{//  P   \#P by 3             point positions}}
+\DoxyCodeLine{72   \textcolor{comment}{//  SC  \#Set by 1           cardinalities of sets in S}}
+\DoxyCodeLine{73   \textcolor{comment}{//  S   \#Sets by max(SC)    independent sets where the local projection applies. Values beyond column SC(i)-\/1 in row S(i,:) are "{}don't care"{}}}
+\DoxyCodeLine{74   \textcolor{comment}{//  E   \#E by 2             the "{}edges"{} of the set P; used for the smoothness energy.}}
+\DoxyCodeLine{75   \textcolor{comment}{//  b   \#b by 1             boundary (fixed) vertices from P.}}
+\DoxyCodeLine{76   \textcolor{comment}{//  wShape,   \#Set by 1}}
+\DoxyCodeLine{77   \textcolor{comment}{//  wSmooth   \#b by 1       weights for constraints from S and positional constraints (used in the global step)}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{80   \textcolor{comment}{//  sudata struct ShapeupData     the data necessary to solve the system in shapeup\_solve}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{keyword}{template} <}
+\DoxyCodeLine{83   \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{84   \textcolor{keyword}{typename} DerivedSC,}
+\DoxyCodeLine{85   \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{86   \textcolor{keyword}{typename} Derivedw>}
+\DoxyCodeLine{87   IGL\_INLINE \textcolor{keywordtype}{bool} shapeup\_precomputation(\textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{88                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSC>\& SC,}
+\DoxyCodeLine{89                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& S,}
+\DoxyCodeLine{90                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& E,}
+\DoxyCodeLine{91                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSC>\& b,}
+\DoxyCodeLine{92                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedw>\& wShape,}
+\DoxyCodeLine{93                                          \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedw>\& wSmooth,}
+\DoxyCodeLine{94                                          \mbox{\hyperlink{structigl_1_1_shapeup_data}{ShapeupData}} \& sudata);}
+\DoxyCodeLine{95     }
+\DoxyCodeLine{96     }
+\DoxyCodeLine{97     }
+\DoxyCodeLine{98   \textcolor{comment}{//This function solve the shapeup project optimization. shapeup\_precompute must be called before with the same sudata, or results are unpredictable}}
+\DoxyCodeLine{99     }
+\DoxyCodeLine{100   \textcolor{comment}{//Input:}}
+\DoxyCodeLine{101   \textcolor{comment}{//bc                \#b by 3 fixed point values corresonding to "{}b"{} in sudata}}
+\DoxyCodeLine{102   \textcolor{comment}{//local\_projection  function pointer taking (P,SC,S,projP),}}
+\DoxyCodeLine{103   \textcolor{comment}{// where the first three parameters are as defined, and "{}projP"{} is the output, as a \#S by 3*max(SC) function in format xyzxyzxyz, and where it returns the projected points corresponding to each set in S in the same order.}}
+\DoxyCodeLine{104   \textcolor{comment}{//NOTE: the input values in P0 don't need to correspond to prescribed values in bc; the iterations will project them automatically (by design).}}
+\DoxyCodeLine{105   \textcolor{comment}{//P0                \#P by 3 initial solution (point positions)}}
+\DoxyCodeLine{106   \textcolor{comment}{//sudata            the ShapeUpData structure computed in shapeup\_precomputation()}}
+\DoxyCodeLine{107   \textcolor{comment}{//quietIterations   flagging if to output iteration information.}}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{109   \textcolor{comment}{//Output:}}
+\DoxyCodeLine{110   \textcolor{comment}{//P                 the solution to the problem, indices corresponding to P0.}}
+\DoxyCodeLine{111   \textcolor{keyword}{template} <}
+\DoxyCodeLine{112   \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{113   \textcolor{keyword}{typename} DerivedSC,}
+\DoxyCodeLine{114   \textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{115   IGL\_INLINE \textcolor{keywordtype}{bool} shapeup\_solve(\textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& bc,}
+\DoxyCodeLine{116                                 \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{bool}(\textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\&, \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedSC>\&, \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\&,  Eigen::PlainObjectBase<DerivedP>\&)>\& local\_projection,}
+\DoxyCodeLine{117                                 \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P0,}
+\DoxyCodeLine{118                                 \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_shapeup_data}{ShapeupData}} \& sudata,}
+\DoxyCodeLine{119                                 \textcolor{keyword}{const} \textcolor{keywordtype}{bool} quietIterations,}
+\DoxyCodeLine{120                                 Eigen::PlainObjectBase<DerivedP>\& P);}
+\DoxyCodeLine{121   }
+\DoxyCodeLine{122 \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#include "{}shapeup.cpp"{}}}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

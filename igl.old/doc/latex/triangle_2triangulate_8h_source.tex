@@ -1,0 +1,93 @@
+\hypertarget{triangle_2triangulate_8h_source}{}\doxysection{triangulate.\+h}
+\label{triangle_2triangulate_8h_source}\index{igl/triangle/triangulate.h@{igl/triangle/triangulate.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2017 Alec Jacobson}}
+\DoxyCodeLine{5 \textcolor{comment}{//}}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_TRIANGLE\_TRIANGULATE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_TRIANGLE\_TRIANGULATE\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }triangle}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Triangulate the interior of a polygon using the triangle library.}}
+\DoxyCodeLine{20     \textcolor{comment}{//}}
+\DoxyCodeLine{21     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22     \textcolor{comment}{//   V \#V by 2 list of 2D vertex positions}}
+\DoxyCodeLine{23     \textcolor{comment}{//   E \#E by 2 list of vertex ids forming unoriented edges of the boundary of the polygon}}
+\DoxyCodeLine{24     \textcolor{comment}{//   H \#H by 2 coordinates of points contained inside holes of the polygon}}
+\DoxyCodeLine{25     \textcolor{comment}{//   flags  string of options pass to triangle (see triangle documentation)}}
+\DoxyCodeLine{26     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27     \textcolor{comment}{//   V2  \#V2 by 2  coordinates of the vertives of the generated triangulation}}
+\DoxyCodeLine{28     \textcolor{comment}{//   F2  \#F2 by 3  list of indices forming the faces of the generated triangulation}}
+\DoxyCodeLine{29     \textcolor{comment}{//}}
+\DoxyCodeLine{30     \textcolor{keyword}{template} <}
+\DoxyCodeLine{31       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{32       \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{33       \textcolor{keyword}{typename} DerivedH,}
+\DoxyCodeLine{34       \textcolor{keyword}{typename} DerivedV2,}
+\DoxyCodeLine{35       \textcolor{keyword}{typename} DerivedF2>}
+\DoxyCodeLine{36     IGL\_INLINE \textcolor{keywordtype}{void} triangulate(}
+\DoxyCodeLine{37       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{38       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{39       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedH> \& H,}
+\DoxyCodeLine{40       \textcolor{keyword}{const} std::string flags,}
+\DoxyCodeLine{41       Eigen::PlainObjectBase<DerivedV2> \& V2,}
+\DoxyCodeLine{42       Eigen::PlainObjectBase<DerivedF2> \& F2);}
+\DoxyCodeLine{43         }
+\DoxyCodeLine{44         \textcolor{comment}{// Triangulate the interior of a polygon using the triangle library.}}
+\DoxyCodeLine{45     \textcolor{comment}{//}}
+\DoxyCodeLine{46     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{47     \textcolor{comment}{//   V \#V by 2 list of 2D vertex positions}}
+\DoxyCodeLine{48     \textcolor{comment}{//   E \#E by 2 list of vertex ids forming unoriented edges of the boundary of the polygon}}
+\DoxyCodeLine{49     \textcolor{comment}{//   H \#H by 2 coordinates of points contained inside holes of the polygon}}
+\DoxyCodeLine{50         \textcolor{comment}{//   M \#V list of markers for input vertices}}
+\DoxyCodeLine{51     \textcolor{comment}{//   flags  string of options pass to triangle (see triangle documentation)}}
+\DoxyCodeLine{52     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{53     \textcolor{comment}{//   V2  \#V2 by 2  coordinates of the vertives of the generated triangulation}}
+\DoxyCodeLine{54     \textcolor{comment}{//   F2  \#F2 by 3  list of indices forming the faces of the generated triangulation}}
+\DoxyCodeLine{55         \textcolor{comment}{//   M2  \#V2 list of markers for output vertices}}
+\DoxyCodeLine{56     \textcolor{comment}{//}}
+\DoxyCodeLine{57     \textcolor{comment}{// TODO: expose the option to prevent Steiner points on the boundary}}
+\DoxyCodeLine{58     \textcolor{comment}{//}}
+\DoxyCodeLine{59     \textcolor{keyword}{template} <}
+\DoxyCodeLine{60       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{61       \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{62       \textcolor{keyword}{typename} DerivedH,}
+\DoxyCodeLine{63       \textcolor{keyword}{typename} DerivedVM,}
+\DoxyCodeLine{64       \textcolor{keyword}{typename} DerivedEM,}
+\DoxyCodeLine{65       \textcolor{keyword}{typename} DerivedV2,}
+\DoxyCodeLine{66       \textcolor{keyword}{typename} DerivedF2,}
+\DoxyCodeLine{67       \textcolor{keyword}{typename} DerivedVM2,}
+\DoxyCodeLine{68       \textcolor{keyword}{typename} DerivedEM2>}
+\DoxyCodeLine{69     IGL\_INLINE \textcolor{keywordtype}{void} triangulate(}
+\DoxyCodeLine{70       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{71       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{72       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedH> \& H,}
+\DoxyCodeLine{73       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVM> \& VM,}
+\DoxyCodeLine{74       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEM> \& EM,}
+\DoxyCodeLine{75       \textcolor{keyword}{const} std::string flags,}
+\DoxyCodeLine{76       Eigen::PlainObjectBase<DerivedV2> \& V2,}
+\DoxyCodeLine{77       Eigen::PlainObjectBase<DerivedF2> \& F2,}
+\DoxyCodeLine{78       Eigen::PlainObjectBase<DerivedVM2> \& VM2,}
+\DoxyCodeLine{79       Eigen::PlainObjectBase<DerivedEM2> \& EM2);}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#  include "{}triangulate.cpp"{}}}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

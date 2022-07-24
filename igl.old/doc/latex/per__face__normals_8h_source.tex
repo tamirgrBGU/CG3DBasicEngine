@@ -1,0 +1,85 @@
+\hypertarget{per__face__normals_8h_source}{}\doxysection{per\+\_\+face\+\_\+normals.\+h}
+\label{per__face__normals_8h_source}\index{igl/per\_face\_normals.h@{igl/per\_face\_normals.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PER\_FACE\_NORMALS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PER\_FACE\_NORMALS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Compute face normals via vertex position list, face list}}
+\DoxyCodeLine{15   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{16   \textcolor{comment}{//   V  \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{17   \textcolor{comment}{//   F  \#F by 3 eigen Matrix of face (triangle) indices}}
+\DoxyCodeLine{18   \textcolor{comment}{//   Z  3 vector normal given to faces with degenerate normal.}}
+\DoxyCodeLine{19   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   N  \#F by 3 eigen Matrix of mesh face (triangle) 3D normals}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   // Give degenerate faces (1/3,1/3,1/3)\string^0.5}}
+\DoxyCodeLine{24   \textcolor{comment}{//   per\_face\_normals(V,F,Vector3d(1,1,1).normalized(),N);}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedZ, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} per\_face\_normals(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedZ> \& Z,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{31   \textcolor{comment}{// Wrapper with Z = (0,0,0). Note that this means that row norms will be zero}}
+\DoxyCodeLine{32   \textcolor{comment}{// (i.e. not 1) for degenerate normals.}}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{void} per\_face\_normals(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{38   \textcolor{comment}{// Special version where order of face indices is guaranteed not to effect}}
+\DoxyCodeLine{39   \textcolor{comment}{// output.}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} per\_face\_normals\_stable(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{45   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{47   \textcolor{comment}{//   I  \#I vectorized list of polygon corner indices into rows of some matrix V}}
+\DoxyCodeLine{48   \textcolor{comment}{//   C  \#polygons+1 list of cumulative polygon sizes so that C(i+1)-\/C(i) = size of}}
+\DoxyCodeLine{49   \textcolor{comment}{//     the ith polygon, and so I(C(i)) through I(C(i+1)-\/1) are the indices of}}
+\DoxyCodeLine{50   \textcolor{comment}{//     the ith polygon}}
+\DoxyCodeLine{51   \textcolor{comment}{//   corner\_threshold  threshold in degrees on sharp angles}}
+\DoxyCodeLine{52   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   N  \#polygons by 3 list of per face normals}}
+\DoxyCodeLine{54   \textcolor{comment}{//   VV  \#I+\#polygons by 3 list of auxiliary triangle mesh vertex positions}}
+\DoxyCodeLine{55   \textcolor{comment}{//   FF  \#I by 3 list of triangle indices into rows of VV}}
+\DoxyCodeLine{56   \textcolor{comment}{//   J  \#I list of indices into original polygons}}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{65   IGL\_INLINE \textcolor{keywordtype}{void} per\_face\_normals(}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DerivedN> \& N,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{72     Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{73 \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#  include "{}per\_face\_normals.cpp"{}}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

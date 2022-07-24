@@ -1,0 +1,90 @@
+\hypertarget{_msh_saver_8h_source}{}\doxysection{Msh\+Saver.\+h}
+\label{_msh_saver_8h_source}\index{igl/MshSaver.h@{igl/MshSaver.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// based on MSH writer from PyMesh }}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2015 Qingnan Zhou <qzhou@adobe.com>           }}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2020 Vladimir Fonov <vladimir.fonov@gmail.com> }}
+\DoxyCodeLine{5 \textcolor{comment}{//}}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla }}
+\DoxyCodeLine{7 \textcolor{comment}{// Public License v. 2.0. If a copy of the MPL was not distributed }}
+\DoxyCodeLine{8 \textcolor{comment}{// with this file, You can obtain one at http://mozilla.org/MPL/2.0/. }}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_MSH\_SAVER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_MSH\_SAVER\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{comment}{// Class for dumping information to .msh file}}
+\DoxyCodeLine{20 \textcolor{comment}{// depends only on c++stl library}}
+\DoxyCodeLine{21 \textcolor{comment}{// current implementation works only with 3D information}}
+\DoxyCodeLine{22 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_msh_saver}{MshSaver}} \{}
+\DoxyCodeLine{23     \textcolor{keyword}{public}:}
+\DoxyCodeLine{24         \textcolor{keyword}{typedef} \textcolor{keywordtype}{double} Float;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{typedef} std::vector<int>         IndexVector;}
+\DoxyCodeLine{27         \textcolor{keyword}{typedef} std::vector<int>         IntVector;}
+\DoxyCodeLine{28         \textcolor{keyword}{typedef} std::vector<Float>       FloatVector;}
+\DoxyCodeLine{29         \textcolor{keyword}{typedef} std::vector<FloatVector> FloatField;}
+\DoxyCodeLine{30         \textcolor{keyword}{typedef} std::vector<IntVector>   IntField;}
+\DoxyCodeLine{31         \textcolor{keyword}{typedef} std::vector<std::string> FieldNames;}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \mbox{\hyperlink{classigl_1_1_msh_saver}{MshSaver}}(\textcolor{keyword}{const} std::string\& filename, \textcolor{keywordtype}{bool} binary=\textcolor{keyword}{true});}
+\DoxyCodeLine{34         \mbox{\hyperlink{classigl_1_1_msh_saver}{\string~MshSaver}}();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36     \textcolor{keyword}{public}:}
+\DoxyCodeLine{37         \textcolor{comment}{// Only these element types are supported right now}}
+\DoxyCodeLine{38         \textcolor{keyword}{enum} \{ELEMENT\_LINE=1, ELEMENT\_TRI=2, ELEMENT\_QUAD=3, }
+\DoxyCodeLine{39               ELEMENT\_TET=4,  ELEMENT\_HEX=5, ELEMENT\_PRISM=6 \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41     \textcolor{keyword}{public}:}
+\DoxyCodeLine{42         \textcolor{comment}{// save mesh geometry}}
+\DoxyCodeLine{43         \textcolor{keywordtype}{void} save\_mesh(}
+\DoxyCodeLine{44             \textcolor{keyword}{const} FloatVector\& nodes, }
+\DoxyCodeLine{45             \textcolor{keyword}{const} IndexVector\& elements, }
+\DoxyCodeLine{46             \textcolor{keyword}{const} IntVector\& element\_lengths,}
+\DoxyCodeLine{47             \textcolor{keyword}{const} IntVector\& element\_type,}
+\DoxyCodeLine{48             \textcolor{keyword}{const} IntVector\& element\_tags );}
+\DoxyCodeLine{49         }
+\DoxyCodeLine{50         \textcolor{comment}{// save additional fields associated with the mesh}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         \textcolor{comment}{// add node scalar field}}
+\DoxyCodeLine{53         \textcolor{keywordtype}{void} save\_scalar\_field(\textcolor{keyword}{const} std::string\& fieldname, \textcolor{keyword}{const} FloatVector\& field);}
+\DoxyCodeLine{54         \textcolor{comment}{// add node vectot field}}
+\DoxyCodeLine{55         \textcolor{keywordtype}{void} save\_vector\_field(\textcolor{keyword}{const} std::string\& fieldname, \textcolor{keyword}{const} FloatVector\& field);}
+\DoxyCodeLine{56         \textcolor{comment}{// add element scalar field}}
+\DoxyCodeLine{57         \textcolor{keywordtype}{void} save\_elem\_scalar\_field(\textcolor{keyword}{const} std::string\& fieldname, \textcolor{keyword}{const} FloatVector\& field);}
+\DoxyCodeLine{58         \textcolor{comment}{// add element vector field}}
+\DoxyCodeLine{59         \textcolor{keywordtype}{void} save\_elem\_vector\_field(\textcolor{keyword}{const} std::string\& fieldname, \textcolor{keyword}{const} FloatVector\& field);}
+\DoxyCodeLine{60         \textcolor{comment}{// add element tensor field}}
+\DoxyCodeLine{61         \textcolor{keywordtype}{void} save\_elem\_tensor\_field(\textcolor{keyword}{const} std::string\& fieldname, \textcolor{keyword}{const} FloatVector\& field);}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{64         \textcolor{keywordtype}{void} save\_header();}
+\DoxyCodeLine{65         \textcolor{keywordtype}{void} save\_nodes(\textcolor{keyword}{const} FloatVector\& nodes);}
+\DoxyCodeLine{66         \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_msh_saver_a765eb6621b3097d739ce700dfded2fc7}{save\_elements}}(\textcolor{keyword}{const} IndexVector\& elements, }
+\DoxyCodeLine{67             \textcolor{keyword}{const} IntVector\& element\_lengths,}
+\DoxyCodeLine{68             \textcolor{keyword}{const} IntVector\& element\_type,}
+\DoxyCodeLine{69             \textcolor{keyword}{const} IntVector\& element\_tags);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71     \textcolor{keyword}{private}:}
+\DoxyCodeLine{72         \textcolor{keywordtype}{bool} m\_binary;}
+\DoxyCodeLine{73         \textcolor{keywordtype}{size\_t} m\_num\_nodes;}
+\DoxyCodeLine{74         \textcolor{keywordtype}{size\_t} m\_num\_elements;}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76         std::ofstream fout;}
+\DoxyCodeLine{77 \};}
+\DoxyCodeLine{78 \} \textcolor{comment}{//igl}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#  include "{}MshSaver.cpp"{}}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//MSH\_SAVER\_H}}
+
+\end{DoxyCode}

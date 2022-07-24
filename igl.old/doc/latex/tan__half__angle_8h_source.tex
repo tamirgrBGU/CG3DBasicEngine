@@ -1,0 +1,41 @@
+\hypertarget{tan__half__angle_8h_source}{}\doxysection{tan\+\_\+half\+\_\+angle.\+h}
+\label{tan__half__angle_8h_source}\index{igl/tan\_half\_angle.h@{igl/tan\_half\_angle.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_TAN\_HALF\_ANGLE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_TAN\_HALF\_ANGLE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13   \textcolor{comment}{// TAN\_HALF\_ANGLE Compute the tangent of half of the angle opposite the side}}
+\DoxyCodeLine{14   \textcolor{comment}{// with length a, in a triangle with side lengths (a,b,c).}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   a  scalar edge length of first side of triangle}}
+\DoxyCodeLine{18   \textcolor{comment}{//   b  scalar edge length of second side of triangle}}
+\DoxyCodeLine{19   \textcolor{comment}{//   c  scalar edge length of third side of triangle}}
+\DoxyCodeLine{20   \textcolor{comment}{// Returns tangent of half of the angle opposite side with length a}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// See also: is\_intrinsic\_delaunay}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} < \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{24   IGL\_INLINE Scalar tan\_half\_angle(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Scalar \& a,}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Scalar \& b,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Scalar \& c);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}tan\_half\_angle.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+
+\end{DoxyCode}

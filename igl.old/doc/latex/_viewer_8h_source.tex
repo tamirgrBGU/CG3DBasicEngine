@@ -1,0 +1,254 @@
+\hypertarget{_viewer_8h_source}{}\doxysection{Viewer.\+h}
+\label{_viewer_8h_source}\index{igl/opengl/glfw/Viewer.h@{igl/opengl/glfw/Viewer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_VIEWER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_VIEWER\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_4}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define IGL\_OPENGL\_4}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}../MeshGL.h"{}}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}../ViewerData.h"{}}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}ViewerPlugin.h"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}igl/opengl/Movable.h"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}igl/opengl/glfw/Material.h"{}}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define IGL\_MOD\_SHIFT           0x0001}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#define IGL\_MOD\_CONTROL         0x0002}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#define IGL\_MOD\_ALT             0x0004}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define IGL\_MOD\_SUPER           0x0008}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{namespace }glfw}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44 \textcolor{comment}{// GLFW-\/based mesh viewer}}
+\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{Viewer}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_movable}{Movable}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47 \textcolor{keyword}{private}:}
+\DoxyCodeLine{48     shared\_ptr<Material> m\_pickingMaterial = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{51     \textcolor{keywordtype}{void} SetPickingShader(shared\_ptr<Shader> shader);}
+\DoxyCodeLine{52     \textcolor{keywordtype}{void} SetPickingShader(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& shaderFileName, \textcolor{keywordtype}{bool} overlay, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shaderId);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{public}:}
+\DoxyCodeLine{55     \textcolor{keyword}{enum} axis \{ xAxis, yAxis, zAxis \};}
+\DoxyCodeLine{56     \textcolor{keyword}{enum} transformations \{ xTranslate, yTranslate, zTranslate, xRotate, yRotate, zRotate, xScale, yScale, zScale, scaleAll, reset \};}
+\DoxyCodeLine{57     \textcolor{keyword}{enum} modes \{ POINTS, LINES, LINE\_LOOP, LINE\_STRIP, TRIANGLES, TRIANGLE\_STRIP, TRIANGLE\_FAN, QUADS \};}
+\DoxyCodeLine{58     \textcolor{keyword}{enum} shapes \{ Axis, Plane, Cube, Octahedron, Tethrahedron, LineCopy, MeshCopy, Sphere \};}
+\DoxyCodeLine{59     \textcolor{keyword}{enum} buffers \{ COLOR, DEPTH, STENCIL, BACK, FRONT, NONE \};}
+\DoxyCodeLine{60     \textcolor{comment}{// UI Enumerations}}
+\DoxyCodeLine{61    \textcolor{comment}{// enum class MouseButton \{Left, Middle, Right\};}}
+\DoxyCodeLine{62    \textcolor{comment}{// enum class MouseMode \{ None, Rotation, Zoom, Pan, Translation\} mouse\_mode;}}
+\DoxyCodeLine{63     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Init(\textcolor{keyword}{const} std::string config);}
+\DoxyCodeLine{64     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Animate() \{\}}
+\DoxyCodeLine{65     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenTranslate() \{\}}
+\DoxyCodeLine{66     \textcolor{keyword}{virtual} Eigen::Vector3d GetCameraPosition() \{ \textcolor{keywordflow}{return} Eigen::Vector3d(0, 0, 0); \}}
+\DoxyCodeLine{67     \textcolor{keyword}{virtual} Eigen::Vector3d GetCameraForward() \{ \textcolor{keywordflow}{return} Eigen::Vector3d(0, 0, -\/1); \}}
+\DoxyCodeLine{68     \textcolor{keyword}{virtual} Eigen::Vector3d GetCameraUp() \{ \textcolor{keywordflow}{return} Eigen::Vector3d(0, 1, 0); \}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70     \textcolor{comment}{//IGL\_INLINE void init\_plugins();}}
+\DoxyCodeLine{71     \textcolor{comment}{//IGL\_INLINE void shutdown\_plugins();}}
+\DoxyCodeLine{72     \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{Viewer}}();}
+\DoxyCodeLine{73     \textcolor{keyword}{virtual} \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{\string~Viewer}}();}
+\DoxyCodeLine{74     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update(\textcolor{keyword}{const} Eigen::Matrix4f\& Proj, \textcolor{keyword}{const} Eigen::Matrix4f\& View, \textcolor{keyword}{const} Eigen::Matrix4f\& Model, shared\_ptr<Material> material) \{\};}
+\DoxyCodeLine{75     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Update\_overlay(\textcolor{keyword}{const} Eigen::Matrix4f\& Proj, \textcolor{keyword}{const} Eigen::Matrix4f\& View, \textcolor{keyword}{const} Eigen::Matrix4f\& Model, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shapeIndx, \textcolor{keywordtype}{bool} is\_points);}
+\DoxyCodeLine{76     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} AddShape(\textcolor{keywordtype}{int} type, \textcolor{keywordtype}{int} parent, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode, shared\_ptr<Material> material, \textcolor{keywordtype}{int} viewport = 0);}
+\DoxyCodeLine{77     \textcolor{keyword}{virtual} \textcolor{keywordtype}{int} AddShapeFromFile(\textcolor{keyword}{const} std::string\& fileName, \textcolor{keywordtype}{int} parent, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode, shared\_ptr<Material> material, \textcolor{keywordtype}{int} viewport = 0);}
+\DoxyCodeLine{78     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenTranslate(\textcolor{keywordtype}{float} dx, \textcolor{keywordtype}{float} dy) \{\}}
+\DoxyCodeLine{79     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenRotate(\textcolor{keywordtype}{float} dx, \textcolor{keywordtype}{float} dy) \{\}}
+\DoxyCodeLine{80     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenScroll(\textcolor{keywordtype}{float} dy) \{\}}
+\DoxyCodeLine{81     \textcolor{comment}{// Mesh IO}}
+\DoxyCodeLine{82     IGL\_INLINE \textcolor{keywordtype}{bool} load\_mesh\_from\_file(\textcolor{keyword}{const} std::string\& mesh\_file\_name);}
+\DoxyCodeLine{83     IGL\_INLINE \textcolor{keywordtype}{bool} save\_mesh\_to\_file(\textcolor{keyword}{const} std::string\& mesh\_file\_name);}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85     \textcolor{comment}{// Scene IO}}
+\DoxyCodeLine{86     IGL\_INLINE \textcolor{keywordtype}{bool} load\_scene();}
+\DoxyCodeLine{87     IGL\_INLINE \textcolor{keywordtype}{bool} load\_scene(std::string fname);}
+\DoxyCodeLine{88     IGL\_INLINE \textcolor{keywordtype}{bool} save\_scene();}
+\DoxyCodeLine{89     IGL\_INLINE \textcolor{keywordtype}{bool} save\_scene(std::string fname);}
+\DoxyCodeLine{90     \textcolor{comment}{// Draw everything}}
+\DoxyCodeLine{91    \textcolor{comment}{// IGL\_INLINE void draw();}}
+\DoxyCodeLine{92     \textcolor{comment}{// OpenGL context resize}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{comment}{// Helper functions}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96     IGL\_INLINE \textcolor{keywordtype}{void} open\_dialog\_load\_mesh();}
+\DoxyCodeLine{97     IGL\_INLINE \textcolor{keywordtype}{void} open\_dialog\_save\_mesh();}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     IGL\_INLINE \textcolor{keywordtype}{void} draw() \{\}}
+\DoxyCodeLine{101     \textcolor{comment}{// Multi-\/mesh methods //}}
+\DoxyCodeLine{103 \textcolor{comment}{}}
+\DoxyCodeLine{104     \textcolor{comment}{// Return the current mesh, or the mesh corresponding to a given unique identifier}}
+\DoxyCodeLine{105     \textcolor{comment}{//}}
+\DoxyCodeLine{106     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{107     \textcolor{comment}{//   mesh\_id  unique identifier associated to the desired mesh (current mesh if -\/1)}}
+\DoxyCodeLine{108     IGL\_INLINE \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{ViewerData}}* data(\textcolor{keywordtype}{int} mesh\_id = -\/1);}
+\DoxyCodeLine{109     IGL\_INLINE \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{ViewerData}}* data(\textcolor{keywordtype}{int} mesh\_id = -\/1) \textcolor{keyword}{const};}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{comment}{// Append a new "{}slot"{} for a mesh (i.e., create empty entries at the end of}}
+\DoxyCodeLine{112     \textcolor{comment}{// the data\_list and opengl\_state\_list.}}
+\DoxyCodeLine{113     \textcolor{comment}{//}}
+\DoxyCodeLine{114     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{115     \textcolor{comment}{//   visible  If true, the new mesh is set to be visible on all existing viewports}}
+\DoxyCodeLine{116     \textcolor{comment}{// Returns the id of the last appended mesh}}
+\DoxyCodeLine{117     \textcolor{comment}{//}}
+\DoxyCodeLine{118     \textcolor{comment}{// Side Effects:}}
+\DoxyCodeLine{119     \textcolor{comment}{//   selected\_data\_index is set this newly created, last entry (i.e.,}}
+\DoxyCodeLine{120     \textcolor{comment}{//   \#meshes-\/1)}}
+\DoxyCodeLine{121     IGL\_INLINE \textcolor{keywordtype}{int} append\_mesh(\textcolor{keywordtype}{bool} visible = \textcolor{keyword}{true});}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123     \textcolor{comment}{// Erase a mesh (i.e., its corresponding data and state entires in data\_list}}
+\DoxyCodeLine{124     \textcolor{comment}{// and opengl\_state\_list)}}
+\DoxyCodeLine{125     \textcolor{comment}{//}}
+\DoxyCodeLine{126     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{127     \textcolor{comment}{//   index  index of mesh to erase}}
+\DoxyCodeLine{128     \textcolor{comment}{// Returns whether erasure was successful <=> cannot erase last mesh}}
+\DoxyCodeLine{129     \textcolor{comment}{//}}
+\DoxyCodeLine{130     \textcolor{comment}{// Side Effects:}}
+\DoxyCodeLine{131     \textcolor{comment}{//   If selected\_data\_index is greater than or equal to index then it is}}
+\DoxyCodeLine{132     \textcolor{comment}{//   decremented}}
+\DoxyCodeLine{133     \textcolor{comment}{// Example:}}
+\DoxyCodeLine{134     \textcolor{comment}{//   // Erase all mesh slots except first and clear remaining mesh}}
+\DoxyCodeLine{135     \textcolor{comment}{//   viewer.selected\_data\_index = viewer.data\_list.size()-\/1;}}
+\DoxyCodeLine{136     \textcolor{comment}{//   while(viewer.erase\_mesh(viewer.selected\_data\_index))\{\};}}
+\DoxyCodeLine{137     \textcolor{comment}{//   viewer.data().clear();}}
+\DoxyCodeLine{138     \textcolor{comment}{//}}
+\DoxyCodeLine{139     IGL\_INLINE \textcolor{keywordtype}{bool} erase\_mesh(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} index);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141     \textcolor{comment}{// Retrieve mesh index from its unique identifier}}
+\DoxyCodeLine{142     \textcolor{comment}{// Returns 0 if not found}}
+\DoxyCodeLine{143     IGL\_INLINE \textcolor{keywordtype}{size\_t} mesh\_index(\textcolor{keyword}{const} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id}) \textcolor{keyword}{const};}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145     Eigen::Matrix4d CalcParentsTrans(\textcolor{keywordtype}{int} indx);}
+\DoxyCodeLine{146     \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} SetAnimation() \{ \textcolor{keywordflow}{return} isActive = !isActive; \}}
+\DoxyCodeLine{147     \textcolor{keyword}{inline}  \textcolor{keywordtype}{bool}  IsActive()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} isActive; \}}
+\DoxyCodeLine{148     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Activate() \{ isActive = \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{149     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Deactivate() \{ isActive = \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{150     \textcolor{keywordtype}{int} AddShader(\textcolor{keyword}{const} std::string\& fileName);}
+\DoxyCodeLine{151 \textcolor{keyword}{public}:}
+\DoxyCodeLine{153     \textcolor{comment}{// Member variables //}}
+\DoxyCodeLine{155 \textcolor{comment}{}}
+\DoxyCodeLine{156     \textcolor{comment}{// Alec: I call this data\_list instead of just data to avoid confusion with}}
+\DoxyCodeLine{157     \textcolor{comment}{// old "{}data"{} variable.}}
+\DoxyCodeLine{158     \textcolor{comment}{// Stores all the data that should be visualized}}
+\DoxyCodeLine{159     std::vector<ViewerData*> data\_list;}
+\DoxyCodeLine{160     std::vector<int> pShapes;}
+\DoxyCodeLine{161     std::vector<int> parents;}
+\DoxyCodeLine{162     std::vector<Texture*> textures;}
+\DoxyCodeLine{163     std::vector<Material*> materials;}
+\DoxyCodeLine{164     \textcolor{keywordtype}{int} pickedShape;}
+\DoxyCodeLine{165     Eigen::Vector3d pickedNormal;}
+\DoxyCodeLine{166     \textcolor{keywordtype}{size\_t} selected\_data\_index;}
+\DoxyCodeLine{167     \textcolor{keywordtype}{int} next\_data\_id;}
+\DoxyCodeLine{168     \textcolor{keywordtype}{int} next\_shader\_id; \textcolor{comment}{// for flags to mack sure all shaders are initlize with data}}
+\DoxyCodeLine{169     \textcolor{keywordtype}{bool} isActive;}
+\DoxyCodeLine{170     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} staticScene;}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172     \mbox{\hyperlink{class_shader}{Shader}}* overlay\_shader;}
+\DoxyCodeLine{173     \mbox{\hyperlink{class_shader}{Shader}}* overlay\_point\_shader;}
+\DoxyCodeLine{174     std::vector<Shader*> shaders; \textcolor{comment}{// TAL: new in AddShader but no delete}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176 }
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178     \textcolor{comment}{// List of registered plugins}}
+\DoxyCodeLine{179 \textcolor{comment}{//    std::vector<ViewerPlugin*> plugins;}}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{181     \textcolor{comment}{// Keep track of the global position of the scrollwheel}}
+\DoxyCodeLine{182     \textcolor{keywordtype}{float} scroll\_position;}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184 \textcolor{keyword}{public}:}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186     EIGEN\_MAKE\_ALIGNED\_OPERATOR\_NEW}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188         \textcolor{keywordtype}{void}}
+\DoxyCodeLine{189         Draw(\textcolor{keywordtype}{int} shaderIndx, \textcolor{keyword}{const} Eigen::Matrix4f\& Proj, \textcolor{keyword}{const} Eigen::Matrix4f\& View, \textcolor{keywordtype}{int} viewportIndx,}
+\DoxyCodeLine{190             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flgs, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} property\_id);}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192     \textcolor{keywordtype}{int} AddMaterial(\mbox{\hyperlink{class_material}{Material}}* material);}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194     \textcolor{keywordtype}{void} ClearPickedShapes(\textcolor{keywordtype}{int} viewportIndx);}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197     Eigen::Matrix4d GetPreviousTrans(\textcolor{keyword}{const} Eigen::Matrix4d\& View, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} index);}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199     \textcolor{keywordtype}{float}}
+\DoxyCodeLine{200         AddPickedShapes(\textcolor{keyword}{const} Eigen::Matrix4d\& PV, \textcolor{keyword}{const} Eigen::Vector4i\& viewport, \textcolor{keywordtype}{int} viewportIndx, \textcolor{keywordtype}{int} left, \textcolor{keywordtype}{int} right,}
+\DoxyCodeLine{201             \textcolor{keywordtype}{int} up, \textcolor{keywordtype}{int} bottom, \textcolor{keywordtype}{int} newViewportIndx);}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203     \textcolor{keywordtype}{void}}
+\DoxyCodeLine{204         MouseProccessing(\textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} xrel, \textcolor{keywordtype}{int} yrel, \textcolor{keywordtype}{float} movCoeff, Eigen::Matrix4d cameraMat, \textcolor{keywordtype}{int} viewportIndx);}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenTranslate(\textcolor{keyword}{const} Eigen::Matrix4d\& preMat, \textcolor{keywordtype}{float} dx, \textcolor{keywordtype}{float} dy);}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenScroll(\textcolor{keyword}{const} Eigen::Matrix4d\& preMat, \textcolor{keywordtype}{float} dy);}
+\DoxyCodeLine{209 }
+\DoxyCodeLine{210     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} WhenRotate(\textcolor{keyword}{const} Eigen::Matrix4d\& preMat, \textcolor{keywordtype}{float} dx, \textcolor{keywordtype}{float} dy);}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \textcolor{keywordtype}{int} AddTexture(\textcolor{keyword}{const} std::string\& textureFileName, \textcolor{keywordtype}{int} dim);}
+\DoxyCodeLine{213     \textcolor{keywordtype}{int} AddTexture(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* data, \textcolor{keywordtype}{int} mode);}
+\DoxyCodeLine{214     \textcolor{comment}{//void BindMaterial(Shader* s, unsigned int materialIndx);}}
+\DoxyCodeLine{215     \textcolor{keywordtype}{void} BindTexture(\textcolor{keywordtype}{int} texIndx, \textcolor{keywordtype}{int} slot) \{ textures[texIndx]-\/>Bind(slot); \}}
+\DoxyCodeLine{216     IGL\_INLINE \textcolor{keywordtype}{void} SetShapeShader(\textcolor{keywordtype}{int} shpIndx, \textcolor{keywordtype}{int} shdrIndx) \{ data\_list[shpIndx]-\/>shaderID = shdrIndx; \}}
+\DoxyCodeLine{217     IGL\_INLINE \textcolor{keywordtype}{void} SetShapeStatic(\textcolor{keywordtype}{int} shpIndx) \{ data\_list[shpIndx]-\/>SetStatic(); \}}
+\DoxyCodeLine{218     IGL\_INLINE \textcolor{keywordtype}{void} SetShapeViewport(\textcolor{keywordtype}{int} shpIndx, \textcolor{keywordtype}{int} vpIndx) \{ vpIndx > 0 ? data\_list[shpIndx]-\/>AddViewport(vpIndx) : data\_list[shpIndx]-\/>RemoveViewport(\string~vpIndx); \}}
+\DoxyCodeLine{219     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} UpdateNormal(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} data[]) \{ pickedNormal = (Eigen::Vector3d(data[0], data[1], data[2])).normalized(); \}}
+\DoxyCodeLine{220     IGL\_INLINE \textcolor{keywordtype}{void} SetShapeMaterial(\textcolor{keywordtype}{int} shpIndx, \textcolor{keywordtype}{int} materialIndx) \{ data\_list[shpIndx]-\/>SetMaterial(materialIndx); \}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222     \textcolor{keywordtype}{void} SetShader\_overlay(\textcolor{keyword}{const} std::string\& fileName);}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224     \textcolor{keywordtype}{void} SetShader\_point\_overlay(\textcolor{keyword}{const} std::string\& fileName);}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226     \textcolor{keywordtype}{int} AddShapeCopy(\textcolor{keywordtype}{int} indx, \textcolor{keywordtype}{int} parent, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode, \textcolor{keywordtype}{int} viewport = 0);}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228     \textcolor{keywordtype}{void} ShapeTransformation(\textcolor{keywordtype}{int} type, \textcolor{keywordtype}{float} amt, \textcolor{keywordtype}{int} mode);}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{230     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} Picking(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} data[4], \textcolor{keywordtype}{int} newViewportIndx);}
+\DoxyCodeLine{231     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} UnPick() \{ pickedShape = -\/1; \}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233     \textcolor{keywordtype}{bool} load\_mesh\_from\_data(\textcolor{keyword}{const} Eigen::MatrixXd\& V, \textcolor{keyword}{const} Eigen::MatrixXi\& F, \textcolor{keyword}{const} Eigen::MatrixXd\& UV\_V,}
+\DoxyCodeLine{234         \textcolor{keyword}{const} Eigen::MatrixXi\& UV\_F);}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236     \textcolor{keywordtype}{int} AddShapeFromData(\textcolor{keyword}{const} Eigen::MatrixXd\& V, \textcolor{keyword}{const} Eigen::MatrixXi\& F, \textcolor{keyword}{const} Eigen::MatrixXd\& UV\_V,}
+\DoxyCodeLine{237         \textcolor{keyword}{const} Eigen::MatrixXi\& UV\_F, \textcolor{keywordtype}{int} type, \textcolor{keywordtype}{int} parent, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode, \textcolor{keywordtype}{int} viewport);}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{239     \textcolor{keywordtype}{int} AddShader(\textcolor{keyword}{const} std::string\& Vertex\_Shader, \textcolor{keyword}{const} std::string\& Fragment\_shader);}
+\DoxyCodeLine{240 }
+\DoxyCodeLine{241     \textcolor{keywordtype}{void} SetParent(\textcolor{keywordtype}{int} indx, \textcolor{keywordtype}{int} newValue, \textcolor{keywordtype}{bool} savePosition);}
+\DoxyCodeLine{242 \};}
+\DoxyCodeLine{243 }
+\DoxyCodeLine{244 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{245 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{246 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{249 \textcolor{preprocessor}{\#  include "{}Viewer.cpp"{}}}
+\DoxyCodeLine{250 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

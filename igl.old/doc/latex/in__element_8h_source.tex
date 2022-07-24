@@ -1,0 +1,60 @@
+\hypertarget{in__element_8h_source}{}\doxysection{in\+\_\+element.\+h}
+\label{in__element_8h_source}\index{igl/in\_element.h@{igl/in\_element.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_IN\_ELEMENT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_IN\_ELEMENT\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}AABB.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Determine whether each point in a list of points is in the elements of a}}
+\DoxyCodeLine{19   \textcolor{comment}{// mesh.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// templates:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   DIM  dimension of vertices in V (\# of columns)}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions.}}
+\DoxyCodeLine{25   \textcolor{comment}{//   Ele  \#Ele by dim+1 list of mesh indices into \#V.}}
+\DoxyCodeLine{26   \textcolor{comment}{//   Q  \#Q by dim list of query point positions}}
+\DoxyCodeLine{27   \textcolor{comment}{//   aabb  axis-\/aligned bounding box tree object (see AABB.h)}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   I  \#Q list of indices into Ele of first containing element (-\/1 means no}}
+\DoxyCodeLine{30   \textcolor{comment}{//     containing element)}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedQ, \textcolor{keywordtype}{int} DIM>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} in\_element(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixXi \& Ele,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ> \& Q,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} AABB<DerivedV,DIM> \& aabb,}
+\DoxyCodeLine{37     Eigen::VectorXi \& I);}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   I  \#Q by \#Ele sparse matrix revealing whether each element contains each}}
+\DoxyCodeLine{40   \textcolor{comment}{//     point: I(q,e) means point q is in element e}}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedQ, \textcolor{keywordtype}{int} DIM, \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} in\_element(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixXi \& Ele,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ> \& Q,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} AABB<DerivedV,DIM> \& aabb,}
+\DoxyCodeLine{47     Eigen::SparseMatrix<Scalar> \& I);}
+\DoxyCodeLine{48 \};}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#include "{}in\_element.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

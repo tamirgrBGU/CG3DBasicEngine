@@ -1,0 +1,60 @@
+\hypertarget{texture__from__png_8h_source}{}\doxysection{texture\+\_\+from\+\_\+png.\+h}
+\label{texture__from__png_8h_source}\index{igl/png/texture\_from\_png.h@{igl/png/texture\_from\_png.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PNG\_TEXTURE\_FROM\_PNG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PNG\_TEXTURE\_FROM\_PNG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../opengl/gl.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }\mbox{\hyperlink{structpng}{png}}}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20         \textcolor{comment}{// Read an image from a .png file and use it as a texture}}
+\DoxyCodeLine{21         \textcolor{comment}{//}}
+\DoxyCodeLine{22         \textcolor{comment}{// Input:}}
+\DoxyCodeLine{23         \textcolor{comment}{//  png\_file  path to .png file}}
+\DoxyCodeLine{24         \textcolor{comment}{//  flip  whether to flip the image vertically (A -\/-\/> ∀)}}
+\DoxyCodeLine{25         \textcolor{comment}{// Output:}}
+\DoxyCodeLine{26         \textcolor{comment}{//  id  of generated openGL texture}}
+\DoxyCodeLine{27         \textcolor{comment}{// Returns true on success, false on failure}}
+\DoxyCodeLine{28         IGL\_INLINE \textcolor{keywordtype}{bool} texture\_from\_png(\textcolor{keyword}{const} std::string png\_file, \textcolor{keyword}{const} \textcolor{keywordtype}{bool} flip, GLuint \& \textcolor{keywordtype}{id});}
+\DoxyCodeLine{29         IGL\_INLINE \textcolor{keywordtype}{bool} texture\_from\_png(\textcolor{keyword}{const} std::string png\_file, GLuint \& \textcolor{keywordtype}{id});}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31         \textcolor{comment}{// Read an image from a .png file and use it as a texture}}
+\DoxyCodeLine{32         \textcolor{comment}{//}}
+\DoxyCodeLine{33         \textcolor{comment}{// Input:}}
+\DoxyCodeLine{34         \textcolor{comment}{//  png\_file  path to .png file}}
+\DoxyCodeLine{35         \textcolor{comment}{// Output:}}
+\DoxyCodeLine{36         \textcolor{comment}{//  R,G,B,A texture channels}}
+\DoxyCodeLine{37         \textcolor{comment}{// Returns true on success, false on failure}}
+\DoxyCodeLine{38         \textcolor{comment}{//}}
+\DoxyCodeLine{39         \textcolor{comment}{// Todo: this is an inappropriate function name. This is really just}}
+\DoxyCodeLine{40         \textcolor{comment}{// reading a png.... Not necessarily as a texture.}}
+\DoxyCodeLine{41         IGL\_INLINE \textcolor{keywordtype}{bool} texture\_from\_png(\textcolor{keyword}{const} std::string png\_file,}
+\DoxyCodeLine{42                                          Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& R,}
+\DoxyCodeLine{43                                          Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& G,}
+\DoxyCodeLine{44                                          Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& B,}
+\DoxyCodeLine{45                                          Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& A}
+\DoxyCodeLine{46         );}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#  include "{}texture\_from\_png.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

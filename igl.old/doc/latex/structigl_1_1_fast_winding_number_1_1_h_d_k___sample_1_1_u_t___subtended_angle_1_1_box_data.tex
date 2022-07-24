@@ -1,0 +1,72 @@
+\hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data}{}\doxysection{igl\+::Fast\+Winding\+Number\+::HDK\+\_\+\+Sample\+::UT\+\_\+\+Subtended\+Angle\texorpdfstring{$<$}{<} T, S \texorpdfstring{$>$}{>}\+::Box\+Data Struct Reference}
+\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data}\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_aaee4ecc2f33442de2d45106c2ebca31c}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_aaee4ecc2f33442de2d45106c2ebca31c}} 
+using {\bfseries Type} = typename std\+::conditional$<$ BVH\+\_\+N==4 \&\&std\+::is\+\_\+same$<$ T, float $>$\+::value, \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1v4uf}{v4uf}}, \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ T, BVH\+\_\+N $>$ $>$\+::type
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_af51f16cd5b053806e0b756d32a9c1ce3}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_af51f16cd5b053806e0b756d32a9c1ce3}} 
+using {\bfseries SType} = typename std\+::conditional$<$ BVH\+\_\+N==4 \&\&std\+::is\+\_\+same$<$ S, float $>$\+::value, \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1v4uf}{v4uf}}, \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ S, BVH\+\_\+N $>$ $>$\+::type
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_aa5b4a877554d18a3c159ec91d43f733c}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_aa5b4a877554d18a3c159ec91d43f733c}} 
+void {\bfseries clear} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a7fc32978d2e4e65a6c6260f5aa03bd2c}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a7fc32978d2e4e65a6c6260f5aa03bd2c}} 
+SType {\bfseries my\+Max\+PDist2}
+\begin{DoxyCompactList}\small\item\em An upper bound on the squared distance from my\+AverageP to the farthest point in the box. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a5fb1004e0c2a8aa98a4191b0c39b1d71}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a5fb1004e0c2a8aa98a4191b0c39b1d71}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ Type, 2 $>$ {\bfseries my\+AverageP}
+\begin{DoxyCompactList}\small\item\em Centre of mass of the mesh surface in this box. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a56753a48b892ae37aa3ff95b6c7ac0cf}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a56753a48b892ae37aa3ff95b6c7ac0cf}} 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ Type, 2 $>$ {\bfseries myN}
+\begin{DoxyCompactList}\small\item\em Unnormalized, area-\/weighted normal of the mesh in this box. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ Type, 2 $>$ \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a332efad228ae3f82e2c05fe297a2c521}{my\+Nij\+Diag}}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a68c1307839f2817c6f2c325bbc03527e}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a68c1307839f2817c6f2c325bbc03527e}} 
+Type {\bfseries my\+Nxy\+\_\+\+Nyx}
+\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$ Type, 2 $>$ \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_afebf09c9e6fb5c337c9383864543f245}{my\+Nijk\+Diag}}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_ac3096dbe7f7bd08b592a75e7515bc094}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_ac3096dbe7f7bd08b592a75e7515bc094}} 
+Type {\bfseries my2\+Nxxy\+\_\+\+Nyxx}
+\item 
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a28d251104e420f32385df46980b08aba}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a28d251104e420f32385df46980b08aba}} 
+Type {\bfseries my2\+Nyyx\+\_\+\+Nxyy}
+\end{DoxyCompactItemize}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a332efad228ae3f82e2c05fe297a2c521}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_a332efad228ae3f82e2c05fe297a2c521}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData}!myNijDiag@{myNijDiag}}
+\index{myNijDiag@{myNijDiag}!igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData}}
+\doxysubsubsection{\texorpdfstring{myNijDiag}{myNijDiag}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$Type,2$>$ \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle}}$<$ T, S $>$\+::\+Box\+Data\+::my\+Nij\+Diag}
+
+Values for Omega\+\_\+1 \mbox{\Hypertarget{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_afebf09c9e6fb5c337c9383864543f245}\label{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data_afebf09c9e6fb5c337c9383864543f245}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData}!myNijkDiag@{myNijkDiag}}
+\index{myNijkDiag@{myNijkDiag}!igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$::BoxData}}
+\doxysubsubsection{\texorpdfstring{myNijkDiag}{myNijkDiag}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Fixed\+Vector}}$<$Type,2$>$ \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle}}$<$ T, S $>$\+::\+Box\+Data\+::my\+Nijk\+Diag}
+
+Values for Omega\+\_\+2 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/Fast\+Winding\+Number\+For\+Soups.\+h\end{DoxyCompactItemize}

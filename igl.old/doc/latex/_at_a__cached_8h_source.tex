@@ -1,0 +1,76 @@
+\hypertarget{_at_a__cached_8h_source}{}\doxysection{At\+A\+\_\+cached.\+h}
+\label{_at_a__cached_8h_source}\index{igl/AtA\_cached.h@{igl/AtA\_cached.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ATA\_CACHED\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ATA\_CACHED\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define EIGEN\_YES\_I\_KNOW\_SPARSE\_MODULE\_IS\_NOT\_STABLE\_YET}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{  }
+\DoxyCodeLine{16   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_at_a__cached__data}{AtA\_cached\_data}}}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{comment}{// Weights}}
+\DoxyCodeLine{19     Eigen::VectorXd W;}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21     \textcolor{comment}{// Flatten composition rules}}
+\DoxyCodeLine{22     std::vector<int> I\_row;}
+\DoxyCodeLine{23     std::vector<int> I\_col;}
+\DoxyCodeLine{24     std::vector<int> I\_w;}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{comment}{// For each entry of AtA, points to the beginning}}
+\DoxyCodeLine{27     \textcolor{comment}{// of the composition rules}}
+\DoxyCodeLine{28     std::vector<int> I\_outer;}
+\DoxyCodeLine{29   \};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   \textcolor{comment}{// Computes At * W * A, where A is sparse and W is diagonal. Divides the }}
+\DoxyCodeLine{32   \textcolor{comment}{// construction in two phases, one}}
+\DoxyCodeLine{33   \textcolor{comment}{// for fixing the sparsity pattern, and one to populate it with values. Compared to}}
+\DoxyCodeLine{34   \textcolor{comment}{// evaluating it directly, this version is slower for the first time (since it requires a}}
+\DoxyCodeLine{35   \textcolor{comment}{// precomputation), but faster to the subsequent evaluations.}}
+\DoxyCodeLine{36   \textcolor{comment}{//}}
+\DoxyCodeLine{37   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{38   \textcolor{comment}{//   A m x n sparse matrix}}
+\DoxyCodeLine{39   \textcolor{comment}{//   data stores the precomputed sparsity pattern, data.W contains the optional diagonal weights (stored as a dense vector). If W is not provided, it is replaced by the identity.}}
+\DoxyCodeLine{40   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{41   \textcolor{comment}{//   AtA  m by m matrix computed as AtA * W * A}}
+\DoxyCodeLine{42   \textcolor{comment}{//}}
+\DoxyCodeLine{43   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{44   \textcolor{comment}{// AtA\_data = igl::AtA\_cached\_data();}}
+\DoxyCodeLine{45   \textcolor{comment}{// AtA\_data.W = W;}}
+\DoxyCodeLine{46   \textcolor{comment}{// if (s.AtA.rows() == 0)}}
+\DoxyCodeLine{47   \textcolor{comment}{//   igl::AtA\_cached\_precompute(s.A,s.AtA\_data,s.AtA);}}
+\DoxyCodeLine{48   \textcolor{comment}{// else}}
+\DoxyCodeLine{49   \textcolor{comment}{//   igl::AtA\_cached(s.A,s.AtA\_data,s.AtA);}}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keywordtype}{void} AtA\_cached\_precompute(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::SparseMatrix<Scalar>\& A,}
+\DoxyCodeLine{53     \mbox{\hyperlink{structigl_1_1_at_a__cached__data}{AtA\_cached\_data}}\& data,}
+\DoxyCodeLine{54     Eigen::SparseMatrix<Scalar>\& AtA}
+\DoxyCodeLine{55     );}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{58   IGL\_INLINE \textcolor{keywordtype}{void} AtA\_cached(}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::SparseMatrix<Scalar>\& A,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_at_a__cached__data}{AtA\_cached\_data}}\& data,}
+\DoxyCodeLine{61     Eigen::SparseMatrix<Scalar>\& AtA}
+\DoxyCodeLine{62     );}
+\DoxyCodeLine{63   }
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#  include "{}AtA\_cached.cpp"{}}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

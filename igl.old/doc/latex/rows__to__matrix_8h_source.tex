@@ -1,0 +1,40 @@
+\hypertarget{rows__to__matrix_8h_source}{}\doxysection{rows\+\_\+to\+\_\+matrix.\+h}
+\label{rows__to__matrix_8h_source}\index{igl/rows\_to\_matrix.h@{igl/rows\_to\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ROWS\_TO\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ROWS\_TO\_MATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Convert a list (std::vector) of row vectors of the same length to a matrix}}
+\DoxyCodeLine{15   \textcolor{comment}{// Template: }}
+\DoxyCodeLine{16   \textcolor{comment}{//   Row  row vector type, must implement:}}
+\DoxyCodeLine{17   \textcolor{comment}{//     .size()}}
+\DoxyCodeLine{18   \textcolor{comment}{//   Mat  Matrix type, must implement:}}
+\DoxyCodeLine{19   \textcolor{comment}{//     .resize(m,n)}}
+\DoxyCodeLine{20   \textcolor{comment}{//     .row(i) = Row}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  a m-\/long list of vectors of size n}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   M  an m by n matrix}}
+\DoxyCodeLine{25   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{class} Row, \textcolor{keyword}{class} Mat>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{bool} rows\_to\_matrix(\textcolor{keyword}{const} std::vector<Row> \& V,Mat \& M);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}rows\_to\_matrix.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

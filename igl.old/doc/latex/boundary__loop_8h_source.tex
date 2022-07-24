@@ -1,0 +1,72 @@
+\hypertarget{boundary__loop_8h_source}{}\doxysection{boundary\+\_\+loop.\+h}
+\label{boundary__loop_8h_source}\index{igl/boundary\_loop.h@{igl/boundary\_loop.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Stefan Brugger <stefanbrugger@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BOUNDARY\_LOOP\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BOUNDARY\_LOOP\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Compute list of ordered boundary loops for a manifold mesh.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{20   \textcolor{comment}{//  Index  index type}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   F  \#V by dim list of mesh faces}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   L  list of loops where L[i] = ordered list of boundary vertices in loop i}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_loop(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F, }
+\DoxyCodeLine{29     std::vector<std::vector<Index> >\& L);}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \textcolor{comment}{// Compute ordered boundary loops for a manifold mesh and return the }}
+\DoxyCodeLine{33   \textcolor{comment}{// longest loop in terms of vertices.}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{36   \textcolor{comment}{//  Index  index type}}
+\DoxyCodeLine{37   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{38   \textcolor{comment}{//   F  \#V by dim list of mesh faces}}
+\DoxyCodeLine{39   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{40   \textcolor{comment}{//   L  ordered list of boundary vertices of longest boundary loop}}
+\DoxyCodeLine{41   \textcolor{comment}{//}}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_loop(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F, }
+\DoxyCodeLine{45     std::vector<Index>\& L);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47   \textcolor{comment}{// Compute ordered boundary loops for a manifold mesh and return the }}
+\DoxyCodeLine{48   \textcolor{comment}{// longest loop in terms of vertices.}}
+\DoxyCodeLine{49   \textcolor{comment}{//}}
+\DoxyCodeLine{50   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{51   \textcolor{comment}{//  Index  index type}}
+\DoxyCodeLine{52   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   F  \#V by dim list of mesh faces}}
+\DoxyCodeLine{54   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{55   \textcolor{comment}{//   L  ordered list of boundary vertices of longest boundary loop}}
+\DoxyCodeLine{56   \textcolor{comment}{//}}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedL>}
+\DoxyCodeLine{58   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_loop(}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F, }
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedL>\& L);}
+\DoxyCodeLine{61 \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#  include "{}boundary\_loop.cpp"{}}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,79 @@
+\hypertarget{embree_2unproject__onto__mesh_8h_source}{}\doxysection{unproject\+\_\+onto\+\_\+mesh.\+h}
+\label{embree_2unproject__onto__mesh_8h_source}\index{igl/embree/unproject\_onto\_mesh.h@{igl/embree/unproject\_onto\_mesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_EMBREE\_UNPROJECT\_ONTO\_MESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_EMBREE\_UNPROJECT\_ONTO\_MESH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }embree}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Forward define}}
+\DoxyCodeLine{20     \textcolor{keyword}{class }EmbreeIntersector;}
+\DoxyCodeLine{21     \textcolor{comment}{// Unproject a screen location (using the given model, proj and viewport) to find}}
+\DoxyCodeLine{22     \textcolor{comment}{// the first hit on a mesh.}}
+\DoxyCodeLine{23     \textcolor{comment}{//}}
+\DoxyCodeLine{24     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25     \textcolor{comment}{//    pos        screen space coordinates}}
+\DoxyCodeLine{26     \textcolor{comment}{//    F          \#F by 3 face matrix}}
+\DoxyCodeLine{27     \textcolor{comment}{//    model      model matrix}}
+\DoxyCodeLine{28     \textcolor{comment}{//    proj       projection matrix}}
+\DoxyCodeLine{29     \textcolor{comment}{//    viewport   vieweport vector}}
+\DoxyCodeLine{30     \textcolor{comment}{//    ei         EmbreeIntersector containing (V,F)}}
+\DoxyCodeLine{31     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{32     \textcolor{comment}{//    fid        id of the first face hit}}
+\DoxyCodeLine{33     \textcolor{comment}{//    bc         barycentric coordinates of hit}}
+\DoxyCodeLine{34     \textcolor{comment}{// Returns true if there is a hit}}
+\DoxyCodeLine{35     IGL\_INLINE \textcolor{keywordtype}{bool} unproject\_onto\_mesh(}
+\DoxyCodeLine{36       \textcolor{keyword}{const} Eigen::Vector2f\& pos,}
+\DoxyCodeLine{37       \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{38       \textcolor{keyword}{const} Eigen::Matrix4f\& model,}
+\DoxyCodeLine{39       \textcolor{keyword}{const} Eigen::Matrix4f\& proj,}
+\DoxyCodeLine{40       \textcolor{keyword}{const} Eigen::Vector4f\& viewport,}
+\DoxyCodeLine{41       \textcolor{keyword}{const} EmbreeIntersector \& ei,}
+\DoxyCodeLine{42       \textcolor{keywordtype}{int}\& fid,}
+\DoxyCodeLine{43       Eigen::Vector3f\& bc);}
+\DoxyCodeLine{44     }
+\DoxyCodeLine{45     \textcolor{comment}{// Unproject a screen location (using the given model, proj and viewport) to find}}
+\DoxyCodeLine{46     \textcolor{comment}{// the first face on the mesh and the closest vertex}}
+\DoxyCodeLine{47     \textcolor{comment}{//}}
+\DoxyCodeLine{48     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{49     \textcolor{comment}{//    pos        screen space coordinates}}
+\DoxyCodeLine{50     \textcolor{comment}{//    F          \#F by 3 face matrix}}
+\DoxyCodeLine{51     \textcolor{comment}{//    model      model matrix}}
+\DoxyCodeLine{52     \textcolor{comment}{//    proj       projection matrix}}
+\DoxyCodeLine{53     \textcolor{comment}{//    viewport   vieweport vector}}
+\DoxyCodeLine{54     \textcolor{comment}{//    ei         EmbreeIntersector containing (V,F)}}
+\DoxyCodeLine{55     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{56     \textcolor{comment}{//    fid        id of the first face hit}}
+\DoxyCodeLine{57     \textcolor{comment}{//    vid        vertex id of the closest vertex hit}}
+\DoxyCodeLine{58     \textcolor{comment}{// Returns true if there is a hit}}
+\DoxyCodeLine{59     IGL\_INLINE \textcolor{keywordtype}{bool} unproject\_onto\_mesh(}
+\DoxyCodeLine{60       \textcolor{keyword}{const} Eigen::Vector2f\& pos,}
+\DoxyCodeLine{61       \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{62       \textcolor{keyword}{const} Eigen::Matrix4f\& model,}
+\DoxyCodeLine{63       \textcolor{keyword}{const} Eigen::Matrix4f\& proj,}
+\DoxyCodeLine{64       \textcolor{keyword}{const} Eigen::Vector4f\& viewport,}
+\DoxyCodeLine{65       \textcolor{keyword}{const} EmbreeIntersector \& ei,}
+\DoxyCodeLine{66       \textcolor{keywordtype}{int}\& fid,}
+\DoxyCodeLine{67       \textcolor{keywordtype}{int}\& vid);}
+\DoxyCodeLine{68   \}}
+\DoxyCodeLine{69 \}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#  include "{}unproject\_onto\_mesh.cpp"{}}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\hypertarget{polygon__corners_8h_source}{}\doxysection{polygon\+\_\+corners.\+h}
+\label{polygon__corners_8h_source}\index{igl/polygon\_corners.h@{igl/polygon\_corners.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_POLYGON\_CORNERS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_POLYGON\_CORNERS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Convert a list-\/of-\/lists polygon mesh faces representation to list of}}
+\DoxyCodeLine{17   \textcolor{comment}{// polygon corners and sizes}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   P  \#P list of lists of vertex indices into rows of some matrix V}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   I  \#I vectorized list of polygon corner indices into rows of some matrix V}}
+\DoxyCodeLine{23   \textcolor{comment}{//   C  \#P+1 list of cumulative polygon sizes so that C(i+1)-\/C(i) = size of}}
+\DoxyCodeLine{24   \textcolor{comment}{//     the ith polygon, and so I(C(i)) through I(C(i+1)-\/1) are the indices of}}
+\DoxyCodeLine{25   \textcolor{comment}{//     the ith polygon}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} PType, }
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} polygon\_corners(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} std::vector<std::vector<PType> > \& P,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{35   \textcolor{comment}{// Convert a pure k-\/gon list of polygon mesh indices to list of polygon corners}}
+\DoxyCodeLine{36   \textcolor{comment}{// and sizes}}
+\DoxyCodeLine{37   \textcolor{comment}{//}}
+\DoxyCodeLine{38   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   Q  \#Q by k list of polygon indices (ith row is a k-\/gon, unless Q(i,j) =}}
+\DoxyCodeLine{40   \textcolor{comment}{//     -\/1 then it's a j-\/gon)}}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedQ, }
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{45   IGL\_INLINE \textcolor{keywordtype}{void} polygon\_corners(}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ> \& Q,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#  include "{}polygon\_corners.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

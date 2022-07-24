@@ -1,0 +1,110 @@
+\hypertarget{doublearea_8h_source}{}\doxysection{doublearea.\+h}
+\label{doublearea_8h_source}\index{igl/doublearea.h@{igl/doublearea.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DOUBLEAREA\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DOUBLEAREA\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// DOUBLEAREA computes twice the area for each input triangle[quad]}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   DerivedV  derived type of eigen matrix for V (e.g. derived from}}
+\DoxyCodeLine{18   \textcolor{comment}{//     MatrixXd)}}
+\DoxyCodeLine{19   \textcolor{comment}{//   DerivedF  derived type of eigen matrix for F (e.g. derived from}}
+\DoxyCodeLine{20   \textcolor{comment}{//     MatrixXi)}}
+\DoxyCodeLine{21   \textcolor{comment}{//   DeriveddblA  derived type of eigen matrix for dblA (e.g. derived from}}
+\DoxyCodeLine{22   \textcolor{comment}{//     MatrixXd)}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{25   \textcolor{comment}{//   F  \#F by simplex\_size list of mesh faces (must be triangles or quads)}}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   dblA  \#F list of triangle[quad] double areas (SIGNED only for 2D input)}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// Known bug: For dim==3 complexity is O(\#V + \#F)!! Not just O(\#F). This is a big deal}}
+\DoxyCodeLine{30   \textcolor{comment}{// if you have 1million unreferenced vertices and 1 face}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DeriveddblA>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} doublearea(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DeriveddblA> \& dblA);}
+\DoxyCodeLine{36   \textcolor{comment}{// Stream of triangles, computes signed area...}}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedD>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} doublearea(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedD> \& D);}
+\DoxyCodeLine{47   \textcolor{comment}{// Single triangle in 2D!}}
+\DoxyCodeLine{48   \textcolor{comment}{//}}
+\DoxyCodeLine{49   \textcolor{comment}{// This should handle streams of corners not just single corners}}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{52     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{54   IGL\_INLINE \textcolor{keyword}{typename} DerivedA::Scalar doublearea\_single(}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C);}
+\DoxyCodeLine{58   \textcolor{comment}{// Same as above but use instrinsic edge lengths rather than (V,F) mesh. This}}
+\DoxyCodeLine{59   \textcolor{comment}{//}}
+\DoxyCodeLine{60   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{61   \textcolor{comment}{//   l  \#F by dim list of edge lengths using}}
+\DoxyCodeLine{62   \textcolor{comment}{//     for triangles, columns correspond to edges 23,31,12}}
+\DoxyCodeLine{63   \textcolor{comment}{//   nan\_replacement  what value should be used for triangles whose given}}
+\DoxyCodeLine{64   \textcolor{comment}{//     edge lengths do not obey the triangle inequality. These may be very}}
+\DoxyCodeLine{65   \textcolor{comment}{//     wrong (e.g., [100 1 1]) or may be nearly degenerate triangles whose}}
+\DoxyCodeLine{66   \textcolor{comment}{//     floating point side length computation leads to breach of the triangle}}
+\DoxyCodeLine{67   \textcolor{comment}{//     inequality. One may wish to set this parameter to 0 if side lengths l}}
+\DoxyCodeLine{68   \textcolor{comment}{//     are \_known\_ to come from a valid embedding (e.g., some mesh (V,F)). In}}
+\DoxyCodeLine{69   \textcolor{comment}{//     that case, the only circumstance the triangle inequality is broken is}}
+\DoxyCodeLine{70   \textcolor{comment}{//     when the triangle is nearly degenerate and floating point error}}
+\DoxyCodeLine{71   \textcolor{comment}{//     dominates: hence replacing with zero is reasonable.}}
+\DoxyCodeLine{72   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{73   \textcolor{comment}{//   dblA  \#F list of triangle double areas}}
+\DoxyCodeLine{74   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedl, \textcolor{keyword}{typename} DeriveddblA>}
+\DoxyCodeLine{75   IGL\_INLINE \textcolor{keywordtype}{void} doublearea(}
+\DoxyCodeLine{76     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl> \& l,}
+\DoxyCodeLine{77     \textcolor{keyword}{const} \textcolor{keyword}{typename} Derivedl::Scalar nan\_replacement,}
+\DoxyCodeLine{78     Eigen::PlainObjectBase<DeriveddblA> \& dblA);}
+\DoxyCodeLine{79   \textcolor{comment}{// default behavior is to assert on NaNs and leave them in place}}
+\DoxyCodeLine{80   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedl, \textcolor{keyword}{typename} DeriveddblA>}
+\DoxyCodeLine{81   IGL\_INLINE \textcolor{keywordtype}{void} doublearea(}
+\DoxyCodeLine{82     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl> \& l,}
+\DoxyCodeLine{83     Eigen::PlainObjectBase<DeriveddblA> \& dblA);}
+\DoxyCodeLine{84   \textcolor{comment}{// DOUBLEAREA\_QUAD computes twice the area for each input quadrilateral}}
+\DoxyCodeLine{85   \textcolor{comment}{//}}
+\DoxyCodeLine{86   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{87   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{88   \textcolor{comment}{//   F  \#F by simplex\_size list of mesh faces (must be quadrilaterals)}}
+\DoxyCodeLine{89   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{90   \textcolor{comment}{//   dblA  \#F list of quadrilateral double areas}}
+\DoxyCodeLine{91   \textcolor{comment}{//}}
+\DoxyCodeLine{92   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DeriveddblA>}
+\DoxyCodeLine{93   IGL\_INLINE \textcolor{keywordtype}{void} doublearea\_quad(}
+\DoxyCodeLine{94   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{95   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{96   Eigen::PlainObjectBase<DeriveddblA> \& dblA);}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#  include "{}doublearea.cpp"{}}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

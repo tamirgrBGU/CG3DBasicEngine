@@ -1,0 +1,78 @@
+\hypertarget{copyleft_2tetgen_2cdt_8h_source}{}\doxysection{cdt.\+h}
+\label{copyleft_2tetgen_2cdt_8h_source}\index{igl/copyleft/tetgen/cdt.h@{igl/copyleft/tetgen/cdt.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_TETGEN\_CDT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_TETGEN\_CDT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifndef TETLIBRARY}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#  define TETLIBRARY }}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}tetgen.h"{}} \textcolor{comment}{// Defined REAL}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{22   \{}
+\DoxyCodeLine{23     \textcolor{keyword}{namespace }tetgen}
+\DoxyCodeLine{24     \{}
+\DoxyCodeLine{25       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1copyleft_1_1tetgen_1_1_c_d_t_param}{CDTParam}}}
+\DoxyCodeLine{26       \{}
+\DoxyCodeLine{27         \textcolor{comment}{// Tetgen can compute mesh of convex hull of input (i.e. "{}c"{}) but often}}
+\DoxyCodeLine{28         \textcolor{comment}{// chokes. One workaround is to force it to mesh the entire bounding box.}}
+\DoxyCodeLine{29         \textcolor{comment}{// \{false\}}}
+\DoxyCodeLine{30         \textcolor{keywordtype}{bool} use\_bounding\_box = \textcolor{keyword}{false};}
+\DoxyCodeLine{31         \textcolor{comment}{// Scale the bounding box a bit so that vertices near it do not give tetgen}}
+\DoxyCodeLine{32         \textcolor{comment}{// problems. \{1.01\}}}
+\DoxyCodeLine{33         \textcolor{keywordtype}{double} bounding\_box\_scale = 1.01;}
+\DoxyCodeLine{34         \textcolor{comment}{// Flags to tetgen. Do not include the "{}c"{} flag here! \{"{}Y"{}\}}}
+\DoxyCodeLine{35         std::string flags = \textcolor{stringliteral}{"{}Y"{}};}
+\DoxyCodeLine{36       \};}
+\DoxyCodeLine{37       \textcolor{comment}{// Create a constrained delaunay tessellation containing convex hull of the}}
+\DoxyCodeLine{38       \textcolor{comment}{// given **non-\/selfintersecting** mesh.}}
+\DoxyCodeLine{39       \textcolor{comment}{//}}
+\DoxyCodeLine{40       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{41       \textcolor{comment}{//    V  \#V by 3 list of input mesh vertices}}
+\DoxyCodeLine{42       \textcolor{comment}{//    F  \#F by 3 list of input mesh facets}}
+\DoxyCodeLine{43       \textcolor{comment}{//    param  see above}}
+\DoxyCodeLine{44       \textcolor{comment}{//    TV  \#TV by 3 list of output mesh vertices (V come first)}}
+\DoxyCodeLine{45       \textcolor{comment}{//    TT  \#TT by 3 list of tetrahedra indices into TV.}}
+\DoxyCodeLine{46       \textcolor{comment}{//    TF  \#TF by 3 list of facets from F potentially subdivided.}}
+\DoxyCodeLine{47       \textcolor{comment}{// }}
+\DoxyCodeLine{48       \textcolor{keyword}{template} <}
+\DoxyCodeLine{49         \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{50         \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{51         \textcolor{keyword}{typename} DerivedTV, }
+\DoxyCodeLine{52         \textcolor{keyword}{typename} DerivedTT, }
+\DoxyCodeLine{53         \textcolor{keyword}{typename} DerivedTF>}
+\DoxyCodeLine{54       IGL\_INLINE \textcolor{keywordtype}{bool} cdt(}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{57         \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1copyleft_1_1tetgen_1_1_c_d_t_param}{CDTParam}} \& param,}
+\DoxyCodeLine{58         Eigen::PlainObjectBase<DerivedTV>\& TV,}
+\DoxyCodeLine{59         Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{60         Eigen::PlainObjectBase<DerivedTF>\& TF);}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#  include "{}cdt.cpp"{}}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 }
+
+\end{DoxyCode}

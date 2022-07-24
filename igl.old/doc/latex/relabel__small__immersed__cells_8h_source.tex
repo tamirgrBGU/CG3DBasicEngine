@@ -1,0 +1,65 @@
+\hypertarget{relabel__small__immersed__cells_8h_source}{}\doxysection{relabel\+\_\+small\+\_\+immersed\+\_\+cells.\+h}
+\label{relabel__small__immersed__cells_8h_source}\index{igl/copyleft/cgal/relabel\_small\_immersed\_cells.h@{igl/copyleft/cgal/relabel\_small\_immersed\_cells.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_RELABEL\_SMALL\_IMMERSED\_CELLS}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_RELABEL\_SMALL\_IMMERSED\_CELLS}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{19   \{}
+\DoxyCodeLine{20     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{21     \{}
+\DoxyCodeLine{22       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23       \textcolor{comment}{//   V  \#V by 3 list of vertex positions.}}
+\DoxyCodeLine{24       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V.}}
+\DoxyCodeLine{25       \textcolor{comment}{//   num\_patches  number of patches}}
+\DoxyCodeLine{26       \textcolor{comment}{//   P  \#F list of patch ids.}}
+\DoxyCodeLine{27       \textcolor{comment}{//   num\_cells    number of cells}}
+\DoxyCodeLine{28       \textcolor{comment}{//   C  \#P by 2 list of cell ids on each side of each patch.}}
+\DoxyCodeLine{29       \textcolor{comment}{//   vol\_threshold  Volume threshold, cells smaller than this}}
+\DoxyCodeLine{30       \textcolor{comment}{//                  and is completely immersed will be relabeled.}}
+\DoxyCodeLine{31       \textcolor{comment}{//}}
+\DoxyCodeLine{32       \textcolor{comment}{// In/Output:}}
+\DoxyCodeLine{33       \textcolor{comment}{//   W  \#F by 2 cell labels.  W(i,0) is the label on the positive side of}}
+\DoxyCodeLine{34       \textcolor{comment}{//      face i, W(i,1) is the label on the negative side of face i.  W}}
+\DoxyCodeLine{35       \textcolor{comment}{//      will be modified in place by this method.}}
+\DoxyCodeLine{36       \textcolor{keyword}{template}<}
+\DoxyCodeLine{37         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{38         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{39         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} FT,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{43       IGL\_INLINE \textcolor{keywordtype}{void} relabel\_small\_immersed\_cells(}
+\DoxyCodeLine{44           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{45           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{46           \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_patches,}
+\DoxyCodeLine{47           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{48           \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_cells,}
+\DoxyCodeLine{49           \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedC>\& C,}
+\DoxyCodeLine{50           \textcolor{keyword}{const} FT vol\_threashold,}
+\DoxyCodeLine{51           Eigen::PlainObjectBase<DerivedW>\& W);}
+\DoxyCodeLine{52     \}}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#  include "{}relabel\_small\_immersed\_cells.cpp"{}}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

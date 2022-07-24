@@ -1,0 +1,1301 @@
+\hypertarget{serialize_8h_source}{}\doxysection{serialize.\+h}
+\label{serialize_8h_source}\index{igl/serialize.h@{igl/serialize.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Christian Schüller <schuellchr@gmail.com> }}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SERIALIZE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SERIALIZE\_H}}
+\DoxyCodeLine{10  }
+\DoxyCodeLine{11 \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{12 \textcolor{comment}{// Functions to save and load a serialization of fundamental c++ data types to}}
+\DoxyCodeLine{13 \textcolor{comment}{// and from a binary file. STL containers, Eigen matrix types and nested data}}
+\DoxyCodeLine{14 \textcolor{comment}{// structures are also supported. To serialize a user defined class implement}}
+\DoxyCodeLine{15 \textcolor{comment}{// the interface Serializable or SerializableBase.}}
+\DoxyCodeLine{16 \textcolor{comment}{//}}
+\DoxyCodeLine{17 \textcolor{comment}{// See also: xml/serialize\_xml.h}}
+\DoxyCodeLine{18 \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{19 \textcolor{comment}{// TODOs:}}
+\DoxyCodeLine{20 \textcolor{comment}{// * arbitrary pointer graph structures}}
+\DoxyCodeLine{21 \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{22  }
+\DoxyCodeLine{23 \textcolor{comment}{// Known issues: This is not written in libigl-\/style so it isn't (easily)}}
+\DoxyCodeLine{24 \textcolor{comment}{// "{}dualized"{} into the static library.}}
+\DoxyCodeLine{25 \textcolor{comment}{//}}
+\DoxyCodeLine{26  }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <numeric>}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{38  }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{41  }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{43  }
+\DoxyCodeLine{44 \textcolor{comment}{// non-\/intrusive serialization helper macros}}
+\DoxyCodeLine{45  }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#define SERIALIZE\_TYPE(Type,Params) \(\backslash\)}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{namespace igl \{ namespace serialization \{ \(\backslash\)}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{  void \_serialization(bool s,Type\& obj,std::vector<char>\& buffer) \{Params\} \(\backslash\)}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{  template<> inline void serialize(const Type\& obj,std::vector<char>\& buffer) \{ \(\backslash\)}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{    \_serialization(true,const\_cast<Type\&>(obj),buffer); \(\backslash\)}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{    \} \(\backslash\)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{  template<> inline void deserialize(Type\& obj,const std::vector<char>\& buffer) \{ \(\backslash\)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{    \_serialization(false,obj,const\_cast<std::vector<char>\&>(buffer)); \(\backslash\)}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{    \} \(\backslash\)}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\}\}}}
+\DoxyCodeLine{56  }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#define SERIALIZE\_TYPE\_SOURCE(Type,Params) \(\backslash\)}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{namespace igl \{ namespace serialization \{ \(\backslash\)}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{  void \_serialization(bool s,Type\& obj,std::vector<char>\& buffer) \{Params\} \(\backslash\)}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{  void \_serialize(const Type\& obj,std::vector<char>\& buffer) \{ \(\backslash\)}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{    \_serialization(true,const\_cast<Type\&>(obj),buffer); \(\backslash\)}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{    \} \(\backslash\)}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{  void \_deserialize(Type\& obj,const std::vector<char>\& buffer) \{ \(\backslash\)}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{    \_serialization(false,obj,const\_cast<std::vector<char>\&>(buffer)); \(\backslash\)}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{    \} \(\backslash\)}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\}\}}}
+\DoxyCodeLine{67  }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#define SERIALIZE\_MEMBER(Object) igl::serializer(s,obj.Object,std::string(\#Object),buffer);}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#define SERIALIZE\_MEMBER\_NAME(Object,Name) igl::serializer(s,obj.Object,std::string(Name),buffer);}}
+\DoxyCodeLine{70  }
+\DoxyCodeLine{71  }
+\DoxyCodeLine{72 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74   \textcolor{keyword}{struct }IndexedPointerBase;}
+\DoxyCodeLine{75  }
+\DoxyCodeLine{76   \textcolor{comment}{// Serializes the given object either to a file or to a provided buffer}}
+\DoxyCodeLine{77   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{78   \textcolor{comment}{//   T  type of the object to serialize}}
+\DoxyCodeLine{79   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{80   \textcolor{comment}{//   obj        object to serialize}}
+\DoxyCodeLine{81   \textcolor{comment}{//   objectName unique object name,used for the identification}}
+\DoxyCodeLine{82   \textcolor{comment}{//   overwrite  set to true to overwrite an existing file}}
+\DoxyCodeLine{83   \textcolor{comment}{//   filename   name of the file containing the serialization}}
+\DoxyCodeLine{84   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{85   \textcolor{comment}{//   buffer     binary serialization}}
+\DoxyCodeLine{86   \textcolor{comment}{//}}
+\DoxyCodeLine{87   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{88   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{89   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{90   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename,\textcolor{keywordtype}{bool} overwrite = \textcolor{keyword}{false});}
+\DoxyCodeLine{91   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{92   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& objectName,std::vector<char>\& buffer);}
+\DoxyCodeLine{93   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{94   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& objectName,std::vector<char>\& buffer);}
+\DoxyCodeLine{95  }
+\DoxyCodeLine{96   \textcolor{comment}{// Deserializes the given data from a file or buffer back to the provided object}}
+\DoxyCodeLine{97   \textcolor{comment}{//}}
+\DoxyCodeLine{98   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{99   \textcolor{comment}{//   T  type of the object to serialize}}
+\DoxyCodeLine{100   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{101   \textcolor{comment}{//   buffer     binary serialization}}
+\DoxyCodeLine{102   \textcolor{comment}{//   objectName unique object name, used for the identification}}
+\DoxyCodeLine{103   \textcolor{comment}{//   filename   name of the file containing the serialization}}
+\DoxyCodeLine{104   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{105   \textcolor{comment}{//   obj        object to load back serialization to}}
+\DoxyCodeLine{106   \textcolor{comment}{//}}
+\DoxyCodeLine{107   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{108   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{109   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{110   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{111   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{112   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::vector<char>\& buffer);}
+\DoxyCodeLine{113  }
+\DoxyCodeLine{114   \textcolor{comment}{// Wrapper to expose both, the de-\/ and serialization as one function}}
+\DoxyCodeLine{115   \textcolor{comment}{//}}
+\DoxyCodeLine{116   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{117   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} serialize,T\& obj,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{118   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{119   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} serialize,T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename,\textcolor{keywordtype}{bool} overwrite = \textcolor{keyword}{false});}
+\DoxyCodeLine{120   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{121   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} serialize,T\& obj,\textcolor{keyword}{const} std::string\& objectName,std::vector<char>\& buffer);}
+\DoxyCodeLine{122  }
+\DoxyCodeLine{123   \textcolor{comment}{// User defined types have to either overload the function igl::serialization::serialize()}}
+\DoxyCodeLine{124   \textcolor{comment}{// and igl::serialization::deserialize() for their type (non-\/intrusive serialization):}}
+\DoxyCodeLine{125   \textcolor{comment}{//}}
+\DoxyCodeLine{126   \textcolor{comment}{// namespace igl \{ namespace serialization}}
+\DoxyCodeLine{127   \textcolor{comment}{// \{}}
+\DoxyCodeLine{128   \textcolor{comment}{//   template<>}}
+\DoxyCodeLine{129   \textcolor{comment}{//   inline void serialize(const UserType\& obj,std::vector<char>\& buffer) \{}}
+\DoxyCodeLine{130   \textcolor{comment}{//     ::igl::serialize(obj.var,"{}var"{},buffer);}}
+\DoxyCodeLine{131   \textcolor{comment}{//   \}}}
+\DoxyCodeLine{132   \textcolor{comment}{//}}
+\DoxyCodeLine{133   \textcolor{comment}{//   template<>}}
+\DoxyCodeLine{134   \textcolor{comment}{//   inline void deserialize(UserType\& obj,const std::vector<char>\& buffer) \{}}
+\DoxyCodeLine{135   \textcolor{comment}{//     ::igl::deserialize(obj.var,"{}var"{},buffer);}}
+\DoxyCodeLine{136   \textcolor{comment}{//   \}}}
+\DoxyCodeLine{137   \textcolor{comment}{// \}\}}}
+\DoxyCodeLine{138   \textcolor{comment}{//}}
+\DoxyCodeLine{139   \textcolor{comment}{// or use this macro for convenience:}}
+\DoxyCodeLine{140   \textcolor{comment}{//}}
+\DoxyCodeLine{141   \textcolor{comment}{// SERIALIZE\_TYPE(UserType,}}
+\DoxyCodeLine{142   \textcolor{comment}{//   SERIALIZE\_MEMBER(var)}}
+\DoxyCodeLine{143   \textcolor{comment}{// )}}
+\DoxyCodeLine{144   \textcolor{comment}{//}}
+\DoxyCodeLine{145   \textcolor{comment}{// or to derive from the class Serializable and add their the members}}
+\DoxyCodeLine{146   \textcolor{comment}{// in InitSerialization like the following:}}
+\DoxyCodeLine{147   \textcolor{comment}{//}}
+\DoxyCodeLine{148   \textcolor{comment}{// class UserType : public igl::Serializable \{}}
+\DoxyCodeLine{149   \textcolor{comment}{//}}
+\DoxyCodeLine{150   \textcolor{comment}{//   int var;}}
+\DoxyCodeLine{151   \textcolor{comment}{//}}
+\DoxyCodeLine{152   \textcolor{comment}{//   void InitSerialization() \{}}
+\DoxyCodeLine{153   \textcolor{comment}{//     this-\/>Add(var,"{}var"{});}}
+\DoxyCodeLine{154   \textcolor{comment}{//   \}}}
+\DoxyCodeLine{155   \textcolor{comment}{// \};}}
+\DoxyCodeLine{156  }
+\DoxyCodeLine{157   \textcolor{comment}{// Base interface for user defined types}}
+\DoxyCodeLine{158   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_serializable_base}{SerializableBase}}}
+\DoxyCodeLine{159   \{}
+\DoxyCodeLine{160     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Serialize(std::vector<char>\& buffer) \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{161     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} Deserialize(\textcolor{keyword}{const} std::vector<char>\& buffer) = 0;}
+\DoxyCodeLine{162   \};}
+\DoxyCodeLine{163  }
+\DoxyCodeLine{164   \textcolor{comment}{// Convenient interface for user defined types}}
+\DoxyCodeLine{165   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}: \textcolor{keyword}{public} \mbox{\hyperlink{structigl_1_1_serializable_base}{SerializableBase}}}
+\DoxyCodeLine{166   \{}
+\DoxyCodeLine{167   \textcolor{keyword}{private}:}
+\DoxyCodeLine{168  }
+\DoxyCodeLine{169     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{170     \textcolor{keyword}{struct }SerializationObject : \textcolor{keyword}{public} \mbox{\hyperlink{structigl_1_1_serializable_base}{SerializableBase}}}
+\DoxyCodeLine{171     \{}
+\DoxyCodeLine{172       \textcolor{keywordtype}{bool} Binary;}
+\DoxyCodeLine{173       std::string Name;}
+\DoxyCodeLine{174       std::unique\_ptr<T> Object;}
+\DoxyCodeLine{175  }
+\DoxyCodeLine{176       \textcolor{keywordtype}{void} Serialize(std::vector<char>\& buffer)\textcolor{keyword}{ const override }\{}
+\DoxyCodeLine{177         igl::serialize(*Object,Name,buffer);}
+\DoxyCodeLine{178       \}}
+\DoxyCodeLine{179  }
+\DoxyCodeLine{180       \textcolor{keywordtype}{void} Deserialize(\textcolor{keyword}{const} std::vector<char>\& buffer)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{181         igl::deserialize(*Object,Name,buffer);}
+\DoxyCodeLine{182       \}}
+\DoxyCodeLine{183     \};}
+\DoxyCodeLine{184  }
+\DoxyCodeLine{185     \textcolor{keyword}{mutable} \textcolor{keywordtype}{bool} initialized;}
+\DoxyCodeLine{186     \textcolor{keyword}{mutable} std::vector<SerializableBase*> objects;}
+\DoxyCodeLine{187  }
+\DoxyCodeLine{188   \textcolor{keyword}{public}:}
+\DoxyCodeLine{189  }
+\DoxyCodeLine{190     \textcolor{comment}{// You **MUST** Override this function to add your member variables which}}
+\DoxyCodeLine{191     \textcolor{comment}{// should be serialized}}
+\DoxyCodeLine{192     \textcolor{comment}{//}}
+\DoxyCodeLine{193     \textcolor{comment}{// http://stackoverflow.com/a/6634382/148668}}
+\DoxyCodeLine{194     \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} InitSerialization() = 0;}
+\DoxyCodeLine{195  }
+\DoxyCodeLine{196     \textcolor{comment}{// Following functions can be overridden to handle the specific events.}}
+\DoxyCodeLine{197     \textcolor{comment}{// Return false to prevent the de-\//serialization of an object.}}
+\DoxyCodeLine{198     \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} PreSerialization() \textcolor{keyword}{const};}
+\DoxyCodeLine{199     \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} PostSerialization() \textcolor{keyword}{const};}
+\DoxyCodeLine{200     \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} PreDeserialization();}
+\DoxyCodeLine{201     \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} PostDeserialization();}
+\DoxyCodeLine{202  }
+\DoxyCodeLine{203     \textcolor{comment}{// Default implementation of SerializableBase interface}}
+\DoxyCodeLine{204     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serialize(std::vector<char>\& buffer) \textcolor{keyword}{const} \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{205     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Deserialize(\textcolor{keyword}{const} std::vector<char>\& buffer) \textcolor{keyword}{override} \textcolor{keyword}{final};}
+\DoxyCodeLine{206  }
+\DoxyCodeLine{207     \textcolor{comment}{// Default constructor, destructor, assignment and copy constructor}}
+\DoxyCodeLine{208     \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}();}
+\DoxyCodeLine{209     \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}\& obj);}
+\DoxyCodeLine{210     \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_serializable}{\string~Serializable}}();}
+\DoxyCodeLine{211     \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}\& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_serializable}{Serializable}}\& obj);}
+\DoxyCodeLine{212  }
+\DoxyCodeLine{213     \textcolor{comment}{// Use this function to add your variables which should be serialized}}
+\DoxyCodeLine{214     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{215     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Add(T\& obj,std::string name,\textcolor{keywordtype}{bool} binary = \textcolor{keyword}{false});}
+\DoxyCodeLine{216   \};}
+\DoxyCodeLine{217  }
+\DoxyCodeLine{218   \textcolor{comment}{// structure for pointer handling}}
+\DoxyCodeLine{219   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_indexed_pointer_base}{IndexedPointerBase}}}
+\DoxyCodeLine{220   \{}
+\DoxyCodeLine{221     \textcolor{keyword}{enum} \{ BEGIN,END \} Type;}
+\DoxyCodeLine{222     \textcolor{keywordtype}{size\_t} Index;}
+\DoxyCodeLine{223   \};}
+\DoxyCodeLine{224   \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{225   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_indexed_pointer}{IndexedPointer}}: \textcolor{keyword}{public} \mbox{\hyperlink{structigl_1_1_indexed_pointer_base}{IndexedPointerBase}}}
+\DoxyCodeLine{226   \{}
+\DoxyCodeLine{227     \textcolor{keyword}{const} T* Object;}
+\DoxyCodeLine{228   \};}
+\DoxyCodeLine{229  }
+\DoxyCodeLine{230   \textcolor{comment}{// internal functions}}
+\DoxyCodeLine{231   \textcolor{keyword}{namespace }serialization}
+\DoxyCodeLine{232   \{}
+\DoxyCodeLine{233     \textcolor{comment}{// compile time type checks}}
+\DoxyCodeLine{234     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{235     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}} \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{236     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{237     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}}<std::pair<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{238     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{239     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}}<std::vector<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{240     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{241     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}}<std::set<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{242     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{243     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}}<std::map<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{244     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{245     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container}}<std::list<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{246  }
+\DoxyCodeLine{247     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{248     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__eigen__type}{is\_eigen\_type}} \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{249     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{250     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__eigen__type}{is\_eigen\_type}}<Eigen::Matrix<T,R,C,P,MR,MC> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{251     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{252     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__eigen__type}{is\_eigen\_type}}<Eigen::Array<T,R,C,P,MR,MC> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{253     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{254     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__eigen__type}{is\_eigen\_type}}<Eigen::SparseMatrix<T,P,I> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{255  }
+\DoxyCodeLine{256     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{257     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__smart__ptr}{is\_smart\_ptr}} \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{258     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{259     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__smart__ptr}{is\_smart\_ptr}}<std::shared\_ptr<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{260     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{261     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__smart__ptr}{is\_smart\_ptr}}<std::unique\_ptr<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{262     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{263     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__smart__ptr}{is\_smart\_ptr}}<std::weak\_ptr<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{264  }
+\DoxyCodeLine{265     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{266     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1serialization_1_1is__serializable}{is\_serializable}} \{}
+\DoxyCodeLine{267       \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = std::is\_fundamental<T>::value || std::is\_same<std::string,T>::value || std::is\_enum<T>::value || std::is\_base\_of<SerializableBase,T>::value}
+\DoxyCodeLine{268         || \mbox{\hyperlink{structigl_1_1serialization_1_1is__stl__container}{is\_stl\_container<T>::value}} || \mbox{\hyperlink{structigl_1_1serialization_1_1is__eigen__type}{is\_eigen\_type<T>::value}} || std::is\_pointer<T>::value || \mbox{\hyperlink{structigl_1_1serialization_1_1is__smart__ptr}{serialization::is\_smart\_ptr<T>::value}};}
+\DoxyCodeLine{269     \};}
+\DoxyCodeLine{270  }
+\DoxyCodeLine{271     \textcolor{comment}{// non serializable types}}
+\DoxyCodeLine{272     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{273     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{274     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{275     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{276     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{277     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{278  }
+\DoxyCodeLine{279     \textcolor{comment}{// fundamental types}}
+\DoxyCodeLine{280     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{281     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{282     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{283     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{284     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{285     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{286  }
+\DoxyCodeLine{287     \textcolor{comment}{// std::string}}
+\DoxyCodeLine{288     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::string\& obj);}
+\DoxyCodeLine{289     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::string\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{290     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::string\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{291  }
+\DoxyCodeLine{292     \textcolor{comment}{// enum types}}
+\DoxyCodeLine{293     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{294     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{295     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{296     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{297     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{298     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{299  }
+\DoxyCodeLine{300     \textcolor{comment}{// SerializableBase}}
+\DoxyCodeLine{301     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{302     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{303     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{304     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{305     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{306     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{307  }
+\DoxyCodeLine{308     \textcolor{comment}{// stl containers}}
+\DoxyCodeLine{309     \textcolor{comment}{// std::pair}}
+\DoxyCodeLine{310     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{311     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::pair<T1,T2>\& obj);}
+\DoxyCodeLine{312     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{313     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::pair<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{314     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{315     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::pair<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{316  }
+\DoxyCodeLine{317     \textcolor{comment}{// std::vector}}
+\DoxyCodeLine{318     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{319     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::vector<T1,T2>\& obj);}
+\DoxyCodeLine{320     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{321     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::vector<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{322     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{323     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::vector<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{324     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{325     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::vector<bool,T2>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{326  }
+\DoxyCodeLine{327     \textcolor{comment}{// std::set}}
+\DoxyCodeLine{328     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{329     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::set<T>\& obj);}
+\DoxyCodeLine{330     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{331     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::set<T>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{332     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{333     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::set<T>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{334  }
+\DoxyCodeLine{335     \textcolor{comment}{// std::map}}
+\DoxyCodeLine{336     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{337     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::map<T1,T2>\& obj);}
+\DoxyCodeLine{338     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{339     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::map<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{340     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{341     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::map<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{342  }
+\DoxyCodeLine{343     \textcolor{comment}{// std::list}}
+\DoxyCodeLine{344     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{345     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::list<T>\& obj);}
+\DoxyCodeLine{346     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{347     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::list<T>\& obj, std::vector<char>\& buffer, std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{348     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{349     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::list<T>\& obj, std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{350  }
+\DoxyCodeLine{351     \textcolor{comment}{// Eigen types}}
+\DoxyCodeLine{352     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{353     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj);}
+\DoxyCodeLine{354     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{355     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{356     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{357     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Matrix<T,R,C,P,MR,MC>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{358  }
+\DoxyCodeLine{359     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{360     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Array<T,R,C,P,MR,MC>\& obj);}
+\DoxyCodeLine{361     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{362     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Array<T,R,C,P,MR,MC>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{363     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{364     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Array<T,R,C,P,MR,MC>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{365  }
+\DoxyCodeLine{366     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{367     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::SparseMatrix<T,P,I>\& obj);}
+\DoxyCodeLine{368     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{369     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::SparseMatrix<T,P,I>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{370     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{371     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::SparseMatrix<T,P,I>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{372  }
+\DoxyCodeLine{373     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{374     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Quaternion<T,P>\& obj);}
+\DoxyCodeLine{375     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{376     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Quaternion<T,P>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{377     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{378     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Quaternion<T,P>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{379  }
+\DoxyCodeLine{380     \textcolor{comment}{// raw pointers}}
+\DoxyCodeLine{381     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{382     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{383     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{384     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{385     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{386     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{387  }
+\DoxyCodeLine{388     \textcolor{comment}{// std::shared\_ptr and std::unique\_ptr}}
+\DoxyCodeLine{389     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{390     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj);}
+\DoxyCodeLine{391     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{392     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{393     \textcolor{keyword}{template} <\textcolor{keyword}{template}<\textcolor{keyword}{typename}> \textcolor{keyword}{class }T0, \textcolor{keyword}{typename} T1>}
+\DoxyCodeLine{394     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T0<T1> >::value>::type deserialize(T0<T1>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{395  }
+\DoxyCodeLine{396     \textcolor{comment}{// std::weak\_ptr}}
+\DoxyCodeLine{397     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{398     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::weak\_ptr<T>\& obj);}
+\DoxyCodeLine{399     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{400     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::weak\_ptr<T>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter);}
+\DoxyCodeLine{401     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{402     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::weak\_ptr<T>\& obj,std::vector<char>::const\_iterator\& iter);}
+\DoxyCodeLine{403  }
+\DoxyCodeLine{404     \textcolor{comment}{// functions to overload for non-\/intrusive serialization}}
+\DoxyCodeLine{405     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{406     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer);}
+\DoxyCodeLine{407     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{408     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(T\& obj,\textcolor{keyword}{const} std::vector<char>\& buffer);}
+\DoxyCodeLine{409  }
+\DoxyCodeLine{410     \textcolor{comment}{// helper functions}}
+\DoxyCodeLine{411     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{412     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} updateMemoryMap(T\& obj,\textcolor{keywordtype}{size\_t} size);}
+\DoxyCodeLine{413   \}}
+\DoxyCodeLine{414 \}}
+\DoxyCodeLine{415  }
+\DoxyCodeLine{416 \textcolor{comment}{// Always include inlines for these functions}}
+\DoxyCodeLine{417  }
+\DoxyCodeLine{418 \textcolor{comment}{// IMPLEMENTATION}}
+\DoxyCodeLine{419  }
+\DoxyCodeLine{420 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{421 \{}
+\DoxyCodeLine{422   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{423   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& filename)}
+\DoxyCodeLine{424   \{}
+\DoxyCodeLine{425     \textcolor{keywordflow}{return} serialize(obj,\textcolor{stringliteral}{"{}obj"{}},filename,\textcolor{keyword}{true});}
+\DoxyCodeLine{426   \}}
+\DoxyCodeLine{427  }
+\DoxyCodeLine{428   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{429   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename,\textcolor{keywordtype}{bool} overwrite)}
+\DoxyCodeLine{430   \{}
+\DoxyCodeLine{431     \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{432  }
+\DoxyCodeLine{433     std::vector<char> buffer;}
+\DoxyCodeLine{434  }
+\DoxyCodeLine{435     std::ios\_base::openmode mode = std::ios::out | std::ios::binary;}
+\DoxyCodeLine{436  }
+\DoxyCodeLine{437     \textcolor{keywordflow}{if}(overwrite)}
+\DoxyCodeLine{438       mode |= std::ios::trunc;}
+\DoxyCodeLine{439     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{440       mode |= std::ios::app;}
+\DoxyCodeLine{441  }
+\DoxyCodeLine{442     std::ofstream file(filename.c\_str(),mode);}
+\DoxyCodeLine{443  }
+\DoxyCodeLine{444     \textcolor{keywordflow}{if}(file.is\_open())}
+\DoxyCodeLine{445     \{}
+\DoxyCodeLine{446       serialize(obj,objectName,buffer);}
+\DoxyCodeLine{447  }
+\DoxyCodeLine{448       file.write(\&buffer[0],buffer.size());}
+\DoxyCodeLine{449  }
+\DoxyCodeLine{450       file.close();}
+\DoxyCodeLine{451  }
+\DoxyCodeLine{452       success = \textcolor{keyword}{true};}
+\DoxyCodeLine{453     \}}
+\DoxyCodeLine{454     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{455     \{}
+\DoxyCodeLine{456       std::cerr << \textcolor{stringliteral}{"{}serialization: file "{}} << filename << \textcolor{stringliteral}{"{} not found!"{}} << std::endl;}
+\DoxyCodeLine{457     \}}
+\DoxyCodeLine{458  }
+\DoxyCodeLine{459     \textcolor{keywordflow}{return} success;}
+\DoxyCodeLine{460   \}}
+\DoxyCodeLine{461  }
+\DoxyCodeLine{462   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{463   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serialize(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& objectName,std::vector<char>\& buffer)}
+\DoxyCodeLine{464   \{}
+\DoxyCodeLine{465     \textcolor{comment}{// serialize object data}}
+\DoxyCodeLine{466     \textcolor{keywordtype}{size\_t} size = serialization::getByteSize(obj);}
+\DoxyCodeLine{467     std::vector<char> tmp(size);}
+\DoxyCodeLine{468     \textcolor{keyword}{auto} it = tmp.begin();}
+\DoxyCodeLine{469     serialization::serialize(obj,tmp,it);}
+\DoxyCodeLine{470  }
+\DoxyCodeLine{471     std::string objectType(\textcolor{keyword}{typeid}(obj).name());}
+\DoxyCodeLine{472     \textcolor{keywordtype}{size\_t} newObjectSize = tmp.size();}
+\DoxyCodeLine{473     \textcolor{keywordtype}{size\_t} newHeaderSize = serialization::getByteSize(objectName) + serialization::getByteSize(objectType) + \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{474     \textcolor{keywordtype}{size\_t} curSize = buffer.size();}
+\DoxyCodeLine{475     \textcolor{keywordtype}{size\_t} newSize = curSize + newHeaderSize + newObjectSize;}
+\DoxyCodeLine{476  }
+\DoxyCodeLine{477     buffer.resize(newSize);}
+\DoxyCodeLine{478  }
+\DoxyCodeLine{479     std::vector<char>::iterator iter = buffer.begin()+curSize;}
+\DoxyCodeLine{480  }
+\DoxyCodeLine{481     \textcolor{comment}{// serialize object header (name/type/size)}}
+\DoxyCodeLine{482     serialization::serialize(objectName,buffer,iter);}
+\DoxyCodeLine{483     serialization::serialize(objectType,buffer,iter);}
+\DoxyCodeLine{484     serialization::serialize(newObjectSize,buffer,iter);}
+\DoxyCodeLine{485  }
+\DoxyCodeLine{486     \textcolor{comment}{// copy serialized data to buffer}}
+\DoxyCodeLine{487     iter = std::copy(tmp.begin(),tmp.end(),iter);}
+\DoxyCodeLine{488  }
+\DoxyCodeLine{489     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{490   \}}
+\DoxyCodeLine{491  }
+\DoxyCodeLine{492   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{493   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& filename)}
+\DoxyCodeLine{494   \{}
+\DoxyCodeLine{495     \textcolor{keywordflow}{return} deserialize(obj,\textcolor{stringliteral}{"{}obj"{}},filename);}
+\DoxyCodeLine{496   \}}
+\DoxyCodeLine{497  }
+\DoxyCodeLine{498   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{499   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename)}
+\DoxyCodeLine{500   \{}
+\DoxyCodeLine{501     \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{502  }
+\DoxyCodeLine{503     std::ifstream file(filename.c\_str(),std::ios::binary);}
+\DoxyCodeLine{504  }
+\DoxyCodeLine{505     \textcolor{keywordflow}{if}(file.is\_open())}
+\DoxyCodeLine{506     \{}
+\DoxyCodeLine{507       file.seekg(0,std::ios::end);}
+\DoxyCodeLine{508       std::streamoff size = file.tellg();}
+\DoxyCodeLine{509       file.seekg(0,std::ios::beg);}
+\DoxyCodeLine{510  }
+\DoxyCodeLine{511       std::vector<char> buffer(size);}
+\DoxyCodeLine{512       file.read(\&buffer[0],size);}
+\DoxyCodeLine{513  }
+\DoxyCodeLine{514       success = deserialize(obj, objectName, buffer);}
+\DoxyCodeLine{515       file.close();}
+\DoxyCodeLine{516     \}}
+\DoxyCodeLine{517     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{518     \{}
+\DoxyCodeLine{519       std::cerr << \textcolor{stringliteral}{"{}serialization: file "{}} << filename << \textcolor{stringliteral}{"{} not found!"{}} << std::endl;}
+\DoxyCodeLine{520     \}}
+\DoxyCodeLine{521  }
+\DoxyCodeLine{522     \textcolor{keywordflow}{return} success;}
+\DoxyCodeLine{523   \}}
+\DoxyCodeLine{524  }
+\DoxyCodeLine{525   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{526   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} deserialize(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{527   \{}
+\DoxyCodeLine{528     \textcolor{keywordtype}{bool} success = \textcolor{keyword}{false};}
+\DoxyCodeLine{529  }
+\DoxyCodeLine{530     \textcolor{comment}{// find suitable object header}}
+\DoxyCodeLine{531     \textcolor{keyword}{auto} objectIter = buffer.cend();}
+\DoxyCodeLine{532     \textcolor{keyword}{auto} iter = buffer.cbegin();}
+\DoxyCodeLine{533     \textcolor{keywordflow}{while}(iter != buffer.end())}
+\DoxyCodeLine{534     \{}
+\DoxyCodeLine{535       std::string name;}
+\DoxyCodeLine{536       std::string type;}
+\DoxyCodeLine{537       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{538       serialization::deserialize(name,iter);}
+\DoxyCodeLine{539       serialization::deserialize(type,iter);}
+\DoxyCodeLine{540       serialization::deserialize(size,iter);}
+\DoxyCodeLine{541  }
+\DoxyCodeLine{542       \textcolor{keywordflow}{if}(name == objectName \&\& type == \textcolor{keyword}{typeid}(obj).name())}
+\DoxyCodeLine{543       \{}
+\DoxyCodeLine{544         objectIter = iter;}
+\DoxyCodeLine{545         \textcolor{comment}{//break; // find first suitable object header}}
+\DoxyCodeLine{546       \}}
+\DoxyCodeLine{547  }
+\DoxyCodeLine{548       iter+=size;}
+\DoxyCodeLine{549     \}}
+\DoxyCodeLine{550  }
+\DoxyCodeLine{551     \textcolor{keywordflow}{if}(objectIter != buffer.end())}
+\DoxyCodeLine{552     \{}
+\DoxyCodeLine{553       serialization::deserialize(obj,objectIter);}
+\DoxyCodeLine{554       success = \textcolor{keyword}{true};}
+\DoxyCodeLine{555     \}}
+\DoxyCodeLine{556     \textcolor{keywordflow}{else}}
+\DoxyCodeLine{557     \{}
+\DoxyCodeLine{558       obj = T();}
+\DoxyCodeLine{559     \}}
+\DoxyCodeLine{560  }
+\DoxyCodeLine{561     \textcolor{keywordflow}{return} success;}
+\DoxyCodeLine{562   \}}
+\DoxyCodeLine{563  }
+\DoxyCodeLine{564   \textcolor{comment}{// Wrapper function which combines both, de-\/ and serialization}}
+\DoxyCodeLine{565   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{566   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} s,T\& obj,\textcolor{keyword}{const} std::string\& filename)}
+\DoxyCodeLine{567   \{}
+\DoxyCodeLine{568     \textcolor{keywordflow}{return} s ? serialize(obj,filename) : deserialize(obj,filename);}
+\DoxyCodeLine{569   \}}
+\DoxyCodeLine{570  }
+\DoxyCodeLine{571   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{572   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} s,T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename,\textcolor{keywordtype}{bool} overwrite)}
+\DoxyCodeLine{573   \{}
+\DoxyCodeLine{574     \textcolor{keywordflow}{return} s ? serialize(obj,objectName,filename,overwrite) : deserialize(obj,objectName,filename);}
+\DoxyCodeLine{575   \}}
+\DoxyCodeLine{576  }
+\DoxyCodeLine{577   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{578   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} serializer(\textcolor{keywordtype}{bool} s,T\& obj,\textcolor{keyword}{const} std::string\& objectName,std::vector<char>\& buffer)}
+\DoxyCodeLine{579   \{}
+\DoxyCodeLine{580     \textcolor{keywordflow}{return} s ? serialize(obj,objectName,buffer) : deserialize(obj,objectName,buffer);}
+\DoxyCodeLine{581   \}}
+\DoxyCodeLine{582  }
+\DoxyCodeLine{583   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} Serializable::PreSerialization()\textcolor{keyword}{ const}}
+\DoxyCodeLine{584 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{585     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{586   \}}
+\DoxyCodeLine{587  }
+\DoxyCodeLine{588   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serializable::PostSerialization()\textcolor{keyword}{ const}}
+\DoxyCodeLine{589 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{590   \}}
+\DoxyCodeLine{591  }
+\DoxyCodeLine{592   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} Serializable::PreDeserialization()}
+\DoxyCodeLine{593   \{}
+\DoxyCodeLine{594     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{595   \}}
+\DoxyCodeLine{596  }
+\DoxyCodeLine{597   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serializable::PostDeserialization()}
+\DoxyCodeLine{598   \{}
+\DoxyCodeLine{599   \}}
+\DoxyCodeLine{600  }
+\DoxyCodeLine{601   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serializable::Serialize(std::vector<char>\& buffer)\textcolor{keyword}{ const}}
+\DoxyCodeLine{602 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{603     \textcolor{keywordflow}{if}(this-\/>PreSerialization())}
+\DoxyCodeLine{604     \{}
+\DoxyCodeLine{605       \textcolor{keywordflow}{if}(initialized == \textcolor{keyword}{false})}
+\DoxyCodeLine{606       \{}
+\DoxyCodeLine{607         objects.clear();}
+\DoxyCodeLine{608         (\textcolor{keyword}{const\_cast<}Serializable*\textcolor{keyword}{>}(\textcolor{keyword}{this}))-\/>InitSerialization();}
+\DoxyCodeLine{609         initialized = \textcolor{keyword}{true};}
+\DoxyCodeLine{610       \}}
+\DoxyCodeLine{611  }
+\DoxyCodeLine{612       \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& v : objects)}
+\DoxyCodeLine{613       \{}
+\DoxyCodeLine{614         v-\/>Serialize(buffer);}
+\DoxyCodeLine{615       \}}
+\DoxyCodeLine{616  }
+\DoxyCodeLine{617       this-\/>PostSerialization();}
+\DoxyCodeLine{618     \}}
+\DoxyCodeLine{619   \}}
+\DoxyCodeLine{620  }
+\DoxyCodeLine{621   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serializable::Deserialize(\textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{622   \{}
+\DoxyCodeLine{623     \textcolor{keywordflow}{if}(this-\/>PreDeserialization())}
+\DoxyCodeLine{624     \{}
+\DoxyCodeLine{625       \textcolor{keywordflow}{if}(initialized == \textcolor{keyword}{false})}
+\DoxyCodeLine{626       \{}
+\DoxyCodeLine{627         objects.clear();}
+\DoxyCodeLine{628         (\textcolor{keyword}{const\_cast<}Serializable*\textcolor{keyword}{>}(\textcolor{keyword}{this}))-\/>InitSerialization();}
+\DoxyCodeLine{629         initialized = \textcolor{keyword}{true};}
+\DoxyCodeLine{630       \}}
+\DoxyCodeLine{631  }
+\DoxyCodeLine{632       \textcolor{keywordflow}{for}(\textcolor{keyword}{auto}\& v : objects)}
+\DoxyCodeLine{633       \{}
+\DoxyCodeLine{634         v-\/>Deserialize(buffer);}
+\DoxyCodeLine{635       \}}
+\DoxyCodeLine{636  }
+\DoxyCodeLine{637       this-\/>PostDeserialization();}
+\DoxyCodeLine{638     \}}
+\DoxyCodeLine{639   \}}
+\DoxyCodeLine{640  }
+\DoxyCodeLine{641   \textcolor{keyword}{inline} Serializable::Serializable()}
+\DoxyCodeLine{642   \{}
+\DoxyCodeLine{643     initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{644   \}}
+\DoxyCodeLine{645  }
+\DoxyCodeLine{646   \textcolor{keyword}{inline} Serializable::Serializable(\textcolor{keyword}{const} Serializable\& obj)}
+\DoxyCodeLine{647   \{}
+\DoxyCodeLine{648     initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{649     objects.clear();}
+\DoxyCodeLine{650   \}}
+\DoxyCodeLine{651  }
+\DoxyCodeLine{652   \textcolor{keyword}{inline} Serializable::\string~Serializable()}
+\DoxyCodeLine{653   \{}
+\DoxyCodeLine{654     initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{655     objects.clear();}
+\DoxyCodeLine{656   \}}
+\DoxyCodeLine{657  }
+\DoxyCodeLine{658   \textcolor{keyword}{inline} Serializable\& Serializable::operator=(\textcolor{keyword}{const} Serializable\& obj)}
+\DoxyCodeLine{659   \{}
+\DoxyCodeLine{660     \textcolor{keywordflow}{if}(\textcolor{keyword}{this} != \&obj)}
+\DoxyCodeLine{661     \{}
+\DoxyCodeLine{662       \textcolor{keywordflow}{if}(initialized)}
+\DoxyCodeLine{663       \{}
+\DoxyCodeLine{664         initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{665         objects.clear();}
+\DoxyCodeLine{666       \}}
+\DoxyCodeLine{667     \}}
+\DoxyCodeLine{668     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{669   \}}
+\DoxyCodeLine{670  }
+\DoxyCodeLine{671   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{672   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Serializable::Add(T\& obj,\textcolor{keyword}{const} std::string name,\textcolor{keywordtype}{bool} binary)}
+\DoxyCodeLine{673   \{}
+\DoxyCodeLine{674     \textcolor{keyword}{auto} \textcolor{keywordtype}{object} = \textcolor{keyword}{new} SerializationObject<T>();}
+\DoxyCodeLine{675     \textcolor{keywordtype}{object}-\/>Binary = binary;}
+\DoxyCodeLine{676     \textcolor{keywordtype}{object}-\/>Name = name;}
+\DoxyCodeLine{677     \textcolor{keywordtype}{object}-\/>Object = std::unique\_ptr<T>(\&obj);}
+\DoxyCodeLine{678  }
+\DoxyCodeLine{679     objects.push\_back(\textcolor{keywordtype}{object});}
+\DoxyCodeLine{680   \}}
+\DoxyCodeLine{681  }
+\DoxyCodeLine{682   \textcolor{keyword}{namespace }serialization}
+\DoxyCodeLine{683   \{}
+\DoxyCodeLine{684     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{685     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{686     \{}
+\DoxyCodeLine{687       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(std::vector<char>::size\_type);}
+\DoxyCodeLine{688     \}}
+\DoxyCodeLine{689  }
+\DoxyCodeLine{690     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{691     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{692     \{}
+\DoxyCodeLine{693       \textcolor{comment}{// data}}
+\DoxyCodeLine{694       std::vector<char> tmp;}
+\DoxyCodeLine{695       serialize<>(obj,tmp);}
+\DoxyCodeLine{696  }
+\DoxyCodeLine{697       \textcolor{comment}{// size}}
+\DoxyCodeLine{698       \textcolor{keywordtype}{size\_t} size = buffer.size();}
+\DoxyCodeLine{699       serialization::serialize(tmp.size(),buffer,iter);}
+\DoxyCodeLine{700       \textcolor{keywordtype}{size\_t} cur = iter -\/ buffer.begin();}
+\DoxyCodeLine{701  }
+\DoxyCodeLine{702       buffer.resize(size+tmp.size());}
+\DoxyCodeLine{703       iter = buffer.begin()+cur;}
+\DoxyCodeLine{704       iter = std::copy(tmp.begin(),tmp.end(),iter);}
+\DoxyCodeLine{705     \}}
+\DoxyCodeLine{706  }
+\DoxyCodeLine{707     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{708     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<!is\_serializable<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{709     \{}
+\DoxyCodeLine{710       std::vector<char>::size\_type size;}
+\DoxyCodeLine{711       serialization::deserialize<>(size,iter);}
+\DoxyCodeLine{712  }
+\DoxyCodeLine{713       std::vector<char> tmp;}
+\DoxyCodeLine{714       tmp.resize(size);}
+\DoxyCodeLine{715       std::copy(iter,iter+size,tmp.begin());}
+\DoxyCodeLine{716  }
+\DoxyCodeLine{717       deserialize<>(obj,tmp);}
+\DoxyCodeLine{718       iter += size;}
+\DoxyCodeLine{719     \}}
+\DoxyCodeLine{720  }
+\DoxyCodeLine{721     \textcolor{comment}{// fundamental types}}
+\DoxyCodeLine{722  }
+\DoxyCodeLine{723     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{724     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{725     \{}
+\DoxyCodeLine{726       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{727     \}}
+\DoxyCodeLine{728  }
+\DoxyCodeLine{729     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{730     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{731     \{}
+\DoxyCodeLine{732       \textcolor{comment}{//serialization::updateMemoryMap(obj,sizeof(T));}}
+\DoxyCodeLine{733       \textcolor{keyword}{const} uint8\_t* ptr = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(\&obj);}
+\DoxyCodeLine{734       iter = std::copy(ptr,ptr+\textcolor{keyword}{sizeof}(T),iter);}
+\DoxyCodeLine{735     \}}
+\DoxyCodeLine{736  }
+\DoxyCodeLine{737     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{738     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{739     \{}
+\DoxyCodeLine{740       uint8\_t* ptr = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(\&obj);}
+\DoxyCodeLine{741       std::copy(iter,iter+\textcolor{keyword}{sizeof}(T),ptr);}
+\DoxyCodeLine{742       iter += \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{743     \}}
+\DoxyCodeLine{744  }
+\DoxyCodeLine{745     \textcolor{comment}{// std::string}}
+\DoxyCodeLine{746  }
+\DoxyCodeLine{747     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::string\& obj)}
+\DoxyCodeLine{748     \{}
+\DoxyCodeLine{749       \textcolor{keywordflow}{return} getByteSize(obj.length())+obj.length()*\textcolor{keyword}{sizeof}(uint8\_t);}
+\DoxyCodeLine{750     \}}
+\DoxyCodeLine{751  }
+\DoxyCodeLine{752     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::string\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{753     \{}
+\DoxyCodeLine{754       serialization::serialize(obj.length(),buffer,iter);}
+\DoxyCodeLine{755       \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur : obj)}
+\DoxyCodeLine{756       \{}
+\DoxyCodeLine{757         serialization::serialize(cur,buffer,iter);}
+\DoxyCodeLine{758       \}}
+\DoxyCodeLine{759     \}}
+\DoxyCodeLine{760  }
+\DoxyCodeLine{761     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::string\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{762     \{}
+\DoxyCodeLine{763       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{764       serialization::deserialize(size,iter);}
+\DoxyCodeLine{765  }
+\DoxyCodeLine{766       std::string str(size,\textcolor{charliteral}{'\(\backslash\)0'});}
+\DoxyCodeLine{767       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0; i<size; ++i)}
+\DoxyCodeLine{768       \{}
+\DoxyCodeLine{769         serialization::deserialize(str.at(i),iter);}
+\DoxyCodeLine{770       \}}
+\DoxyCodeLine{771  }
+\DoxyCodeLine{772       obj = str;}
+\DoxyCodeLine{773     \}}
+\DoxyCodeLine{774  }
+\DoxyCodeLine{775     \textcolor{comment}{// enum types}}
+\DoxyCodeLine{776  }
+\DoxyCodeLine{777     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{778     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{779     \{}
+\DoxyCodeLine{780       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{781     \}}
+\DoxyCodeLine{782  }
+\DoxyCodeLine{783     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{784     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{785     \{}
+\DoxyCodeLine{786       \textcolor{keyword}{const} uint8\_t* ptr = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(\&obj);}
+\DoxyCodeLine{787       iter = std::copy(ptr,ptr+\textcolor{keyword}{sizeof}(T),iter);}
+\DoxyCodeLine{788     \}}
+\DoxyCodeLine{789  }
+\DoxyCodeLine{790     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{791     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_enum<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{792     \{}
+\DoxyCodeLine{793       uint8\_t* ptr = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(\&obj);}
+\DoxyCodeLine{794       std::copy(iter,iter+\textcolor{keyword}{sizeof}(T),ptr);}
+\DoxyCodeLine{795       iter += \textcolor{keyword}{sizeof}(T);}
+\DoxyCodeLine{796     \}}
+\DoxyCodeLine{797  }
+\DoxyCodeLine{798     \textcolor{comment}{// SerializableBase}}
+\DoxyCodeLine{799  }
+\DoxyCodeLine{800     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{801     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{802     \{}
+\DoxyCodeLine{803       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(std::vector<char>::size\_type);}
+\DoxyCodeLine{804     \}}
+\DoxyCodeLine{805  }
+\DoxyCodeLine{806     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{807     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{808     \{}
+\DoxyCodeLine{809       \textcolor{comment}{// data}}
+\DoxyCodeLine{810       std::vector<char> tmp;}
+\DoxyCodeLine{811       obj.Serialize(tmp);}
+\DoxyCodeLine{812  }
+\DoxyCodeLine{813       \textcolor{comment}{// size}}
+\DoxyCodeLine{814       \textcolor{keywordtype}{size\_t} size = buffer.size();}
+\DoxyCodeLine{815       serialization::serialize(tmp.size(),buffer,iter);}
+\DoxyCodeLine{816       \textcolor{keywordtype}{size\_t} cur = iter -\/ buffer.begin();}
+\DoxyCodeLine{817  }
+\DoxyCodeLine{818       buffer.resize(size+tmp.size());}
+\DoxyCodeLine{819       iter = buffer.begin()+cur;}
+\DoxyCodeLine{820       iter = std::copy(tmp.begin(),tmp.end(),iter);}
+\DoxyCodeLine{821     \}}
+\DoxyCodeLine{822  }
+\DoxyCodeLine{823     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{824     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<SerializableBase,T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{825     \{}
+\DoxyCodeLine{826       std::vector<char>::size\_type size;}
+\DoxyCodeLine{827       serialization::deserialize(size,iter);}
+\DoxyCodeLine{828  }
+\DoxyCodeLine{829       std::vector<char> tmp;}
+\DoxyCodeLine{830       tmp.resize(size);}
+\DoxyCodeLine{831       std::copy(iter,iter+size,tmp.begin());}
+\DoxyCodeLine{832  }
+\DoxyCodeLine{833       obj.Deserialize(tmp);}
+\DoxyCodeLine{834       iter += size;}
+\DoxyCodeLine{835     \}}
+\DoxyCodeLine{836  }
+\DoxyCodeLine{837     \textcolor{comment}{// STL containers}}
+\DoxyCodeLine{838  }
+\DoxyCodeLine{839     \textcolor{comment}{// std::pair}}
+\DoxyCodeLine{840  }
+\DoxyCodeLine{841     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{842     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::pair<T1,T2>\& obj)}
+\DoxyCodeLine{843     \{}
+\DoxyCodeLine{844       \textcolor{keywordflow}{return} getByteSize(obj.first)+getByteSize(obj.second);}
+\DoxyCodeLine{845     \}}
+\DoxyCodeLine{846  }
+\DoxyCodeLine{847     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{848     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::pair<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{849     \{}
+\DoxyCodeLine{850       serialization::serialize(obj.first,buffer,iter);}
+\DoxyCodeLine{851       serialization::serialize(obj.second,buffer,iter);}
+\DoxyCodeLine{852     \}}
+\DoxyCodeLine{853  }
+\DoxyCodeLine{854     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{855     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::pair<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{856     \{}
+\DoxyCodeLine{857       serialization::deserialize(obj.first,iter);}
+\DoxyCodeLine{858       serialization::deserialize(obj.second,iter);}
+\DoxyCodeLine{859     \}}
+\DoxyCodeLine{860  }
+\DoxyCodeLine{861     \textcolor{comment}{// std::vector}}
+\DoxyCodeLine{862  }
+\DoxyCodeLine{863     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{864     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::vector<T1,T2>\& obj)}
+\DoxyCodeLine{865     \{}
+\DoxyCodeLine{866       \textcolor{keywordflow}{return} std::accumulate(obj.begin(),obj.end(),\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{size\_t}),[](\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t}\& acc,\textcolor{keyword}{const} T1\& cur) \{ return acc+getByteSize(cur); \});}
+\DoxyCodeLine{867     \}}
+\DoxyCodeLine{868  }
+\DoxyCodeLine{869     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{870     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::vector<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{871     \{}
+\DoxyCodeLine{872       \textcolor{keywordtype}{size\_t} size = obj.size();}
+\DoxyCodeLine{873       serialization::serialize(size,buffer,iter);}
+\DoxyCodeLine{874       \textcolor{keywordflow}{for}(\textcolor{keyword}{const} T1\& cur : obj)}
+\DoxyCodeLine{875       \{}
+\DoxyCodeLine{876         serialization::serialize(cur,buffer,iter);}
+\DoxyCodeLine{877       \}}
+\DoxyCodeLine{878     \}}
+\DoxyCodeLine{879  }
+\DoxyCodeLine{880     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{881     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::vector<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{882     \{}
+\DoxyCodeLine{883       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{884       serialization::deserialize(size,iter);}
+\DoxyCodeLine{885  }
+\DoxyCodeLine{886       obj.resize(size);}
+\DoxyCodeLine{887       \textcolor{keywordflow}{for}(T1\& v : obj)}
+\DoxyCodeLine{888       \{}
+\DoxyCodeLine{889         serialization::deserialize(v,iter);}
+\DoxyCodeLine{890       \}}
+\DoxyCodeLine{891     \}}
+\DoxyCodeLine{892  }
+\DoxyCodeLine{893     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{894     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::vector<bool,T2>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{895     \{}
+\DoxyCodeLine{896       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{897       serialization::deserialize(size,iter);}
+\DoxyCodeLine{898  }
+\DoxyCodeLine{899       obj.resize(size);}
+\DoxyCodeLine{900       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<obj.size();i++)}
+\DoxyCodeLine{901       \{}
+\DoxyCodeLine{902         \textcolor{keywordtype}{bool} val;}
+\DoxyCodeLine{903         serialization::deserialize(val,iter);}
+\DoxyCodeLine{904         obj[i] = val;}
+\DoxyCodeLine{905       \}}
+\DoxyCodeLine{906     \}}
+\DoxyCodeLine{907  }
+\DoxyCodeLine{908     \textcolor{comment}{//std::set}}
+\DoxyCodeLine{909  }
+\DoxyCodeLine{910     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{911     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::set<T>\& obj)}
+\DoxyCodeLine{912     \{}
+\DoxyCodeLine{913       \textcolor{keywordflow}{return} std::accumulate(obj.begin(),obj.end(),getByteSize(obj.size()),[](\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t}\& acc,\textcolor{keyword}{const} T\& cur) \{ return acc+getByteSize(cur); \});}
+\DoxyCodeLine{914     \}}
+\DoxyCodeLine{915  }
+\DoxyCodeLine{916     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{917     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::set<T>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{918     \{}
+\DoxyCodeLine{919       serialization::serialize(obj.size(),buffer,iter);}
+\DoxyCodeLine{920       \textcolor{keywordflow}{for}(\textcolor{keyword}{const} T\& cur : obj)}
+\DoxyCodeLine{921       \{}
+\DoxyCodeLine{922         serialization::serialize(cur,buffer,iter);}
+\DoxyCodeLine{923       \}}
+\DoxyCodeLine{924     \}}
+\DoxyCodeLine{925  }
+\DoxyCodeLine{926     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{927     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::set<T>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{928     \{}
+\DoxyCodeLine{929       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{930       serialization::deserialize(size,iter);}
+\DoxyCodeLine{931  }
+\DoxyCodeLine{932       obj.clear();}
+\DoxyCodeLine{933       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0; i<size; ++i)}
+\DoxyCodeLine{934       \{}
+\DoxyCodeLine{935         T val;}
+\DoxyCodeLine{936         serialization::deserialize(val,iter);}
+\DoxyCodeLine{937         obj.insert(val);}
+\DoxyCodeLine{938       \}}
+\DoxyCodeLine{939     \}}
+\DoxyCodeLine{940  }
+\DoxyCodeLine{941     \textcolor{comment}{// std::map}}
+\DoxyCodeLine{942  }
+\DoxyCodeLine{943     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{944     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::map<T1,T2>\& obj)}
+\DoxyCodeLine{945     \{}
+\DoxyCodeLine{946       \textcolor{keywordflow}{return} std::accumulate(obj.begin(),obj.end(),\textcolor{keyword}{sizeof}(\textcolor{keywordtype}{size\_t}),[](\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t}\& acc,\textcolor{keyword}{const} std::pair<T1,T2>\& cur) \{ return acc+getByteSize(cur); \});}
+\DoxyCodeLine{947     \}}
+\DoxyCodeLine{948  }
+\DoxyCodeLine{949     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{950     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::map<T1,T2>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{951     \{}
+\DoxyCodeLine{952       serialization::serialize(obj.size(),buffer,iter);}
+\DoxyCodeLine{953       \textcolor{keywordflow}{for}(\textcolor{keyword}{const} \textcolor{keyword}{auto}\& cur : obj)}
+\DoxyCodeLine{954       \{}
+\DoxyCodeLine{955         serialization::serialize(cur,buffer,iter);}
+\DoxyCodeLine{956       \}}
+\DoxyCodeLine{957     \}}
+\DoxyCodeLine{958  }
+\DoxyCodeLine{959     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{960     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::map<T1,T2>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{961     \{}
+\DoxyCodeLine{962       \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{963       serialization::deserialize(size,iter);}
+\DoxyCodeLine{964  }
+\DoxyCodeLine{965       obj.clear();}
+\DoxyCodeLine{966       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} i=0; i<size; ++i)}
+\DoxyCodeLine{967       \{}
+\DoxyCodeLine{968         std::pair<T1,T2> pair;}
+\DoxyCodeLine{969         serialization::deserialize(pair,iter);}
+\DoxyCodeLine{970         obj.insert(pair);}
+\DoxyCodeLine{971       \}}
+\DoxyCodeLine{972     \}}
+\DoxyCodeLine{973  }
+\DoxyCodeLine{974     \textcolor{comment}{//std::list}}
+\DoxyCodeLine{975  }
+\DoxyCodeLine{976     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{977     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::list<T>\& obj)}
+\DoxyCodeLine{978     \{}
+\DoxyCodeLine{979         \textcolor{keywordflow}{return} std::accumulate(obj.begin(), obj.end(), getByteSize(obj.size()), [](\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t}\& acc, \textcolor{keyword}{const} T\& cur) \{ return acc + getByteSize(cur); \});}
+\DoxyCodeLine{980     \}}
+\DoxyCodeLine{981  }
+\DoxyCodeLine{982     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{983     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::list<T>\& obj, std::vector<char>\& buffer, std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{984     \{}
+\DoxyCodeLine{985         serialization::serialize(obj.size(), buffer, iter);}
+\DoxyCodeLine{986         \textcolor{keywordflow}{for} (\textcolor{keyword}{const} T\& cur : obj)}
+\DoxyCodeLine{987         \{}
+\DoxyCodeLine{988             serialization::serialize(cur, buffer, iter);}
+\DoxyCodeLine{989         \}}
+\DoxyCodeLine{990     \}}
+\DoxyCodeLine{991  }
+\DoxyCodeLine{992     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{993     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::list<T>\& obj, std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{994     \{}
+\DoxyCodeLine{995         \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{996         serialization::deserialize(size, iter);}
+\DoxyCodeLine{997  }
+\DoxyCodeLine{998         obj.clear();}
+\DoxyCodeLine{999         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < size; ++i)}
+\DoxyCodeLine{1000         \{}
+\DoxyCodeLine{1001             T val;}
+\DoxyCodeLine{1002             serialization::deserialize(val, iter);}
+\DoxyCodeLine{1003             obj.emplace\_back(val);}
+\DoxyCodeLine{1004         \}}
+\DoxyCodeLine{1005     \}}
+\DoxyCodeLine{1006  }
+\DoxyCodeLine{1007  }
+\DoxyCodeLine{1008     \textcolor{comment}{// Eigen types}}
+\DoxyCodeLine{1009     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1010     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj)}
+\DoxyCodeLine{1011     \{}
+\DoxyCodeLine{1012       \textcolor{comment}{// space for numbers of rows,cols and data}}
+\DoxyCodeLine{1013       \textcolor{keywordflow}{return} 2*\textcolor{keyword}{sizeof}(\textcolor{keyword}{typename} Eigen::Matrix<T,R,C,P,MR,MC>::Index)+\textcolor{keyword}{sizeof}(T)*obj.rows()*obj.cols();}
+\DoxyCodeLine{1014     \}}
+\DoxyCodeLine{1015  }
+\DoxyCodeLine{1016     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1017     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1018     \{}
+\DoxyCodeLine{1019       serialization::serialize(obj.rows(),buffer,iter);}
+\DoxyCodeLine{1020       serialization::serialize(obj.cols(),buffer,iter);}
+\DoxyCodeLine{1021       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(T)*obj.rows()*obj.cols();}
+\DoxyCodeLine{1022       \textcolor{keyword}{auto} ptr = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(obj.data());}
+\DoxyCodeLine{1023       iter = std::copy(ptr,ptr+size,iter);}
+\DoxyCodeLine{1024     \}}
+\DoxyCodeLine{1025  }
+\DoxyCodeLine{1026     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1027     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Matrix<T,R,C,P,MR,MC>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1028     \{}
+\DoxyCodeLine{1029       \textcolor{keyword}{typename} Eigen::Matrix<T,R,C,P,MR,MC>::Index rows,cols;}
+\DoxyCodeLine{1030       serialization::deserialize(rows,iter);}
+\DoxyCodeLine{1031       serialization::deserialize(cols,iter);}
+\DoxyCodeLine{1032       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(T)*rows*cols;}
+\DoxyCodeLine{1033       obj.resize(rows,cols);}
+\DoxyCodeLine{1034       \textcolor{keyword}{auto} ptr = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(obj.data());}
+\DoxyCodeLine{1035       std::copy(iter,iter+size,ptr);}
+\DoxyCodeLine{1036       iter+=size;}
+\DoxyCodeLine{1037     \}}
+\DoxyCodeLine{1038  }
+\DoxyCodeLine{1039     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1040     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Array<T,R,C,P,MR,MC>\& obj)}
+\DoxyCodeLine{1041     \{}
+\DoxyCodeLine{1042       \textcolor{comment}{// space for numbers of rows,cols and data}}
+\DoxyCodeLine{1043       \textcolor{keywordflow}{return} 2*\textcolor{keyword}{sizeof}(\textcolor{keyword}{typename} Eigen::Array<T,R,C,P,MR,MC>::Index)+\textcolor{keyword}{sizeof}(T)*obj.rows()*obj.cols();}
+\DoxyCodeLine{1044     \}}
+\DoxyCodeLine{1045  }
+\DoxyCodeLine{1046     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1047     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Array<T,R,C,P,MR,MC>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1048     \{}
+\DoxyCodeLine{1049       serialization::serialize(obj.rows(),buffer,iter);}
+\DoxyCodeLine{1050       serialization::serialize(obj.cols(),buffer,iter);}
+\DoxyCodeLine{1051       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(T)*obj.rows()*obj.cols();}
+\DoxyCodeLine{1052       \textcolor{keyword}{auto} ptr = \textcolor{keyword}{reinterpret\_cast<}\textcolor{keyword}{const }uint8\_t*\textcolor{keyword}{>}(obj.data());}
+\DoxyCodeLine{1053       iter = std::copy(ptr,ptr+size,iter);}
+\DoxyCodeLine{1054     \}}
+\DoxyCodeLine{1055  }
+\DoxyCodeLine{1056     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{1057     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Array<T,R,C,P,MR,MC>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1058     \{}
+\DoxyCodeLine{1059       \textcolor{keyword}{typename} Eigen::Array<T,R,C,P,MR,MC>::Index rows,cols;}
+\DoxyCodeLine{1060       serialization::deserialize(rows,iter);}
+\DoxyCodeLine{1061       serialization::deserialize(cols,iter);}
+\DoxyCodeLine{1062       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(T)*rows*cols;}
+\DoxyCodeLine{1063       obj.resize(rows,cols);}
+\DoxyCodeLine{1064       \textcolor{keyword}{auto} ptr = \textcolor{keyword}{reinterpret\_cast<}uint8\_t*\textcolor{keyword}{>}(obj.data());}
+\DoxyCodeLine{1065       std::copy(iter,iter+size,ptr);}
+\DoxyCodeLine{1066       iter+=size;}
+\DoxyCodeLine{1067     \}}
+\DoxyCodeLine{1068  }
+\DoxyCodeLine{1069     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{1070     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::SparseMatrix<T,P,I>\& obj)}
+\DoxyCodeLine{1071     \{}
+\DoxyCodeLine{1072       \textcolor{comment}{// space for numbers of rows,cols,nonZeros and tripplets with data (rowIdx,colIdx,value)}}
+\DoxyCodeLine{1073       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(\textcolor{keyword}{typename} Eigen::SparseMatrix<T,P,I>::Index);}
+\DoxyCodeLine{1074       \textcolor{keywordflow}{return} 3*size+(\textcolor{keyword}{sizeof}(T)+2*size)*obj.nonZeros();}
+\DoxyCodeLine{1075     \}}
+\DoxyCodeLine{1076  }
+\DoxyCodeLine{1077     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{1078     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::SparseMatrix<T,P,I>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1079     \{}
+\DoxyCodeLine{1080       serialization::serialize(obj.rows(),buffer,iter);}
+\DoxyCodeLine{1081       serialization::serialize(obj.cols(),buffer,iter);}
+\DoxyCodeLine{1082       serialization::serialize(obj.nonZeros(),buffer,iter);}
+\DoxyCodeLine{1083  }
+\DoxyCodeLine{1084       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} k=0;k<obj.outerSize();++k)}
+\DoxyCodeLine{1085       \{}
+\DoxyCodeLine{1086         \textcolor{keywordflow}{for}(\textcolor{keyword}{typename} Eigen::SparseMatrix<T,P,I>::InnerIterator it(obj,k);it;++it)}
+\DoxyCodeLine{1087         \{}
+\DoxyCodeLine{1088           serialization::serialize(it.row(),buffer,iter);}
+\DoxyCodeLine{1089           serialization::serialize(it.col(),buffer,iter);}
+\DoxyCodeLine{1090           serialization::serialize(it.value(),buffer,iter);}
+\DoxyCodeLine{1091         \}}
+\DoxyCodeLine{1092       \}}
+\DoxyCodeLine{1093     \}}
+\DoxyCodeLine{1094  }
+\DoxyCodeLine{1095     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{1096     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::SparseMatrix<T,P,I>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1097     \{}
+\DoxyCodeLine{1098       \textcolor{keyword}{typename} Eigen::SparseMatrix<T,P,I>::Index rows,cols,nonZeros;}
+\DoxyCodeLine{1099       serialization::deserialize(rows,iter);}
+\DoxyCodeLine{1100       serialization::deserialize(cols,iter);}
+\DoxyCodeLine{1101       serialization::deserialize(nonZeros,iter);}
+\DoxyCodeLine{1102  }
+\DoxyCodeLine{1103       obj.resize(rows,cols);}
+\DoxyCodeLine{1104       obj.setZero();}
+\DoxyCodeLine{1105  }
+\DoxyCodeLine{1106       std::vector<Eigen::Triplet<T,I> > triplets;}
+\DoxyCodeLine{1107       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<nonZeros;i++)}
+\DoxyCodeLine{1108       \{}
+\DoxyCodeLine{1109         \textcolor{keyword}{typename} Eigen::SparseMatrix<T,P,I>::Index rowId,colId;}
+\DoxyCodeLine{1110         serialization::deserialize(rowId,iter);}
+\DoxyCodeLine{1111         serialization::deserialize(colId,iter);}
+\DoxyCodeLine{1112         T value;}
+\DoxyCodeLine{1113         serialization::deserialize(value,iter);}
+\DoxyCodeLine{1114         triplets.push\_back(Eigen::Triplet<T,I>(rowId,colId,value));}
+\DoxyCodeLine{1115       \}}
+\DoxyCodeLine{1116       obj.setFromTriplets(triplets.begin(),triplets.end());}
+\DoxyCodeLine{1117     \}}
+\DoxyCodeLine{1118  }
+\DoxyCodeLine{1119     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{1120     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} Eigen::Quaternion<T,P>\& obj)}
+\DoxyCodeLine{1121     \{}
+\DoxyCodeLine{1122       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(T)*4;}
+\DoxyCodeLine{1123     \}}
+\DoxyCodeLine{1124  }
+\DoxyCodeLine{1125     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{1126     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::Quaternion<T,P>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1127     \{}
+\DoxyCodeLine{1128       serialization::serialize(obj.w(),buffer,iter);}
+\DoxyCodeLine{1129       serialization::serialize(obj.x(),buffer,iter);}
+\DoxyCodeLine{1130       serialization::serialize(obj.y(),buffer,iter);}
+\DoxyCodeLine{1131       serialization::serialize(obj.z(),buffer,iter);}
+\DoxyCodeLine{1132     \}}
+\DoxyCodeLine{1133  }
+\DoxyCodeLine{1134     \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P>}
+\DoxyCodeLine{1135     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(Eigen::Quaternion<T,P>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1136     \{}
+\DoxyCodeLine{1137       serialization::deserialize(obj.w(),iter);}
+\DoxyCodeLine{1138       serialization::deserialize(obj.x(),iter);}
+\DoxyCodeLine{1139       serialization::deserialize(obj.y(),iter);}
+\DoxyCodeLine{1140       serialization::deserialize(obj.z(),iter);}
+\DoxyCodeLine{1141     \}}
+\DoxyCodeLine{1142  }
+\DoxyCodeLine{1143     \textcolor{comment}{// pointers}}
+\DoxyCodeLine{1144  }
+\DoxyCodeLine{1145     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1146     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{1147     \{}
+\DoxyCodeLine{1148       \textcolor{keywordtype}{size\_t} size = \textcolor{keyword}{sizeof}(bool);}
+\DoxyCodeLine{1149  }
+\DoxyCodeLine{1150       \textcolor{keywordflow}{if}(obj)}
+\DoxyCodeLine{1151         size += getByteSize(*obj);}
+\DoxyCodeLine{1152  }
+\DoxyCodeLine{1153       \textcolor{keywordflow}{return} size;}
+\DoxyCodeLine{1154     \}}
+\DoxyCodeLine{1155  }
+\DoxyCodeLine{1156     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1157     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1158     \{}
+\DoxyCodeLine{1159       serialization::serialize(obj == \textcolor{keyword}{nullptr},buffer,iter);}
+\DoxyCodeLine{1160  }
+\DoxyCodeLine{1161       \textcolor{keywordflow}{if}(obj)}
+\DoxyCodeLine{1162         serialization::serialize(*obj,buffer,iter);}
+\DoxyCodeLine{1163     \}}
+\DoxyCodeLine{1164  }
+\DoxyCodeLine{1165     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1166     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type deserialize(T\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1167     \{}
+\DoxyCodeLine{1168       \textcolor{keywordtype}{bool} isNullPtr;}
+\DoxyCodeLine{1169       serialization::deserialize(isNullPtr,iter);}
+\DoxyCodeLine{1170  }
+\DoxyCodeLine{1171       \textcolor{keywordflow}{if}(isNullPtr)}
+\DoxyCodeLine{1172       \{}
+\DoxyCodeLine{1173         \textcolor{keywordflow}{if}(obj)}
+\DoxyCodeLine{1174         \{}
+\DoxyCodeLine{1175           std::cout << \textcolor{stringliteral}{"{}serialization: possible memory leak in serialization for '"{}} << \textcolor{keyword}{typeid}(obj).name() << \textcolor{stringliteral}{"{}'"{}} << std::endl;}
+\DoxyCodeLine{1176           obj = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{1177         \}}
+\DoxyCodeLine{1178       \}}
+\DoxyCodeLine{1179       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1180       \{}
+\DoxyCodeLine{1181         \textcolor{keywordflow}{if}(obj)}
+\DoxyCodeLine{1182         \{}
+\DoxyCodeLine{1183           std::cout << \textcolor{stringliteral}{"{}serialization: possible memory corruption in deserialization for '"{}} << \textcolor{keyword}{typeid}(obj).name() << \textcolor{stringliteral}{"{}'"{}} << std::endl;}
+\DoxyCodeLine{1184         \}}
+\DoxyCodeLine{1185         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1186         \{}
+\DoxyCodeLine{1187           obj = \textcolor{keyword}{new} \textcolor{keyword}{typename} std::remove\_pointer<T>::type();}
+\DoxyCodeLine{1188         \}}
+\DoxyCodeLine{1189         serialization::deserialize(*obj,iter);}
+\DoxyCodeLine{1190       \}}
+\DoxyCodeLine{1191     \}}
+\DoxyCodeLine{1192  }
+\DoxyCodeLine{1193     \textcolor{comment}{// std::shared\_ptr and std::unique\_ptr}}
+\DoxyCodeLine{1194  }
+\DoxyCodeLine{1195     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1196     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T>::value,\textcolor{keywordtype}{size\_t}>::type getByteSize(\textcolor{keyword}{const} T\& obj)}
+\DoxyCodeLine{1197     \{}
+\DoxyCodeLine{1198       \textcolor{keywordflow}{return} getByteSize(obj.get());}
+\DoxyCodeLine{1199     \}}
+\DoxyCodeLine{1200  }
+\DoxyCodeLine{1201     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1202     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1203     \{}
+\DoxyCodeLine{1204       serialize(obj.get(),buffer,iter);}
+\DoxyCodeLine{1205     \}}
+\DoxyCodeLine{1206  }
+\DoxyCodeLine{1207     \textcolor{keyword}{template} <\textcolor{keyword}{template}<\textcolor{keyword}{typename}> \textcolor{keyword}{class }T0,\textcolor{keyword}{typename} T1>}
+\DoxyCodeLine{1208     \textcolor{keyword}{inline} \textcolor{keyword}{typename} std::enable\_if<serialization::is\_smart\_ptr<T0<T1> >::value>::type deserialize(T0<T1>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1209     \{}
+\DoxyCodeLine{1210       \textcolor{keywordtype}{bool} isNullPtr;}
+\DoxyCodeLine{1211       serialization::deserialize(isNullPtr,iter);}
+\DoxyCodeLine{1212  }
+\DoxyCodeLine{1213       \textcolor{keywordflow}{if}(isNullPtr)}
+\DoxyCodeLine{1214       \{}
+\DoxyCodeLine{1215         obj.reset();}
+\DoxyCodeLine{1216       \}}
+\DoxyCodeLine{1217       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1218       \{}
+\DoxyCodeLine{1219         obj = T0<T1>(\textcolor{keyword}{new} T1());}
+\DoxyCodeLine{1220         serialization::deserialize(*obj,iter);}
+\DoxyCodeLine{1221       \}}
+\DoxyCodeLine{1222     \}}
+\DoxyCodeLine{1223  }
+\DoxyCodeLine{1224     \textcolor{comment}{// std::weak\_ptr}}
+\DoxyCodeLine{1225  }
+\DoxyCodeLine{1226     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1227     \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} getByteSize(\textcolor{keyword}{const} std::weak\_ptr<T>\& obj)}
+\DoxyCodeLine{1228     \{}
+\DoxyCodeLine{1229       \textcolor{keywordflow}{return} \textcolor{keyword}{sizeof}(size\_t);}
+\DoxyCodeLine{1230     \}}
+\DoxyCodeLine{1231  }
+\DoxyCodeLine{1232     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1233     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::weak\_ptr<T>\& obj,std::vector<char>\& buffer,std::vector<char>::iterator\& iter)}
+\DoxyCodeLine{1234     \{}
+\DoxyCodeLine{1235  }
+\DoxyCodeLine{1236     \}}
+\DoxyCodeLine{1237  }
+\DoxyCodeLine{1238     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1239     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(std::weak\_ptr<T>\& obj,std::vector<char>::const\_iterator\& iter)}
+\DoxyCodeLine{1240     \{}
+\DoxyCodeLine{1241  }
+\DoxyCodeLine{1242     \}}
+\DoxyCodeLine{1243  }
+\DoxyCodeLine{1244     \textcolor{comment}{// functions to overload for non-\/intrusive serialization}}
+\DoxyCodeLine{1245     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1246     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} T\& obj,std::vector<char>\& buffer)}
+\DoxyCodeLine{1247     \{}
+\DoxyCodeLine{1248       std::cerr << \textcolor{keyword}{typeid}(obj).name() << \textcolor{stringliteral}{"{} is not serializable: derive from igl::Serializable or specialize the template function igl::serialization::serialize(const T\& obj,std::vector<char>\& buffer)"{}} << std::endl;}
+\DoxyCodeLine{1249     \}}
+\DoxyCodeLine{1250  }
+\DoxyCodeLine{1251     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1252     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(T\& obj,\textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{1253     \{}
+\DoxyCodeLine{1254       std::cerr << \textcolor{keyword}{typeid}(obj).name() << \textcolor{stringliteral}{"{} is not deserializable: derive from igl::Serializable or specialize the template function igl::serialization::deserialize(T\& obj, const std::vector<char>\& buffer)"{}} << std::endl;}
+\DoxyCodeLine{1255     \}}
+\DoxyCodeLine{1256  }
+\DoxyCodeLine{1257     \textcolor{comment}{// helper functions}}
+\DoxyCodeLine{1258  }
+\DoxyCodeLine{1259     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{1260     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} updateMemoryMap(T\& obj,\textcolor{keywordtype}{size\_t} size,std::map<std::uintptr\_t,IndexedPointerBase*>\& memoryMap)}
+\DoxyCodeLine{1261     \{}
+\DoxyCodeLine{1262       \textcolor{comment}{// check if object is already serialized}}
+\DoxyCodeLine{1263       \textcolor{keyword}{auto} startPtr = \textcolor{keyword}{new} IndexedPointer<T>();}
+\DoxyCodeLine{1264       startPtr-\/>Object = \&obj;}
+\DoxyCodeLine{1265       \textcolor{keyword}{auto} startBasePtr = \textcolor{keyword}{static\_cast<}IndexedPointerBase*\textcolor{keyword}{>}(startPtr);}
+\DoxyCodeLine{1266       startBasePtr-\/>Type = IndexedPointerBase::BEGIN;}
+\DoxyCodeLine{1267       \textcolor{keyword}{auto} startAddress = \textcolor{keyword}{reinterpret\_cast<}std::uintptr\_t\textcolor{keyword}{>}(\&obj);}
+\DoxyCodeLine{1268       \textcolor{keyword}{auto} p = std::pair<std::uintptr\_t,IndexedPointerBase*>(startAddress,startBasePtr);}
+\DoxyCodeLine{1269  }
+\DoxyCodeLine{1270       \textcolor{keyword}{auto} el = memoryMap.insert(p);}
+\DoxyCodeLine{1271       \textcolor{keyword}{auto} iter = ++el.first; \textcolor{comment}{// next elememt}}
+\DoxyCodeLine{1272       \textcolor{keywordflow}{if}(el.second \&\& (iter == memoryMap.end() || iter-\/>second-\/>Type != IndexedPointerBase::END))}
+\DoxyCodeLine{1273       \{}
+\DoxyCodeLine{1274         \textcolor{comment}{// not yet serialized}}
+\DoxyCodeLine{1275         \textcolor{keyword}{auto} endPtr = \textcolor{keyword}{new} IndexedPointer<T>();}
+\DoxyCodeLine{1276         \textcolor{keyword}{auto} endBasePtr = \textcolor{keyword}{static\_cast<}IndexedPointerBase*\textcolor{keyword}{>}(endPtr);}
+\DoxyCodeLine{1277         endBasePtr-\/>Type = IndexedPointerBase::END;}
+\DoxyCodeLine{1278         \textcolor{keyword}{auto} endAddress = \textcolor{keyword}{reinterpret\_cast<}std::uintptr\_t\textcolor{keyword}{>}(\&obj) + size -\/ 1;}
+\DoxyCodeLine{1279         \textcolor{keyword}{auto} p = std::pair<std::uintptr\_t,IndexedPointerBase*>(endAddress,endBasePtr);}
+\DoxyCodeLine{1280  }
+\DoxyCodeLine{1281         \textcolor{comment}{// insert end address}}
+\DoxyCodeLine{1282         memoryMap.insert(el.first,p);}
+\DoxyCodeLine{1283       \}}
+\DoxyCodeLine{1284       \textcolor{keywordflow}{else}}
+\DoxyCodeLine{1285       \{}
+\DoxyCodeLine{1286         \textcolor{comment}{// already serialized}}
+\DoxyCodeLine{1287  }
+\DoxyCodeLine{1288         \textcolor{comment}{// remove inserted address}}
+\DoxyCodeLine{1289         memoryMap.erase(el.first);}
+\DoxyCodeLine{1290       \}}
+\DoxyCodeLine{1291     \}}
+\DoxyCodeLine{1292   \}}
+\DoxyCodeLine{1293 \}}
+\DoxyCodeLine{1294 }
+\DoxyCodeLine{1295 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

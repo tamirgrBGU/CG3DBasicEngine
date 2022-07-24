@@ -1,0 +1,41 @@
+\hypertarget{classigl_1_1embree_1_1_embree_intersector}{}\doxysection{igl\+::embree\+::Embree\+Intersector Class Reference}
+\label{classigl_1_1embree_1_1_embree_intersector}\index{igl::embree::EmbreeIntersector@{igl::embree::EmbreeIntersector}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_a8738232667aec7922199fb5f0c19a41c}\label{classigl_1_1embree_1_1_embree_intersector_a8738232667aec7922199fb5f0c19a41c}} 
+typedef Eigen\+::\+Matrix$<$ float, Eigen\+::\+Dynamic, 3 $>$ {\bfseries Point\+Matrix\+Type}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_af148a234bbb045e7d9d49417271c0442}\label{classigl_1_1embree_1_1_embree_intersector_af148a234bbb045e7d9d49417271c0442}} 
+typedef Eigen\+::\+Matrix$<$ int, Eigen\+::\+Dynamic, 3 $>$ {\bfseries Face\+Matrix\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_acfd82c52883f08d4a0bae8cb3d1d385e}\label{classigl_1_1embree_1_1_embree_intersector_acfd82c52883f08d4a0bae8cb3d1d385e}} 
+void {\bfseries init} (const Point\+Matrix\+Type \&V, const Face\+Matrix\+Type \&F, bool is\+Static=false)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_a731c5da933890e5d853cf49e0065b542}\label{classigl_1_1embree_1_1_embree_intersector_a731c5da933890e5d853cf49e0065b542}} 
+void {\bfseries init} (const std\+::vector$<$ const Point\+Matrix\+Type $\ast$ $>$ \&V, const std\+::vector$<$ const Face\+Matrix\+Type $\ast$ $>$ \&F, const std\+::vector$<$ int $>$ \&masks, bool is\+Static=false)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_aa91be5f8b809de33037ced5f15d2323d}\label{classigl_1_1embree_1_1_embree_intersector_aa91be5f8b809de33037ced5f15d2323d}} 
+void {\bfseries deinit} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_aed6d8d152195bbfa60bbc54bd3e8674d}\label{classigl_1_1embree_1_1_embree_intersector_aed6d8d152195bbfa60bbc54bd3e8674d}} 
+bool {\bfseries intersect\+Ray} (const Eigen\+::\+Row\+Vector3f \&origin, const Eigen\+::\+Row\+Vector3f \&direction, \mbox{\hyperlink{structigl_1_1_hit}{Hit}} \&hit, float tnear=0, float tfar=std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), int mask=0x\+FFFFFFFF) const
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_ab7f432afa497bcf3e542ea3f39c76a8d}\label{classigl_1_1embree_1_1_embree_intersector_ab7f432afa497bcf3e542ea3f39c76a8d}} 
+bool {\bfseries intersect\+Beam} (const Eigen\+::\+Row\+Vector3f \&origin, const Eigen\+::\+Row\+Vector3f \&direction, \mbox{\hyperlink{structigl_1_1_hit}{Hit}} \&hit, float tnear=0, float tfar=std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), int mask=0x\+FFFFFFFF, int geo\+Id=-\/1, bool closest\+Hit=true, unsigned int samples=4) const
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_a02c1b14dc306c0f7c3c0f38fd06d77e6}\label{classigl_1_1embree_1_1_embree_intersector_a02c1b14dc306c0f7c3c0f38fd06d77e6}} 
+bool {\bfseries intersect\+Ray} (const Eigen\+::\+Row\+Vector3f \&origin, const Eigen\+::\+Row\+Vector3f \&direction, std\+::vector$<$ \mbox{\hyperlink{structigl_1_1_hit}{Hit}} $>$ \&hits, int \&num\+\_\+rays, float tnear=0, float tfar=std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), int mask=0x\+FFFFFFFF) const
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_intersector_a56d48c7b9c3a8769925f74fe46e1dd3b}\label{classigl_1_1embree_1_1_embree_intersector_a56d48c7b9c3a8769925f74fe46e1dd3b}} 
+bool {\bfseries intersect\+Segment} (const Eigen\+::\+Row\+Vector3f \&a, const Eigen\+::\+Row\+Vector3f \&ab, \mbox{\hyperlink{structigl_1_1_hit}{Hit}} \&hit, int mask=0x\+FFFFFFFF) const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/embree/Embree\+Intersector.\+h\item 
+igl/embree/Embree\+Intersector.\+cpp\end{DoxyCompactItemize}

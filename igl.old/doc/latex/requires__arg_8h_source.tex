@@ -1,0 +1,35 @@
+\hypertarget{requires__arg_8h_source}{}\doxysection{requires\+\_\+arg.\+h}
+\label{requires__arg_8h_source}\index{igl/matlab/requires\_arg.h@{igl/matlab/requires\_arg.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REQUIRES\_ARG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REQUIRES\_ARG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <mex.h>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{keyword}{namespace }matlab}
+\DoxyCodeLine{15   \{}
+\DoxyCodeLine{16     \textcolor{comment}{// Simply throw an error if (i+1)<rhs }}
+\DoxyCodeLine{17     \textcolor{comment}{//}}
+\DoxyCodeLine{18     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{19     \textcolor{comment}{//   i  index of current arg}}
+\DoxyCodeLine{20     \textcolor{comment}{//   nrhs  total number of args}}
+\DoxyCodeLine{21     \textcolor{comment}{//   name of current arg}}
+\DoxyCodeLine{22     IGL\_INLINE \textcolor{keywordtype}{void} requires\_arg(\textcolor{keyword}{const} \textcolor{keywordtype}{int} i, \textcolor{keyword}{const} \textcolor{keywordtype}{int} nrhs, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *name);}
+\DoxyCodeLine{23   \}}
+\DoxyCodeLine{24 \}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#  include "{}requires\_arg.cpp"{}}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 }
+
+\end{DoxyCode}

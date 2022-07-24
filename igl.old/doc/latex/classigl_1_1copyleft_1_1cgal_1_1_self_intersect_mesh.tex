@@ -1,0 +1,112 @@
+\hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{}\doxysection{igl\+::copyleft\+::cgal\+::Self\+Intersect\+Mesh\texorpdfstring{$<$}{<} Kernel, DerivedV, DerivedF, Derived\+VV, Derived\+FF, Derived\+IF, DerivedJ, Derived\+IM \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}\index{igl::copyleft::cgal::SelfIntersectMesh$<$ Kernel, DerivedV, DerivedF, DerivedVV, DerivedFF, DerivedIF, DerivedJ, DerivedIM $>$@{igl::copyleft::cgal::SelfIntersectMesh$<$ Kernel, DerivedV, DerivedF, DerivedVV, DerivedFF, DerivedIF, DerivedJ, DerivedIM $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aca08ae5f7bd9e8af5294cd2466a2cadc}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aca08ae5f7bd9e8af5294cd2466a2cadc}} 
+typedef CGAL\+::\+Point\+\_\+3$<$ Kernel $>$ {\bfseries Point\+\_\+3}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1152aad98bdadc62f3feeaecf591f88c}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1152aad98bdadc62f3feeaecf591f88c}} 
+typedef CGAL\+::\+Segment\+\_\+3$<$ Kernel $>$ {\bfseries Segment\+\_\+3}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a08b88627a638dec1767ad4964dae7fe7}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a08b88627a638dec1767ad4964dae7fe7}} 
+typedef CGAL\+::\+Triangle\+\_\+3$<$ Kernel $>$ {\bfseries Triangle\+\_\+3}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a92476bfc974726de0e270389a8aa3fd8}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a92476bfc974726de0e270389a8aa3fd8}} 
+typedef CGAL\+::\+Plane\+\_\+3$<$ Kernel $>$ {\bfseries Plane\+\_\+3}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a12f97e8f7dc8e610ba28b91a41493e9c}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a12f97e8f7dc8e610ba28b91a41493e9c}} 
+typedef CGAL\+::\+Tetrahedron\+\_\+3$<$ Kernel $>$ {\bfseries Tetrahedron\+\_\+3}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1e43e61638ea86fb97689db5459ff36c}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1e43e61638ea86fb97689db5459ff36c}} 
+typedef CGAL\+::\+Point\+\_\+2$<$ Kernel $>$ {\bfseries Point\+\_\+2}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ab5b32c5b4d976f5cc1f5fa4b574b7fea}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ab5b32c5b4d976f5cc1f5fa4b574b7fea}} 
+typedef CGAL\+::\+Segment\+\_\+2$<$ Kernel $>$ {\bfseries Segment\+\_\+2}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_afe79a42e91a71b4ba98a4901b574db58}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_afe79a42e91a71b4ba98a4901b574db58}} 
+typedef CGAL\+::\+Triangle\+\_\+2$<$ Kernel $>$ {\bfseries Triangle\+\_\+2}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_afcf79dbfec1a9a9a01c17dc67514ce61}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_afcf79dbfec1a9a9a01c17dc67514ce61}} 
+typedef CGAL\+::\+Exact\+\_\+intersections\+\_\+tag {\bfseries Itag}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad833c0bbf165d35d5ef416f144d7ae52}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad833c0bbf165d35d5ef416f144d7ae52}} 
+typedef std\+::vector$<$ Triangle\+\_\+3 $>$ {\bfseries Triangles}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ae54c0c45d541cefe848b5a698e636c28}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ae54c0c45d541cefe848b5a698e636c28}} 
+typedef Triangles\+::iterator {\bfseries Triangles\+Iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aff339eeedc761f657b0ac97ffdfc1824}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aff339eeedc761f657b0ac97ffdfc1824}} 
+typedef Triangles\+::const\+\_\+iterator {\bfseries Triangles\+Const\+Iterator}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3ecb2a1e8a582bfc5a0be109bc6a0afd}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3ecb2a1e8a582bfc5a0be109bc6a0afd}} 
+typedef CGAL\+::\+Box\+\_\+intersection\+\_\+d\+::\+Box\+\_\+with\+\_\+handle\+\_\+d$<$ double, 3, Triangles\+Iterator $>$ {\bfseries Box}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3be180f5be3130421d1df3738caa3922}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3be180f5be3130421d1df3738caa3922}} 
+typedef Derived\+F\+::\+Index {\bfseries Index}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ac56b1000b340eb1fbc5be68ce0290773}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ac56b1000b340eb1fbc5be68ce0290773}} 
+typedef std\+::vector$<$ std\+::pair$<$ Index, CGAL\+::\+Object $>$ $>$ {\bfseries Object\+List}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad79e3e94166c02959a885f1765a391aa}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad79e3e94166c02959a885f1765a391aa}} 
+typedef std\+::vector$<$ Index $>$ {\bfseries Index\+List}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a228a539b03cd925f72ab37028914c18a}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a228a539b03cd925f72ab37028914c18a}} 
+typedef std\+::pair$<$ Index, Index $>$ {\bfseries EMK}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aeef7725804828596abe690dcb4524a4e}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aeef7725804828596abe690dcb4524a4e}} 
+typedef std\+::vector$<$ Index $>$ {\bfseries EMV}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aa66c8e9c68c444272a378daee20dc0bc}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_aa66c8e9c68c444272a378daee20dc0bc}} 
+typedef std\+::map$<$ EMK, EMV $>$ {\bfseries Edge\+Map}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_abd759e325ecce8c9c7c392d4acea5991}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_abd759e325ecce8c9c7c392d4acea5991}} 
+{\bfseries Self\+Intersect\+Mesh} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F, const \mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{Remesh\+Self\+Intersections\+Param}} \&params, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+VV $>$ \&VV, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+FF $>$ \&FF, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+IF $>$ \&IF, Eigen\+::\+Plain\+Object\+Base$<$ DerivedJ $>$ \&J, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+IM $>$ \&IM)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad6b7a9069d13185a3919b36d0e606f8c}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_ad6b7a9069d13185a3919b36d0e606f8c}} 
+void {\bfseries box\+\_\+intersect} (const Box \&a, const Box \&b)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1f15ee5b85962d795332dc26ed293695}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1f15ee5b85962d795332dc26ed293695}} 
+void {\bfseries process\+\_\+intersecting\+\_\+boxes} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_acda8f3656a13b903a25e7cdb3040764e}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_acda8f3656a13b903a25e7cdb3040764e}} 
+static void {\bfseries box\+\_\+intersect\+\_\+static} (\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{Self\+Intersect\+Mesh}} $\ast$SIM, const Box \&a, const Box \&b)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a93ef8bc8113137c9421d8599c420c6b7}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a93ef8bc8113137c9421d8599c420c6b7}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \& {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3ffd426cf9b46ee61f0d189c52856313}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a3ffd426cf9b46ee61f0d189c52856313}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \& {\bfseries F}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1e6d46c014d357bc3919258b48e5c3ae}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a1e6d46c014d357bc3919258b48e5c3ae}} 
+Index {\bfseries count}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a5c0c06babba1e8ed96fec7d3b2a35204}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a5c0c06babba1e8ed96fec7d3b2a35204}} 
+Triangles {\bfseries T}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a13efd5482d0e7e1db8cd0470f326dea3}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a13efd5482d0e7e1db8cd0470f326dea3}} 
+Index\+List {\bfseries l\+IF}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_af9bc58c53ef0b45d3b5ee56fe65e8554}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_af9bc58c53ef0b45d3b5ee56fe65e8554}} 
+std\+::map$<$ Index, Object\+List $>$ {\bfseries offending}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a2af1c41e04b0470ae61744e419646522}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a2af1c41e04b0470ae61744e419646522}} 
+std\+::vector$<$ std\+::pair$<$ Triangles\+Iterator, Triangles\+Iterator $>$ $>$ {\bfseries candidate\+\_\+triangle\+\_\+pairs}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a4f0bfd48f1b39ab00b7fc5bf4e34733f}\label{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh_a4f0bfd48f1b39ab00b7fc5bf4e34733f}} 
+\mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{Remesh\+Self\+Intersections\+Param}} {\bfseries params}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/copyleft/cgal/Self\+Intersect\+Mesh.\+h\end{DoxyCompactItemize}

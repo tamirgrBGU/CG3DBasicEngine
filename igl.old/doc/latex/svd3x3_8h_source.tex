@@ -1,0 +1,46 @@
+\hypertarget{svd3x3_8h_source}{}\doxysection{svd3x3.\+h}
+\label{svd3x3_8h_source}\index{igl/svd3x3.h@{igl/svd3x3.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SVD3X3\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SVD3X3\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Super fast 3x3 SVD according to http://pages.cs.wisc.edu/\string~sifakis/project\_pages/svd.html}}
+\DoxyCodeLine{16   \textcolor{comment}{// The resulting decomposition is A = U * diag(S[0], S[1], S[2]) * V'}}
+\DoxyCodeLine{17   \textcolor{comment}{// BEWARE: this SVD algorithm guarantees that det(U) = det(V) = 1, but this }}
+\DoxyCodeLine{18   \textcolor{comment}{// comes at the cost that 'sigma3' can be negative}}
+\DoxyCodeLine{19   \textcolor{comment}{// for computing polar decomposition it's great because all we need to do is U*V'}}
+\DoxyCodeLine{20   \textcolor{comment}{// and the result will automatically have positive determinant}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   A  3x3 matrix}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   U  3x3 left singular vectors}}
+\DoxyCodeLine{26   \textcolor{comment}{//   S  3x1 singular values}}
+\DoxyCodeLine{27   \textcolor{comment}{//   V  3x3 right singular vectors}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// Known bugs: this will not work correctly for double precision.}}
+\DoxyCodeLine{30   \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} svd3x3(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::Matrix<T, 3, 3>\& A, }
+\DoxyCodeLine{33     Eigen::Matrix<T, 3, 3> \&U, }
+\DoxyCodeLine{34     Eigen::Matrix<T, 3, 1> \&S, }
+\DoxyCodeLine{35     Eigen::Matrix<T, 3, 3>\&V);}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}svd3x3.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

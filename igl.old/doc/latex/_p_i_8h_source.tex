@@ -1,0 +1,25 @@
+\hypertarget{_p_i_8h_source}{}\doxysection{PI.\+h}
+\label{_p_i_8h_source}\index{igl/PI.h@{igl/PI.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PI\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PI\_H}}
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \textcolor{comment}{// Use standard mathematical constants' M\_PI if available}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifdef M\_PI}}
+\DoxyCodeLine{14   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} PI = M\_PI;}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{16   \textcolor{keyword}{constexpr} \textcolor{keywordtype}{double} PI = 3.1415926535897932384626433832795;}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

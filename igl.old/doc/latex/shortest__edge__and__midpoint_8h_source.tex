@@ -1,0 +1,54 @@
+\hypertarget{shortest__edge__and__midpoint_8h_source}{}\doxysection{shortest\+\_\+edge\+\_\+and\+\_\+midpoint.\+h}
+\label{shortest__edge__and__midpoint_8h_source}\index{igl/shortest\_edge\_and\_midpoint.h@{igl/shortest\_edge\_and\_midpoint.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SHORTEST\_EDGE\_AND\_MIDPOINT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SHORTEST\_EDGE\_AND\_MIDPOINT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Cost and placement function compatible with igl::decimate. The cost of}}
+\DoxyCodeLine{16   \textcolor{comment}{// collapsing an edge is its length (prefer to collapse short edges) and the}}
+\DoxyCodeLine{17   \textcolor{comment}{// placement strategy for the new vertex is the midpoint of the collapsed}}
+\DoxyCodeLine{18   \textcolor{comment}{// edge.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   e  index into E of edge to be considered for collapse}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   F  \#F by 3 list of faces (ignored)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   E  \#E by 2 list of edge indices into V}}
+\DoxyCodeLine{25   \textcolor{comment}{//   EMAP  \#F*3 list of half-\/edges indices into E (ignored)}}
+\DoxyCodeLine{26   \textcolor{comment}{//   EF  \#E by 2 list of edge-\/face flaps into F (ignored)}}
+\DoxyCodeLine{27   \textcolor{comment}{//   EI  \#E by 2 list of edge-\/face opposite corners (ignored)}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   cost  set to edge length}}
+\DoxyCodeLine{30   \textcolor{comment}{//   p  placed point set to edge midpoint}}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} shortest\_edge\_and\_midpoint(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixXi \& \textcolor{comment}{/*F*/},}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixXi \& E,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::VectorXi \& \textcolor{comment}{/*EMAP*/},}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixXi \& \textcolor{comment}{/*EF*/},}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixXi \& \textcolor{comment}{/*EI*/},}
+\DoxyCodeLine{39     \textcolor{keywordtype}{double} \& cost,}
+\DoxyCodeLine{40     Eigen::RowVectorXd \& p);}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#  include "{}shortest\_edge\_and\_midpoint.cpp"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 }
+
+\end{DoxyCode}

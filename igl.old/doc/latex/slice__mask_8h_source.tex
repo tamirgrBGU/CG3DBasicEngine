@@ -1,0 +1,80 @@
+\hypertarget{slice__mask_8h_source}{}\doxysection{slice\+\_\+mask.\+h}
+\label{slice__mask_8h_source}\index{igl/slice\_mask.h@{igl/slice\_mask.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SLICE\_MASK\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SLICE\_MASK\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Act like the matlab X(row\_mask,col\_mask) operator, where}}
+\DoxyCodeLine{17   \textcolor{comment}{// row\_mask, col\_mask are non-\/negative integer indices.}}
+\DoxyCodeLine{18   \textcolor{comment}{// }}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   X  m by n matrix}}
+\DoxyCodeLine{21   \textcolor{comment}{//   R  m list of row bools}}
+\DoxyCodeLine{22   \textcolor{comment}{//   C  n list of column bools}}
+\DoxyCodeLine{23   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   Y  \#trues-\/in-\/R by \#trues-\/in-\/C matrix}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// See also: slice\_mask}}
+\DoxyCodeLine{27   }
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX,\textcolor{keyword}{typename} DerivedY>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} slice\_mask(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX> \& X,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& C,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedY> \& Y);}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX,\textcolor{keyword}{typename} DerivedY>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} slice\_mask(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX> \& X,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedY> \& Y);}
+\DoxyCodeLine{40   \textcolor{comment}{//}}
+\DoxyCodeLine{41   \textcolor{comment}{// This templating is bad because the return type might not have the same}}
+\DoxyCodeLine{42   \textcolor{comment}{// size as `DerivedX`. This will probably only work if DerivedX has Dynamic}}
+\DoxyCodeLine{43   \textcolor{comment}{// as it's non-\/trivial sizes or if the number of rows in R happens to equal}}
+\DoxyCodeLine{44   \textcolor{comment}{// the number of rows in `DerivedX`.}}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{46   IGL\_INLINE DerivedX slice\_mask(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX> \& X,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& C);}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{51   IGL\_INLINE DerivedX slice\_mask(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX> \& X,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim);}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} XType, \textcolor{keyword}{typename} YType>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} slice\_mask(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::SparseMatrix<XType> \& X,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{60     Eigen::SparseMatrix<YType> \& Y);}
+\DoxyCodeLine{61   \textcolor{keyword}{template} <\textcolor{keyword}{typename} XType, \textcolor{keyword}{typename} YType>}
+\DoxyCodeLine{62   IGL\_INLINE \textcolor{keywordtype}{void} slice\_mask(}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Eigen::SparseMatrix<XType> \& X,}
+\DoxyCodeLine{64     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& R,}
+\DoxyCodeLine{65     \textcolor{keyword}{const} Eigen::Array<bool,Eigen::Dynamic,1> \& C,}
+\DoxyCodeLine{66     Eigen::SparseMatrix<YType> \& Y);}
+\DoxyCodeLine{67 \}}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#  include "{}slice\_mask.cpp"{}}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,49 @@
+\hypertarget{structigl_1_1tinyply_1_1_ply_file}{}\doxysection{igl\+::tinyply\+::Ply\+File Struct Reference}
+\label{structigl_1_1tinyply_1_1_ply_file}\index{igl::tinyply::PlyFile@{igl::tinyply::PlyFile}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl}{Ply\+File\+Impl}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a369033514e5371e4b25d14f3bd643015}\label{structigl_1_1tinyply_1_1_ply_file_a369033514e5371e4b25d14f3bd643015}} 
+bool {\bfseries parse\+\_\+header} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a4862db7db73b2638a6317a82a744cd31}\label{structigl_1_1tinyply_1_1_ply_file_a4862db7db73b2638a6317a82a744cd31}} 
+void {\bfseries read} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a2735335473cbe53b885e981996df79f4}\label{structigl_1_1tinyply_1_1_ply_file_a2735335473cbe53b885e981996df79f4}} 
+void {\bfseries write} (std\+::ostream \&os, bool is\+Binary)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a6f628482c77d55339770d0548a33fb4b}\label{structigl_1_1tinyply_1_1_ply_file_a6f628482c77d55339770d0548a33fb4b}} 
+std\+::vector$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_element}{Ply\+Element}} $>$ {\bfseries get\+\_\+elements} () const
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a718c279b3f616b486c33c6e5df167502}\label{structigl_1_1tinyply_1_1_ply_file_a718c279b3f616b486c33c6e5df167502}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries get\+\_\+info} () const
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a3d76a92d21f01ce5085416ad572df3d5}\label{structigl_1_1tinyply_1_1_ply_file_a3d76a92d21f01ce5085416ad572df3d5}} 
+std\+::vector$<$ std\+::string $>$ \& {\bfseries get\+\_\+comments} ()
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a232b312b7450fca277cb1abcb6079f74}\label{structigl_1_1tinyply_1_1_ply_file_a232b312b7450fca277cb1abcb6079f74}} 
+bool {\bfseries is\+\_\+binary\+\_\+file} () const
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_ac4e9d0b2aec2c4d1e1228dc760a2026a}\label{structigl_1_1tinyply_1_1_ply_file_ac4e9d0b2aec2c4d1e1228dc760a2026a}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_data}{Ply\+Data}} $>$ {\bfseries request\+\_\+properties\+\_\+from\+\_\+element} (const std\+::string \&element\+Key, const std\+::vector$<$ std\+::string $>$ property\+Keys, const uint32\+\_\+t list\+\_\+size\+\_\+hint=0)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_acac4a03214a08dd229fa7f2df49b8fbc}\label{structigl_1_1tinyply_1_1_ply_file_acac4a03214a08dd229fa7f2df49b8fbc}} 
+void {\bfseries add\+\_\+properties\+\_\+to\+\_\+element} (const std\+::string \&element\+Key, const std\+::vector$<$ std\+::string $>$ property\+Keys, const Type type, const size\+\_\+t count, uint8\+\_\+t $\ast$data, const Type list\+Type, const size\+\_\+t list\+Count)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_a021df6c1d4dc5800635e5e00acb9dd48}\label{structigl_1_1tinyply_1_1_ply_file_a021df6c1d4dc5800635e5e00acb9dd48}} 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl}{Ply\+File\+Impl}} $>$ {\bfseries impl}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/tinyply.\+h\item 
+igl/tinyply.\+cpp\end{DoxyCompactItemize}

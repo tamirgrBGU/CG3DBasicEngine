@@ -1,0 +1,76 @@
+\hypertarget{redux_8h_source}{}\doxysection{redux.\+h}
+\label{redux_8h_source}\index{igl/redux.h@{igl/redux.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_REDUX\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_REDUX\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7   \textcolor{comment}{// REDUX Perform reductions on the rows or columns of a SparseMatrix. This is}}
+\DoxyCodeLine{8   \textcolor{comment}{// \_similar\_ to DenseBase::redux, but different in two important ways:}}
+\DoxyCodeLine{9   \textcolor{comment}{//  1. (unstored) Zeros are **not** "{}visited"{}, however if the first element}}
+\DoxyCodeLine{10   \textcolor{comment}{//     in the column/row  does not appear in the first row/column then the}}
+\DoxyCodeLine{11   \textcolor{comment}{//     reduction is assumed to start with zero. In this way, "{}any"{}, "{}all"{},}}
+\DoxyCodeLine{12   \textcolor{comment}{//     "{}count"{}(non-\/zeros) work as expected. This means it is **not** possible}}
+\DoxyCodeLine{13   \textcolor{comment}{//     to use this to count (implicit) zeros.}}
+\DoxyCodeLine{14   \textcolor{comment}{//  2. This redux is more powerful in the sense that A and B may have}}
+\DoxyCodeLine{15   \textcolor{comment}{//     different types. This makes it possible to count the number of}}
+\DoxyCodeLine{16   \textcolor{comment}{//     non-\/zeros in a SparseMatrix<bool> A into a VectorXi B.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   A  m by n sparse matrix}}
+\DoxyCodeLine{20   \textcolor{comment}{//   dim  dimension along which to sum (1 or 2)}}
+\DoxyCodeLine{21   \textcolor{comment}{//   func  function handle with the prototype `X(Y a, I i, J j, Z b)` where a}}
+\DoxyCodeLine{22   \textcolor{comment}{//     is the running value, b is A(i,j)}}
+\DoxyCodeLine{23   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   S  n-\/long sparse vector (if dim == 1) }}
+\DoxyCodeLine{25   \textcolor{comment}{//   or}}
+\DoxyCodeLine{26   \textcolor{comment}{//   S  m-\/long sparse vector (if dim == 2)}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} AType, \textcolor{keyword}{typename} Func, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{28   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} redux(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::SparseMatrix<AType> \& A,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Func \& func,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<DerivedB> \& B);}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include "{}for\_each.h"{}}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{template} <\textcolor{keyword}{typename} AType, \textcolor{keyword}{typename} Func, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{40 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} igl::redux(}
+\DoxyCodeLine{41   \textcolor{keyword}{const} Eigen::SparseMatrix<AType> \& A,}
+\DoxyCodeLine{42   \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{43   \textcolor{keyword}{const} Func \& func,}
+\DoxyCodeLine{44   Eigen::PlainObjectBase<DerivedB> \& B)}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46   \textcolor{keyword}{typedef} \textcolor{keyword}{typename} Eigen::SparseMatrix<AType>::StorageIndex Index;}
+\DoxyCodeLine{47   assert((dim == 1 || dim == 2) \&\& \textcolor{stringliteral}{"{}dim must be 2 or 1"{}});}
+\DoxyCodeLine{48   \textcolor{comment}{// Get size of input}}
+\DoxyCodeLine{49   \textcolor{keywordtype}{int} m = A.rows();}
+\DoxyCodeLine{50   \textcolor{keywordtype}{int} n = A.cols();}
+\DoxyCodeLine{51   \textcolor{comment}{// resize output}}
+\DoxyCodeLine{52   B = DerivedB::Zero(dim==1?n:m);}
+\DoxyCodeLine{53   \textcolor{keyword}{const} \textcolor{keyword}{auto} func\_wrap = [\&func,\&B,\&dim](\textcolor{keyword}{const} Index i, \textcolor{keyword}{const} Index j, \textcolor{keyword}{const} AType v)}
+\DoxyCodeLine{54   \{}
+\DoxyCodeLine{55     \textcolor{keywordflow}{if}(dim == 1)}
+\DoxyCodeLine{56     \{}
+\DoxyCodeLine{57       B(j) = i == 0? v : func(B(j),v);}
+\DoxyCodeLine{58     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{59     \{}
+\DoxyCodeLine{60       B(i) = j == 0? v : func(B(i),v);}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62   \};}
+\DoxyCodeLine{63   for\_each(A,func\_wrap);}
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{comment}{//\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{68 \textcolor{comment}{//\#  include "{}redux.cpp"{}}}
+\DoxyCodeLine{69 \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

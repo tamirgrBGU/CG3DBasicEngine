@@ -1,0 +1,110 @@
+\hypertarget{classigl_1_1geodesic_1_1_interval}{}\doxysection{igl\+::geodesic\+::Interval Class Reference}
+\label{classigl_1_1geodesic_1_1_interval}\index{igl::geodesic::Interval@{igl::geodesic::Interval}}
+Inheritance diagram for igl\+::geodesic\+::Interval\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classigl_1_1geodesic_1_1_interval}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_ae5bb0f8bb1219cbb3b1c283d9a9cd75c}\label{classigl_1_1geodesic_1_1_interval_ae5bb0f8bb1219cbb3b1c283d9a9cd75c}} 
+enum {\bfseries Direction\+Type} \{ {\bfseries FROM\+\_\+\+FACE\+\_\+0}
+, {\bfseries FROM\+\_\+\+FACE\+\_\+1}
+, {\bfseries FROM\+\_\+\+SOURCE}
+, {\bfseries UNDEFINED\+\_\+\+DIRECTION}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_adff302458d384ff7b0bab602bc8647a6}\label{classigl_1_1geodesic_1_1_interval_adff302458d384ff7b0bab602bc8647a6}} 
+double {\bfseries signal} (double x)
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a50c94a70119d8a74d024442c25242b33}\label{classigl_1_1geodesic_1_1_interval_a50c94a70119d8a74d024442c25242b33}} 
+double {\bfseries max\+\_\+distance} (double end)
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_aa379988d3eddc1c7708323ae3c6e5729}\label{classigl_1_1geodesic_1_1_interval_aa379988d3eddc1c7708323ae3c6e5729}} 
+void {\bfseries compute\+\_\+min\+\_\+distance} (double stop)
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a84aed89e17f094a6c99b59e0d206e92b}\label{classigl_1_1geodesic_1_1_interval_a84aed89e17f094a6c99b59e0d206e92b}} 
+bool {\bfseries operator()} (\mbox{\hyperlink{classigl_1_1geodesic_1_1_interval}{interval\+\_\+pointer}} const x, \mbox{\hyperlink{classigl_1_1geodesic_1_1_interval}{interval\+\_\+pointer}} const y) const
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_abc0449e5facd25e418b99148a889b869}\label{classigl_1_1geodesic_1_1_interval_abc0449e5facd25e418b99148a889b869}} 
+double {\bfseries stop} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_af14fda648a6318a370df99d1f5c93060}\label{classigl_1_1geodesic_1_1_interval_af14fda648a6318a370df99d1f5c93060}} 
+double {\bfseries hypotenuse} (double a, double b)
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a5baac54fac2c4b45f3f842c3c163e9f7}\label{classigl_1_1geodesic_1_1_interval_a5baac54fac2c4b45f3f842c3c163e9f7}} 
+void {\bfseries find\+\_\+closest\+\_\+point} (double const x, double const y, double \&offset, double \&distance)
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a5fd99aa75c32d4b00b41c482069b3a2b}\label{classigl_1_1geodesic_1_1_interval_a5fd99aa75c32d4b00b41c482069b3a2b}} 
+double \& {\bfseries start} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_affb6db0dace301a5cde2687275ad22ef}\label{classigl_1_1geodesic_1_1_interval_affb6db0dace301a5cde2687275ad22ef}} 
+double \& {\bfseries d} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_afa8585c8b6c1dad26b46fa9c7d10ef1e}\label{classigl_1_1geodesic_1_1_interval_afa8585c8b6c1dad26b46fa9c7d10ef1e}} 
+double \& {\bfseries pseudo\+\_\+x} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_adb301910e9132df24543de6dee6d9d08}\label{classigl_1_1geodesic_1_1_interval_adb301910e9132df24543de6dee6d9d08}} 
+double \& {\bfseries pseudo\+\_\+y} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a586e7f02339ba729534b599c001376b1}\label{classigl_1_1geodesic_1_1_interval_a586e7f02339ba729534b599c001376b1}} 
+double \& {\bfseries min} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a1216c3c231a6b3cb3895e7d8f73fab74}\label{classigl_1_1geodesic_1_1_interval_a1216c3c231a6b3cb3895e7d8f73fab74}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_interval}{interval\+\_\+pointer}} \& {\bfseries next} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a7e6d52a76e18c276a500957a431fa45c}\label{classigl_1_1geodesic_1_1_interval_a7e6d52a76e18c276a500957a431fa45c}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_edge}{edge\+\_\+pointer}} \& {\bfseries edge} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a5abe0ce656e4576d55484df11c600e39}\label{classigl_1_1geodesic_1_1_interval_a5abe0ce656e4576d55484df11c600e39}} 
+Direction\+Type \& {\bfseries direction} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a3bd50e12ff40e242db53207db0631e91}\label{classigl_1_1geodesic_1_1_interval_a3bd50e12ff40e242db53207db0631e91}} 
+bool {\bfseries visible\+\_\+from\+\_\+source} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a11fc67ed059bdf86a97ac8e6fea0df37}\label{classigl_1_1geodesic_1_1_interval_a11fc67ed059bdf86a97ac8e6fea0df37}} 
+unsigned \& {\bfseries source\+\_\+index} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_ad7826ce6b63c290d11c5210446b093e0}\label{classigl_1_1geodesic_1_1_interval_ad7826ce6b63c290d11c5210446b093e0}} 
+void {\bfseries initialize} (\mbox{\hyperlink{classigl_1_1geodesic_1_1_edge}{edge\+\_\+pointer}} edge, \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $\ast$point=NULL, unsigned source\+\_\+index=0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_ac6f30b5679ba1453c6aaaae75adc9ea6}\label{classigl_1_1geodesic_1_1_interval_ac6f30b5679ba1453c6aaaae75adc9ea6}} 
+double {\bfseries m\+\_\+start}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a6bcf912948d8eb42505a229810688bce}\label{classigl_1_1geodesic_1_1_interval_a6bcf912948d8eb42505a229810688bce}} 
+double {\bfseries m\+\_\+d}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a0b9966c703f8179f6cc8e2aaab85508f}\label{classigl_1_1geodesic_1_1_interval_a0b9966c703f8179f6cc8e2aaab85508f}} 
+double {\bfseries m\+\_\+pseudo\+\_\+x}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_adc49845d014bf3ec20c3bd7700f98c36}\label{classigl_1_1geodesic_1_1_interval_adc49845d014bf3ec20c3bd7700f98c36}} 
+double {\bfseries m\+\_\+pseudo\+\_\+y}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a859c43c8bd36e2702fce45b35349efc5}\label{classigl_1_1geodesic_1_1_interval_a859c43c8bd36e2702fce45b35349efc5}} 
+double {\bfseries m\+\_\+min}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_ae6f253e6f21aa01042845b552b3e7de5}\label{classigl_1_1geodesic_1_1_interval_ae6f253e6f21aa01042845b552b3e7de5}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_interval}{interval\+\_\+pointer}} {\bfseries m\+\_\+next}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_aa84c2a5d9756551230e245dab3561e8c}\label{classigl_1_1geodesic_1_1_interval_aa84c2a5d9756551230e245dab3561e8c}} 
+\mbox{\hyperlink{classigl_1_1geodesic_1_1_edge}{edge\+\_\+pointer}} {\bfseries m\+\_\+edge}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a8246183e675327956f1762a1b427adda}\label{classigl_1_1geodesic_1_1_interval_a8246183e675327956f1762a1b427adda}} 
+unsigned {\bfseries m\+\_\+source\+\_\+index}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_interval_a725e49e42154b563f88efb936d0a4cfa}\label{classigl_1_1geodesic_1_1_interval_a725e49e42154b563f88efb936d0a4cfa}} 
+Direction\+Type {\bfseries m\+\_\+direction}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/exact\+\_\+geodesic.\+cpp\end{DoxyCompactItemize}

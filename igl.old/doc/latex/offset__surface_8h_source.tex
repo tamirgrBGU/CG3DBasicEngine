@@ -1,0 +1,58 @@
+\hypertarget{offset__surface_8h_source}{}\doxysection{offset\+\_\+surface.\+h}
+\label{offset__surface_8h_source}\index{igl/offset\_surface.h@{igl/offset\_surface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_OFFSET\_SURFACE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_OFFSET\_SURFACE\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}signed\_distance.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// Compute a triangulated offset surface using matching cubes on a grid of}}
+\DoxyCodeLine{10   \textcolor{comment}{// signed distance values from the input triangle mesh.}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{14   \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into V}}
+\DoxyCodeLine{15   \textcolor{comment}{//   isolevel  iso level to extract (signed distance: negative inside)}}
+\DoxyCodeLine{16   \textcolor{comment}{//   s  number of grid cells along longest side (controls resolution)}}
+\DoxyCodeLine{17   \textcolor{comment}{//   signed\_distance\_type  type of signing to use (see}}
+\DoxyCodeLine{18   \textcolor{comment}{//     ../signed\_distance.h)}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   SV  \#SV by 3 list of output surface mesh vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   SF  \#SF by 3 list of output mesh triangle indices into SV}}
+\DoxyCodeLine{22   \textcolor{comment}{//   GV  \#GV=side(0)*side(1)*side(2) by 3 list of grid cell centers}}
+\DoxyCodeLine{23   \textcolor{comment}{//   side  list of number of grid cells in x, y, and z directions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   S  \#GV by 3 list of signed distance values \_near\_ `isolevel` ("{}far"{}}}
+\DoxyCodeLine{25   \textcolor{comment}{//     from `isolevel` these values are incorrect)}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} isolevelType,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedSV,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedSF,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} Derivedside,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{36   \textcolor{keywordtype}{void} offset\_surface(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} isolevelType isolevel,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keyword}{typename} Derivedside::Scalar s,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} SignedDistanceType \& signed\_distance\_type,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedSV> \& SV,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedSF> \& SF,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedGV> \& GV,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<Derivedside> \& side,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedS> \& S);}
+\DoxyCodeLine{47   }
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}offset\_surface.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

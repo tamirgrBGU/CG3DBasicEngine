@@ -1,0 +1,41 @@
+\hypertarget{grad__intrinsic_8h_source}{}\doxysection{grad\+\_\+intrinsic.\+h}
+\label{grad__intrinsic_8h_source}\index{igl/grad\_intrinsic.h@{igl/grad\_intrinsic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_GRAD\_INTRINSIC\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_GRAD\_INTRINSIC\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16   \textcolor{comment}{// GRAD\_INTRINSIC Construct an intrinsic gradient operator.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//  l  \#F by 3 list of edge lengths}}
+\DoxyCodeLine{20   \textcolor{comment}{//  F  \#F by 3 list of triangle indices into some vertex list V}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//  G  \#F*2 by \#V gradient matrix: G=[Gx;Gy] where x runs along the 23 edge and}}
+\DoxyCodeLine{23   \textcolor{comment}{//    y runs in the counter-\/clockwise 90° rotation.}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedl, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Gtype>}
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{void} grad\_intrinsic(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl>\&l,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\&F,}
+\DoxyCodeLine{28     Eigen::SparseMatrix<Gtype> \&G);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}grad\_intrinsic.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+
+\end{DoxyCode}

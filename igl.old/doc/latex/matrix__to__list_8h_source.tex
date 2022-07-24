@@ -1,0 +1,61 @@
+\hypertarget{matrix__to__list_8h_source}{}\doxysection{matrix\+\_\+to\+\_\+list.\+h}
+\label{matrix__to__list_8h_source}\index{igl/matrix\_to\_list.h@{igl/matrix\_to\_list.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MATRIX\_TO\_LIST\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MATRIX\_TO\_LIST\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Convert a matrix to a list (std::vector) of row vectors of the same size}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Template: }}
+\DoxyCodeLine{19   \textcolor{comment}{//   Mat  Matrix type, must implement:}}
+\DoxyCodeLine{20   \textcolor{comment}{//     .resize(m,n)}}
+\DoxyCodeLine{21   \textcolor{comment}{//     .row(i) = Row}}
+\DoxyCodeLine{22   \textcolor{comment}{//   T  type that can be safely cast to type in Mat via '='}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   M  an m by n matrix}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   V  a m-\/long list of vectors of size n}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// See also: list\_to\_matrix}}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedM>}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{void} matrix\_to\_list(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M, }
+\DoxyCodeLine{32     std::vector<std::vector<typename DerivedM::Scalar > > \& V);}
+\DoxyCodeLine{33   \textcolor{comment}{// Convert a matrix to a list (std::vector) of elements in column-\/major}}
+\DoxyCodeLine{34   \textcolor{comment}{// ordering.}}
+\DoxyCodeLine{35   \textcolor{comment}{//}}
+\DoxyCodeLine{36   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{37   \textcolor{comment}{//    M  an m by n matrix}}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//    V  an m*n list of elements}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedM>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} matrix\_to\_list(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M, }
+\DoxyCodeLine{43     std::vector<typename DerivedM::Scalar > \& V);}
+\DoxyCodeLine{44   \textcolor{comment}{// Return wrapper}}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedM>}
+\DoxyCodeLine{46   IGL\_INLINE std::vector<typename DerivedM::Scalar > matrix\_to\_list(}
+\DoxyCodeLine{47       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M);}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#  include "{}matrix\_to\_list.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{55 }
+
+\end{DoxyCode}

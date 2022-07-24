@@ -1,0 +1,60 @@
+\hypertarget{repdiag_8h_source}{}\doxysection{repdiag.\+h}
+\label{repdiag_8h_source}\index{igl/repdiag.h@{igl/repdiag.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REPDIAG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REPDIAG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define EIGEN\_YES\_I\_KNOW\_SPARSE\_MODULE\_IS\_NOT\_STABLE\_YET}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// REPDIAG repeat a matrix along the diagonal a certain number of times, so}}
+\DoxyCodeLine{19   \textcolor{comment}{// that if A is a m by n matrix and we want to repeat along the diagonal d}}
+\DoxyCodeLine{20   \textcolor{comment}{// times, we get a m*d by n*d matrix B such that:}}
+\DoxyCodeLine{21   \textcolor{comment}{// B( (k*m+1):(k*m+1+m-\/1), (k*n+1):(k*n+1+n-\/1)) = A }}
+\DoxyCodeLine{22   \textcolor{comment}{// for k from 0 to d-\/1}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   A  m by n matrix we are repeating along the diagonal. May be dense or}}
+\DoxyCodeLine{26   \textcolor{comment}{//     sparse}}
+\DoxyCodeLine{27   \textcolor{comment}{//   d  number of times to repeat A along the diagonal}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   B  m*d by n*d matrix with A repeated d times along the diagonal,}}
+\DoxyCodeLine{30   \textcolor{comment}{//     will be dense or sparse to match A}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// Sparse version}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} repdiag(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& A,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} \textcolor{keywordtype}{int} d,}
+\DoxyCodeLine{38     Eigen::SparseMatrix<T>\& B);}
+\DoxyCodeLine{39   \textcolor{comment}{// Dense version}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} repdiag(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::Matrix<T,Eigen::Dynamic,Eigen::Dynamic> \& A,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{int} d,}
+\DoxyCodeLine{44     Eigen::Matrix<T,Eigen::Dynamic,Eigen::Dynamic> \& B);}
+\DoxyCodeLine{45   \textcolor{comment}{// Wrapper with B as output}}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{class} Mat>}
+\DoxyCodeLine{47   IGL\_INLINE Mat repdiag(\textcolor{keyword}{const} Mat \& A, \textcolor{keyword}{const} \textcolor{keywordtype}{int} d);}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#  include "{}repdiag.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

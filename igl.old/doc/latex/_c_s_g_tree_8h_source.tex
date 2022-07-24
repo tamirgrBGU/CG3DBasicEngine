@@ -1,0 +1,195 @@
+\hypertarget{_c_s_g_tree_8h_source}{}\doxysection{CSGTree.\+h}
+\label{_c_s_g_tree_8h_source}\index{igl/copyleft/cgal/CSGTree.h@{igl/copyleft/cgal/CSGTree.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_CSG\_TREE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_CSG\_TREE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../MeshBooleanType.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}string\_to\_mesh\_boolean\_type.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}mesh\_boolean.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <CGAL/number\_utils.h>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{20   \{}
+\DoxyCodeLine{21     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{22     \{}
+\DoxyCodeLine{23       \textcolor{comment}{// Class for defining and computing a constructive solid geometry result}}
+\DoxyCodeLine{24       \textcolor{comment}{// out of a tree of boolean operations on "{}solid"{} triangle meshes.}}
+\DoxyCodeLine{25       \textcolor{comment}{//}}
+\DoxyCodeLine{26       \textcolor{comment}{//template <typename DerivedF>}}
+\DoxyCodeLine{27       \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}}
+\DoxyCodeLine{28       \{}
+\DoxyCodeLine{29         \textcolor{keyword}{public}:}
+\DoxyCodeLine{30           \textcolor{keyword}{typedef} CGAL::Epeck::FT ExactScalar;}
+\DoxyCodeLine{31           \textcolor{comment}{//typedef Eigen::PlainObjectBase<DerivedF> POBF;}}
+\DoxyCodeLine{32           \textcolor{keyword}{typedef} Eigen::MatrixXi POBF;}
+\DoxyCodeLine{33           \textcolor{keyword}{typedef} POBF::Index FIndex;}
+\DoxyCodeLine{34           \textcolor{keyword}{typedef} Eigen::Matrix<ExactScalar,Eigen::Dynamic,3> MatrixX3E;}
+\DoxyCodeLine{35           \textcolor{keyword}{typedef} Eigen::Matrix<FIndex,Eigen::Dynamic,1> VectorJ;}
+\DoxyCodeLine{36         \textcolor{keyword}{private}:}
+\DoxyCodeLine{37           \textcolor{comment}{// Resulting mesh}}
+\DoxyCodeLine{38           MatrixX3E m\_V;}
+\DoxyCodeLine{39           POBF m\_F;}
+\DoxyCodeLine{40           VectorJ m\_J;}
+\DoxyCodeLine{41           \textcolor{comment}{// Number of birth faces in A + those in B. I.e. sum of original "{}leaf"{}}}
+\DoxyCodeLine{42           \textcolor{comment}{// faces involved in result.}}
+\DoxyCodeLine{43           \textcolor{keywordtype}{size\_t} m\_number\_of\_birth\_faces;}
+\DoxyCodeLine{44         \textcolor{keyword}{public}:}
+\DoxyCodeLine{45           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}()}
+\DoxyCodeLine{46           \{}
+\DoxyCodeLine{47           \}}
+\DoxyCodeLine{48           \textcolor{comment}{//typedef Eigen::MatrixXd MatrixX3E;}}
+\DoxyCodeLine{49           \textcolor{comment}{//typedef Eigen::MatrixXi POBF;}}
+\DoxyCodeLine{50           \textcolor{comment}{// http://stackoverflow.com/a/3279550/148668}}
+\DoxyCodeLine{51           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} \& other)}
+\DoxyCodeLine{52             :}
+\DoxyCodeLine{53             \textcolor{comment}{// copy things}}
+\DoxyCodeLine{54             m\_V(other.m\_V),}
+\DoxyCodeLine{55             \textcolor{comment}{// This is an issue if m\_F is templated}}
+\DoxyCodeLine{56             \textcolor{comment}{// https://forum.kde.org/viewtopic.php?f=74\&t=128414}}
+\DoxyCodeLine{57             m\_F(other.m\_F),}
+\DoxyCodeLine{58             m\_J(other.m\_J),}
+\DoxyCodeLine{59             m\_number\_of\_birth\_faces(other.m\_number\_of\_birth\_faces)}
+\DoxyCodeLine{60           \{}
+\DoxyCodeLine{61           \}}
+\DoxyCodeLine{62           \textcolor{comment}{// copy-\/swap idiom}}
+\DoxyCodeLine{63           \textcolor{keyword}{friend} \textcolor{keywordtype}{void} swap(\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}\& first, \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}\& second)}
+\DoxyCodeLine{64           \{}
+\DoxyCodeLine{65             \textcolor{keyword}{using }std::swap;}
+\DoxyCodeLine{66             \textcolor{comment}{// swap things}}
+\DoxyCodeLine{67             swap(first.m\_V,second.m\_V);}
+\DoxyCodeLine{68             \textcolor{comment}{// This is an issue if m\_F is templated, similar to}}
+\DoxyCodeLine{69             \textcolor{comment}{// https://forum.kde.org/viewtopic.php?f=74\&t=128414}}
+\DoxyCodeLine{70             swap(first.m\_F,second.m\_F);}
+\DoxyCodeLine{71             swap(first.m\_J,second.m\_J);}
+\DoxyCodeLine{72             swap(first.m\_number\_of\_birth\_faces,second.m\_number\_of\_birth\_faces);}
+\DoxyCodeLine{73           \}}
+\DoxyCodeLine{74           \textcolor{comment}{// Pass-\/by-\/value (aka copy)}}
+\DoxyCodeLine{75           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}\& operator=(\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} other)}
+\DoxyCodeLine{76           \{}
+\DoxyCodeLine{77             swap(*\textcolor{keyword}{this},other);}
+\DoxyCodeLine{78             \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{79           \}}
+\DoxyCodeLine{80           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}(\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}\&\& other):}
+\DoxyCodeLine{81             \textcolor{comment}{// initialize via default constructor}}
+\DoxyCodeLine{82             \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}() }
+\DoxyCodeLine{83           \{}
+\DoxyCodeLine{84             swap(*\textcolor{keyword}{this},other);}
+\DoxyCodeLine{85           \}}
+\DoxyCodeLine{86           \textcolor{comment}{// Construct and compute a boolean operation on existing CSGTree nodes.}}
+\DoxyCodeLine{87           \textcolor{comment}{//}}
+\DoxyCodeLine{88           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{89           \textcolor{comment}{//   A  Solid result of previous CSG operation (or identity, see below)}}
+\DoxyCodeLine{90           \textcolor{comment}{//   B  Solid result of previous CSG operation (or identity, see below)}}
+\DoxyCodeLine{91           \textcolor{comment}{//   type  type of mesh boolean to compute }}
+\DoxyCodeLine{92           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}(}
+\DoxyCodeLine{93             \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} \& A,}
+\DoxyCodeLine{94             \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} \& B,}
+\DoxyCodeLine{95             \textcolor{keyword}{const} MeshBooleanType \& type)}
+\DoxyCodeLine{96           \{}
+\DoxyCodeLine{97             \textcolor{comment}{// conduct boolean operation}}
+\DoxyCodeLine{98             mesh\_boolean(A.V(),A.F(),B.V(),B.F(),type,m\_V,m\_F,m\_J);}
+\DoxyCodeLine{99             \textcolor{comment}{// reindex m\_J}}
+\DoxyCodeLine{100             std::for\_each(m\_J.data(),m\_J.data()+m\_J.size(),}
+\DoxyCodeLine{101               [\&](\textcolor{keyword}{typename} VectorJ::Scalar \& j) -\/> \textcolor{keywordtype}{void}}
+\DoxyCodeLine{102               \{}
+\DoxyCodeLine{103                 if(j < A.F().rows())}
+\DoxyCodeLine{104                 \{}
+\DoxyCodeLine{105                   j = A.J()(j);}
+\DoxyCodeLine{106                 \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{107                 \{}
+\DoxyCodeLine{108                   assert(j<(A.F().rows()+B.F().rows()));}
+\DoxyCodeLine{109                   j = A.number\_of\_birth\_faces()+(B.J()(j-\/A.F().rows()));}
+\DoxyCodeLine{110                 \}}
+\DoxyCodeLine{111               \});}
+\DoxyCodeLine{112             m\_number\_of\_birth\_faces = }
+\DoxyCodeLine{113               A.number\_of\_birth\_faces() + B.number\_of\_birth\_faces();}
+\DoxyCodeLine{114           \}}
+\DoxyCodeLine{115           \textcolor{comment}{// Overload using string for type}}
+\DoxyCodeLine{116           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}(}
+\DoxyCodeLine{117             \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} \& A,}
+\DoxyCodeLine{118             \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}} \& B,}
+\DoxyCodeLine{119             \textcolor{keyword}{const} std::string \& s):}
+\DoxyCodeLine{120             \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_c_s_g_tree}{CSGTree}}(A,B,string\_to\_mesh\_boolean\_type(s))}
+\DoxyCodeLine{121           \{}
+\DoxyCodeLine{122             \textcolor{comment}{// do nothing (all done in constructor).}}
+\DoxyCodeLine{123           \}}
+\DoxyCodeLine{124           \textcolor{comment}{// "{}Leaf"{} node with identity operation on assumed "{}solid"{} mesh (V,F)}}
+\DoxyCodeLine{125           \textcolor{comment}{//}}
+\DoxyCodeLine{126           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{127           \textcolor{comment}{//   V  \#V by 3 list of mesh vertices (in any precision, will be}}
+\DoxyCodeLine{128           \textcolor{comment}{//     converted to exact)}}
+\DoxyCodeLine{129           \textcolor{comment}{//   F  \#F by 3 list of mesh face indices into V}}
+\DoxyCodeLine{130           \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{131           CSGTree(\textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V, \textcolor{keyword}{const} POBF \& F)\textcolor{comment}{//:}}
+\DoxyCodeLine{132           \textcolor{comment}{// Possible Eigen bug:}}
+\DoxyCodeLine{133           \textcolor{comment}{// https://forum.kde.org/viewtopic.php?f=74\&t=128414}}
+\DoxyCodeLine{134             \textcolor{comment}{//m\_V(V.template cast<ExactScalar>()),m\_F(F)}}
+\DoxyCodeLine{135           \{}
+\DoxyCodeLine{136             m\_V = V.template cast<ExactScalar>();}
+\DoxyCodeLine{137             m\_F = F;}
+\DoxyCodeLine{138             \textcolor{comment}{// number of faces}}
+\DoxyCodeLine{139             m\_number\_of\_birth\_faces = m\_F.rows();}
+\DoxyCodeLine{140             \textcolor{comment}{// identity birth index}}
+\DoxyCodeLine{141             m\_J = VectorJ::LinSpaced(}
+\DoxyCodeLine{142               m\_number\_of\_birth\_faces,0,m\_number\_of\_birth\_faces-\/1);}
+\DoxyCodeLine{143           \}}
+\DoxyCodeLine{144           \textcolor{comment}{// Returns reference to resulting mesh vertices m\_V in exact scalar}}
+\DoxyCodeLine{145           \textcolor{comment}{// representation}}
+\DoxyCodeLine{146           \textcolor{keyword}{const} MatrixX3E \& V()\textcolor{keyword}{ const}}
+\DoxyCodeLine{147 \textcolor{keyword}{          }\{}
+\DoxyCodeLine{148             \textcolor{keywordflow}{return} m\_V;}
+\DoxyCodeLine{149           \}}
+\DoxyCodeLine{150           \textcolor{comment}{// Returns mesh vertices in the desired output type, casting when}}
+\DoxyCodeLine{151           \textcolor{comment}{// appropriate to floating precision.}}
+\DoxyCodeLine{152           \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{153           DerivedV cast\_V()\textcolor{keyword}{ const}}
+\DoxyCodeLine{154 \textcolor{keyword}{          }\{}
+\DoxyCodeLine{155             DerivedV dV;}
+\DoxyCodeLine{156             dV.resize(m\_V.rows(),m\_V.cols());}
+\DoxyCodeLine{157             \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<m\_V.rows();i++)}
+\DoxyCodeLine{158             \{}
+\DoxyCodeLine{159               \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<m\_V.cols();j++)}
+\DoxyCodeLine{160               \{}
+\DoxyCodeLine{161                 dV(i,j) = CGAL::to\_double(m\_V(i,j));}
+\DoxyCodeLine{162               \}}
+\DoxyCodeLine{163             \}}
+\DoxyCodeLine{164             \textcolor{keywordflow}{return} dV;}
+\DoxyCodeLine{165           \}}
+\DoxyCodeLine{166           \textcolor{comment}{// Returns reference to resulting mesh faces m\_F}}
+\DoxyCodeLine{167           \textcolor{keyword}{const} POBF \& F()\textcolor{keyword}{ const}}
+\DoxyCodeLine{168 \textcolor{keyword}{          }\{}
+\DoxyCodeLine{169             \textcolor{keywordflow}{return} m\_F;}
+\DoxyCodeLine{170           \}}
+\DoxyCodeLine{171           \textcolor{comment}{// Returns reference to "{}birth parents"{} indices into [F1;F2;...;Fn]}}
+\DoxyCodeLine{172           \textcolor{comment}{// where F1, ... , Fn are the face lists of the leaf ("{}original"{}) input}}
+\DoxyCodeLine{173           \textcolor{comment}{// meshes.}}
+\DoxyCodeLine{174           \textcolor{keyword}{const} VectorJ \& J()\textcolor{keyword}{ const}}
+\DoxyCodeLine{175 \textcolor{keyword}{          }\{}
+\DoxyCodeLine{176             \textcolor{keywordflow}{return} m\_J;}
+\DoxyCodeLine{177           \}}
+\DoxyCodeLine{178           \textcolor{comment}{// The number of leaf faces = \#F1 + \#F2 + ... + \#Fn}}
+\DoxyCodeLine{179           \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \& number\_of\_birth\_faces()\textcolor{keyword}{ const}}
+\DoxyCodeLine{180 \textcolor{keyword}{          }\{}
+\DoxyCodeLine{181             \textcolor{keywordflow}{return} m\_number\_of\_birth\_faces;}
+\DoxyCodeLine{182           \}}
+\DoxyCodeLine{183       \};}
+\DoxyCodeLine{184     \}}
+\DoxyCodeLine{185   \}}
+\DoxyCodeLine{186 \}}
+\DoxyCodeLine{187 }
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

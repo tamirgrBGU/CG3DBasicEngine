@@ -1,0 +1,73 @@
+\hypertarget{classigl_1_1_planarizer_shape_up}{}\doxysection{igl\+::Planarizer\+Shape\+Up\texorpdfstring{$<$}{<} DerivedV, DerivedF \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_planarizer_shape_up}\index{igl::PlanarizerShapeUp$<$ DerivedV, DerivedF $>$@{igl::PlanarizerShapeUp$<$ DerivedV, DerivedF $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a4b148570de5862881636c9e0b09c9e83}\label{classigl_1_1_planarizer_shape_up_a4b148570de5862881636c9e0b09c9e83}} 
+{\bfseries Planarizer\+Shape\+Up} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V\+\_\+, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F\+\_\+, const int max\+Iter\+\_\+, const double \&threshold\+\_\+)
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a532ce642eae7382870264f2d383a8150}\label{classigl_1_1_planarizer_shape_up_a532ce642eae7382870264f2d383a8150}} 
+void {\bfseries planarize} (Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \&Vout)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a8b5c56f27a7b7fea794c1dbe26c8c9c9}\label{classigl_1_1_planarizer_shape_up_a8b5c56f27a7b7fea794c1dbe26c8c9c9}} 
+void {\bfseries assembleQ} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_afafb0a87fbf32813c78d314b70944305}\label{classigl_1_1_planarizer_shape_up_afafb0a87fbf32813c78d314b70944305}} 
+void {\bfseries assembleP} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a36e54ad3696bf463ab1b26adc92caed4}\label{classigl_1_1_planarizer_shape_up_a36e54ad3696bf463ab1b26adc92caed4}} 
+void {\bfseries assemble\+Ni} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_aba4e50541070ddd1809d5168b25c0f32}\label{classigl_1_1_planarizer_shape_up_aba4e50541070ddd1809d5168b25c0f32}} 
+void {\bfseries assemble\+Selector} (int fi, Eigen\+::\+Sparse\+Matrix$<$ typename Derived\+V\+::\+Scalar $>$ \&S)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a9c58984e275e840b319205b769429404}\label{classigl_1_1_planarizer_shape_up_a9c58984e275e840b319205b769429404}} 
+long {\bfseries numV}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a3e019949b8232584d5cea9b5415d6a56}\label{classigl_1_1_planarizer_shape_up_a3e019949b8232584d5cea9b5415d6a56}} 
+long {\bfseries numF}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a06b29f40421b6c73377c6d40a582d513}\label{classigl_1_1_planarizer_shape_up_a06b29f40421b6c73377c6d40a582d513}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \& {\bfseries Vin}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_aca5b9ae8c2d06501bce3e8b53b07cb14}\label{classigl_1_1_planarizer_shape_up_aca5b9ae8c2d06501bce3e8b53b07cb14}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \& {\bfseries Fin}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a97ef582fc8a6d0a9be956ad833203dd0}\label{classigl_1_1_planarizer_shape_up_a97ef582fc8a6d0a9be956ad833203dd0}} 
+Eigen\+::\+Matrix$<$ typename Derived\+V\+::\+Scalar, Eigen\+::\+Dynamic, 1 $>$ {\bfseries Vv}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a1992c53bf793c0cc2b8c13d9c6f85e18}\label{classigl_1_1_planarizer_shape_up_a1992c53bf793c0cc2b8c13d9c6f85e18}} 
+Eigen\+::\+Matrix$<$ typename Derived\+V\+::\+Scalar, Eigen\+::\+Dynamic, 1 $>$ {\bfseries weights\+Sqrt}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a2c06123a8bc2e9e4a7ce446a0cd8a8f4}\label{classigl_1_1_planarizer_shape_up_a2c06123a8bc2e9e4a7ce446a0cd8a8f4}} 
+Eigen\+::\+Matrix$<$ typename Derived\+V\+::\+Scalar, Eigen\+::\+Dynamic, 1 $>$ {\bfseries P}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_ad9973ab83d25646414fb9b5cfdf6ede6}\label{classigl_1_1_planarizer_shape_up_ad9973ab83d25646414fb9b5cfdf6ede6}} 
+Eigen\+::\+Sparse\+Matrix$<$ typename Derived\+V\+::\+Scalar $>$ {\bfseries Q}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a6675789e8aea00bf4a66d8ad562d6687}\label{classigl_1_1_planarizer_shape_up_a6675789e8aea00bf4a66d8ad562d6687}} 
+Eigen\+::\+Sparse\+Matrix$<$ typename Derived\+V\+::\+Scalar $>$ {\bfseries Ni}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_aea0524315a01f43654a045ab33dc558b}\label{classigl_1_1_planarizer_shape_up_aea0524315a01f43654a045ab33dc558b}} 
+Eigen\+::\+Simplicial\+LDLT$<$ Eigen\+::\+Sparse\+Matrix$<$ typename Derived\+V\+::\+Scalar $>$ $>$ {\bfseries solver}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a87a81f2b80bad4568df01a6ea2309a85}\label{classigl_1_1_planarizer_shape_up_a87a81f2b80bad4568df01a6ea2309a85}} 
+int {\bfseries max\+Iter}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_ad551066a696c5dfcc5df4c7fc5e342a7}\label{classigl_1_1_planarizer_shape_up_ad551066a696c5dfcc5df4c7fc5e342a7}} 
+double {\bfseries threshold}
+\item 
+\mbox{\Hypertarget{classigl_1_1_planarizer_shape_up_a665638716742c241fdb61feb2a544217}\label{classigl_1_1_planarizer_shape_up_a665638716742c241fdb61feb2a544217}} 
+const int {\bfseries ni} = 4
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/planarize\+\_\+quad\+\_\+mesh.\+cpp\end{DoxyCompactItemize}

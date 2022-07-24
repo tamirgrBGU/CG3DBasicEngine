@@ -1,0 +1,58 @@
+\hypertarget{march__cube_8h_source}{}\doxysection{march\+\_\+cube.\+h}
+\label{march__cube_8h_source}\index{igl/march\_cube.h@{igl/march\_cube.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2021 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MARCH\_CUBE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MARCH\_CUBE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Process a single cube of a marching cubes grid.}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   GV  \#GV by 3 list of grid vertex positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   cS  list of 8 scalar field values at grid corners}}
+\DoxyCodeLine{20   \textcolor{comment}{//   cI  list of 8 indices of corners into rows of GV}}
+\DoxyCodeLine{21   \textcolor{comment}{//   isovalue  level-\/set value being extracted (often 0)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by 3 current list of output mesh vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   n  current number of mesh vertices (i.e., occupied rows in V)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3 current list of output mesh triangle indices into rows of V}}
+\DoxyCodeLine{25   \textcolor{comment}{//   m  current number of mesh triangles (i.e., occupied rows in F)}}
+\DoxyCodeLine{26   \textcolor{comment}{//   E2V  current edge (GV\_i,GV\_j) to vertex (V\_k) map}}
+\DoxyCodeLine{27   \textcolor{comment}{// Side-\/effects: V,n,F,m,E2V are updated to contain new vertices and faces of}}
+\DoxyCodeLine{28   \textcolor{comment}{// any constructed mesh elements}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} Index,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} march\_cube(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} DerivedGV \& GV,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::Matrix<Scalar,8,1> \& cS,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::Matrix<Index,8,1> \& cI,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Scalar \& isovalue,}
+\DoxyCodeLine{41     Eigen::PlainObjectBase<DerivedV> \&V,}
+\DoxyCodeLine{42     Index \& n,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedF> \&F,}
+\DoxyCodeLine{44     Index \& m,}
+\DoxyCodeLine{45     std::unordered\_map<int64\_t,int> \& E2V);}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}march\_cube.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

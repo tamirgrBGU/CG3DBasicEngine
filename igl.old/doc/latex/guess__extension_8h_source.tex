@@ -1,0 +1,31 @@
+\hypertarget{guess__extension_8h_source}{}\doxysection{guess\+\_\+extension.\+h}
+\label{guess__extension_8h_source}\index{igl/guess\_extension.h@{igl/guess\_extension.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_GUESS\_EXTENSION\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_GUESS\_EXTENSION\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Given a file pointer at the beginning of a "{}mesh"{} file, try to guess the}}
+\DoxyCodeLine{9   \textcolor{comment}{// extension of the file format it comes from. The file pointer is rewound on}}
+\DoxyCodeLine{10   \textcolor{comment}{// return.}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   fp  file pointer (see output)}}
+\DoxyCodeLine{14   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{15   \textcolor{comment}{//   fp  file pointer rewound }}
+\DoxyCodeLine{16   \textcolor{comment}{//   guess  extension as string. One of "{}mesh"{},\{"{}obj"{}\},"{}off"{},"{}ply"{},"{}stl"{}, or}}
+\DoxyCodeLine{17   \textcolor{comment}{//     "{}wrl"{}}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   IGL\_INLINE \textcolor{keywordtype}{void} guess\_extension(FILE * fp, std::string \& guess);}
+\DoxyCodeLine{20   IGL\_INLINE std::string guess\_extension(FILE * fp);}
+\DoxyCodeLine{21 \}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#  include "{}guess\_extension.cpp"{}}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

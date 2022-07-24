@@ -1,0 +1,43 @@
+\hypertarget{sample__edges_8h_source}{}\doxysection{sample\+\_\+edges.\+h}
+\label{sample__edges_8h_source}\index{igl/sample\_edges.h@{igl/sample\_edges.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SAMPLE\_EDGES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SAMPLE\_EDGES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Compute samples\_per\_edge extra points along each edge in E defined over}}
+\DoxyCodeLine{17   \textcolor{comment}{// vertices of V.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  vertices over which edges are defined, \# vertices by dim}}
+\DoxyCodeLine{21   \textcolor{comment}{//   E  edge list, \# edges by 2}}
+\DoxyCodeLine{22   \textcolor{comment}{//   k  number of extra samples to be computed along edge not}}
+\DoxyCodeLine{23   \textcolor{comment}{//        including start and end points}}
+\DoxyCodeLine{24   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   S  sampled vertices, size less than \# edges * (2+k) by dim always begins}}
+\DoxyCodeLine{26   \textcolor{comment}{//        with V so that E is also defined over S}}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} sample\_edges(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixXi \& E,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{31     Eigen::MatrixXd \& S);}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#  include "{}sample\_edges.cpp"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

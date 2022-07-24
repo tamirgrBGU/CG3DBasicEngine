@@ -1,0 +1,116 @@
+\hypertarget{minkowski__sum_8h_source}{}\doxysection{minkowski\+\_\+sum.\+h}
+\label{minkowski__sum_8h_source}\index{igl/copyleft/cgal/minkowski\_sum.h@{igl/copyleft/cgal/minkowski\_sum.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_MINKOWSKI\_SUM\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_MINKOWSKI\_SUM\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20       \textcolor{comment}{// Compute the Minkowski sum of a closed triangle mesh (V,F) and a}}
+\DoxyCodeLine{21       \textcolor{comment}{// set of simplices in 3D.}}
+\DoxyCodeLine{22       \textcolor{comment}{//}}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   VA  \#VA by 3 list of mesh vertices in 3D}}
+\DoxyCodeLine{25       \textcolor{comment}{//   FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{26       \textcolor{comment}{//   VB  \#VB by 3 list of mesh vertices in 3D}}
+\DoxyCodeLine{27       \textcolor{comment}{//   FB  \#FB by ss list of simplex indices into VB, ss<=3}}
+\DoxyCodeLine{28       \textcolor{comment}{//   resolve\_overlaps  whether or not to resolve self-\/union. If false}}
+\DoxyCodeLine{29       \textcolor{comment}{//     then result may contain self-\/intersections if input mesh is}}
+\DoxyCodeLine{30       \textcolor{comment}{//     non-\/convex.}}
+\DoxyCodeLine{31       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{32       \textcolor{comment}{//   W  \#W by 3 list of mesh vertices in 3D}}
+\DoxyCodeLine{33       \textcolor{comment}{//   G  \#G by 3 list of triangle indices into W}}
+\DoxyCodeLine{34       \textcolor{comment}{//   J  \#G by 2 list of indices into }}
+\DoxyCodeLine{35       \textcolor{comment}{//   }}
+\DoxyCodeLine{36       \textcolor{keyword}{template} <}
+\DoxyCodeLine{37         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{38         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{39         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedG,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{44       IGL\_INLINE \textcolor{keywordtype}{void} minkowski\_sum(}
+\DoxyCodeLine{45         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA> \& VA,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA> \& FA,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVB> \& VB,}
+\DoxyCodeLine{48         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFB> \& FB,}
+\DoxyCodeLine{49         \textcolor{keyword}{const} \textcolor{keywordtype}{bool} resolve\_overlaps,}
+\DoxyCodeLine{50         Eigen::PlainObjectBase<DerivedW> \& W,}
+\DoxyCodeLine{51         Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{52         Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{53       \textcolor{comment}{// Compute the Minkowski sum of a closed triangle mesh (V,F) and a}}
+\DoxyCodeLine{54       \textcolor{comment}{// segment [s,d] in 3D.}}
+\DoxyCodeLine{55       \textcolor{comment}{//}}
+\DoxyCodeLine{56       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{57       \textcolor{comment}{//   VA  \#VA by 3 list of mesh vertices in 3D}}
+\DoxyCodeLine{58       \textcolor{comment}{//   FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{59       \textcolor{comment}{//   s  segment source endpoint in 3D}}
+\DoxyCodeLine{60       \textcolor{comment}{//   d  segment source endpoint in 3D}}
+\DoxyCodeLine{61       \textcolor{comment}{//   resolve\_overlaps  whether or not to resolve self-\/union. If false}}
+\DoxyCodeLine{62       \textcolor{comment}{//     then result may contain self-\/intersections if input mesh is}}
+\DoxyCodeLine{63       \textcolor{comment}{//     non-\/convex.}}
+\DoxyCodeLine{64       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{65       \textcolor{comment}{//   W  \#W by 3 list of mesh vertices in 3D}}
+\DoxyCodeLine{66       \textcolor{comment}{//   G  \#G by 3 list of triangle indices into W}}
+\DoxyCodeLine{67       \textcolor{comment}{//   J  \#G list of indices into [F;\#V+F;[s d]] of birth parents}}
+\DoxyCodeLine{68       \textcolor{comment}{//}}
+\DoxyCodeLine{69       \textcolor{keyword}{template} <}
+\DoxyCodeLine{70         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{71         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{72         \textcolor{keyword}{typename} sType, \textcolor{keywordtype}{int} sCols, \textcolor{keywordtype}{int} sOptions,}
+\DoxyCodeLine{73         \textcolor{keyword}{typename} dType, \textcolor{keywordtype}{int} dCols, \textcolor{keywordtype}{int} dOptions,}
+\DoxyCodeLine{74         \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{75         \textcolor{keyword}{typename} DerivedG,}
+\DoxyCodeLine{76         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{77       IGL\_INLINE \textcolor{keywordtype}{void} minkowski\_sum(}
+\DoxyCodeLine{78         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA> \& VA,}
+\DoxyCodeLine{79         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA> \& FA,}
+\DoxyCodeLine{80         \textcolor{keyword}{const} Eigen::Matrix<sType,1,sCols,sOptions> \& s,}
+\DoxyCodeLine{81         \textcolor{keyword}{const} Eigen::Matrix<dType,1,dCols,dOptions> \& d,}
+\DoxyCodeLine{82         \textcolor{keyword}{const} \textcolor{keywordtype}{bool} resolve\_overlaps,}
+\DoxyCodeLine{83         Eigen::PlainObjectBase<DerivedW> \& W,}
+\DoxyCodeLine{84         Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{85         Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{86       \textcolor{keyword}{template} <}
+\DoxyCodeLine{87         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{88         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{89         \textcolor{keyword}{typename} sType, \textcolor{keywordtype}{int} sCols, \textcolor{keywordtype}{int} sOptions,}
+\DoxyCodeLine{90         \textcolor{keyword}{typename} dType, \textcolor{keywordtype}{int} dCols, \textcolor{keywordtype}{int} dOptions,}
+\DoxyCodeLine{91         \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{92         \textcolor{keyword}{typename} DerivedG,}
+\DoxyCodeLine{93         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{94       IGL\_INLINE \textcolor{keywordtype}{void} minkowski\_sum(}
+\DoxyCodeLine{95         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA> \& VA,}
+\DoxyCodeLine{96         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA> \& FA,}
+\DoxyCodeLine{97         \textcolor{keyword}{const} Eigen::Matrix<sType,1,sCols,sOptions> \& s,}
+\DoxyCodeLine{98         \textcolor{keyword}{const} Eigen::Matrix<dType,1,dCols,dOptions> \& d,}
+\DoxyCodeLine{99         Eigen::PlainObjectBase<DerivedW> \& W,}
+\DoxyCodeLine{100         Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{101         Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{102     \}}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#  include "{}minkowski\_sum.cpp"{}}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

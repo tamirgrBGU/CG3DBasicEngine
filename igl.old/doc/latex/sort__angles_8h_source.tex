@@ -1,0 +1,41 @@
+\hypertarget{sort__angles_8h_source}{}\doxysection{sort\+\_\+angles.\+h}
+\label{sort__angles_8h_source}\index{igl/sort\_angles.h@{igl/sort\_angles.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef SORT\_ANGLES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define SORT\_ANGLES\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{15     \textcolor{comment}{// Sort angles in ascending order in a numerically robust way.}}
+\DoxyCodeLine{16     \textcolor{comment}{//}}
+\DoxyCodeLine{17     \textcolor{comment}{// Instead of computing angles using atan2(y, x), sort directly on (y, x).}}
+\DoxyCodeLine{18     \textcolor{comment}{//}}
+\DoxyCodeLine{19     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20     \textcolor{comment}{//   M: m by n matrix of scalars. (n >= 2).  Assuming the first column of M}}
+\DoxyCodeLine{21     \textcolor{comment}{//      contains values for y, and the second column is x.  Using the rest}}
+\DoxyCodeLine{22     \textcolor{comment}{//      of the columns as tie-\/breaker.}}
+\DoxyCodeLine{23     \textcolor{comment}{//   R: an array of m indices.  M.row(R[i]) contains the i-\/th smallest}}
+\DoxyCodeLine{24     \textcolor{comment}{//      angle.}}
+\DoxyCodeLine{25     \textcolor{keyword}{template}<\textcolor{keyword}{typename} DerivedM, \textcolor{keyword}{typename} DerivedR>}
+\DoxyCodeLine{26     IGL\_INLINE \textcolor{keywordtype}{void} sort\_angles(}
+\DoxyCodeLine{27             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM>\& M,}
+\DoxyCodeLine{28             Eigen::PlainObjectBase<DerivedR>\& R);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include "{}sort\_angles.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,185 @@
+\hypertarget{_timer_8h_source}{}\doxysection{Timer.\+h}
+\label{_timer_8h_source}\index{igl/Timer.h@{igl/Timer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{// High Resolution Timer.}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 \textcolor{comment}{// Resolution on Mac (clock tick)}}
+\DoxyCodeLine{11 \textcolor{comment}{// Resolution on Linux (1 us not tested)}}
+\DoxyCodeLine{12 \textcolor{comment}{// Resolution on Windows (clock tick not tested)}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifndef IGL\_TIMER\_H}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define IGL\_TIMER\_H}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#ifdef WIN32   }\textcolor{comment}{// Windows system specific}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <windows.h>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_ }\textcolor{comment}{// Unix based system specific}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <mach/mach\_time.h>} \textcolor{comment}{// for mach\_absolute\_time}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <sys/time.h>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <cstddef>}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_timer}{Timer}}}
+\DoxyCodeLine{29   \{}
+\DoxyCodeLine{30   \textcolor{keyword}{public}:}
+\DoxyCodeLine{31     \textcolor{comment}{// default constructor}}
+\DoxyCodeLine{32     \mbox{\hyperlink{classigl_1_1_timer}{Timer}}():}
+\DoxyCodeLine{33       stopped(0),}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{35       frequency(),}
+\DoxyCodeLine{36       startCount(),}
+\DoxyCodeLine{37       endCount()}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{39       startCount(0),}
+\DoxyCodeLine{40       endCount(0)}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{42       startCount(),}
+\DoxyCodeLine{43       endCount()}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{45     \{}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{47       QueryPerformanceFrequency(\&frequency);}
+\DoxyCodeLine{48       startCount.QuadPart = 0;}
+\DoxyCodeLine{49       endCount.QuadPart = 0;}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{51       startCount = 0;}
+\DoxyCodeLine{52       endCount = 0;}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{54       startCount.tv\_sec = startCount.tv\_usec = 0;}
+\DoxyCodeLine{55       endCount.tv\_sec = endCount.tv\_usec = 0;}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58       stopped = 0;}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60     \textcolor{comment}{// default destructor}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classigl_1_1_timer}{\string~Timer}}()                     }
+\DoxyCodeLine{62     \{}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64     \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#ifdef \_\_APPLE\_\_}}
+\DoxyCodeLine{67     \textcolor{comment}{//Raw mach\_absolute\_times going in, difference in seconds out}}
+\DoxyCodeLine{68     \textcolor{keywordtype}{double} subtractTimes( uint64\_t endTime, uint64\_t startTime )}
+\DoxyCodeLine{69     \{}
+\DoxyCodeLine{70       uint64\_t difference = endTime -\/ startTime;}
+\DoxyCodeLine{71       \textcolor{keyword}{static} \textcolor{keywordtype}{double} conversion = 0.0;}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73       \textcolor{keywordflow}{if}( conversion == 0.0 )}
+\DoxyCodeLine{74       \{}
+\DoxyCodeLine{75         mach\_timebase\_info\_data\_t info;}
+\DoxyCodeLine{76         kern\_return\_t err = mach\_timebase\_info( \&info );}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78         \textcolor{comment}{//Convert the timebase into seconds}}
+\DoxyCodeLine{79         \textcolor{keywordflow}{if}( err == 0  )}
+\DoxyCodeLine{80           conversion = 1e-\/9 * (double) info.numer / (\textcolor{keywordtype}{double}) info.denom;}
+\DoxyCodeLine{81       \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83       \textcolor{keywordflow}{return} conversion * (double) difference;}
+\DoxyCodeLine{84     \}}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{comment}{// start timer}}
+\DoxyCodeLine{88     \textcolor{keywordtype}{void}   start()               }
+\DoxyCodeLine{89     \{}
+\DoxyCodeLine{90       stopped = 0; \textcolor{comment}{// reset stop flag}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{92       QueryPerformanceCounter(\&startCount);}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{94       startCount = mach\_absolute\_time();}
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{96       gettimeofday(\&startCount, NULL);}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     \textcolor{comment}{// stop the timer}}
+\DoxyCodeLine{102     \textcolor{keywordtype}{void}   stop()                }
+\DoxyCodeLine{103     \{}
+\DoxyCodeLine{104       stopped = 1; \textcolor{comment}{// set timer stopped flag}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{107       QueryPerformanceCounter(\&endCount);}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{109       endCount = mach\_absolute\_time();}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{111       gettimeofday(\&endCount, NULL);}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115     \textcolor{comment}{// get elapsed time in second}}
+\DoxyCodeLine{116     \textcolor{keywordtype}{double} getElapsedTime()      }
+\DoxyCodeLine{117     \{}
+\DoxyCodeLine{118       \textcolor{keywordflow}{return} this-\/>getElapsedTimeInSec();}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120     \textcolor{comment}{// get elapsed time in second (same as getElapsedTime)}}
+\DoxyCodeLine{121     \textcolor{keywordtype}{double} getElapsedTimeInSec() }
+\DoxyCodeLine{122     \{}
+\DoxyCodeLine{123       \textcolor{keywordflow}{return} this-\/>getElapsedTimeInMicroSec() * 0.000001;}
+\DoxyCodeLine{124     \}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126     \textcolor{comment}{// get elapsed time in milli-\/second}}
+\DoxyCodeLine{127     \textcolor{keywordtype}{double} getElapsedTimeInMilliSec()}
+\DoxyCodeLine{128     \{}
+\DoxyCodeLine{129       \textcolor{keywordflow}{return} this-\/>getElapsedTimeInMicroSec() * 0.001;}
+\DoxyCodeLine{130     \}}
+\DoxyCodeLine{131     \textcolor{comment}{// get elapsed time in micro-\/second}}
+\DoxyCodeLine{132     \textcolor{keywordtype}{double} getElapsedTimeInMicroSec()          }
+\DoxyCodeLine{133     \{}
+\DoxyCodeLine{134       \textcolor{keywordtype}{double} startTimeInMicroSec = 0;}
+\DoxyCodeLine{135       \textcolor{keywordtype}{double} endTimeInMicroSec = 0;}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{138       \textcolor{keywordflow}{if}(!stopped)}
+\DoxyCodeLine{139         QueryPerformanceCounter(\&endCount);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141       startTimeInMicroSec = }
+\DoxyCodeLine{142         startCount.QuadPart * (1000000.0 / frequency.QuadPart);}
+\DoxyCodeLine{143       endTimeInMicroSec = endCount.QuadPart * (1000000.0 / frequency.QuadPart);}
+\DoxyCodeLine{144 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{145       \textcolor{keywordflow}{if} (!stopped)}
+\DoxyCodeLine{146         endCount = mach\_absolute\_time();}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148       \textcolor{keywordflow}{return} subtractTimes(endCount,startCount)/1e-\/6;}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{150       \textcolor{keywordflow}{if}(!stopped)}
+\DoxyCodeLine{151         gettimeofday(\&endCount, NULL);}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153       startTimeInMicroSec = }
+\DoxyCodeLine{154         (startCount.tv\_sec * 1000000.0) + startCount.tv\_usec;}
+\DoxyCodeLine{155       endTimeInMicroSec = (endCount.tv\_sec * 1000000.0) + endCount.tv\_usec;}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158       \textcolor{keywordflow}{return} endTimeInMicroSec -\/ startTimeInMicroSec;}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161   \textcolor{keyword}{private}:}
+\DoxyCodeLine{162     \textcolor{comment}{// stop flag }}
+\DoxyCodeLine{163     \textcolor{keywordtype}{int}    stopped;               }
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#ifdef WIN32}}
+\DoxyCodeLine{165     \textcolor{comment}{// ticks per second}}
+\DoxyCodeLine{166     LARGE\_INTEGER frequency;      }
+\DoxyCodeLine{167     LARGE\_INTEGER startCount;     }
+\DoxyCodeLine{168     LARGE\_INTEGER endCount;       }
+\DoxyCodeLine{169 \textcolor{preprocessor}{\#elif \_\_APPLE\_\_}}
+\DoxyCodeLine{170     uint64\_t startCount;           }
+\DoxyCodeLine{171     uint64\_t endCount;             }
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{173     timeval startCount;           }
+\DoxyCodeLine{174     timeval endCount;             }
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{176   \};}
+\DoxyCodeLine{177 \}}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// TIMER\_H\_DEF}}
+\DoxyCodeLine{179 }
+
+\end{DoxyCode}

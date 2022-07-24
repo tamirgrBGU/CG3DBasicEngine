@@ -1,0 +1,87 @@
+\hypertarget{per__edge__normals_8h_source}{}\doxysection{per\+\_\+edge\+\_\+normals.\+h}
+\label{per__edge__normals_8h_source}\index{igl/per\_edge\_normals.h@{igl/per\_edge\_normals.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PER\_EDGE\_NORMALS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PER\_EDGE\_NORMALS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{keyword}{enum} PerEdgeNormalsWeightingType}
+\DoxyCodeLine{15   \{}
+\DoxyCodeLine{16     \textcolor{comment}{// Incident face normals have uniform influence on edge normal}}
+\DoxyCodeLine{17     PER\_EDGE\_NORMALS\_WEIGHTING\_TYPE\_UNIFORM = 0,}
+\DoxyCodeLine{18     \textcolor{comment}{// Incident face normals are averaged weighted by area}}
+\DoxyCodeLine{19     PER\_EDGE\_NORMALS\_WEIGHTING\_TYPE\_AREA = 1,}
+\DoxyCodeLine{20     \textcolor{comment}{// Area weights}}
+\DoxyCodeLine{21     PER\_EDGE\_NORMALS\_WEIGHTING\_TYPE\_DEFAULT = 2,}
+\DoxyCodeLine{22     NUM\_PER\_EDGE\_NORMALS\_WEIGHTING\_TYPE = 3}
+\DoxyCodeLine{23   \};}
+\DoxyCodeLine{24   \textcolor{comment}{// Compute face normals via vertex position list, face list}}
+\DoxyCodeLine{25   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   V  \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{27   \textcolor{comment}{//   F  \#F by 3 eigen Matrix of face (triangle) indices}}
+\DoxyCodeLine{28   \textcolor{comment}{//   weight  weighting type}}
+\DoxyCodeLine{29   \textcolor{comment}{//   FN  \#F by 3 matrix of 3D face normals per face}}
+\DoxyCodeLine{30   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   N  \#2 by 3 matrix of mesh edge 3D normals per row}}
+\DoxyCodeLine{32   \textcolor{comment}{//   E  \#E by 2 matrix of edge indices per row}}
+\DoxyCodeLine{33   \textcolor{comment}{//   EMAP  \#E by 1 matrix of indices from all edges to E}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} per\_edge\_normals(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} PerEdgeNormalsWeightingType weight,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedN> \& N,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{52     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{55     \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} per\_edge\_normals(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} PerEdgeNormalsWeightingType weight,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedN> \& N,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{62     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{63   \textcolor{keyword}{template} <}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{65     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{66     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{67     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{68     \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{69   IGL\_INLINE \textcolor{keywordtype}{void} per\_edge\_normals(}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{72     Eigen::PlainObjectBase<DerivedN> \& N,}
+\DoxyCodeLine{73     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{74     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#  include "{}per\_edge\_normals.cpp"{}}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

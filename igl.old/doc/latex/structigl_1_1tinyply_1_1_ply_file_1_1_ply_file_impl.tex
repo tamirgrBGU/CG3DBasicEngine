@@ -1,0 +1,97 @@
+\hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl}{}\doxysection{igl\+::tinyply\+::Ply\+File\+::Ply\+File\+Impl Struct Reference}
+\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl}\index{igl::tinyply::PlyFile::PlyFileImpl@{igl::tinyply::PlyFile::PlyFileImpl}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_1_1_parsing_helper}{Parsing\+Helper}}
+\item 
+struct \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_1_1_ply_data_cursor}{Ply\+Data\+Cursor}}
+\item 
+struct \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_1_1_property_lookup}{Property\+Lookup}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a3dfcf75b91c81846c73ace8d517b4e56}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a3dfcf75b91c81846c73ace8d517b4e56}} 
+void {\bfseries read} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a24ed59e7c9d1057367990ecf2bd22967}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a24ed59e7c9d1057367990ecf2bd22967}} 
+void {\bfseries write} (std\+::ostream \&os, bool is\+Binary)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a6092821f2eaea609920d5b82ebb3e736}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a6092821f2eaea609920d5b82ebb3e736}} 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_data}{Ply\+Data}} $>$ {\bfseries request\+\_\+properties\+\_\+from\+\_\+element} (const std\+::string \&element\+Key, const std\+::vector$<$ std\+::string $>$ property\+Keys, const uint32\+\_\+t list\+\_\+size\+\_\+hint)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad87da151b2d54a24b0688a29c00adbdb}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad87da151b2d54a24b0688a29c00adbdb}} 
+void {\bfseries add\+\_\+properties\+\_\+to\+\_\+element} (const std\+::string \&element\+Key, const std\+::vector$<$ std\+::string $>$ property\+Keys, const Type type, const size\+\_\+t count, uint8\+\_\+t $\ast$data, const Type list\+Type, const size\+\_\+t list\+Count)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a14c333eeb11b374f3b880fc1716c7ace}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a14c333eeb11b374f3b880fc1716c7ace}} 
+size\+\_\+t {\bfseries read\+\_\+property\+\_\+binary} (const size\+\_\+t \&stride, void $\ast$dest, size\+\_\+t \&dest\+Offset, std\+::istream \&is) noexcept
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae348022d8443a8a5a4b137e7fbf32103}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae348022d8443a8a5a4b137e7fbf32103}} 
+size\+\_\+t {\bfseries read\+\_\+property\+\_\+ascii} (const Type \&t, const size\+\_\+t \&stride, void $\ast$dest, size\+\_\+t \&dest\+Offset, std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ac14e4bdfbcf3513544ae0ef5b0f3f850}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ac14e4bdfbcf3513544ae0ef5b0f3f850}} 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_1_1_property_lookup}{Property\+Lookup}} $>$ $>$ {\bfseries make\+\_\+property\+\_\+lookup\+\_\+table} ()
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae834c0ec95367d1ef4d89d67cf3384a7}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae834c0ec95367d1ef4d89d67cf3384a7}} 
+bool {\bfseries parse\+\_\+header} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a431c5981edd1b4ae93c1709f50faeeb2}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a431c5981edd1b4ae93c1709f50faeeb2}} 
+void {\bfseries parse\+\_\+data} (std\+::istream \&is, bool first\+Pass)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad779c1b788bb6c9b811cbce0ac8e45c3}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad779c1b788bb6c9b811cbce0ac8e45c3}} 
+void {\bfseries read\+\_\+header\+\_\+format} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_aac55464ba9354496614eaebdaa874a70}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_aac55464ba9354496614eaebdaa874a70}} 
+void {\bfseries read\+\_\+header\+\_\+element} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_af03adce7d049383e9f4cb604f9c9b089}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_af03adce7d049383e9f4cb604f9c9b089}} 
+void {\bfseries read\+\_\+header\+\_\+property} (std\+::istream \&is)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a99d4f08b02211369d65365648fbe8325}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a99d4f08b02211369d65365648fbe8325}} 
+void {\bfseries read\+\_\+header\+\_\+text} (std\+::string line, std\+::vector$<$ std\+::string $>$ \&place, int erase=0)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ab6f6bfb4b34500e55a81974e77d389ad}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ab6f6bfb4b34500e55a81974e77d389ad}} 
+void {\bfseries write\+\_\+header} (std\+::ostream \&os) noexcept
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_adf27d681ebd4f9a95adabe1e8c18b8e8}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_adf27d681ebd4f9a95adabe1e8c18b8e8}} 
+void {\bfseries write\+\_\+ascii\+\_\+internal} (std\+::ostream \&os) noexcept
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a1828eb3c5394e5085da681b53f49fd21}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a1828eb3c5394e5085da681b53f49fd21}} 
+void {\bfseries write\+\_\+binary\+\_\+internal} (std\+::ostream \&os) noexcept
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a3315e57fc820f91d4dda40591a1dfdba}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a3315e57fc820f91d4dda40591a1dfdba}} 
+void {\bfseries write\+\_\+property\+\_\+ascii} (Type t, std\+::ostream \&os, uint8\+\_\+t $\ast$src, size\+\_\+t \&src\+Offset)
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad6d3349ae65e749501a8e448d47f8e26}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ad6d3349ae65e749501a8e448d47f8e26}} 
+void {\bfseries write\+\_\+property\+\_\+binary} (std\+::ostream \&os, uint8\+\_\+t $\ast$src, size\+\_\+t \&src\+Offset, const size\+\_\+t \&stride) noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae45e2cdb6e1b918c7314857f4f606392}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ae45e2cdb6e1b918c7314857f4f606392}} 
+std\+::unordered\+\_\+map$<$ uint32\+\_\+t, \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_1_1_parsing_helper}{Parsing\+Helper}} $>$ {\bfseries user\+Data}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a79a90b5bb7c2e7ebc495654ceb94acd0}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a79a90b5bb7c2e7ebc495654ceb94acd0}} 
+bool {\bfseries is\+Binary} = false
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ade70993620139e83ee11dc746d56dfae}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ade70993620139e83ee11dc746d56dfae}} 
+bool {\bfseries is\+Big\+Endian} = false
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a97b10a253102ef50ab11891bd6620360}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a97b10a253102ef50ab11891bd6620360}} 
+std\+::vector$<$ \mbox{\hyperlink{structigl_1_1tinyply_1_1_ply_element}{Ply\+Element}} $>$ {\bfseries elements}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ab02dafd25ee616e7b01881469e2e229f}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_ab02dafd25ee616e7b01881469e2e229f}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries comments}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a09031f04b9b8e1265f64c3322f43edae}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a09031f04b9b8e1265f64c3322f43edae}} 
+std\+::vector$<$ std\+::string $>$ {\bfseries obj\+Info}
+\item 
+\mbox{\Hypertarget{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a104386dcaff6075b4bf7382cb6049d11}\label{structigl_1_1tinyply_1_1_ply_file_1_1_ply_file_impl_a104386dcaff6075b4bf7382cb6049d11}} 
+uint8\+\_\+t {\bfseries scratch} \mbox{[}64\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/tinyply.\+cpp\end{DoxyCompactItemize}

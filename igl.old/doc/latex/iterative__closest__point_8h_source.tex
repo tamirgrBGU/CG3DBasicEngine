@@ -1,0 +1,89 @@
+\hypertarget{iterative__closest__point_8h_source}{}\doxysection{iterative\+\_\+closest\+\_\+point.\+h}
+\label{iterative__closest__point_8h_source}\index{igl/iterative\_closest\_point.h@{igl/iterative\_closest\_point.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ITERATIVE\_CLOSEST\_POINT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ITERATIVE\_CLOSEST\_POINT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}AABB.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Solve for the rigid transformation that places mesh X onto mesh Y using the}}
+\DoxyCodeLine{17   \textcolor{comment}{// iterative closest point method. In particular, optimize:}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// min      ∫\_X inf ‖x*R+t -\/ y‖² dx}}
+\DoxyCodeLine{20   \textcolor{comment}{// R∈SO(3)      y∈Y}}
+\DoxyCodeLine{21   \textcolor{comment}{// t∈R³}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Typically optimization strategies include using Gauss Newton}}
+\DoxyCodeLine{24   \textcolor{comment}{// ("{}point-\/to-\/plane"{} linearization) and stochastic descent (sparse random}}
+\DoxyCodeLine{25   \textcolor{comment}{// sampling each iteration).}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   VX  \#VX by 3 list of mesh X vertices}}
+\DoxyCodeLine{29   \textcolor{comment}{//   FX  \#FX by 3 list of mesh X triangle indices into rows of VX}}
+\DoxyCodeLine{30   \textcolor{comment}{//   VY  \#VY by 3 list of mesh Y vertices}}
+\DoxyCodeLine{31   \textcolor{comment}{//   FY  \#FY by 3 list of mesh Y triangle indices into rows of VY}}
+\DoxyCodeLine{32   \textcolor{comment}{//   num\_samples  number of random samples to use (larger -\/-\/> more accurate,}}
+\DoxyCodeLine{33   \textcolor{comment}{//     but also more suceptible to sticking to local minimum)}}
+\DoxyCodeLine{34   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   R  3x3 rotation matrix so that (VX*R+t,FX) \string~\string~ (VY,FY)}}
+\DoxyCodeLine{36   \textcolor{comment}{//   t  1x3 translation row vector}}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedVX,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedFX,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedVY,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedFY,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} Derivedt}
+\DoxyCodeLine{44     >}
+\DoxyCodeLine{45   IGL\_INLINE \textcolor{keywordtype}{void} iterative\_closest\_point(}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVX> \& VX,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFX> \& FX,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVY> \& VY,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFY> \& FY,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_samples,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_iters,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{53     Eigen::PlainObjectBase<Derivedt> \& t);}
+\DoxyCodeLine{54   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{55   \textcolor{comment}{//   Ytree  precomputed AABB tree for accelerating closest point queries}}
+\DoxyCodeLine{56   \textcolor{comment}{//   NY  \#FY by 3 list of precomputed unit face normals}}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedVX,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedFX,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedVY,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedFY,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} DerivedNY,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} Derivedt}
+\DoxyCodeLine{65     >}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keywordtype}{void} iterative\_closest\_point(}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVX> \& VX,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFX> \& FX,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVY> \& VY,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFY> \& FY,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl::AABB<DerivedVY,3>}} \& Ytree, }
+\DoxyCodeLine{72     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedNY> \& NY,}
+\DoxyCodeLine{73     \textcolor{keyword}{const} \textcolor{keywordtype}{int} num\_samples,}
+\DoxyCodeLine{74     \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_iters,}
+\DoxyCodeLine{75     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{76     Eigen::PlainObjectBase<Derivedt> \& t);}
+\DoxyCodeLine{77 \}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#  include "{}iterative\_closest\_point.cpp"{}}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

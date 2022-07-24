@@ -1,0 +1,166 @@
+\hypertarget{collapse__edge_8h_source}{}\doxysection{collapse\+\_\+edge.\+h}
+\label{collapse__edge_8h_source}\index{igl/collapse\_edge.h@{igl/collapse\_edge.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COLLAPSE\_EDGE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COLLAPSE\_EDGE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}min\_heap.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}decimate\_callback\_types.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Assumes (V,F) is a closed manifold mesh (except for previously collapsed}}
+\DoxyCodeLine{19   \textcolor{comment}{// faces which should be set to: }}
+\DoxyCodeLine{20   \textcolor{comment}{// [IGL\_COLLAPSE\_EDGE\_NULL IGL\_COLLAPSE\_EDGE\_NULL IGL\_COLLAPSE\_EDGE\_NULL].}}
+\DoxyCodeLine{21   \textcolor{comment}{// Collapses exactly two faces and exactly 3 edges from E (e and one side of}}
+\DoxyCodeLine{22   \textcolor{comment}{// each face gets collapsed to the other). This is implemented in a way that}}
+\DoxyCodeLine{23   \textcolor{comment}{// it can be repeatedly called until satisfaction and then the garbage in F}}
+\DoxyCodeLine{24   \textcolor{comment}{// can be collected by removing NULL faces.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   e  index into E of edge to try to collapse. E(e,:) = [s d] or [d s] so}}
+\DoxyCodeLine{28   \textcolor{comment}{//     that s<d, then d is collapsed to s.}}
+\DoxyCodeLine{30 \textcolor{comment}{}  \textcolor{comment}{// Inputs/Outputs:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   V  \#V by dim list of vertex positions, lesser index of E(e,:) will be set}}
+\DoxyCodeLine{32   \textcolor{comment}{//     to midpoint of edge.}}
+\DoxyCodeLine{33   \textcolor{comment}{//   F  \#F by 3 list of face indices into V.}}
+\DoxyCodeLine{34   \textcolor{comment}{//   E  \#E by 2 list of edge indices into V.}}
+\DoxyCodeLine{35   \textcolor{comment}{//   EMAP \#F*3 list of indices into E, mapping each directed edge to unique}}
+\DoxyCodeLine{36   \textcolor{comment}{//     unique edge in E}}
+\DoxyCodeLine{37   \textcolor{comment}{//   EF  \#E by 2 list of edge flaps, EF(e,0)=f means e=(i-\/-\/>j) is the edge of}}
+\DoxyCodeLine{38   \textcolor{comment}{//     F(f,:) opposite the vth corner, where EI(e,0)=v. Similarly EF(e,1) "{}}}
+\DoxyCodeLine{39   \textcolor{comment}{//     e=(j-\/>i)}}
+\DoxyCodeLine{40   \textcolor{comment}{//   EI  \#E by 2 list of edge flap corners (see above).}}
+\DoxyCodeLine{41   \textcolor{comment}{//   e1  index into E of edge collpased on left}}
+\DoxyCodeLine{42   \textcolor{comment}{//   e2  index into E of edge collpased on right}}
+\DoxyCodeLine{43   \textcolor{comment}{//   f1  index into F of face collpased on left}}
+\DoxyCodeLine{44   \textcolor{comment}{//   f2  index into F of face collpased on right}}
+\DoxyCodeLine{45   \textcolor{comment}{// Returns true if edge was collapsed}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{  \#define IGL\_COLLAPSE\_EDGE\_NULL 0}}
+\DoxyCodeLine{47   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{48     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::RowVectorXd \& p,}
+\DoxyCodeLine{50     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{51     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{52     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{53     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{54     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{55     Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{56     \textcolor{keywordtype}{int} \& e1,}
+\DoxyCodeLine{57     \textcolor{keywordtype}{int} \& e2,}
+\DoxyCodeLine{58     \textcolor{keywordtype}{int} \& f1,}
+\DoxyCodeLine{59     \textcolor{keywordtype}{int} \& f2);}
+\DoxyCodeLine{60   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{61   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{62     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Eigen::RowVectorXd \& p,}
+\DoxyCodeLine{64     \textcolor{comment}{/*const*/} std::vector<int> \& Nsv,}
+\DoxyCodeLine{65     \textcolor{keyword}{const} std::vector<int> \& Nsf,}
+\DoxyCodeLine{66     \textcolor{comment}{/*const*/} std::vector<int> \& Ndv,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} std::vector<int> \& Ndf,}
+\DoxyCodeLine{68     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{69     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{70     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{71     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{72     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{73     Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{74     \textcolor{keywordtype}{int} \& e1,}
+\DoxyCodeLine{75     \textcolor{keywordtype}{int} \& e2,}
+\DoxyCodeLine{76     \textcolor{keywordtype}{int} \& f1,}
+\DoxyCodeLine{77     \textcolor{keywordtype}{int} \& f2);}
+\DoxyCodeLine{78   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{79     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{80     \textcolor{keyword}{const} Eigen::RowVectorXd \& p,}
+\DoxyCodeLine{81     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{82     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{83     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{84     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{85     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{86     Eigen::MatrixXi \& EI);}
+\DoxyCodeLine{87   \textcolor{comment}{// Collapse least-\/cost edge from a priority queue and update queue }}
+\DoxyCodeLine{88   \textcolor{comment}{//}}
+\DoxyCodeLine{89   \textcolor{comment}{// Inputs/Outputs:}}
+\DoxyCodeLine{90   \textcolor{comment}{//   cost\_and\_placement  function computing cost of collapsing an edge and 3d}}
+\DoxyCodeLine{91   \textcolor{comment}{//     position where it should be placed:}}
+\DoxyCodeLine{92   \textcolor{comment}{//     cost\_and\_placement(V,F,E,EMAP,EF,EI,cost,placement);}}
+\DoxyCodeLine{93   \textcolor{comment}{//     **If the edges is collapsed** then this function will be called on all}}
+\DoxyCodeLine{94   \textcolor{comment}{//     edges of all faces previously incident on the endpoints of the}}
+\DoxyCodeLine{95   \textcolor{comment}{//     collapsed edge.}}
+\DoxyCodeLine{96   \textcolor{comment}{//   Q  queue containing pairs of costs and edge indices and insertion "{}time"{}}}
+\DoxyCodeLine{97   \textcolor{comment}{//   EQ  \#E list of "{}time"{} of last time pushed into Q}}
+\DoxyCodeLine{98   \textcolor{comment}{//   C  \#E by dim list of stored placements}}
+\DoxyCodeLine{99   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{100     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{101     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{102     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{103     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{104     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{105     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{106     Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{107     igl::min\_heap< std::tuple<double,int,int> > \& Q,}
+\DoxyCodeLine{108     Eigen::VectorXi \& EQ,}
+\DoxyCodeLine{109     Eigen::MatrixXd \& C);}
+\DoxyCodeLine{110   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{111   \textcolor{comment}{//   pre\_collapse  callback called with index of edge whose collapse is about}}
+\DoxyCodeLine{112   \textcolor{comment}{//     to be attempted. This function should return whether to **proceed**}}
+\DoxyCodeLine{113   \textcolor{comment}{//     with the collapse: returning true means "{}yes, try to collapse"{},}}
+\DoxyCodeLine{114   \textcolor{comment}{//     returning false means "{}No, consider this edge 'uncollapsable', behave}}
+\DoxyCodeLine{115   \textcolor{comment}{//     as if collapse\_edge(e) returned false.}}
+\DoxyCodeLine{116   \textcolor{comment}{//   post\_collapse  callback called with index of edge whose collapse was}}
+\DoxyCodeLine{117   \textcolor{comment}{//     just attempted and a flag revealing whether this was successful.}}
+\DoxyCodeLine{118   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{119     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{120     \textcolor{keyword}{const} decimate\_pre\_collapse\_callback       \& pre\_collapse,}
+\DoxyCodeLine{121     \textcolor{keyword}{const} decimate\_post\_collapse\_callback      \& post\_collapse,}
+\DoxyCodeLine{122     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{123     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{124     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{125     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{126     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{127     Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{128     igl::min\_heap< std::tuple<double,int,int> > \& Q,}
+\DoxyCodeLine{129     Eigen::VectorXi \& EQ,}
+\DoxyCodeLine{130     Eigen::MatrixXd \& C);}
+\DoxyCodeLine{131   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{132   \textcolor{comment}{//   e  index into E of attempted collapsed edge. Set to -\/1 if Q is empty or}}
+\DoxyCodeLine{133   \textcolor{comment}{//     contains only infinite cost edges.}}
+\DoxyCodeLine{134   \textcolor{comment}{//   e1  index into E of edge collpased on left.}}
+\DoxyCodeLine{135   \textcolor{comment}{//   e2  index into E of edge collpased on right.}}
+\DoxyCodeLine{136   \textcolor{comment}{//   f1  index into F of face collpased on left.}}
+\DoxyCodeLine{137   \textcolor{comment}{//   f2  index into F of face collpased on right.}}
+\DoxyCodeLine{138   IGL\_INLINE \textcolor{keywordtype}{bool} collapse\_edge(}
+\DoxyCodeLine{139     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{140     \textcolor{keyword}{const} decimate\_pre\_collapse\_callback       \& pre\_collapse,}
+\DoxyCodeLine{141     \textcolor{keyword}{const} decimate\_post\_collapse\_callback      \& post\_collapse,}
+\DoxyCodeLine{142     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{143     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{144     Eigen::MatrixXi \& E,}
+\DoxyCodeLine{145     Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{146     Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{147     Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{148     igl::min\_heap< std::tuple<double,int,int> > \& Q,}
+\DoxyCodeLine{149     Eigen::VectorXi \& EQ,}
+\DoxyCodeLine{150     Eigen::MatrixXd \& C,}
+\DoxyCodeLine{151     \textcolor{keywordtype}{int} \& e,}
+\DoxyCodeLine{152     \textcolor{keywordtype}{int} \& e1,}
+\DoxyCodeLine{153     \textcolor{keywordtype}{int} \& e2,}
+\DoxyCodeLine{154     \textcolor{keywordtype}{int} \& f1,}
+\DoxyCodeLine{155     \textcolor{keywordtype}{int} \& f2);}
+\DoxyCodeLine{156 \}}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{159 \textcolor{preprocessor}{\#  include "{}collapse\_edge.cpp"{}}}
+\DoxyCodeLine{160 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

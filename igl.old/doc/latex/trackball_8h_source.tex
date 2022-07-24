@@ -1,0 +1,86 @@
+\hypertarget{trackball_8h_source}{}\doxysection{trackball.\+h}
+\label{trackball_8h_source}\index{igl/trackball.h@{igl/trackball.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_TRACKBALL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_TRACKBALL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Applies a trackball drag to identity}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   w  width of the trackball context}}
+\DoxyCodeLine{19   \textcolor{comment}{//   h  height of the trackball context}}
+\DoxyCodeLine{20   \textcolor{comment}{//   speed\_factor  controls how fast the trackball feels, 1 is normal}}
+\DoxyCodeLine{21   \textcolor{comment}{//   down\_mouse\_x  x position of mouse down}}
+\DoxyCodeLine{22   \textcolor{comment}{//   down\_mouse\_y  y position of mouse down}}
+\DoxyCodeLine{23   \textcolor{comment}{//   mouse\_x  current x position of mouse}}
+\DoxyCodeLine{24   \textcolor{comment}{//   mouse\_y  current y position of mouse}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   quat  the resulting rotation (as quaternion)}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Q\_type>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} trackball(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} \textcolor{keywordtype}{double} w,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} \textcolor{keywordtype}{double} h,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Q\_type speed\_factor,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_x,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_y,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_x,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_y,}
+\DoxyCodeLine{36     Q\_type * quat);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{comment}{// Applies a trackball drag to a given rotation}}
+\DoxyCodeLine{39   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{40   \textcolor{comment}{//   w  width of the trackball context}}
+\DoxyCodeLine{41   \textcolor{comment}{//   h  height of the trackball context}}
+\DoxyCodeLine{42   \textcolor{comment}{//   speed\_factor  controls how fast the trackball feels, 1 is normal}}
+\DoxyCodeLine{43   \textcolor{comment}{//   down\_quat  rotation at mouse down, i.e. the rotation we're applying the}}
+\DoxyCodeLine{44   \textcolor{comment}{//     trackball motion to (as quaternion)}}
+\DoxyCodeLine{45   \textcolor{comment}{//   down\_mouse\_x  x position of mouse down}}
+\DoxyCodeLine{46   \textcolor{comment}{//   down\_mouse\_y  y position of mouse down}}
+\DoxyCodeLine{47   \textcolor{comment}{//   mouse\_x  current x position of mouse}}
+\DoxyCodeLine{48   \textcolor{comment}{//   mouse\_y  current y position of mouse}}
+\DoxyCodeLine{49   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{50   \textcolor{comment}{//   quat  the resulting rotation (as quaternion)}}
+\DoxyCodeLine{51   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Q\_type>}
+\DoxyCodeLine{52   IGL\_INLINE \textcolor{keywordtype}{void} trackball(}
+\DoxyCodeLine{53     \textcolor{keyword}{const} \textcolor{keywordtype}{double} w,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} \textcolor{keywordtype}{double} h,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Q\_type speed\_factor,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Q\_type * down\_quat,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_x,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_y,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_x,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_y,}
+\DoxyCodeLine{61     Q\_type * quat);}
+\DoxyCodeLine{62   \textcolor{comment}{// Eigen wrapper.}}
+\DoxyCodeLine{63   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalardown\_quat, \textcolor{keyword}{typename} Scalarquat>}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} trackball(}
+\DoxyCodeLine{65     \textcolor{keyword}{const} \textcolor{keywordtype}{double} w,}
+\DoxyCodeLine{66     \textcolor{keyword}{const} \textcolor{keywordtype}{double} h,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} \textcolor{keywordtype}{double} speed\_factor,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::Quaternion<Scalardown\_quat> \& down\_quat,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_x,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} \textcolor{keywordtype}{double} down\_mouse\_y,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_x,}
+\DoxyCodeLine{72     \textcolor{keyword}{const} \textcolor{keywordtype}{double} mouse\_y,}
+\DoxyCodeLine{73     Eigen::Quaternion<Scalarquat> \& quat);}
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#  include "{}trackball.cpp"{}}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

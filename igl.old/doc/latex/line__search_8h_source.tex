@@ -1,0 +1,48 @@
+\hypertarget{line__search_8h_source}{}\doxysection{line\+\_\+search.\+h}
+\label{line__search_8h_source}\index{igl/line\_search.h@{igl/line\_search.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Michael Rabinovich}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_LINE\_SEARCH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_LINE\_SEARCH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Implement a bisection linesearch to minimize a mesh-\/based energy on vertices given at 'x' at a search direction 'd',}}
+\DoxyCodeLine{17   \textcolor{comment}{// with initial step size. Stops when a point with lower energy is found, or after maximal iterations have been reached.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   x                        \#X by dim list of variables}}
+\DoxyCodeLine{21   \textcolor{comment}{//   d                        \#X by dim list of a given search direction}}
+\DoxyCodeLine{22   \textcolor{comment}{//   i\_step\_size              initial step size}}
+\DoxyCodeLine{23   \textcolor{comment}{//   energy                   A function to compute the mesh-\/based energy (return an energy that is bigger than 0)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   cur\_energy(OPTIONAL)     The energy at the given point. Helps save redundant computations.}}
+\DoxyCodeLine{25   \textcolor{comment}{//                            This is optional. If not specified, the function will compute it.}}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//        x                       \#X by dim list of variables at the new location}}
+\DoxyCodeLine{28   \textcolor{comment}{// Returns the energy at the new point 'x'}}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{double} line\_search(}
+\DoxyCodeLine{30     Eigen::MatrixXd\& x,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixXd\& d,}
+\DoxyCodeLine{32     \textcolor{keywordtype}{double} i\_step\_size,}
+\DoxyCodeLine{33     std::function<\textcolor{keywordtype}{double}(Eigen::MatrixXd\&)> energy,}
+\DoxyCodeLine{34     \textcolor{keywordtype}{double} cur\_energy = -\/1);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  include "{}line\_search.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

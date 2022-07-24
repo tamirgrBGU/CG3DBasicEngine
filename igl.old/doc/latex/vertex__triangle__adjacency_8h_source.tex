@@ -1,0 +1,77 @@
+\hypertarget{vertex__triangle__adjacency_8h_source}{}\doxysection{vertex\+\_\+triangle\+\_\+adjacency.\+h}
+\label{vertex__triangle__adjacency_8h_source}\index{igl/vertex\_triangle\_adjacency.h@{igl/vertex\_triangle\_adjacency.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VERTEX\_TRIANGLE\_ADJACENCY\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VERTEX\_TRIANGLE\_ADJACENCY\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// vertex\_face\_adjacency constructs the vertex-\/face topology of a given mesh (V,F)}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   //V  \#V by 3 list of vertex coordinates}}
+\DoxyCodeLine{21   \textcolor{comment}{//   n  number of vertices \#V (e.g. `F.maxCoeff()+1` or `V.rows()`)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   F  \#F by dim list of mesh faces (must be triangles)}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   VF  \#V list of lists of incident faces (adjacency list)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   VI  \#V list of lists of index of incidence within incident faces listed}}
+\DoxyCodeLine{26   \textcolor{comment}{//     in VF}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// See also: edges, cotmatrix, diag, vv}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// Known bugs: this should not take V as an input parameter.}}
+\DoxyCodeLine{31   \textcolor{comment}{// Known bugs/features: if a facet is combinatorially degenerate then faces}}
+\DoxyCodeLine{32   \textcolor{comment}{// will appear multiple times in VF and correspondingly in VFI (j appears}}
+\DoxyCodeLine{33   \textcolor{comment}{// twice in F.row(i) then i will appear twice in VF[j])}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} VFType, \textcolor{keyword}{typename} VFiType>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_triangle\_adjacency(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedF::Scalar n,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{38     std::vector<std::vector<VFType> >\& VF,}
+\DoxyCodeLine{39     std::vector<std::vector<VFiType> >\& VFi);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} IndexType>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_triangle\_adjacency(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{44     std::vector<std::vector<IndexType> >\& VF,}
+\DoxyCodeLine{45     std::vector<std::vector<IndexType> >\& VFi);}
+\DoxyCodeLine{46   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{47   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into some vertex list V}}
+\DoxyCodeLine{48   \textcolor{comment}{//   n  number of vertices, \#V (e.g., F.maxCoeff()+1)}}
+\DoxyCodeLine{49   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{50   \textcolor{comment}{//   VF  3*\#F list  List of faces indice on each vertex, so that VF(NI(i)+j) =}}
+\DoxyCodeLine{51   \textcolor{comment}{//     f, means that face f is the jth face (in no particular order) incident}}
+\DoxyCodeLine{52   \textcolor{comment}{//     on vertex i.}}
+\DoxyCodeLine{53   \textcolor{comment}{//   NI  \#V+1 list  cumulative sum of vertex-\/triangle degrees with a}}
+\DoxyCodeLine{54   \textcolor{comment}{//     preceeding zero. "{}How many faces"{} have been seen before visiting this}}
+\DoxyCodeLine{55   \textcolor{comment}{//     vertex and its incident faces.}}
+\DoxyCodeLine{56   \textcolor{keyword}{template} <}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedVF,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedNI>}
+\DoxyCodeLine{60   IGL\_INLINE \textcolor{keywordtype}{void} vertex\_triangle\_adjacency(}
+\DoxyCodeLine{61     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{62     \textcolor{keyword}{const} \textcolor{keywordtype}{int} n,}
+\DoxyCodeLine{63     Eigen::PlainObjectBase<DerivedVF> \& VF,}
+\DoxyCodeLine{64     Eigen::PlainObjectBase<DerivedNI> \& NI);}
+\DoxyCodeLine{65 \}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#  include "{}vertex\_triangle\_adjacency.cpp"{}}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

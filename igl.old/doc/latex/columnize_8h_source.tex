@@ -1,0 +1,47 @@
+\hypertarget{columnize_8h_source}{}\doxysection{columnize.\+h}
+\label{columnize_8h_source}\index{igl/columnize.h@{igl/columnize.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COLUMNIZE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COLUMNIZE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// "{}Columnize"{} a stack of block matrices. If A = [A1,A2,A3,...,Ak] with each A*}}
+\DoxyCodeLine{16   \textcolor{comment}{// an m by n block then this produces the column vector whose entries are }}
+\DoxyCodeLine{17   \textcolor{comment}{// B(j*m*k+i*k+b) = A(i,b*n+j);}}
+\DoxyCodeLine{18   \textcolor{comment}{// or if A = [A1;A2;...;Ak] then}}
+\DoxyCodeLine{19   \textcolor{comment}{// B(j*m*k+i*k+b) = A(i+b*m,j);}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   T  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   A  m*k by n (dim: 1) or m by n*k (dim: 2) eigen Matrix of type T values}}
+\DoxyCodeLine{25   \textcolor{comment}{//   k  number of blocks}}
+\DoxyCodeLine{26   \textcolor{comment}{//   dim  dimension in which blocks are stacked}}
+\DoxyCodeLine{27   \textcolor{comment}{// Output}}
+\DoxyCodeLine{28   \textcolor{comment}{//   B  m*n*k eigen vector of type T values,}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// See also: transpose\_blocks}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} columnize(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedA> \& A,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedB> \& B);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  include "{}columnize.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

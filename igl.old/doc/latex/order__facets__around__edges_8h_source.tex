@@ -1,0 +1,113 @@
+\hypertarget{order__facets__around__edges_8h_source}{}\doxysection{order\+\_\+facets\+\_\+around\+\_\+edges.\+h}
+\label{order__facets__around__edges_8h_source}\index{igl/copyleft/cgal/order\_facets\_around\_edges.h@{igl/copyleft/cgal/order\_facets\_around\_edges.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_ORDER\_FACETS\_AROUND\_EDGES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_ORDER\_FACETS\_AROUND\_EDGES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21       \textcolor{comment}{// For each undirected edge, sort its adjacent faces.  Assuming the}}
+\DoxyCodeLine{22       \textcolor{comment}{// undirected edge is (s, d).  Sort the adjacent faces clockwise around the}}
+\DoxyCodeLine{23       \textcolor{comment}{// axis (d -\/ s), i.e. left-\/hand rule.  An adjacent face is consistently}}
+\DoxyCodeLine{24       \textcolor{comment}{// oriented if it contains (d, s) as a directed edge.}}
+\DoxyCodeLine{25       \textcolor{comment}{//}}
+\DoxyCodeLine{26       \textcolor{comment}{// For overlapping faces, break the tie using signed face index, smaller}}
+\DoxyCodeLine{27       \textcolor{comment}{// signed index comes before the larger signed index.  Signed index is}}
+\DoxyCodeLine{28       \textcolor{comment}{// computed as (consistent? 1:-\/1) * index.}}
+\DoxyCodeLine{29       \textcolor{comment}{//}}
+\DoxyCodeLine{30       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{31       \textcolor{comment}{//   V    \#V by 3 list of vertices.}}
+\DoxyCodeLine{32       \textcolor{comment}{//   F    \#F by 3 list of faces}}
+\DoxyCodeLine{33       \textcolor{comment}{//   N    \#F by 3 list of face normals.}}
+\DoxyCodeLine{34       \textcolor{comment}{//  uE    \#uE by 2 list of vertex\_indices, represents undirected edges.}}
+\DoxyCodeLine{35       \textcolor{comment}{//  uE2E  \#uE list of lists that maps uE to E. (a one-\/to-\/many map)}}
+\DoxyCodeLine{36       \textcolor{comment}{//}}
+\DoxyCodeLine{37       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{38       \textcolor{comment}{//   uE2oE \#uE list of lists that maps uE to an ordered list of E. (a}}
+\DoxyCodeLine{39       \textcolor{comment}{//         one-\/to-\/many map)}}
+\DoxyCodeLine{40       \textcolor{comment}{//   uE2C  \#uE list of lists of bools indicates whether each face in}}
+\DoxyCodeLine{41       \textcolor{comment}{//         uE2oE[i] is consistently orientated as the ordering.}}
+\DoxyCodeLine{42       \textcolor{comment}{//}}
+\DoxyCodeLine{43       \textcolor{keyword}{template}<}
+\DoxyCodeLine{44           \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{45           \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{46           \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{47           \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{48           \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{49           \textcolor{keyword}{typename} uE2oEType,}
+\DoxyCodeLine{50           \textcolor{keyword}{typename} uE2CType >}
+\DoxyCodeLine{51       IGL\_INLINE}
+\DoxyCodeLine{52       \textcolor{keyword}{typename} std::enable\_if<!std::is\_same<\textcolor{keyword}{typename} DerivedV::Scalar,}
+\DoxyCodeLine{53       \textcolor{keyword}{typename} CGAL::Exact\_predicates\_exact\_constructions\_kernel::FT>::value, \textcolor{keywordtype}{void}>::type}
+\DoxyCodeLine{54       order\_facets\_around\_edges(}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{57         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedN>\& N,}
+\DoxyCodeLine{58         \textcolor{keyword}{const} Eigen::PlainObjectBase<DeriveduE>\& uE,}
+\DoxyCodeLine{59         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{60         std::vector<std::vector<uE2oEType> >\& uE2oE,}
+\DoxyCodeLine{61         std::vector<std::vector<uE2CType > >\& uE2C );}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63       \textcolor{keyword}{template}<}
+\DoxyCodeLine{64           \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{65           \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{66           \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{67           \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{68           \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{69           \textcolor{keyword}{typename} uE2oEType,}
+\DoxyCodeLine{70           \textcolor{keyword}{typename} uE2CType >}
+\DoxyCodeLine{71       IGL\_INLINE }
+\DoxyCodeLine{72       \textcolor{keyword}{typename} std::enable\_if<std::is\_same<\textcolor{keyword}{typename} DerivedV::Scalar,}
+\DoxyCodeLine{73       \textcolor{keyword}{typename} CGAL::Exact\_predicates\_exact\_constructions\_kernel::FT>::value, \textcolor{keywordtype}{void}>::type}
+\DoxyCodeLine{74       order\_facets\_around\_edges(}
+\DoxyCodeLine{75         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{76         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{77         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedN>\& N,}
+\DoxyCodeLine{78         \textcolor{keyword}{const} Eigen::PlainObjectBase<DeriveduE>\& uE,}
+\DoxyCodeLine{79         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{80         std::vector<std::vector<uE2oEType> >\& uE2oE,}
+\DoxyCodeLine{81         std::vector<std::vector<uE2CType > >\& uE2C );}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83       \textcolor{comment}{// Order faces around each edge. Only exact predicate is used in the algorithm.}}
+\DoxyCodeLine{84       \textcolor{comment}{// Normal is not needed.}}
+\DoxyCodeLine{85       \textcolor{keyword}{template}<}
+\DoxyCodeLine{86           \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{87           \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{88           \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{89           \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{90           \textcolor{keyword}{typename} uE2oEType,}
+\DoxyCodeLine{91           \textcolor{keyword}{typename} uE2CType >}
+\DoxyCodeLine{92       IGL\_INLINE \textcolor{keywordtype}{void} order\_facets\_around\_edges(}
+\DoxyCodeLine{93         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{94         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{95         \textcolor{keyword}{const} Eigen::PlainObjectBase<DeriveduE>\& uE,}
+\DoxyCodeLine{96         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{97         std::vector<std::vector<uE2oEType> >\& uE2oE,}
+\DoxyCodeLine{98         std::vector<std::vector<uE2CType > >\& uE2C );}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101 \}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#include "{}order\_facets\_around\_edges.cpp"{}}}
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

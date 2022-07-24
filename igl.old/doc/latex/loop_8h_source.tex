@@ -1,0 +1,69 @@
+\hypertarget{loop_8h_source}{}\doxysection{loop.\+h}
+\label{loop_8h_source}\index{igl/loop.h@{igl/loop.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Oded Stein <oded.stein@columbia.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_LOOP\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_LOOP\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// LOOP Given the triangle mesh [V, F], where n\_verts = V.rows(), computes}}
+\DoxyCodeLine{19   \textcolor{comment}{// newV and a sparse matrix S s.t. [newV, newF] is the subdivided mesh where}}
+\DoxyCodeLine{20   \textcolor{comment}{// newV = S*V.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   n\_verts  an integer (number of mesh vertices)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  an m by 3 matrix of integers of triangle faces}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   S  a sparse matrix (will become the subdivision matrix)}}
+\DoxyCodeLine{27   \textcolor{comment}{//   newF  a matrix containing the new faces}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} SType,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedNF>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} loop(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{int} n\_verts,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{35     Eigen::SparseMatrix<SType>\& S,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedNF> \& NF);}
+\DoxyCodeLine{37   \textcolor{comment}{// LOOP Given the triangle mesh [V, F], computes number\_of\_subdivs steps of loop subdivision and outputs the new mesh [newV, newF]}}
+\DoxyCodeLine{38   \textcolor{comment}{//}}
+\DoxyCodeLine{39   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{40   \textcolor{comment}{//  V an n by 3 matrix of vertices}}
+\DoxyCodeLine{41   \textcolor{comment}{//  F an m by 3 matrix of integers of triangle faces}}
+\DoxyCodeLine{42   \textcolor{comment}{//  number\_of\_subdivs an integer that specifies how many subdivision steps to do}}
+\DoxyCodeLine{43   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{44   \textcolor{comment}{//  NV a matrix containing the new vertices}}
+\DoxyCodeLine{45   \textcolor{comment}{//  NF a matrix containing the new faces}}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{49     \textcolor{keyword}{typename} DerivedNV,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} DerivedNF>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keywordtype}{void} loop(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{54     Eigen::PlainObjectBase<DerivedNV>\& NV,}
+\DoxyCodeLine{55     Eigen::PlainObjectBase<DerivedNF>\& NF,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} \textcolor{keywordtype}{int} number\_of\_subdivs = 1);}
+\DoxyCodeLine{57 \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#  include "{}loop.cpp"{}}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

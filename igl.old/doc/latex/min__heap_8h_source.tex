@@ -1,0 +1,26 @@
+\hypertarget{min__heap_8h_source}{}\doxysection{min\+\_\+heap.\+h}
+\label{min__heap_8h_source}\index{igl/min\_heap.h@{igl/min\_heap.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MIN\_HEAP\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MIN\_HEAP\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <queue>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Templated min heap (reverses sort order of std::priority\_queue)}}
+\DoxyCodeLine{16   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{using }min\_heap = }
+\DoxyCodeLine{17     std::priority\_queue< T, std::vector<T >, std::greater<T > >;}
+\DoxyCodeLine{18 \}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{20 }
+
+\end{DoxyCode}

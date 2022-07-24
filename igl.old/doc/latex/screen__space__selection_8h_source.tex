@@ -1,0 +1,111 @@
+\hypertarget{screen__space__selection_8h_source}{}\doxysection{screen\+\_\+space\+\_\+selection.\+h}
+\label{screen__space__selection_8h_source}\index{igl/screen\_space\_selection.h@{igl/screen\_space\_selection.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_SCREEN\_SPACE\_SELECTION\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_SCREEN\_SPACE\_SELECTION\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}igl/igl\_inline.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 \textcolor{comment}{// Forward declaration}}
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl \{ \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keywordtype}{int} DIM> \textcolor{keyword}{class }AABB; \}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \textcolor{comment}{// Given a mesh, a camera  determine which points are inside of a given 2D}}
+\DoxyCodeLine{13   \textcolor{comment}{// screen space polygon **culling points based on self-\/occlusion.**}}
+\DoxyCodeLine{14   \textcolor{comment}{//}}
+\DoxyCodeLine{15   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{16   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{17   \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into rows of V}}
+\DoxyCodeLine{18   \textcolor{comment}{//   tree  precomputed bounding volume heirarchy}}
+\DoxyCodeLine{19   \textcolor{comment}{//   model  4 by 4 camera model-\/view matrix}}
+\DoxyCodeLine{20   \textcolor{comment}{//   proj  4 by 4 camera projection matrix (perspective or orthoraphic)}}
+\DoxyCodeLine{21   \textcolor{comment}{//   viewport  4-\/vector containing camera viewport}}
+\DoxyCodeLine{22   \textcolor{comment}{//   L  \#L by 2 list of 2D polygon vertices (in order)}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   W  \#V by 1 list of winding numbers (|W|>0.5 indicates inside)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   and\_visible  \#V by 1 list of visibility values (only correct for vertices}}
+\DoxyCodeLine{26   \textcolor{comment}{//     with |W|>0.5)}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedO,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} Ltype,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} Deriveda>}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} screen\_space\_selection(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{igl::AABB<DerivedV, 3>}} \& tree,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM>\& model,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& proj,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedO>\& viewport,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} std::vector<Eigen::Matrix<Ltype,1,2> > \& L,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedW> \& W,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<Deriveda> \& and\_visible);}
+\DoxyCodeLine{46   \textcolor{comment}{// Given a mesh, a camera  determine which points are inside of a given 2D}}
+\DoxyCodeLine{47   \textcolor{comment}{// screen space polygon}}
+\DoxyCodeLine{48   \textcolor{comment}{//}}
+\DoxyCodeLine{49   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{50   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{51   \textcolor{comment}{//   model  4 by 4 camera model-\/view matrix}}
+\DoxyCodeLine{52   \textcolor{comment}{//   proj  4 by 4 camera projection matrix (perspective or orthoraphic)}}
+\DoxyCodeLine{53   \textcolor{comment}{//   viewport  4-\/vector containing camera viewport}}
+\DoxyCodeLine{54   \textcolor{comment}{//   L  \#L by 2 list of 2D polygon vertices (in order)}}
+\DoxyCodeLine{55   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{56   \textcolor{comment}{//   W  \#V by 1 list of winding numbers (|W|>0.5 indicates inside)}}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedO,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} Ltype,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} screen\_space\_selection(}
+\DoxyCodeLine{65     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM>\& model,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& proj,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedO>\& viewport,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} std::vector<Eigen::Matrix<Ltype,1,2> > \& L,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{71   \textcolor{comment}{// Given a mesh, a camera  determine which points are inside of a given 2D}}
+\DoxyCodeLine{72   \textcolor{comment}{// screen space polygon}}
+\DoxyCodeLine{73   \textcolor{comment}{//}}
+\DoxyCodeLine{74   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{75   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{76   \textcolor{comment}{//   model  4 by 4 camera model-\/view matrix}}
+\DoxyCodeLine{77   \textcolor{comment}{//   proj  4 by 4 camera projection matrix (perspective or orthoraphic)}}
+\DoxyCodeLine{78   \textcolor{comment}{//   viewport  4-\/vector containing camera viewport}}
+\DoxyCodeLine{79   \textcolor{comment}{//   P  \#P by 2 list of screen space polygon vertices}}
+\DoxyCodeLine{80   \textcolor{comment}{//   E  \#E by 2 list of screen space edges as indices into rows of P}}
+\DoxyCodeLine{81   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{82   \textcolor{comment}{//   W  \#V by 1 list of winding numbers (|W|>0.5 indicates inside)}}
+\DoxyCodeLine{83   \textcolor{keyword}{template} <}
+\DoxyCodeLine{84     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{85     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{86     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{87     \textcolor{keyword}{typename} DerivedO,}
+\DoxyCodeLine{88     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{89     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{90     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{91   IGL\_INLINE \textcolor{keywordtype}{void} screen\_space\_selection(}
+\DoxyCodeLine{92     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{93     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM>\& model,}
+\DoxyCodeLine{94     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& proj,}
+\DoxyCodeLine{95     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedO>\& viewport,}
+\DoxyCodeLine{96     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{97     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{98     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#include "{}screen\_space\_selection.cpp"{}}}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{104   }
+\DoxyCodeLine{105 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

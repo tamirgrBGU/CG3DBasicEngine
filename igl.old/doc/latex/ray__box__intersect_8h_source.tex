@@ -1,0 +1,50 @@
+\hypertarget{ray__box__intersect_8h_source}{}\doxysection{ray\+\_\+box\+\_\+intersect.\+h}
+\label{ray__box__intersect_8h_source}\index{igl/ray\_box\_intersect.h@{igl/ray\_box\_intersect.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_RAY\_BOX\_INTERSECT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_RAY\_BOX\_INTERSECT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Determine whether a ray origin+t*dir and box intersect within the ray's parameterized}}
+\DoxyCodeLine{16   \textcolor{comment}{// range (t0,t1)}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   source  3-\/vector origin of ray}}
+\DoxyCodeLine{20   \textcolor{comment}{//   dir  3-\/vector direction of ray}}
+\DoxyCodeLine{21   \textcolor{comment}{//   box  axis aligned box}}
+\DoxyCodeLine{22   \textcolor{comment}{//   t0  hit only if hit.t less than t0}}
+\DoxyCodeLine{23   \textcolor{comment}{//   t1  hit only if hit.t greater than t1}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   tmin  minimum of interval of overlap within [t0,t1]}}
+\DoxyCodeLine{26   \textcolor{comment}{//   tmax  maximum of interval of overlap within [t0,t1]}}
+\DoxyCodeLine{27   \textcolor{comment}{// Returns true if hit}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} Derivedsource,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} Deriveddir,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{bool} ray\_box\_intersect(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedsource> \& source,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<Deriveddir> \& dir,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::AlignedBox<Scalar,3> \& box,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Scalar \& t0,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Scalar \& t1,}
+\DoxyCodeLine{38     Scalar \& tmin,}
+\DoxyCodeLine{39     Scalar \& tmax);}
+\DoxyCodeLine{40 \}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#  include "{}ray\_box\_intersect.cpp"{}}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,100 @@
+\hypertarget{tetgenio__to__tetmesh_8h_source}{}\doxysection{tetgenio\+\_\+to\+\_\+tetmesh.\+h}
+\label{tetgenio__to__tetmesh_8h_source}\index{igl/copyleft/tetgen/tetgenio\_to\_tetmesh.h@{igl/copyleft/tetgen/tetgenio\_to\_tetmesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_TETGEN\_TETGENIO\_TO\_TETMESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_TETGEN\_TETGENIO\_TO\_TETMESH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef TETLIBRARY}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define TETLIBRARY }}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}tetgen.h"{}} \textcolor{comment}{// Defined tetgenio, REAL}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{22   \{}
+\DoxyCodeLine{23     \textcolor{keyword}{namespace }tetgen}
+\DoxyCodeLine{24     \{}
+\DoxyCodeLine{25       \textcolor{comment}{// Extract a tetrahedral mesh from a tetgenio object}}
+\DoxyCodeLine{26       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27       \textcolor{comment}{//   out tetgenio output object}}
+\DoxyCodeLine{28       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29       \textcolor{comment}{//   V  \#V by 3 vertex position list}}
+\DoxyCodeLine{30       \textcolor{comment}{//   T  \#T by 4 list of tetrahedra indices into V}}
+\DoxyCodeLine{31       \textcolor{comment}{//   F  \#F by 3 list of marked facets}}
+\DoxyCodeLine{32       \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{33       IGL\_INLINE \textcolor{keywordtype}{bool} tetgenio\_to\_tetmesh(}
+\DoxyCodeLine{34         \textcolor{keyword}{const} tetgenio \& out,}
+\DoxyCodeLine{35         std::vector<std::vector<REAL > > \& V, }
+\DoxyCodeLine{36         std::vector<std::vector<int> > \& T,}
+\DoxyCodeLine{37         std::vector<std::vector<int> > \& F);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39       IGL\_INLINE \textcolor{keywordtype}{bool} tetgenio\_to\_tetmesh(}
+\DoxyCodeLine{40         \textcolor{keyword}{const} tetgenio \& out,}
+\DoxyCodeLine{41         std::vector<std::vector<REAL > > \& V, }
+\DoxyCodeLine{42         std::vector<std::vector<int> > \& T);}
+\DoxyCodeLine{43       }
+\DoxyCodeLine{44       \textcolor{comment}{// Wrapper with Eigen types}}
+\DoxyCodeLine{45       \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{46       \textcolor{comment}{//   DerivedV  real-\/value: i.e. from MatrixXd}}
+\DoxyCodeLine{47       \textcolor{comment}{//   DerivedT  integer-\/value: i.e. from MatrixXi}}
+\DoxyCodeLine{48       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{49       IGL\_INLINE \textcolor{keywordtype}{bool} tetgenio\_to\_tetmesh(}
+\DoxyCodeLine{50         \textcolor{keyword}{const} tetgenio \& out,}
+\DoxyCodeLine{51         Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{52         Eigen::PlainObjectBase<DerivedT>\& T,}
+\DoxyCodeLine{53         Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedT>}
+\DoxyCodeLine{56       IGL\_INLINE \textcolor{keywordtype}{bool} tetgenio\_to\_tetmesh(}
+\DoxyCodeLine{57         \textcolor{keyword}{const} tetgenio \& out,}
+\DoxyCodeLine{58         Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{59         Eigen::PlainObjectBase<DerivedT>\& T);}
+\DoxyCodeLine{60     }
+\DoxyCodeLine{61       \textcolor{comment}{// Extract a tetrahedral mesh from a tetgenio object}}
+\DoxyCodeLine{62       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{63       \textcolor{comment}{//   out tetgenio output object}}
+\DoxyCodeLine{64       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{65       \textcolor{comment}{//   V  \#V by 3 vertex position list}}
+\DoxyCodeLine{66       \textcolor{comment}{//   T  \#T by 4 list of tetrahedra indices into V}}
+\DoxyCodeLine{67       \textcolor{comment}{//   F  \#F by 3 list of marked facets}}
+\DoxyCodeLine{68       \textcolor{comment}{//   R  \#T list of region IDs for tetrahedra}}
+\DoxyCodeLine{69       \textcolor{comment}{//   N  \#T by 2 list of neighbors for each tetrahedron}}
+\DoxyCodeLine{70       \textcolor{comment}{//   PT \#V list of incident tetrahedron for each vertex}}
+\DoxyCodeLine{71       \textcolor{comment}{//   FT \#F by 2 list of tetrahedra sharing each face }}
+\DoxyCodeLine{72       \textcolor{comment}{//   nR number of regions in output mesh}}
+\DoxyCodeLine{73       \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{74       IGL\_INLINE \textcolor{keywordtype}{bool} tetgenio\_to\_tetmesh(}
+\DoxyCodeLine{75         \textcolor{keyword}{const} tetgenio \& out,}
+\DoxyCodeLine{76     std::vector<std::vector<REAL > > \& V,}
+\DoxyCodeLine{77     std::vector<std::vector<int> > \& T,}
+\DoxyCodeLine{78         std::vector<std::vector<int> > \& F, }
+\DoxyCodeLine{79     std::vector<std::vector<REAL> > \& R,\textcolor{comment}{// region marks for tetrahedrons}}
+\DoxyCodeLine{80     std::vector<std::vector<int > > \&N, \textcolor{comment}{// neighborlist per tet}}
+\DoxyCodeLine{81     std::vector<std::vector<int > > \&PT, \textcolor{comment}{// Point to tet list per point}}
+\DoxyCodeLine{82     std::vector<std::vector<int > > \&FT, \textcolor{comment}{// face to tet list}}
+\DoxyCodeLine{83     \textcolor{keywordtype}{size\_t} \& nR); \textcolor{comment}{// number of regions    }}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86   \}}
+\DoxyCodeLine{87 \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#  include "{}tetgenio\_to\_tetmesh.cpp"{}}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

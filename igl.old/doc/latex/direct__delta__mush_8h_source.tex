@@ -1,0 +1,78 @@
+\hypertarget{direct__delta__mush_8h_source}{}\doxysection{direct\+\_\+delta\+\_\+mush.\+h}
+\label{direct__delta__mush_8h_source}\index{igl/direct\_delta\_mush.h@{igl/direct\_delta\_mush.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Xiangyu Kong <xiangyu.kong@mail.utoronto.ca>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DIRECT\_DELTA\_MUSH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DIRECT\_DELTA\_MUSH\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{19   \textcolor{comment}{// Computes Direct Delta Mesh Skinning (Variant 0) from "{}Direct Delta Mush}}
+\DoxyCodeLine{20   \textcolor{comment}{// Skinning and Variants"{}}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by 3 list of rest pose vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   T  \#T list of bone pose transformations}}
+\DoxyCodeLine{25   \textcolor{comment}{//   Omega \#V by \#T*10 list of precomputated matrix values}}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   U  \#V by 3 list of output vertex positions}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedOmega,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedU>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} direct\_delta\_mush(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} std::vector<}
+\DoxyCodeLine{35       Eigen::Affine3d, Eigen::aligned\_allocator<Eigen::Affine3d>}
+\DoxyCodeLine{36     > \& T, \textcolor{comment}{/* should eventually be templated more generally than double */}}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedOmega> \& Omega,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedU> \& U);}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{comment}{// Precomputation}}
+\DoxyCodeLine{41   \textcolor{comment}{//}}
+\DoxyCodeLine{42   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{43   \textcolor{comment}{//   V  \#V by 3 list of rest pose vertex positions}}
+\DoxyCodeLine{44   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into rows of V}}
+\DoxyCodeLine{45   \textcolor{comment}{//   W  \#V by \#Edges list of weights}}
+\DoxyCodeLine{46   \textcolor{comment}{//   p  number of smoothing iterations}}
+\DoxyCodeLine{47   \textcolor{comment}{//   lambda  rotation smoothing step size}}
+\DoxyCodeLine{48   \textcolor{comment}{//   kappa   translation smoothness step size}}
+\DoxyCodeLine{49   \textcolor{comment}{//   alpha   translation smoothness blending weight}}
+\DoxyCodeLine{50   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{51   \textcolor{comment}{//   Omega  \#V by \#T*10 list of precomputated matrix values}}
+\DoxyCodeLine{52   \textcolor{keyword}{template} <}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{55     \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedOmega>}
+\DoxyCodeLine{57   IGL\_INLINE \textcolor{keywordtype}{void} direct\_delta\_mush\_precomputation(}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedW> \& W,}
+\DoxyCodeLine{61     \textcolor{keyword}{const} \textcolor{keywordtype}{int} p,}
+\DoxyCodeLine{62     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar lambda,}
+\DoxyCodeLine{63     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar kappa,}
+\DoxyCodeLine{64     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar alpha,}
+\DoxyCodeLine{65     Eigen::PlainObjectBase<DerivedOmega> \& Omega);}
+\DoxyCodeLine{66 \} \textcolor{comment}{// namespace igl}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#  include "{}direct\_delta\_mush.cpp"{}}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

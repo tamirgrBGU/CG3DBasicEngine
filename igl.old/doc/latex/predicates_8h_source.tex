@@ -1,0 +1,106 @@
+\hypertarget{predicates_8h_source}{}\doxysection{predicates.\+h}
+\label{predicates_8h_source}\index{igl/predicates/predicates.h@{igl/predicates/predicates.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_PREDICATES\_PREDICATES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_PREDICATES\_PREDICATES\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }predicates \{}
+\DoxyCodeLine{17     \textcolor{keyword}{enum class} Orientation \{}
+\DoxyCodeLine{18       POSITIVE=1, INSIDE=1,}
+\DoxyCodeLine{19       NEGATIVE=-\/1, OUTSIDE=-\/1,}
+\DoxyCodeLine{20       COLLINEAR=0, COPLANAR=0, COCIRCULAR=0, COSPHERICAL=0, DEGENERATE=0}
+\DoxyCodeLine{21     \};}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{comment}{// Initialize internal variable used by predciates. Must be called before}}
+\DoxyCodeLine{24     \textcolor{comment}{// using exact predicates. It is safe to call this function from multiple}}
+\DoxyCodeLine{25     \textcolor{comment}{// threads.}}
+\DoxyCodeLine{26     IGL\_INLINE \textcolor{keywordtype}{void} exactinit();}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \textcolor{comment}{// Compute the orientation of the triangle formed by pa, pb, pc.}}
+\DoxyCodeLine{29     \textcolor{comment}{//}}
+\DoxyCodeLine{30     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{31     \textcolor{comment}{//   pa, pb, pc  2D points.}}
+\DoxyCodeLine{32     \textcolor{comment}{//}}
+\DoxyCodeLine{33     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{34     \textcolor{comment}{//   Return POSITIVE if pa, pb, pc are counterclockwise oriented.}}
+\DoxyCodeLine{35     \textcolor{comment}{//          NEGATIVE if they are clockwise oriented.}}
+\DoxyCodeLine{36     \textcolor{comment}{//          COLLINEAR if they are collinear.}}
+\DoxyCodeLine{37     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Vector2D>}
+\DoxyCodeLine{38     IGL\_INLINE Orientation orient2d(}
+\DoxyCodeLine{39         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pa,}
+\DoxyCodeLine{40         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pb,}
+\DoxyCodeLine{41         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pc);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43     \textcolor{comment}{// Compute the orientation of the tetrahedron formed by pa, pb, pc, pd.}}
+\DoxyCodeLine{44     \textcolor{comment}{//}}
+\DoxyCodeLine{45     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{46     \textcolor{comment}{//   pa, pb, pc, pd  3D points.}}
+\DoxyCodeLine{47     \textcolor{comment}{//}}
+\DoxyCodeLine{48     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{49     \textcolor{comment}{//   Return POSITIVE if pd is "{}below"{} the oriented plane formed by pa, pb and pc.}}
+\DoxyCodeLine{50     \textcolor{comment}{//          NEGATIVE if pd is "{}above"{} the plane.}}
+\DoxyCodeLine{51     \textcolor{comment}{//          COPLANAR if pd is on the plane.}}
+\DoxyCodeLine{52     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Vector3D>}
+\DoxyCodeLine{53     IGL\_INLINE Orientation orient3d(}
+\DoxyCodeLine{54         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pa,}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pb,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pc,}
+\DoxyCodeLine{57         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pd);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{comment}{// Decide whether a point is inside/outside/on a circle.}}
+\DoxyCodeLine{60     \textcolor{comment}{//}}
+\DoxyCodeLine{61     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{62     \textcolor{comment}{//   pa, pb, pc  2D points that defines an oriented circle.}}
+\DoxyCodeLine{63     \textcolor{comment}{//   pd          2D query point.}}
+\DoxyCodeLine{64     \textcolor{comment}{//}}
+\DoxyCodeLine{65     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{66     \textcolor{comment}{//   Return INSIDE if pd is inside of the circle defined by pa, pb and pc.}}
+\DoxyCodeLine{67     \textcolor{comment}{//          OUSIDE if pd is outside of the circle.}}
+\DoxyCodeLine{68     \textcolor{comment}{//          COCIRCULAR pd is exactly on the circle.}}
+\DoxyCodeLine{69     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Vector2D>}
+\DoxyCodeLine{70     IGL\_INLINE Orientation incircle(}
+\DoxyCodeLine{71         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pa,}
+\DoxyCodeLine{72         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pb,}
+\DoxyCodeLine{73         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pc,}
+\DoxyCodeLine{74         \textcolor{keyword}{const} Eigen::MatrixBase<Vector2D>\& pd);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76     \textcolor{comment}{// Decide whether a point is inside/outside/on a sphere.}}
+\DoxyCodeLine{77     \textcolor{comment}{//}}
+\DoxyCodeLine{78     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{79     \textcolor{comment}{//   pa, pb, pc, pd  3D points that defines an oriented sphere.}}
+\DoxyCodeLine{80     \textcolor{comment}{//   pe              3D query point.}}
+\DoxyCodeLine{81     \textcolor{comment}{//}}
+\DoxyCodeLine{82     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{83     \textcolor{comment}{//   Return INSIDE if pe is inside of the sphere defined by pa, pb, pc and pd.}}
+\DoxyCodeLine{84     \textcolor{comment}{//          OUSIDE if pe is outside of the sphere.}}
+\DoxyCodeLine{85     \textcolor{comment}{//          COSPHERICAL pd is exactly on the sphere.}}
+\DoxyCodeLine{86     \textcolor{keyword}{template}<\textcolor{keyword}{typename} Vector3D>}
+\DoxyCodeLine{87     IGL\_INLINE Orientation insphere(}
+\DoxyCodeLine{88         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pa,}
+\DoxyCodeLine{89         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pb,}
+\DoxyCodeLine{90         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pc,}
+\DoxyCodeLine{91         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pd,}
+\DoxyCodeLine{92         \textcolor{keyword}{const} Eigen::MatrixBase<Vector3D>\& pe);}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94 \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#  include "{}predicates.cpp"{}}}
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

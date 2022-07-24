@@ -1,0 +1,43 @@
+\hypertarget{svd3x3__sse_8h_source}{}\doxysection{svd3x3\+\_\+sse.\+h}
+\label{svd3x3__sse_8h_source}\index{igl/svd3x3\_sse.h@{igl/svd3x3\_sse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SVD3X3\_SSE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SVD3X3\_SSE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Super fast 3x3 SVD according to http://pages.cs.wisc.edu/\string~sifakis/project\_pages/svd.html}}
+\DoxyCodeLine{16   \textcolor{comment}{// This is SSE version of svd3x3 (see svd3x3.h) which works on 4 matrices at a time}}
+\DoxyCodeLine{17   \textcolor{comment}{// These four matrices are simply stacked in columns, the rest is the same as for svd3x3}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   A  12 by 3 stack of 3x3 matrices}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   U  12x3 left singular vectors stacked}}
+\DoxyCodeLine{23   \textcolor{comment}{//   S  12x1 singular values stacked}}
+\DoxyCodeLine{24   \textcolor{comment}{//   V  12x3 right singular vectors stacked}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Known bugs: this will not work correctly for double precision.}}
+\DoxyCodeLine{27   \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} svd3x3\_sse(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::Matrix<T, 3*4, 3>\& A, }
+\DoxyCodeLine{30     Eigen::Matrix<T, 3*4, 3> \&U, }
+\DoxyCodeLine{31     Eigen::Matrix<T, 3*4, 1> \&S, }
+\DoxyCodeLine{32     Eigen::Matrix<T, 3*4, 3>\&V);}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#  include "{}svd3x3\_sse.cpp"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

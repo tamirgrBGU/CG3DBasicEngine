@@ -1,0 +1,71 @@
+\hypertarget{combine_8h_source}{}\doxysection{combine.\+h}
+\label{combine_8h_source}\index{igl/combine.h@{igl/combine.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COMBINE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COMBINE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Concatenate k meshes into a single >=k connected component mesh with a}}
+\DoxyCodeLine{18   \textcolor{comment}{// single vertex list and face list. Similar to Maya's Combine operation. }}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   VV  k-\/long list of lists of mesh vertex positions}}
+\DoxyCodeLine{22   \textcolor{comment}{//   FF  k-\/long list of lists of mesh face indices so that FF[i] indexes}}
+\DoxyCodeLine{23   \textcolor{comment}{//     VV[i]}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   V   VV[0].rows()+...+VV[k-\/1].rows() by VV[0].cols() list of mesh}}
+\DoxyCodeLine{26   \textcolor{comment}{//     vertex positions}}
+\DoxyCodeLine{27   \textcolor{comment}{//   F   FF[0].rows()+...+FF[k-\/1].rows() by FF[0].cols() list of mesh faces}}
+\DoxyCodeLine{28   \textcolor{comment}{//     indices into V}}
+\DoxyCodeLine{29   \textcolor{comment}{//   Vsizes  k list so that Vsizes(i) is the \#vertices in the ith input}}
+\DoxyCodeLine{30   \textcolor{comment}{//   Fsizes  k list so that Fsizes(i) is the \#faces in the ith input}}
+\DoxyCodeLine{31   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   // Suppose you have mesh A (VA,FA) and mesh B (VB,FB)}}
+\DoxyCodeLine{33   \textcolor{comment}{//   igl::combine<Eigen::MatrixXd,Eigen::MatrixXi>(\{VA,VB\},\{FA,FB\},V,F);}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{//}}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedVV, }
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedFF, }
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedVsizes,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedFsizes>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} combine(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} std::vector<DerivedVV> \& VV,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} std::vector<DerivedFF> \& FF,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedVsizes> \& Vsizes,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedFsizes> \& Fsizes);}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedVV, }
+\DoxyCodeLine{52     \textcolor{keyword}{typename} DerivedFF, }
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{55   IGL\_INLINE \textcolor{keywordtype}{void} combine(}
+\DoxyCodeLine{56     \textcolor{keyword}{const} std::vector<DerivedVV> \& VV,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} std::vector<DerivedFF> \& FF,}
+\DoxyCodeLine{58     Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{59     Eigen::PlainObjectBase<DerivedF> \& F);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#  include "{}combine.cpp"{}}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

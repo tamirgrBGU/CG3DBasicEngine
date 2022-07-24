@@ -1,0 +1,62 @@
+\hypertarget{convex__hull_8h_source}{}\doxysection{convex\+\_\+hull.\+h}
+\label{convex__hull_8h_source}\index{igl/copyleft/cgal/convex\_hull.h@{igl/copyleft/cgal/convex\_hull.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_CONVEX\_HULL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_CONVEX\_HULL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19       \textcolor{comment}{// Given a set of points (V), compute the convex hull as a triangle mesh (W,G)}}
+\DoxyCodeLine{20       \textcolor{comment}{// }}
+\DoxyCodeLine{21       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22       \textcolor{comment}{//   V  \#V by 3 list of input points}}
+\DoxyCodeLine{23       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   W  \#W by 3 list of convex hull points}}
+\DoxyCodeLine{25       \textcolor{comment}{//   G  \#G by 3 list of triangle indices into W}}
+\DoxyCodeLine{26       \textcolor{keyword}{template} <}
+\DoxyCodeLine{27         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{28         \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{29         \textcolor{keyword}{typename} DerivedG>}
+\DoxyCodeLine{30       IGL\_INLINE \textcolor{keywordtype}{void} convex\_hull(}
+\DoxyCodeLine{31         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{32         Eigen::PlainObjectBase<DerivedW> \& W,}
+\DoxyCodeLine{33         Eigen::PlainObjectBase<DerivedG> \& G);}
+\DoxyCodeLine{34       \textcolor{comment}{// Given a set of points (V), compute the convex hull as a triangle mesh (F)}}
+\DoxyCodeLine{35       \textcolor{comment}{// over input vertex set (V)}}
+\DoxyCodeLine{36       \textcolor{comment}{// }}
+\DoxyCodeLine{37       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{38       \textcolor{comment}{//   V  \#V by 3 list of input points}}
+\DoxyCodeLine{39       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{40       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{41       \textcolor{comment}{//}}
+\DoxyCodeLine{42       \textcolor{keyword}{template} <}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{45       IGL\_INLINE \textcolor{keywordtype}{void} convex\_hull(}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{47         Eigen::PlainObjectBase<DerivedF> \& F);}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51   }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#  include "{}convex\_hull.cpp"{}}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

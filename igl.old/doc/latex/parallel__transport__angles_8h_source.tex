@@ -1,0 +1,57 @@
+\hypertarget{parallel__transport__angles_8h_source}{}\doxysection{parallel\+\_\+transport\+\_\+angles.\+h}
+\label{parallel__transport__angles_8h_source}\index{igl/parallel\_transport\_angles.h@{igl/parallel\_transport\_angles.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Olga Diamanti <olga.diam@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_PARALLEL\_TRANSPORT\_ANGLE}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_PARALLEL\_TRANSPORT\_ANGLE}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Given the per-\/face local bases computed via igl::local\_basis, this function}}
+\DoxyCodeLine{18   \textcolor{comment}{// computes the angle between the two reference frames across each edge.}}
+\DoxyCodeLine{19   \textcolor{comment}{// Any two vectors across the edge whose 2D representation only differs by}}
+\DoxyCodeLine{20   \textcolor{comment}{// this angle are considered to be parallel.}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V               \#V by 3 list of mesh vertex coordinates}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F               \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   FN              \#F by 3 list of face normals}}
+\DoxyCodeLine{26   \textcolor{comment}{//   E2F             \#E by 2 list of the edge-\/to-\/face relation (e.g. computed}}
+\DoxyCodeLine{27   \textcolor{comment}{//                   via igl::edge\_topology)}}
+\DoxyCodeLine{28   \textcolor{comment}{//   F2E             \#F by 3 list of the face-\/to-\/edge relation (e.g. computed}}
+\DoxyCodeLine{29   \textcolor{comment}{//                   via igl::edge\_topology)}}
+\DoxyCodeLine{30   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   K               \#E by 1 list of the parallel transport angles (zero}}
+\DoxyCodeLine{32   \textcolor{comment}{//                   for all boundary edges)}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34 \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedK>}
+\DoxyCodeLine{35 IGL\_INLINE \textcolor{keywordtype}{void} parallel\_transport\_angles(}
+\DoxyCodeLine{36 \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\&V,}
+\DoxyCodeLine{37 \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\&F,}
+\DoxyCodeLine{38 \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\&FN,}
+\DoxyCodeLine{39 \textcolor{keyword}{const} Eigen::MatrixXi \&E2F,}
+\DoxyCodeLine{40 \textcolor{keyword}{const} Eigen::MatrixXi \&F2E,}
+\DoxyCodeLine{41 Eigen::PlainObjectBase<DerivedK>\&K);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include "{}parallel\_transport\_angles.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(IGL\_PARALLEL\_TRANSPORT\_ANGLE) */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

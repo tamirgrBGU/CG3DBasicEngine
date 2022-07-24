@@ -1,0 +1,41 @@
+\hypertarget{print__ijv_8h_source}{}\doxysection{print\+\_\+ijv.\+h}
+\label{print__ijv_8h_source}\index{igl/print\_ijv.h@{igl/print\_ijv.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PRINT\_IJV\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PRINT\_IJV\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define EIGEN\_YES\_I\_KNOW\_SPARSE\_MODULE\_IS\_NOT\_STABLE\_YET}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Prints a 3 column matrix representing [I,J,V] = find(X). That is, each}}
+\DoxyCodeLine{17   \textcolor{comment}{// row is the row index, column index and value for each non zero entry. Each}}
+\DoxyCodeLine{18   \textcolor{comment}{// row is printed on a new line}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   T  should be a eigen sparse matrix primitive type like int or double}}
+\DoxyCodeLine{22   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   X  m by n matrix whose entries are to be sorted}}
+\DoxyCodeLine{24   \textcolor{comment}{//   offset  optional offset for I and J indices \{0\}}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} print\_ijv(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& X, }
+\DoxyCodeLine{28     \textcolor{keyword}{const} \textcolor{keywordtype}{int} offset=0);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#  include "{}print\_ijv.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

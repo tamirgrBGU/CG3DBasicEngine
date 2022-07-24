@@ -1,0 +1,36 @@
+\hypertarget{ears_8h_source}{}\doxysection{ears.\+h}
+\label{ears_8h_source}\index{igl/ears.h@{igl/ears.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_EARS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_EARS\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7   \textcolor{comment}{// FIND\_EARS  Find all ears (faces with two boundary edges) in a given mesh}}
+\DoxyCodeLine{8   \textcolor{comment}{// }}
+\DoxyCodeLine{9   \textcolor{comment}{// [ears,ear\_opp] = find\_ears(F)}}
+\DoxyCodeLine{10   \textcolor{comment}{//}}
+\DoxyCodeLine{11   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{12   \textcolor{comment}{//   F  \#F by 3 list of triangle mesh indices}}
+\DoxyCodeLine{13   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   ears  \#ears list of indices into F of ears}}
+\DoxyCodeLine{15   \textcolor{comment}{//   ear\_opp  \#ears list of indices indicating which edge is non-\/boundary}}
+\DoxyCodeLine{16   \textcolor{comment}{//     (connecting to flops)}}
+\DoxyCodeLine{17   \textcolor{comment}{// }}
+\DoxyCodeLine{18   \textcolor{keyword}{template} <}
+\DoxyCodeLine{19     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{20     \textcolor{keyword}{typename} Derivedear,}
+\DoxyCodeLine{21     \textcolor{keyword}{typename} Derivedear\_opp>}
+\DoxyCodeLine{22   IGL\_INLINE \textcolor{keywordtype}{void} ears(}
+\DoxyCodeLine{23     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{24     Eigen::PlainObjectBase<Derivedear> \& ear,}
+\DoxyCodeLine{25     Eigen::PlainObjectBase<Derivedear\_opp> \& ear\_opp);}
+\DoxyCodeLine{26 \}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#  include "{}ears.cpp"{}}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

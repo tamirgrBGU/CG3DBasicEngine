@@ -1,0 +1,62 @@
+\hypertarget{histc_8h_source}{}\doxysection{histc.\+h}
+\label{histc_8h_source}\index{igl/histc.h@{igl/histc.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_HISTC\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_HISTC\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Like matlab's histc. Count occurrences of values in X between consecutive}}
+\DoxyCodeLine{17   \textcolor{comment}{// entries in E}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   X  m-\/long Vector of values}}
+\DoxyCodeLine{21   \textcolor{comment}{//   E  n-\/long Monotonically increasing vector of edges}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   N  n-\/long vector where N(k) reveals how many values in X fall between}}
+\DoxyCodeLine{24   \textcolor{comment}{//     E(k) <= X < E(k+1)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   B  m-\/long vector of bin ids so that B(j) = k if E(k) <= X(j) < E(k+1).}}
+\DoxyCodeLine{26   \textcolor{comment}{//     B(j) = -\/1 if X(j) is outside of E.}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// O(n+m*log(n))}}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedN, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{void} histc(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedX > \& X,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE > \& E,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedN > \& N,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedB > \& B);}
+\DoxyCodeLine{35   \textcolor{comment}{// Truly O(m*log(n))}}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} histc(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedX > \& X,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE > \& E,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedB > \& B);}
+\DoxyCodeLine{41   \textcolor{comment}{// Scalar search wrapper}}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} histc(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedE::Scalar \& x,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE > \& E,}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedE::Index \& b);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}histc.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 }
+
+\end{DoxyCode}

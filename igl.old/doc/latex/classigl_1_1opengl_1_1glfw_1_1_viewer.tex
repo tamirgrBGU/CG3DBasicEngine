@@ -1,0 +1,320 @@
+\hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer}{}\doxysection{igl\+::opengl\+::glfw\+::Viewer Class Reference}
+\label{classigl_1_1opengl_1_1glfw_1_1_viewer}\index{igl::opengl::glfw::Viewer@{igl::opengl::glfw::Viewer}}
+Inheritance diagram for igl\+::opengl\+::glfw\+::Viewer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classigl_1_1opengl_1_1glfw_1_1_viewer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a693f989e0f33721c63205f33453f2f16}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a693f989e0f33721c63205f33453f2f16}} 
+enum {\bfseries axis} \{ {\bfseries x\+Axis}
+, {\bfseries y\+Axis}
+, {\bfseries z\+Axis}
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a91f284ea2cd364286840541677d00491}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a91f284ea2cd364286840541677d00491}} 
+enum {\bfseries transformations} \{ \newline
+{\bfseries x\+Translate}
+, {\bfseries y\+Translate}
+, {\bfseries z\+Translate}
+, {\bfseries x\+Rotate}
+, \newline
+{\bfseries y\+Rotate}
+, {\bfseries z\+Rotate}
+, {\bfseries x\+Scale}
+, {\bfseries y\+Scale}
+, \newline
+{\bfseries z\+Scale}
+, {\bfseries scale\+All}
+, {\bfseries reset}
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a89f99c62cb22d9865e329a8628a37233}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a89f99c62cb22d9865e329a8628a37233}} 
+enum {\bfseries modes} \{ \newline
+{\bfseries POINTS}
+, {\bfseries LINES}
+, {\bfseries LINE\+\_\+\+LOOP}
+, {\bfseries LINE\+\_\+\+STRIP}
+, \newline
+{\bfseries TRIANGLES}
+, {\bfseries TRIANGLE\+\_\+\+STRIP}
+, {\bfseries TRIANGLE\+\_\+\+FAN}
+, {\bfseries QUADS}
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_accd019c1a0fa66d2bf134f3f32cc573c}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_accd019c1a0fa66d2bf134f3f32cc573c}} 
+enum {\bfseries shapes} \{ \newline
+{\bfseries Axis}
+, {\bfseries Plane}
+, {\bfseries Cube}
+, {\bfseries Octahedron}
+, \newline
+{\bfseries Tethrahedron}
+, {\bfseries Line\+Copy}
+, {\bfseries Mesh\+Copy}
+, {\bfseries Sphere}
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ab82b55f4eeadad6507b336c94876e0c7}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ab82b55f4eeadad6507b336c94876e0c7}} 
+enum {\bfseries buffers} \{ \newline
+{\bfseries COLOR}
+, {\bfseries DEPTH}
+, {\bfseries STENCIL}
+, {\bfseries BACK}
+, \newline
+{\bfseries FRONT}
+, {\bfseries NONE}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a880f254889644831a45b874d5f7220e3}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a880f254889644831a45b874d5f7220e3}} 
+virtual void {\bfseries Init} (const std\+::string config)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_acf598c1aa14f1caaf628e766069f6432}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_acf598c1aa14f1caaf628e766069f6432}} 
+virtual void {\bfseries Animate} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a346eb3cd954e0a5cb1e8ef27863855fa}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a346eb3cd954e0a5cb1e8ef27863855fa}} 
+virtual void {\bfseries When\+Translate} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aef214699d8a0d8a6ff259cb9222ce97f}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aef214699d8a0d8a6ff259cb9222ce97f}} 
+virtual Eigen\+::\+Vector3d {\bfseries Get\+Camera\+Position} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a26736cacde140b2cf33dc95c841007f0}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a26736cacde140b2cf33dc95c841007f0}} 
+virtual Eigen\+::\+Vector3d {\bfseries Get\+Camera\+Forward} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a7e9589df30799f76dc431b05c99d16ce}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a7e9589df30799f76dc431b05c99d16ce}} 
+virtual Eigen\+::\+Vector3d {\bfseries Get\+Camera\+Up} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a79fc05528aeeec596c3845c0716b636b}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a79fc05528aeeec596c3845c0716b636b}} 
+virtual void {\bfseries Update} (const Eigen\+::\+Matrix4f \&Proj, const Eigen\+::\+Matrix4f \&View, const Eigen\+::\+Matrix4f \&Model, shared\+\_\+ptr$<$ \mbox{\hyperlink{class_material}{Material}} $>$ material)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a1a56fe57e94ab2c535164056aaccd144}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a1a56fe57e94ab2c535164056aaccd144}} 
+virtual void {\bfseries Update\+\_\+overlay} (const Eigen\+::\+Matrix4f \&Proj, const Eigen\+::\+Matrix4f \&View, const Eigen\+::\+Matrix4f \&Model, unsigned int shape\+Indx, bool is\+\_\+points)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a5bfb80060ba5765c7925032e291dd6b8}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a5bfb80060ba5765c7925032e291dd6b8}} 
+virtual int {\bfseries Add\+Shape} (int type, int parent, unsigned int mode, shared\+\_\+ptr$<$ \mbox{\hyperlink{class_material}{Material}} $>$ material, int viewport=0)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aeabbaf6f3da611ed5e59bcbf71c87a0e}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aeabbaf6f3da611ed5e59bcbf71c87a0e}} 
+virtual int {\bfseries Add\+Shape\+From\+File} (const std\+::string \&file\+Name, int parent, unsigned int mode, shared\+\_\+ptr$<$ \mbox{\hyperlink{class_material}{Material}} $>$ material, int viewport=0)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a234a2476816953c045a46a7c3382cfc4}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a234a2476816953c045a46a7c3382cfc4}} 
+virtual void {\bfseries When\+Translate} (float dx, float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_af90bf108f39cbca72cb7399ed5630f04}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_af90bf108f39cbca72cb7399ed5630f04}} 
+virtual void {\bfseries When\+Rotate} (float dx, float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a99bb1891908ceea13d02dcb284981243}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a99bb1891908ceea13d02dcb284981243}} 
+virtual void {\bfseries When\+Scroll} (float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aac6da53cee2f2d432bff3a19f434771a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aac6da53cee2f2d432bff3a19f434771a}} 
+IGL\+\_\+\+INLINE bool {\bfseries load\+\_\+mesh\+\_\+from\+\_\+file} (const std\+::string \&mesh\+\_\+file\+\_\+name)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a12036920d3e8dd93f50d73e6791be42b}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a12036920d3e8dd93f50d73e6791be42b}} 
+IGL\+\_\+\+INLINE bool {\bfseries save\+\_\+mesh\+\_\+to\+\_\+file} (const std\+::string \&mesh\+\_\+file\+\_\+name)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a0b4c3b49b986892c0767e3d56304ebb2}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a0b4c3b49b986892c0767e3d56304ebb2}} 
+IGL\+\_\+\+INLINE bool {\bfseries load\+\_\+scene} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a697184b4388aedb9741d626019e90cb5}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a697184b4388aedb9741d626019e90cb5}} 
+IGL\+\_\+\+INLINE bool {\bfseries load\+\_\+scene} (std\+::string fname)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a18d8e54cf6f70a0da5c3af293af4418c}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a18d8e54cf6f70a0da5c3af293af4418c}} 
+IGL\+\_\+\+INLINE bool {\bfseries save\+\_\+scene} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a5200e892fb813a17aeda3c581e87c4ab}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a5200e892fb813a17aeda3c581e87c4ab}} 
+IGL\+\_\+\+INLINE bool {\bfseries save\+\_\+scene} (std\+::string fname)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aebc4b6460289e14b7ba064b0bd1c675d}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aebc4b6460289e14b7ba064b0bd1c675d}} 
+IGL\+\_\+\+INLINE void {\bfseries open\+\_\+dialog\+\_\+load\+\_\+mesh} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a8a09d478feab42bae2d5d9cfb3bc1ffc}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a8a09d478feab42bae2d5d9cfb3bc1ffc}} 
+IGL\+\_\+\+INLINE void {\bfseries open\+\_\+dialog\+\_\+save\+\_\+mesh} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a6da2fcad28b619b16aa046c48afb42ea}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a6da2fcad28b619b16aa046c48afb42ea}} 
+IGL\+\_\+\+INLINE void {\bfseries draw} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a90a2f8ee1da3071f1f5f32cc9c565379}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a90a2f8ee1da3071f1f5f32cc9c565379}} 
+IGL\+\_\+\+INLINE \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{Viewer\+Data}} $\ast$ {\bfseries data} (int mesh\+\_\+id=-\/1)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aa7e70d684928c1a027f4f9cb52f0ab3c}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aa7e70d684928c1a027f4f9cb52f0ab3c}} 
+IGL\+\_\+\+INLINE const \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{Viewer\+Data}} $\ast$ {\bfseries data} (int mesh\+\_\+id=-\/1) const
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_adae69a040f1f3c9120f2bf8547c6975c}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_adae69a040f1f3c9120f2bf8547c6975c}} 
+IGL\+\_\+\+INLINE int {\bfseries append\+\_\+mesh} (bool visible=true)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a04bcc33ce3ffebd38f99f58a1d0eca85}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a04bcc33ce3ffebd38f99f58a1d0eca85}} 
+IGL\+\_\+\+INLINE bool {\bfseries erase\+\_\+mesh} (const size\+\_\+t index)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a8a704877f4b45e402caebeb4de00b41a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a8a704877f4b45e402caebeb4de00b41a}} 
+IGL\+\_\+\+INLINE size\+\_\+t {\bfseries mesh\+\_\+index} (const int id) const
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_abc2330684ef36ead9b89b17282e7bced}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_abc2330684ef36ead9b89b17282e7bced}} 
+Eigen\+::\+Matrix4d {\bfseries Calc\+Parents\+Trans} (int indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a02ab532b098568b3bcac22f8d222a511}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a02ab532b098568b3bcac22f8d222a511}} 
+bool {\bfseries Set\+Animation} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aacbd5136196b2865ab7679d550b637e3}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aacbd5136196b2865ab7679d550b637e3}} 
+bool {\bfseries Is\+Active} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a0cfb95531c0d60d6fc0735dd38e3379d}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a0cfb95531c0d60d6fc0735dd38e3379d}} 
+void {\bfseries Activate} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a0291c8288966b8c09e46e64759eb3e89}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a0291c8288966b8c09e46e64759eb3e89}} 
+void {\bfseries Deactivate} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a00e5a2daf8637878739e9754d5d5d86a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a00e5a2daf8637878739e9754d5d5d86a}} 
+int {\bfseries Add\+Shader} (const std\+::string \&file\+Name)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ad64ccdc4363eb6a294eee223d5d2ea5c}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ad64ccdc4363eb6a294eee223d5d2ea5c}} 
+EIGEN\+\_\+\+MAKE\+\_\+\+ALIGNED\+\_\+\+OPERATOR\+\_\+\+NEW void {\bfseries Draw} (int shader\+Indx, const Eigen\+::\+Matrix4f \&Proj, const Eigen\+::\+Matrix4f \&View, int viewport\+Indx, unsigned int flgs, unsigned int property\+\_\+id)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a3a5d852b937bb5735b8de1ac034dd973}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a3a5d852b937bb5735b8de1ac034dd973}} 
+int {\bfseries Add\+Material} (\mbox{\hyperlink{class_material}{Material}} $\ast$material)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a810d07e4fa4bce9ed83283ec92dbfe8a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a810d07e4fa4bce9ed83283ec92dbfe8a}} 
+void {\bfseries Clear\+Picked\+Shapes} (int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_acf9a1bb044da8f0d8972b7c32dedf13f}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_acf9a1bb044da8f0d8972b7c32dedf13f}} 
+Eigen\+::\+Matrix4d {\bfseries Get\+Previous\+Trans} (const Eigen\+::\+Matrix4d \&View, unsigned int index)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a3e98c98a61105bbd6cfb64e588b48b36}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a3e98c98a61105bbd6cfb64e588b48b36}} 
+float {\bfseries Add\+Picked\+Shapes} (const Eigen\+::\+Matrix4d \&PV, const Eigen\+::\+Vector4i \&viewport, int viewport\+Indx, int left, int right, int up, int bottom, int new\+Viewport\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a348b7853086b7797f88f0629a02c5758}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a348b7853086b7797f88f0629a02c5758}} 
+void {\bfseries Mouse\+Proccessing} (int button, int xrel, int yrel, float mov\+Coeff, Eigen\+::\+Matrix4d camera\+Mat, int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a149d73d64bc1588938962ecbe552b14a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a149d73d64bc1588938962ecbe552b14a}} 
+virtual void {\bfseries When\+Translate} (const Eigen\+::\+Matrix4d \&pre\+Mat, float dx, float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a16c8db72416b91217b9e5ccdb6a37bd4}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a16c8db72416b91217b9e5ccdb6a37bd4}} 
+virtual void {\bfseries When\+Scroll} (const Eigen\+::\+Matrix4d \&pre\+Mat, float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a0f8f83230782790633912ae9ddf13513}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a0f8f83230782790633912ae9ddf13513}} 
+virtual void {\bfseries When\+Rotate} (const Eigen\+::\+Matrix4d \&pre\+Mat, float dx, float dy)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a15382bd320728fc962d9cb1f69539233}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a15382bd320728fc962d9cb1f69539233}} 
+int {\bfseries Add\+Texture} (const std\+::string \&texture\+File\+Name, int dim)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ae508975599d400ac75f4433e4249a5f8}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ae508975599d400ac75f4433e4249a5f8}} 
+int {\bfseries Add\+Texture} (int width, int height, unsigned char $\ast$data, int mode)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ab12fcda1ea1c5b367809a7d09a420365}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ab12fcda1ea1c5b367809a7d09a420365}} 
+void {\bfseries Bind\+Texture} (int tex\+Indx, int slot)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ab3eecb4e459335c0ff7019cb26a6180b}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ab3eecb4e459335c0ff7019cb26a6180b}} 
+IGL\+\_\+\+INLINE void {\bfseries Set\+Shape\+Shader} (int shp\+Indx, int shdr\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aaba75bdb35340b5afd4d81b4fdbfa654}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aaba75bdb35340b5afd4d81b4fdbfa654}} 
+IGL\+\_\+\+INLINE void {\bfseries Set\+Shape\+Static} (int shp\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aac21a42fa1317d35823a296ee8c17a1f}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aac21a42fa1317d35823a296ee8c17a1f}} 
+IGL\+\_\+\+INLINE void {\bfseries Set\+Shape\+Viewport} (int shp\+Indx, int vp\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a1eaacae594ab19b586fb68698c1fb542}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a1eaacae594ab19b586fb68698c1fb542}} 
+void {\bfseries Update\+Normal} (unsigned char data\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ad33e70ee495eb693f65280b430c2a0d5}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ad33e70ee495eb693f65280b430c2a0d5}} 
+IGL\+\_\+\+INLINE void {\bfseries Set\+Shape\+Material} (int shp\+Indx, int material\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aa37e025fa1e177eb2c391442f1828f6e}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aa37e025fa1e177eb2c391442f1828f6e}} 
+void {\bfseries Set\+Shader\+\_\+overlay} (const std\+::string \&file\+Name)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a32c8a3eb42125b5bbc2c8eac68d73e53}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a32c8a3eb42125b5bbc2c8eac68d73e53}} 
+void {\bfseries Set\+Shader\+\_\+point\+\_\+overlay} (const std\+::string \&file\+Name)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_adeeb75ecb61ae131718ba2ccc654d437}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_adeeb75ecb61ae131718ba2ccc654d437}} 
+int {\bfseries Add\+Shape\+Copy} (int indx, int parent, unsigned int mode, int viewport=0)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ad6565682b3a089d3a2b9708dd2ddc0f2}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ad6565682b3a089d3a2b9708dd2ddc0f2}} 
+void {\bfseries Shape\+Transformation} (int type, float amt, int mode)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a72ba9236144a19219c332124cc3e872a}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a72ba9236144a19219c332124cc3e872a}} 
+virtual bool {\bfseries Picking} (unsigned char data\mbox{[}4\mbox{]}, int new\+Viewport\+Indx)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a23d167b87cc3b77bca4d38132beb0aae}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a23d167b87cc3b77bca4d38132beb0aae}} 
+void {\bfseries Un\+Pick} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ac5f2878a2b7f7e57316b58608b323df1}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ac5f2878a2b7f7e57316b58608b323df1}} 
+bool {\bfseries load\+\_\+mesh\+\_\+from\+\_\+data} (const Eigen\+::\+Matrix\+Xd \&V, const Eigen\+::\+Matrix\+Xi \&F, const Eigen\+::\+Matrix\+Xd \&UV\+\_\+V, const Eigen\+::\+Matrix\+Xi \&UV\+\_\+F)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a8361c575cc0b406d8ec627afb4f26d54}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a8361c575cc0b406d8ec627afb4f26d54}} 
+int {\bfseries Add\+Shape\+From\+Data} (const Eigen\+::\+Matrix\+Xd \&V, const Eigen\+::\+Matrix\+Xi \&F, const Eigen\+::\+Matrix\+Xd \&UV\+\_\+V, const Eigen\+::\+Matrix\+Xi \&UV\+\_\+F, int type, int parent, unsigned int mode, int viewport)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a28f62c93168b776ff6f1b764521eedf9}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a28f62c93168b776ff6f1b764521eedf9}} 
+int {\bfseries Add\+Shader} (const std\+::string \&Vertex\+\_\+\+Shader, const std\+::string \&Fragment\+\_\+shader)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a3ada47a338b552f271507d26150fb5a1}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a3ada47a338b552f271507d26150fb5a1}} 
+void {\bfseries Set\+Parent} (int indx, int new\+Value, bool save\+Position)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a35f455caef481c6bc3410bd1110a1bb6}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a35f455caef481c6bc3410bd1110a1bb6}} 
+std\+::vector$<$ \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{Viewer\+Data}} $\ast$ $>$ {\bfseries data\+\_\+list}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aa2c8338952728adc58dd3483ec0e83a2}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aa2c8338952728adc58dd3483ec0e83a2}} 
+std\+::vector$<$ int $>$ {\bfseries p\+Shapes}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ab733c28d9cc5b869748965367014bd09}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ab733c28d9cc5b869748965367014bd09}} 
+std\+::vector$<$ int $>$ {\bfseries parents}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a9634f71c9268f7aa5a5a4cddfcbe0eed}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a9634f71c9268f7aa5a5a4cddfcbe0eed}} 
+std\+::vector$<$ \mbox{\hyperlink{class_texture}{Texture}} $\ast$ $>$ {\bfseries textures}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a28ff1f0985654e25a2e6e4645abbc8ba}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a28ff1f0985654e25a2e6e4645abbc8ba}} 
+std\+::vector$<$ \mbox{\hyperlink{class_material}{Material}} $\ast$ $>$ {\bfseries materials}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a89aae6ef905dae4b445885f33da45c69}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a89aae6ef905dae4b445885f33da45c69}} 
+int {\bfseries picked\+Shape}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a6d65fabee8d378e719c6d20da20fc4f9}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a6d65fabee8d378e719c6d20da20fc4f9}} 
+Eigen\+::\+Vector3d {\bfseries picked\+Normal}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a2fd28960580797eae596372f32147777}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a2fd28960580797eae596372f32147777}} 
+size\+\_\+t {\bfseries selected\+\_\+data\+\_\+index}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a29f39289f861509167438da14921bcb8}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a29f39289f861509167438da14921bcb8}} 
+int {\bfseries next\+\_\+data\+\_\+id}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_aa1a4a0888b95ebfaa69913ca26b23fec}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_aa1a4a0888b95ebfaa69913ca26b23fec}} 
+int {\bfseries next\+\_\+shader\+\_\+id}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a1eca3eec1ac8939f7cfee7cc25efd944}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a1eca3eec1ac8939f7cfee7cc25efd944}} 
+bool {\bfseries is\+Active}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a77148df96812c0315bc3469637f88ef5}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a77148df96812c0315bc3469637f88ef5}} 
+unsigned int {\bfseries static\+Scene}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a6073bb703c26469b59c8e408e8fd80fa}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a6073bb703c26469b59c8e408e8fd80fa}} 
+\mbox{\hyperlink{class_shader}{Shader}} $\ast$ {\bfseries overlay\+\_\+shader}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a741ed4503b75723270e20ad3d795cd11}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a741ed4503b75723270e20ad3d795cd11}} 
+\mbox{\hyperlink{class_shader}{Shader}} $\ast$ {\bfseries overlay\+\_\+point\+\_\+shader}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_afb69aa3f7d787b46e661d74e8b612bd2}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_afb69aa3f7d787b46e661d74e8b612bd2}} 
+std\+::vector$<$ \mbox{\hyperlink{class_shader}{Shader}} $\ast$ $>$ {\bfseries shaders}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_adde2fa7837951138c215206f7e3aafdb}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_adde2fa7837951138c215206f7e3aafdb}} 
+float {\bfseries scroll\+\_\+position}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_ac3cb33f1e518eec7586ca66770df3e23}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_ac3cb33f1e518eec7586ca66770df3e23}} 
+void {\bfseries Set\+Picking\+Shader} (shared\+\_\+ptr$<$ \mbox{\hyperlink{class_shader}{Shader}} $>$ shader)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1glfw_1_1_viewer_a34d1fd63538f810b7c6ca6df1a31b2d4}\label{classigl_1_1opengl_1_1glfw_1_1_viewer_a34d1fd63538f810b7c6ca6df1a31b2d4}} 
+void {\bfseries Set\+Picking\+Shader} (const string \&shader\+File\+Name, bool overlay, unsigned int shader\+Id)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/Viewer.\+h\item 
+igl/opengl/glfw/Viewer.\+cpp\end{DoxyCompactItemize}

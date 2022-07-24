@@ -1,0 +1,34 @@
+\hypertarget{find__zero_8h_source}{}\doxysection{find\+\_\+zero.\+h}
+\label{find__zero_8h_source}\index{igl/find\_zero.h@{igl/find\_zero.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_FIND\_ZERO\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_FIND\_ZERO\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Find the first zero (whether implicit or explicitly stored) in the}}
+\DoxyCodeLine{9   \textcolor{comment}{// rows/columns of a matrix.}}
+\DoxyCodeLine{10   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{11   \textcolor{comment}{//   A  m by n sparse matrix}}
+\DoxyCodeLine{12   \textcolor{comment}{//   dim  dimension along which to check for any (1 or 2)}}
+\DoxyCodeLine{13   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   I  n-\/long vector (if dim == 1)  \{m means no zeros found\}}}
+\DoxyCodeLine{15   \textcolor{comment}{//   or}}
+\DoxyCodeLine{16   \textcolor{comment}{//   I  m-\/long vector (if dim == 2)  \{n means no zeros found\}}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{keyword}{template} <\textcolor{keyword}{typename} AType, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{19   IGL\_INLINE \textcolor{keywordtype}{void} find\_zero(}
+\DoxyCodeLine{20     \textcolor{keyword}{const} Eigen::SparseMatrix<AType> \& A,}
+\DoxyCodeLine{21     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{22     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{23 \}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#  include "{}find\_zero.cpp"{}}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{28 }
+
+\end{DoxyCode}

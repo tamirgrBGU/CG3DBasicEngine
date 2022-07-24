@@ -1,0 +1,35 @@
+\hypertarget{solid__angle_8h_source}{}\doxysection{solid\+\_\+angle.\+h}
+\label{solid__angle_8h_source}\index{igl/solid\_angle.h@{igl/solid\_angle.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_SOLID\_ANGLE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_SOLID\_ANGLE\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7   \textcolor{comment}{// Compute the signed solid angle subtended by the oriented 3d triangle (A,B,C) at some point P}}
+\DoxyCodeLine{8   \textcolor{comment}{// }}
+\DoxyCodeLine{9   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{10   \textcolor{comment}{//   A  3D position of corner }}
+\DoxyCodeLine{11   \textcolor{comment}{//   B  3D position of corner }}
+\DoxyCodeLine{12   \textcolor{comment}{//   C  3D position of corner }}
+\DoxyCodeLine{13   \textcolor{comment}{//   P  3D position of query point}}
+\DoxyCodeLine{14   \textcolor{comment}{// Returns signed solid angle}}
+\DoxyCodeLine{15   \textcolor{keyword}{template} <}
+\DoxyCodeLine{16     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{17     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{18     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{19     \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{20   IGL\_INLINE \textcolor{keyword}{typename} DerivedA::Scalar solid\_angle(}
+\DoxyCodeLine{21     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{22     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{23     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{24     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P);}
+\DoxyCodeLine{25 \}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#  include "{}solid\_angle.cpp"{}}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

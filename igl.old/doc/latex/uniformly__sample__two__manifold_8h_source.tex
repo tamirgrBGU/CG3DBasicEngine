@@ -1,0 +1,59 @@
+\hypertarget{uniformly__sample__two__manifold_8h_source}{}\doxysection{uniformly\+\_\+sample\+\_\+two\+\_\+manifold.\+h}
+\label{uniformly__sample__two__manifold_8h_source}\index{igl/uniformly\_sample\_two\_manifold.h@{igl/uniformly\_sample\_two\_manifold.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNIFORMLY\_SAMPLE\_TWO\_MANIFOLD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNIFORMLY\_SAMPLE\_TWO\_MANIFOLD\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// UNIFORMLY\_SAMPLE\_TWO\_MANIFOLD Attempt to sample a mesh uniformly with}}
+\DoxyCodeLine{15   \textcolor{comment}{// k-\/points by furthest point relaxation as described in "{}Fast Automatic}}
+\DoxyCodeLine{16   \textcolor{comment}{// Skinning Transformations"{} [Jacobson et al. 12] Section 3.3. The input is}}
+\DoxyCodeLine{17   \textcolor{comment}{// not expected to be a typical 3D triangle mesh (e.g., [V,F]), instead each}}
+\DoxyCodeLine{18   \textcolor{comment}{// vertex is embedded in a high dimensional unit-\/hypercude ("{}weight space"{})}}
+\DoxyCodeLine{19   \textcolor{comment}{// defined by W, with triangles given by F. This algorithm will first conduct}}
+\DoxyCodeLine{20   \textcolor{comment}{// furthest point sampling from the set of vertices and then attempt to relax}}
+\DoxyCodeLine{21   \textcolor{comment}{// the sampled points along the surface of the high-\/dimensional triangle mesh}}
+\DoxyCodeLine{22   \textcolor{comment}{// (i.e., the output points may be in the middle of triangles, not just at}}
+\DoxyCodeLine{23   \textcolor{comment}{// vertices). An additional "{}push"{} factor will repel samples away from the}}
+\DoxyCodeLine{24   \textcolor{comment}{// corners of the hypercube.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   W  \#W by dim positions of mesh in weight space}}
+\DoxyCodeLine{28   \textcolor{comment}{//   F  \#F by 3 indices of triangles}}
+\DoxyCodeLine{29   \textcolor{comment}{//   k  number of samples}}
+\DoxyCodeLine{30   \textcolor{comment}{//   push  factor by which corners should be pushed away}}
+\DoxyCodeLine{31   \textcolor{comment}{// Outputs}}
+\DoxyCodeLine{32   \textcolor{comment}{//   WS  k by dim locations in weight space}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{comment}{// See also:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   random\_points\_on\_mesh}}
+\DoxyCodeLine{36   \textcolor{comment}{//}}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} uniformly\_sample\_two\_manifold(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXi \& F, }
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k, }
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{double} push,}
+\DoxyCodeLine{42     Eigen::MatrixXd \& WS);}
+\DoxyCodeLine{43   \textcolor{comment}{// Find uniform sampling up to placing samples on mesh vertices}}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{void} uniformly\_sample\_two\_manifold\_at\_vertices(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixXd \& OW,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k, }
+\DoxyCodeLine{47     \textcolor{keyword}{const} \textcolor{keywordtype}{double} push,}
+\DoxyCodeLine{48     Eigen::VectorXi \& S);}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#  include "{}uniformly\_sample\_two\_manifold.cpp"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

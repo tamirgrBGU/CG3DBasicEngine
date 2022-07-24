@@ -1,0 +1,44 @@
+\hypertarget{vertex__array_8h_source}{}\doxysection{vertex\+\_\+array.\+h}
+\label{vertex__array_8h_source}\index{igl/opengl/vertex\_array.h@{igl/opengl/vertex\_array.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_VERTEX\_ARRAY\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_OPENGL\_VERTEX\_ARRAY\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <igl/opengl/../igl\_inline.h>}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <igl/opengl/gl.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{9   \{}
+\DoxyCodeLine{10     \textcolor{comment}{// Create a GL\_VERTEX\_ARRAY for a given mesh (V,F)}}
+\DoxyCodeLine{11     \textcolor{comment}{//}}
+\DoxyCodeLine{12     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13     \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{14     \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into V}}
+\DoxyCodeLine{15     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{16     \textcolor{comment}{//   va\_id  id of vertex array}}
+\DoxyCodeLine{17     \textcolor{comment}{//   ab\_id  id of array buffer (vertex buffer object)}}
+\DoxyCodeLine{18     \textcolor{comment}{//   eab\_id  id of element array buffer (element/face buffer object)}}
+\DoxyCodeLine{19     \textcolor{comment}{//}}
+\DoxyCodeLine{20     \textcolor{keyword}{template} <}
+\DoxyCodeLine{21       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{22       \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{23     IGL\_INLINE \textcolor{keywordtype}{void} vertex\_array(}
+\DoxyCodeLine{24       \textcolor{comment}{// Note: Unlike most libigl functions, the **input** Eigen matrices must}}
+\DoxyCodeLine{25       \textcolor{comment}{// be `Eigen::PlainObjectBase` because we want to directly access it's}}
+\DoxyCodeLine{26       \textcolor{comment}{// underlying storage. It cannot be `Eigen::MatrixBase` (see}}
+\DoxyCodeLine{27       \textcolor{comment}{// http://stackoverflow.com/questions/25094948/)}}
+\DoxyCodeLine{28       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{29       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{30       GLuint \& va\_id,}
+\DoxyCodeLine{31       GLuint \& ab\_id,}
+\DoxyCodeLine{32       GLuint \& eab\_id);}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#  include "{}vertex\_array.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

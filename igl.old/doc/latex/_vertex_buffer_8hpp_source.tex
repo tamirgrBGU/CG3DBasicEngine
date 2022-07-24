@@ -1,0 +1,43 @@
+\hypertarget{_vertex_buffer_8hpp_source}{}\doxysection{Vertex\+Buffer.\+hpp}
+\label{_vertex_buffer_8hpp_source}\index{igl/opengl/glfw/VertexBuffer.hpp@{igl/opengl/glfw/VertexBuffer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{ * VertexBuffer.hpp}}
+\DoxyCodeLine{3 \textcolor{comment}{ *}}
+\DoxyCodeLine{4 \textcolor{comment}{ *  Created on: 13 de dez de 2017}}
+\DoxyCodeLine{5 \textcolor{comment}{ *      Author: Casa}}
+\DoxyCodeLine{6 \textcolor{comment}{ */}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef SRC\_VERTEXBUFFER\_HPP\_}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define SRC\_VERTEXBUFFER\_HPP\_}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}\{}
+\DoxyCodeLine{12 \textcolor{keyword}{private}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_RendererID;}
+\DoxyCodeLine{15     \textcolor{keywordtype}{bool} isDynamic;}
+\DoxyCodeLine{16 \textcolor{keyword}{public}:}
+\DoxyCodeLine{17     \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} \&vb);}
+\DoxyCodeLine{18     \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}(\textcolor{keyword}{const} \textcolor{keywordtype}{void}* data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size,\textcolor{keywordtype}{bool} dynamic = \textcolor{keyword}{false});}
+\DoxyCodeLine{19     \mbox{\hyperlink{class_vertex_buffer}{\string~VertexBuffer}}();}
+\DoxyCodeLine{20     }
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} ChageData(\textcolor{keyword}{const} \textcolor{keywordtype}{void}* data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size);}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} Bind() \textcolor{keyword}{const};}
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} Unbind() \textcolor{keyword}{const};}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} copy();}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keywordtype}{void} Init(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} size, \textcolor{keywordtype}{bool} dynamic);}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28     \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}();}
+\DoxyCodeLine{29 \};}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* SRC\_VERTEXBUFFER\_HPP\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

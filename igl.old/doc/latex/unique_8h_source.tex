@@ -1,0 +1,64 @@
+\hypertarget{unique_8h_source}{}\doxysection{unique.\+h}
+\label{unique_8h_source}\index{igl/unique.h@{igl/unique.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNIQUE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNIQUE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Act like matlab's [C,IA,IC] = unique(X)}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   T  comparable type T}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   A  \#A vector of type T}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   C  \#C vector of unique entries in A}}
+\DoxyCodeLine{24   \textcolor{comment}{//   IA  \#C index vector so that C = A(IA);}}
+\DoxyCodeLine{25   \textcolor{comment}{//   IC  \#A index vector so that A = C(IC);}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} unique(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} std::vector<T> \& A,}
+\DoxyCodeLine{29     std::vector<T> \& C,}
+\DoxyCodeLine{30     std::vector<size\_t> \& IA,}
+\DoxyCodeLine{31     std::vector<size\_t> \& IC);}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} unique(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} std::vector<T> \& A,}
+\DoxyCodeLine{35     std::vector<T> \& C);}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedIA,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedIC>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} unique(}
+\DoxyCodeLine{42       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{43       Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{44       Eigen::PlainObjectBase<DerivedIA> \& IA,}
+\DoxyCodeLine{45       Eigen::PlainObjectBase<DerivedIC> \& IC);}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keywordtype}{void} unique(}
+\DoxyCodeLine{50       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{51       Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#  include "{}unique.cpp"{}}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

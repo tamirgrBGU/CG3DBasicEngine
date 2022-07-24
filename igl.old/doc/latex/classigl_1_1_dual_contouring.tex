@@ -1,0 +1,124 @@
+\hypertarget{classigl_1_1_dual_contouring}{}\doxysection{igl\+::Dual\+Contouring\texorpdfstring{$<$}{<} Scalar \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_dual_contouring}\index{igl::DualContouring$<$ Scalar $>$@{igl::DualContouring$<$ Scalar $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a3b9b66ba64d28cbb74c2e05c994ccafb}\label{classigl_1_1_dual_contouring_a3b9b66ba64d28cbb74c2e05c994ccafb}} 
+using {\bfseries Row\+Vector3S} = Eigen\+::\+Matrix$<$ Scalar, 1, 3 $>$
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a0917f305ae3de7145775c75b02fa176d}\label{classigl_1_1_dual_contouring_a0917f305ae3de7145775c75b02fa176d}} 
+using {\bfseries Row\+Vector4S} = Eigen\+::\+Matrix$<$ Scalar, 1, 4 $>$
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a9bae65012eea6ef24b3da915d014d4d8}\label{classigl_1_1_dual_contouring_a9bae65012eea6ef24b3da915d014d4d8}} 
+using {\bfseries Matrix4S} = Eigen\+::\+Matrix$<$ Scalar, 4, 4 $>$
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ac6c1343da2645d7dbc7920d3be7f7e29}\label{classigl_1_1_dual_contouring_ac6c1343da2645d7dbc7920d3be7f7e29}} 
+using {\bfseries Matrix3S} = Eigen\+::\+Matrix$<$ Scalar, 3, 3 $>$
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ab79477b5fcb382b3b8a18b28e4962d21}\label{classigl_1_1_dual_contouring_ab79477b5fcb382b3b8a18b28e4962d21}} 
+using {\bfseries Vector3S} = Eigen\+::\+Matrix$<$ Scalar, 3, 1 $>$
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a132eb14b6dcfaa4ee47ab9625f84635b}\label{classigl_1_1_dual_contouring_a132eb14b6dcfaa4ee47ab9625f84635b}} 
+using {\bfseries Key\+Triplet} = std\+::tuple$<$ int, int, int $>$
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a3aa437c3d19b3c6df2815e212796fb72}\label{classigl_1_1_dual_contouring_a3aa437c3d19b3c6df2815e212796fb72}} 
+{\bfseries Dual\+Contouring} (const std\+::function$<$ Scalar(const Row\+Vector3S \&)$>$ \&\+\_\+f, const std\+::function$<$ Row\+Vector3S(const Row\+Vector3S \&)$>$ \&\+\_\+f\+\_\+grad, const bool \+\_\+constrained=false, const bool \+\_\+triangles=false, const bool \+\_\+root\+\_\+finding=true)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a29282548ff9b61ab994f615b039e8334}\label{classigl_1_1_dual_contouring_a29282548ff9b61ab994f615b039e8334}} 
+decltype(V) \+::\+Index {\bfseries new\+\_\+vertex} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a135b43609774b774c7ae62f6eee68a07}\label{classigl_1_1_dual_contouring_a135b43609774b774c7ae62f6eee68a07}} 
+decltype(V) \+::\+Index {\bfseries sub2dual} (const Eigen\+::\+Row\+Vector3i \&kc)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ad934d069ca06add1e15247d2a35c9326}\label{classigl_1_1_dual_contouring_ad934d069ca06add1e15247d2a35c9326}} 
+Row\+Vector3S {\bfseries primal} (const Eigen\+::\+Row\+Vector3i \&ic) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a602dcc60c30cab6855292260acd33e26}\label{classigl_1_1_dual_contouring_a602dcc60c30cab6855292260acd33e26}} 
+Eigen\+::\+Row\+Vector3i {\bfseries inverse\+\_\+primal} (const Row\+Vector3S \&x) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_aa7f8d309933fd5e817b10361f3932bfd}\label{classigl_1_1_dual_contouring_aa7f8d309933fd5e817b10361f3932bfd}} 
+bool {\bfseries single\+\_\+edge} (const int \&x, const int \&y, const int \&z, const int \&o)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a368fd1422db7d972d122931d98b491a2}\label{classigl_1_1_dual_contouring_a368fd1422db7d972d122931d98b491a2}} 
+bool {\bfseries single\+\_\+edge} (const int \&x, const int \&y, const int \&z, const int \&o, const Row\+Vector3S \&e0, const Scalar \&f0)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a890ba29f0b675eb861eda7bfb6cc009c}\label{classigl_1_1_dual_contouring_a890ba29f0b675eb861eda7bfb6cc009c}} 
+bool {\bfseries single\+\_\+edge} (const int \&x, const int \&y, const int \&z, const int \&o, const Row\+Vector3S \&e0, const Scalar \&f0, const Row\+Vector3S \&e1, const Scalar \&f1)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a36440d91fbca78df03962310ad04ea55}\label{classigl_1_1_dual_contouring_a36440d91fbca78df03962310ad04ea55}} 
+void {\bfseries dual\+\_\+vertex\+\_\+positions} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a0e1e77e22191701e093531d2bef70c55}\label{classigl_1_1_dual_contouring_a0e1e77e22191701e093531d2bef70c55}} 
+void {\bfseries dense} (const Row\+Vector3S \&\+\_\+min\+\_\+corner, const Row\+Vector3S \&max\+\_\+corner, const int nx, const int ny, const int nz)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a703e432cf9e221671358d41987e51c05}\label{classigl_1_1_dual_contouring_a703e432cf9e221671358d41987e51c05}} 
+{\footnotesize template$<$typename Derived\+Gf , typename Derived\+GV $>$ }\\void {\bfseries dense} (const Eigen\+::\+Matrix\+Base$<$ Derived\+Gf $>$ \&Gf, const Eigen\+::\+Matrix\+Base$<$ Derived\+GV $>$ \&GV, const int nx, const int ny, const int nz)
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a613cb6b506c096f5a136929476888cef}\label{classigl_1_1_dual_contouring_a613cb6b506c096f5a136929476888cef}} 
+void {\bfseries sparse} (const Row\+Vector3S \&\+\_\+step, const Eigen\+::\+Matrix$<$ Scalar, Eigen\+::\+Dynamic, 1 $>$ \&Gf, const Eigen\+::\+Matrix$<$ Scalar, Eigen\+::\+Dynamic, 3 $>$ \&GV, const Eigen\+::\+Matrix$<$ int, Eigen\+::\+Dynamic, 2 $>$ \&GI)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a5c90bfbc98f41f57044635b2293cc667}\label{classigl_1_1_dual_contouring_a5c90bfbc98f41f57044635b2293cc667}} 
+std\+::function$<$ Scalar(const Row\+Vector3S \&)$>$ {\bfseries f}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a7d286c270d9674ff07fc323e91c30e80}\label{classigl_1_1_dual_contouring_a7d286c270d9674ff07fc323e91c30e80}} 
+std\+::function$<$ Row\+Vector3S(const Row\+Vector3S \&)$>$ {\bfseries f\+\_\+grad}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_af16c35716e7e19b4392de5656bd5c7b7}\label{classigl_1_1_dual_contouring_af16c35716e7e19b4392de5656bd5c7b7}} 
+bool {\bfseries constrained}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ae659b3e26738e29c1d65a20bf35d16ae}\label{classigl_1_1_dual_contouring_ae659b3e26738e29c1d65a20bf35d16ae}} 
+bool {\bfseries triangles}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ab6828402c63023d48862feb39cc9975c}\label{classigl_1_1_dual_contouring_ab6828402c63023d48862feb39cc9975c}} 
+bool {\bfseries root\+\_\+finding}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a64caf11121db6911b38dd8be6100f07e}\label{classigl_1_1_dual_contouring_a64caf11121db6911b38dd8be6100f07e}} 
+Row\+Vector3S {\bfseries min\+\_\+corner}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a6fdbc472fd99273604813ff844a37cb5}\label{classigl_1_1_dual_contouring_a6fdbc472fd99273604813ff844a37cb5}} 
+Row\+Vector3S {\bfseries step}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a8618f077fee5b6afed13ae91ad09b64c}\label{classigl_1_1_dual_contouring_a8618f077fee5b6afed13ae91ad09b64c}} 
+Eigen\+::\+Matrix$<$ Scalar, Eigen\+::\+Dynamic, 3 $>$ {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a40ea11eb256b4b4c331d0afe7b6dd19f}\label{classigl_1_1_dual_contouring_a40ea11eb256b4b4c331d0afe7b6dd19f}} 
+decltype(V) \+::\+Index {\bfseries n}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_af2035fe4a6e71e4d65f67bf11580f08b}\label{classigl_1_1_dual_contouring_af2035fe4a6e71e4d65f67bf11580f08b}} 
+std\+::unordered\+\_\+map$<$ Key\+Triplet, typename decltype(V)\+::\+Index, \mbox{\hyperlink{classigl_1_1_hash}{Hash}} $>$ {\bfseries C2V}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ab70b93d5e490dad7d844b9808f873bbc}\label{classigl_1_1_dual_contouring_ab70b93d5e490dad7d844b9808f873bbc}} 
+std\+::vector$<$ Row\+Vector3S, Eigen\+::aligned\+\_\+allocator$<$ Row\+Vector3S $>$ $>$ {\bfseries vV}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a0ee33a4ce36127651e5ed75a3a44cc1c}\label{classigl_1_1_dual_contouring_a0ee33a4ce36127651e5ed75a3a44cc1c}} 
+std\+::vector$<$ Eigen\+::\+Row\+Vector3i, Eigen\+::aligned\+\_\+allocator$<$ Eigen\+::\+Row\+Vector3i $>$ $>$ {\bfseries vI}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ad1518693e53dfd4aa851edac09e5b5fa}\label{classigl_1_1_dual_contouring_ad1518693e53dfd4aa851edac09e5b5fa}} 
+std\+::vector$<$ Matrix4S, Eigen\+::aligned\+\_\+allocator$<$ Matrix4S $>$ $>$ {\bfseries vH}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_acb526e6ce3944d881dc8d26bcdd4f159}\label{classigl_1_1_dual_contouring_acb526e6ce3944d881dc8d26bcdd4f159}} 
+std\+::vector$<$ int $>$ {\bfseries vcount}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_a0120e0737f592da1a238305568e583b5}\label{classigl_1_1_dual_contouring_a0120e0737f592da1a238305568e583b5}} 
+Eigen\+::\+Matrix$<$ Eigen\+::\+Index, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ {\bfseries Q}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ad56a4c60287ef9f9172dd74960091bdf}\label{classigl_1_1_dual_contouring_ad56a4c60287ef9f9172dd74960091bdf}} 
+decltype(Q) \+::\+Index {\bfseries m}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_af796415647db868fe6e16cb9f777f131}\label{classigl_1_1_dual_contouring_af796415647db868fe6e16cb9f777f131}} 
+std\+::mutex {\bfseries Qmut}
+\item 
+\mbox{\Hypertarget{classigl_1_1_dual_contouring_ab8074eed860a71db7eb2a5012d686cde}\label{classigl_1_1_dual_contouring_ab8074eed860a71db7eb2a5012d686cde}} 
+std\+::mutex {\bfseries Vmut}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/dual\+\_\+contouring.\+cpp\end{DoxyCompactItemize}

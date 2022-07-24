@@ -1,0 +1,42 @@
+\hypertarget{report__gl__error_8h_source}{}\doxysection{report\+\_\+gl\+\_\+error.\+h}
+\label{report__gl__error_8h_source}\index{igl/opengl/report\_gl\_error.h@{igl/opengl/report\_gl\_error.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_REPORT\_GL\_ERROR\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_REPORT\_GL\_ERROR\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{comment}{// Hack to allow both opengl/ and opengl2 to use this (we shouldn't allow this)}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef \_\_gl\_h\_ }}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#  include "{}gl.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{21   \{}
+\DoxyCodeLine{22     \textcolor{comment}{// Print last OpenGL error to stderr prefixed by specified id string}}
+\DoxyCodeLine{23     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24     \textcolor{comment}{//   id   string to appear before any error msgs}}
+\DoxyCodeLine{25     \textcolor{comment}{// Returns result of glGetError() }}
+\DoxyCodeLine{26     IGL\_INLINE GLenum report\_gl\_error(\textcolor{keyword}{const} std::string \textcolor{keywordtype}{id});}
+\DoxyCodeLine{27     \textcolor{comment}{// No prefix}}
+\DoxyCodeLine{28     IGL\_INLINE GLenum report\_gl\_error();}
+\DoxyCodeLine{29   \}}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#  include "{}report\_gl\_error.cpp"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

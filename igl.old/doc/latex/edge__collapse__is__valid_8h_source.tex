@@ -1,0 +1,65 @@
+\hypertarget{edge__collapse__is__valid_8h_source}{}\doxysection{edge\+\_\+collapse\+\_\+is\+\_\+valid.\+h}
+\label{edge__collapse__is__valid_8h_source}\index{igl/edge\_collapse\_is\_valid.h@{igl/edge\_collapse\_is\_valid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_EDGE\_COLLAPSE\_IS\_VALID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_EDGE\_COLLAPSE\_IS\_VALID\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Assumes (V,F) is a closed manifold mesh (except for previouslly collapsed}}
+\DoxyCodeLine{16   \textcolor{comment}{// faces which should be set to: }}
+\DoxyCodeLine{17   \textcolor{comment}{// [IGL\_COLLAPSE\_EDGE\_NULL IGL\_COLLAPSE\_EDGE\_NULL IGL\_COLLAPSE\_EDGE\_NULL].}}
+\DoxyCodeLine{18   \textcolor{comment}{// Tests whether collapsing exactly two faces and exactly 3 edges from E (e}}
+\DoxyCodeLine{19   \textcolor{comment}{// and one side of each face gets collapsed to the other) will result in a}}
+\DoxyCodeLine{20   \textcolor{comment}{// mesh with the same topology.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   e  index into E of edge to try to collapse. E(e,:) = [s d] or [d s] so}}
+\DoxyCodeLine{24   \textcolor{comment}{//     that s<d, then d is collapsed to s.}}
+\DoxyCodeLine{25   \textcolor{comment}{//   F  \#F by 3 list of face indices into V.}}
+\DoxyCodeLine{26   \textcolor{comment}{//   E  \#E by 2 list of edge indices into V.}}
+\DoxyCodeLine{27   \textcolor{comment}{//   EMAP \#F*3 list of indices into E, mapping each directed edge to unique}}
+\DoxyCodeLine{28   \textcolor{comment}{//     unique edge in E}}
+\DoxyCodeLine{29   \textcolor{comment}{//   EF  \#E by 2 list of edge flaps, EF(e,0)=f means e=(i-\/-\/>j) is the edge of}}
+\DoxyCodeLine{30   \textcolor{comment}{//     F(f,:) opposite the vth corner, where EI(e,0)=v. Similarly EF(e,1) "{}}}
+\DoxyCodeLine{31   \textcolor{comment}{//     e=(j-\/>i)}}
+\DoxyCodeLine{32   \textcolor{comment}{//   EI  \#E by 2 list of edge flap corners (see above).}}
+\DoxyCodeLine{33   \textcolor{comment}{// Returns true if edge collapse is valid}}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{bool} edge\_collapse\_is\_valid(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixXi \& E,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixXi \& EI);}
+\DoxyCodeLine{41   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{42   \textcolor{comment}{//   Nsv  \#Nsv list of "{}next"{} vertices circulating around starting vertex of}}
+\DoxyCodeLine{43   \textcolor{comment}{//     edge}}
+\DoxyCodeLine{44   \textcolor{comment}{//   Ndv  \#Ndv list of "{}next"{} vertices circulating around destination vertex of}}
+\DoxyCodeLine{45   \textcolor{comment}{//     edge}}
+\DoxyCodeLine{46   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{47   \textcolor{comment}{//   Nsv  (side-\/effect: sorted by value)}}
+\DoxyCodeLine{48   \textcolor{comment}{//   Ndv  (side-\/effect: sorted by value)}}
+\DoxyCodeLine{49   \textcolor{comment}{// Returns true iff edge collapse is valid}}
+\DoxyCodeLine{50   \textcolor{comment}{//}}
+\DoxyCodeLine{51   \textcolor{comment}{// See also: circulation}}
+\DoxyCodeLine{52   IGL\_INLINE \textcolor{keywordtype}{bool} edge\_collapse\_is\_valid(}
+\DoxyCodeLine{53     \textcolor{comment}{/*const*/} std::vector<int> \& Nsv,}
+\DoxyCodeLine{54     \textcolor{comment}{/*const*/} std::vector<int> \& Ndv);}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#  include "{}edge\_collapse\_is\_valid.cpp"{}}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

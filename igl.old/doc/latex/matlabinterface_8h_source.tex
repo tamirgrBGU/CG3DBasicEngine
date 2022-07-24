@@ -1,0 +1,96 @@
+\hypertarget{matlabinterface_8h_source}{}\doxysection{matlabinterface.\+h}
+\label{matlabinterface_8h_source}\index{igl/matlab/matlabinterface.h@{igl/matlab/matlabinterface.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MATLAB\_MATLAB\_INTERFACE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MATLAB\_MATLAB\_INTERFACE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{comment}{// WARNING: These functions require matlab installed}}
+\DoxyCodeLine{12 \textcolor{comment}{// Additional header folder required:}}
+\DoxyCodeLine{13 \textcolor{comment}{//   /Applications/MATLAB\_R2011a.app/extern/include}}
+\DoxyCodeLine{14 \textcolor{comment}{// Additional binary lib to be linked with:}}
+\DoxyCodeLine{15 \textcolor{comment}{// /Applications/MATLAB\_R2011a.app/bin/maci64/libeng.dylib}}
+\DoxyCodeLine{16 \textcolor{comment}{// /Applications/MATLAB\_R2011a.app/bin/maci64/libmx.dylib}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{comment}{// MAC ONLY:}}
+\DoxyCodeLine{19 \textcolor{comment}{// Add to the environment variables:}}
+\DoxyCodeLine{20 \textcolor{comment}{// DYLD\_LIBRARY\_PATH = /Applications/MATLAB\_R2011a.app/bin/maci64/}}
+\DoxyCodeLine{21 \textcolor{comment}{// PATH = /opt/local/bin:/opt/local/sbin:/Applications/MATLAB\_R2011a.app/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/texbin:/usr/X11/bin}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <complex>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include <engine.h>}  \textcolor{comment}{// Matlab engine header}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37   \textcolor{keyword}{namespace }matlab}
+\DoxyCodeLine{38   \{}
+\DoxyCodeLine{39     \textcolor{comment}{// Init the MATLAB engine}}
+\DoxyCodeLine{40     \textcolor{comment}{// (no need to call it directly since it is automatically invoked by any other command)}}
+\DoxyCodeLine{41     IGL\_INLINE \textcolor{keywordtype}{void} mlinit(Engine** engine);}
+\DoxyCodeLine{42   }
+\DoxyCodeLine{43     \textcolor{comment}{// Closes the MATLAB engine}}
+\DoxyCodeLine{44     IGL\_INLINE \textcolor{keywordtype}{void} mlclose(Engine** engine);}
+\DoxyCodeLine{45   }
+\DoxyCodeLine{46     \textcolor{comment}{// Send a matrix to MATLAB}}
+\DoxyCodeLine{47     IGL\_INLINE \textcolor{keywordtype}{void} mlsetmatrix(Engine** engine, std::string name, \textcolor{keyword}{const} Eigen::MatrixXd\& M);}
+\DoxyCodeLine{48   }
+\DoxyCodeLine{49     \textcolor{comment}{// Send a matrix to MATLAB}}
+\DoxyCodeLine{50     IGL\_INLINE \textcolor{keywordtype}{void} mlsetmatrix(Engine** engine, std::string name, \textcolor{keyword}{const} Eigen::MatrixXf\& M);}
+\DoxyCodeLine{51   }
+\DoxyCodeLine{52     \textcolor{comment}{// Send a matrix to MATLAB}}
+\DoxyCodeLine{53     IGL\_INLINE \textcolor{keywordtype}{void} mlsetmatrix(Engine** engine, std::string name, \textcolor{keyword}{const} Eigen::MatrixXi\& M);}
+\DoxyCodeLine{54   }
+\DoxyCodeLine{55     \textcolor{comment}{// Send a matrix to MATLAB}}
+\DoxyCodeLine{56     IGL\_INLINE \textcolor{keywordtype}{void} mlsetmatrix(Engine** mlengine, std::string name, \textcolor{keyword}{const} Eigen::Matrix<unsigned int, Eigen::Dynamic, Eigen::Dynamic >\& M);}
+\DoxyCodeLine{57   }
+\DoxyCodeLine{58     \textcolor{comment}{// Receive a matrix from MATLAB}}
+\DoxyCodeLine{59     IGL\_INLINE \textcolor{keywordtype}{void} mlgetmatrix(Engine** engine, std::string name, Eigen::MatrixXd\& M);}
+\DoxyCodeLine{60   }
+\DoxyCodeLine{61     \textcolor{comment}{// Receive a matrix from MATLAB}}
+\DoxyCodeLine{62     IGL\_INLINE \textcolor{keywordtype}{void} mlgetmatrix(Engine** engine, std::string name, Eigen::MatrixXf\& M);}
+\DoxyCodeLine{63   }
+\DoxyCodeLine{64     \textcolor{comment}{// Receive a matrix from MATLAB}}
+\DoxyCodeLine{65     IGL\_INLINE \textcolor{keywordtype}{void} mlgetmatrix(Engine** engine, std::string name, Eigen::MatrixXi\& M);}
+\DoxyCodeLine{66   }
+\DoxyCodeLine{67     \textcolor{comment}{// Receive a matrix from MATLAB}}
+\DoxyCodeLine{68     IGL\_INLINE \textcolor{keywordtype}{void} mlgetmatrix(Engine** mlengine, std::string name, Eigen::Matrix<unsigned int, Eigen::Dynamic, Eigen::Dynamic >\& M);}
+\DoxyCodeLine{69   }
+\DoxyCodeLine{70     \textcolor{comment}{// Send a single scalar to MATLAB}}
+\DoxyCodeLine{71     IGL\_INLINE \textcolor{keywordtype}{void} mlsetscalar(Engine** engine, std::string name, \textcolor{keywordtype}{double} s);}
+\DoxyCodeLine{72   }
+\DoxyCodeLine{73     \textcolor{comment}{// Receive a single scalar from MATLAB}}
+\DoxyCodeLine{74     IGL\_INLINE \textcolor{keywordtype}{double} mlgetscalar(Engine** engine, std::string name);}
+\DoxyCodeLine{75   }
+\DoxyCodeLine{76     \textcolor{comment}{// Execute arbitrary MATLAB code and return the MATLAB output}}
+\DoxyCodeLine{77     IGL\_INLINE std::string mleval(Engine** engine, std::string code);}
+\DoxyCodeLine{78   }
+\DoxyCodeLine{79     \textcolor{comment}{// Send a sparse matrix to MATLAB}}
+\DoxyCodeLine{80     IGL\_INLINE \textcolor{keywordtype}{void} mlsetmatrix(Engine** mlengine, std::string name, \textcolor{keyword}{const} Eigen::SparseMatrix<double>\& M);}
+\DoxyCodeLine{81   }
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85 \textcolor{comment}{// Be sure that this is not compiled into libigl.a}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#  include "{}matlabinterface.cpp"{}}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

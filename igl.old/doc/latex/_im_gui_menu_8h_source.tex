@@ -1,0 +1,131 @@
+\hypertarget{_im_gui_menu_8h_source}{}\doxysection{Im\+Gui\+Menu.\+h}
+\label{_im_gui_menu_8h_source}\index{igl/opengl/glfw/imgui/ImGuiMenu.h@{igl/opengl/glfw/imgui/ImGuiMenu.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Jérémie Dumas <jeremie.dumas@ens-\/lyon.org>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIMENU\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIMENU\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}igl/opengl/glfw/Viewer.h"{}}}
+\DoxyCodeLine{13 \textcolor{comment}{//\#include <igl/opengl/glfw/ViewerPlugin.h>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{comment}{//\#include "{}igl/opengl/ViewerCore.h"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}igl/opengl/ViewerData.h"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}igl/opengl/glfw/Display.h"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <igl/opengl/Camera.h>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}../DrawInfo.h"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{comment}{// Forward declarations}}
+\DoxyCodeLine{28 \textcolor{keyword}{struct }ImGuiContext;}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \textcolor{keyword}{namespace }glfw}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }imgui}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1imgui_1_1_im_gui_menu}{ImGuiMenu}} \textcolor{comment}{//: public igl::opengl::glfw::ViewerPlugin}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{42   \textcolor{comment}{// Hidpi scaling to be used for text rendering.}}
+\DoxyCodeLine{43   \textcolor{keywordtype}{float} hidpi\_scaling\_;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{comment}{// Ratio between the framebuffer size and the window size.}}
+\DoxyCodeLine{46   \textcolor{comment}{// May be different from the hipdi scaling!}}
+\DoxyCodeLine{47   \textcolor{keywordtype}{float} pixel\_ratio\_;}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \textcolor{comment}{// ImGui Context}}
+\DoxyCodeLine{50   ImGuiContext * context\_ = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{keyword}{public}:}
+\DoxyCodeLine{53     IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} init(\mbox{\hyperlink{class_display}{Display}}* disp);\textcolor{comment}{// override;}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} reload\_font(\textcolor{keywordtype}{int} font\_size = 13);}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} shutdown();\textcolor{comment}{// override;}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} pre\_draw();\textcolor{comment}{// override;}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   IGL\_INLINE  \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} post\_draw();\textcolor{comment}{// override;}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} post\_resize(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height);\textcolor{comment}{// override;}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{comment}{// Mouse IO}}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_down(GLFWwindow* window, \textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} modifier);\textcolor{comment}{// override;}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_up(GLFWwindow* window, \textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} modifier);\textcolor{comment}{// override;}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_move(GLFWwindow* window, \textcolor{keywordtype}{int} mouse\_x, \textcolor{keywordtype}{int} mouse\_y);\textcolor{comment}{// override;}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_scroll(GLFWwindow* window, \textcolor{keywordtype}{float} delta\_y);\textcolor{comment}{// override;}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{comment}{// Keyboard IO}}
+\DoxyCodeLine{75   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_pressed(GLFWwindow* window, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers);\textcolor{comment}{// override;}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_down(GLFWwindow* window, \textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers);\textcolor{comment}{// override;}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_up(GLFWwindow* window, \textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers);\textcolor{comment}{// override;}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81   \textcolor{comment}{// Draw menu}}
+\DoxyCodeLine{82     \textcolor{comment}{//  TODO: return this after creating is set staff and remove core from here}}
+\DoxyCodeLine{83 \textcolor{comment}{//  IGL\_INLINE virtual void draw\_menu(igl::opengl::glfw::Viewer* viewer, std::vector<igl::opengl::ViewerCore> \&core);}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85   \textcolor{comment}{// Can be overwritten by `callback\_draw\_viewer\_window`}}
+\DoxyCodeLine{86   \textcolor{comment}{//  TODO: return this after creating is set staff and remove core from here}}
+\DoxyCodeLine{87 \textcolor{comment}{//  IGL\_INLINE virtual void draw\_viewer\_window(igl::opengl::glfw::Viewer* viewer, std::vector<igl::opengl::ViewerCore> \&core);}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{comment}{// Can be overwritten by `callback\_draw\_viewer\_menu`}}
+\DoxyCodeLine{90   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw\_viewer\_menu(\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{igl::opengl::glfw::Viewer}}* viewer, std::vector<igl::opengl::Camera*> \&camera,Eigen::Vector4i\& viewWindow,std::vector<DrawInfo *> drawInfos);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92   \textcolor{comment}{// Can be overwritten by `callback\_draw\_custom\_window`}}
+\DoxyCodeLine{93   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} draw\_custom\_window() \{ \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{comment}{// Easy-\/to-\/customize callbacks}}
+\DoxyCodeLine{96   std::function<void(\textcolor{keywordtype}{void})> callback\_draw\_viewer\_window;}
+\DoxyCodeLine{97   std::function<void(\textcolor{keywordtype}{void})> callback\_draw\_viewer\_menu;}
+\DoxyCodeLine{98   std::function<void(\textcolor{keywordtype}{void})> callback\_draw\_custom\_window;}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{comment}{//  IGL\_INLINE void draw\_labels\_window(igl::opengl::glfw::Viewer* viewer, const igl::opengl::ViewerCore* core);}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 \textcolor{comment}{//  IGL\_INLINE void draw\_labels(const igl::opengl::ViewerData \&data, const igl::opengl::ViewerCore* core);}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{comment}{//  IGL\_INLINE void draw\_text(}}
+\DoxyCodeLine{105 \textcolor{comment}{//    Eigen::Vector3d pos,}}
+\DoxyCodeLine{106 \textcolor{comment}{//    Eigen::Vector3d normal,}}
+\DoxyCodeLine{107 \textcolor{comment}{//    const std::string \&text,}}
+\DoxyCodeLine{108 \textcolor{comment}{//    const igl::opengl::ViewerCore* core,}}
+\DoxyCodeLine{109 \textcolor{comment}{//    const Eigen::Vector4f color = Eigen::Vector4f(0, 0, 0.04, 1)); // old default color}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   IGL\_INLINE \textcolor{keywordtype}{float} pixel\_ratio();}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   IGL\_INLINE \textcolor{keywordtype}{float} hidpi\_scaling();}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{keywordtype}{float} menu\_scaling() \{ \textcolor{keywordflow}{return} hidpi\_scaling\_ / pixel\_ratio\_; \}}
+\DoxyCodeLine{116 \};}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{119 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{120 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{121 \} \textcolor{comment}{// end namespace}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#  include "{}ImGuiMenu.cpp"{}}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIMENU\_H}}
+
+\end{DoxyCode}

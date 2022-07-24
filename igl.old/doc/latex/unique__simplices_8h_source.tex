@@ -1,0 +1,50 @@
+\hypertarget{unique__simplices_8h_source}{}\doxysection{unique\+\_\+simplices.\+h}
+\label{unique__simplices_8h_source}\index{igl/unique\_simplices.h@{igl/unique\_simplices.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNIQUE\_SIMPLICES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNIQUE\_SIMPLICES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Find *combinatorially* unique simplices in F.  **Order independent**}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   F  \#F by simplex-\/size list of simplices}}
+\DoxyCodeLine{18   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   FF  \#FF by simplex-\/size list of unique simplices in F}}
+\DoxyCodeLine{20   \textcolor{comment}{//   IA  \#FF index vector so that FF == sort(F(IA,:),2);}}
+\DoxyCodeLine{21   \textcolor{comment}{//   IC  \#F index vector so that sort(F,2) == FF(IC,:);}}
+\DoxyCodeLine{22   \textcolor{keyword}{template} <}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedIA,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedIC>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} unique\_simplices(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedFF>\& FF,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedIA>\& IA,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedIC>\& IC);}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedFF>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} unique\_simplices(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedFF>\& FF);}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#  include "{}unique\_simplices.cpp"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

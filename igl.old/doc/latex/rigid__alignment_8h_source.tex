@@ -1,0 +1,56 @@
+\hypertarget{rigid__alignment_8h_source}{}\doxysection{rigid\+\_\+alignment.\+h}
+\label{rigid__alignment_8h_source}\index{igl/rigid\_alignment.h@{igl/rigid\_alignment.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef RIGID\_ALIGNMENT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define RIGID\_ALIGNMENT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Find the rigid transformation that best aligns the 3D points X to their}}
+\DoxyCodeLine{16   \textcolor{comment}{// corresponding points P with associated normals N.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{//  min       ‖(X*R+t-\/P)'N‖²}}
+\DoxyCodeLine{19   \textcolor{comment}{//  R∈SO(3)}}
+\DoxyCodeLine{20   \textcolor{comment}{//  t∈R³}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   X  \#X by 3 list of query points}}
+\DoxyCodeLine{24   \textcolor{comment}{//   P  \#X by 3 list of corresponding (e.g., closest) points}}
+\DoxyCodeLine{25   \textcolor{comment}{//   N  \#X by 3 list of unit normals for each row in P}}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   R  3 by 3 rotation matrix}}
+\DoxyCodeLine{28   \textcolor{comment}{//   t  1 by 3 translation vector}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{//   See also: icp}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedX,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} Derivedt}
+\DoxyCodeLine{37   >}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{void} rigid\_alignment(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedX> \& X,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN> \& N,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<Derivedt> \& t);}
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}rigid\_alignment.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

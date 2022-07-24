@@ -1,0 +1,54 @@
+\hypertarget{copyleft_2quadprog_8h_source}{}\doxysection{quadprog.\+h}
+\label{copyleft_2quadprog_8h_source}\index{igl/copyleft/quadprog.h@{igl/copyleft/quadprog.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_QUADPROG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_QUADPROG\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{// Solve a (dense) quadratric program of the form:}}
+\DoxyCodeLine{18     \textcolor{comment}{//}}
+\DoxyCodeLine{19     \textcolor{comment}{//   min  0.5 x G x + g0 x}}
+\DoxyCodeLine{20     \textcolor{comment}{//   s.t. CE' x + ce0  = 0}}
+\DoxyCodeLine{21     \textcolor{comment}{//   and  CI' x + ci0 >= 0}}
+\DoxyCodeLine{22     \textcolor{comment}{//}}
+\DoxyCodeLine{23     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24     \textcolor{comment}{//   G  \#x by \#x matrix of quadratic coefficients}}
+\DoxyCodeLine{25     \textcolor{comment}{//   g0  \#x vector of linear coefficients}}
+\DoxyCodeLine{26     \textcolor{comment}{//   CE \#x by \#CE list of linear equality coefficients}}
+\DoxyCodeLine{27     \textcolor{comment}{//   ce0 \#CE list of linear equality right-\/hand sides}}
+\DoxyCodeLine{28     \textcolor{comment}{//   CI \#x by \#CI list of linear equality coefficients}}
+\DoxyCodeLine{29     \textcolor{comment}{//   ci0 \#CI list of linear equality right-\/hand sides}}
+\DoxyCodeLine{30     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{31     \textcolor{comment}{//   x  \#x vector of solution values}}
+\DoxyCodeLine{32     \textcolor{comment}{// Returns true iff success}}
+\DoxyCodeLine{33     IGL\_INLINE \textcolor{keywordtype}{bool} quadprog(}
+\DoxyCodeLine{34       \textcolor{keyword}{const} Eigen::MatrixXd \& G,  }
+\DoxyCodeLine{35       \textcolor{keyword}{const} Eigen::VectorXd \& g0,  }
+\DoxyCodeLine{36       \textcolor{keyword}{const} Eigen::MatrixXd \& CE, }
+\DoxyCodeLine{37       \textcolor{keyword}{const} Eigen::VectorXd \& ce0,  }
+\DoxyCodeLine{38       \textcolor{keyword}{const} Eigen::MatrixXd \& CI, }
+\DoxyCodeLine{39       \textcolor{keyword}{const} Eigen::VectorXd \& ci0, }
+\DoxyCodeLine{40       Eigen::VectorXd\& x);}
+\DoxyCodeLine{41   \}}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#  include "{}quadprog.cpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

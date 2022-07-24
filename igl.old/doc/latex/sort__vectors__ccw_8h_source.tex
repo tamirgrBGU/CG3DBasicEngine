@@ -1,0 +1,74 @@
+\hypertarget{sort__vectors__ccw_8h_source}{}\doxysection{sort\+\_\+vectors\+\_\+ccw.\+h}
+\label{sort__vectors__ccw_8h_source}\index{igl/sort\_vectors\_ccw.h@{igl/sort\_vectors\_ccw.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Olga Diamanti <olga.diam@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_SORT\_VECTORS\_CCW}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_SORT\_VECTORS\_CCW}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Sorts a set of N coplanar vectors in a ccw order, and returns their order.}}
+\DoxyCodeLine{17   \textcolor{comment}{// Optionally it also returns a copy of the ordered vector set, or the indices,}}
+\DoxyCodeLine{18   \textcolor{comment}{// in the original unordered set, of the vectors in the ordered set (called here}}
+\DoxyCodeLine{19   \textcolor{comment}{// the "{}inverse"{} set of indices).}}
+\DoxyCodeLine{20   }
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   P               1 by 3N row vector of the vectors to be sorted, stacked horizontally}}
+\DoxyCodeLine{23   \textcolor{comment}{//   N               \#1 by 3 normal of the plane where the vectors lie}}
+\DoxyCodeLine{24   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   order           N by 1 order of the vectors (indices of the unordered vectors into}}
+\DoxyCodeLine{26   \textcolor{comment}{//                   the ordered vector set)}}
+\DoxyCodeLine{27   \textcolor{comment}{//   sorted          1 by 3N row vector of the ordered vectors, stacked horizontally}}
+\DoxyCodeLine{28   \textcolor{comment}{//   inv\_order       N by 1 "{}inverse"{} order of the vectors (the indices of the ordered}}
+\DoxyCodeLine{29   \textcolor{comment}{//                   vectors into the unordered vector set)}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} sort\_vectors\_ccw(}
+\DoxyCodeLine{33                                    \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& P,}
+\DoxyCodeLine{34                                    \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& N,}
+\DoxyCodeLine{35                                    Eigen::PlainObjectBase<DerivedI> \&order,}
+\DoxyCodeLine{36                                    Eigen::PlainObjectBase<DerivedS> \&sorted,}
+\DoxyCodeLine{37                                    Eigen::PlainObjectBase<DerivedI> \&inv\_order);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39    \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{40    IGL\_INLINE \textcolor{keywordtype}{void} sort\_vectors\_ccw(}
+\DoxyCodeLine{41                                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& P,}
+\DoxyCodeLine{42                                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& N,}
+\DoxyCodeLine{43                                     Eigen::PlainObjectBase<DerivedI> \&order,}
+\DoxyCodeLine{44                                     Eigen::PlainObjectBase<DerivedS> \&sorted);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{47     IGL\_INLINE \textcolor{keywordtype}{void} sort\_vectors\_ccw(}
+\DoxyCodeLine{48                                      \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& P,}
+\DoxyCodeLine{49                                      \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& N,}
+\DoxyCodeLine{50                                      Eigen::PlainObjectBase<DerivedI> \&order,}
+\DoxyCodeLine{51                                      Eigen::PlainObjectBase<DerivedI> \&inv\_order);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54      \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{55      IGL\_INLINE \textcolor{keywordtype}{void} sort\_vectors\_ccw(}
+\DoxyCodeLine{56                                       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& P,}
+\DoxyCodeLine{57                                       \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedS>\& N,}
+\DoxyCodeLine{58                                       Eigen::PlainObjectBase<DerivedI> \&order);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \};}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#include "{}sort\_vectors\_ccw.cpp"{}}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* defined(IGL\_FIELD\_LOCAL\_GLOBAL\_CONVERSIONS) */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

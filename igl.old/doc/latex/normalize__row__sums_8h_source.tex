@@ -1,0 +1,42 @@
+\hypertarget{normalize__row__sums_8h_source}{}\doxysection{normalize\+\_\+row\+\_\+sums.\+h}
+\label{normalize__row__sums_8h_source}\index{igl/normalize\_row\_sums.h@{igl/normalize\_row\_sums.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NORMALIZE\_ROW\_SUMS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NORMALIZE\_ROW\_SUMS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Normalize the rows in A so that their sums are each 1 and place the new}}
+\DoxyCodeLine{16   \textcolor{comment}{// entries in B}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   A  \#rows by k input matrix}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   B  \#rows by k input matrix, can be the same as A}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Note: This is just calling an Eigen one-\/liner: }}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{//     B  = A.array().colwise() / A.array().rowwise().sum();}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} normalize\_row\_sums(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA>\& A,}
+\DoxyCodeLine{29     Eigen::MatrixBase<DerivedB> \& B);}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#  include "{}normalize\_row\_sums.cpp"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,55 @@
+\hypertarget{flip__avoiding__line__search_8h_source}{}\doxysection{flip\+\_\+avoiding\+\_\+line\+\_\+search.\+h}
+\label{flip__avoiding__line__search_8h_source}\index{igl/flip\_avoiding\_line\_search.h@{igl/flip\_avoiding\_line\_search.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Michael Rabinovich}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FLIP\_AVOIDING\_LINE\_SEARCH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FLIP\_AVOIDING\_LINE\_SEARCH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}PI.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// A bisection line search for a mesh based energy that avoids triangle flips as suggested in}}
+\DoxyCodeLine{18   \textcolor{comment}{//        "{}Bijective Parameterization with Free Boundaries"{} (Smith J. and Schaefer S., 2015).}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// The user specifies an initial vertices position (that has no flips) and target one (that my have flipped triangles).}}
+\DoxyCodeLine{21   \textcolor{comment}{// This method first computes the largest step in direction of the destination vertices that does not incur flips,}}
+\DoxyCodeLine{22   \textcolor{comment}{// and then minimizes a given energy using this maximal step and a bisection linesearch (see igl::line\_search).}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// Supports both triangle and tet meshes.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   F  \#F by 3/4                 list of mesh faces or tets}}
+\DoxyCodeLine{28   \textcolor{comment}{//   cur\_v                        \#V by dim list of variables}}
+\DoxyCodeLine{29   \textcolor{comment}{//   dst\_v                        \#V by dim list of target vertices. This mesh may have flipped triangles}}
+\DoxyCodeLine{30   \textcolor{comment}{//   energy                       A function to compute the mesh-\/based energy (return an energy that is bigger than 0)}}
+\DoxyCodeLine{31   \textcolor{comment}{//   cur\_energy(OPTIONAL)         The energy at the given point. Helps save redundant computations.}}
+\DoxyCodeLine{32   \textcolor{comment}{//                                This is optional. If not specified, the function will compute it.}}
+\DoxyCodeLine{33   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{34   \textcolor{comment}{//        cur\_v                       \#V by dim list of variables at the new location}}
+\DoxyCodeLine{35   \textcolor{comment}{// Returns the energy at the new point}}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{double} flip\_avoiding\_line\_search(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixXi F,}
+\DoxyCodeLine{38     Eigen::MatrixXd\& cur\_v,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXd\& dst\_v,}
+\DoxyCodeLine{40     std::function<\textcolor{keywordtype}{double}(Eigen::MatrixXd\&)> energy,}
+\DoxyCodeLine{41     \textcolor{keywordtype}{double} cur\_energy = -\/1);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#  include "{}flip\_avoiding\_line\_search.cpp"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

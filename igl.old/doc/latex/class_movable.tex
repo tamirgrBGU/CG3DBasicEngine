@@ -1,0 +1,76 @@
+\hypertarget{class_movable}{}\doxysection{Movable Class Reference}
+\label{class_movable}\index{Movable@{Movable}}
+Inheritance diagram for Movable\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_movable}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_movable_a285df35fea1e3df436f31e3cd5beb310}\label{class_movable_a285df35fea1e3df436f31e3cd5beb310}} 
+enum \{ \newline
+{\bfseries pre\+Rot}
+, {\bfseries post\+Rot}
+, {\bfseries phi\+Rot}
+, {\bfseries theta\+Rot}
+, \newline
+{\bfseries psi\+Rot}
+, {\bfseries psi\+Phi\+Rot}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_movable_a1cf4fc2c56ed455086250f5ac742b2a8}\label{class_movable_a1cf4fc2c56ed455086250f5ac742b2a8}} 
+{\bfseries Movable} (const \mbox{\hyperlink{class_movable}{Movable}} \&mov)
+\item 
+\mbox{\Hypertarget{class_movable_aad96b8c6781bf8e12a51ef8e6bd0a6c3}\label{class_movable_aad96b8c6781bf8e12a51ef8e6bd0a6c3}} 
+Eigen\+::\+Matrix4f {\bfseries Make\+Trans\+Scale} ()
+\item 
+\mbox{\Hypertarget{class_movable_a0ec34d901bd96ee2b6e44d4b412b39ab}\label{class_movable_a0ec34d901bd96ee2b6e44d4b412b39ab}} 
+Eigen\+::\+Matrix4d {\bfseries Make\+Transd} ()
+\item 
+\mbox{\Hypertarget{class_movable_a31c11552e3bba42211f1f29214a472a1}\label{class_movable_a31c11552e3bba42211f1f29214a472a1}} 
+Eigen\+::\+Matrix4d {\bfseries Make\+Trans\+Scaled} ()
+\item 
+\mbox{\Hypertarget{class_movable_aa00925992439b8ce793d07909b44fe08}\label{class_movable_aa00925992439b8ce793d07909b44fe08}} 
+void {\bfseries My\+Translate} (Eigen\+::\+Vector3d amt, bool pre\+Rotation)
+\item 
+\mbox{\Hypertarget{class_movable_a5152c8aee34704e5b3895062e20688a7}\label{class_movable_a5152c8aee34704e5b3895062e20688a7}} 
+void {\bfseries Translate\+In\+System} (Eigen\+::\+Matrix3d rot, Eigen\+::\+Vector3d amt)
+\item 
+\mbox{\Hypertarget{class_movable_a8a3aa0370cf283632671d510ec52aa7f}\label{class_movable_a8a3aa0370cf283632671d510ec52aa7f}} 
+Eigen\+::\+Matrix3d {\bfseries Get\+Rotation} ()
+\item 
+\mbox{\Hypertarget{class_movable_a3fbcaa898777b24df429405b36532e2c}\label{class_movable_a3fbcaa898777b24df429405b36532e2c}} 
+void {\bfseries Set\+Center\+Of\+Rotation} (Eigen\+::\+Vector3d amt)
+\item 
+\mbox{\Hypertarget{class_movable_a7fb30e0b0faef461782acd1afe9fa493}\label{class_movable_a7fb30e0b0faef461782acd1afe9fa493}} 
+void {\bfseries My\+Rotate} (const Eigen\+::\+Vector3d \&rot\+Axis, double angle, int mode)
+\item 
+\mbox{\Hypertarget{class_movable_abdb286c65472cd3db83043136aef0aea}\label{class_movable_abdb286c65472cd3db83043136aef0aea}} 
+void {\bfseries My\+Rotate} (Eigen\+::\+Vector3d rot\+Axis, double angle)
+\item 
+\mbox{\Hypertarget{class_movable_a8c7e9eca1dae28796a6a6502505985cf}\label{class_movable_a8c7e9eca1dae28796a6a6502505985cf}} 
+void {\bfseries Rotate\+In\+System} (Eigen\+::\+Vector3d rot\+Axis, double angle)
+\item 
+\mbox{\Hypertarget{class_movable_a083205b6a3f3d6383e01cdcdc6fb6079}\label{class_movable_a083205b6a3f3d6383e01cdcdc6fb6079}} 
+void {\bfseries My\+Rotate} (const Eigen\+::\+Matrix3d \&rot)
+\item 
+\mbox{\Hypertarget{class_movable_a03aaa356c2921076793f53542e4227b1}\label{class_movable_a03aaa356c2921076793f53542e4227b1}} 
+void {\bfseries My\+Scale} (Eigen\+::\+Vector3d amt)
+\item 
+\mbox{\Hypertarget{class_movable_a1c8ce9f84b8eeb38258fc7bbc9172a66}\label{class_movable_a1c8ce9f84b8eeb38258fc7bbc9172a66}} 
+void {\bfseries Zero\+Trans} ()
+\item 
+\mbox{\Hypertarget{class_movable_a7487f0f76ea662d9088a80f0e93964c7}\label{class_movable_a7487f0f76ea662d9088a80f0e93964c7}} 
+Eigen\+::\+Matrix3d {\bfseries Get\+Rotation} () const
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/Movable.\+h\item 
+igl/opengl/Movable.\+cpp\end{DoxyCompactItemize}

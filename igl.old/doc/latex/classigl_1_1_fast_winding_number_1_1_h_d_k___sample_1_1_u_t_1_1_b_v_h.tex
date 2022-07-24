@@ -1,0 +1,78 @@
+\hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h}{}\doxysection{igl\+::Fast\+Winding\+Number\+::HDK\+\_\+\+Sample\+::UT\+::BVH\texorpdfstring{$<$}{<} N \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h}\index{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_1_1_node}{Node}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aa14dd4a58382b87b8584088eac440e66}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aa14dd4a58382b87b8584088eac440e66}} 
+using {\bfseries INT\+\_\+\+TYPE} = uint
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a2d858866b6710ec7ab0fe0cecd1824ad}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a2d858866b6710ec7ab0fe0cecd1824ad}} 
+{\footnotesize template$<$BVH\+\_\+\+Heuristic H, typename T , uint NAXES, typename BOX\+\_\+\+TYPE , typename SRC\+\_\+\+INT\+\_\+\+TYPE  = INT\+\_\+\+TYPE$>$ }\\void {\bfseries init} (const BOX\+\_\+\+TYPE $\ast$boxes, const INT\+\_\+\+TYPE nboxes, SRC\+\_\+\+INT\+\_\+\+TYPE $\ast$indices=nullptr, bool reorder\+\_\+indices=false, INT\+\_\+\+TYPE max\+\_\+items\+\_\+per\+\_\+leaf=1) noexcept
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a270eb3d4f51ad713f5990768c9da0d17}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a270eb3d4f51ad713f5990768c9da0d17}} 
+{\footnotesize template$<$BVH\+\_\+\+Heuristic H, typename T , uint NAXES, typename BOX\+\_\+\+TYPE , typename SRC\+\_\+\+INT\+\_\+\+TYPE  = INT\+\_\+\+TYPE$>$ }\\void {\bfseries init} (\mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_box}{Box}}$<$ T, NAXES $>$ axes\+\_\+minmax, const BOX\+\_\+\+TYPE $\ast$boxes, INT\+\_\+\+TYPE nboxes, SRC\+\_\+\+INT\+\_\+\+TYPE $\ast$indices=nullptr, bool reorder\+\_\+indices=false, INT\+\_\+\+TYPE max\+\_\+items\+\_\+per\+\_\+leaf=1) noexcept
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aef0f83907a52cf6a7395224470bd1a23}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aef0f83907a52cf6a7395224470bd1a23}} 
+SYS\+\_\+\+FORCE\+\_\+\+INLINE INT\+\_\+\+TYPE {\bfseries get\+Num\+Nodes} () const noexcept
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a68d5b41bb1263665cc5f1318da4d3ecf}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a68d5b41bb1263665cc5f1318da4d3ecf}} 
+SYS\+\_\+\+FORCE\+\_\+\+INLINE const \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_1_1_node}{Node}} $\ast$ {\bfseries get\+Nodes} () const noexcept
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_ae449c784eca21b922e2c87a8430b3e11}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_ae449c784eca21b922e2c87a8430b3e11}} 
+SYS\+\_\+\+FORCE\+\_\+\+INLINE void {\bfseries clear} () noexcept
+\item 
+{\footnotesize template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ }\\void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a82c46eb1b358c60f3bb0758397b6f468}{traverse}} (FUNCTORS \&functors, LOCAL\+\_\+\+DATA $\ast$data\+\_\+for\+\_\+parent=nullptr) const noexcept
+\item 
+{\footnotesize template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ }\\void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a40ffed6c35ccbcc7734e73cca40d4e0f}{traverse\+Parallel}} (INT\+\_\+\+TYPE parallel\+\_\+threshold, FUNCTORS \&functors, LOCAL\+\_\+\+DATA $\ast$data\+\_\+for\+\_\+parent=nullptr) const noexcept
+\item 
+{\footnotesize template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ }\\void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aaa1d22da5b920d3a73e95279eb749b43}{traverse\+Vector}} (FUNCTORS \&functors, LOCAL\+\_\+\+DATA $\ast$data\+\_\+for\+\_\+parent=nullptr) const noexcept
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aec30ce9aac11b4edd4b07c9f6489de8c}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aec30ce9aac11b4edd4b07c9f6489de8c}} 
+void {\bfseries debug\+Dump} () const
+\begin{DoxyCompactList}\small\item\em Prints a text representation of the tree to stdout. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aa08b6be479e5fb3d7f85f46b5d4a1c0e}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aa08b6be479e5fb3d7f85f46b5d4a1c0e}} 
+{\footnotesize template$<$typename SRC\+\_\+\+INT\+\_\+\+TYPE $>$ }\\static void {\bfseries create\+Trivial\+Indices} (SRC\+\_\+\+INT\+\_\+\+TYPE $\ast$indices, const INT\+\_\+\+TYPE n) noexcept
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a82c46eb1b358c60f3bb0758397b6f468}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a82c46eb1b358c60f3bb0758397b6f468}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}!traverse@{traverse}}
+\index{traverse@{traverse}!igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{traverse()}{traverse()}}
+{\footnotesize\ttfamily template$<$uint N$>$ \\
+template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+::\+BVH}}$<$ N $>$\+::traverse (\begin{DoxyParamCaption}\item[{FUNCTORS \&}]{functors,  }\item[{LOCAL\+\_\+\+DATA $\ast$}]{data\+\_\+for\+\_\+parent = {\ttfamily nullptr} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+For each node, this effectively does\+: LOCAL\+\_\+\+DATA local\+\_\+data\mbox{[}MAX\+\_\+\+ORDER\mbox{]}; bool descend = functors.\+pre(nodei, parent\+\_\+data); if (!descend) return; for each child \{ if (isitem(child)) functors.\+item(getitemi(child), nodei, local\+\_\+data\mbox{[}child\mbox{]}); else if (isnode(child)) recurse(getnodei(child), local\+\_\+data); \} functors.\+post(nodei, parent\+\_\+nodei, data\+\_\+for\+\_\+parent, num\+\_\+children, local\+\_\+data); \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a40ffed6c35ccbcc7734e73cca40d4e0f}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_a40ffed6c35ccbcc7734e73cca40d4e0f}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}!traverseParallel@{traverseParallel}}
+\index{traverseParallel@{traverseParallel}!igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{traverseParallel()}{traverseParallel()}}
+{\footnotesize\ttfamily template$<$uint N$>$ \\
+template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+::\+BVH}}$<$ N $>$\+::traverse\+Parallel (\begin{DoxyParamCaption}\item[{INT\+\_\+\+TYPE}]{parallel\+\_\+threshold,  }\item[{FUNCTORS \&}]{functors,  }\item[{LOCAL\+\_\+\+DATA $\ast$}]{data\+\_\+for\+\_\+parent = {\ttfamily nullptr} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+This acts like the traverse function, except if the number of nodes in two subtrees of a node contain at least parallel\+\_\+threshold nodes, they may be executed in parallel. If parallel\+\_\+threshold is 0, even item\+\_\+functor may be executed on items in parallel. NOTE\+: Make sure that your functors don\textquotesingle{}t depend on the order that they\textquotesingle{}re executed in, e.\+g. don\textquotesingle{}t add values from sibling nodes together except in post functor, else they might have nondeterministic roundoff or miss some values entirely. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aaa1d22da5b920d3a73e95279eb749b43}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h_aaa1d22da5b920d3a73e95279eb749b43}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}!traverseVector@{traverseVector}}
+\index{traverseVector@{traverseVector}!igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$@{igl::FastWindingNumber::HDK\_Sample::UT::BVH$<$ N $>$}}
+\doxysubsubsection{\texorpdfstring{traverseVector()}{traverseVector()}}
+{\footnotesize\ttfamily template$<$uint N$>$ \\
+template$<$typename LOCAL\+\_\+\+DATA , typename FUNCTORS $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t_1_1_b_v_h}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+::\+BVH}}$<$ N $>$\+::traverse\+Vector (\begin{DoxyParamCaption}\item[{FUNCTORS \&}]{functors,  }\item[{LOCAL\+\_\+\+DATA $\ast$}]{data\+\_\+for\+\_\+parent = {\ttfamily nullptr} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+For each node, this effectively does\+: LOCAL\+\_\+\+DATA local\+\_\+data\mbox{[}MAX\+\_\+\+ORDER\mbox{]}; uint descend = functors.\+pre(nodei, parent\+\_\+data); if (!descend) return; for each child \{ if (!(descend \& (1\texorpdfstring{$<$}{<}\texorpdfstring{$<$}{<}child))) continue; if (isitem(child)) functors.\+item(getitemi(child), nodei, local\+\_\+data\mbox{[}child\mbox{]}); else if (isnode(child)) recurse(getnodei(child), local\+\_\+data); \} functors.\+post(nodei, parent\+\_\+nodei, data\+\_\+for\+\_\+parent, num\+\_\+children, local\+\_\+data); 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/Fast\+Winding\+Number\+For\+Soups.\+h\end{DoxyCompactItemize}

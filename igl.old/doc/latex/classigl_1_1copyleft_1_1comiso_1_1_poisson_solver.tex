@@ -1,0 +1,341 @@
+\hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{}\doxysection{igl\+::copyleft\+::comiso\+::Poisson\+Solver\texorpdfstring{$<$}{<} DerivedV, DerivedF \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac103b649d40e4c0943406d39c5584a52}{solve\+Poisson}} (Eigen\+::\+Vector\+Xd stiffness, double gradient\+Size=0.\+1, double grid\+Resolution=1., bool direct\+Round=true, unsigned int local\+Iter=0, bool do\+Round=true, bool singularity\+Round=true, const std\+::vector$<$ int $>$ \&round\+Vertices=std\+::vector$<$ int $>$(), const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&hard\+Features=std\+::vector$<$ std\+::vector$<$ int $>$ $>$())
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a3fd552cae8d666d8a0d847b7198b400b}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a3fd552cae8d666d8a0d847b7198b400b}} 
+IGL\+\_\+\+INLINE {\bfseries Poisson\+Solver} (const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \&\+\_\+V, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \&\+\_\+F, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \&\+\_\+\+Vcut, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \&\+\_\+\+Fcut, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \&\+\_\+\+TT, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \&\+\_\+\+TTi, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \&\+\_\+\+PD1, const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \&\+\_\+\+PD2, const Eigen\+::\+Matrix$<$ int, Eigen\+::\+Dynamic, 1 $>$ \&\+\_\+singular, const \mbox{\hyperlink{structigl_1_1copyleft_1_1comiso_1_1_mesh_system_info}{Mesh\+System\+Info}} \&\+\_\+system\+Info)
+\item 
+IGL\+\_\+\+INLINE std\+::complex$<$ double $>$ \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4bbcde05167332e2e168196ed79f815f}{get\+Rotation\+Complex}} (int interval)
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a95a04b862d7fc1ad454ba4486d554cdd}{add\+Fixed\+Vertex}} (int v)
+\begin{DoxyCompactList}\small\item\em END COMMON MATH FUNCTIONS. \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae1573dce3f801ee592d4b273cd8922e8}{find\+Fixed\+Vert\+Field}} ()
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a98d7c3a6dc135514760b4f24656cd1ec}{find\+Fixed\+Vert}} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a68b4e99cec69b4098ff2b2c3b702d1b5}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a68b4e99cec69b4098ff2b2c3b702d1b5}} 
+IGL\+\_\+\+INLINE int {\bfseries get\+First\+Vertex\+Index} (int v)
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa901a0cff2263de4cca3248d78e88ca0}{fix\+Blocked\+Vertex}} ()
+\begin{DoxyCompactList}\small\item\em fix the vertices which are flagged as fixed \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a444a34615a93b904072687a8c0b066a2}{add\+Singularity\+Round}} ()
+\begin{DoxyCompactList}\small\item\em END FIXING VERTICES. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ad4f479236bd7fa6c09fb779319aaa760}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ad4f479236bd7fa6c09fb779319aaa760}} 
+IGL\+\_\+\+INLINE void {\bfseries add\+To\+Round\+Vertices} (std\+::vector$<$ int $>$ ids)
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a489f54941da25807f90ea8326033fd7e}{build\+Laplacian\+Matrix}} (double vfscale=1)
+\begin{DoxyCompactList}\small\item\em START GENERIC SYSTEM FUNCTIONS. \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ab102be7d6b4872db1758aff3ede24159}{find\+Sizes}} ()
+\begin{DoxyCompactList}\small\item\em find different sized of the system \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a68687c54e2722a6489fb1f3b4798c9f4}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a68687c54e2722a6489fb1f3b4798c9f4}} 
+IGL\+\_\+\+INLINE void {\bfseries allocate\+System} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a31c3b0dd87f014b4acb743a70b413341}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a31c3b0dd87f014b4acb743a70b413341}} 
+IGL\+\_\+\+INLINE void {\bfseries init\+Matrix} ()
+\begin{DoxyCompactList}\small\item\em intitialize the whole matrix \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4c9ba9c9a1b29e651fcd1189f4715559}{map\+Coords}} ()
+\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a87e1f6cb05f964b4c3dad0f8e650a2d6}{build\+Seam\+Constraints\+Explicit\+Translation}} ()
+\begin{DoxyCompactList}\small\item\em END GENERIC SYSTEM FUNCTIONS. \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae4ec921815d39e398043e148247bec94}{build\+User\+Defined\+Constraints}} ()
+\begin{DoxyCompactList}\small\item\em set the constraints for the inter-\/range cuts \end{DoxyCompactList}\item 
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac326f0ecbdd3e866e92aaf748eee094d}{mixed\+Integer\+Solve}} (double cone\+Grid\+Res=1, bool direct\+Round=true, unsigned int local\+Iter=0)
+\begin{DoxyCompactList}\small\item\em call of the mixed integer solver \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae72ba6b65e86909ed258773e6c8edf2d}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae72ba6b65e86909ed258773e6c8edf2d}} 
+IGL\+\_\+\+INLINE void {\bfseries clear\+User\+Constraint} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a471d3a68a1794b91b778dfae2b4e937f}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a471d3a68a1794b91b778dfae2b4e937f}} 
+IGL\+\_\+\+INLINE void {\bfseries add\+Sharp\+Edge\+Constraint} (int fid, int vid)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a3c7925ae0b0b81d6c9c8a68ba8bc9d4e}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a3c7925ae0b0b81d6c9c8a68ba8bc9d4e}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \& {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac0d8eb211f3ce0eab81e1c27c6c4a2be}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac0d8eb211f3ce0eab81e1c27c6c4a2be}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \& {\bfseries F}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0793907e891665f89126e5e109e99b22}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0793907e891665f89126e5e109e99b22}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \& {\bfseries Vcut}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a153f7e335dec95ae2c893071484c5d13}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a153f7e335dec95ae2c893071484c5d13}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \& {\bfseries Fcut}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6ed98c87b30b591b1ee340c238d357f0}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6ed98c87b30b591b1ee340c238d357f0}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \& {\bfseries TT}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae90ffbfdd93e22e09a54bdc0832d59c7}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae90ffbfdd93e22e09a54bdc0832d59c7}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedF $>$ \& {\bfseries TTi}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a69bb8519421a3df62a24b66322204ffb}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a69bb8519421a3df62a24b66322204ffb}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \& {\bfseries PD1}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af784d2ce52daab546219bbb313a2bb03}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af784d2ce52daab546219bbb313a2bb03}} 
+const Eigen\+::\+Plain\+Object\+Base$<$ DerivedV $>$ \& {\bfseries PD2}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a37ba43abd8b4c88b014f46ab15ed7ad4}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a37ba43abd8b4c88b014f46ab15ed7ad4}} 
+const Eigen\+::\+Matrix$<$ int, Eigen\+::\+Dynamic, 1 $>$ \& {\bfseries singular}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0431c56820ca1bb300dfaf3bcabb8175}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0431c56820ca1bb300dfaf3bcabb8175}} 
+const \mbox{\hyperlink{structigl_1_1copyleft_1_1comiso_1_1_mesh_system_info}{Mesh\+System\+Info}} \& {\bfseries system\+Info}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6a66f8e39f6d939b8c98044b958e2bf0}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6a66f8e39f6d939b8c98044b958e2bf0}} 
+Eigen\+::\+Vector\+Xd {\bfseries Handle\+\_\+\+Stiffness}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0e1070876cefa4a057438746ca4f142e}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0e1070876cefa4a057438746ca4f142e}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries VF}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af37fbc648330581b11af6606582347fe}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af37fbc648330581b11af6606582347fe}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries VFi}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a1100a6f566ee85e4baddd2d92023c515}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a1100a6f566ee85e4baddd2d92023c515}} 
+Eigen\+::\+Matrix\+Xd {\bfseries UV}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0ed95931cfd8ce29470a9ac51e633b0c}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0ed95931cfd8ce29470a9ac51e633b0c}} 
+Eigen\+::\+Matrix\+Xd {\bfseries WUV}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_acb2677d22afac4d98aaa8a5d7db1b2f3}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_acb2677d22afac4d98aaa8a5d7db1b2f3}} 
+Eigen\+::\+Matrix\+Xd {\bfseries UV\+\_\+out}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa9591a3b7a901a7a85d57252e9d34f64}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa9591a3b7a901a7a85d57252e9d34f64}} 
+Eigen\+::\+Sparse\+Matrix$<$ double $>$ {\bfseries Lhs}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a16ccade9dc2295cd171e4ec5bd3c8195}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a16ccade9dc2295cd171e4ec5bd3c8195}} 
+Eigen\+::\+Sparse\+Matrix$<$ double $>$ {\bfseries Constraints}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a290d5919a7a4b257af86a24d3afd56c6}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a290d5919a7a4b257af86a24d3afd56c6}} 
+Eigen\+::\+Vector\+Xd {\bfseries rhs}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6fc2cc25137692d40e464f06876d2632}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a6fc2cc25137692d40e464f06876d2632}} 
+Eigen\+::\+Vector\+Xd {\bfseries constraints\+\_\+rhs}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9c0e584fb4d4e1d67894d927ca665562}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9c0e584fb4d4e1d67894d927ca665562}} 
+std\+::vector$<$ double $>$ {\bfseries X}
+\begin{DoxyCompactList}\small\item\em vector of unknowns \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae09d91fa4099c9170bb77af6645701c8}{n\+\_\+fixed\+\_\+vars}}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a5d5bff0dafd834662bdea038f6554f55}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a5d5bff0dafd834662bdea038f6554f55}} 
+unsigned int {\bfseries n\+\_\+vert\+\_\+vars}
+\begin{DoxyCompactList}\small\item\em the number of REAL variables for vertices \end{DoxyCompactList}\item 
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9b430a172f858636942818a0900fa3a3}{num\+\_\+total\+\_\+vars}}
+\item 
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a27f2228897723b42a5955a61fea7ed7c}{n\+\_\+integer\+\_\+vars}}
+\item 
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af74baaa753273c722f39af443ee4cbb5}{num\+\_\+cut\+\_\+constraint}}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0afd3bd3f854aa731050c51006f74f6a}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a0afd3bd3f854aa731050c51006f74f6a}} 
+unsigned int {\bfseries num\+\_\+userdefined\+\_\+constraint}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9f8e03e01d7af9b9c4e44ecd50ed02c3}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9f8e03e01d7af9b9c4e44ecd50ed02c3}} 
+unsigned int {\bfseries num\+\_\+constraint\+\_\+equations}
+\begin{DoxyCompactList}\small\item\em total number of constraints equations \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae1454edc8441f0aa5a56964411632206}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae1454edc8441f0aa5a56964411632206}} 
+std\+::vector$<$ int $>$ {\bfseries Hard\+\_\+constraints}
+\begin{DoxyCompactList}\small\item\em vector of blocked vertices \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a1eeb343cd5f5e70a8ae66cce05a76c2e}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a1eeb343cd5f5e70a8ae66cce05a76c2e}} 
+std\+::vector$<$ int $>$ {\bfseries ids\+\_\+to\+\_\+round}
+\begin{DoxyCompactList}\small\item\em vector of indexes to round \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_acdcf694aeec679e9de20370383523599}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_acdcf694aeec679e9de20370383523599}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries userdefined\+\_\+constraints}
+\begin{DoxyCompactList}\small\item\em vector of indexes to round \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa66138932ebfc2c7b5d559c891615f44}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa66138932ebfc2c7b5d559c891615f44}} 
+bool {\bfseries integer\+\_\+rounding}
+\begin{DoxyCompactList}\small\item\em boolean that is true if rounding to integer is needed \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a95a04b862d7fc1ad454ba4486d554cdd}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a95a04b862d7fc1ad454ba4486d554cdd}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!addFixedVertex@{addFixedVertex}}
+\index{addFixedVertex@{addFixedVertex}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{addFixedVertex()}{addFixedVertex()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::add\+Fixed\+Vertex (\begin{DoxyParamCaption}\item[{int}]{v }\end{DoxyParamCaption})}
+
+
+
+END COMMON MATH FUNCTIONS. 
+
+START FIXING VERTICES set a given vertex as fixed \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a444a34615a93b904072687a8c0b066a2}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a444a34615a93b904072687a8c0b066a2}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!addSingularityRound@{addSingularityRound}}
+\index{addSingularityRound@{addSingularityRound}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{addSingularityRound()}{addSingularityRound()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::add\+Singularity\+Round}
+
+
+
+END FIXING VERTICES. 
+
+HANDLING SINGULARITY \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a489f54941da25807f90ea8326033fd7e}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a489f54941da25807f90ea8326033fd7e}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!buildLaplacianMatrix@{buildLaplacianMatrix}}
+\index{buildLaplacianMatrix@{buildLaplacianMatrix}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{buildLaplacianMatrix()}{buildLaplacianMatrix()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::build\+Laplacian\+Matrix (\begin{DoxyParamCaption}\item[{double}]{vfscale = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+START GENERIC SYSTEM FUNCTIONS. 
+
+Compute LHS
+
+Compute RHS\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a87e1f6cb05f964b4c3dad0f8e650a2d6}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a87e1f6cb05f964b4c3dad0f8e650a2d6}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!buildSeamConstraintsExplicitTranslation@{buildSeamConstraintsExplicitTranslation}}
+\index{buildSeamConstraintsExplicitTranslation@{buildSeamConstraintsExplicitTranslation}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{buildSeamConstraintsExplicitTranslation()}{buildSeamConstraintsExplicitTranslation()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::build\+Seam\+Constraints\+Explicit\+Translation}
+
+
+
+END GENERIC SYSTEM FUNCTIONS. 
+
+set the constraints for the inter-\/range cuts current constraint row
+
+get the integer variable\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae4ec921815d39e398043e148247bec94}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae4ec921815d39e398043e148247bec94}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!buildUserDefinedConstraints@{buildUserDefinedConstraints}}
+\index{buildUserDefinedConstraints@{buildUserDefinedConstraints}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{buildUserDefinedConstraints()}{buildUserDefinedConstraints()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::build\+User\+Defined\+Constraints}
+
+
+
+set the constraints for the inter-\/range cuts 
+
+the user defined constraints are at the end\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a98d7c3a6dc135514760b4f24656cd1ec}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a98d7c3a6dc135514760b4f24656cd1ec}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!findFixedVert@{findFixedVert}}
+\index{findFixedVert@{findFixedVert}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{findFixedVert()}{findFixedVert()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::find\+Fixed\+Vert}
+
+find hard constraint depending if using or not a vector field \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae1573dce3f801ee592d4b273cd8922e8}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae1573dce3f801ee592d4b273cd8922e8}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!findFixedVertField@{findFixedVertField}}
+\index{findFixedVertField@{findFixedVertField}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{findFixedVertField()}{findFixedVertField()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::find\+Fixed\+Vert\+Field}
+
+find vertex to fix in case we\textquotesingle{}re using a vector field NB\+: multiple components not handled if anything fixed fix the first\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ab102be7d6b4872db1758aff3ede24159}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ab102be7d6b4872db1758aff3ede24159}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!findSizes@{findSizes}}
+\index{findSizes@{findSizes}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{findSizes()}{findSizes()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::find\+Sizes}
+
+
+
+find different sized of the system 
+
+find the vertex that need to be fixed
+
+REAL PART
+
+INTEGER PART the total number of integer variables
+
+CONSTRAINT PART
+
+total variable of the system
+
+initialize matrix size\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa901a0cff2263de4cca3248d78e88ca0}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_aa901a0cff2263de4cca3248d78e88ca0}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!fixBlockedVertex@{fixBlockedVertex}}
+\index{fixBlockedVertex@{fixBlockedVertex}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{fixBlockedVertex()}{fixBlockedVertex()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::fix\+Blocked\+Vertex}
+
+
+
+fix the vertices which are flagged as fixed 
+
+get first index of the vertex that must blocked
+
+multiply times 2 because of uv
+
+find the first free row to add the constraint
+
+add fixing constraint LHS
+
+add fixing constraint RHS\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4bbcde05167332e2e168196ed79f815f}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4bbcde05167332e2e168196ed79f815f}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!getRotationComplex@{getRotationComplex}}
+\index{getRotationComplex@{getRotationComplex}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{getRotationComplex()}{getRotationComplex()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE std\+::complex$<$ double $>$ \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::get\+Rotation\+Complex (\begin{DoxyParamCaption}\item[{int}]{interval }\end{DoxyParamCaption})}
+
+START COMMON MATH FUNCTIONS return the complex encoding the rotation for a given mismatch interval \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4c9ba9c9a1b29e651fcd1189f4715559}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a4c9ba9c9a1b29e651fcd1189f4715559}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!mapCoords@{mapCoords}}
+\index{mapCoords@{mapCoords}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{mapCoords()}{mapCoords()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::map\+Coords}
+
+map back coordinates after that the system has been solved map coords to faces
+
+then get U and V coords\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac326f0ecbdd3e866e92aaf748eee094d}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac326f0ecbdd3e866e92aaf748eee094d}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!mixedIntegerSolve@{mixedIntegerSolve}}
+\index{mixedIntegerSolve@{mixedIntegerSolve}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{mixedIntegerSolve()}{mixedIntegerSolve()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::mixed\+Integer\+Solve (\begin{DoxyParamCaption}\item[{double}]{cone\+Grid\+Res = {\ttfamily 1},  }\item[{bool}]{direct\+Round = {\ttfamily true},  }\item[{unsigned int}]{local\+Iter = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+call of the mixed integer solver 
+
+variables part
+
+matrix A
+
+constraints part\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac103b649d40e4c0943406d39c5584a52}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ac103b649d40e4c0943406d39c5584a52}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!solvePoisson@{solvePoisson}}
+\index{solvePoisson@{solvePoisson}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{solvePoisson()}{solvePoisson()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+IGL\+\_\+\+INLINE void \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::solve\+Poisson (\begin{DoxyParamCaption}\item[{Eigen\+::\+Vector\+Xd}]{stiffness,  }\item[{double}]{gradient\+Size = {\ttfamily 0.1},  }\item[{double}]{grid\+Resolution = {\ttfamily 1.},  }\item[{bool}]{direct\+Round = {\ttfamily true},  }\item[{unsigned int}]{local\+Iter = {\ttfamily 0},  }\item[{bool}]{do\+Round = {\ttfamily true},  }\item[{bool}]{singularity\+Round = {\ttfamily true},  }\item[{const std\+::vector$<$ int $>$ \&}]{round\+Vertices = {\ttfamily std\+:\+:vector$<$int$>$()},  }\item[{const std\+::vector$<$ std\+::vector$<$ int $>$ $>$ \&}]{hard\+Features = {\ttfamily std\+:\+:vector$<$std\+:\+:vector$<$int$>$~$>$()} }\end{DoxyParamCaption})}
+
+Initializing Matrix
+
+initialize the matrix ALLOCATING SPACE
+
+build the Laplacian system
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae09d91fa4099c9170bb77af6645701c8}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_ae09d91fa4099c9170bb77af6645701c8}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!n\_fixed\_vars@{n\_fixed\_vars}}
+\index{n\_fixed\_vars@{n\_fixed\_vars}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{n\_fixed\_vars}{n\_fixed\_vars}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::n\+\_\+fixed\+\_\+vars}
+
+REAL PART number of fixed vertex \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a27f2228897723b42a5955a61fea7ed7c}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a27f2228897723b42a5955a61fea7ed7c}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!n\_integer\_vars@{n\_integer\_vars}}
+\index{n\_integer\_vars@{n\_integer\_vars}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{n\_integer\_vars}{n\_integer\_vars}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::n\+\_\+integer\+\_\+vars}
+
+INTEGER PART the total number of integer variables \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af74baaa753273c722f39af443ee4cbb5}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_af74baaa753273c722f39af443ee4cbb5}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!num\_cut\_constraint@{num\_cut\_constraint}}
+\index{num\_cut\_constraint@{num\_cut\_constraint}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{num\_cut\_constraint}{num\_cut\_constraint}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::num\+\_\+cut\+\_\+constraint}
+
+CONSTRAINT PART number of cuts constraints \mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9b430a172f858636942818a0900fa3a3}\label{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver_a9b430a172f858636942818a0900fa3a3}} 
+\index{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}!num\_total\_vars@{num\_total\_vars}}
+\index{num\_total\_vars@{num\_total\_vars}!igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$@{igl::copyleft::comiso::PoissonSolver$<$ DerivedV, DerivedF $>$}}
+\doxysubsubsection{\texorpdfstring{num\_total\_vars}{num\_total\_vars}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF $>$ \\
+unsigned int \mbox{\hyperlink{classigl_1_1copyleft_1_1comiso_1_1_poisson_solver}{igl\+::copyleft\+::comiso\+::\+Poisson\+Solver}}$<$ DerivedV, DerivedF $>$\+::num\+\_\+total\+\_\+vars}
+
+total number of variables of the system, do not consider constraints, but consider integer vars 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/copyleft/comiso/miq.\+cpp\end{DoxyCompactItemize}

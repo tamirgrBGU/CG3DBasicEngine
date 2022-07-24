@@ -1,0 +1,59 @@
+\hypertarget{write_s_t_l_8h_source}{}\doxysection{write\+STL.\+h}
+\label{write_s_t_l_8h_source}\index{igl/writeSTL.h@{igl/writeSTL.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_WRITESTL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_WRITESTL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <igl/FileEncoding.h>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef IGL\_NO\_EIGEN}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#  include <Eigen/Core>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \textcolor{comment}{// Write a mesh to an stl file.}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   Scalar  type for positions and vectors (will be read as double and cast}}
+\DoxyCodeLine{25   \textcolor{comment}{//     to Scalar)}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   filename path to .obj file}}
+\DoxyCodeLine{28   \textcolor{comment}{//   V  double matrix of vertex positions  \#F*3 by 3}}
+\DoxyCodeLine{29   \textcolor{comment}{//   F  index matrix of triangle indices \#F by 3}}
+\DoxyCodeLine{30   \textcolor{comment}{//   N  double matrix of vertex positions  \#F by 3}}
+\DoxyCodeLine{31   \textcolor{comment}{//   encoding enum to set file encoding (ascii by default)}}
+\DoxyCodeLine{32   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{bool} writeSTL(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN> \& N,}
+\DoxyCodeLine{40     FileEncoding encoding=FileEncoding::Ascii);}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{bool} writeSTL(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{46     FileEncoding encoding=FileEncoding::Ascii);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}writeSTL.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

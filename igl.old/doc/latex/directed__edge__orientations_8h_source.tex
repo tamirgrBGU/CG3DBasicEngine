@@ -1,0 +1,45 @@
+\hypertarget{directed__edge__orientations_8h_source}{}\doxysection{directed\+\_\+edge\+\_\+orientations.\+h}
+\label{directed__edge__orientations_8h_source}\index{igl/directed\_edge\_orientations.h@{igl/directed\_edge\_orientations.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DIRECTED\_EDGE\_ORIENTATIONS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DIRECTED\_EDGE\_ORIENTATIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/StdVector>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{comment}{// Determine rotations that take each edge from the x-\/axis to its given rest}}
+\DoxyCodeLine{20   \textcolor{comment}{// orientation.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   C  \#C by 3 list of edge vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   E  \#E by 2 list of directed edges}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   Q  \#E list of quaternions}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} directed\_edge\_orientations(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{32     std::vector<}
+\DoxyCodeLine{33       Eigen::Quaterniond,Eigen::aligned\_allocator<Eigen::Quaterniond> > \& Q);}
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#  include "{}directed\_edge\_orientations.cpp"{}}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

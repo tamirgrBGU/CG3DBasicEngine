@@ -1,0 +1,195 @@
+\hypertarget{_embree_intersector_8h_source}{}\doxysection{Embree\+Intersector.\+h}
+\label{_embree_intersector_8h_source}\index{igl/embree/EmbreeIntersector.h@{igl/embree/EmbreeIntersector.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//               2014 Christian Schüller <schuellchr@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{//}}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 \textcolor{comment}{// igl function interface for Embree2.2}}
+\DoxyCodeLine{10 \textcolor{comment}{//}}
+\DoxyCodeLine{11 \textcolor{comment}{// Necessary changes to switch from previous Embree versions:}}
+\DoxyCodeLine{12 \textcolor{comment}{// * Use igl:Hit instead of embree:Hit (where id0 -\/> id)}}
+\DoxyCodeLine{13 \textcolor{comment}{// * For Embree2.2}}
+\DoxyCodeLine{14 \textcolor{comment}{// * Uncomment \#define \_\_USE\_RAY\_MASK\_\_ in platform.h to enable masking}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifndef IGL\_EMBREE\_EMBREE\_INTERSECTOR\_H}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define IGL\_EMBREE\_EMBREE\_INTERSECTOR\_H}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}../Hit.h"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <embree3/rtcore.h>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <embree3/rtcore\_ray.h>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include "{}EmbreeDevice.h"{}}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keyword}{namespace }embree}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}}}
+\DoxyCodeLine{35     \{}
+\DoxyCodeLine{36     \textcolor{keyword}{public}:}
+\DoxyCodeLine{37       \textcolor{keyword}{typedef} Eigen::Matrix<float,Eigen::Dynamic,3> PointMatrixType;}
+\DoxyCodeLine{38       \textcolor{keyword}{typedef} Eigen::Matrix<int,Eigen::Dynamic,3> FaceMatrixType;}
+\DoxyCodeLine{39     \textcolor{keyword}{public}:}
+\DoxyCodeLine{40       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}}();}
+\DoxyCodeLine{41     \textcolor{keyword}{private}:}
+\DoxyCodeLine{42       \textcolor{comment}{// Copying and assignment are not allowed.}}
+\DoxyCodeLine{43       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}}(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}} \& that);}
+\DoxyCodeLine{44       \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}} \& operator=(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{EmbreeIntersector}} \&);}
+\DoxyCodeLine{45     \textcolor{keyword}{public}:}
+\DoxyCodeLine{46       \textcolor{keyword}{virtual} \mbox{\hyperlink{classigl_1_1embree_1_1_embree_intersector}{\string~EmbreeIntersector}}();}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48       \textcolor{comment}{// Initialize with a given mesh.}}
+\DoxyCodeLine{49       \textcolor{comment}{//}}
+\DoxyCodeLine{50       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{51       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{52       \textcolor{comment}{//   F  \#F by 3 list of Oriented triangles}}
+\DoxyCodeLine{53       \textcolor{comment}{//   isStatic  scene is optimized for static geometry}}
+\DoxyCodeLine{54       \textcolor{comment}{// Side effects:}}
+\DoxyCodeLine{55       \textcolor{comment}{//   The first time this is ever called the embree engine is initialized.}}
+\DoxyCodeLine{56       \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{57         \textcolor{keyword}{const} PointMatrixType\& V,}
+\DoxyCodeLine{58         \textcolor{keyword}{const} FaceMatrixType\& F,}
+\DoxyCodeLine{59         \textcolor{keywordtype}{bool} isStatic = \textcolor{keyword}{false});}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61       \textcolor{comment}{// Initialize with a given mesh.}}
+\DoxyCodeLine{62       \textcolor{comment}{//}}
+\DoxyCodeLine{63       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{64       \textcolor{comment}{//   V  vector of \#V by 3 list of vertex positions for each geometry}}
+\DoxyCodeLine{65       \textcolor{comment}{//   F  vector of \#F by 3 list of Oriented triangles for each geometry}}
+\DoxyCodeLine{66       \textcolor{comment}{//   masks  a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{67       \textcolor{comment}{//   isStatic  scene is optimized for static geometry}}
+\DoxyCodeLine{68       \textcolor{comment}{// Side effects:}}
+\DoxyCodeLine{69       \textcolor{comment}{//   The first time this is ever called the embree engine is initialized.}}
+\DoxyCodeLine{70       \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{71         \textcolor{keyword}{const} std::vector<const PointMatrixType*>\& V,}
+\DoxyCodeLine{72         \textcolor{keyword}{const} std::vector<const FaceMatrixType*>\& F,}
+\DoxyCodeLine{73         \textcolor{keyword}{const} std::vector<int>\& masks,}
+\DoxyCodeLine{74         \textcolor{keywordtype}{bool} isStatic = \textcolor{keyword}{false});}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76       \textcolor{comment}{// Deinitialize embree datasctructures for current mesh.  Also called on}}
+\DoxyCodeLine{77       \textcolor{comment}{// destruction: no need to call if you just want to init() once and}}
+\DoxyCodeLine{78       \textcolor{comment}{// destroy.}}
+\DoxyCodeLine{79       \textcolor{keywordtype}{void} deinit();}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81       \textcolor{comment}{// Given a ray find the first hit}}
+\DoxyCodeLine{82       \textcolor{comment}{//}}
+\DoxyCodeLine{83       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{84       \textcolor{comment}{//   origin     3d origin point of ray}}
+\DoxyCodeLine{85       \textcolor{comment}{//   direction  3d (not necessarily normalized) direction vector of ray}}
+\DoxyCodeLine{86       \textcolor{comment}{//   tnear      start of ray segment}}
+\DoxyCodeLine{87       \textcolor{comment}{//   tfar       end of ray segment}}
+\DoxyCodeLine{88       \textcolor{comment}{//   masks      a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{89       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{90       \textcolor{comment}{//   hit        information about hit}}
+\DoxyCodeLine{91       \textcolor{comment}{// Returns true if and only if there was a hit}}
+\DoxyCodeLine{92       \textcolor{keywordtype}{bool} intersectRay(}
+\DoxyCodeLine{93         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{94         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{95         \mbox{\hyperlink{structigl_1_1_hit}{Hit}}\& hit,}
+\DoxyCodeLine{96         \textcolor{keywordtype}{float} tnear = 0,}
+\DoxyCodeLine{97         \textcolor{keywordtype}{float} tfar = std::numeric\_limits<float>::infinity(),}
+\DoxyCodeLine{98         \textcolor{keywordtype}{int} mask = 0xFFFFFFFF) \textcolor{keyword}{const};}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100       \textcolor{comment}{// Given a ray find the first hit}}
+\DoxyCodeLine{101       \textcolor{comment}{// This is a conservative hit test where multiple rays within a small radius}}
+\DoxyCodeLine{102       \textcolor{comment}{// will be tested and only the closesest hit is returned.}}
+\DoxyCodeLine{103       \textcolor{comment}{//}}
+\DoxyCodeLine{104       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{105       \textcolor{comment}{//   origin     3d origin point of ray}}
+\DoxyCodeLine{106       \textcolor{comment}{//   direction  3d (not necessarily normalized) direction vector of ray}}
+\DoxyCodeLine{107       \textcolor{comment}{//   tnear      start of ray segment}}
+\DoxyCodeLine{108       \textcolor{comment}{//   tfar       end of ray segment}}
+\DoxyCodeLine{109       \textcolor{comment}{//   masks      a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{110       \textcolor{comment}{//   geoId      id of geometry mask (default std::numeric\_limits<float>::infinity() if no: no masking)}}
+\DoxyCodeLine{111       \textcolor{comment}{//   closestHit true for gets closest hit, false for furthest hit}}
+\DoxyCodeLine{112       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{113       \textcolor{comment}{//   hit        information about hit}}
+\DoxyCodeLine{114       \textcolor{comment}{// Returns true if and only if there was a hit}}
+\DoxyCodeLine{115       \textcolor{keywordtype}{bool} intersectBeam(}
+\DoxyCodeLine{116         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{117         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{118         \mbox{\hyperlink{structigl_1_1_hit}{Hit}}\& hit,}
+\DoxyCodeLine{119         \textcolor{keywordtype}{float} tnear = 0,}
+\DoxyCodeLine{120         \textcolor{keywordtype}{float} tfar = std::numeric\_limits<float>::infinity(),}
+\DoxyCodeLine{121         \textcolor{keywordtype}{int} mask = 0xFFFFFFFF,}
+\DoxyCodeLine{122         \textcolor{keywordtype}{int} geoId = -\/1,}
+\DoxyCodeLine{123         \textcolor{keywordtype}{bool} closestHit = \textcolor{keyword}{true},}
+\DoxyCodeLine{124         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} samples = 4) \textcolor{keyword}{const};}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126       \textcolor{comment}{// Given a ray find all hits in order}}
+\DoxyCodeLine{127       \textcolor{comment}{//}}
+\DoxyCodeLine{128       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{129       \textcolor{comment}{//   origin     3d origin point of ray}}
+\DoxyCodeLine{130       \textcolor{comment}{//   direction  3d (not necessarily normalized) direction vector of ray}}
+\DoxyCodeLine{131       \textcolor{comment}{//   tnear      start of ray segment}}
+\DoxyCodeLine{132       \textcolor{comment}{//   tfar       end of ray segment}}
+\DoxyCodeLine{133       \textcolor{comment}{//   masks      a 32 bit mask to identify active geometries.}}
+\DoxyCodeLine{134       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{135       \textcolor{comment}{//   hit        information about hit}}
+\DoxyCodeLine{136       \textcolor{comment}{//   num\_rays   number of rays shot (at least one)}}
+\DoxyCodeLine{137       \textcolor{comment}{// Returns true if and only if there was a hit}}
+\DoxyCodeLine{138       \textcolor{keywordtype}{bool} intersectRay(}
+\DoxyCodeLine{139         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{140         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{141         std::vector<Hit > \&hits,}
+\DoxyCodeLine{142         \textcolor{keywordtype}{int}\& num\_rays,}
+\DoxyCodeLine{143         \textcolor{keywordtype}{float} tnear = 0,}
+\DoxyCodeLine{144         \textcolor{keywordtype}{float} tfar = std::numeric\_limits<float>::infinity(),}
+\DoxyCodeLine{145         \textcolor{keywordtype}{int} mask = 0xFFFFFFFF) \textcolor{keyword}{const};}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{147       \textcolor{comment}{// Given a ray find the first hit}}
+\DoxyCodeLine{148       \textcolor{comment}{//}}
+\DoxyCodeLine{149       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{150       \textcolor{comment}{//   a    3d first end point of segment}}
+\DoxyCodeLine{151       \textcolor{comment}{//   ab   3d vector from a to other endpoint b}}
+\DoxyCodeLine{152       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{153       \textcolor{comment}{//   hit  information about hit}}
+\DoxyCodeLine{154       \textcolor{comment}{// Returns true if and only if there was a hit}}
+\DoxyCodeLine{155       \textcolor{keywordtype}{bool} intersectSegment(}
+\DoxyCodeLine{156         \textcolor{keyword}{const} Eigen::RowVector3f\& a,}
+\DoxyCodeLine{157         \textcolor{keyword}{const} Eigen::RowVector3f\& ab,}
+\DoxyCodeLine{158         \mbox{\hyperlink{structigl_1_1_hit}{Hit}} \&hit,}
+\DoxyCodeLine{159         \textcolor{keywordtype}{int} mask = 0xFFFFFFFF) \textcolor{keyword}{const};}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161     \textcolor{keyword}{private}:}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163       \textcolor{keyword}{struct }Vertex   \{\textcolor{keywordtype}{float} x,y,z,a;\};}
+\DoxyCodeLine{164       \textcolor{keyword}{struct }Triangle \{\textcolor{keywordtype}{int} v0, v1, v2;\};}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166       RTCScene scene;}
+\DoxyCodeLine{167       \textcolor{keywordtype}{unsigned} geomID;}
+\DoxyCodeLine{168       Vertex* vertices;}
+\DoxyCodeLine{169       Triangle* triangles;}
+\DoxyCodeLine{170       \textcolor{keywordtype}{bool} initialized;}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172       RTCDevice device;}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174       \textcolor{keywordtype}{void} createRay(}
+\DoxyCodeLine{175         RTCRayHit\& ray,}
+\DoxyCodeLine{176         \textcolor{keyword}{const} Eigen::RowVector3f\& origin,}
+\DoxyCodeLine{177         \textcolor{keyword}{const} Eigen::RowVector3f\& direction,}
+\DoxyCodeLine{178         \textcolor{keywordtype}{float} tnear,}
+\DoxyCodeLine{179         \textcolor{keywordtype}{float} tfar,}
+\DoxyCodeLine{180         \textcolor{keywordtype}{int} mask) \textcolor{keyword}{const};}
+\DoxyCodeLine{181     \};}
+\DoxyCodeLine{182   \}}
+\DoxyCodeLine{183 \}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#  include "{}EmbreeIntersector.cpp"{}}}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//EMBREE\_INTERSECTOR\_H}}
+
+\end{DoxyCode}

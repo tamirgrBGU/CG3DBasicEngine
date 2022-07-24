@@ -1,0 +1,43 @@
+\hypertarget{simplify__polyhedron_8h_source}{}\doxysection{simplify\+\_\+polyhedron.\+h}
+\label{simplify__polyhedron_8h_source}\index{igl/simplify\_polyhedron.h@{igl/simplify\_polyhedron.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SIMPLIFY\_POLYHEDRON\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SIMPLIFY\_POLYHEDRON\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Simplify a polyhedron represented as a triangle mesh (OV,OF) by collapsing}}
+\DoxyCodeLine{15   \textcolor{comment}{// any edge that doesn't contribute to defining surface's pointset. This}}
+\DoxyCodeLine{16   \textcolor{comment}{// \_would\_ also make sense for open and non-\/manifold meshes, but the current}}
+\DoxyCodeLine{17   \textcolor{comment}{// implementation only works with closed manifold surfaces with well defined}}
+\DoxyCodeLine{18   \textcolor{comment}{// triangle normals.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   OV  \#OV by 3 list of input mesh vertex positions}}
+\DoxyCodeLine{22   \textcolor{comment}{//   OF  \#OF by 3 list of input mesh triangle indices into OV}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   V  \#V by 3 list of output mesh vertex positions}}
+\DoxyCodeLine{25   \textcolor{comment}{//   F  \#F by 3 list of input mesh triangle indices into V}}
+\DoxyCodeLine{26   \textcolor{comment}{//   J  \#F list of indices into OF of birth parents}}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} simplify\_polyhedron(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixXd \& OV,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixXi \& OF,}
+\DoxyCodeLine{30     Eigen::MatrixXd \& V,}
+\DoxyCodeLine{31     Eigen::MatrixXi \& F,}
+\DoxyCodeLine{32     Eigen::VectorXi \& J);}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#  include "{}simplify\_polyhedron.cpp"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

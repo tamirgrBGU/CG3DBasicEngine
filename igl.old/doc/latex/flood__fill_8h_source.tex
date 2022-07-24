@@ -1,0 +1,39 @@
+\hypertarget{flood__fill_8h_source}{}\doxysection{flood\+\_\+fill.\+h}
+\label{flood__fill_8h_source}\index{igl/flood\_fill.h@{igl/flood\_fill.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FLOOD\_FILL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FLOOD\_FILL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Given a 3D array with sparse non-\/nan (number?) data fill in the NaNs via}}
+\DoxyCodeLine{15   \textcolor{comment}{// flood fill. This should ensure that, e.g., if data near 0 always has a band}}
+\DoxyCodeLine{16   \textcolor{comment}{// (surface) of numbered and signed data, then components of nans will be}}
+\DoxyCodeLine{17   \textcolor{comment}{// correctly signed.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   res  3-\/long list of dimensions of grid}}
+\DoxyCodeLine{21   \textcolor{comment}{//   S  res(0)*res(1)*res(2)  list of scalar values (with (many) nans), see}}
+\DoxyCodeLine{22   \textcolor{comment}{//     output}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   S  flood fill data in place}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedres, \textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} flood\_fill(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedres>\& res, }
+\DoxyCodeLine{28     Eigen::PlainObjectBase<DerivedS> \& S);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}flood\_fill.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

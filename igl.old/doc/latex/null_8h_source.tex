@@ -1,0 +1,42 @@
+\hypertarget{null_8h_source}{}\doxysection{null.\+h}
+\label{null_8h_source}\index{igl/null.h@{igl/null.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NULL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NULL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Like MATLAB's null}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Compute a basis for the null space for the given matrix A: the columns of}}
+\DoxyCodeLine{19   \textcolor{comment}{// the output N form a basis for the space orthogonal to that spanned by the}}
+\DoxyCodeLine{20   \textcolor{comment}{// rows of A.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   A  m by n matrix}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   N  n by r matrix, where r is the row rank of A}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} null(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedA> \& A,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#  include "{}null.cpp"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

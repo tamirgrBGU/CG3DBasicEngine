@@ -1,0 +1,85 @@
+\hypertarget{intrinsic__delaunay__triangulation_8h_source}{}\doxysection{intrinsic\+\_\+delaunay\+\_\+triangulation.\+h}
+\label{intrinsic__delaunay__triangulation_8h_source}\index{igl/intrinsic\_delaunay\_triangulation.h@{igl/intrinsic\_delaunay\_triangulation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_INTRINSIC\_DELAUNAY\_TRIANGULATION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_INTRINSIC\_DELAUNAY\_TRIANGULATION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// INTRINSIC\_DELAUNAY\_TRIANGULATION Flip edges \_intrinsically\_ until all are}}
+\DoxyCodeLine{16   \textcolor{comment}{// "{}intrinsic Delaunay"{}. See "{}An algorithm for the construction of intrinsic}}
+\DoxyCodeLine{17   \textcolor{comment}{// delaunay triangulations with applications to digital geometry processing"{}}}
+\DoxyCodeLine{18   \textcolor{comment}{// [Fisher et al. 2007].}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   l\_in  \#F\_in by 3 list of edge lengths (see edge\_lengths)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   F\_in  \#F\_in by 3 list of face indices into some unspecified vertex list V}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   l  \#F by 3 list of edge lengths}}
+\DoxyCodeLine{25   \textcolor{comment}{//   F  \#F by 3 list of new face indices. Note: Combinatorially F may contain}}
+\DoxyCodeLine{26   \textcolor{comment}{//     non-\/manifold edges, duplicate faces and self-\/loops (e.g., an edge [1,1]}}
+\DoxyCodeLine{27   \textcolor{comment}{//     or a face [1,1,1]). However, the *intrinsic geometry* is still}}
+\DoxyCodeLine{28   \textcolor{comment}{//     well-\/defined and correct. See [Fisher et al. 2007] Figure 3 and 2nd to}}
+\DoxyCodeLine{29   \textcolor{comment}{//     last paragraph of 1st page. Since F may be "{}non-\/eddge-\/manifold"{} in the}}
+\DoxyCodeLine{30   \textcolor{comment}{//     usual combinatorial sense, it may be useful to call the more verbose}}
+\DoxyCodeLine{31   \textcolor{comment}{//     overload below if disentangling edges will be necessary later on.}}
+\DoxyCodeLine{32   \textcolor{comment}{//     Calling unique\_edge\_map on this F will give a \_different\_ result than}}
+\DoxyCodeLine{33   \textcolor{comment}{//     those outputs.}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// See also: is\_intrinsic\_delaunay}}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} Derivedl\_in,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedF\_in,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} Derivedl,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} intrinsic\_delaunay\_triangulation(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl\_in> \& l\_in,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF\_in> \& F\_in,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<Derivedl> \& l,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<DerivedF> \& F);}
+\DoxyCodeLine{46   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{47   \textcolor{comment}{//   E  \#F*3 by 2 list of all directed edges, such that E.row(f+\#F*c) is the}}
+\DoxyCodeLine{48   \textcolor{comment}{//     edge opposite F(f,c)}}
+\DoxyCodeLine{49   \textcolor{comment}{//   uE  \#uE by 2 list of unique undirected edges}}
+\DoxyCodeLine{50   \textcolor{comment}{//   EMAP \#F*3 list of indices into uE, mapping each directed edge to unique}}
+\DoxyCodeLine{51   \textcolor{comment}{//     undirected edge}}
+\DoxyCodeLine{52   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges}}
+\DoxyCodeLine{53   \textcolor{comment}{//}}
+\DoxyCodeLine{54   \textcolor{comment}{// See also: unique\_edge\_map}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} Derivedl\_in,}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} DerivedF\_in,}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} Derivedl,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} uE2EType>}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} intrinsic\_delaunay\_triangulation(}
+\DoxyCodeLine{65     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl\_in> \& l\_in,}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF\_in> \& F\_in,}
+\DoxyCodeLine{67     Eigen::PlainObjectBase<Derivedl> \& l,}
+\DoxyCodeLine{68     Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DeriveduE> \& uE,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{72     std::vector<std::vector<uE2EType> > \& uE2E);}
+\DoxyCodeLine{73 \}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#  include "{}intrinsic\_delaunay\_triangulation.cpp"{}}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

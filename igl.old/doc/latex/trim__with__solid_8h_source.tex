@@ -1,0 +1,69 @@
+\hypertarget{trim__with__solid_8h_source}{}\doxysection{trim\+\_\+with\+\_\+solid.\+h}
+\label{trim__with__solid_8h_source}\index{igl/copyleft/cgal/trim\_with\_solid.h@{igl/copyleft/cgal/trim\_with\_solid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_TRIM\_WITH\_SOLID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_TRIM\_WITH\_SOLID\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20       \textcolor{comment}{// TRIM\_WITH\_SOLID Given an arbitrary mesh (VA,FA) and the boundary mesh}}
+\DoxyCodeLine{21       \textcolor{comment}{// (VB,FB) of a solid (as defined in [Zhou et al. 2016]), Resolve intersections}}
+\DoxyCodeLine{22       \textcolor{comment}{// between A and B subdividing faces of A so that intersections with B exists}}
+\DoxyCodeLine{23       \textcolor{comment}{// only along edges and vertices (and coplanar faces). Then determine whether}}
+\DoxyCodeLine{24       \textcolor{comment}{// each of these faces is inside or outside of B. This can be used to extract}}
+\DoxyCodeLine{25       \textcolor{comment}{// the part of A inside or outside of B.}}
+\DoxyCodeLine{26       \textcolor{comment}{//}}
+\DoxyCodeLine{27       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{28       \textcolor{comment}{//   VA  \#VA by 3 list of mesh vertex positions of A}}
+\DoxyCodeLine{29       \textcolor{comment}{//   FA  \#FA by 3 list of mesh triangle indices into VA}}
+\DoxyCodeLine{30       \textcolor{comment}{//   VB  \#VB by 3 list of mesh vertex positions of B}}
+\DoxyCodeLine{31       \textcolor{comment}{//   FB  \#FB by 3 list of mesh triangle indices into VB}}
+\DoxyCodeLine{32       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{33       \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions of output}}
+\DoxyCodeLine{34       \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into V}}
+\DoxyCodeLine{35       \textcolor{comment}{//   D  \#F list of bools whether face is inside B}}
+\DoxyCodeLine{36       \textcolor{comment}{//   J  \#F list of indices into FA revealing birth parent}}
+\DoxyCodeLine{37       \textcolor{comment}{//}}
+\DoxyCodeLine{38       \textcolor{keyword}{template} <}
+\DoxyCodeLine{39         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} DerivedD,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{47       IGL\_INLINE \textcolor{keywordtype}{void} trim\_with\_solid(}
+\DoxyCodeLine{48         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVA> \& VA,}
+\DoxyCodeLine{49         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFA> \& FA,}
+\DoxyCodeLine{50         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVB> \& VB,}
+\DoxyCodeLine{51         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFB> \& FB,}
+\DoxyCodeLine{52         Eigen::PlainObjectBase<DerivedV> \& Vd,}
+\DoxyCodeLine{53         Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{54         Eigen::PlainObjectBase<DerivedD> \& D,}
+\DoxyCodeLine{55         Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#  include "{}trim\_with\_solid.cpp"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

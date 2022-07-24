@@ -1,0 +1,47 @@
+\hypertarget{isolines__map_8h_source}{}\doxysection{isolines\+\_\+map.\+h}
+\label{isolines__map_8h_source}\index{igl/isolines\_map.h@{igl/isolines\_map.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_ISOLINES\_MAP\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_ISOLINES\_MAP\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Inject a given colormap with evenly spaced isolines.}}
+\DoxyCodeLine{9   \textcolor{comment}{//}}
+\DoxyCodeLine{10   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{11   \textcolor{comment}{//   CM  \#CM by 3 list of colors}}
+\DoxyCodeLine{12   \textcolor{comment}{//   ico\_color  1 by 3 isoline color}}
+\DoxyCodeLine{13   \textcolor{comment}{//   interval\_thickness  number of times to repeat intervals (original colors)}}
+\DoxyCodeLine{14   \textcolor{comment}{//   iso\_thickness  number of times to repeat isoline color (in between}}
+\DoxyCodeLine{15   \textcolor{comment}{//     intervals)}}
+\DoxyCodeLine{16   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   ICM  \#CM*interval\_thickness + (\#CM-\/1)*iso\_thickness by 3 list of outputs}}
+\DoxyCodeLine{18   \textcolor{comment}{//     colors}}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <}
+\DoxyCodeLine{20     \textcolor{keyword}{typename} DerivedCM,}
+\DoxyCodeLine{21     \textcolor{keyword}{typename} Derivediso\_color,}
+\DoxyCodeLine{22     \textcolor{keyword}{typename} DerivedICM >}
+\DoxyCodeLine{23   IGL\_INLINE \textcolor{keywordtype}{void} isolines\_map(}
+\DoxyCodeLine{24     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCM> \& CM, }
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::MatrixBase<Derivediso\_color> \& iso\_color,}
+\DoxyCodeLine{26     \textcolor{keyword}{const} \textcolor{keywordtype}{int} interval\_thickness,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} \textcolor{keywordtype}{int} iso\_thickness,}
+\DoxyCodeLine{28     Eigen::PlainObjectBase<DerivedICM> \& ICM);}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedCM,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedICM>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} isolines\_map(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCM> \& CM, }
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedICM> \& ICM);}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}isolines\_map.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

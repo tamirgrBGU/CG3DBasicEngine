@@ -1,0 +1,87 @@
+\hypertarget{remesh__self__intersections_8h_source}{}\doxysection{remesh\+\_\+self\+\_\+intersections.\+h}
+\label{remesh__self__intersections_8h_source}\index{igl/copyleft/cgal/remesh\_self\_intersections.h@{igl/copyleft/cgal/remesh\_self\_intersections.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_REMESH\_SELF\_INTERSECTIONS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_REMESH\_SELF\_INTERSECTIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}RemeshSelfIntersectionsParam.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14   }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21       \textcolor{comment}{// Given a triangle mesh (V,F) compute a new mesh (VV,FF) which is the same}}
+\DoxyCodeLine{22       \textcolor{comment}{// as (V,F) except that any self-\/intersecting triangles in (V,F) have been}}
+\DoxyCodeLine{23       \textcolor{comment}{// subdivided (new vertices and face created) so that the self-\/intersection}}
+\DoxyCodeLine{24       \textcolor{comment}{// contour lies exactly on edges in (VV,FF). New vertices will appear in}}
+\DoxyCodeLine{25       \textcolor{comment}{// original faces or on original edges. New vertices on edges are "{}merged"{}}}
+\DoxyCodeLine{26       \textcolor{comment}{// only across original faces sharing that edge. This means that if the input}}
+\DoxyCodeLine{27       \textcolor{comment}{// triangle mesh is a closed manifold the output will be too.}}
+\DoxyCodeLine{28       \textcolor{comment}{//}}
+\DoxyCodeLine{29       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{30       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{31       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{32       \textcolor{comment}{//   params  struct of optional parameters}}
+\DoxyCodeLine{33       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{34       \textcolor{comment}{//   VV  \#VV by 3 list of vertex positions}}
+\DoxyCodeLine{35       \textcolor{comment}{//   FF  \#FF by 3 list of triangle indices into VV}}
+\DoxyCodeLine{36       \textcolor{comment}{//   IF  \#intersecting face pairs by 2  list of intersecting face pairs,}}
+\DoxyCodeLine{37       \textcolor{comment}{//     indexing F}}
+\DoxyCodeLine{38       \textcolor{comment}{//   J  \#FF list of indices into F denoting birth triangle}}
+\DoxyCodeLine{39       \textcolor{comment}{//   IM  \#VV list of indices into VV of unique vertices.}}
+\DoxyCodeLine{40       \textcolor{comment}{//}}
+\DoxyCodeLine{41       \textcolor{comment}{// Known bugs: If an existing edge in (V,F) lies exactly on another face then}}
+\DoxyCodeLine{42       \textcolor{comment}{// any resulting additional vertices along that edge may not get properly}}
+\DoxyCodeLine{43       \textcolor{comment}{// connected so that the output mesh has the same global topology. This is}}
+\DoxyCodeLine{44       \textcolor{comment}{// because }}
+\DoxyCodeLine{45       \textcolor{comment}{//}}
+\DoxyCodeLine{46       \textcolor{comment}{// Example:}}
+\DoxyCodeLine{47       \textcolor{comment}{//     // resolve intersections}}
+\DoxyCodeLine{48       \textcolor{comment}{//     igl::copyleft::cgal::remesh\_self\_intersections(V,F,params,VV,FF,IF,J,IM);}}
+\DoxyCodeLine{49       \textcolor{comment}{//     // \_apply\_ duplicate vertex mapping IM to FF}}
+\DoxyCodeLine{50       \textcolor{comment}{//     for\_each(FF.data(),FF.data()+FF.size(),[\&IM](int \& a)\{a=IM(a);\});}}
+\DoxyCodeLine{51       \textcolor{comment}{//     // remove any vertices now unreferenced after duplicate mapping.}}
+\DoxyCodeLine{52       \textcolor{comment}{//     igl::remove\_unreferenced(VV,FF,SV,SF,UIM);}}
+\DoxyCodeLine{53       \textcolor{comment}{//     // Now (SV,SF) is ready to extract outer hull}}
+\DoxyCodeLine{54       \textcolor{comment}{//     igl::copyleft::cgal::outer\_hull(SV,SF,G,J,flip);}}
+\DoxyCodeLine{55       \textcolor{comment}{//}}
+\DoxyCodeLine{56       \textcolor{keyword}{template} <}
+\DoxyCodeLine{57         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{58         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{59         \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{60         \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{61         \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{62         \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{63         \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{64       IGL\_INLINE \textcolor{keywordtype}{void} remesh\_self\_intersections(}
+\DoxyCodeLine{65         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{66         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{67         \textcolor{keyword}{const} RemeshSelfIntersectionsParam \& params,}
+\DoxyCodeLine{68         Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{69         Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{70         Eigen::PlainObjectBase<DerivedIF> \& IF,}
+\DoxyCodeLine{71         Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{72         Eigen::PlainObjectBase<DerivedIM> \& IM);}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#  include "{}remesh\_self\_intersections.cpp"{}}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{80   }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

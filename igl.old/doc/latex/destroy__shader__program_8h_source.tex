@@ -1,0 +1,41 @@
+\hypertarget{destroy__shader__program_8h_source}{}\doxysection{destroy\+\_\+shader\+\_\+program.\+h}
+\label{destroy__shader__program_8h_source}\index{igl/opengl/destroy\_shader\_program.h@{igl/opengl/destroy\_shader\_program.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_DESTROY\_SHADER\_PROGRAM\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_DESTROY\_SHADER\_PROGRAM\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}gl.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{// Properly destroy a shader program. Detach and delete each of its shaders}}
+\DoxyCodeLine{18     \textcolor{comment}{// and delete it}}
+\DoxyCodeLine{19     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20     \textcolor{comment}{//   id  index id of created shader, set to 0 on error}}
+\DoxyCodeLine{21     \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{22     \textcolor{comment}{// }}
+\DoxyCodeLine{23     \textcolor{comment}{// Note: caller is responsible for making sure he doesn't foolishly continue}}
+\DoxyCodeLine{24     \textcolor{comment}{// to use id as if it still contains a program}}
+\DoxyCodeLine{25     \textcolor{comment}{// }}
+\DoxyCodeLine{26     \textcolor{comment}{// See also: create\_shader\_program}}
+\DoxyCodeLine{27     IGL\_INLINE \textcolor{keywordtype}{bool} destroy\_shader\_program(\textcolor{keyword}{const} GLuint \textcolor{keywordtype}{id});}
+\DoxyCodeLine{28   \}}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#  include "{}destroy\_shader\_program.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

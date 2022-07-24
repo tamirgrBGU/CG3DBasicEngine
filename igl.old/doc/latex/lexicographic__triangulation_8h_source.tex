@@ -1,0 +1,53 @@
+\hypertarget{lexicographic__triangulation_8h_source}{}\doxysection{lexicographic\+\_\+triangulation.\+h}
+\label{lexicographic__triangulation_8h_source}\index{igl/lexicographic\_triangulation.h@{igl/lexicographic\_triangulation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//                    Qingan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{// }}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef IGL\_LEXICOGRAPHIC\_TRIANGULATION\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define IGL\_LEXICOGRAPHIC\_TRIANGULATION\_H}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Given a set of points in 2D, return a lexicographic triangulation of these}}
+\DoxyCodeLine{18   \textcolor{comment}{// points.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   P  \#P by 2 list of vertex positions}}
+\DoxyCodeLine{22   \textcolor{comment}{//   orient2D  A functor such that orient2D(pa, pb, pc) returns}}
+\DoxyCodeLine{23   \textcolor{comment}{//               1 if pa,pb,pc forms a conterclockwise triangle.}}
+\DoxyCodeLine{24   \textcolor{comment}{//              -\/1 if pa,pb,pc forms a clockwise triangle.}}
+\DoxyCodeLine{25   \textcolor{comment}{//               0 if pa,pb,pc are collinear.}}
+\DoxyCodeLine{26   \textcolor{comment}{//              where the argument pa,pb,pc are of type Scalar[2].}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   F  \#F by 3 of faces in lexicographic triangulation.}}
+\DoxyCodeLine{30   \textcolor{keyword}{template}<}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} Orient2D,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedF}
+\DoxyCodeLine{34     >}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} lexicographic\_triangulation(}
+\DoxyCodeLine{36       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{37       Orient2D orient2D,}
+\DoxyCodeLine{38       Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#  include "{}lexicographic\_triangulation.cpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

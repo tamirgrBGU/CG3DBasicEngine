@@ -1,0 +1,195 @@
+\hypertarget{_msh_loader_8h_source}{}\doxysection{Msh\+Loader.\+h}
+\label{_msh_loader_8h_source}\index{igl/MshLoader.h@{igl/MshLoader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// based on MSH reader from PyMesh }}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (c) 2015 Qingnan Zhou <qzhou@adobe.com>           }}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2020 Vladimir Fonov <vladimir.fonov@gmail.com> }}
+\DoxyCodeLine{5 \textcolor{comment}{//}}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla }}
+\DoxyCodeLine{7 \textcolor{comment}{// Public License v. 2.0. If a copy of the MPL was not distributed }}
+\DoxyCodeLine{8 \textcolor{comment}{// with this file, You can obtain one at http://mozilla.org/MPL/2.0/. }}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_MSH\_LOADER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_MSH\_LOADER\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{comment}{// Class for loading information from .msh file}}
+\DoxyCodeLine{22 \textcolor{comment}{// depends only on c++stl library}}
+\DoxyCodeLine{23 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_msh_loader}{MshLoader}} \{}
+\DoxyCodeLine{24     \textcolor{keyword}{public}:}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\_struct}} \{}
+\DoxyCodeLine{27             \textcolor{keywordtype}{int} tag,el\_type;}
+\DoxyCodeLine{28             \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\_struct}}(\textcolor{keywordtype}{int} \_tag=0,\textcolor{keywordtype}{int} \_type=0):}
+\DoxyCodeLine{29                 tag(\_tag),el\_type(\_type)\{\}}
+\DoxyCodeLine{30             \textcolor{keywordtype}{bool} operator== (\textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\_struct}}\& a)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{31                 \textcolor{keywordflow}{return} this-\/>tag==a.tag \&\& }
+\DoxyCodeLine{32                        this-\/>el\_type==a.el\_type;}
+\DoxyCodeLine{33             \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35             \textcolor{keywordtype}{bool} operator< (\textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\_struct}}\& a)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{36                 \textcolor{keywordflow}{return} (this-\/>tag*100+this-\/>el\_type) < }
+\DoxyCodeLine{37                        (a.tag*100+a.el\_type);}
+\DoxyCodeLine{38             \}}
+\DoxyCodeLine{39         \};}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \textcolor{keyword}{typedef} \textcolor{keywordtype}{double} Float;}
+\DoxyCodeLine{42         }
+\DoxyCodeLine{43         \textcolor{keyword}{typedef} std::vector<int>      IndexVector;}
+\DoxyCodeLine{44         \textcolor{keyword}{typedef} std::vector<int>      IntVector;}
+\DoxyCodeLine{45         \textcolor{keyword}{typedef} std::vector<Float>    FloatVector;}
+\DoxyCodeLine{46         \textcolor{keyword}{typedef} std::vector<FloatVector> FloatField;}
+\DoxyCodeLine{47         \textcolor{keyword}{typedef} std::vector<IntVector> IntField;}
+\DoxyCodeLine{48         \textcolor{keyword}{typedef} std::vector<std::string> FieldNames;}
+\DoxyCodeLine{49         \textcolor{keyword}{typedef} std::multimap<msh\_struct,int> StructIndex;}
+\DoxyCodeLine{50         \textcolor{keyword}{typedef} std::vector<msh\_struct> StructVector;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         \textcolor{keyword}{enum} \{ELEMENT\_LINE=1, ELEMENT\_TRI=2, ELEMENT\_QUAD=3, }
+\DoxyCodeLine{53               ELEMENT\_TET=4,  ELEMENT\_HEX=5, ELEMENT\_PRISM=6,}
+\DoxyCodeLine{54               ELEMENT\_PYRAMID=7,}
+\DoxyCodeLine{55               \textcolor{comment}{// 2nd order elements}}
+\DoxyCodeLine{56               ELEMENT\_LINE\_2ND\_ORDER=8, ELEMENT\_TRI\_2ND\_ORDER=9, }
+\DoxyCodeLine{57               ELEMENT\_QUAD\_2ND\_ORDER=10,ELEMENT\_TET\_2ND\_ORDER=11, }
+\DoxyCodeLine{58               ELEMENT\_HEX\_2ND\_ORDER=12, ELEMENT\_PRISM\_2ND\_ORDER=13, }
+\DoxyCodeLine{59               ELEMENT\_PYRAMID\_2ND\_ORDER=14,}
+\DoxyCodeLine{60               \textcolor{comment}{// other elements}}
+\DoxyCodeLine{61               ELEMENT\_POINT=15 \};}
+\DoxyCodeLine{62     \textcolor{keyword}{public}:}
+\DoxyCodeLine{63         \mbox{\hyperlink{classigl_1_1_msh_loader}{MshLoader}}(\textcolor{keyword}{const} std::string \&filename);}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{keyword}{public}:}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67         \textcolor{comment}{// get nodes , x,y,z sequentially}}
+\DoxyCodeLine{68         \textcolor{keyword}{const} FloatVector\& get\_nodes()\textcolor{keyword}{    const }\{ \textcolor{keywordflow}{return} m\_nodes; \} }
+\DoxyCodeLine{69         \textcolor{comment}{// get elements , identifying nodes that create an element}}
+\DoxyCodeLine{70         \textcolor{comment}{// variable length per element}}
+\DoxyCodeLine{71         \textcolor{keyword}{const} IndexVector\& get\_elements()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements; \}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73         \textcolor{comment}{// get element types }}
+\DoxyCodeLine{74         \textcolor{keyword}{const} IntVector\& get\_elements\_types()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements\_types; \}}
+\DoxyCodeLine{75         \textcolor{comment}{// get element lengths}}
+\DoxyCodeLine{76         \textcolor{keyword}{const} IntVector\& get\_elements\_lengths()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements\_lengths; \}}
+\DoxyCodeLine{77         \textcolor{comment}{// get element tags ( physical (0) and elementary (1) )}}
+\DoxyCodeLine{78         \textcolor{keyword}{const} IntField\&  get\_elements\_tags()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements\_tags; \}}
+\DoxyCodeLine{79         \textcolor{comment}{// get element IDs}}
+\DoxyCodeLine{80         \textcolor{keyword}{const} IntVector\& get\_elements\_ids()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements\_ids; \}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82         \textcolor{comment}{// get reverse index from node to element}}
+\DoxyCodeLine{83         \textcolor{keyword}{const} IndexVector\& get\_elements\_nodes\_idx()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_elements\_nodes\_idx; \}}
+\DoxyCodeLine{84 }
+\DoxyCodeLine{85         \textcolor{comment}{// get fields assigned per node, all fields and components sequentially}}
+\DoxyCodeLine{86         \textcolor{keyword}{const} FloatField\& get\_node\_fields()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_node\_fields;\}}
+\DoxyCodeLine{87         \textcolor{comment}{// get node field names, }}
+\DoxyCodeLine{88         \textcolor{keyword}{const} FieldNames\& get\_node\_fields\_names()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_node\_fields\_names;\}}
+\DoxyCodeLine{89         \textcolor{comment}{// get number of node field components}}
+\DoxyCodeLine{90         \textcolor{keyword}{const} IntVector\&  get\_node\_fields\_components()\textcolor{keyword}{ const }\{\textcolor{keywordflow}{return} m\_node\_fields\_components;\}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92         \textcolor{keywordtype}{int} get\_node\_field\_components(\textcolor{keywordtype}{size\_t} c)\textcolor{keyword}{  const }}
+\DoxyCodeLine{93 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{94             \textcolor{keywordflow}{return} m\_node\_fields\_components[c];}
+\DoxyCodeLine{95         \}}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97         \textcolor{comment}{// get fields assigned per element, all fields and components sequentially}}
+\DoxyCodeLine{98         \textcolor{keyword}{const} FloatField\& get\_element\_fields()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_element\_fields;\}}
+\DoxyCodeLine{99         \textcolor{comment}{// get element field names}}
+\DoxyCodeLine{100         \textcolor{keyword}{const} FieldNames\& get\_element\_fields\_names()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} m\_element\_fields\_names;\}}
+\DoxyCodeLine{101         \textcolor{comment}{// get number of element field components}}
+\DoxyCodeLine{102         \textcolor{keyword}{const} IntVector\&  get\_element\_fields\_components()\textcolor{keyword}{ const }\{\textcolor{keywordflow}{return} m\_element\_fields\_components;\}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104         \textcolor{keywordtype}{int} get\_element\_field\_components(\textcolor{keywordtype}{size\_t} c)\textcolor{keyword}{  const }\{}
+\DoxyCodeLine{105             \textcolor{keywordflow}{return} m\_element\_fields\_components[c];}
+\DoxyCodeLine{106         \}}
+\DoxyCodeLine{107         \textcolor{comment}{// check if field is present at node level}}
+\DoxyCodeLine{108         \textcolor{keywordtype}{bool} is\_node\_field(\textcolor{keyword}{const} std::string\& fieldname)\textcolor{keyword}{  const }\{}
+\DoxyCodeLine{109             \textcolor{keywordflow}{return} (std::find(std::begin(m\_node\_fields\_names),}
+\DoxyCodeLine{110                               std::end(m\_node\_fields\_names),}
+\DoxyCodeLine{111                               fieldname) != std::end(m\_node\_fields\_names) );}
+\DoxyCodeLine{112         \}}
+\DoxyCodeLine{113         \textcolor{comment}{// check if field is present at element level}}
+\DoxyCodeLine{114         \textcolor{keywordtype}{bool} is\_element\_field(\textcolor{keyword}{const} std::string\& fieldname)\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{115             \textcolor{keywordflow}{return} (std::find(std::begin(m\_element\_fields\_names),}
+\DoxyCodeLine{116                               std::end(m\_element\_fields\_names),}
+\DoxyCodeLine{117                               fieldname) != std::end(m\_node\_fields\_names) );}
+\DoxyCodeLine{118         \}}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120         \textcolor{comment}{// check if all elements have ids assigned sequentially}}
+\DoxyCodeLine{121         \textcolor{keywordtype}{bool} is\_element\_map\_identity() \textcolor{keyword}{const} ;}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123         \textcolor{comment}{// create tag index}}
+\DoxyCodeLine{124         \textcolor{comment}{// tag\_column: ( physical (0) or elementary (1) ) specifying which tag to use}}
+\DoxyCodeLine{125         \textcolor{keywordtype}{void} index\_structures(\textcolor{keywordtype}{int} tag\_column); }
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127         \textcolor{comment}{// get tag index, call index\_structure\_tags first}}
+\DoxyCodeLine{128         \textcolor{keyword}{const} StructIndex\& get\_structure\_index()\textcolor{keyword}{ const }}
+\DoxyCodeLine{129 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{130             \textcolor{keywordflow}{return} m\_structure\_index;}
+\DoxyCodeLine{131         \}}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133         \textcolor{comment}{// get size of a structure identified by tag and element type}}
+\DoxyCodeLine{134         \textcolor{keyword}{const} StructIndex\& get\_structure\_length()\textcolor{keyword}{ const }}
+\DoxyCodeLine{135 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{136             \textcolor{keywordflow}{return} m\_structure\_length;}
+\DoxyCodeLine{137         \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{140         \textcolor{keyword}{const} StructVector\& \mbox{\hyperlink{classigl_1_1_msh_loader_a69f610310571325d4ee5e4e581452fff}{get\_structures}}()\textcolor{keyword}{ const }}
+\DoxyCodeLine{141 \textcolor{keyword}{        }\{}
+\DoxyCodeLine{142             \textcolor{keywordflow}{return} m\_structures;}
+\DoxyCodeLine{143         \}}
+\DoxyCodeLine{144         }
+\DoxyCodeLine{145     \textcolor{keyword}{public}:}
+\DoxyCodeLine{146         \textcolor{comment}{// helper function, calculate number of nodes associated with an element}}
+\DoxyCodeLine{147         \textcolor{keyword}{static} \textcolor{keywordtype}{int} num\_nodes\_per\_elem\_type(\textcolor{keywordtype}{int} elem\_type);}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{keyword}{private}:}
+\DoxyCodeLine{150         \textcolor{keywordtype}{void} parse\_nodes(std::ifstream\& fin);}
+\DoxyCodeLine{151         \textcolor{keywordtype}{void} parse\_elements(std::ifstream\& fin);}
+\DoxyCodeLine{152         \textcolor{keywordtype}{void} parse\_node\_field(std::ifstream\& fin);}
+\DoxyCodeLine{153         \textcolor{keywordtype}{void} parse\_element\_field(std::ifstream\& fin);}
+\DoxyCodeLine{154         \textcolor{keywordtype}{void} parse\_unknown\_field(std::ifstream\& fin,}
+\DoxyCodeLine{155                 \textcolor{keyword}{const} std::string\& fieldname);}
+\DoxyCodeLine{156 }
+\DoxyCodeLine{157     \textcolor{keyword}{private}:}
+\DoxyCodeLine{158         \textcolor{keywordtype}{bool}   m\_binary;}
+\DoxyCodeLine{159         \textcolor{keywordtype}{size\_t} m\_data\_size;}
+\DoxyCodeLine{160         }
+\DoxyCodeLine{161         FloatVector m\_nodes;    \textcolor{comment}{// len x 3 vector }}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163         IndexVector m\_elements; \textcolor{comment}{// linear array for nodes corresponding to each element }}
+\DoxyCodeLine{164         IndexVector m\_elements\_nodes\_idx; \textcolor{comment}{// element indexes  }}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166         IntVector   m\_elements\_ids;     \textcolor{comment}{// element id's }}
+\DoxyCodeLine{167         IntVector   m\_elements\_types;   \textcolor{comment}{// Element types }}
+\DoxyCodeLine{168         IntVector   m\_elements\_lengths; \textcolor{comment}{// Element lengths }}
+\DoxyCodeLine{169         IntField    m\_elements\_tags;    \textcolor{comment}{// Element tags, currently 2xtags per element }}
+\DoxyCodeLine{170 }
+\DoxyCodeLine{171         FloatField  m\_node\_fields;      \textcolor{comment}{// Float field defined at each node }}
+\DoxyCodeLine{172         IntVector   m\_node\_fields\_components; \textcolor{comment}{// Number of components for node field }}
+\DoxyCodeLine{173         FieldNames  m\_node\_fields\_names; \textcolor{comment}{// Node field name }}
+\DoxyCodeLine{174 }
+\DoxyCodeLine{175         FloatField  m\_element\_fields;    \textcolor{comment}{// Float field defined at each element }}
+\DoxyCodeLine{176         IntVector   m\_element\_fields\_components; \textcolor{comment}{// Number of components for element field }}
+\DoxyCodeLine{177         FieldNames  m\_element\_fields\_names; \textcolor{comment}{// Element field name }}
+\DoxyCodeLine{178 }
+\DoxyCodeLine{179         StructIndex  m\_structure\_index; \textcolor{comment}{// index tag ids  }}
+\DoxyCodeLine{180         StructVector m\_structures;  \textcolor{comment}{// unique structures}}
+\DoxyCodeLine{181         StructIndex  m\_structure\_length; \textcolor{comment}{// length of structures with consistent element type}}
+\DoxyCodeLine{182 \};}
+\DoxyCodeLine{183 }
+\DoxyCodeLine{184 \} \textcolor{comment}{//igl}}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#  include "{}MshLoader.cpp"{}}}
+\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//IGL\_MSH\_LOADER\_H}}
+
+\end{DoxyCode}

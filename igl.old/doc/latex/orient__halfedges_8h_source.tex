@@ -1,0 +1,47 @@
+\hypertarget{orient__halfedges_8h_source}{}\doxysection{orient\+\_\+halfedges.\+h}
+\label{orient__halfedges_8h_source}\index{igl/orient\_halfedges.h@{igl/orient\_halfedges.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Oded Stein <oded.stein@columbia.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ORIENT\_HALFEDGES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ORIENT\_HALFEDGES\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Orients halfedges for a triangle mesh, assigning them to a unique edge.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//  F: input mesh connectivity}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//  E: a mapping from each halfedge to each edge}}
+\DoxyCodeLine{24   \textcolor{comment}{//  oE: the orientation of each halfedge compared to the orientation of the}}
+\DoxyCodeLine{25   \textcolor{comment}{//      actual edge. Every edge appears positively oriented exactly once.}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedOE>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void}}
+\DoxyCodeLine{29   orient\_halfedges(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedE>\& E,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<DerivedOE>\& oE);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}orient\_halfedges.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

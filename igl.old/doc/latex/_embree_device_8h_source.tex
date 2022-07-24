@@ -1,0 +1,92 @@
+\hypertarget{_embree_device_8h_source}{}\doxysection{Embree\+Device.\+h}
+\label{_embree_device_8h_source}\index{igl/embree/EmbreeDevice.h@{igl/embree/EmbreeDevice.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Vladimir Fonov <vladimir.fonov@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//               2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{//               2014 Christian Schüller <schuellchr@gmail.com>}}
+\DoxyCodeLine{6 \textcolor{comment}{//}}
+\DoxyCodeLine{7 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{8 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{9 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{10 \textcolor{comment}{//}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#ifndef IGL\_EMBREE\_EMBREE\_DEVICE\_H}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define IGL\_EMBREE\_EMBREE\_DEVICE\_H}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <embree3/rtcore.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{namespace }embree}
+\DoxyCodeLine{20   \{}
+\DoxyCodeLine{21      \textcolor{comment}{// keep track of embree device}}
+\DoxyCodeLine{22      \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}}}
+\DoxyCodeLine{23      \{}
+\DoxyCodeLine{24         RTCDevice embree\_device;}
+\DoxyCodeLine{25         \textcolor{keywordtype}{int}       embree\_device\_cntr;}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27         \textcolor{keyword}{static} \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}} \& instance()}
+\DoxyCodeLine{28         \{}
+\DoxyCodeLine{29             \textcolor{keyword}{static} \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}} s;}
+\DoxyCodeLine{30             \textcolor{keywordflow}{return} s;}
+\DoxyCodeLine{31         \} \textcolor{comment}{// instance}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33         \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}}(\textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}} \&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{34         \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}} \& operator = (\textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}} \&) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36         \textcolor{keyword}{static} RTCDevice get\_device(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *config=\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{37         \{}
+\DoxyCodeLine{38             \textcolor{keywordflow}{return} instance().get(config);}
+\DoxyCodeLine{39         \}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41         \textcolor{keyword}{static} \textcolor{keywordtype}{void} release\_device(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{42         \{}
+\DoxyCodeLine{43             instance().release();}
+\DoxyCodeLine{44         \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{private}:}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48         \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{EmbreeDevice}}():embree\_device(\textcolor{keyword}{nullptr}),embree\_device\_cntr(0) \{\}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         \mbox{\hyperlink{structigl_1_1embree_1_1_embree_device}{\string~EmbreeDevice}}() }
+\DoxyCodeLine{51         \{ }
+\DoxyCodeLine{52             \textcolor{keywordflow}{if}(embree\_device)}
+\DoxyCodeLine{53                 rtcReleaseDevice(embree\_device);}
+\DoxyCodeLine{54         \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56         RTCDevice get(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *config=\textcolor{keyword}{nullptr}) }
+\DoxyCodeLine{57         \{}
+\DoxyCodeLine{58             \textcolor{keywordflow}{if}(!embree\_device) }
+\DoxyCodeLine{59             \{}
+\DoxyCodeLine{60                 embree\_device = rtcNewDevice (config);}
+\DoxyCodeLine{61                 \textcolor{keywordflow}{if}(rtcGetDeviceError (embree\_device) != RTC\_ERROR\_NONE)}
+\DoxyCodeLine{62                     std::cerr << \textcolor{stringliteral}{"{}Embree: An error occurred while initializing embree core!"{}} << std::endl;}
+\DoxyCodeLine{63 \textcolor{preprocessor}{            \#ifdef IGL\_VERBOSE}}
+\DoxyCodeLine{64                 \textcolor{keywordflow}{else}}
+\DoxyCodeLine{65                     std::cerr << \textcolor{stringliteral}{"{}Embree: core initialized."{}} << std::endl;}
+\DoxyCodeLine{66 \textcolor{preprocessor}{            \#endif}}
+\DoxyCodeLine{67             \}}
+\DoxyCodeLine{68             ++embree\_device\_cntr;}
+\DoxyCodeLine{69             \textcolor{keywordflow}{return} embree\_device;}
+\DoxyCodeLine{70         \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72         \textcolor{keywordtype}{void} release()}
+\DoxyCodeLine{73         \{}
+\DoxyCodeLine{74             \textcolor{keywordflow}{if}(!-\/-\/embree\_device\_cntr) \{}
+\DoxyCodeLine{75                 rtcReleaseDevice (embree\_device);}
+\DoxyCodeLine{76                 embree\_device = \textcolor{keyword}{nullptr};                }
+\DoxyCodeLine{77 \textcolor{preprocessor}{            \#ifdef IGL\_VERBOSE}}
+\DoxyCodeLine{78                     std::cerr << \textcolor{stringliteral}{"{}Embree: core released."{}} << std::endl;}
+\DoxyCodeLine{79 \textcolor{preprocessor}{            \#endif}}
+\DoxyCodeLine{80             \}}
+\DoxyCodeLine{81         \}}
+\DoxyCodeLine{82      \};}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84 \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// IGL\_EMBREE\_EMBREE\_DEVICE\_H}}
+
+\end{DoxyCode}

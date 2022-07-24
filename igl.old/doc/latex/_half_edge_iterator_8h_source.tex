@@ -1,0 +1,107 @@
+\hypertarget{_half_edge_iterator_8h_source}{}\doxysection{Half\+Edge\+Iterator.\+h}
+\label{_half_edge_iterator_8h_source}\index{igl/HalfEdgeIterator.h@{igl/HalfEdgeIterator.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_HALFEDGEITERATOR\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_HALFEDGEITERATOR\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{comment}{// This file violates many of the libigl style guidelines.}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \textcolor{comment}{// HalfEdgeIterator -\/ Fake halfedge for fast and easy navigation}}
+\DoxyCodeLine{21   \textcolor{comment}{// on triangle meshes with vertex\_triangle\_adjacency and}}
+\DoxyCodeLine{22   \textcolor{comment}{// triangle\_triangle adjacency}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// Note: this is different to classical Half Edge data structure.}}
+\DoxyCodeLine{25   \textcolor{comment}{//    Instead, it follows cell-\/tuple in [Brisson, 1989]}}
+\DoxyCodeLine{26   \textcolor{comment}{//    "{}Representing geometric structures in d dimensions: topology and order."{}}}
+\DoxyCodeLine{27   \textcolor{comment}{//    This class can achieve local navigation similar to half edge in OpenMesh}}
+\DoxyCodeLine{28   \textcolor{comment}{//    But the logic behind each atom operation is different.}}
+\DoxyCodeLine{29   \textcolor{comment}{//    So this should be more properly called TriangleTupleIterator.}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// Each tuple contains information on (face, edge, vertex)}}
+\DoxyCodeLine{32   \textcolor{comment}{//    and encoded by (face, edge \(\backslash\)in \{0,1,2\}, bool reverse)}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//    F \#F by 3 list of "{}faces"{}}}
+\DoxyCodeLine{36   \textcolor{comment}{//    FF \#F by 3 list of triangle-\/triangle adjacency.}}
+\DoxyCodeLine{37   \textcolor{comment}{//    FFi \#F by 3 list of FF inverse. For FF and FFi, refer to}}
+\DoxyCodeLine{38   \textcolor{comment}{//        "{}triangle\_triangle\_adjacency.h"{}}}
+\DoxyCodeLine{39   \textcolor{comment}{// Usages:}}
+\DoxyCodeLine{40   \textcolor{comment}{//    FlipF/E/V changes solely one actual face/edge/vertex resp.}}
+\DoxyCodeLine{41   \textcolor{comment}{//    NextFE iterates through one-\/ring of a vertex robustly.}}
+\DoxyCodeLine{42   \textcolor{comment}{//}}
+\DoxyCodeLine{43   \textcolor{keyword}{template} <}
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedFFi>}
+\DoxyCodeLine{47   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_half_edge_iterator}{HalfEdgeIterator}}}
+\DoxyCodeLine{48   \{}
+\DoxyCodeLine{49   \textcolor{keyword}{public}:}
+\DoxyCodeLine{50     \textcolor{comment}{// Init the HalfEdgeIterator by specifying Face,Edge Index and Orientation}}
+\DoxyCodeLine{51     IGL\_INLINE \mbox{\hyperlink{classigl_1_1_half_edge_iterator}{HalfEdgeIterator}}(}
+\DoxyCodeLine{52         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& \_F,}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFF>\& \_FF,}
+\DoxyCodeLine{54         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFFi>\& \_FFi,}
+\DoxyCodeLine{55         \textcolor{keywordtype}{int} \_fi,}
+\DoxyCodeLine{56         \textcolor{keywordtype}{int} \_ei,}
+\DoxyCodeLine{57         \textcolor{keywordtype}{bool} \_reverse = \textcolor{keyword}{false}}
+\DoxyCodeLine{58         );}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{comment}{// Change Face}}
+\DoxyCodeLine{61     IGL\_INLINE \textcolor{keywordtype}{void} flipF();}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{comment}{// Change Edge}}
+\DoxyCodeLine{64     IGL\_INLINE \textcolor{keywordtype}{void} flipE();}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66     \textcolor{comment}{// Change Vertex}}
+\DoxyCodeLine{67     IGL\_INLINE \textcolor{keywordtype}{void} flipV();}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     IGL\_INLINE \textcolor{keywordtype}{bool} isBorder();}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{84     IGL\_INLINE \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1_half_edge_iterator_a1ea267706e47efceb9c0b791b2c6d225}{NextFE}}();}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86     \textcolor{comment}{// Get vertex index}}
+\DoxyCodeLine{87     IGL\_INLINE \textcolor{keywordtype}{int} Vi();}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89     \textcolor{comment}{// Get face index}}
+\DoxyCodeLine{90     IGL\_INLINE \textcolor{keywordtype}{int} Fi();}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{comment}{// Get edge index}}
+\DoxyCodeLine{93     IGL\_INLINE \textcolor{keywordtype}{int} Ei();}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95     IGL\_INLINE \textcolor{keywordtype}{bool} operator==(\mbox{\hyperlink{classigl_1_1_half_edge_iterator}{HalfEdgeIterator}}\& p2);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97   \textcolor{keyword}{private}:}
+\DoxyCodeLine{98     \textcolor{keywordtype}{int} fi;}
+\DoxyCodeLine{99     \textcolor{keywordtype}{int} ei;}
+\DoxyCodeLine{100     \textcolor{keywordtype}{bool} reverse;}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102     \textcolor{comment}{// All the same type? This is likely to break.}}
+\DoxyCodeLine{103     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F;}
+\DoxyCodeLine{104     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFF> \& FF;}
+\DoxyCodeLine{105     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFFi> \& FFi;}
+\DoxyCodeLine{106   \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108 \}}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#  include "{}HalfEdgeIterator.cpp"{}}}
+\DoxyCodeLine{112 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

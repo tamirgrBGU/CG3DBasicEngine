@@ -1,0 +1,253 @@
+\hypertarget{serialize__xml_8h_source}{}\doxysection{serialize\+\_\+xml.\+h}
+\label{serialize__xml_8h_source}\index{igl/xml/serialize\_xml.h@{igl/xml/serialize\_xml.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Copyright (C) 2014 Christian Sch{\ucr}ller <schuellchr@gmail.com>}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{5 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{6 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#ifndef IGL\_XML\_SERIALIZABLE\_XML\_H}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#define IGL\_XML\_SERIALIZABLE\_XML\_H}}
+\DoxyCodeLine{9 \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{10 \textcolor{comment}{// Functions to save and load a serialization of fundamental c++ data types to}}
+\DoxyCodeLine{11 \textcolor{comment}{// and from a xml file. STL containers, Eigen matrix types and nested data}}
+\DoxyCodeLine{12 \textcolor{comment}{// structures are also supported. To serialize a user defined class implement}}
+\DoxyCodeLine{13 \textcolor{comment}{// the interface XMLSerializable or XMLSerializableBase.}}
+\DoxyCodeLine{14 \textcolor{comment}{//}}
+\DoxyCodeLine{15 \textcolor{comment}{// See also: serialize.h}}
+\DoxyCodeLine{16 \textcolor{comment}{// -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <tinyxml2.h>}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{comment}{//\#define SERIALIZE\_XML(x) igl::xml::serialize\_xml(x,\#x,doc,element);}}
+\DoxyCodeLine{34 \textcolor{comment}{//\#define DESERIALIZE\_XML(x) igl::xml::deserialize\_xml(x,\#x,,doc,element);}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keyword}{namespace }xml}
+\DoxyCodeLine{39   \{}
+\DoxyCodeLine{40     \textcolor{keyword}{struct }XMLSerializableBase;}
+\DoxyCodeLine{41     \textcolor{comment}{// serializes the given object either to a xml file or to the provided doc data}}
+\DoxyCodeLine{42     \textcolor{comment}{//}}
+\DoxyCodeLine{43     \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{44     \textcolor{comment}{//   T  type of the object to serialize}}
+\DoxyCodeLine{45     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{46     \textcolor{comment}{//   obj        object to serialize}}
+\DoxyCodeLine{47     \textcolor{comment}{//   objectName unique object name,used for the identification}}
+\DoxyCodeLine{48     \textcolor{comment}{//   filename   name of the file containing the serialization}}
+\DoxyCodeLine{49     \textcolor{comment}{//   binary     set to true to serialize the object in binary format (faster for big data)}}
+\DoxyCodeLine{50     \textcolor{comment}{//   overwrite  set to true to overwrite an existing xml file}}
+\DoxyCodeLine{51     \textcolor{comment}{//   element    tinyxml2 virtual representation of the current xml node}}
+\DoxyCodeLine{52     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{53     \textcolor{comment}{//   doc        contains current tinyxml2 virtual representation of the xml data}}
+\DoxyCodeLine{54     \textcolor{comment}{//}}
+\DoxyCodeLine{55     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{56     IGL\_INLINE \textcolor{keywordtype}{void} serialize\_xml(\textcolor{keyword}{const} T\& obj,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{57     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{58     IGL\_INLINE \textcolor{keywordtype}{void} serialize\_xml(}
+\DoxyCodeLine{59       \textcolor{keyword}{const} T\& obj,}
+\DoxyCodeLine{60       \textcolor{keyword}{const} std::string\& objectName,}
+\DoxyCodeLine{61       \textcolor{keyword}{const} std::string\& filename,}
+\DoxyCodeLine{62       \textcolor{keywordtype}{bool} binary = \textcolor{keyword}{false},}
+\DoxyCodeLine{63       \textcolor{keywordtype}{bool} overwrite = \textcolor{keyword}{false});}
+\DoxyCodeLine{64     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{65     IGL\_INLINE \textcolor{keywordtype}{void} serialize\_xml(}
+\DoxyCodeLine{66       \textcolor{keyword}{const} T\& obj,}
+\DoxyCodeLine{67       \textcolor{keyword}{const} std::string\& objectName,}
+\DoxyCodeLine{68       tinyxml2::XMLDocument* doc,}
+\DoxyCodeLine{69       tinyxml2::XMLElement* element,}
+\DoxyCodeLine{70       \textcolor{keywordtype}{bool} binary = \textcolor{keyword}{false});}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72     \textcolor{comment}{// deserializes the given data from a xml file or doc data back to the provided object}}
+\DoxyCodeLine{73     \textcolor{comment}{//}}
+\DoxyCodeLine{74     \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{75     \textcolor{comment}{//   T  type of the object to serialize}}
+\DoxyCodeLine{76     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{77     \textcolor{comment}{//}}
+\DoxyCodeLine{78     \textcolor{comment}{//   objectName unique object name,used for the identification}}
+\DoxyCodeLine{79     \textcolor{comment}{//   filename   name of the file containing the serialization}}
+\DoxyCodeLine{80     \textcolor{comment}{//   binary     set to true to serialize the object in binary format (faster for big data)}}
+\DoxyCodeLine{81     \textcolor{comment}{//   overwrite  set to true to overwrite an existing xml file}}
+\DoxyCodeLine{82     \textcolor{comment}{//   doc        contains current tinyxml2 virtual representation of the xml data}}
+\DoxyCodeLine{83     \textcolor{comment}{//   element    tinyxml2 virtual representation of the current xml node}}
+\DoxyCodeLine{84     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{85     \textcolor{comment}{//   obj        object to load back serialization to}}
+\DoxyCodeLine{86     \textcolor{comment}{//}}
+\DoxyCodeLine{87     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{88     IGL\_INLINE \textcolor{keywordtype}{void} deserialize\_xml(T\& obj,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{89     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{90     IGL\_INLINE \textcolor{keywordtype}{void} deserialize\_xml(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} std::string\& filename);}
+\DoxyCodeLine{91     \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{92     IGL\_INLINE \textcolor{keywordtype}{void} deserialize\_xml(T\& obj,\textcolor{keyword}{const} std::string\& objectName,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94     \textcolor{comment}{// internal functions}}
+\DoxyCodeLine{95     \textcolor{keyword}{namespace }serialization\_xml}
+\DoxyCodeLine{96     \{}
+\DoxyCodeLine{97       \textcolor{comment}{// fundamental types}}
+\DoxyCodeLine{98       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{99       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{100       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{101       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_fundamental<T>::value>::type deserialize(T\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103       \textcolor{comment}{// std::string}}
+\DoxyCodeLine{104       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::string\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{105       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(std::string\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107       \textcolor{comment}{// XMLSerializableBase}}
+\DoxyCodeLine{108       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{109       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<XMLSerializableBase,T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{110       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{111       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_base\_of<XMLSerializableBase,T>::value>::type deserialize(T\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113       \textcolor{comment}{// STL containers}}
+\DoxyCodeLine{114       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1, \textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{115       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::pair<T1,T2>\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{116       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{117       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(std::pair<T1,T2>\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{120       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::vector<T1,T2>\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{121       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{122       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(std::vector<T1,T2>\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{125       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::set<T>\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{126       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{127       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(std::set<T>\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{130       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} std::map<T1,T2>\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{131       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{132       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(std::map<T1,T2>\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{133 }
+\DoxyCodeLine{134       \textcolor{comment}{// Eigen types}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136       \textcolor{comment}{// Serialize a Dense Eigen Matrix to xml (in the matrix= attribute,}}
+\DoxyCodeLine{137       \textcolor{comment}{// awkward...)}}
+\DoxyCodeLine{138       \textcolor{comment}{//}}
+\DoxyCodeLine{139       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{140       \textcolor{comment}{//   obj  MR by MC matrix of T types}}
+\DoxyCodeLine{141       \textcolor{comment}{//   name  name of matrix}}
+\DoxyCodeLine{142       \textcolor{comment}{//   to\_string  function converting T to string}}
+\DoxyCodeLine{143       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{144       \textcolor{comment}{//   doc  pointer to xml document}}
+\DoxyCodeLine{145       \textcolor{comment}{//   element  pointer to xml element}}
+\DoxyCodeLine{146       \textcolor{comment}{//}}
+\DoxyCodeLine{147       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{148       IGL\_INLINE \textcolor{keywordtype}{void} serialize(}
+\DoxyCodeLine{149         \textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj,}
+\DoxyCodeLine{150         \textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{151         \textcolor{keyword}{const} std::function<std::string(\textcolor{keyword}{const} T \&) >\& to\_string,}
+\DoxyCodeLine{152         tinyxml2::XMLDocument* doc,}
+\DoxyCodeLine{153         tinyxml2::XMLElement* element);}
+\DoxyCodeLine{154       \textcolor{comment}{// De-\/Serialize a Dense Eigen Matrix from xml (in the matrix= attribute,}}
+\DoxyCodeLine{155       \textcolor{comment}{// awkward...)}}
+\DoxyCodeLine{156       \textcolor{comment}{//}}
+\DoxyCodeLine{157       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{158       \textcolor{comment}{//   doc  pointer to xml document}}
+\DoxyCodeLine{159       \textcolor{comment}{//   element  pointer to xml element}}
+\DoxyCodeLine{160       \textcolor{comment}{//   name  name of matrix}}
+\DoxyCodeLine{161       \textcolor{comment}{//   from\_string  function string to T}}
+\DoxyCodeLine{162       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{163       \textcolor{comment}{//   obj  MR by MC matrix of T types}}
+\DoxyCodeLine{164       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{165       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(}
+\DoxyCodeLine{166         \textcolor{keyword}{const} tinyxml2::XMLDocument* doc,}
+\DoxyCodeLine{167         \textcolor{keyword}{const} tinyxml2::XMLElement* element,}
+\DoxyCodeLine{168         \textcolor{keyword}{const} std::string\& name,}
+\DoxyCodeLine{169         \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{void}(\textcolor{keyword}{const} std::string \&,T \&)> \& from\_string,}
+\DoxyCodeLine{170         Eigen::Matrix<T,R,C,P,MR,MC>\& obj);}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172       \textcolor{comment}{// Legacy APIs}}
+\DoxyCodeLine{173       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{174       IGL\_INLINE \textcolor{keywordtype}{void} serialize(}
+\DoxyCodeLine{175         \textcolor{keyword}{const} Eigen::Matrix<T,R,C,P,MR,MC>\& obj,}
+\DoxyCodeLine{176         tinyxml2::XMLDocument* doc,}
+\DoxyCodeLine{177         tinyxml2::XMLElement* element,}
+\DoxyCodeLine{178         \textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{179       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{180       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(}
+\DoxyCodeLine{181         Eigen::Matrix<T,R,C,P,MR,MC>\& obj,}
+\DoxyCodeLine{182         \textcolor{keyword}{const} tinyxml2::XMLDocument* doc,}
+\DoxyCodeLine{183         \textcolor{keyword}{const} tinyxml2::XMLElement* element,}
+\DoxyCodeLine{184         \textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{186       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{187       IGL\_INLINE \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} Eigen::SparseMatrix<T,P,I>\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{188       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{189       IGL\_INLINE \textcolor{keywordtype}{void} deserialize(Eigen::SparseMatrix<T,P,I>\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191       \textcolor{comment}{// raw pointers}}
+\DoxyCodeLine{192       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{193       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type serialize(\textcolor{keyword}{const} T\& obj,tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{194       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{195       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_pointer<T>::value>::type deserialize(T\& obj,\textcolor{keyword}{const} tinyxml2::XMLDocument* doc,\textcolor{keyword}{const} tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197       \textcolor{comment}{// helper functions}}
+\DoxyCodeLine{198       tinyxml2::XMLElement* getElement(tinyxml2::XMLDocument* doc,tinyxml2::XMLElement* element,\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{199       IGL\_INLINE \textcolor{keywordtype}{void} getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,\textcolor{keywordtype}{bool}\& dest);}
+\DoxyCodeLine{200       IGL\_INLINE \textcolor{keywordtype}{void} getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* scr,\textcolor{keywordtype}{char}\& dest);}
+\DoxyCodeLine{201       IGL\_INLINE \textcolor{keywordtype}{void} getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,std::string\& dest);}
+\DoxyCodeLine{202       IGL\_INLINE \textcolor{keywordtype}{void} getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,\textcolor{keywordtype}{float}\& dest);}
+\DoxyCodeLine{203       IGL\_INLINE \textcolor{keywordtype}{void} getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,\textcolor{keywordtype}{double}\& dest);}
+\DoxyCodeLine{204       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{205       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_integral<T>::value \&\& std::is\_unsigned<T>::value>::type getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,T\& dest);}
+\DoxyCodeLine{206       \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{207       IGL\_INLINE \textcolor{keyword}{typename} std::enable\_if<std::is\_integral<T>::value \&\& !std::is\_unsigned<T>::value>::type getAttribute(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* src,T\& dest);}
+\DoxyCodeLine{208       IGL\_INLINE \textcolor{keywordtype}{void} replaceSubString(std::string\& str,\textcolor{keyword}{const} std::string\& search,\textcolor{keyword}{const} std::string\& replace);}
+\DoxyCodeLine{209       IGL\_INLINE \textcolor{keywordtype}{void} encodeXMLElementName(std::string\& name);}
+\DoxyCodeLine{210       IGL\_INLINE \textcolor{keywordtype}{void} decodeXMLElementName(std::string\& name);}
+\DoxyCodeLine{211       IGL\_INLINE std::string base64\_encode(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} \textcolor{keyword}{const}* bytes\_to\_encode,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} in\_len);}
+\DoxyCodeLine{212       IGL\_INLINE std::string base64\_decode(std::string \textcolor{keyword}{const}\& encoded\_string);}
+\DoxyCodeLine{213 }
+\DoxyCodeLine{214       \textcolor{comment}{// compile time type serializable check}}
+\DoxyCodeLine{215       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{216       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container}} \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{217       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{218       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container}}<std::pair<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{219       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{220       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container}}<std::vector<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{221       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{222       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container}}<std::set<T> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{223       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1,\textcolor{keyword}{typename} T2>}
+\DoxyCodeLine{224       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container}}<std::map<T1,T2> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{226       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{227       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__eigen__type}{is\_eigen\_type}} \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{false}; \};}
+\DoxyCodeLine{228       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} R,\textcolor{keywordtype}{int} C,\textcolor{keywordtype}{int} P,\textcolor{keywordtype}{int} MR,\textcolor{keywordtype}{int} MC>}
+\DoxyCodeLine{229       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__eigen__type}{is\_eigen\_type}}<Eigen::Matrix<T,R,C,P,MR,MC> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{230       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T,\textcolor{keywordtype}{int} P,\textcolor{keyword}{typename} I>}
+\DoxyCodeLine{231       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__eigen__type}{is\_eigen\_type}}<Eigen::SparseMatrix<T,P,I> > \{ \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = \textcolor{keyword}{true}; \};}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233       \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{234       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__serializable}{is\_serializable}} \{}
+\DoxyCodeLine{235         \textcolor{keyword}{using }T0 = \textcolor{keyword}{typename}  std::remove\_pointer<T>::type;}
+\DoxyCodeLine{236         \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{bool} value = std::is\_fundamental<T0>::value || std::is\_same<std::string,T0>::value || std::is\_base\_of<XMLSerializableBase,T0>::value}
+\DoxyCodeLine{237           || \mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__stl__container}{is\_stl\_container<T0>::value}} || \mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__eigen__type}{is\_eigen\_type<T0>::value}};}
+\DoxyCodeLine{238       \};}
+\DoxyCodeLine{239     \}}
+\DoxyCodeLine{240   \}}
+\DoxyCodeLine{241 \}}
+\DoxyCodeLine{242 }
+\DoxyCodeLine{243 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{244 \textcolor{preprocessor}{  \#include "{}serialize\_xml.cpp"{}}}
+\DoxyCodeLine{245 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{247 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

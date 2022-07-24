@@ -1,0 +1,50 @@
+\hypertarget{topological__hole__fill_8h_source}{}\doxysection{topological\+\_\+hole\+\_\+fill.\+h}
+\label{topological__hole__fill_8h_source}\index{igl/topological\_hole\_fill.h@{igl/topological\_hole\_fill.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Zhongshi Jiang <jiangzs@nyu.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_TOPOLOGICAL\_HOLE\_FILL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_TOPOLOGICAL\_HOLE\_FILL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15     }
+\DoxyCodeLine{16   \textcolor{comment}{// Topological fill hole on a mesh, with one additional vertex each hole}}
+\DoxyCodeLine{17   \textcolor{comment}{// Index of new abstract vertices will be F.maxCoeff() + (index of hole)}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by simplex-\/size list of element indices}}
+\DoxyCodeLine{21   \textcolor{comment}{//   b  \#b boundary indices to preserve}}
+\DoxyCodeLine{22   \textcolor{comment}{//   holes vector of hole loops to fill}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F\_filled  input F stacked with filled triangles.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <}
+\DoxyCodeLine{27   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{28   \textcolor{keyword}{typename} Derivedb,}
+\DoxyCodeLine{29   \textcolor{keyword}{typename} VectorIndex,}
+\DoxyCodeLine{30   \textcolor{keyword}{typename} DerivedF\_filled>}
+\DoxyCodeLine{31 IGL\_INLINE \textcolor{keywordtype}{void} topological\_hole\_fill(}
+\DoxyCodeLine{32   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{33   \textcolor{keyword}{const} Eigen::MatrixBase<Derivedb> \& b,}
+\DoxyCodeLine{34   \textcolor{keyword}{const} std::vector<VectorIndex> \& holes,}
+\DoxyCodeLine{35   Eigen::PlainObjectBase<DerivedF\_filled> \&F\_filled);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#  include "{}topological\_hole\_fill.cpp"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

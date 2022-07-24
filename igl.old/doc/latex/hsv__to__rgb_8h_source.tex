@@ -1,0 +1,47 @@
+\hypertarget{hsv__to__rgb_8h_source}{}\doxysection{hsv\+\_\+to\+\_\+rgb.\+h}
+\label{hsv__to__rgb_8h_source}\index{igl/hsv\_to\_rgb.h@{igl/hsv\_to\_rgb.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_HSV\_TO\_RGB\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_HSV\_TO\_RGB\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Convert RGB to HSV}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   h  hue value (degrees: [0,360]. Values outside this range will be mapped periodically to [0,360].)}}
+\DoxyCodeLine{18   \textcolor{comment}{//   s  saturation value ([0,1])}}
+\DoxyCodeLine{19   \textcolor{comment}{//   v  value value ([0,1])}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   r  red value ([0,1]) }}
+\DoxyCodeLine{22   \textcolor{comment}{//   g  green value ([0,1])}}
+\DoxyCodeLine{23   \textcolor{comment}{//   b  blue value ([0,1])}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{void} hsv\_to\_rgb(\textcolor{keyword}{const} T * hsv, T * rgb);}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} hsv\_to\_rgb( }
+\DoxyCodeLine{28     \textcolor{keyword}{const} T \& h, \textcolor{keyword}{const} T \& s, \textcolor{keyword}{const} T \& v, }
+\DoxyCodeLine{29     T \& r, T \& g, T \& b);}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedH, \textcolor{keyword}{typename} DerivedR>}
+\DoxyCodeLine{31   \textcolor{keywordtype}{void} hsv\_to\_rgb(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedH> \& H,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedR> \& R);}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#  include "{}hsv\_to\_rgb.cpp"{}}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+
+\end{DoxyCode}

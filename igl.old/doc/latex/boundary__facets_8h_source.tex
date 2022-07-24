@@ -1,0 +1,63 @@
+\hypertarget{boundary__facets_8h_source}{}\doxysection{boundary\+\_\+facets.\+h}
+\label{boundary__facets_8h_source}\index{igl/boundary\_facets.h@{igl/boundary\_facets.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BOUNDARY\_FACETS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BOUNDARY\_FACETS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// BOUNDARY\_FACETS Determine boundary faces (edges) of tetrahedra (triangles)}}
+\DoxyCodeLine{19   \textcolor{comment}{// stored in T (analogous to qptoolbox's `outline` and `boundary\_faces`).}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{22   \textcolor{comment}{//  T  tetrahedron (triangle) index list, m by 4 (3), where m is the number of tetrahedra}}
+\DoxyCodeLine{23   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{24   \textcolor{comment}{//  F  list of boundary faces, n by 3 (2), where n is the number of boundary faces}}
+\DoxyCodeLine{25   \textcolor{comment}{//  J  list of indices into T, n by 1}}
+\DoxyCodeLine{26   \textcolor{comment}{//  K  list of indices revealing across from which vertex is this facet}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedT, }
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedK>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_facets(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedJ>\& J,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedK>\& K);}
+\DoxyCodeLine{39   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_facets(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{43   \textcolor{comment}{// Same as above but returns F}}
+\DoxyCodeLine{44   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} Ret>}
+\DoxyCodeLine{45   Ret boundary\_facets(}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T);}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} IntegerT, \textcolor{keyword}{typename} IntegerF>}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{void} boundary\_facets(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} std::vector<std::vector<IntegerT> > \& T,}
+\DoxyCodeLine{50     std::vector<std::vector<IntegerF> > \& F);}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#  include "{}boundary\_facets.cpp"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

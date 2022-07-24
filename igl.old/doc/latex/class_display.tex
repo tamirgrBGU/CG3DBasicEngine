@@ -1,0 +1,44 @@
+\hypertarget{class_display}{}\doxysection{Display Class Reference}
+\label{class_display}\index{Display@{Display}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_display_a5b1ea3367ef5a88936d49911c39d848e}\label{class_display_a5b1ea3367ef5a88936d49911c39d848e}} 
+{\bfseries Display} (int window\+Width, int window\+Height, const std\+::string \&title, bool compatibility\+Mode=true)
+\item 
+\mbox{\Hypertarget{class_display_a094fd5ddae9f7f654ac0ee0ef24ffd5d}\label{class_display_a094fd5ddae9f7f654ac0ee0ef24ffd5d}} 
+bool {\bfseries launch\+\_\+rendering} (bool loop)
+\item 
+\mbox{\Hypertarget{class_display_a8154e51b348fb7c765660219dc2f903d}\label{class_display_a8154e51b348fb7c765660219dc2f903d}} 
+void {\bfseries Swap\+Buffers} ()
+\item 
+\mbox{\Hypertarget{class_display_ad99924d092a196ee4f7712547da88013}\label{class_display_ad99924d092a196ee4f7712547da88013}} 
+void {\bfseries Poll\+Events} ()
+\item 
+\mbox{\Hypertarget{class_display_abf50aa10a266f635130048d49dcff072}\label{class_display_abf50aa10a266f635130048d49dcff072}} 
+void {\bfseries Set\+Renderer} (void $\ast$user\+Pointer)
+\item 
+\mbox{\Hypertarget{class_display_a67c9041e7347437fe4066255a7981996}\label{class_display_a67c9041e7347437fe4066255a7981996}} 
+void $\ast$ {\bfseries Get\+Scene} ()
+\item 
+\mbox{\Hypertarget{class_display_ac7f1e78bd78c44c143245ae3ed99dfa0}\label{class_display_ac7f1e78bd78c44c143245ae3ed99dfa0}} 
+void {\bfseries Add\+Key\+Call\+Back} (void($\ast$func)(GLFWwindow $\ast$, int, int, int, int))
+\item 
+\mbox{\Hypertarget{class_display_a85a188a70fdbacb84b02f50088152a8c}\label{class_display_a85a188a70fdbacb84b02f50088152a8c}} 
+void {\bfseries Add\+Mouse\+Call\+Backs} (void($\ast$mousebuttonfun)(GLFWwindow $\ast$, int, int, int), void($\ast$scrollfun)(GLFWwindow $\ast$, double, double), void($\ast$cursorposfun)(GLFWwindow $\ast$, double, double))
+\item 
+\mbox{\Hypertarget{class_display_af0e2f71d951585719e823d878bda7f95}\label{class_display_af0e2f71d951585719e823d878bda7f95}} 
+void {\bfseries Add\+Resize\+Call\+Back} (void($\ast$windowsizefun)(GLFWwindow $\ast$, int, int))
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_display_a068bb93c9ad5c54e8bc0c5640728bf10}\label{class_display_a068bb93c9ad5c54e8bc0c5640728bf10}} 
+GLFWwindow $\ast$ {\bfseries window}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/Display.\+h\item 
+igl/opengl/glfw/Display.\+cpp\end{DoxyCompactItemize}

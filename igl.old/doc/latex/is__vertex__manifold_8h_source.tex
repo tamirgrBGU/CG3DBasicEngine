@@ -1,0 +1,45 @@
+\hypertarget{is__vertex__manifold_8h_source}{}\doxysection{is\+\_\+vertex\+\_\+manifold.\+h}
+\label{is__vertex__manifold_8h_source}\index{igl/is\_vertex\_manifold.h@{igl/is\_vertex\_manifold.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_IS\_VERTEX\_MANIFOLD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_IS\_VERTEX\_MANIFOLD\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Check if a mesh is vertex-\/manifold. This only checks whether the faces}}
+\DoxyCodeLine{17   \textcolor{comment}{// incident on each vertex form exactly one connected component. Vertices}}
+\DoxyCodeLine{18   \textcolor{comment}{// incident on non-\/manifold edges are not consider non-\/manifold by this}}
+\DoxyCodeLine{19   \textcolor{comment}{// function (see is\_edge\_manifold.h). Unreferenced verties are considered}}
+\DoxyCodeLine{20   \textcolor{comment}{// non-\/manifold (zero components).}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   B  \#V list indicate whether each vertex is locally manifold.}}
+\DoxyCodeLine{26   \textcolor{comment}{// Returns whether mesh is vertex manifold.}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// See also: is\_edge\_manifold}}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF,\textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{bool} is\_vertex\_manifold(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<DerivedB>\& B);}
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#  include "{}is\_vertex\_manifold.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

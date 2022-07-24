@@ -1,0 +1,53 @@
+\hypertarget{deform__skeleton_8h_source}{}\doxysection{deform\+\_\+skeleton.\+h}
+\label{deform__skeleton_8h_source}\index{igl/deform\_skeleton.h@{igl/deform\_skeleton.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DEFORM\_SKELETON\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DEFORM\_SKELETON\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/StdVector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Deform a skeleton.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   C  \#C by 3 list of joint positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   BE  \#BE by 2 list of bone edge indices}}
+\DoxyCodeLine{22   \textcolor{comment}{//   vA  \#BE list of bone transformations}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs}}
+\DoxyCodeLine{24   \textcolor{comment}{//   CT  \#BE*2 by 3 list of deformed joint positions}}
+\DoxyCodeLine{25   \textcolor{comment}{//   BET  \#BE by 2 list of bone edge indices (maintains order)}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} deform\_skeleton(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixXd \& C,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixXi \& BE,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} std::vector<}
+\DoxyCodeLine{31       Eigen::Affine3d,Eigen::aligned\_allocator<Eigen::Affine3d> > \& vA,}
+\DoxyCodeLine{32     Eigen::MatrixXd \& CT,}
+\DoxyCodeLine{33     Eigen::MatrixXi \& BET);}
+\DoxyCodeLine{34   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   T  \#BE*4 by 3 list of stacked transformation matrix}}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} deform\_skeleton(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixXd \& C,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixXi \& BE,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXd \& T,}
+\DoxyCodeLine{40     Eigen::MatrixXd \& CT,}
+\DoxyCodeLine{41     Eigen::MatrixXi \& BET);}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43   }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#  include "{}deform\_skeleton.cpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,42 @@
+\hypertarget{bfs__orient_8h_source}{}\doxysection{bfs\+\_\+orient.\+h}
+\label{bfs__orient_8h_source}\index{igl/bfs\_orient.h@{igl/bfs\_orient.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BFS\_ORIENT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BFS\_ORIENT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Consistently orient faces in orientable patches using BFS}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// F = bfs\_orient(F,V);}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//  F  \#F by 3 list of faces}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//  FF  \#F by 3 list of faces (OK if same as F)}}
+\DoxyCodeLine{23   \textcolor{comment}{//  C  \#F list of component ids}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedFF, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} bfs\_orient(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#  include "{}bfs\_orient.cpp"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,68 @@
+\hypertarget{read__into__tetgenio_8h_source}{}\doxysection{read\+\_\+into\+\_\+tetgenio.\+h}
+\label{read__into__tetgenio_8h_source}\index{igl/copyleft/tetgen/read\_into\_tetgenio.h@{igl/copyleft/tetgen/read\_into\_tetgenio.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_TETGEN\_READ\_INTO\_TETGENIO\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_TETGEN\_READ\_INTO\_TETGENIO\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef TETLIBRARY}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define TETLIBRARY }}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}tetgen.h"{}} \textcolor{comment}{// Defined tetgenio, REAL}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{21   \{}
+\DoxyCodeLine{22     \textcolor{keyword}{namespace }tetgen}
+\DoxyCodeLine{23     \{}
+\DoxyCodeLine{24       \textcolor{comment}{// Read a mesh or point set into tetgenio (input object for calling}}
+\DoxyCodeLine{25       \textcolor{comment}{// tetgen).  Many file formats are already supported by tetgen:}}
+\DoxyCodeLine{26       \textcolor{comment}{//   .off}}
+\DoxyCodeLine{27       \textcolor{comment}{//   .ply}}
+\DoxyCodeLine{28       \textcolor{comment}{//   .node}}
+\DoxyCodeLine{29       \textcolor{comment}{//   .ply}}
+\DoxyCodeLine{30       \textcolor{comment}{//   .medit}}
+\DoxyCodeLine{31       \textcolor{comment}{//   .vtk}}
+\DoxyCodeLine{32       \textcolor{comment}{//   etc.}}
+\DoxyCodeLine{33       \textcolor{comment}{// Notably it does not support .obj which is loaded by hand here (also}}
+\DoxyCodeLine{34       \textcolor{comment}{// demonstrating how to load points/faces programmatically)}}
+\DoxyCodeLine{35       \textcolor{comment}{//}}
+\DoxyCodeLine{36       \textcolor{comment}{// If the file extension is not recognized the filename is assumed to be}}
+\DoxyCodeLine{37       \textcolor{comment}{// the basename of a collection describe a tetmesh, (of which at least}}
+\DoxyCodeLine{38       \textcolor{comment}{// the .node file must exist):}}
+\DoxyCodeLine{39       \textcolor{comment}{//   [filename].node}}
+\DoxyCodeLine{40       \textcolor{comment}{//   [filename].ele}}
+\DoxyCodeLine{41       \textcolor{comment}{//   [filename].face}}
+\DoxyCodeLine{42       \textcolor{comment}{//   [filename].edge}}
+\DoxyCodeLine{43       \textcolor{comment}{//   [filename].vol}}
+\DoxyCodeLine{44       \textcolor{comment}{//}}
+\DoxyCodeLine{45       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{46       \textcolor{comment}{//   path  path to file or basename to files}}
+\DoxyCodeLine{47       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{48       \textcolor{comment}{//   in  tetgenio input object}}
+\DoxyCodeLine{49       \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{50       IGL\_INLINE \textcolor{keywordtype}{bool} read\_into\_tetgenio(}
+\DoxyCodeLine{51         \textcolor{keyword}{const} std::string \& path, }
+\DoxyCodeLine{52         tetgenio \& in);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#  include "{}read\_into\_tetgenio.cpp"{}}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

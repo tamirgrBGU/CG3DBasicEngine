@@ -1,0 +1,55 @@
+\hypertarget{piecewise__constant__winding__number_8h_source}{}\doxysection{piecewise\+\_\+constant\+\_\+winding\+\_\+number.\+h}
+\label{piecewise__constant__winding__number_8h_source}\index{igl/piecewise\_constant\_winding\_number.h@{igl/piecewise\_constant\_winding\_number.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PIECEWISE\_CONSTANT\_WINDING\_NUMBER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PIECEWISE\_CONSTANT\_WINDING\_NUMBER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// PIECEWISE\_CONSTANT\_WINDING\_NUMBER Determine if a given mesh induces a}}
+\DoxyCodeLine{16   \textcolor{comment}{// piecewise constant winding number field: Is this mesh valid input to solid}}
+\DoxyCodeLine{17   \textcolor{comment}{// set operations.  **Assumes** that `(V,F)` contains no self-\/intersections}}
+\DoxyCodeLine{18   \textcolor{comment}{// (including degeneracies and co-\/incidences).  If there are co-\/planar and}}
+\DoxyCodeLine{19   \textcolor{comment}{// co-\/incident vertex placements, a mesh could \_fail\_ this combinatorial test}}
+\DoxyCodeLine{20   \textcolor{comment}{// but still induce a piecewise-\/constant winding number \_geometrically\_. For}}
+\DoxyCodeLine{21   \textcolor{comment}{// example, consider a hemisphere with boundary and then pinch the boundary}}
+\DoxyCodeLine{22   \textcolor{comment}{// "{}shut"{} along a line segment. The **\_bullet-\/proof\_** check is to first}}
+\DoxyCodeLine{23   \textcolor{comment}{// resolve all self-\/intersections in `(V,F) -\/> (SV,SF)` (i.e. what the}}
+\DoxyCodeLine{24   \textcolor{comment}{// `igl::copyleft::cgal::piecewise\_constant\_winding\_number` overload does).}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into some (abstract) list of}}
+\DoxyCodeLine{28   \textcolor{comment}{//     vertices V}}
+\DoxyCodeLine{29   \textcolor{comment}{//   uE  \#uE by 2 list of unique edges indices into V}}
+\DoxyCodeLine{30   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into directed edges (\#F * 3)}}
+\DoxyCodeLine{31   \textcolor{comment}{// Returns true if the mesh \_combinatorially\_ induces a piecewise constant}}
+\DoxyCodeLine{32   \textcolor{comment}{// winding number field.}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} uE2EType>}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{bool} piecewise\_constant\_winding\_number(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DeriveduE>\& uE,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E);}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{bool} piecewise\_constant\_winding\_number(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}piecewise\_constant\_winding\_number.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

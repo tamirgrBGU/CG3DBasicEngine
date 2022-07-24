@@ -1,0 +1,48 @@
+\hypertarget{copyleft_2cgal_2read__triangle__mesh_8h_source}{}\doxysection{read\+\_\+triangle\+\_\+mesh.\+h}
+\label{copyleft_2cgal_2read__triangle__mesh_8h_source}\index{igl/copyleft/cgal/read\_triangle\_mesh.h@{igl/copyleft/cgal/read\_triangle\_mesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_READ\_TRIANGLE\_MESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_READ\_TRIANGLE\_MESH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19       \textcolor{comment}{// Simple wrapper, reads floating point precision but assigns to}}
+\DoxyCodeLine{20       \textcolor{comment}{// DerivedV::Scalar which may be a CGAL type}}
+\DoxyCodeLine{21       \textcolor{comment}{//}}
+\DoxyCodeLine{22       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23       \textcolor{comment}{//   str  path to file}}
+\DoxyCodeLine{24       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25       \textcolor{comment}{//   V  eigen double matrix \#V by 3}}
+\DoxyCodeLine{26       \textcolor{comment}{//   F  eigen int matrix \#F by 3}}
+\DoxyCodeLine{27       \textcolor{comment}{// Returns true iff success}}
+\DoxyCodeLine{28       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{29       IGL\_INLINE \textcolor{keywordtype}{bool} read\_triangle\_mesh(}
+\DoxyCodeLine{30         \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{31         Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{32         Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}read\_triangle\_mesh.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+
+\end{DoxyCode}

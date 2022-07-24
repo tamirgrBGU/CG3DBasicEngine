@@ -1,0 +1,41 @@
+\hypertarget{read_c_s_v_8h_source}{}\doxysection{read\+CSV.\+h}
+\label{read_c_s_v_8h_source}\index{igl/readCSV.h@{igl/readCSV.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_READ\_CSV\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_READ\_CSV\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl/igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// read a matrix from a csv file into a Eigen matrix}}
+\DoxyCodeLine{19   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Scalar  type for the matrix}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   str  path to .csv file}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   M  eigen matrix }}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{bool} readCSV(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} std::string str, }
+\DoxyCodeLine{28     Eigen::Matrix<Scalar,Eigen::Dynamic,Eigen::Dynamic>\& M);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#  include "{}readCSV.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

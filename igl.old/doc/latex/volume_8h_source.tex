@@ -1,0 +1,80 @@
+\hypertarget{volume_8h_source}{}\doxysection{volume.\+h}
+\label{volume_8h_source}\index{igl/volume.h@{igl/volume.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VOLUME\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VOLUME\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// VOLUME Compute volume for all tets of a given tet mesh}}
+\DoxyCodeLine{15   \textcolor{comment}{// (V,T)}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// vol = volume(V,T)}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   T  \#V by 4 list of tet indices}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   vol  \#T list of tetrahedron volumes}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedT, }
+\DoxyCodeLine{28     \textcolor{keyword}{typename} Derivedvol>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} volume(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<Derivedvol>\& vol);}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedD,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} Derivedvol>}
+\DoxyCodeLine{39   IGL\_INLINE \textcolor{keywordtype}{void} volume(}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedD> \& D,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<Derivedvol> \& vol);}
+\DoxyCodeLine{45   \textcolor{comment}{// Single tet}}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} VecA,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} VecB,}
+\DoxyCodeLine{49     \textcolor{keyword}{typename} VecC,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} VecD>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keyword}{typename} VecA::Scalar volume\_single(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} VecA \& a,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} VecB \& b,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} VecC \& c,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} VecD \& d);}
+\DoxyCodeLine{56   \textcolor{comment}{// Intrinsic version:}}
+\DoxyCodeLine{57   \textcolor{comment}{//}}
+\DoxyCodeLine{58   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{59   \textcolor{comment}{//   L  \#V by 6 list of edge lengths (see edge\_lengths)}}
+\DoxyCodeLine{60   \textcolor{keyword}{template} <}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedL, }
+\DoxyCodeLine{62     \textcolor{keyword}{typename} Derivedvol>}
+\DoxyCodeLine{63   IGL\_INLINE \textcolor{keywordtype}{void} volume(}
+\DoxyCodeLine{64     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedL>\& L,}
+\DoxyCodeLine{65     Eigen::PlainObjectBase<Derivedvol>\& vol);}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#  include "{}volume.cpp"{}}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 }
+
+\end{DoxyCode}

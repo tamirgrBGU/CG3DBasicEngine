@@ -1,0 +1,66 @@
+\hypertarget{class_texture}{}\doxysection{Texture Class Reference}
+\label{class_texture}\index{Texture@{Texture}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_texture_a00064266f15fc72802a40d3701e5928f}{Texture}} (const string \&file\+Name, const int dim)
+\begin{DoxyCompactList}\small\item\em Create a texture object from an existing image file. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_texture_a0ceadc6aef2a6be75ff70f769fd1808e}{Texture}} (int internalformat, int width, int height, unsigned int format, unsigned int type, const void $\ast$data)
+\begin{DoxyCompactList}\small\item\em Create a texture object from pixel data in memory. parameter information at \href{https://docs.gl/gl4/glTexImage2D}{\texttt{ https\+://docs.\+gl/gl4/gl\+Tex\+Image2D}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_texture_ad5505bcbc30abe327e3ed4130eb988a0}\label{class_texture_ad5505bcbc30abe327e3ed4130eb988a0}} 
+void {\bfseries Bind} (int slot)
+\item 
+\mbox{\Hypertarget{class_texture_ae774e83a499dbb7a7303452ff0b40383}\label{class_texture_ae774e83a499dbb7a7303452ff0b40383}} 
+void {\bfseries Unbind} (int slot)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_texture_a00064266f15fc72802a40d3701e5928f}\label{class_texture_a00064266f15fc72802a40d3701e5928f}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{const string \&}]{file\+Name,  }\item[{const int}]{dim }\end{DoxyParamCaption})}
+
+
+
+Create a texture object from an existing image file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & -\/ the name of the image file \\
+\hline
+{\em dim} & -\/ the dimensions of the texture data \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_texture_a0ceadc6aef2a6be75ff70f769fd1808e}\label{class_texture_a0ceadc6aef2a6be75ff70f769fd1808e}} 
+\index{Texture@{Texture}!Texture@{Texture}}
+\index{Texture@{Texture}!Texture@{Texture}}
+\doxysubsubsection{\texorpdfstring{Texture()}{Texture()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Texture\+::\+Texture (\begin{DoxyParamCaption}\item[{int}]{internalformat,  }\item[{int}]{width,  }\item[{int}]{height,  }\item[{unsigned int}]{format,  }\item[{unsigned int}]{type,  }\item[{const void $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+Create a texture object from pixel data in memory. parameter information at \href{https://docs.gl/gl4/glTexImage2D}{\texttt{ https\+://docs.\+gl/gl4/gl\+Tex\+Image2D}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em internalformat} & -\/ \\
+\hline
+{\em width} & -\/ \\
+\hline
+{\em height} & -\/ \\
+\hline
+{\em format} & -\/ \\
+\hline
+{\em type} & -\/ \\
+\hline
+{\em data} & -\/ \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/texture.\+h\item 
+igl/opengl/glfw/texture.\+cpp\end{DoxyCompactItemize}

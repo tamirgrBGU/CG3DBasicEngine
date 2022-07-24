@@ -1,0 +1,88 @@
+\hypertarget{cotmatrix_8h_source}{}\doxysection{cotmatrix.\+h}
+\label{cotmatrix_8h_source}\index{igl/cotmatrix.h@{igl/cotmatrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COTMATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COTMATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{comment}{// History:}}
+\DoxyCodeLine{16 \textcolor{comment}{//  Used const references rather than copying the entire mesh }}
+\DoxyCodeLine{17 \textcolor{comment}{//    Alec 9 October 2011}}
+\DoxyCodeLine{18 \textcolor{comment}{//  removed cotan (uniform weights) optional parameter it was building a buggy}}
+\DoxyCodeLine{19 \textcolor{comment}{//    half of the uniform laplacian, please see adjacency\_matrix instead }}
+\DoxyCodeLine{20 \textcolor{comment}{//    Alec 9 October 2011}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{comment}{// Constructs the cotangent stiffness matrix (discrete laplacian) for a given}}
+\DoxyCodeLine{25   \textcolor{comment}{// mesh (V,F).}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   DerivedV  derived type of eigen matrix for V (e.g. derived from}}
+\DoxyCodeLine{29   \textcolor{comment}{//     MatrixXd)}}
+\DoxyCodeLine{30   \textcolor{comment}{//   DerivedF  derived type of eigen matrix for F (e.g. derived from}}
+\DoxyCodeLine{31   \textcolor{comment}{//     MatrixXi)}}
+\DoxyCodeLine{32   \textcolor{comment}{//   Scalar  scalar type for eigen sparse matrix (e.g. double)}}
+\DoxyCodeLine{33   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{34   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{35   \textcolor{comment}{//   F  \#F by simplex\_size list of mesh elements (triangles or tetrahedra)}}
+\DoxyCodeLine{36   \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{37   \textcolor{comment}{//   L  \#V by \#V cotangent matrix, each row i corresponding to V(i,:)}}
+\DoxyCodeLine{38   \textcolor{comment}{//}}
+\DoxyCodeLine{39   \textcolor{comment}{// See also: adjacency\_matrix}}
+\DoxyCodeLine{40   \textcolor{comment}{//}}
+\DoxyCodeLine{41   \textcolor{comment}{// Note: This Laplacian uses the convention that diagonal entries are}}
+\DoxyCodeLine{42   \textcolor{comment}{// **minus** the sum of off-\/diagonal entries. The diagonal entries are}}
+\DoxyCodeLine{43   \textcolor{comment}{// therefore in general negative and the matrix is **negative** semi-\/definite}}
+\DoxyCodeLine{44   \textcolor{comment}{// (immediately, -\/L is **positive** semi-\/definite)}}
+\DoxyCodeLine{45   \textcolor{comment}{//}}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{47   IGL\_INLINE \textcolor{keywordtype}{void} cotmatrix(}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{50     Eigen::SparseMatrix<Scalar>\& L);}
+\DoxyCodeLine{51   \textcolor{comment}{// Cotangent Laplacian (and mass matrix) for polygon meshes according to}}
+\DoxyCodeLine{52   \textcolor{comment}{// "{}Polygon Laplacian Made Simple"{} [Bunge et al. 2020]}}
+\DoxyCodeLine{53   \textcolor{comment}{//}}
+\DoxyCodeLine{54   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{55   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{56   \textcolor{comment}{//   I  \#I vectorized list of polygon corner indices into rows of some matrix V}}
+\DoxyCodeLine{57   \textcolor{comment}{//   C  \#polygons+1 list of cumulative polygon sizes so that C(i+1)-\/C(i) = size of}}
+\DoxyCodeLine{58   \textcolor{comment}{//     the ith polygon, and so I(C(i)) through I(C(i+1)-\/1) are the indices of}}
+\DoxyCodeLine{59   \textcolor{comment}{//     the ith polygon}}
+\DoxyCodeLine{60   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{61   \textcolor{comment}{//   L  \#V by \#V polygon Laplacian made simple matrix}}
+\DoxyCodeLine{62   \textcolor{comment}{//   M  \#V by \#V mass matrix}}
+\DoxyCodeLine{63   \textcolor{comment}{//   P  \#V+\#polygons by \#V prolongation operator}}
+\DoxyCodeLine{64   \textcolor{keyword}{template} <}
+\DoxyCodeLine{65     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{66     \textcolor{keyword}{typename} DerivedI, }
+\DoxyCodeLine{67     \textcolor{keyword}{typename} DerivedC, }
+\DoxyCodeLine{68     \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{69   IGL\_INLINE \textcolor{keywordtype}{void} cotmatrix(}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{71     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I, }
+\DoxyCodeLine{72     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C, }
+\DoxyCodeLine{73     Eigen::SparseMatrix<Scalar>\& L,}
+\DoxyCodeLine{74     Eigen::SparseMatrix<Scalar>\& M,}
+\DoxyCodeLine{75     Eigen::SparseMatrix<Scalar>\& P);}
+\DoxyCodeLine{76 \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#  include "{}cotmatrix.cpp"{}}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

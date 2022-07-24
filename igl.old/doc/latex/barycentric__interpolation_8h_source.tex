@@ -1,0 +1,48 @@
+\hypertarget{barycentric__interpolation_8h_source}{}\doxysection{barycentric\+\_\+interpolation.\+h}
+\label{barycentric__interpolation_8h_source}\index{igl/barycentric\_interpolation.h@{igl/barycentric\_interpolation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BARYCENTRIC\_INTERPOLATION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BARYCENTRIC\_INTERPOLATION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Interpolate data on a triangle mesh using barycentric coordinates }}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   D  \#D by dim list of per-\/vertex data}}
+\DoxyCodeLine{18   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{19   \textcolor{comment}{//   B  \#X by 3 list of barycentric corodinates}}
+\DoxyCodeLine{20   \textcolor{comment}{//   I  \#X list of triangle indices}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   X  \#X by dim list of interpolated data}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedD,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} barycentric\_interpolation(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedD> \& D,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedX> \& X);}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}barycentric\_interpolation.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+
+\end{DoxyCode}

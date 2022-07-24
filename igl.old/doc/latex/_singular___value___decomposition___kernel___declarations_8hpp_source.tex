@@ -1,0 +1,143 @@
+\hypertarget{_singular___value___decomposition___kernel___declarations_8hpp_source}{}\doxysection{Singular\+\_\+\+Value\+\_\+\+Decomposition\+\_\+\+Kernel\+\_\+\+Declarations.\+hpp}
+\label{_singular___value___decomposition___kernel___declarations_8hpp_source}\index{igl/Singular\_Value\_Decomposition\_Kernel\_Declarations.hpp@{igl/Singular\_Value\_Decomposition\_Kernel\_Declarations.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{2 \textcolor{comment}{// Copyright (c) 2010-\/2011, Eftychios Sifakis.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 \textcolor{comment}{// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:}}
+\DoxyCodeLine{5 \textcolor{comment}{//   * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.}}
+\DoxyCodeLine{6 \textcolor{comment}{//   * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or}}
+\DoxyCodeLine{7 \textcolor{comment}{//     other materials provided with the distribution.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "{}AS IS"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,}}
+\DoxyCodeLine{10 \textcolor{comment}{// BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT}}
+\DoxyCodeLine{11 \textcolor{comment}{// SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL}}
+\DoxyCodeLine{12 \textcolor{comment}{// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS}}
+\DoxyCodeLine{13 \textcolor{comment}{// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING}}
+\DoxyCodeLine{14 \textcolor{comment}{// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.}}
+\DoxyCodeLine{15 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{18 \textcolor{comment}{// Local variable declarations}}
+\DoxyCodeLine{19 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#ifdef PRINT\_DEBUGGING\_OUTPUT}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifdef USE\_SSE\_IMPLEMENTATION}}
+\DoxyCodeLine{24     \textcolor{keywordtype}{float} buf[4];}
+\DoxyCodeLine{25     \textcolor{keywordtype}{float} A11,A21,A31,A12,A22,A32,A13,A23,A33;}
+\DoxyCodeLine{26     \textcolor{keywordtype}{float} S11,S21,S31,S22,S32,S33;}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifdef COMPUTE\_V\_AS\_QUATERNION}}
+\DoxyCodeLine{28     \textcolor{keywordtype}{float} QVS,QVVX,QVVY,QVVZ;}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifdef COMPUTE\_V\_AS\_MATRIX}}
+\DoxyCodeLine{31     \textcolor{keywordtype}{float} V11,V21,V31,V12,V22,V32,V13,V23,V33;}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifdef COMPUTE\_U\_AS\_QUATERNION}}
+\DoxyCodeLine{34     \textcolor{keywordtype}{float} QUS,QUVX,QUVY,QUVZ;}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifdef COMPUTE\_U\_AS\_MATRIX}}
+\DoxyCodeLine{37     \textcolor{keywordtype}{float} U11,U21,U31,U12,U22,U32,U13,U23,U33;}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#ifdef USE\_AVX\_IMPLEMENTATION}}
+\DoxyCodeLine{42     \textcolor{keywordtype}{float} buf[8];}
+\DoxyCodeLine{43     \textcolor{keywordtype}{float} A11,A21,A31,A12,A22,A32,A13,A23,A33;}
+\DoxyCodeLine{44     \textcolor{keywordtype}{float} S11,S21,S31,S22,S32,S33;}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifdef COMPUTE\_V\_AS\_QUATERNION}}
+\DoxyCodeLine{46     \textcolor{keywordtype}{float} QVS,QVVX,QVVY,QVVZ;}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifdef COMPUTE\_V\_AS\_MATRIX}}
+\DoxyCodeLine{49     \textcolor{keywordtype}{float} V11,V21,V31,V12,V22,V32,V13,V23,V33;}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifdef COMPUTE\_U\_AS\_QUATERNION}}
+\DoxyCodeLine{52     \textcolor{keywordtype}{float} QUS,QUVX,QUVY,QUVZ;}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#ifdef COMPUTE\_U\_AS\_MATRIX}}
+\DoxyCodeLine{55     \textcolor{keywordtype}{float} U11,U21,U31,U12,U22,U32,U13,U23,U33;}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{const} \textcolor{keywordtype}{float} Four\_Gamma\_Squared=sqrt(8.)+3.;}
+\DoxyCodeLine{62 \textcolor{keyword}{const} \textcolor{keywordtype}{float} Sine\_Pi\_Over\_Eight=.5*sqrt(2.-\/sqrt(2.));}
+\DoxyCodeLine{63 \textcolor{keyword}{const} \textcolor{keywordtype}{float} Cosine\_Pi\_Over\_Eight=.5*sqrt(2.+sqrt(2.));}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sfour\_gamma\_squared;)       ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vfour\_gamma\_squared;)                                    ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vfour\_gamma\_squared;)}
+\DoxyCodeLine{66 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Ssine\_pi\_over\_eight;)       ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vsine\_pi\_over\_eight;)                                    ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vsine\_pi\_over\_eight;)}
+\DoxyCodeLine{67 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Scosine\_pi\_over\_eight;)     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vcosine\_pi\_over\_eight;)                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vcosine\_pi\_over\_eight;)}
+\DoxyCodeLine{68 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sone\_half;)                 ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vone\_half;)                                              ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vone\_half;)}
+\DoxyCodeLine{69 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sone;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vone;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vone;)}
+\DoxyCodeLine{70 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stiny\_number;)              ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtiny\_number;)                                           ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtiny\_number;)}
+\DoxyCodeLine{71 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Ssmall\_number;)             ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vsmall\_number;)                                          ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vsmall\_number;)}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 ENABLE\_SCALAR\_IMPLEMENTATION(Sfour\_gamma\_squared.f=Four\_Gamma\_Squared;)                   ENABLE\_SSE\_IMPLEMENTATION(Vfour\_gamma\_squared=\_mm\_set1\_ps(Four\_Gamma\_Squared);)           ENABLE\_AVX\_IMPLEMENTATION(Vfour\_gamma\_squared=\_mm256\_set1\_ps(Four\_Gamma\_Squared);)}
+\DoxyCodeLine{74 ENABLE\_SCALAR\_IMPLEMENTATION(Ssine\_pi\_over\_eight.f=Sine\_Pi\_Over\_Eight;)                   ENABLE\_SSE\_IMPLEMENTATION(Vsine\_pi\_over\_eight=\_mm\_set1\_ps(Sine\_Pi\_Over\_Eight);)           ENABLE\_AVX\_IMPLEMENTATION(Vsine\_pi\_over\_eight=\_mm256\_set1\_ps(Sine\_Pi\_Over\_Eight);)}
+\DoxyCodeLine{75 ENABLE\_SCALAR\_IMPLEMENTATION(Scosine\_pi\_over\_eight.f=Cosine\_Pi\_Over\_Eight;)               ENABLE\_SSE\_IMPLEMENTATION(Vcosine\_pi\_over\_eight=\_mm\_set1\_ps(Cosine\_Pi\_Over\_Eight);)       ENABLE\_AVX\_IMPLEMENTATION(Vcosine\_pi\_over\_eight=\_mm256\_set1\_ps(Cosine\_Pi\_Over\_Eight);)}
+\DoxyCodeLine{76 ENABLE\_SCALAR\_IMPLEMENTATION(Sone\_half.f=.5;)                                             ENABLE\_SSE\_IMPLEMENTATION(Vone\_half=\_mm\_set1\_ps(.5);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vone\_half=\_mm256\_set1\_ps(.5);)}
+\DoxyCodeLine{77 ENABLE\_SCALAR\_IMPLEMENTATION(Sone.f=1.;)                                                  ENABLE\_SSE\_IMPLEMENTATION(Vone=\_mm\_set1\_ps(1.);)                                          ENABLE\_AVX\_IMPLEMENTATION(Vone=\_mm256\_set1\_ps(1.);)}
+\DoxyCodeLine{78 ENABLE\_SCALAR\_IMPLEMENTATION(Stiny\_number.f=1.e-\/20;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtiny\_number=\_mm\_set1\_ps(1.e-\/20);)                              ENABLE\_AVX\_IMPLEMENTATION(Vtiny\_number=\_mm256\_set1\_ps(1.e-\/20);)}
+\DoxyCodeLine{79 ENABLE\_SCALAR\_IMPLEMENTATION(Ssmall\_number.f=1.e-\/12;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vsmall\_number=\_mm\_set1\_ps(1.e-\/12);)                             ENABLE\_AVX\_IMPLEMENTATION(Vsmall\_number=\_mm256\_set1\_ps(1.e-\/12);)}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 ENABLE\_SCALAR\_IMPLEMENTATION(union \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa11;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va11;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va11;)}
+\DoxyCodeLine{82 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa21;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va21;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va21;)}
+\DoxyCodeLine{83 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa31;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va31;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va31;)}
+\DoxyCodeLine{84 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa12;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va12;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va12;)}
+\DoxyCodeLine{85 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa22;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va22;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va22;)}
+\DoxyCodeLine{86 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa32;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va32;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va32;)}
+\DoxyCodeLine{87 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa13;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va13;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va13;)}
+\DoxyCodeLine{88 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa23;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va23;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va23;)}
+\DoxyCodeLine{89 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sa33;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Va33;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Va33;)}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 \#ifdef COMPUTE\_V\_AS\_MATRIX}
+\DoxyCodeLine{92 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv11;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv11;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv11;)}
+\DoxyCodeLine{93 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv21;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv21;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv21;)}
+\DoxyCodeLine{94 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv31;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv31;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv31;)}
+\DoxyCodeLine{95 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv12;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv12;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv12;)}
+\DoxyCodeLine{96 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv22;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv22;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv22;)}
+\DoxyCodeLine{97 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv32;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv32;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv32;)}
+\DoxyCodeLine{98 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv13;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv13;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv13;)}
+\DoxyCodeLine{99 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv23;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv23;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv23;)}
+\DoxyCodeLine{100 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sv33;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vv33;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vv33;)}
+\DoxyCodeLine{101 \#endif}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \#ifdef COMPUTE\_V\_AS\_QUATERNION}
+\DoxyCodeLine{104 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sqvs;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vqvs;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vqvs;)}
+\DoxyCodeLine{105 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sqvvx;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vqvvx;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vqvvx;)}
+\DoxyCodeLine{106 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sqvvy;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vqvvy;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vqvvy;)}
+\DoxyCodeLine{107 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sqvvz;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vqvvz;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vqvvz;)}
+\DoxyCodeLine{108 \#endif}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 \#ifdef COMPUTE\_U\_AS\_MATRIX}
+\DoxyCodeLine{111 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su11;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu11;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu11;)}
+\DoxyCodeLine{112 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su21;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu21;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu21;)}
+\DoxyCodeLine{113 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su31;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu31;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu31;)}
+\DoxyCodeLine{114 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su12;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu12;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu12;)}
+\DoxyCodeLine{115 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su22;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu22;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu22;)}
+\DoxyCodeLine{116 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su32;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu32;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu32;)}
+\DoxyCodeLine{117 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su13;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu13;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu13;)}
+\DoxyCodeLine{118 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su23;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu23;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu23;)}
+\DoxyCodeLine{119 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Su33;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vu33;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vu33;)}
+\DoxyCodeLine{120 \#endif}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \#ifdef COMPUTE\_U\_AS\_QUATERNION}
+\DoxyCodeLine{123 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Squs;)                      ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vqus;)                                                   ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vqus;)}
+\DoxyCodeLine{124 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Squvx;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vquvx;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vquvx;)}
+\DoxyCodeLine{125 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Squvy;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vquvy;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vquvy;)}
+\DoxyCodeLine{126 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Squvz;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vquvz;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vquvz;)}
+\DoxyCodeLine{127 \#endif}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sc;)                        ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vc;)                                                     ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vc;)}
+\DoxyCodeLine{130 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Ss;)                        ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vs;)                                                     ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vs;)}
+\DoxyCodeLine{131 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Sch;)                       ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vch;)                                                    ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vch;)}
+\DoxyCodeLine{132 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Ssh;)                       ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vsh;)                                                    ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vsh;)}
+\DoxyCodeLine{133 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stmp1;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtmp1;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtmp1;)}
+\DoxyCodeLine{134 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stmp2;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtmp2;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtmp2;)}
+\DoxyCodeLine{135 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stmp3;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtmp3;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtmp3;)}
+\DoxyCodeLine{136 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stmp4;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtmp4;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtmp4;)}
+\DoxyCodeLine{137 ENABLE\_SCALAR\_IMPLEMENTATION(\textcolor{keyword}{union} \{\textcolor{keywordtype}{float} f;\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ui;\} Stmp5;)                     ENABLE\_SSE\_IMPLEMENTATION(\_\_m128 Vtmp5;)                                                  ENABLE\_AVX\_IMPLEMENTATION(\_\_m256 Vtmp5;)}
+
+\end{DoxyCode}

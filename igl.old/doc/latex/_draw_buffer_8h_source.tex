@@ -1,0 +1,62 @@
+\hypertarget{_draw_buffer_8h_source}{}\doxysection{Draw\+Buffer.\+h}
+\label{_draw_buffer_8h_source}\index{igl/opengl/DrawBuffer.h@{igl/opengl/DrawBuffer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by hedi1 on 24/01/2022.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef EngineREWORK\_DRAWBUFFER\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define EngineREWORK\_DRAWBUFFER\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     \textcolor{keyword}{namespace }opengl \{}
+\DoxyCodeLine{11         \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1_draw_buffer}{DrawBuffer}} \{}
+\DoxyCodeLine{12             \textcolor{comment}{//NOTE: old Enginen}}
+\DoxyCodeLine{13             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} frameBuffer;}
+\DoxyCodeLine{14             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} renderBuffer;}
+\DoxyCodeLine{15             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} depthBuffer;}
+\DoxyCodeLine{16             \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} depthStencilBuffer;}
+\DoxyCodeLine{17             \textcolor{keywordtype}{bool} isStencil;}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19             \textcolor{keywordtype}{void} CreateDepthStencilBufferAttachment(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} texId);}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21             \textcolor{keywordtype}{void} CreateColorBufferAttachment(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} texId);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23       }
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26         \textcolor{keyword}{public}:}
+\DoxyCodeLine{27             \textcolor{comment}{//NOTE: old Enginen}}
+\DoxyCodeLine{28             \textcolor{keyword}{enum} \{}
+\DoxyCodeLine{29                 COLOR,}
+\DoxyCodeLine{30                 DEPTH,}
+\DoxyCodeLine{31                 STENCIL,}
+\DoxyCodeLine{32                 BACK,}
+\DoxyCodeLine{33                 FRONT,}
+\DoxyCodeLine{34                 NONE,}
+\DoxyCodeLine{35             \};}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37             \mbox{\hyperlink{classigl_1_1opengl_1_1_draw_buffer}{DrawBuffer}}();}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39             \mbox{\hyperlink{classigl_1_1opengl_1_1_draw_buffer}{DrawBuffer}}(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} texId);}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41             \textcolor{keywordtype}{void} resize(\textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} texId);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43             \textcolor{keywordtype}{void} Bind();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45             \textcolor{keywordtype}{void} UnBind();}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47             \mbox{\hyperlink{classigl_1_1opengl_1_1_draw_buffer}{\string~DrawBuffer}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49             \textcolor{comment}{//NOTE: needed for the new one}}
+\DoxyCodeLine{50             \textcolor{keywordtype}{void} clearFrameBuffers(Eigen::Vector4i viewport, Eigen::Vector4f background\_color);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52         \};}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54 \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//EngineREWORK\_DRAWBUFFER\_H}}
+
+\end{DoxyCode}

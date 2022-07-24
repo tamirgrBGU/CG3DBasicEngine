@@ -1,0 +1,85 @@
+\hypertarget{unique__edge__map_8h_source}{}\doxysection{unique\+\_\+edge\+\_\+map.\+h}
+\label{unique__edge__map_8h_source}\index{igl/unique\_edge\_map.h@{igl/unique\_edge\_map.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNIQUE\_EDGE\_MAP\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNIQUE\_EDGE\_MAP\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Construct relationships between facet "{}half"{}-\/(or rather "{}viewed"{})-\/edges E}}
+\DoxyCodeLine{16   \textcolor{comment}{// to unique edges of the mesh seen as a graph.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3  list of simplices}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   E  \#F*3 by 2 list of all directed edges, such that E.row(f+\#F*c) is the}}
+\DoxyCodeLine{22   \textcolor{comment}{//     edge opposite F(f,c)}}
+\DoxyCodeLine{23   \textcolor{comment}{//   uE  \#uE by 2 list of unique undirected edges}}
+\DoxyCodeLine{24   \textcolor{comment}{//   EMAP \#F*3 list of indices into uE, mapping each directed edge to unique}}
+\DoxyCodeLine{25   \textcolor{comment}{//     undirected edge so that uE(EMAP(f+\#F*c)) is the unique edge}}
+\DoxyCodeLine{26   \textcolor{comment}{//     corresponding to E.row(f+\#F*c)}}
+\DoxyCodeLine{27   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges, so that}}
+\DoxyCodeLine{28   \textcolor{comment}{//     E.row(uE2E[i][j]) corresponds to uE.row(i) for all j in}}
+\DoxyCodeLine{29   \textcolor{comment}{//     0..uE2E[i].size()-\/1.}}
+\DoxyCodeLine{30   \textcolor{keyword}{template} <}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} uE2EType>}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} unique\_edge\_map(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DeriveduE> \& uE,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{41     std::vector<std::vector<uE2EType> > \& uE2E);}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{47   IGL\_INLINE \textcolor{keywordtype}{void} unique\_edge\_map(}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{50     Eigen::PlainObjectBase<DeriveduE> \& uE,}
+\DoxyCodeLine{51     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{52   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   uEC  \#uEC+1 list of cumulative counts of directed edges sharing each}}
+\DoxyCodeLine{54   \textcolor{comment}{//     unique edge so the uEC(i+1)-\/uEC(i) is the number of directed edges}}
+\DoxyCodeLine{55   \textcolor{comment}{//     sharing the ith unique edge.}}
+\DoxyCodeLine{56   \textcolor{comment}{//   uEE  \#E list of indices into E, so that the consecutive segment of}}
+\DoxyCodeLine{57   \textcolor{comment}{//     indices uEE.segment(uEC(i),uEC(i+1)-\/uEC(i)) lists all directed edges}}
+\DoxyCodeLine{58   \textcolor{comment}{//     sharing the ith unique edge.}}
+\DoxyCodeLine{59   \textcolor{keyword}{template} <}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DeriveduEC,}
+\DoxyCodeLine{65     \textcolor{keyword}{typename} DeriveduEE>}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keywordtype}{void} unique\_edge\_map(}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{68     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DeriveduE> \& uE,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<DeriveduEC> \& uEC,}
+\DoxyCodeLine{72     Eigen::PlainObjectBase<DeriveduEE> \& uEE);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#  include "{}unique\_edge\_map.cpp"{}}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

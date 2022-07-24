@@ -1,0 +1,84 @@
+\hypertarget{read_m_e_s_h_8h_source}{}\doxysection{read\+MESH.\+h}
+\label{read_m_e_s_h_8h_source}\index{igl/readMESH.h@{igl/readMESH.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_READMESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_READMESH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{comment}{// load a tetrahedral volume mesh from a .mesh file}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   Scalar  type for positions and vectors (will be read as double and cast}}
+\DoxyCodeLine{23   \textcolor{comment}{//     to Scalar)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   Index  type for indices (will be read as int and cast to Index)}}
+\DoxyCodeLine{25   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   mesh\_file\_name  path of .mesh file}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   V  double matrix of vertex positions  \#V by 3}}
+\DoxyCodeLine{29   \textcolor{comment}{//   T  \#T list of tet indices into vertex positions}}
+\DoxyCodeLine{30   \textcolor{comment}{//   F  \#F list of face indices into vertex positions}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// Known bugs: Holes and regions are not supported}}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{bool} readMESH(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} std::string mesh\_file\_name,}
+\DoxyCodeLine{36     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{37     std::vector<std::vector<Index > > \& T,}
+\DoxyCodeLine{38     std::vector<std::vector<Index > > \& F);}
+\DoxyCodeLine{39   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{40   \textcolor{comment}{//   mesh\_file  pointer to already opened .mesh file }}
+\DoxyCodeLine{41   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{42   \textcolor{comment}{//   mesh\_file  closed file}}
+\DoxyCodeLine{43   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{bool} readMESH(}
+\DoxyCodeLine{45     FILE * mesh\_file,}
+\DoxyCodeLine{46     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{47     std::vector<std::vector<Index > > \& T,}
+\DoxyCodeLine{48     std::vector<std::vector<Index > > \& F);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{51   \textcolor{comment}{//   mesh\_file\_name  path of .mesh file}}
+\DoxyCodeLine{52   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   V  eigen double matrix \#V by 3}}
+\DoxyCodeLine{54   \textcolor{comment}{//   T  eigen int matrix \#T by 4}}
+\DoxyCodeLine{55   \textcolor{comment}{//   F  eigen int matrix \#F by 3}}
+\DoxyCodeLine{56   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedT>}
+\DoxyCodeLine{57   IGL\_INLINE \textcolor{keywordtype}{bool} readMESH(}
+\DoxyCodeLine{58     \textcolor{keyword}{const} std::string mesh\_file\_name,}
+\DoxyCodeLine{59     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedT>\& T,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{62   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{63   \textcolor{comment}{//   mesh\_file  pointer to already opened .mesh file }}
+\DoxyCodeLine{64   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{65   \textcolor{comment}{//   mesh\_file  closed file}}
+\DoxyCodeLine{66   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedT>}
+\DoxyCodeLine{67   IGL\_INLINE \textcolor{keywordtype}{bool} readMESH(}
+\DoxyCodeLine{68     FILE * mesh\_file,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedT>\& T,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{72 \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#  include "{}readMESH.cpp"{}}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,115 @@
+\hypertarget{classigl_1_1_winding_number_tree}{}\doxysection{igl\+::Winding\+Number\+Tree\texorpdfstring{$<$}{<} Point, DerivedV, DerivedF \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_winding_number_tree}\index{igl::WindingNumberTree$<$ Point, DerivedV, DerivedF $>$@{igl::WindingNumberTree$<$ Point, DerivedV, DerivedF $>$}}
+Inheritance diagram for igl\+::Winding\+Number\+Tree\texorpdfstring{$<$}{<} Point, DerivedV, DerivedF \texorpdfstring{$>$}{>}\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classigl_1_1_winding_number_tree}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_af073111a6a1cc5085c3084de1ee64287}\label{classigl_1_1_winding_number_tree_af073111a6a1cc5085c3084de1ee64287}} 
+{\bfseries Winding\+Number\+Tree} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a87deecd231e1f190bf39c8c96e69aa6b}\label{classigl_1_1_winding_number_tree_a87deecd231e1f190bf39c8c96e69aa6b}} 
+{\bfseries Winding\+Number\+Tree} (const \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}}$<$ Point, DerivedV, DerivedF $>$ \&parent, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_abff1f1dff02ab9ae24b81a7b534aa9dc}\label{classigl_1_1_winding_number_tree_abff1f1dff02ab9ae24b81a7b534aa9dc}} 
+void {\bfseries delete\+\_\+children} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a2e3647b6ad15ff4d418f0a0cbc45af0b}\label{classigl_1_1_winding_number_tree_a2e3647b6ad15ff4d418f0a0cbc45af0b}} 
+virtual void {\bfseries set\+\_\+mesh} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F)
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a6aeaed6e361921d5e5fc817264ea4303}\label{classigl_1_1_winding_number_tree_a6aeaed6e361921d5e5fc817264ea4303}} 
+void {\bfseries set\+\_\+method} (const Winding\+Number\+Method \&m)
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a8f063f38b9b3ae75e0fe9f585d380de8}\label{classigl_1_1_winding_number_tree_a8f063f38b9b3ae75e0fe9f585d380de8}} 
+const DerivedV \& {\bfseries getV} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a6974b1b8ed760bc29859230b52f47be7}\label{classigl_1_1_winding_number_tree_a6974b1b8ed760bc29859230b52f47be7}} 
+const Matrix\+XF \& {\bfseries getF} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a476dbc98e75d9ee7cb22e13900812393}\label{classigl_1_1_winding_number_tree_a476dbc98e75d9ee7cb22e13900812393}} 
+const Matrix\+XF \& {\bfseries getcap} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_aa23f528100b8899953f4eec7b11c2bb6}\label{classigl_1_1_winding_number_tree_aa23f528100b8899953f4eec7b11c2bb6}} 
+virtual void {\bfseries grow} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a02580f4446de4f2e50ae461dd05856f7}\label{classigl_1_1_winding_number_tree_a02580f4446de4f2e50ae461dd05856f7}} 
+virtual bool {\bfseries inside} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_ad38f25af1a8db78d093a7f81dc2b1f95}\label{classigl_1_1_winding_number_tree_ad38f25af1a8db78d093a7f81dc2b1f95}} 
+Derived\+V\+::\+Scalar {\bfseries winding\+\_\+number} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a916c5b98a73f8c0ac810dc14470cdd93}\label{classigl_1_1_winding_number_tree_a916c5b98a73f8c0ac810dc14470cdd93}} 
+Derived\+V\+::\+Scalar {\bfseries winding\+\_\+number\+\_\+all} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_af6031baede4515bddaab39fa44c87596}\label{classigl_1_1_winding_number_tree_af6031baede4515bddaab39fa44c87596}} 
+Derived\+V\+::\+Scalar {\bfseries winding\+\_\+number\+\_\+boundary} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a5618b0faff1fc19922d780922f675e58}\label{classigl_1_1_winding_number_tree_a5618b0faff1fc19922d780922f675e58}} 
+void {\bfseries print} (const char $\ast$tab=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a4db0183d5e5fa19ee65fd73f403825ec}\label{classigl_1_1_winding_number_tree_a4db0183d5e5fa19ee65fd73f403825ec}} 
+virtual Derived\+V\+::\+Scalar {\bfseries max\+\_\+abs\+\_\+winding\+\_\+number} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a09df6ec29cff08ffcca5ca01b29d5695}\label{classigl_1_1_winding_number_tree_a09df6ec29cff08ffcca5ca01b29d5695}} 
+virtual Derived\+V\+::\+Scalar {\bfseries max\+\_\+simple\+\_\+abs\+\_\+winding\+\_\+number} (const Point \&p) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a6977fc49ea141561d07410e157f75bdb}\label{classigl_1_1_winding_number_tree_a6977fc49ea141561d07410e157f75bdb}} 
+virtual Derived\+V\+::\+Scalar {\bfseries cached\+\_\+winding\+\_\+number} (const \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}} \&that, const Point \&p) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_ab79b3f45a07dee2ff3d36713d3378a50}\label{classigl_1_1_winding_number_tree_ab79b3f45a07dee2ff3d36713d3378a50}} 
+static std\+::map$<$ std\+::pair$<$ const \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}} $\ast$, const \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}} $\ast$ $>$, typename Derived\+V\+::\+Scalar $>$ {\bfseries cached}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_aff17a52f56dd5b58cd354d547d216cdb}\label{classigl_1_1_winding_number_tree_aff17a52f56dd5b58cd354d547d216cdb}} 
+static DerivedV {\bfseries dummyV}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_aafe76333946b7ad3829b43a032fae8a1}\label{classigl_1_1_winding_number_tree_aafe76333946b7ad3829b43a032fae8a1}} 
+typedef Eigen\+::\+Matrix$<$ typename Derived\+V\+::\+Scalar, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ {\bfseries Matrix\+XS}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a08fd4eb30fce0b226f1b2dc2853daf04}\label{classigl_1_1_winding_number_tree_a08fd4eb30fce0b226f1b2dc2853daf04}} 
+typedef Eigen\+::\+Matrix$<$ typename Derived\+F\+::\+Scalar, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ {\bfseries Matrix\+XF}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a4d069040791d8e2d5f141634d0698d60}\label{classigl_1_1_winding_number_tree_a4d069040791d8e2d5f141634d0698d60}} 
+Winding\+Number\+Method {\bfseries method}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a111e8645c2849defb6617b5adbe67810}\label{classigl_1_1_winding_number_tree_a111e8645c2849defb6617b5adbe67810}} 
+const \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}} $\ast$ {\bfseries parent}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a25ebc7f7a74bd9b6c56bb766634d872b}\label{classigl_1_1_winding_number_tree_a25ebc7f7a74bd9b6c56bb766634d872b}} 
+std\+::list$<$ \mbox{\hyperlink{classigl_1_1_winding_number_tree}{Winding\+Number\+Tree}} $\ast$ $>$ {\bfseries children}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a2551264e8045c3dee664537ae21011bc}\label{classigl_1_1_winding_number_tree_a2551264e8045c3dee664537ae21011bc}} 
+DerivedV \& {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_afb916b7b6c91cd34c714902e7d796694}\label{classigl_1_1_winding_number_tree_afb916b7b6c91cd34c714902e7d796694}} 
+Matrix\+XS {\bfseries SV}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_ad18e9c1a1712406b55d3e0716a1b8082}\label{classigl_1_1_winding_number_tree_ad18e9c1a1712406b55d3e0716a1b8082}} 
+Matrix\+XF {\bfseries F}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_a76dc36adcef875cfe8e9ee54cc3c0567}\label{classigl_1_1_winding_number_tree_a76dc36adcef875cfe8e9ee54cc3c0567}} 
+Matrix\+XF {\bfseries cap}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_aaaf5b57a6499adebe98142232b5cdb84}\label{classigl_1_1_winding_number_tree_aaaf5b57a6499adebe98142232b5cdb84}} 
+Derived\+V\+::\+Scalar {\bfseries radius}
+\item 
+\mbox{\Hypertarget{classigl_1_1_winding_number_tree_ac407689ad7517a6bc25cdcaeebd06a75}\label{classigl_1_1_winding_number_tree_ac407689ad7517a6bc25cdcaeebd06a75}} 
+Point {\bfseries center}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/Winding\+Number\+Tree.\+h\end{DoxyCompactItemize}

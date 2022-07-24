@@ -1,0 +1,84 @@
+\hypertarget{pseudonormal__test_8h_source}{}\doxysection{pseudonormal\+\_\+test.\+h}
+\label{pseudonormal__test_8h_source}\index{igl/pseudonormal\_test.h@{igl/pseudonormal\_test.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PSEUDONORMAL\_TEST\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PSEUDONORMAL\_TEST\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Given a mesh (V,F), a query point q, and a point on (V,F) c, determine}}
+\DoxyCodeLine{15   \textcolor{comment}{// whether q is inside (V,F) -\/-\/> s=-\/1 or outside (V,F) s=1, based on the}}
+\DoxyCodeLine{16   \textcolor{comment}{// sign of the dot product between (q-\/c) and n, where n is the normal \_at c\_,}}
+\DoxyCodeLine{17   \textcolor{comment}{// carefully chosen according to [Bærentzen \& Aanæs 2005]}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{22   \textcolor{comment}{//   FN  \#F by 3 list of triangle normals }}
+\DoxyCodeLine{23   \textcolor{comment}{//   VN  \#V by 3 list of vertex normals (ANGLE WEIGHTING)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   EN  \#E by 3 list of edge normals (UNIFORM WEIGHTING)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   EMAP  \#F*3 mapping edges in F to E}}
+\DoxyCodeLine{26   \textcolor{comment}{//   q  Query point}}
+\DoxyCodeLine{27   \textcolor{comment}{//   f  index into F to face to which c belongs}}
+\DoxyCodeLine{28   \textcolor{comment}{//   c  Point on (V,F)}}
+\DoxyCodeLine{29   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   s  sign}}
+\DoxyCodeLine{31   \textcolor{comment}{//   n  normal}}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} Derivedc,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} Derivedn>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} pseudonormal\_test(}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN> \& FN,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} \textcolor{keywordtype}{int} f,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<Derivedc> \& c,}
+\DoxyCodeLine{53     Scalar \& s,}
+\DoxyCodeLine{54     Eigen::PlainObjectBase<Derivedn> \& n);}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} Derivedc,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} Derivedn>}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} pseudonormal\_test(}
+\DoxyCodeLine{65     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& E,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} \textcolor{keywordtype}{int} e,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<Derivedc> \& c,}
+\DoxyCodeLine{72     Scalar \& s,}
+\DoxyCodeLine{73     Eigen::PlainObjectBase<Derivedn> \& n);}
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#  include "{}pseudonormal\_test.cpp"{}}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

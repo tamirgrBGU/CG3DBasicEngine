@@ -1,0 +1,61 @@
+\hypertarget{_r_e_d_r_u_m_8h_source}{}\doxysection{REDRUM.\+h}
+\label{_r_e_d_r_u_m_8h_source}\index{igl/REDRUM.h@{igl/REDRUM.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REDRUM\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REDRUM\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// Q: These should probably be inside the igl namespace. What's the correct}}
+\DoxyCodeLine{12 \textcolor{comment}{// way to do that?}}
+\DoxyCodeLine{13 \textcolor{comment}{// A: I guess the right way is to not use a macro but a proper function with}}
+\DoxyCodeLine{14 \textcolor{comment}{// streams as input and output.}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{comment}{// ANSI color codes for formatting iostream style output}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#ifdef IGL\_REDRUM\_NOOP}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{comment}{// Bold Red, etc.}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#define NORUM(X)     X}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define REDRUM(X)     X}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#define GREENRUM(X)   X}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#define YELLOWRUM(X)  X}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define BLUERUM(X)    X}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define MAGENTARUM(X) X}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define CYANRUM(X)    X}}
+\DoxyCodeLine{28 \textcolor{comment}{// Regular Red, etc.}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define REDGIN(X)     X}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define GREENGIN(X)   X}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define YELLOWGIN(X)  X}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#define BLUEGIN(X)    X}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#define MAGENTAGIN(X) X}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define CYANGIN(X)    X}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{comment}{// Bold Red, etc.}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#define NORUM(X)       "{}"{}}<<X<<"{}"{}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#define REDRUM(X)      "{}\(\backslash\)e[1m\(\backslash\)e[31m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define GREENRUM(X)    "{}\(\backslash\)e[1m\(\backslash\)e[32m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define YELLOWRUM(X)   "{}\(\backslash\)e[1m\(\backslash\)e[33m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#define BLUERUM(X)     "{}\(\backslash\)e[1m\(\backslash\)e[34m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#define MAGENTARUM(X)  "{}\(\backslash\)e[1m\(\backslash\)e[35m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#define CYANRUM(X)     "{}\(\backslash\)e[1m\(\backslash\)e[36m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{46 \textcolor{comment}{// Regular Red, etc.}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define REDGIN(X)      "{}\(\backslash\)e[31m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define GREENGIN(X)    "{}\(\backslash\)e[32m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define YELLOWGIN(X)   "{}\(\backslash\)e[33m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define BLUEGIN(X)     "{}\(\backslash\)e[34m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define MAGENTAGIN(X)  "{}\(\backslash\)e[35m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#define CYANGIN(X)     "{}\(\backslash\)e[36m"{}}<<X<<"{}\(\backslash\)e[m"{}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

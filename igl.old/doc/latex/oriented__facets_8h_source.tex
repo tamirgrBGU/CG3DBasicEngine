@@ -1,0 +1,48 @@
+\hypertarget{oriented__facets_8h_source}{}\doxysection{oriented\+\_\+facets.\+h}
+\label{oriented__facets_8h_source}\index{igl/oriented\_facets.h@{igl/oriented\_facets.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ORIENTED\_FACETS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ORIENTED\_FACETS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// ORIENTED\_FACETS Determines all "{}directed}}
+\DoxyCodeLine{15   \textcolor{comment}{// [facets](https://en.wikipedia.org/wiki/Simplex\#Elements)"{} of a given set of}}
+\DoxyCodeLine{16   \textcolor{comment}{// simplicial elements. For a manifold triangle mesh, this computes all}}
+\DoxyCodeLine{17   \textcolor{comment}{// half-\/edges. For a manifold tetrahedral mesh, this computes all half-\/faces.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by simplex\_size  list of simplices}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   E  \#E by simplex\_size-\/1  list of facets, such that E.row(f+\#F*c) is the}}
+\DoxyCodeLine{23   \textcolor{comment}{//     facet opposite F(f,c)}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{// Note: this is not the same as igl::edges because this includes every}}
+\DoxyCodeLine{26   \textcolor{comment}{// directed edge including repeats (meaning interior edges on a surface will}}
+\DoxyCodeLine{27   \textcolor{comment}{// show up once for each direction and non-\/manifold edges may appear more than}}
+\DoxyCodeLine{28   \textcolor{comment}{// once for each direction).}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// Note: This replaces the deprecated `all\_edges` function}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} oriented\_facets(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedE> \& E);}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}oriented\_facets.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+
+\end{DoxyCode}

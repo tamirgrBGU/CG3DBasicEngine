@@ -1,0 +1,283 @@
+\hypertarget{class_renderer}{}\doxysection{Renderer Class Reference}
+\label{class_renderer}\index{Renderer@{Renderer}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_renderer_a734322a97ecdf2f37637212cee833e44}\label{class_renderer_a734322a97ecdf2f37637212cee833e44}} 
+enum {\bfseries buffers\+Mode} \{ \newline
+{\bfseries COLOR}
+, {\bfseries DEPTH}
+, {\bfseries STENCIL}
+, {\bfseries BACK}
+, \newline
+{\bfseries FRONT}
+, {\bfseries NONE}
+ \}
+\item 
+\mbox{\Hypertarget{class_renderer_a040085710077f37bf4005756f6463e75}\label{class_renderer_a040085710077f37bf4005756f6463e75}} 
+enum {\bfseries transformations} \{ \newline
+{\bfseries x\+Translate}
+, {\bfseries y\+Translate}
+, {\bfseries z\+Translate}
+, {\bfseries x\+Rotate}
+, \newline
+{\bfseries y\+Rotate}
+, {\bfseries z\+Rotate}
+, {\bfseries x\+Scale}
+, {\bfseries y\+Scale}
+, \newline
+{\bfseries z\+Scale}
+, {\bfseries scale\+All}
+, {\bfseries x\+Camera\+Translate}
+, {\bfseries y\+Camera\+Translate}
+, \newline
+{\bfseries z\+Camera\+Translate}
+ \}
+\item 
+\mbox{\Hypertarget{class_renderer_a46de3b1942e3619c7df4e4cb1824ff1f}\label{class_renderer_a46de3b1942e3619c7df4e4cb1824ff1f}} 
+enum {\bfseries draw\+Flags} \{ \newline
+{\bfseries to\+Clear} = 1
+, {\bfseries is2D} = 2
+, {\bfseries in\+Action} = 4
+, {\bfseries scissor\+Test} = 8
+, \newline
+{\bfseries depth\+Test} = 16
+, {\bfseries stencil\+Test} = 32
+, {\bfseries blend} = 64
+, {\bfseries black\+Clear} = 128
+, \newline
+{\bfseries clear\+Depth} = 256
+, {\bfseries backdraw} = 512
+, {\bfseries clear\+Stencil} = 1024
+, {\bfseries pass\+Stencil} = 2048
+, \newline
+{\bfseries in\+Action2} = 4096
+, {\bfseries none} = 8192
+, {\bfseries scale\+Abit} = 16384
+, {\bfseries stencil2} = 32768
+, \newline
+{\bfseries on\+Picking} = 65536
+ \}
+\item 
+\mbox{\Hypertarget{class_renderer_a905a6a82d5f865e69d000700945f5f3d}\label{class_renderer_a905a6a82d5f865e69d000700945f5f3d}} 
+enum \{ \newline
+{\bfseries pre\+Rot}
+, {\bfseries post\+Rot}
+, {\bfseries phi\+Rot}
+, {\bfseries theta\+Rot}
+, \newline
+{\bfseries psi\+Rot}
+, {\bfseries psi\+Phi\+Rot}
+ \}
+\item 
+\mbox{\Hypertarget{class_renderer_a21dcedc0f365adb81b7522f4f1bea175}\label{class_renderer_a21dcedc0f365adb81b7522f4f1bea175}} 
+enum \{ \newline
+{\bfseries non}
+, {\bfseries viewport}
+, {\bfseries camera}
+, {\bfseries shader}
+, \newline
+{\bfseries buffer}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_renderer_adfd1fc7c492538365eece04d4dca73fb}\label{class_renderer_adfd1fc7c492538365eece04d4dca73fb}} 
+{\bfseries Renderer} (float angle, float relation\+WH, float near, float far)
+\item 
+\mbox{\Hypertarget{class_renderer_a772087539f0d786d9e1de57da5530f44}\label{class_renderer_a772087539f0d786d9e1de57da5530f44}} 
+IGL\+\_\+\+INLINE void {\bfseries draw} (GLFWwindow $\ast$window)
+\item 
+\mbox{\Hypertarget{class_renderer_a81d09f50a82f9ab8975ee68c8c9f981b}\label{class_renderer_a81d09f50a82f9ab8975ee68c8c9f981b}} 
+void {\bfseries Animate} ()
+\item 
+\mbox{\Hypertarget{class_renderer_a21000156e90b88dcd0bac36cb27d495e}\label{class_renderer_a21000156e90b88dcd0bac36cb27d495e}} 
+IGL\+\_\+\+INLINE bool {\bfseries key\+\_\+pressed} (unsigned int unicode\+\_\+key, int modifier)
+\item 
+\mbox{\Hypertarget{class_renderer_a57043e067f90a97a72e68f36f3875785}\label{class_renderer_a57043e067f90a97a72e68f36f3875785}} 
+IGL\+\_\+\+INLINE void {\bfseries resize} (GLFWwindow $\ast$window, int w, int h)
+\item 
+\mbox{\Hypertarget{class_renderer_a576ec8315ee068e9f3c007db7e57a183}\label{class_renderer_a576ec8315ee068e9f3c007db7e57a183}} 
+IGL\+\_\+\+INLINE void {\bfseries post\+\_\+resize} (GLFWwindow $\ast$window, int w, int h)
+\item 
+\mbox{\Hypertarget{class_renderer_a8177aeda5aff2a573e3949525c61e39a}\label{class_renderer_a8177aeda5aff2a573e3949525c61e39a}} 
+void {\bfseries Set\+Scene} (\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{igl\+::opengl\+::glfw\+::\+Viewer}} $\ast$scn)
+\item 
+\mbox{\Hypertarget{class_renderer_a744f3b3afd2c2ff7318545e65e6a9272}\label{class_renderer_a744f3b3afd2c2ff7318545e65e6a9272}} 
+void {\bfseries Update\+Position} (double xpos, double ypos)
+\item 
+\mbox{\Hypertarget{class_renderer_aac22815afc1ee7241756459f376ac80e}\label{class_renderer_aac22815afc1ee7241756459f376ac80e}} 
+\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{igl\+::opengl\+::glfw\+::\+Viewer}} $\ast$ {\bfseries Get\+Scene} ()
+\item 
+\mbox{\Hypertarget{class_renderer_ae3906936da34250c0628b241ab1f4df7}\label{class_renderer_ae3906936da34250c0628b241ab1f4df7}} 
+void {\bfseries Translate\+Camera} (Eigen\+::\+Vector3f amt)
+\item 
+\mbox{\Hypertarget{class_renderer_a077562b1339ce3c9d468a16113f4c972}\label{class_renderer_a077562b1339ce3c9d468a16113f4c972}} 
+float {\bfseries Update\+Position} (float xpos, float ypos)
+\item 
+\mbox{\Hypertarget{class_renderer_a4f4c914177331886103c09673754107c}\label{class_renderer_a4f4c914177331886103c09673754107c}} 
+void {\bfseries Update\+Press} (float xpos, float ypos)
+\item 
+\mbox{\Hypertarget{class_renderer_a46391aa5aaa4f30440acade32a21fe46}\label{class_renderer_a46391aa5aaa4f30440acade32a21fe46}} 
+void {\bfseries Add\+Camera} (const Eigen\+::\+Vector3d \&pos, float fov, float relation\+WH, float z\+Near, float z\+Far, int info\+Indx=-\/1)
+\item 
+\mbox{\Hypertarget{class_renderer_a56aacc70c194d56927067ea6ae3f16e8}\label{class_renderer_a56aacc70c194d56927067ea6ae3f16e8}} 
+void {\bfseries Add\+Viewport} (int left, int bottom, int width, int height)
+\item 
+\mbox{\Hypertarget{class_renderer_a3a8443e6abc855b4c1ed80be1bbf0020}\label{class_renderer_a3a8443e6abc855b4c1ed80be1bbf0020}} 
+unsigned int {\bfseries Add\+Buffer} (int info\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_ad4762ba66b41d8ea1a7dbca938d0e13f}\label{class_renderer_ad4762ba66b41d8ea1a7dbca938d0e13f}} 
+void {\bfseries Add\+Draw} (int viewport\+Indx, int camera\+Indx, int shader\+Indx, int buff\+Indx, unsigned int flags)
+\item 
+\mbox{\Hypertarget{class_renderer_af32fd6201da6a8b02a88e6517d712cac}\label{class_renderer_af32fd6201da6a8b02a88e6517d712cac}} 
+void {\bfseries Copy\+Draw} (int info\+Indx, int property, int indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a74e7a7f28987d6bbe5f32d5901782ee2}\label{class_renderer_a74e7a7f28987d6bbe5f32d5901782ee2}} 
+void {\bfseries Set\+Viewport} (int left, int bottom, int width, int height, int indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a503c3129c108303ae2ef22b566fc255d}\label{class_renderer_a503c3129c108303ae2ef22b566fc255d}} 
+void {\bfseries Bind\+Viewport2D} (int indx)
+\item 
+\mbox{\Hypertarget{class_renderer_acca177d80ecf7fd575c31dc2e56edb03}\label{class_renderer_acca177d80ecf7fd575c31dc2e56edb03}} 
+void {\bfseries Move\+Camera} (int camera\+Indx, int type, float amt)
+\item 
+\mbox{\Hypertarget{class_renderer_aecb6eeddee1e1773ce4f2350069672ca}\label{class_renderer_aecb6eeddee1e1773ce4f2350069672ca}} 
+bool {\bfseries Picking} (int x, int y)
+\item 
+\mbox{\Hypertarget{class_renderer_a2db152391cd2ea5dba5859e0683c36bb}\label{class_renderer_a2db152391cd2ea5dba5859e0683c36bb}} 
+void {\bfseries Out\+Line} ()
+\item 
+\mbox{\Hypertarget{class_renderer_aa98d6a20dc19303ac5912e5432fd0bfa}\label{class_renderer_aa98d6a20dc19303ac5912e5432fd0bfa}} 
+void {\bfseries Pick\+Many} (int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_ac3b6103a0f8c7bbcb7d39448f49a59ae}\label{class_renderer_ac3b6103a0f8c7bbcb7d39448f49a59ae}} 
+void {\bfseries Mouse\+Proccessing} (int button, int mode=0, int viewport\+Indx=0)
+\item 
+\mbox{\Hypertarget{class_renderer_abec2e43dfe3550289046c5886315ab10}\label{class_renderer_abec2e43dfe3550289046c5886315ab10}} 
+float {\bfseries Get\+Near} (int camera\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a18c6b4270dcfd120de7029f85d74313b}\label{class_renderer_a18c6b4270dcfd120de7029f85d74313b}} 
+float {\bfseries Get\+Far} (int camera\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_afd0875f492fcc9135bdb842b9888d471}\label{class_renderer_afd0875f492fcc9135bdb842b9888d471}} 
+float {\bfseries Get\+Angle} (int camera\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a691076ec58d7d3acbc52a13d0ba9460c}\label{class_renderer_a691076ec58d7d3acbc52a13d0ba9460c}} 
+void {\bfseries Set\+Draw\+Flag} (int info\+Indx, unsigned int flag)
+\item 
+\mbox{\Hypertarget{class_renderer_ae240c55f4fe8252f2708170547103505}\label{class_renderer_ae240c55f4fe8252f2708170547103505}} 
+void {\bfseries Clear\+Draw\+Flag} (int info\+Indx, unsigned int flag)
+\item 
+\mbox{\Hypertarget{class_renderer_a816bb9327c000bcba065e7a4efb407fe}\label{class_renderer_a816bb9327c000bcba065e7a4efb407fe}} 
+void {\bfseries Pressed} ()
+\item 
+\mbox{\Hypertarget{class_renderer_accc27e12e9767daf650f30f3f5237090}\label{class_renderer_accc27e12e9767daf650f30f3f5237090}} 
+bool {\bfseries Is\+Pressed} () const
+\item 
+\mbox{\Hypertarget{class_renderer_a77ec7b0cf168a8f82869d6a02bd0788e}\label{class_renderer_a77ec7b0cf168a8f82869d6a02bd0788e}} 
+void {\bfseries Free\+Shapes} (int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a84abe785747f3fa6b46474de3bb9b7e3}\label{class_renderer_a84abe785747f3fa6b46474de3bb9b7e3}} 
+bool {\bfseries Check\+Viewport} (int x, int y, int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_a264f0c92935f51b4f650af8b8b3b87c4}\label{class_renderer_a264f0c92935f51b4f650af8b8b3b87c4}} 
+bool {\bfseries Update\+Viewport} (int viewport)
+\item 
+\mbox{\Hypertarget{class_renderer_af0b2698215d18d2448e709cb0452d30b}\label{class_renderer_af0b2698215d18d2448e709cb0452d30b}} 
+int {\bfseries Get\+Viewports\+Size} ()
+\item 
+\mbox{\Hypertarget{class_renderer_ae10e84eaa63076805b039a22added09a}\label{class_renderer_ae10e84eaa63076805b039a22added09a}} 
+float {\bfseries Calc\+Move\+Coeff} (int camera\+Indx, int width)
+\item 
+\mbox{\Hypertarget{class_renderer_a4bf56cee1ca4656d16a8ead65e011730}\label{class_renderer_a4bf56cee1ca4656d16a8ead65e011730}} 
+void {\bfseries Update\+Zpos} (int ypos)
+\item 
+\mbox{\Hypertarget{class_renderer_a256e093fe2b7d6835d575c4920ed67d0}\label{class_renderer_a256e093fe2b7d6835d575c4920ed67d0}} 
+void {\bfseries Clear\+Picked\+Shapes} (int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_ad680992aa806d9968e857545f6a9bbbb}\label{class_renderer_ad680992aa806d9968e857545f6a9bbbb}} 
+void {\bfseries Un\+Pick} (int viewport\+Indx)
+\item 
+\mbox{\Hypertarget{class_renderer_adf37a4caaea740e0aa0b4b127dd1012b}\label{class_renderer_adf37a4caaea740e0aa0b4b127dd1012b}} 
+bool {\bfseries Is\+Picked} ()
+\item 
+\mbox{\Hypertarget{class_renderer_a43d6ba3a33c47bb4cabe70e4f98c0973}\label{class_renderer_a43d6ba3a33c47bb4cabe70e4f98c0973}} 
+bool {\bfseries Is\+Many} () const
+\item 
+\mbox{\Hypertarget{class_renderer_a6a85a99ce80eb33397d7cf5816d7beee}\label{class_renderer_a6a85a99ce80eb33397d7cf5816d7beee}} 
+void {\bfseries Init} (\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{igl\+::opengl\+::glfw\+::\+Viewer}} $\ast$scene, std\+::list$<$ int $>$ x\+Viewport, std\+::list$<$ int $>$ y\+Viewport, int picking\+Bits, \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1imgui_1_1_im_gui_menu}{igl\+::opengl\+::glfw\+::imgui\+::\+Im\+Gui\+Menu}} $\ast$\+\_\+menu)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_renderer_a438147b9858fd3fbbf8ea96482773f19}\label{class_renderer_a438147b9858fd3fbbf8ea96482773f19}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window)$>$ {\bfseries callback\+\_\+init}
+\item 
+\mbox{\Hypertarget{class_renderer_ae224a4d8e91a3a013ae98776a41fb474}\label{class_renderer_ae224a4d8e91a3a013ae98776a41fb474}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window)$>$ {\bfseries callback\+\_\+pre\+\_\+draw}
+\item 
+\mbox{\Hypertarget{class_renderer_aa648cd1d6a2c44acda7ca7faea3e6060}\label{class_renderer_aa648cd1d6a2c44acda7ca7faea3e6060}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window)$>$ {\bfseries callback\+\_\+post\+\_\+draw}
+\item 
+\mbox{\Hypertarget{class_renderer_afc6ddb14aee41ff854e4912bfbd916b2}\label{class_renderer_afc6ddb14aee41ff854e4912bfbd916b2}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, int button, int modifier)$>$ {\bfseries callback\+\_\+mouse\+\_\+down}
+\item 
+\mbox{\Hypertarget{class_renderer_a8b79c0813781aff69a88c5c45027b5e9}\label{class_renderer_a8b79c0813781aff69a88c5c45027b5e9}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, int button, int modifier)$>$ {\bfseries callback\+\_\+mouse\+\_\+up}
+\item 
+\mbox{\Hypertarget{class_renderer_aefa40e1a405c03d573cac09eab734302}\label{class_renderer_aefa40e1a405c03d573cac09eab734302}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, int mouse\+\_\+x, int mouse\+\_\+y)$>$ {\bfseries callback\+\_\+mouse\+\_\+move}
+\item 
+\mbox{\Hypertarget{class_renderer_a4e22225ef1ef0596bc20c1eb80d725c5}\label{class_renderer_a4e22225ef1ef0596bc20c1eb80d725c5}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, float delta\+\_\+y)$>$ {\bfseries callback\+\_\+mouse\+\_\+scroll}
+\item 
+\mbox{\Hypertarget{class_renderer_ab456f67d4bb3852d306e6b0771ef4708}\label{class_renderer_ab456f67d4bb3852d306e6b0771ef4708}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, unsigned int key, int modifiers)$>$ {\bfseries callback\+\_\+key\+\_\+pressed}
+\item 
+\mbox{\Hypertarget{class_renderer_af6ffb54f3e04a3afeb9ce46c7c6f63ae}\label{class_renderer_af6ffb54f3e04a3afeb9ce46c7c6f63ae}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, int w, int h)$>$ {\bfseries callback\+\_\+post\+\_\+resize}
+\item 
+\mbox{\Hypertarget{class_renderer_a6b30b14763a5a73ba735dfac5696608f}\label{class_renderer_a6b30b14763a5a73ba735dfac5696608f}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, unsigned int key, int modifiers)$>$ {\bfseries callback\+\_\+key\+\_\+down}
+\item 
+\mbox{\Hypertarget{class_renderer_a6f8863e7c3b350f4aab60593ce2e33b6}\label{class_renderer_a6f8863e7c3b350f4aab60593ce2e33b6}} 
+std\+::function$<$ bool(GLFWwindow $\ast$window, unsigned int key, int modifiers)$>$ {\bfseries callback\+\_\+key\+\_\+up}
+\item 
+\mbox{\Hypertarget{class_renderer_a8af98dd0bcff4b682f59265e1b42d76c}\label{class_renderer_a8af98dd0bcff4b682f59265e1b42d76c}} 
+void $\ast$ {\bfseries callback\+\_\+init\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a77effd0652fdf8fa7f0ee2a1602b594d}\label{class_renderer_a77effd0652fdf8fa7f0ee2a1602b594d}} 
+void $\ast$ {\bfseries callback\+\_\+pre\+\_\+draw\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a196f0a0d96986001ca750e3b27c35764}\label{class_renderer_a196f0a0d96986001ca750e3b27c35764}} 
+void $\ast$ {\bfseries callback\+\_\+post\+\_\+draw\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a249240c70beda79d83b94954021540fe}\label{class_renderer_a249240c70beda79d83b94954021540fe}} 
+void $\ast$ {\bfseries callback\+\_\+mouse\+\_\+down\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a69fc7239b44139151980e84c52b0a051}\label{class_renderer_a69fc7239b44139151980e84c52b0a051}} 
+void $\ast$ {\bfseries callback\+\_\+mouse\+\_\+up\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a8f95be35f887d48a37e9fe99a3a660c9}\label{class_renderer_a8f95be35f887d48a37e9fe99a3a660c9}} 
+void $\ast$ {\bfseries callback\+\_\+mouse\+\_\+move\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a3bd4a74db2e1deadcb88e0bdbe805843}\label{class_renderer_a3bd4a74db2e1deadcb88e0bdbe805843}} 
+void $\ast$ {\bfseries callback\+\_\+mouse\+\_\+scroll\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a7c540e6e1d12db2e85290fe25c4d09e1}\label{class_renderer_a7c540e6e1d12db2e85290fe25c4d09e1}} 
+void $\ast$ {\bfseries callback\+\_\+key\+\_\+pressed\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_aeffdfb3a5b5bdcd006b6e22d4dfefaa5}\label{class_renderer_aeffdfb3a5b5bdcd006b6e22d4dfefaa5}} 
+void $\ast$ {\bfseries callback\+\_\+key\+\_\+down\+\_\+data}
+\item 
+\mbox{\Hypertarget{class_renderer_a0c648bd35315dd2ded7b5dfdad8af768}\label{class_renderer_a0c648bd35315dd2ded7b5dfdad8af768}} 
+void $\ast$ {\bfseries callback\+\_\+key\+\_\+up\+\_\+data}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/renderer.\+h\item 
+igl/opengl/glfw/renderer.\+cpp\end{DoxyCompactItemize}

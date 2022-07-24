@@ -1,0 +1,47 @@
+\hypertarget{vector__area__matrix_8h_source}{}\doxysection{vector\+\_\+area\+\_\+matrix.\+h}
+\label{vector__area__matrix_8h_source}\index{igl/vector\_area\_matrix.h@{igl/vector\_area\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VECTOR\_AREA\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VECTOR\_AREA\_MATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Constructs the symmetric area matrix A, s.t.  [V.col(0)' V.col(1)'] * A *}}
+\DoxyCodeLine{18   \textcolor{comment}{// [V.col(0); V.col(1)] is the **vector area** of the mesh (V,F).}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   DerivedV  derived type of eigen matrix for V (e.g. derived from}}
+\DoxyCodeLine{22   \textcolor{comment}{//     MatrixXd)}}
+\DoxyCodeLine{23   \textcolor{comment}{//   DerivedF  derived type of eigen matrix for F (e.g. derived from}}
+\DoxyCodeLine{24   \textcolor{comment}{//     MatrixXi)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   Scalar  scalar type for eigen sparse matrix (e.g. double)}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   F  \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   A  \#Vx2 by \#Vx2 area matrix}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} vector\_area\_matrix(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{34     Eigen::SparseMatrix<Scalar>\& A);}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}vector\_area\_matrix.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

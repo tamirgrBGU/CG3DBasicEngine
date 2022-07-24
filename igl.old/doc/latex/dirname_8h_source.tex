@@ -1,0 +1,40 @@
+\hypertarget{dirname_8h_source}{}\doxysection{dirname.\+h}
+\label{dirname_8h_source}\index{igl/dirname.h@{igl/dirname.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{// }}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_DIRNAME\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_DIRNAME\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Function like PHP's dirname: /etc/passwd -\/-\/> /etc, }}
+\DoxyCodeLine{18   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{19   \textcolor{comment}{//  path  string containing input path}}
+\DoxyCodeLine{20   \textcolor{comment}{// Returns string containing dirname (see php's dirname)}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// See also: basename, pathinfo}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// **Note:** This function will have undefined behavior if **file names** in}}
+\DoxyCodeLine{25   \textcolor{comment}{// the path contain \(\backslash\) and / characters. This function interprets \(\backslash\) and / as}}
+\DoxyCodeLine{26   \textcolor{comment}{// file path separators.}}
+\DoxyCodeLine{27   IGL\_INLINE std::string dirname(\textcolor{keyword}{const} std::string \& path);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}dirname.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

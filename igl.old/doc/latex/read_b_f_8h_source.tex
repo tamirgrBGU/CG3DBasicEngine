@@ -1,0 +1,73 @@
+\hypertarget{read_b_f_8h_source}{}\doxysection{read\+BF.\+h}
+\label{read_b_f_8h_source}\index{igl/readBF.h@{igl/readBF.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_READBF\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_READBF\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Read a bones forest from a file, returns a list of bone roots}}
+\DoxyCodeLine{16   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   file\_name  path to .bf bones tree file}}
+\DoxyCodeLine{18   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   WI  \#B list of unique weight indices}}
+\DoxyCodeLine{20   \textcolor{comment}{//   P  \#B list of parent indices into B, -\/1 for roots}}
+\DoxyCodeLine{21   \textcolor{comment}{//   O  \#B by 3 list of tip offset vectors from parent (or position for roots)}}
+\DoxyCodeLine{22   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} < }
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedWI,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedO>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{bool} readBF(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedWI> \& WI,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedP> \& P,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedO> \& O);}
+\DoxyCodeLine{32   \textcolor{comment}{// Read bone forest into pure bone-\/skeleton format, expects only bones (no}}
+\DoxyCodeLine{33   \textcolor{comment}{// point handles), and that a root in the .bf <-\/-\/-\/> no weight attachment.}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   file\_name  path to .bf bones tree file}}
+\DoxyCodeLine{37   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{38   \textcolor{comment}{//   WI  \#B list of unique weight indices}}
+\DoxyCodeLine{39   \textcolor{comment}{//   P  \#B list of parent indices into B, -\/1 for roots}}
+\DoxyCodeLine{40   \textcolor{comment}{//   O  \#B by 3 list of tip offset vectors from parent (or position for roots)}}
+\DoxyCodeLine{41   \textcolor{comment}{//   C  \#C by 3 list of absolute joint locations}}
+\DoxyCodeLine{42   \textcolor{comment}{//   BE  \#BE by 3 list of bone indices into C, in order of weight index}}
+\DoxyCodeLine{43   \textcolor{comment}{//   P  \#BE list of parent bone indices into BE, -\/1 means root bone}}
+\DoxyCodeLine{44   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{45   \textcolor{comment}{//   }}
+\DoxyCodeLine{46   \textcolor{comment}{// See also: readTGF, bone\_parents, forward\_kinematics}}
+\DoxyCodeLine{47   \textcolor{keyword}{template} < }
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedWI,}
+\DoxyCodeLine{49     \textcolor{keyword}{typename} DerivedbfP,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} DerivedO,}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{52     \textcolor{keyword}{typename} DerivedBE,}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{54   IGL\_INLINE \textcolor{keywordtype}{bool} readBF(}
+\DoxyCodeLine{55     \textcolor{keyword}{const} std::string \& filename,}
+\DoxyCodeLine{56     Eigen::PlainObjectBase<DerivedWI> \& WI,}
+\DoxyCodeLine{57     Eigen::PlainObjectBase<DerivedbfP> \& bfP,}
+\DoxyCodeLine{58     Eigen::PlainObjectBase<DerivedO> \& O,}
+\DoxyCodeLine{59     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedBE> \& BE,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedP> \& P);}
+\DoxyCodeLine{62 \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#  include "{}readBF.cpp"{}}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

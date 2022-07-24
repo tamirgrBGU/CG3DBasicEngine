@@ -1,0 +1,59 @@
+\hypertarget{repmat_8h_source}{}\doxysection{repmat.\+h}
+\label{repmat_8h_source}\index{igl/repmat.h@{igl/repmat.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REPMAT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REPMAT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define EIGEN\_YES\_I\_KNOW\_SPARSE\_MODULE\_IS\_NOT\_STABLE\_YET}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// At least for Dense matrices this is replaced by `replicate` e.g., dst = src.replicate(n,m);}}
+\DoxyCodeLine{19   \textcolor{comment}{// http://forum.kde.org/viewtopic.php?f=74\&t=90876\#p173517}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21   \textcolor{comment}{// Ideally this is a super overloaded function that behaves just like}}
+\DoxyCodeLine{22   \textcolor{comment}{// matlab's repmat}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24   \textcolor{comment}{// Replicate and tile a matrix}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   T  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{28   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   A  m by n input matrix}}
+\DoxyCodeLine{30   \textcolor{comment}{//   r  number of row-\/direction copies}}
+\DoxyCodeLine{31   \textcolor{comment}{//   c  number of col-\/direction copies}}
+\DoxyCodeLine{32   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{33   \textcolor{comment}{//   B  r*m by c*n output matrix}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA,\textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} repmat(}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} \textcolor{keywordtype}{int} r,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \textcolor{keywordtype}{int} c,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedB> \& B);}
+\DoxyCodeLine{41   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{42   IGL\_INLINE \textcolor{keywordtype}{void} repmat(}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::SparseMatrix<T> \& A,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keywordtype}{int} r,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} \textcolor{keywordtype}{int} c,}
+\DoxyCodeLine{46     Eigen::SparseMatrix<T> \& B);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}repmat.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,188 @@
+\hypertarget{_viewer_plugin_8h_source}{}\doxysection{Viewer\+Plugin.\+h}
+\label{_viewer_plugin_8h_source}\index{igl/opengl/glfw/ViewerPlugin.h@{igl/opengl/glfw/ViewerPlugin.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_VIEWERPLUGIN\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_VIEWERPLUGIN\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// TODO:}}
+\DoxyCodeLine{12 \textcolor{comment}{// * create plugins/skeleton.h}}
+\DoxyCodeLine{13 \textcolor{comment}{// * pass time in draw function}}
+\DoxyCodeLine{14 \textcolor{comment}{// * remove Preview3D from comments}}
+\DoxyCodeLine{15 \textcolor{comment}{// * clean comments}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \textcolor{keyword}{namespace }glfw}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{comment}{// Abstract class for plugins}}
+\DoxyCodeLine{28 \textcolor{comment}{// All plugins MUST have this class as their parent and may implement any/all}}
+\DoxyCodeLine{29 \textcolor{comment}{// the callbacks marked `virtual` here.}}
+\DoxyCodeLine{30 \textcolor{comment}{//}}
+\DoxyCodeLine{31 \textcolor{comment}{// /////For an example of a basic plugins see plugins/skeleton.h}}
+\DoxyCodeLine{32 \textcolor{comment}{//}}
+\DoxyCodeLine{33 \textcolor{comment}{// Return value of callbacks: returning true to any of the callbacks tells}}
+\DoxyCodeLine{34 \textcolor{comment}{// Viewer that the event has been handled and that it should not be passed to}}
+\DoxyCodeLine{35 \textcolor{comment}{// other plugins or to other internal functions of Viewer}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{comment}{// Forward declaration of the viewer}}
+\DoxyCodeLine{38 \textcolor{keyword}{class }Viewer;}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer_plugin}{ViewerPlugin}}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42 \textcolor{keyword}{public}:}
+\DoxyCodeLine{43   IGL\_INLINE \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer_plugin}{ViewerPlugin}}()}
+\DoxyCodeLine{44   \{plugin\_name = \textcolor{stringliteral}{"{}dummy"{}};\}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46   \textcolor{keyword}{virtual} \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer_plugin}{\string~ViewerPlugin}}()\{\}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{comment}{// This function is called when the viewer is initialized (no mesh will be loaded at this stage)}}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} init(\mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{Viewer}} *\_viewer)}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     viewer = \_viewer;}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{comment}{// This function is called before shutdown}}
+\DoxyCodeLine{55   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} shutdown()}
+\DoxyCodeLine{56   \{}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \textcolor{comment}{// This function is called before a mesh is loaded}}
+\DoxyCodeLine{60   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} load(std::string filename)}
+\DoxyCodeLine{61   \{}
+\DoxyCodeLine{62     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65   \textcolor{comment}{// This function is called before a mesh is saved}}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} save(std::string filename)}
+\DoxyCodeLine{67   \{}
+\DoxyCodeLine{68     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{comment}{// This function is called when the scene is serialized}}
+\DoxyCodeLine{72   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} serialize(std::vector<char>\& buffer)\textcolor{keyword}{ const}}
+\DoxyCodeLine{73 \textcolor{keyword}{  }\{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{comment}{// This function is called when the scene is deserialized}}
+\DoxyCodeLine{78   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} deserialize(\textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{79   \{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83   \textcolor{comment}{// Runs immediately after a new mesh has been loaded.}}
+\DoxyCodeLine{84   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} post\_load()}
+\DoxyCodeLine{85   \{}
+\DoxyCodeLine{86     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{87   \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89   \textcolor{comment}{// This function is called before the draw procedure of Preview3D}}
+\DoxyCodeLine{90   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} pre\_draw()}
+\DoxyCodeLine{91   \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{comment}{// This function is called after the draw procedure of Preview3D}}
+\DoxyCodeLine{96   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} post\_draw()}
+\DoxyCodeLine{97   \{}
+\DoxyCodeLine{98     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101   \textcolor{comment}{// This function is called after the window has been resized}}
+\DoxyCodeLine{102   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} post\_resize(\textcolor{keywordtype}{int} w, \textcolor{keywordtype}{int} h)}
+\DoxyCodeLine{103   \{}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106   \textcolor{comment}{// This function is called when the mouse button is pressed}}
+\DoxyCodeLine{107   \textcolor{comment}{// -\/ button can be GLUT\_LEFT\_BUTTON, GLUT\_MIDDLE\_BUTTON or GLUT\_RIGHT\_BUTTON}}
+\DoxyCodeLine{108   \textcolor{comment}{// -\/ modifiers is a bitfield that might one or more of the following bits Preview3D::NO\_KEY, Preview3D::SHIFT, Preview3D::CTRL, Preview3D::ALT;}}
+\DoxyCodeLine{109   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_down(\textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} modifier)}
+\DoxyCodeLine{110   \{}
+\DoxyCodeLine{111     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114   \textcolor{comment}{// This function is called when the mouse button is released}}
+\DoxyCodeLine{115   \textcolor{comment}{// -\/ button can be GLUT\_LEFT\_BUTTON, GLUT\_MIDDLE\_BUTTON or GLUT\_RIGHT\_BUTTON}}
+\DoxyCodeLine{116   \textcolor{comment}{// -\/ modifiers is a bitfield that might one or more of the following bits Preview3D::NO\_KEY, Preview3D::SHIFT, Preview3D::CTRL, Preview3D::ALT;}}
+\DoxyCodeLine{117   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_up(\textcolor{keywordtype}{int} button, \textcolor{keywordtype}{int} modifier)}
+\DoxyCodeLine{118   \{}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122   \textcolor{comment}{// This function is called every time the mouse is moved}}
+\DoxyCodeLine{123   \textcolor{comment}{// -\/ mouse\_x and mouse\_y are the new coordinates of the mouse pointer in screen coordinates}}
+\DoxyCodeLine{124   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_move(\textcolor{keywordtype}{int} mouse\_x, \textcolor{keywordtype}{int} mouse\_y)}
+\DoxyCodeLine{125   \{}
+\DoxyCodeLine{126     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{127   \}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129   \textcolor{comment}{// This function is called every time the scroll wheel is moved}}
+\DoxyCodeLine{130   \textcolor{comment}{// Note: this callback is not working with every glut implementation}}
+\DoxyCodeLine{131   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} mouse\_scroll(\textcolor{keywordtype}{float} delta\_y)}
+\DoxyCodeLine{132   \{}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135 }
+\DoxyCodeLine{136   \textcolor{comment}{// This function is called when a keyboard key is pressed. Unlike key\_down}}
+\DoxyCodeLine{137   \textcolor{comment}{// this will reveal the actual character being sent (not just the physical}}
+\DoxyCodeLine{138   \textcolor{comment}{// key)}}
+\DoxyCodeLine{139   \textcolor{comment}{// -\/ modifiers is a bitfield that might one or more of the following bits Preview3D::NO\_KEY, Preview3D::SHIFT, Preview3D::CTRL, Preview3D::ALT;}}
+\DoxyCodeLine{140   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_pressed(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers)}
+\DoxyCodeLine{141   \{}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{143   \}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145   \textcolor{comment}{// This function is called when a keyboard key is down}}
+\DoxyCodeLine{146   \textcolor{comment}{// -\/ modifiers is a bitfield that might one or more of the following bits Preview3D::NO\_KEY, Preview3D::SHIFT, Preview3D::CTRL, Preview3D::ALT;}}
+\DoxyCodeLine{147   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_down(\textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers)}
+\DoxyCodeLine{148   \{}
+\DoxyCodeLine{149     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{150   \}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152   \textcolor{comment}{// This function is called when a keyboard key is release}}
+\DoxyCodeLine{153   \textcolor{comment}{// -\/ modifiers is a bitfield that might one or more of the following bits Preview3D::NO\_KEY, Preview3D::SHIFT, Preview3D::CTRL, Preview3D::ALT;}}
+\DoxyCodeLine{154   IGL\_INLINE \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} key\_up(\textcolor{keywordtype}{int} key, \textcolor{keywordtype}{int} modifiers)}
+\DoxyCodeLine{155   \{}
+\DoxyCodeLine{156     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{157   \}}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{159   std::string plugin\_name;}
+\DoxyCodeLine{160 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{161   \textcolor{comment}{// Pointer to the main Viewer class}}
+\DoxyCodeLine{162   \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer}{Viewer}} *viewer;}
+\DoxyCodeLine{163 \};}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165 \textcolor{keyword}{namespace }serialization}
+\DoxyCodeLine{166 \{}
+\DoxyCodeLine{167   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1opengl_1_1glfw_1_1_viewer_plugin}{ViewerPlugin}}\& obj,std::vector<char>\& buffer)}
+\DoxyCodeLine{168   \{}
+\DoxyCodeLine{169     obj.serialize(buffer);}
+\DoxyCodeLine{170   \}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172   \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(ViewerPlugin\& obj,\textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{173   \{}
+\DoxyCodeLine{174     obj.deserialize(buffer);}
+\DoxyCodeLine{175   \}}
+\DoxyCodeLine{176 \}}
+\DoxyCodeLine{177 }
+\DoxyCodeLine{178 \}}
+\DoxyCodeLine{179 \}}
+\DoxyCodeLine{180 \}}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

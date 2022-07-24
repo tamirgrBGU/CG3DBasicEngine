@@ -1,0 +1,100 @@
+\hypertarget{classigl_1_1_frame__field__deformer}{}\doxysection{igl\+::Frame\+\_\+field\+\_\+deformer Class Reference}
+\label{classigl_1_1_frame__field__deformer}\index{igl::Frame\_field\_deformer@{igl::Frame\_field\_deformer}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a3202431b22b814f934fa962ffa792d37}\label{classigl_1_1_frame__field__deformer_a3202431b22b814f934fa962ffa792d37}} 
+IGL\+\_\+\+INLINE void {\bfseries init} (const Eigen\+::\+Matrix\+Xd \&\+\_\+V, const Eigen\+::\+Matrix\+Xi \&\+\_\+F, const Eigen\+::\+Matrix\+Xd \&\+\_\+\+D1, const Eigen\+::\+Matrix\+Xd \&\+\_\+\+D2, double \+\_\+\+Lambda, double \+\_\+perturb\+\_\+rotations, int \+\_\+fixed=1)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a6ab200fd6f2830351204a7503b523709}\label{classigl_1_1_frame__field__deformer_a6ab200fd6f2830351204a7503b523709}} 
+IGL\+\_\+\+INLINE void {\bfseries optimize} (int N, bool reset=false)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a3c0c0ef1281c3a83b6ae23c7cd08be22}\label{classigl_1_1_frame__field__deformer_a3c0c0ef1281c3a83b6ae23c7cd08be22}} 
+IGL\+\_\+\+INLINE void {\bfseries reset\+\_\+opt} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a5e8a335abd8a62ac4d86bf7d120cee54}\label{classigl_1_1_frame__field__deformer_a5e8a335abd8a62ac4d86bf7d120cee54}} 
+IGL\+\_\+\+INLINE void {\bfseries precompute\+\_\+opt} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a131ff343f8bb6dce2c52fb43a7df4136}\label{classigl_1_1_frame__field__deformer_a131ff343f8bb6dce2c52fb43a7df4136}} 
+IGL\+\_\+\+INLINE void {\bfseries precompute\+\_\+\+ARAP} (Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&Lff, Eigen\+::\+Matrix\+Xd \&Lfc\+Vc)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a7c026c7ea8a5093e3f7c27a333b0aa34}\label{classigl_1_1_frame__field__deformer_a7c026c7ea8a5093e3f7c27a333b0aa34}} 
+IGL\+\_\+\+INLINE void {\bfseries precompute\+\_\+\+SMOOTH} (Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&MS, Eigen\+::\+Matrix\+Xd \&bS)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a60d443919320e38066c86ddfb32e33ac}\label{classigl_1_1_frame__field__deformer_a60d443919320e38066c86ddfb32e33ac}} 
+IGL\+\_\+\+INLINE void {\bfseries extract\+Block} (Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&mat, int r0, int c0, int r, int c, Eigen\+::\+Sparse\+Matrix$<$ double $>$ \&m1)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_ad2e7dbbfeda568690972277920be8eb7}\label{classigl_1_1_frame__field__deformer_ad2e7dbbfeda568690972277920be8eb7}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+\_\+optimal\+\_\+rotations} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_af5d38d10cda6897feb19eccd993772ad}\label{classigl_1_1_frame__field__deformer_af5d38d10cda6897feb19eccd993772ad}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+\_\+optimal\+\_\+positions} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_ab767733753f066bd53d080ebee87d803}\label{classigl_1_1_frame__field__deformer_ab767733753f066bd53d080ebee87d803}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+XField} (std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 2 $>$ $>$ \&XF)
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_af10e604b1dad22c9a91c969f07c3d881}\label{classigl_1_1_frame__field__deformer_af10e604b1dad22c9a91c969f07c3d881}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+\_\+ideal\+Warp} (std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 3 $>$ $>$ \&WW)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a93c8db92c18a057785320fe580aca1aa}\label{classigl_1_1_frame__field__deformer_a93c8db92c18a057785320fe580aca1aa}} 
+Eigen\+::\+Matrix\+Xd {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a96fc3986cbd2c9cad89a44dc52ec641d}\label{classigl_1_1_frame__field__deformer_a96fc3986cbd2c9cad89a44dc52ec641d}} 
+Eigen\+::\+Matrix\+Xi {\bfseries F}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a4ee63117e0396271a8cd9cfc6be33608}\label{classigl_1_1_frame__field__deformer_a4ee63117e0396271a8cd9cfc6be33608}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries VT}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a213939b9ccbdc5628265ff546998debb}\label{classigl_1_1_frame__field__deformer_a213939b9ccbdc5628265ff546998debb}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries VTi}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_af099aeca92702b1e5723c9b4abee8a7a}\label{classigl_1_1_frame__field__deformer_af099aeca92702b1e5723c9b4abee8a7a}} 
+Eigen\+::\+Matrix\+Xd {\bfseries V\+\_\+w}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a1ea3bf43e6bfd1e1e56b5d0044f0b380}\label{classigl_1_1_frame__field__deformer_a1ea3bf43e6bfd1e1e56b5d0044f0b380}} 
+std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 2 $>$ $>$ {\bfseries FF}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a7afe6e7ef936164a0a4cf8fa5b8f6d09}\label{classigl_1_1_frame__field__deformer_a7afe6e7ef936164a0a4cf8fa5b8f6d09}} 
+std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 3 $>$ $>$ {\bfseries WW}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_ae7e73663fbab265490478590a9d29748}\label{classigl_1_1_frame__field__deformer_ae7e73663fbab265490478590a9d29748}} 
+std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 2 $>$ $>$ {\bfseries XF}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_af94f9651d2358dbd108270023e76944f}\label{classigl_1_1_frame__field__deformer_af94f9651d2358dbd108270023e76944f}} 
+int {\bfseries fixed}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_abece452a300efe81593e1a69fd063004}\label{classigl_1_1_frame__field__deformer_abece452a300efe81593e1a69fd063004}} 
+double {\bfseries perturb\+\_\+rotations}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a24118696cb196d207bcd9be8de8288a0}\label{classigl_1_1_frame__field__deformer_a24118696cb196d207bcd9be8de8288a0}} 
+int {\bfseries nfree}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_ac86dceb9eb0ab20013341192934c2c9b}\label{classigl_1_1_frame__field__deformer_ac86dceb9eb0ab20013341192934c2c9b}} 
+int {\bfseries nconst}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_ab43c014e48c01ad2c16c18f6a47c607c}\label{classigl_1_1_frame__field__deformer_ab43c014e48c01ad2c16c18f6a47c607c}} 
+Eigen\+::\+Matrix\+Xd {\bfseries C}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a80fd70efdb7cd4bb24f13c136b385536}\label{classigl_1_1_frame__field__deformer_a80fd70efdb7cd4bb24f13c136b385536}} 
+Eigen\+::\+Sparse\+Matrix$<$ double $>$ {\bfseries L}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_aed33f5b2b2fce159d045e321b146b87f}\label{classigl_1_1_frame__field__deformer_aed33f5b2b2fce159d045e321b146b87f}} 
+Eigen\+::\+Sparse\+Matrix$<$ double $>$ {\bfseries M}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a655518cbca218d0a5459b50870247fff}\label{classigl_1_1_frame__field__deformer_a655518cbca218d0a5459b50870247fff}} 
+Eigen\+::\+Matrix\+Xd {\bfseries RHS}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a416a117d6aa6ac63e7ff84d104ba6854}\label{classigl_1_1_frame__field__deformer_a416a117d6aa6ac63e7ff84d104ba6854}} 
+std\+::vector$<$ Eigen\+::\+Matrix$<$ double, 3, 3 $>$ $>$ {\bfseries RW}
+\item 
+\mbox{\Hypertarget{classigl_1_1_frame__field__deformer_a084718cf725c4fdccb0c3a38b3adf9ae}\label{classigl_1_1_frame__field__deformer_a084718cf725c4fdccb0c3a38b3adf9ae}} 
+Eigen\+::\+Simplicial\+Cholesky$<$ Eigen\+::\+Sparse\+Matrix$<$ double $>$ $>$ {\bfseries solver}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/frame\+\_\+field\+\_\+deformer.\+cpp\end{DoxyCompactItemize}

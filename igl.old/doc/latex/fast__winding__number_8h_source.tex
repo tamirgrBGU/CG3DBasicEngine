@@ -1,0 +1,234 @@
+\hypertarget{fast__winding__number_8h_source}{}\doxysection{fast\+\_\+winding\+\_\+number.\+h}
+\label{fast__winding__number_8h_source}\index{igl/fast\_winding\_number.h@{igl/fast\_winding\_number.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_FAST\_WINDING\_NUMBER}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_FAST\_WINDING\_NUMBER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}FastWindingNumberForSoups.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{comment}{// Generate the precomputation for the fast winding number for point data}}
+\DoxyCodeLine{10   \textcolor{comment}{// [Barill et. al 2018].}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Given a set of 3D points P, with normals N, areas A, along with octree}}
+\DoxyCodeLine{13   \textcolor{comment}{// data, and an expansion order, we define a taylor series expansion at each}}
+\DoxyCodeLine{14   \textcolor{comment}{// octree cell.}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// The octree data is designed to come from igl::octree, and the areas (if not}}
+\DoxyCodeLine{17   \textcolor{comment}{// obtained at scan time), may be calculated using}}
+\DoxyCodeLine{18   \textcolor{comment}{// igl::copyleft::cgal::point\_areas.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{22   \textcolor{comment}{//   N  \#P by 3 list of point normals}}
+\DoxyCodeLine{23   \textcolor{comment}{//   A  \#P by 1 list of point areas}}
+\DoxyCodeLine{24   \textcolor{comment}{//   point\_indices  a vector of vectors, where the ith entry is a vector of}}
+\DoxyCodeLine{25   \textcolor{comment}{//                  the indices into P that are the ith octree cell's points}}
+\DoxyCodeLine{26   \textcolor{comment}{//   CH             \#OctreeCells by 8, where the ith row is the indices of}}
+\DoxyCodeLine{27   \textcolor{comment}{//                  the ith octree cell's children}}
+\DoxyCodeLine{28   \textcolor{comment}{//   expansion\_order    the order of the taylor expansion. We support 0,1,2.}}
+\DoxyCodeLine{29   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   CM  \#OctreeCells by 3 list of each cell's center of mass}}
+\DoxyCodeLine{31   \textcolor{comment}{//   R   \#OctreeCells by 1 list of each cell's maximum distance of any point}}
+\DoxyCodeLine{32   \textcolor{comment}{//       to the center of mass}}
+\DoxyCodeLine{33   \textcolor{comment}{//   EC  \#OctreeCells by \#TaylorCoefficients list of expansion coefficients.}}
+\DoxyCodeLine{34   \textcolor{comment}{//       (Note that \#TaylorCoefficients = ∑\_\{i=1\}\string^\{expansion\_order\} 3\string^i)}}
+\DoxyCodeLine{35   \textcolor{comment}{//}}
+\DoxyCodeLine{36   \textcolor{comment}{// See also: igl::copyleft::cgal::point\_areas, igl::knn}}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedA, }
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} Index, }
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedCH, }
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedCM, }
+\DoxyCodeLine{44     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DerivedEC>}
+\DoxyCodeLine{46   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA>\& A,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} std::vector<std::vector<Index> > \& point\_indices,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCH>\& CH,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keywordtype}{int} expansion\_order,}
+\DoxyCodeLine{53     Eigen::PlainObjectBase<DerivedCM>\& CM,}
+\DoxyCodeLine{54     Eigen::PlainObjectBase<DerivedR>\& R,}
+\DoxyCodeLine{55     Eigen::PlainObjectBase<DerivedEC>\& EC);}
+\DoxyCodeLine{56   \textcolor{comment}{// Evaluate the fast winding number for point data, having already done the}}
+\DoxyCodeLine{57   \textcolor{comment}{// the precomputation}}
+\DoxyCodeLine{58   \textcolor{comment}{//}}
+\DoxyCodeLine{59   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{60   \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{61   \textcolor{comment}{//   N  \#P by 3 list of point normals}}
+\DoxyCodeLine{62   \textcolor{comment}{//   A  \#P by 1 list of point areas}}
+\DoxyCodeLine{63   \textcolor{comment}{//   point\_indices  a vector of vectors, where the ith entry is a vector of}}
+\DoxyCodeLine{64   \textcolor{comment}{//                  the indices into P that are the ith octree cell's points}}
+\DoxyCodeLine{65   \textcolor{comment}{//   CH  \#OctreeCells by 8, where the ith row is the indices of}}
+\DoxyCodeLine{66   \textcolor{comment}{//       the ith octree cell's children}}
+\DoxyCodeLine{67   \textcolor{comment}{//   CM  \#OctreeCells by 3 list of each cell's center of mass}}
+\DoxyCodeLine{68   \textcolor{comment}{//   R   \#OctreeCells by 1 list of each cell's maximum distance of any point}}
+\DoxyCodeLine{69   \textcolor{comment}{//       to the center of mass}}
+\DoxyCodeLine{70   \textcolor{comment}{//   EC  \#OctreeCells by \#TaylorCoefficients list of expansion coefficients.}}
+\DoxyCodeLine{71   \textcolor{comment}{//        (Note that \#TaylorCoefficients = ∑\_\{i=1\}\string^\{expansion\_order\} 3\string^i)}}
+\DoxyCodeLine{72   \textcolor{comment}{//   Q  \#Q by 3 list of query points for the winding number}}
+\DoxyCodeLine{73   \textcolor{comment}{//   beta  This is a Barnes-\/Hut style accuracy term that separates near feild}}
+\DoxyCodeLine{74   \textcolor{comment}{//         from far field. The higher the beta, the more accurate and slower}}
+\DoxyCodeLine{75   \textcolor{comment}{//         the evaluation. We reccommend using a beta value of 2. Note that}}
+\DoxyCodeLine{76   \textcolor{comment}{//         for a beta value ≤ 0, we use the direct evaluation, rather than}}
+\DoxyCodeLine{77   \textcolor{comment}{//         the fast approximation}}
+\DoxyCodeLine{78   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{79   \textcolor{comment}{//   WN  \#Q by 1 list of windinng number values at each query point}}
+\DoxyCodeLine{80   \textcolor{comment}{//}}
+\DoxyCodeLine{81   \textcolor{keyword}{template} <}
+\DoxyCodeLine{82     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{83     \textcolor{keyword}{typename} DerivedA, }
+\DoxyCodeLine{84     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{85     \textcolor{keyword}{typename} Index, }
+\DoxyCodeLine{86     \textcolor{keyword}{typename} DerivedCH, }
+\DoxyCodeLine{87     \textcolor{keyword}{typename} DerivedCM, }
+\DoxyCodeLine{88     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{89     \textcolor{keyword}{typename} DerivedEC, }
+\DoxyCodeLine{90     \textcolor{keyword}{typename} DerivedQ, }
+\DoxyCodeLine{91     \textcolor{keyword}{typename} BetaType,}
+\DoxyCodeLine{92     \textcolor{keyword}{typename} DerivedWN>}
+\DoxyCodeLine{93   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{94     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{95     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{96     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA>\& A,}
+\DoxyCodeLine{97     \textcolor{keyword}{const} std::vector<std::vector<Index> > \& point\_indices,}
+\DoxyCodeLine{98     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCH>\& CH,}
+\DoxyCodeLine{99     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCM>\& CM,}
+\DoxyCodeLine{100     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedR>\& R,}
+\DoxyCodeLine{101     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEC>\& EC,}
+\DoxyCodeLine{102     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ>\& Q,}
+\DoxyCodeLine{103     \textcolor{keyword}{const} BetaType beta,}
+\DoxyCodeLine{104     Eigen::PlainObjectBase<DerivedWN>\& WN);}
+\DoxyCodeLine{105   \textcolor{keyword}{template} <}
+\DoxyCodeLine{106     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{107     \textcolor{keyword}{typename} DerivedA, }
+\DoxyCodeLine{108     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{109     \textcolor{keyword}{typename} DerivedQ, }
+\DoxyCodeLine{110     \textcolor{keyword}{typename} BetaType, }
+\DoxyCodeLine{111     \textcolor{keyword}{typename} DerivedWN>}
+\DoxyCodeLine{112   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{113     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{114     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{115     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA>\& A,}
+\DoxyCodeLine{116     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ>\& Q,}
+\DoxyCodeLine{117     \textcolor{keyword}{const} \textcolor{keywordtype}{int} expansion\_order,}
+\DoxyCodeLine{118     \textcolor{keyword}{const} BetaType beta,}
+\DoxyCodeLine{119     Eigen::PlainObjectBase<DerivedWN>\& WN);}
+\DoxyCodeLine{120   \textcolor{comment}{// Evaluate the fast winding number for point data, with default expansion}}
+\DoxyCodeLine{121   \textcolor{comment}{// order and beta (both are set to 2).}}
+\DoxyCodeLine{122   \textcolor{comment}{//}}
+\DoxyCodeLine{123   \textcolor{comment}{// This function performes the precomputation and evaluation all in one.}}
+\DoxyCodeLine{124   \textcolor{comment}{// If you need to acess the precomuptation for repeated evaluations, use the}}
+\DoxyCodeLine{125   \textcolor{comment}{// two functions designed for exposed precomputation (described above).}}
+\DoxyCodeLine{126   \textcolor{comment}{//}}
+\DoxyCodeLine{127   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{128   \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{129   \textcolor{comment}{//   N  \#P by 3 list of point normals}}
+\DoxyCodeLine{130   \textcolor{comment}{//   A  \#P by 1 list of point areas}}
+\DoxyCodeLine{131   \textcolor{comment}{//   Q  \#Q by 3 list of query points for the winding number}}
+\DoxyCodeLine{132   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{133   \textcolor{comment}{//   WN  \#Q by 1 list of windinng number values at each query point}}
+\DoxyCodeLine{134   \textcolor{comment}{//}}
+\DoxyCodeLine{135   \textcolor{keyword}{template} <}
+\DoxyCodeLine{136     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{137     \textcolor{keyword}{typename} DerivedA, }
+\DoxyCodeLine{138     \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{139     \textcolor{keyword}{typename} DerivedQ, }
+\DoxyCodeLine{140     \textcolor{keyword}{typename} DerivedWN>}
+\DoxyCodeLine{141   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{142     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{143     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{144     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA>\& A,}
+\DoxyCodeLine{145     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ>\& Q,}
+\DoxyCodeLine{146     Eigen::PlainObjectBase<DerivedWN>\& WN);}
+\DoxyCodeLine{147   \textcolor{comment}{// Class declaration}}
+\DoxyCodeLine{148   \textcolor{keyword}{namespace }FastWindingNumber \{ \textcolor{keyword}{namespace }HDK\_Sample\{ \textcolor{keyword}{template} <\textcolor{keyword}{typename} T1, \textcolor{keyword}{typename} T2> \textcolor{keyword}{class }UT\_SolidAngle;\} \}}
+\DoxyCodeLine{149   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{FastWindingNumberBVH}} \{}
+\DoxyCodeLine{150     \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{FastWindingNumber::HDK\_Sample::UT\_SolidAngle<float,float>}} ut\_solid\_angle;}
+\DoxyCodeLine{151     \textcolor{comment}{// Need copies of these so they stay alive between calls.}}
+\DoxyCodeLine{152     std::vector<FastWindingNumber::HDK\_Sample::UT\_Vector3T<float> > U;}
+\DoxyCodeLine{153     std::vector<int> F;}
+\DoxyCodeLine{154   \};}
+\DoxyCodeLine{155   \textcolor{comment}{// Compute approximate winding number of a triangle soup mesh according to}}
+\DoxyCodeLine{156   \textcolor{comment}{// "{}Fast Winding Numbers for Soups and Clouds"{} [Barill et al. 2018].}}
+\DoxyCodeLine{157   \textcolor{comment}{//}}
+\DoxyCodeLine{158   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{159   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{160   \textcolor{comment}{//   F  \#F by 3 list of triangle mesh indices into rows of V}}
+\DoxyCodeLine{161   \textcolor{comment}{//   Q  \#Q by 3 list of query positions}}
+\DoxyCodeLine{162   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{163   \textcolor{comment}{//   W  \#Q list of winding number values}}
+\DoxyCodeLine{164   \textcolor{keyword}{template} <}
+\DoxyCodeLine{165     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{166     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{167     \textcolor{keyword}{typename} DerivedQ,}
+\DoxyCodeLine{168     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{169   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{170     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{171     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{172     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ> \& Q,}
+\DoxyCodeLine{173     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{174   \textcolor{comment}{// Precomputation for computing approximate winding numbers of a triangle}}
+\DoxyCodeLine{175   \textcolor{comment}{// soup.}}
+\DoxyCodeLine{176   \textcolor{comment}{//}}
+\DoxyCodeLine{177   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{178   \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{179   \textcolor{comment}{//   F  \#F by 3 list of triangle mesh indices into rows of V}}
+\DoxyCodeLine{180   \textcolor{comment}{//   order  Taylor series expansion order to use (e.g., 2)}}
+\DoxyCodeLine{181   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{182   \textcolor{comment}{//   fwn\_bvh  Precomputed bounding volume hierarchy}}
+\DoxyCodeLine{183   \textcolor{comment}{//   }}
+\DoxyCodeLine{184   \textcolor{keyword}{template} <}
+\DoxyCodeLine{185     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{186     \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{187   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{188     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{189     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{190     \textcolor{keyword}{const} \textcolor{keywordtype}{int} order,}
+\DoxyCodeLine{191     \mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{FastWindingNumberBVH}} \& fwn\_bvh);}
+\DoxyCodeLine{192   \textcolor{comment}{// After precomputation, compute winding number at a each of many points in a}}
+\DoxyCodeLine{193   \textcolor{comment}{// list.}}
+\DoxyCodeLine{194   \textcolor{comment}{//}}
+\DoxyCodeLine{195   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{196   \textcolor{comment}{//   fwn\_bvh  Precomputed bounding volume hierarchy}}
+\DoxyCodeLine{197   \textcolor{comment}{//   accuracy\_scale  parameter controlling accuracy (e.g., 2)}}
+\DoxyCodeLine{198   \textcolor{comment}{//   Q  \#Q by 3 list of query positions}}
+\DoxyCodeLine{199   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{200   \textcolor{comment}{//   W  \#Q list of winding number values}}
+\DoxyCodeLine{201   \textcolor{keyword}{template} <}
+\DoxyCodeLine{202     \textcolor{keyword}{typename} DerivedQ,}
+\DoxyCodeLine{203     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{204   IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{205     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{FastWindingNumberBVH}} \& fwn\_bvh,}
+\DoxyCodeLine{206     \textcolor{keyword}{const} \textcolor{keywordtype}{float} accuracy\_scale,}
+\DoxyCodeLine{207     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ> \& Q,}
+\DoxyCodeLine{208     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{209   \textcolor{comment}{// After precomputation, compute winding number at a a single point}}
+\DoxyCodeLine{210   \textcolor{comment}{//}}
+\DoxyCodeLine{211   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{212   \textcolor{comment}{//   fwn\_bvh  Precomputed bounding volume hierarchy}}
+\DoxyCodeLine{213   \textcolor{comment}{//   accuracy\_scale  parameter controlling accuracy (e.g., 2)}}
+\DoxyCodeLine{214   \textcolor{comment}{//   p single position}}
+\DoxyCodeLine{215   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{216   \textcolor{comment}{//   w  winding number of this point}}
+\DoxyCodeLine{217   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedp>}
+\DoxyCodeLine{218   IGL\_INLINE \textcolor{keyword}{typename} Derivedp::Scalar fast\_winding\_number(}
+\DoxyCodeLine{219     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{FastWindingNumberBVH}} \& fwn\_bvh,}
+\DoxyCodeLine{220     \textcolor{keyword}{const} \textcolor{keywordtype}{float} accuracy\_scale,}
+\DoxyCodeLine{221     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedp> \& p);}
+\DoxyCodeLine{222 \}}
+\DoxyCodeLine{223 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{224 \textcolor{preprocessor}{\#  include "{}fast\_winding\_number.cpp"{}}}
+\DoxyCodeLine{225 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{228 }
+
+\end{DoxyCode}

@@ -1,0 +1,42 @@
+\hypertarget{dot__row_8h_source}{}\doxysection{dot\+\_\+row.\+h}
+\label{dot__row_8h_source}\index{igl/dot\_row.h@{igl/dot\_row.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DOT\_ROW\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DOT\_ROW\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl/igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Compute the dot product between each row of A and B}}
+\DoxyCodeLine{17   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   DerivedV derived from vertex positions matrix type: i.e. MatrixXd}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   A  eigen matrix r by c}}
+\DoxyCodeLine{21   \textcolor{comment}{//   B  eigen matrix r by c}}
+\DoxyCodeLine{22   \textcolor{comment}{// Returns:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   d a column vector with r entries that contains the dot product of each corresponding row of A and B}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{26   IGL\_INLINE DerivedV dot\_row(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& A,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& B);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#  include "{}dot\_row.cpp"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,58 @@
+\hypertarget{ismember_8h_source}{}\doxysection{ismember.\+h}
+\label{ismember_8h_source}\index{igl/ismember.h@{igl/ismember.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ISMEMBER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ISMEMBER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Determine if elements of A exist in elements of B}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   A  ma by na matrix}}
+\DoxyCodeLine{18   \textcolor{comment}{//   B  mb by nb matrix}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   IA  ma by na matrix of flags whether corresponding element of A exists in}}
+\DoxyCodeLine{21   \textcolor{comment}{//     B}}
+\DoxyCodeLine{22   \textcolor{comment}{//   LOCB  ma by na matrix of indices in B locating matching element (-\/1 if}}
+\DoxyCodeLine{23   \textcolor{comment}{//     not found), indices assume column major ordering}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedIA,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedLOCB>}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{void} ismember(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedIA> \& IA,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedLOCB> \& LOCB);}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedIA,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedLOCB>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} ismember\_rows(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedIA> \& IA,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedLOCB> \& LOCB);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}ismember.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 }
+
+\end{DoxyCode}

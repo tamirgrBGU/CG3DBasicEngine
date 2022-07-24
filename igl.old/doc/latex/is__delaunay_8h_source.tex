@@ -1,0 +1,70 @@
+\hypertarget{is__delaunay_8h_source}{}\doxysection{is\+\_\+delaunay.\+h}
+\label{is__delaunay_8h_source}\index{igl/is\_delaunay.h@{igl/is\_delaunay.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_IS\_DELAUNAY\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_IS\_DELAUNAY\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// IS\_DELAUNAY Determine if each edge in the mesh (V,F) is Delaunay.}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 list of triangles indices}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   D  \#F by 3 list of bools revealing whether edges corresponding 23 31 12}}
+\DoxyCodeLine{22   \textcolor{comment}{//     are locally Delaunay. Boundary edges are by definition Delaunay.}}
+\DoxyCodeLine{23   \textcolor{comment}{//     Non-\/Manifold edges are by definition not Delaunay.}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedD>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} is\_delaunay(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedD> \& D);}
+\DoxyCodeLine{32   \textcolor{comment}{// Determine whether a single edge is Delaunay using a provided (extrinsic) incirle}}
+\DoxyCodeLine{33   \textcolor{comment}{// test.}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{37   \textcolor{comment}{//   F  \#F by 3 list of triangles indices}}
+\DoxyCodeLine{38   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges (see}}
+\DoxyCodeLine{39   \textcolor{comment}{//     unique\_edge\_map)}}
+\DoxyCodeLine{40   \textcolor{comment}{//   incircle  A functor such that incircle(pa, pb, pc, pd) returns}}
+\DoxyCodeLine{41   \textcolor{comment}{//               1 if pd is on the positive size of circumcirle of (pa,pb,pc)}}
+\DoxyCodeLine{42   \textcolor{comment}{//              -\/1 if pd is on the positive size of circumcirle of (pa,pb,pc)}}
+\DoxyCodeLine{43   \textcolor{comment}{//               0 if pd is cocircular with pa, pb, pc.}}
+\DoxyCodeLine{44   \textcolor{comment}{//               (see delaunay\_triangulation)}}
+\DoxyCodeLine{45   \textcolor{comment}{//   uei  index into uE2E of edge to check}}
+\DoxyCodeLine{46   \textcolor{comment}{// Returns true iff edge is Delaunay}}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{49     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} InCircle,}
+\DoxyCodeLine{52     \textcolor{keyword}{typename} ueiType>}
+\DoxyCodeLine{53   IGL\_INLINE \textcolor{keywordtype}{bool} is\_delaunay(}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} std::vector<std::vector<uE2EType> > \& uE2E,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} InCircle incircle,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} ueiType uei);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#include "{}is\_delaunay.cpp"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

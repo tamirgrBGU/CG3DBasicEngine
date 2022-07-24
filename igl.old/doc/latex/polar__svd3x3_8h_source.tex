@@ -1,0 +1,49 @@
+\hypertarget{polar__svd3x3_8h_source}{}\doxysection{polar\+\_\+svd3x3.\+h}
+\label{polar__svd3x3_8h_source}\index{igl/polar\_svd3x3.h@{igl/polar\_svd3x3.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_POLAR\_SVD3X3\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_POLAR\_SVD3X3\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Computes the closest rotation to input matrix A using specialized 3x3 SVD}}
+\DoxyCodeLine{15   \textcolor{comment}{// singular value decomposition (WunderSVD3x3)}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   A  3 by 3 matrix to be decomposed}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   R  3 by 3 closest element in SO(3) (closeness in terms of Frobenius}}
+\DoxyCodeLine{21   \textcolor{comment}{//   metric)}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{//  This means that det(R) = 1. Technically it's not polar decomposition}}
+\DoxyCodeLine{24   \textcolor{comment}{//  which guarantees positive semidefinite stretch factor (at the cost of}}
+\DoxyCodeLine{25   \textcolor{comment}{//  having det(R) = -\/1). "{}• The orthogonal factors U and V will be true}}
+\DoxyCodeLine{26   \textcolor{comment}{//  rotation matrices..."{} [McAdams, Selle, Tamstorf, Teran, Sefakis 2011]}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{keyword}{template}<\textcolor{keyword}{typename} Mat>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} polar\_svd3x3(\textcolor{keyword}{const} Mat\& A, Mat\& R);}
+\DoxyCodeLine{30 \textcolor{preprocessor}{  \#ifdef \_\_SSE\_\_}}
+\DoxyCodeLine{31   \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} polar\_svd3x3\_sse(\textcolor{keyword}{const} Eigen::Matrix<T, 3*4, 3>\& A, Eigen::Matrix<T, 3*4, 3> \&R);}
+\DoxyCodeLine{33 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{  \#ifdef \_\_AVX\_\_}}
+\DoxyCodeLine{35   \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{36   IGL\_INLINE \textcolor{keywordtype}{void} polar\_svd3x3\_avx(\textcolor{keyword}{const} Eigen::Matrix<T, 3*8, 3>\& A, Eigen::Matrix<T, 3*8, 3> \&R);}
+\DoxyCodeLine{37 \textcolor{preprocessor}{  \#endif}}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#  include "{}polar\_svd3x3.cpp"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 }
+
+\end{DoxyCode}

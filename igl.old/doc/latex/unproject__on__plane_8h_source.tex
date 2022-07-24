@@ -1,0 +1,43 @@
+\hypertarget{unproject__on__plane_8h_source}{}\doxysection{unproject\+\_\+on\+\_\+plane.\+h}
+\label{unproject__on__plane_8h_source}\index{igl/unproject\_on\_plane.h@{igl/unproject\_on\_plane.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_UNPROJECT\_ON\_PLANE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_UNPROJECT\_ON\_PLANE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Given a screen space point (u,v) and the current projection matrix (e.g.}}
+\DoxyCodeLine{9   \textcolor{comment}{// gl\_proj * gl\_modelview) and viewport, \_unproject\_ the point into the scene}}
+\DoxyCodeLine{10   \textcolor{comment}{// so that it lies on given plane.}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   UV  2-\/long uv-\/coordinates of screen space point}}
+\DoxyCodeLine{14   \textcolor{comment}{//   M  4 by 4 projection matrix}}
+\DoxyCodeLine{15   \textcolor{comment}{//   VP  4-\/long viewport: (corner\_u, corner\_v, width, height)}}
+\DoxyCodeLine{16   \textcolor{comment}{//   P  4-\/long plane equation coefficients: P*(X 1) = 0}}
+\DoxyCodeLine{17   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   Z  3-\/long world coordinate}}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <}
+\DoxyCodeLine{20     \textcolor{keyword}{typename} DerivedUV,}
+\DoxyCodeLine{21     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{22     \textcolor{keyword}{typename} DerivedVP,}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedZ>}
+\DoxyCodeLine{25   \textcolor{keywordtype}{void} unproject\_on\_plane(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUV> \& UV,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVP> \& VP,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedZ> \& Z);}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#  include "{}unproject\_on\_plane.cpp"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

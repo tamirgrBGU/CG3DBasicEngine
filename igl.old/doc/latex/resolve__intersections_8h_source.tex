@@ -1,0 +1,57 @@
+\hypertarget{resolve__intersections_8h_source}{}\doxysection{resolve\+\_\+intersections.\+h}
+\label{resolve__intersections_8h_source}\index{igl/copyleft/cgal/resolve\_intersections.h@{igl/copyleft/cgal/resolve\_intersections.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_RESOLVE\_INTERSECTIONS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_RESOLVE\_INTERSECTIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{// RESOLVE\_INTERSECTIONS Given a list of possible intersecting segments with}}
+\DoxyCodeLine{18     \textcolor{comment}{// endpoints, split segments to overlap only at endpoints}}
+\DoxyCodeLine{19     \textcolor{comment}{//}}
+\DoxyCodeLine{20     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21     \textcolor{comment}{//   V  \#V by 2 list of vertex positions}}
+\DoxyCodeLine{22     \textcolor{comment}{//   E  \#E by 2 list of segment indices into V}}
+\DoxyCodeLine{23     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24     \textcolor{comment}{//   VI  \#VI by 2 list of output vertex positions, copies of V are always}}
+\DoxyCodeLine{25     \textcolor{comment}{//     the first \#V vertices}}
+\DoxyCodeLine{26     \textcolor{comment}{//   EI  \#EI by 2 list of segment indices into V, \#EI ≥ \#E}}
+\DoxyCodeLine{27     \textcolor{comment}{//   J  \#EI list of indices into E revealing "{}parent segments"{}}}
+\DoxyCodeLine{28     \textcolor{comment}{//   IM  \#VI list of indices into VV of unique vertices.}}
+\DoxyCodeLine{29     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{30     \{}
+\DoxyCodeLine{31       \textcolor{keyword}{template} <}
+\DoxyCodeLine{32         \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{33         \textcolor{keyword}{typename} DerivedE, }
+\DoxyCodeLine{34         \textcolor{keyword}{typename} DerivedVI, }
+\DoxyCodeLine{35         \textcolor{keyword}{typename} DerivedEI,}
+\DoxyCodeLine{36         \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{37         \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{38       IGL\_INLINE \textcolor{keywordtype}{void} resolve\_intersections(}
+\DoxyCodeLine{39         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{40         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{41         Eigen::PlainObjectBase<DerivedVI> \& VI,}
+\DoxyCodeLine{42         Eigen::PlainObjectBase<DerivedEI> \& EI,}
+\DoxyCodeLine{43         Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{44         Eigen::PlainObjectBase<DerivedIM> \& IM);}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}resolve\_intersections.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,84 @@
+\hypertarget{_singular___value___decomposition___preamble_8hpp_source}{}\doxysection{Singular\+\_\+\+Value\+\_\+\+Decomposition\+\_\+\+Preamble.\+hpp}
+\label{_singular___value___decomposition___preamble_8hpp_source}\index{igl/Singular\_Value\_Decomposition\_Preamble.hpp@{igl/Singular\_Value\_Decomposition\_Preamble.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{2 \textcolor{comment}{// Copyright (c) 2010-\/2011, Eftychios Sifakis.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 \textcolor{comment}{// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:}}
+\DoxyCodeLine{5 \textcolor{comment}{//   * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.}}
+\DoxyCodeLine{6 \textcolor{comment}{//   * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or}}
+\DoxyCodeLine{7 \textcolor{comment}{//     other materials provided with the distribution.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "{}AS IS"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,}}
+\DoxyCodeLine{10 \textcolor{comment}{// BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT}}
+\DoxyCodeLine{11 \textcolor{comment}{// SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL}}
+\DoxyCodeLine{12 \textcolor{comment}{// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS}}
+\DoxyCodeLine{13 \textcolor{comment}{// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING}}
+\DoxyCodeLine{14 \textcolor{comment}{// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.}}
+\DoxyCodeLine{15 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#ifdef PRINT\_DEBUGGING\_OUTPUT}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <iomanip>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{comment}{// Prevent warnings}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifdef ENABLE\_SCALAR\_IMPLEMENTATION}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#  undef ENABLE\_SCALAR\_IMPLEMENTATION}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifdef ENABLE\_SSE\_IMPLEMENTATION}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#  undef ENABLE\_SSE\_IMPLEMENTATION}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#ifdef ENABLE\_AVX\_IMPLEMENTATION}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#  undef ENABLE\_AVX\_IMPLEMENTATION}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifdef USE\_SCALAR\_IMPLEMENTATION}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define ENABLE\_SCALAR\_IMPLEMENTATION(X) X}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#define ENABLE\_SCALAR\_IMPLEMENTATION(X)}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifdef USE\_SSE\_IMPLEMENTATION}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#define ENABLE\_SSE\_IMPLEMENTATION(X) X}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define ENABLE\_SSE\_IMPLEMENTATION(X)}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifdef USE\_AVX\_IMPLEMENTATION}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include <immintrin.h>}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define ENABLE\_AVX\_IMPLEMENTATION(X) X}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{49 \textcolor{comment}{// Stefan: removed include. Why does it import MMX instructions, shouldn't this be under the \#ifdef USE\_SSE\_IMPLEMENTATION above?}}
+\DoxyCodeLine{50 \textcolor{comment}{//\#include <xmmintrin.h>}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define ENABLE\_AVX\_IMPLEMENTATION(X)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#ifdef USE\_SCALAR\_IMPLEMENTATION}}
+\DoxyCodeLine{55 \textcolor{comment}{// Alec: Why is this using sse intrinsics if it's supposed to be the scalar}}
+\DoxyCodeLine{56 \textcolor{comment}{// implementation?}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#ifdef \_\_SSE\_\_}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#include <mmintrin.h>}}
+\DoxyCodeLine{59 \textcolor{comment}{// Changed to inline}}
+\DoxyCodeLine{60 \textcolor{keyword}{inline} \textcolor{keywordtype}{float} rsqrt(\textcolor{keyword}{const} \textcolor{keywordtype}{float} f)}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62     \textcolor{keywordtype}{float} buf[4];}
+\DoxyCodeLine{63     buf[0]=f;}
+\DoxyCodeLine{64     \_\_m128 v=\_mm\_loadu\_ps(buf);}
+\DoxyCodeLine{65     v=\_mm\_rsqrt\_ss(v);}
+\DoxyCodeLine{66     \_mm\_storeu\_ps(buf,v);}
+\DoxyCodeLine{67     \textcolor{keywordflow}{return} buf[0];}
+\DoxyCodeLine{68 \}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{71 \textcolor{keyword}{inline} \textcolor{keywordtype}{float} rsqrt(\textcolor{keyword}{const} \textcolor{keywordtype}{float} f)}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73   \textcolor{keywordflow}{return} 1./sqrtf(f);}
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 }
+
+\end{DoxyCode}

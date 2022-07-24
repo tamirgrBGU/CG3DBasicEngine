@@ -1,0 +1,44 @@
+\hypertarget{bind__vertex__attrib__array_8h_source}{}\doxysection{bind\+\_\+vertex\+\_\+attrib\+\_\+array.\+h}
+\label{bind__vertex__attrib__array_8h_source}\index{igl/opengl/bind\_vertex\_attrib\_array.h@{igl/opengl/bind\_vertex\_attrib\_array.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_BIND\_VERTEX\_ATTRIB\_ARRAY\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_OPENGL\_BIND\_VERTEX\_ATTRIB\_ARRAY\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}gl.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include "{}glfw/VertexBuffer.hpp"{}}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{12   \{}
+\DoxyCodeLine{13     \textcolor{comment}{// Bind a per-\/vertex array attribute and refresh its contents from an Eigen}}
+\DoxyCodeLine{14     \textcolor{comment}{// matrix}}
+\DoxyCodeLine{15     \textcolor{comment}{//}}
+\DoxyCodeLine{16     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17     \textcolor{comment}{//   program\_shader  id of shader program}}
+\DoxyCodeLine{18     \textcolor{comment}{//   name  name of attribute in vertex shader}}
+\DoxyCodeLine{19     \textcolor{comment}{//   bufferID  id of buffer to bind to}}
+\DoxyCodeLine{20     \textcolor{comment}{//   M  \#V by dim matrix of per-\/vertex data}}
+\DoxyCodeLine{21     \textcolor{comment}{//   refresh  whether to actually call glBufferData or just bind the buffer}}
+\DoxyCodeLine{22     \textcolor{comment}{// Returns id of named attribute in shader}}
+\DoxyCodeLine{23     IGL\_INLINE GLint bind\_vertex\_attrib\_array(}
+\DoxyCodeLine{24       \textcolor{keyword}{const} GLuint program\_shader,}
+\DoxyCodeLine{25       \textcolor{keyword}{const} std::string \&name,}
+\DoxyCodeLine{26       \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}}\& vbo,}
+\DoxyCodeLine{27       \textcolor{keyword}{const} Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor> \&M,}
+\DoxyCodeLine{28       \textcolor{keywordtype}{bool} refresh);}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30       GLint bind\_vertex\_attrib\_array(\textcolor{keyword}{const} GLuint program\_shader, \textcolor{keyword}{const} std::string \&name, GLuint bufferID,}
+\DoxyCodeLine{31                                      \textcolor{keyword}{const} Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> \&M,}
+\DoxyCodeLine{32                                      \textcolor{keywordtype}{bool} refresh);}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include "{}bind\_vertex\_attrib\_array.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

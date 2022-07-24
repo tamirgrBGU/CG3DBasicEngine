@@ -1,0 +1,48 @@
+\hypertarget{random__search_8h_source}{}\doxysection{random\+\_\+search.\+h}
+\label{random__search_8h_source}\index{igl/random\_search.h@{igl/random\_search.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_RANDOM\_SEARCH\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_RANDOM\_SEARCH\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Solve the problem:}}
+\DoxyCodeLine{9   \textcolor{comment}{//}}
+\DoxyCodeLine{10   \textcolor{comment}{//   minimize f(x)}}
+\DoxyCodeLine{11   \textcolor{comment}{//   subject to lb ≤ x ≤ ub }}
+\DoxyCodeLine{12   \textcolor{comment}{// }}
+\DoxyCodeLine{13   \textcolor{comment}{// by uniform random search.}}
+\DoxyCodeLine{14   \textcolor{comment}{//}}
+\DoxyCodeLine{15   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{16   \textcolor{comment}{//   f  function to minimize}}
+\DoxyCodeLine{17   \textcolor{comment}{//   LB  \#X vector of finite lower bounds}}
+\DoxyCodeLine{18   \textcolor{comment}{//   UB  \#X vector of finite upper bounds}}
+\DoxyCodeLine{19   \textcolor{comment}{//   iters  number of iterations}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   X  \#X optimal parameter vector}}
+\DoxyCodeLine{22   \textcolor{comment}{// Returns f(X)}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} Scalar, }
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedX, }
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedLB, }
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedUB>}
+\DoxyCodeLine{29   IGL\_INLINE Scalar random\_search(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} std::function< Scalar (DerivedX \&) > f,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedLB> \& LB,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedUB> \& UB,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{int} iters,}
+\DoxyCodeLine{34     DerivedX \& X);}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}random\_search.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+
+\end{DoxyCode}

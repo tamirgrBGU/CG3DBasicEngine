@@ -1,0 +1,235 @@
+\hypertarget{cgal_2mesh__boolean_8h_source}{}\doxysection{mesh\+\_\+boolean.\+h}
+\label{cgal_2mesh__boolean_8h_source}\index{igl/copyleft/cgal/mesh\_boolean.h@{igl/copyleft/cgal/mesh\_boolean.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//                    Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{// }}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_MESH\_BOOLEAN\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_MESH\_BOOLEAN\_H}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../../MeshBooleanType.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{22   \{}
+\DoxyCodeLine{23     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{24     \{}
+\DoxyCodeLine{25       \textcolor{comment}{//  MESH\_BOOLEAN Compute boolean csg operations on "{}solid"{}, consistently}}
+\DoxyCodeLine{26       \textcolor{comment}{//  oriented meshes.}}
+\DoxyCodeLine{27       \textcolor{comment}{//}}
+\DoxyCodeLine{28       \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{29       \textcolor{comment}{//    VA  \#VA by 3 list of vertex positions of first mesh}}
+\DoxyCodeLine{30       \textcolor{comment}{//    FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{31       \textcolor{comment}{//    VB  \#VB by 3 list of vertex positions of second mesh}}
+\DoxyCodeLine{32       \textcolor{comment}{//    FB  \#FB by 3 list of triangle indices into VB}}
+\DoxyCodeLine{33       \textcolor{comment}{//    type  type of boolean operation}}
+\DoxyCodeLine{34       \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{35       \textcolor{comment}{//    VC  \#VC by 3 list of vertex positions of boolean result mesh}}
+\DoxyCodeLine{36       \textcolor{comment}{//    FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{37       \textcolor{comment}{//    J  \#FC list of indices into [FA;FA.rows()+FB] revealing "{}birth"{} facet}}
+\DoxyCodeLine{38       \textcolor{comment}{//  Returns true if inputs induce a piecewise constant winding number}}
+\DoxyCodeLine{39       \textcolor{comment}{//  field and type is valid}}
+\DoxyCodeLine{40       \textcolor{comment}{//}}
+\DoxyCodeLine{41       \textcolor{comment}{//  See also: mesh\_boolean\_cork, intersect\_other,}}
+\DoxyCodeLine{42       \textcolor{comment}{//  remesh\_self\_intersections}}
+\DoxyCodeLine{43       \textcolor{keyword}{template} <}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{47         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{48         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{49         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{50         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{51       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{52         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA > \& VA,}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA > \& FA,}
+\DoxyCodeLine{54         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVB > \& VB,}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFB > \& FB,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} MeshBooleanType \& type,}
+\DoxyCodeLine{57         Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{58         Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{59         Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{60       \textcolor{keyword}{template} <}
+\DoxyCodeLine{61         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{62         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{63         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{64         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{65         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{66         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{67         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{68       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{69         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA > \& VA,}
+\DoxyCodeLine{70         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA > \& FA,}
+\DoxyCodeLine{71         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVB > \& VB,}
+\DoxyCodeLine{72         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFB > \& FB,}
+\DoxyCodeLine{73         \textcolor{keyword}{const} std::string \& type\_str,}
+\DoxyCodeLine{74         Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{75         Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{76         Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{77       \textcolor{comment}{//}}
+\DoxyCodeLine{78       \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{79       \textcolor{comment}{//    VA  \#VA by 3 list of vertex positions of first mesh}}
+\DoxyCodeLine{80       \textcolor{comment}{//    FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{81       \textcolor{comment}{//    VB  \#VB by 3 list of vertex positions of second mesh}}
+\DoxyCodeLine{82       \textcolor{comment}{//    FB  \#FB by 3 list of triangle indices into VB}}
+\DoxyCodeLine{83       \textcolor{comment}{//    wind\_num\_op  function handle for filtering winding numbers from}}
+\DoxyCodeLine{84       \textcolor{comment}{//      tuples of integer values to [0,1] outside/inside values}}
+\DoxyCodeLine{85       \textcolor{comment}{//    keep  function handle for determining if a patch should be "{}kept"{}}}
+\DoxyCodeLine{86       \textcolor{comment}{//      in the output based on the winding number on either side}}
+\DoxyCodeLine{87       \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{88       \textcolor{comment}{//    VC  \#VC by 3 list of vertex positions of boolean result mesh}}
+\DoxyCodeLine{89       \textcolor{comment}{//    FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{90       \textcolor{comment}{//    J  \#FC list of indices into [FA;FB] revealing "{}birth"{} facet}}
+\DoxyCodeLine{91       \textcolor{comment}{//  Returns true iff inputs induce a piecewise constant winding number}}
+\DoxyCodeLine{92       \textcolor{comment}{//    field}}
+\DoxyCodeLine{93       \textcolor{comment}{//}}
+\DoxyCodeLine{94       \textcolor{comment}{//  See also: mesh\_boolean\_cork, intersect\_other,}}
+\DoxyCodeLine{95       \textcolor{comment}{//  remesh\_self\_intersections}}
+\DoxyCodeLine{96       \textcolor{keyword}{template} <}
+\DoxyCodeLine{97         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{98         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{99         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{100         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{101         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{102         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{103         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{104       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{105           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA> \& VA,}
+\DoxyCodeLine{106           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA> \& FA,}
+\DoxyCodeLine{107           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVB> \& VB,}
+\DoxyCodeLine{108           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFB> \& FB,}
+\DoxyCodeLine{109           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} Eigen::Matrix<int,1,Eigen::Dynamic>) >\& wind\_num\_op,}
+\DoxyCodeLine{110           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} \textcolor{keywordtype}{int}, \textcolor{keyword}{const} \textcolor{keywordtype}{int})> \& keep,}
+\DoxyCodeLine{111           Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{112           Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{113           Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{114       \textcolor{comment}{//  MESH\_BOOLEAN Variadic boolean operations}}
+\DoxyCodeLine{115       \textcolor{comment}{//}}
+\DoxyCodeLine{116       \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{117       \textcolor{comment}{//    Vlist  k-\/long list of lists of mesh vertex positions}}
+\DoxyCodeLine{118       \textcolor{comment}{//    Flist  k-\/long list of lists of mesh face indices, so that Flist[i] indexes}}
+\DoxyCodeLine{119       \textcolor{comment}{//      vertices in Vlist[i]}}
+\DoxyCodeLine{120       \textcolor{comment}{//    wind\_num\_op  function handle for filtering winding numbers from}}
+\DoxyCodeLine{121       \textcolor{comment}{//      n-\/tuples of integer values to [0,1] outside/inside values}}
+\DoxyCodeLine{122       \textcolor{comment}{//    keep  function handle for determining if a patch should be "{}kept"{}}}
+\DoxyCodeLine{123       \textcolor{comment}{//      in the output based on the winding number on either side}}
+\DoxyCodeLine{124       \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{125       \textcolor{comment}{//    VC  \#VC by 3 list of vertex positions of boolean result mesh}}
+\DoxyCodeLine{126       \textcolor{comment}{//    FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{127       \textcolor{comment}{//    J  \#FC list of indices into [Flist[0];Flist[1];...;Flist[k]]}}
+\DoxyCodeLine{128       \textcolor{comment}{//      revealing "{}birth"{} facet}}
+\DoxyCodeLine{129       \textcolor{comment}{//  Returns true iff inputs induce a piecewise constant winding number}}
+\DoxyCodeLine{130       \textcolor{comment}{//    field}}
+\DoxyCodeLine{131       \textcolor{comment}{//}}
+\DoxyCodeLine{132       \textcolor{comment}{//  See also: mesh\_boolean\_cork, intersect\_other,}}
+\DoxyCodeLine{133       \textcolor{comment}{//  remesh\_self\_intersections}}
+\DoxyCodeLine{134       \textcolor{keyword}{template} <}
+\DoxyCodeLine{135         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{136         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{137         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{138         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{139         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{140       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{141           \textcolor{keyword}{const} std::vector<DerivedV > \& Vlist,}
+\DoxyCodeLine{142           \textcolor{keyword}{const} std::vector<DerivedF > \& Flist,}
+\DoxyCodeLine{143           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} Eigen::Matrix<int,1,Eigen::Dynamic>) >\& wind\_num\_op,}
+\DoxyCodeLine{144           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} \textcolor{keywordtype}{int}, \textcolor{keyword}{const} \textcolor{keywordtype}{int})> \& keep,}
+\DoxyCodeLine{145           Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{146           Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{147           Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{148       \textcolor{keyword}{template} <}
+\DoxyCodeLine{149         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{150         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{151         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{152         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{153         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{154       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{155           \textcolor{keyword}{const} std::vector<DerivedV > \& Vlist,}
+\DoxyCodeLine{156           \textcolor{keyword}{const} std::vector<DerivedF > \& Flist,}
+\DoxyCodeLine{157           \textcolor{keyword}{const} MeshBooleanType \& type,}
+\DoxyCodeLine{158           Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{159           Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{160           Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{161       \textcolor{comment}{// Given a merged mesh (V,F) and list of sizes of inputs}}
+\DoxyCodeLine{162       \textcolor{comment}{//}}
+\DoxyCodeLine{163       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{164       \textcolor{comment}{//   V  \#V by 3 list of merged mesh vertex positions}}
+\DoxyCodeLine{165       \textcolor{comment}{//   F  \#F by 3 list of merged mesh face indices so that first sizes(0)}}
+\DoxyCodeLine{166       \textcolor{comment}{//     faces come from the first input, and the next sizes(1) faces come}}
+\DoxyCodeLine{167       \textcolor{comment}{//     from the second input, and so on.}}
+\DoxyCodeLine{168       \textcolor{comment}{//   sizes  \#inputs list of sizes so that sizes(i) is the \#faces in the}}
+\DoxyCodeLine{169       \textcolor{comment}{//     ith input}}
+\DoxyCodeLine{170       \textcolor{comment}{//    wind\_num\_op  function handle for filtering winding numbers from}}
+\DoxyCodeLine{171       \textcolor{comment}{//      tuples of integer values to [0,1] outside/inside values}}
+\DoxyCodeLine{172       \textcolor{comment}{//    keep  function handle for determining if a patch should be "{}kept"{}}}
+\DoxyCodeLine{173       \textcolor{comment}{//      in the output based on the winding number on either side}}
+\DoxyCodeLine{174       \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{175       \textcolor{comment}{//    VC  \#VC by 3 list of vertex positions of boolean result mesh}}
+\DoxyCodeLine{176       \textcolor{comment}{//    FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{177       \textcolor{comment}{//    J  \#FC list of birth parent indices}}
+\DoxyCodeLine{178       \textcolor{comment}{// }}
+\DoxyCodeLine{179       \textcolor{keyword}{template} <}
+\DoxyCodeLine{180         \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{181         \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{182         \textcolor{keyword}{typename} Derivedsizes,}
+\DoxyCodeLine{183         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{184         \textcolor{keyword}{typename} DerivedFC,}
+\DoxyCodeLine{185         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{186       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{187           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVV > \& VV,}
+\DoxyCodeLine{188           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFF > \& FF,}
+\DoxyCodeLine{189           \textcolor{keyword}{const} Eigen::MatrixBase<Derivedsizes> \& sizes,}
+\DoxyCodeLine{190           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} Eigen::Matrix<int,1,Eigen::Dynamic>) >\& wind\_num\_op,}
+\DoxyCodeLine{191           \textcolor{keyword}{const} std::function<\textcolor{keywordtype}{int}(\textcolor{keyword}{const} \textcolor{keywordtype}{int}, \textcolor{keyword}{const} \textcolor{keywordtype}{int})> \& keep,}
+\DoxyCodeLine{192           Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{193           Eigen::PlainObjectBase<DerivedFC > \& FC,}
+\DoxyCodeLine{194           Eigen::PlainObjectBase<DerivedJ > \& J);}
+\DoxyCodeLine{195       \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{196       \textcolor{comment}{//    VA  \#VA by 3 list of vertex positions of first mesh}}
+\DoxyCodeLine{197       \textcolor{comment}{//    FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{198       \textcolor{comment}{//    VB  \#VB by 3 list of vertex positions of second mesh}}
+\DoxyCodeLine{199       \textcolor{comment}{//    FB  \#FB by 3 list of triangle indices into VB}}
+\DoxyCodeLine{200       \textcolor{comment}{//    type  type of boolean operation}}
+\DoxyCodeLine{201       \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{202       \textcolor{comment}{//    VC  \#VC by 3 list of vertex positions of boolean result mesh}}
+\DoxyCodeLine{203       \textcolor{comment}{//    FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{204       \textcolor{comment}{//  Returns true ff inputs induce a piecewise constant winding number}}
+\DoxyCodeLine{205       \textcolor{comment}{//    field and type is valid}}
+\DoxyCodeLine{206       \textcolor{keyword}{template} <}
+\DoxyCodeLine{207         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{208         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{209         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{210         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{211         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{212         \textcolor{keyword}{typename} DerivedFC>}
+\DoxyCodeLine{213       IGL\_INLINE \textcolor{keywordtype}{bool} mesh\_boolean(}
+\DoxyCodeLine{214           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVA > \& VA,}
+\DoxyCodeLine{215           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFA > \& FA,}
+\DoxyCodeLine{216           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVB > \& VB,}
+\DoxyCodeLine{217           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFB > \& FB,}
+\DoxyCodeLine{218           \textcolor{keyword}{const} MeshBooleanType \& type,}
+\DoxyCodeLine{219           Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{220           Eigen::PlainObjectBase<DerivedFC > \& FC);}
+\DoxyCodeLine{221     \}}
+\DoxyCodeLine{222   \}}
+\DoxyCodeLine{223 \}}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{226 \textcolor{preprocessor}{\#  include "{}mesh\_boolean.cpp"{}}}
+\DoxyCodeLine{227 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

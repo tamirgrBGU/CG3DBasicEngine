@@ -1,0 +1,55 @@
+\hypertarget{frame__field__deformer_8h_source}{}\doxysection{frame\+\_\+field\+\_\+deformer.\+h}
+\label{frame__field__deformer_8h_source}\index{igl/frame\_field\_deformer.h@{igl/frame\_field\_deformer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FRAME\_FIELD\_DEFORMER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FRAME\_FIELD\_DEFORMER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Deform a mesh to transform the given per-\/face frame field to be as close}}
+\DoxyCodeLine{17   \textcolor{comment}{// as possible to a cross field, in the least square sense.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V       \#V by 3 coordinates of the vertices}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F       \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   FF1     \#F by 3 first representative vector of the frame field}}
+\DoxyCodeLine{23   \textcolor{comment}{//   FF2     \#F by 3 second representative vector of the frame field}}
+\DoxyCodeLine{24   \textcolor{comment}{//   lambda  laplacian regularization parameter 0=no regularization 1=full regularization}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   V\_d     \#F by 3 deformed, first representative vector}}
+\DoxyCodeLine{28   \textcolor{comment}{//   V\_d     \#F by 3 deformed, first representative vector}}
+\DoxyCodeLine{29   \textcolor{comment}{//   V\_d     \#F by 3 deformed, first representative vector}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} frame\_field\_deformer(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixXd\& V,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixXd\& FF1,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixXd\& FF2,}
+\DoxyCodeLine{36     Eigen::MatrixXd\&       V\_d,}
+\DoxyCodeLine{37     Eigen::MatrixXd\&       FF1\_d,}
+\DoxyCodeLine{38     Eigen::MatrixXd\&       FF2\_d,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \textcolor{keywordtype}{int}              iterations = 50,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keywordtype}{double}           lambda = 0.1,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{bool}             perturb\_initial\_guess = \textcolor{keyword}{true});}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#  include "{}frame\_field\_deformer.cpp"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

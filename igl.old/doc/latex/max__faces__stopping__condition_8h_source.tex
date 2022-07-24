@@ -1,0 +1,53 @@
+\hypertarget{max__faces__stopping__condition_8h_source}{}\doxysection{max\+\_\+faces\+\_\+stopping\+\_\+condition.\+h}
+\label{max__faces__stopping__condition_8h_source}\index{igl/max\_faces\_stopping\_condition.h@{igl/max\_faces\_stopping\_condition.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MAX\_FACES\_STOPPING\_CONDITION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MAX\_FACES\_STOPPING\_CONDITION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}decimate\_callback\_types.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Stopping condition function compatible with igl::decimate. The outpute}}
+\DoxyCodeLine{19   \textcolor{comment}{// function handle will return true if number of faces is less than max\_m}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   m  reference to working variable initially should be set to current}}
+\DoxyCodeLine{23   \textcolor{comment}{//    number of faces.}}
+\DoxyCodeLine{24   \textcolor{comment}{//   orig\_m  number (size) of original face list \_**not**\_ including any}}
+\DoxyCodeLine{25   \textcolor{comment}{//     faces added to handle phony boundary faces connecting to point at}}
+\DoxyCodeLine{26   \textcolor{comment}{//     infinity. For closed meshes it's safe to set this to F.rows()}}
+\DoxyCodeLine{27   \textcolor{comment}{//   max\_m  maximum number of faces}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   stopping\_condition}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} max\_faces\_stopping\_condition(}
+\DoxyCodeLine{32     \textcolor{keywordtype}{int} \& m,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{int} orig\_m,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_m,}
+\DoxyCodeLine{35     decimate\_stopping\_condition\_callback \& stopping\_condition);}
+\DoxyCodeLine{36   IGL\_INLINE decimate\_stopping\_condition\_callback}
+\DoxyCodeLine{37     max\_faces\_stopping\_condition(}
+\DoxyCodeLine{38       \textcolor{keywordtype}{int} \& m,}
+\DoxyCodeLine{39       \textcolor{keyword}{const} \textcolor{keywordtype}{int} orign\_m,}
+\DoxyCodeLine{40       \textcolor{keyword}{const} \textcolor{keywordtype}{int} max\_m);}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#  include "{}max\_faces\_stopping\_condition.cpp"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 }
+
+\end{DoxyCode}

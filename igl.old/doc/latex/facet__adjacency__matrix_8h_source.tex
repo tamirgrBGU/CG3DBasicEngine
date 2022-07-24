@@ -1,0 +1,39 @@
+\hypertarget{facet__adjacency__matrix_8h_source}{}\doxysection{facet\+\_\+adjacency\+\_\+matrix.\+h}
+\label{facet__adjacency__matrix_8h_source}\index{igl/facet\_adjacency\_matrix.h@{igl/facet\_adjacency\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FACET\_ADJACENCY\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FACET\_ADJACENCY\_MATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Construct a \#F×\#F adjacency matrix with A(i,j)>0 indicating that faces i and j}}
+\DoxyCodeLine{17   \textcolor{comment}{// share an edge.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by 3 list of facets}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   A  \#F by \#F adjacency matrix}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Atype>}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{void} facet\_adjacency\_matrix(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{26     Eigen::SparseMatrix<Atype> \& A);}
+\DoxyCodeLine{27 \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#  include "{}facet\_adjacency\_matrix.cpp"{}}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

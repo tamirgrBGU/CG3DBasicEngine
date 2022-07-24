@@ -1,0 +1,57 @@
+\hypertarget{crouzeix__raviart__massmatrix_8h_source}{}\doxysection{crouzeix\+\_\+raviart\+\_\+massmatrix.\+h}
+\label{crouzeix__raviart__massmatrix_8h_source}\index{igl/crouzeix\_raviart\_massmatrix.h@{igl/crouzeix\_raviart\_massmatrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef CROUZEIX\_RAVIART\_MASSMATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define CROUZEIX\_RAVIART\_MASSMATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// CROUZEIX\_RAVIART\_MASSMATRIX Compute the Crouzeix-\/Raviart mass matrix where}}
+\DoxyCodeLine{16   \textcolor{comment}{// M(e,e) is just the sum of the areas of the triangles on either side of an}}
+\DoxyCodeLine{17   \textcolor{comment}{// edge e.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// See for example "{}Discrete Quadratic Curvature Energies"{} [Wardetzky, Bergou,}}
+\DoxyCodeLine{20   \textcolor{comment}{// Harmon, Zorin, Grinspun 2007]}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3/4 list of triangle/tetrahedron indices}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   M  \#E by \#E edge/face-\/based diagonal mass matrix}}
+\DoxyCodeLine{27   \textcolor{comment}{//   E  \#E by 2/3 list of edges/faces}}
+\DoxyCodeLine{28   \textcolor{comment}{//   EMAP  \#F*3/4 list of indices mapping allE to E}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// See also: crouzeix\_raviart\_cotmatrix}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{32   \textcolor{keywordtype}{void} crouzeix\_raviart\_massmatrix(}
+\DoxyCodeLine{33       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{34       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{35       Eigen::SparseMatrix<MT> \& M,}
+\DoxyCodeLine{36       Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{37       Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{38   \textcolor{comment}{// wrapper if E and EMAP are already computed (better match!)}}
+\DoxyCodeLine{39   \textcolor{keyword}{template} <\textcolor{keyword}{typename} MT, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedE, \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{40   \textcolor{keywordtype}{void} crouzeix\_raviart\_massmatrix(}
+\DoxyCodeLine{41       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{42       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{43       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{44       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{45       Eigen::SparseMatrix<MT> \& M);}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}crouzeix\_raviart\_massmatrix.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50   }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

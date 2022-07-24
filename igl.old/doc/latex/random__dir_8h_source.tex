@@ -1,0 +1,37 @@
+\hypertarget{random__dir_8h_source}{}\doxysection{random\+\_\+dir.\+h}
+\label{random__dir_8h_source}\index{igl/random\_dir.h@{igl/random\_dir.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_RANDOM\_DIR\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_RANDOM\_DIR\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Generate a uniformly random unit direction in 3D, return as vector}}
+\DoxyCodeLine{17   IGL\_INLINE Eigen::Vector3d random\_dir();}
+\DoxyCodeLine{18   \textcolor{comment}{// Generate n stratified uniformly random unit directions in 3d, return as rows}}
+\DoxyCodeLine{19   \textcolor{comment}{// of an n by 3 matrix}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   n  number of directions}}
+\DoxyCodeLine{23   \textcolor{comment}{// Return n by 3 matrix of random directions}}
+\DoxyCodeLine{24   IGL\_INLINE Eigen::MatrixXd random\_dir\_stratified(\textcolor{keyword}{const} \textcolor{keywordtype}{int} n);}
+\DoxyCodeLine{25 \}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#  include "{}random\_dir.cpp"{}}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

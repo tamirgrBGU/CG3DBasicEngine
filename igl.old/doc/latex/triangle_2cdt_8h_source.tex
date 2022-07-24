@@ -1,0 +1,60 @@
+\hypertarget{triangle_2cdt_8h_source}{}\doxysection{cdt.\+h}
+\label{triangle_2cdt_8h_source}\index{igl/triangle/cdt.h@{igl/triangle/cdt.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_TRIANGLE\_CDT\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_TRIANGLE\_CDT\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 }
+\DoxyCodeLine{7 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{8 \{}
+\DoxyCodeLine{9   \textcolor{keyword}{namespace }triangle}
+\DoxyCodeLine{10   \{}
+\DoxyCodeLine{11     \textcolor{comment}{// CDT Construct the constrained delaunay triangulation of the convex hull}}
+\DoxyCodeLine{12     \textcolor{comment}{// of a given set of points and segments in 2D. This differs from a direct}}
+\DoxyCodeLine{13     \textcolor{comment}{// call to triangulate because it will preprocess the input to remove}}
+\DoxyCodeLine{14     \textcolor{comment}{// duplicates and return an adjusted segment list on the output.}}
+\DoxyCodeLine{15     \textcolor{comment}{// }}
+\DoxyCodeLine{16     \textcolor{comment}{//}}
+\DoxyCodeLine{17     \textcolor{comment}{// BACKGROUND\_MESH Construct a background mesh for a (messy) texture mesh with}}
+\DoxyCodeLine{18     \textcolor{comment}{// cosntraint edges that are about to deform.}}
+\DoxyCodeLine{19     \textcolor{comment}{// }}
+\DoxyCodeLine{20     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21     \textcolor{comment}{//   V  \#V by 2 list of texture mesh vertices}}
+\DoxyCodeLine{22     \textcolor{comment}{//   E  \#E by 2 list of constraint edge indices into V}}
+\DoxyCodeLine{23     \textcolor{comment}{//   flags  string of triangle flags should contain "{}-\/c"{} unless the}}
+\DoxyCodeLine{24     \textcolor{comment}{//     some subset of segments are known to enclose all other}}
+\DoxyCodeLine{25     \textcolor{comment}{//     points/segments.}}
+\DoxyCodeLine{26     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27     \textcolor{comment}{//   WV  \#WV by 2 list of background mesh vertices }}
+\DoxyCodeLine{28     \textcolor{comment}{//   WF  \#WF by 2 list of background mesh triangle indices into WV}}
+\DoxyCodeLine{29     \textcolor{comment}{//   WE  \#WE by 2 list of constraint edge indices into WV (might be smaller}}
+\DoxyCodeLine{30     \textcolor{comment}{//     than E because degenerate constraints have been removed)}}
+\DoxyCodeLine{31     \textcolor{comment}{//   J  \#V list of indices into WF/WE for each vertex in V}}
+\DoxyCodeLine{32     \textcolor{comment}{//}}
+\DoxyCodeLine{33     \textcolor{keyword}{template} <}
+\DoxyCodeLine{34       \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{35       \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{36       \textcolor{keyword}{typename} DerivedWV,}
+\DoxyCodeLine{37       \textcolor{keyword}{typename} DerivedWF,}
+\DoxyCodeLine{38       \textcolor{keyword}{typename} DerivedWE,}
+\DoxyCodeLine{39       \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{40     IGL\_INLINE \textcolor{keywordtype}{void} cdt(}
+\DoxyCodeLine{41       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{42       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{43       \textcolor{keyword}{const} std::string \& flags,}
+\DoxyCodeLine{44       Eigen::PlainObjectBase<DerivedWV> \& WV,}
+\DoxyCodeLine{45       Eigen::PlainObjectBase<DerivedWF> \& WF,}
+\DoxyCodeLine{46       Eigen::PlainObjectBase<DerivedWE> \& WE,}
+\DoxyCodeLine{47       Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#include "{}cdt.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

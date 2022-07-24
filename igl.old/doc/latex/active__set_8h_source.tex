@@ -1,0 +1,117 @@
+\hypertarget{active__set_8h_source}{}\doxysection{active\+\_\+set.\+h}
+\label{active__set_8h_source}\index{igl/active\_set.h@{igl/active\_set.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ACTIVE\_SET\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ACTIVE\_SET\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}SolverStatus.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{keyword}{struct }active\_set\_params;}
+\DoxyCodeLine{19   \textcolor{comment}{// Known Bugs: rows of [Aeq;Aieq] **must** be linearly independent. Should be}}
+\DoxyCodeLine{20   \textcolor{comment}{// using QR decomposition otherwise:}}
+\DoxyCodeLine{21   \textcolor{comment}{// https://v8doc.sas.com/sashtml/ormp/chap5/sect32.htm}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// ACTIVE\_SET Minimize quadratic energy }}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{// 0.5*Z'*A*Z + Z'*B + C with constraints}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// that Z(known) = Y, optionally also subject to the constraints Aeq*Z = Beq,}}
+\DoxyCodeLine{28   \textcolor{comment}{// and further optionally subject to the linear inequality constraints that}}
+\DoxyCodeLine{29   \textcolor{comment}{// Aieq*Z <= Bieq and constant inequality constraints lx <= x <= ux}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   A  n by n matrix of quadratic coefficients}}
+\DoxyCodeLine{33   \textcolor{comment}{//   B  n by 1 column of linear coefficients}}
+\DoxyCodeLine{34   \textcolor{comment}{//   known  list of indices to known rows in Z}}
+\DoxyCodeLine{35   \textcolor{comment}{//   Y  list of fixed values corresponding to known rows in Z}}
+\DoxyCodeLine{36   \textcolor{comment}{//   Aeq  meq by n list of linear equality constraint coefficients}}
+\DoxyCodeLine{37   \textcolor{comment}{//   Beq  meq by 1 list of linear equality constraint constant values}}
+\DoxyCodeLine{38   \textcolor{comment}{//   Aieq  mieq by n list of linear inequality constraint coefficients}}
+\DoxyCodeLine{39   \textcolor{comment}{//   Bieq  mieq by 1 list of linear inequality constraint constant values}}
+\DoxyCodeLine{40   \textcolor{comment}{//   lx  n by 1 list of lower bounds [] implies -\/Inf}}
+\DoxyCodeLine{41   \textcolor{comment}{//   ux  n by 1 list of upper bounds [] implies Inf}}
+\DoxyCodeLine{42   \textcolor{comment}{//   params  struct of additional parameters (see below)}}
+\DoxyCodeLine{43   \textcolor{comment}{//   Z  if not empty, is taken to be an n by 1 list of initial guess values}}
+\DoxyCodeLine{44   \textcolor{comment}{//     (see output)}}
+\DoxyCodeLine{45   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   Z  n by 1 list of solution values}}
+\DoxyCodeLine{47   \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{48   \textcolor{comment}{//}}
+\DoxyCodeLine{49   \textcolor{comment}{// Benchmark: For a harmonic solve on a mesh with 325K facets, matlab 2.2}}
+\DoxyCodeLine{50   \textcolor{comment}{// secs, igl/min\_quad\_with\_fixed.h 7.1 secs}}
+\DoxyCodeLine{51   \textcolor{comment}{//}}
+\DoxyCodeLine{52   \textcolor{keyword}{template} <}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} AT, }
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{55     \textcolor{keyword}{typename} Derivedknown, }
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedY,}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} AeqT,}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedBeq,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} AieqT,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedBieq,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} Derivedlx,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} Derivedux,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedZ}
+\DoxyCodeLine{64     >}
+\DoxyCodeLine{65   IGL\_INLINE igl::SolverStatus active\_set(}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::SparseMatrix<AT>\& A,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedB> \& B,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedknown> \& known,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedY> \& Y,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::SparseMatrix<AeqT>\& Aeq,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedBeq> \& Beq,}
+\DoxyCodeLine{72     \textcolor{keyword}{const} Eigen::SparseMatrix<AieqT>\& Aieq,}
+\DoxyCodeLine{73     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedBieq> \& Bieq,}
+\DoxyCodeLine{74     \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedlx> \& lx,}
+\DoxyCodeLine{75     \textcolor{keyword}{const} Eigen::PlainObjectBase<Derivedux> \& ux,}
+\DoxyCodeLine{76     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1active__set__params}{igl::active\_set\_params}} \& params,}
+\DoxyCodeLine{77     Eigen::PlainObjectBase<DerivedZ> \& Z}
+\DoxyCodeLine{78     );}
+\DoxyCodeLine{79 \};}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#include "{}EPS.h"{}}}
+\DoxyCodeLine{82 \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1active__set__params}{igl::active\_set\_params}}}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84   \textcolor{comment}{// Input parameters for active\_set:}}
+\DoxyCodeLine{85   \textcolor{comment}{//   Auu\_pd  whether Auu is positive definite \{false\}}}
+\DoxyCodeLine{86   \textcolor{comment}{//   max\_iter  Maximum number of iterations (0 = Infinity, \{100\})}}
+\DoxyCodeLine{87   \textcolor{comment}{//   inactive\_threshold  Threshold on Lagrange multiplier values to determine}}
+\DoxyCodeLine{88   \textcolor{comment}{//     whether to keep constraints active \{EPS\}}}
+\DoxyCodeLine{89   \textcolor{comment}{//   constraint\_threshold  Threshold on whether constraints are violated (0}}
+\DoxyCodeLine{90   \textcolor{comment}{//     is perfect) \{EPS\}}}
+\DoxyCodeLine{91   \textcolor{comment}{//   solution\_diff\_threshold  Threshold on the squared norm of the difference}}
+\DoxyCodeLine{92   \textcolor{comment}{//     between two consecutive solutions \{EPS\}}}
+\DoxyCodeLine{93   \textcolor{keywordtype}{bool} Auu\_pd;}
+\DoxyCodeLine{94   \textcolor{keywordtype}{int} max\_iter;}
+\DoxyCodeLine{95   \textcolor{keywordtype}{double} inactive\_threshold;}
+\DoxyCodeLine{96   \textcolor{keywordtype}{double} constraint\_threshold;}
+\DoxyCodeLine{97   \textcolor{keywordtype}{double} solution\_diff\_threshold;}
+\DoxyCodeLine{98   \mbox{\hyperlink{structigl_1_1active__set__params}{active\_set\_params}}():}
+\DoxyCodeLine{99     Auu\_pd(\textcolor{keyword}{false}),}
+\DoxyCodeLine{100     max\_iter(100),}
+\DoxyCodeLine{101     inactive\_threshold(igl::DOUBLE\_EPS),}
+\DoxyCodeLine{102     constraint\_threshold(igl::DOUBLE\_EPS),}
+\DoxyCodeLine{103     solution\_diff\_threshold(igl::DOUBLE\_EPS)}
+\DoxyCodeLine{104     \{\};}
+\DoxyCodeLine{105 \};}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#  include "{}active\_set.cpp"{}}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

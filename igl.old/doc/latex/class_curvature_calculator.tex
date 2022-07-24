@@ -1,0 +1,144 @@
+\hypertarget{class_curvature_calculator}{}\doxysection{Curvature\+Calculator Class Reference}
+\label{class_curvature_calculator}\index{CurvatureCalculator@{CurvatureCalculator}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_curvature_calculator_1_1_quadric}{Quadric}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ad18d1f7a39ee7bd88c604fb479e47bc3}\label{class_curvature_calculator_ad18d1f7a39ee7bd88c604fb479e47bc3}} 
+IGL\+\_\+\+INLINE void {\bfseries init} (const Eigen\+::\+Matrix\+Xd \&V, const Eigen\+::\+Matrix\+Xi \&F)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a16bcbed85a7354076df35fe98c4253e4}\label{class_curvature_calculator_a16bcbed85a7354076df35fe98c4253e4}} 
+IGL\+\_\+\+INLINE void {\bfseries final\+Eigen\+Stuff} (int, const std\+::vector$<$ Eigen\+::\+Vector3d $>$ \&, \mbox{\hyperlink{class_curvature_calculator_1_1_quadric}{Quadric}} \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a15a927f93c0715c7314f9785786deb5b}\label{class_curvature_calculator_a15a927f93c0715c7314f9785786deb5b}} 
+IGL\+\_\+\+INLINE void {\bfseries fit\+Quadric} (const Eigen\+::\+Vector3d \&, const std\+::vector$<$ Eigen\+::\+Vector3d $>$ \&ref, const std\+::vector$<$ int $>$ \&, \mbox{\hyperlink{class_curvature_calculator_1_1_quadric}{Quadric}} $\ast$)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a02aef6d1dc8ea6b664c7a38ae9e87777}\label{class_curvature_calculator_a02aef6d1dc8ea6b664c7a38ae9e87777}} 
+IGL\+\_\+\+INLINE void {\bfseries apply\+Proj\+On\+Plane} (const Eigen\+::\+Vector3d \&, const std\+::vector$<$ int $>$ \&, std\+::vector$<$ int $>$ \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a6de919e9e04fded99a433b1c653362d3}\label{class_curvature_calculator_a6de919e9e04fded99a433b1c653362d3}} 
+IGL\+\_\+\+INLINE void {\bfseries get\+Sphere} (const int, const double, std\+::vector$<$ int $>$ \&, int min)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a451898a669b960a0bb61025ef3f686b7}\label{class_curvature_calculator_a451898a669b960a0bb61025ef3f686b7}} 
+IGL\+\_\+\+INLINE void {\bfseries get\+KRing} (const int, const double, std\+::vector$<$ int $>$ \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a30f9b81b7b984365ac303fccc4889769}\label{class_curvature_calculator_a30f9b81b7b984365ac303fccc4889769}} 
+IGL\+\_\+\+INLINE Eigen\+::\+Vector3d {\bfseries project} (const Eigen\+::\+Vector3d \&, const Eigen\+::\+Vector3d \&, const Eigen\+::\+Vector3d \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a5bdd24b39bdee057ac30f2f94e2a4479}\label{class_curvature_calculator_a5bdd24b39bdee057ac30f2f94e2a4479}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+Reference\+Frame} (int, const Eigen\+::\+Vector3d \&, std\+::vector$<$ Eigen\+::\+Vector3d $>$ \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a09d5c2c2066da118394d5042838d3b4d}\label{class_curvature_calculator_a09d5c2c2066da118394d5042838d3b4d}} 
+IGL\+\_\+\+INLINE void {\bfseries get\+Average\+Normal} (int, const std\+::vector$<$ int $>$ \&, Eigen\+::\+Vector3d \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_aa00c7bf5995962b81b9815b62e9a3c97}\label{class_curvature_calculator_aa00c7bf5995962b81b9815b62e9a3c97}} 
+IGL\+\_\+\+INLINE void {\bfseries get\+Proj\+Plane} (int, const std\+::vector$<$ int $>$ \&, Eigen\+::\+Vector3d \&)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a6edeb8dbc63fb4e07fec0ebf396da239}\label{class_curvature_calculator_a6edeb8dbc63fb4e07fec0ebf396da239}} 
+IGL\+\_\+\+INLINE void {\bfseries apply\+Montecarlo} (const std\+::vector$<$ int $>$ \&, std\+::vector$<$ int $>$ $\ast$)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a9da678876b4ddd8a5b05702be7720db9}\label{class_curvature_calculator_a9da678876b4ddd8a5b05702be7720db9}} 
+IGL\+\_\+\+INLINE void {\bfseries compute\+Curvature} ()
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a6a0432ee25444624ada8e7f70f12979c}\label{class_curvature_calculator_a6a0432ee25444624ada8e7f70f12979c}} 
+IGL\+\_\+\+INLINE void {\bfseries print\+Curvature} (const std\+::string \&outpath)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a9af7e15318ef73f1c439f157a3a81612}\label{class_curvature_calculator_a9af7e15318ef73f1c439f157a3a81612}} 
+IGL\+\_\+\+INLINE double {\bfseries get\+Average\+Edge} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ab35331f9cf2f45aa2dbc7625cdfc9715}\label{class_curvature_calculator_ab35331f9cf2f45aa2dbc7625cdfc9715}} 
+static IGL\+\_\+\+INLINE int {\bfseries rotate\+Forward} (double $\ast$v0, double $\ast$v1, double $\ast$v2)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a516ca8a8ca583509e7e575f658840cf6}\label{class_curvature_calculator_a516ca8a8ca583509e7e575f658840cf6}} 
+static IGL\+\_\+\+INLINE void {\bfseries rotate\+Backward} (int nr, double $\ast$v0, double $\ast$v1, double $\ast$v2)
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a8a0590b330b93d44099348315f26edf5}\label{class_curvature_calculator_a8a0590b330b93d44099348315f26edf5}} 
+static IGL\+\_\+\+INLINE Eigen\+::\+Vector3d {\bfseries choose\+Max} (Eigen\+::\+Vector3d n, Eigen\+::\+Vector3d abc, double ab)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ae4b8ba87eafab3bfd9f99829b78d67f3}\label{class_curvature_calculator_ae4b8ba87eafab3bfd9f99829b78d67f3}} 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ {\bfseries curv}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a098b726baed041abb0f84748238c9633}\label{class_curvature_calculator_a098b726baed041abb0f84748238c9633}} 
+std\+::vector$<$ std\+::vector$<$ Eigen\+::\+Vector3d $>$ $>$ {\bfseries curv\+Dir}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a8bfbf56376b8a3b97fc130ffa1365683}\label{class_curvature_calculator_a8bfbf56376b8a3b97fc130ffa1365683}} 
+bool {\bfseries curvature\+Computed}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ac8a0ed9e65531a6c9274ad613e2bfe6e}\label{class_curvature_calculator_ac8a0ed9e65531a6c9274ad613e2bfe6e}} 
+Eigen\+::\+Matrix\+Xd {\bfseries vertices}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ac800d9c6c02a7757ac8826857378e6b4}\label{class_curvature_calculator_ac800d9c6c02a7757ac8826857378e6b4}} 
+Eigen\+::\+Matrix\+Xi {\bfseries faces}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a160a6e233feb410d6b45272e7fb5c5bf}\label{class_curvature_calculator_a160a6e233feb410d6b45272e7fb5c5bf}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries vertex\+\_\+to\+\_\+vertices}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_aa2ea0350e80ebcaeba554c238052871d}\label{class_curvature_calculator_aa2ea0350e80ebcaeba554c238052871d}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries vertex\+\_\+to\+\_\+faces}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_abe39aed8cffd05635c1cf27e0a2fca25}\label{class_curvature_calculator_abe39aed8cffd05635c1cf27e0a2fca25}} 
+std\+::vector$<$ std\+::vector$<$ int $>$ $>$ {\bfseries vertex\+\_\+to\+\_\+faces\+\_\+index}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a77a7378ff7845849e03d155559c4831a}\label{class_curvature_calculator_a77a7378ff7845849e03d155559c4831a}} 
+Eigen\+::\+Matrix\+Xd {\bfseries face\+\_\+normals}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a88e02bad5ebbf5a5116e432825f13a02}\label{class_curvature_calculator_a88e02bad5ebbf5a5116e432825f13a02}} 
+Eigen\+::\+Matrix\+Xd {\bfseries vertex\+\_\+normals}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a4ebeac6cc506c26433b108f7a3874b4e}\label{class_curvature_calculator_a4ebeac6cc506c26433b108f7a3874b4e}} 
+double {\bfseries sphere\+Radius}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ad177cd56fcf46ba68e8b61d4357474d2}\label{class_curvature_calculator_ad177cd56fcf46ba68e8b61d4357474d2}} 
+int {\bfseries k\+Ring}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_aa3ba90954885f2d8786b15faef27eca9}\label{class_curvature_calculator_aa3ba90954885f2d8786b15faef27eca9}} 
+bool {\bfseries local\+Mode}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a147f750471da6678be3cfae914300c9a}\label{class_curvature_calculator_a147f750471da6678be3cfae914300c9a}} 
+bool {\bfseries projection\+Plane\+Check}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a632cbf497420d2425068a7e04662f3fc}\label{class_curvature_calculator_a632cbf497420d2425068a7e04662f3fc}} 
+bool {\bfseries montecarlo}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_adbe5b3852791af5e284bd691a20e7a68}\label{class_curvature_calculator_adbe5b3852791af5e284bd691a20e7a68}} 
+unsigned int {\bfseries montecarloN}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_aea013e136341cfbf710fc2a4c7fc6926}\label{class_curvature_calculator_aea013e136341cfbf710fc2a4c7fc6926}} 
+search\+Type {\bfseries st}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a8ea6a16b83ddf042fe6582f779286ec6}\label{class_curvature_calculator_a8ea6a16b83ddf042fe6582f779286ec6}} 
+normal\+Type {\bfseries nt}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a4312ae5dee06240303e885d7e9879002}\label{class_curvature_calculator_a4312ae5dee06240303e885d7e9879002}} 
+double {\bfseries last\+Radius}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a120567c109150af4c7695bf0496d2be2}\label{class_curvature_calculator_a120567c109150af4c7695bf0496d2be2}} 
+double {\bfseries scaled\+Radius}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_aacb7ee0faa09af0f4ef6e340a78e674c}\label{class_curvature_calculator_aacb7ee0faa09af0f4ef6e340a78e674c}} 
+std\+::string {\bfseries last\+Mesh\+Name}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_ae1e5c8db97625f9f28bcdcc9aa79bfd8}\label{class_curvature_calculator_ae1e5c8db97625f9f28bcdcc9aa79bfd8}} 
+bool {\bfseries exp\+Step}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_a8b552215f61fad337f4ceabccfd88f81}\label{class_curvature_calculator_a8b552215f61fad337f4ceabccfd88f81}} 
+int {\bfseries step}
+\item 
+\mbox{\Hypertarget{class_curvature_calculator_af1fb368df370118878c8e0b50b2d09f2}\label{class_curvature_calculator_af1fb368df370118878c8e0b50b2d09f2}} 
+int {\bfseries max\+Size}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/principal\+\_\+curvature.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,87 @@
+\hypertarget{remesh__along__isoline_8h_source}{}\doxysection{remesh\+\_\+along\+\_\+isoline.\+h}
+\label{remesh__along__isoline_8h_source}\index{igl/remesh\_along\_isoline.h@{igl/remesh\_along\_isoline.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REMESH\_ALONG\_ISOLINE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REMESH\_ALONG\_ISOLINE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Given a triangle mesh and a scalar field, remesh so that a given isovalue}}
+\DoxyCodeLine{18   \textcolor{comment}{// of the scalar field follows (new) edges of the output mesh. Effectively}}
+\DoxyCodeLine{19   \textcolor{comment}{// running "{}marching triangles"{} on mesh, but not in any coherent order. The}}
+\DoxyCodeLine{20   \textcolor{comment}{// output mesh should be as manifold as the input.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into V}}
+\DoxyCodeLine{25   \textcolor{comment}{//   S  \#V by 1 list of scalar field}}
+\DoxyCodeLine{26   \textcolor{comment}{//   val  value of S to remesh along}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//  U  \#U by dim list of mesh vertex positions \#U>=\#V}}
+\DoxyCodeLine{29   \textcolor{comment}{//  G  \#G by 3 list of mesh triangle indices into U, \#G>=\#F}}
+\DoxyCodeLine{30   \textcolor{comment}{//  SU  \#U list of scalar field values over new mesh}}
+\DoxyCodeLine{31   \textcolor{comment}{//  J  \#G list of indices into F revealing birth triangles}}
+\DoxyCodeLine{32   \textcolor{comment}{//  BC  \#U by \#V sparse matrix of barycentric coordinates so that U = BC*V}}
+\DoxyCodeLine{33   \textcolor{comment}{//  L  \#G list of bools whether scalar field in triangle below or above val}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedU,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedG,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} BCtype,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedSU,}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedL>}
+\DoxyCodeLine{44     IGL\_INLINE \textcolor{keywordtype}{void} remesh\_along\_isoline(}
+\DoxyCodeLine{45       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{46       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{47       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedS> \& S,}
+\DoxyCodeLine{48       \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedS::Scalar val,}
+\DoxyCodeLine{49       Eigen::PlainObjectBase<DerivedU> \& U,}
+\DoxyCodeLine{50       Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{51       Eigen::PlainObjectBase<DerivedSU> \& SU,}
+\DoxyCodeLine{52       Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{53       Eigen::SparseMatrix<BCtype> \& BC,}
+\DoxyCodeLine{54       Eigen::PlainObjectBase<DerivedL> \& L);}
+\DoxyCodeLine{55   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{56   \textcolor{comment}{//   n  number of vertices (\#V)}}
+\DoxyCodeLine{57   \textcolor{keyword}{template} <}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{60     \textcolor{keyword}{typename} DerivedG,}
+\DoxyCodeLine{61     \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{62     \textcolor{keyword}{typename} BCtype,}
+\DoxyCodeLine{63     \textcolor{keyword}{typename} DerivedSU,}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DerivedL>}
+\DoxyCodeLine{65     IGL\_INLINE \textcolor{keywordtype}{void} remesh\_along\_isoline(}
+\DoxyCodeLine{66       \textcolor{keyword}{const} \textcolor{keywordtype}{int} n,}
+\DoxyCodeLine{67       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{68       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedS> \& S,}
+\DoxyCodeLine{69       \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedS::Scalar val,}
+\DoxyCodeLine{70       Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{71       Eigen::PlainObjectBase<DerivedSU> \& SU,}
+\DoxyCodeLine{72       Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{73       Eigen::SparseMatrix<BCtype> \& BC,}
+\DoxyCodeLine{74       Eigen::PlainObjectBase<DerivedL> \& L);}
+\DoxyCodeLine{75 \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#  include "{}remesh\_along\_isoline.cpp"{}}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

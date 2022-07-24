@@ -1,0 +1,327 @@
+\hypertarget{signed__distance_8h_source}{}\doxysection{signed\+\_\+distance.\+h}
+\label{signed__distance_8h_source}\index{igl/signed\_distance.h@{igl/signed\_distance.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SIGNED\_DISTANCE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SIGNED\_DISTANCE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}AABB.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}WindingNumberAABB.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}fast\_winding\_number.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{enum} SignedDistanceType}
+\DoxyCodeLine{20   \{}
+\DoxyCodeLine{21     \textcolor{comment}{// Use fast pseudo-\/normal test [Bærentzen \& Aanæs 2005]}}
+\DoxyCodeLine{22     SIGNED\_DISTANCE\_TYPE\_PSEUDONORMAL         = 0,}
+\DoxyCodeLine{23     \textcolor{comment}{// Use winding number [Jacobson, Kavan Sorking-\/Hornug 2013]}}
+\DoxyCodeLine{24     SIGNED\_DISTANCE\_TYPE\_WINDING\_NUMBER       = 1,}
+\DoxyCodeLine{25     SIGNED\_DISTANCE\_TYPE\_DEFAULT              = 2,}
+\DoxyCodeLine{26     SIGNED\_DISTANCE\_TYPE\_UNSIGNED             = 3,}
+\DoxyCodeLine{27     \textcolor{comment}{// Use Fast winding number [Barill, Dickson, Schmidt, Levin, Jacobson 2018]}}
+\DoxyCodeLine{28     SIGNED\_DISTANCE\_TYPE\_FAST\_WINDING\_NUMBER  = 4,}
+\DoxyCodeLine{29     NUM\_SIGNED\_DISTANCE\_TYPE                  = 5}
+\DoxyCodeLine{30   \};}
+\DoxyCodeLine{31   \textcolor{comment}{// Computes signed distance to a mesh}}
+\DoxyCodeLine{32   \textcolor{comment}{//}}
+\DoxyCodeLine{33   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{34   \textcolor{comment}{//   P  \#P by 3 list of query point positions}}
+\DoxyCodeLine{35   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{36   \textcolor{comment}{//   F  \#F by ss list of triangle indices, ss should be 3 unless sign\_type ==}}
+\DoxyCodeLine{37   \textcolor{comment}{//     SIGNED\_DISTANCE\_TYPE\_UNSIGNED}}
+\DoxyCodeLine{38   \textcolor{comment}{//   sign\_type  method for computing distance \_sign\_ S}}
+\DoxyCodeLine{39   \textcolor{comment}{//   lower\_bound  lower bound of distances needed \{std::numeric\_limits::min\}}}
+\DoxyCodeLine{40   \textcolor{comment}{//   upper\_bound  lower bound of distances needed \{std::numeric\_limits::max\}}}
+\DoxyCodeLine{41   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{42   \textcolor{comment}{//   S  \#P list of smallest signed distances}}
+\DoxyCodeLine{43   \textcolor{comment}{//   I  \#P list of facet indices corresponding to smallest distances}}
+\DoxyCodeLine{44   \textcolor{comment}{//   C  \#P by 3 list of closest points}}
+\DoxyCodeLine{45   \textcolor{comment}{//   N  \#P by 3 list of closest normals (only set if}}
+\DoxyCodeLine{46   \textcolor{comment}{//     sign\_type=SIGNED\_DISTANCE\_TYPE\_PSEUDONORMAL)}}
+\DoxyCodeLine{47   \textcolor{comment}{//}}
+\DoxyCodeLine{48   \textcolor{comment}{// Known bugs: This only computes distances to triangles. So unreferenced}}
+\DoxyCodeLine{49   \textcolor{comment}{// vertices and degenerate triangles are ignored.}}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{52     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{55     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{58   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance(}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{61     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{62     \textcolor{keyword}{const} SignedDistanceType sign\_type,}
+\DoxyCodeLine{63     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar lower\_bound,}
+\DoxyCodeLine{64     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar upper\_bound,}
+\DoxyCodeLine{65     Eigen::PlainObjectBase<DerivedS> \& S,}
+\DoxyCodeLine{66     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{67     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{68     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{69   \textcolor{comment}{// Computes signed distance to a mesh, with default bounds}}
+\DoxyCodeLine{70   \textcolor{comment}{//}}
+\DoxyCodeLine{71   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{72   \textcolor{comment}{//   P  \#P by 3 list of query point positions}}
+\DoxyCodeLine{73   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{74   \textcolor{comment}{//   F  \#F by ss list of triangle indices, ss should be 3 unless sign\_type ==}}
+\DoxyCodeLine{75   \textcolor{comment}{//     SIGNED\_DISTANCE\_TYPE\_UNSIGNED}}
+\DoxyCodeLine{76   \textcolor{comment}{//   sign\_type  method for computing distance \_sign\_ S}}
+\DoxyCodeLine{77   \textcolor{comment}{//   lower\_bound  lower bound of distances needed \{std::numeric\_limits::min\}}}
+\DoxyCodeLine{78   \textcolor{comment}{//   upper\_bound  lower bound of distances needed \{std::numeric\_limits::max\}}}
+\DoxyCodeLine{79   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{80   \textcolor{comment}{//   S  \#P list of smallest signed distances}}
+\DoxyCodeLine{81   \textcolor{comment}{//   I  \#P list of facet indices corresponding to smallest distances}}
+\DoxyCodeLine{82   \textcolor{comment}{//   C  \#P by 3 list of closest points}}
+\DoxyCodeLine{83   \textcolor{comment}{//   N  \#P by 3 list of closest normals (only set if}}
+\DoxyCodeLine{84   \textcolor{comment}{//     sign\_type=SIGNED\_DISTANCE\_TYPE\_PSEUDONORMAL)}}
+\DoxyCodeLine{85   \textcolor{keyword}{template} <}
+\DoxyCodeLine{86     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{87     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{88     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{89     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{90     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{91     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{92     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{93   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance(}
+\DoxyCodeLine{94     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{95     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{96     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{97     \textcolor{keyword}{const} SignedDistanceType sign\_type,}
+\DoxyCodeLine{98     Eigen::PlainObjectBase<DerivedS> \& S,}
+\DoxyCodeLine{99     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{100     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{101     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{102   \textcolor{comment}{// Computes signed distance to mesh using pseudonormal with precomputed AABB tree and edge/vertice normals}}
+\DoxyCodeLine{103   \textcolor{comment}{//}}
+\DoxyCodeLine{104   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{105   \textcolor{comment}{//   tree  AABB acceleration tree (see AABB.h)}}
+\DoxyCodeLine{106   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{107   \textcolor{comment}{//   FN  \#F by 3 list of triangle normals }}
+\DoxyCodeLine{108   \textcolor{comment}{//   VN  \#V by 3 list of vertex normals (ANGLE WEIGHTING)}}
+\DoxyCodeLine{109   \textcolor{comment}{//   EN  \#E by 3 list of edge normals (UNIFORM WEIGHTING)}}
+\DoxyCodeLine{110   \textcolor{comment}{//   EMAP  \#F*3 mapping edges in F to E}}
+\DoxyCodeLine{111   \textcolor{comment}{//   q  Query point}}
+\DoxyCodeLine{112   \textcolor{comment}{// Returns signed distance to mesh}}
+\DoxyCodeLine{113   \textcolor{comment}{//}}
+\DoxyCodeLine{114   \textcolor{keyword}{template} <}
+\DoxyCodeLine{115     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{116     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{117     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{118     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{119     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{120     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{121     \textcolor{keyword}{typename} Derivedq>}
+\DoxyCodeLine{122   IGL\_INLINE \textcolor{keyword}{typename} DerivedV::Scalar signed\_distance\_pseudonormal(}
+\DoxyCodeLine{123     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{124     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{125     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{126     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN> \& FN,}
+\DoxyCodeLine{127     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{128     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{129     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{130     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q);}
+\DoxyCodeLine{131   \textcolor{keyword}{template} <}
+\DoxyCodeLine{132     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{133     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{134     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{135     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{136     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{137     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{138     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{139     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{140     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{141     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{142     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{143   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_pseudonormal(}
+\DoxyCodeLine{144     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{145     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{146     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{147     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{148     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN> \& FN,}
+\DoxyCodeLine{149     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{150     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{151     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{152     Eigen::PlainObjectBase<DerivedS> \& S,}
+\DoxyCodeLine{153     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{154     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{155     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{156   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{157   \textcolor{comment}{//   s  sign}}
+\DoxyCodeLine{158   \textcolor{comment}{//   sqrd  squared distance}}
+\DoxyCodeLine{159   \textcolor{comment}{//   i  closest primitive}}
+\DoxyCodeLine{160   \textcolor{comment}{//   c  closest point}}
+\DoxyCodeLine{161   \textcolor{comment}{//   n  normal}}
+\DoxyCodeLine{162   \textcolor{keyword}{template} <}
+\DoxyCodeLine{163     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{164     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{165     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{166     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{167     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{168     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{169     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{170     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{171     \textcolor{keyword}{typename} Derivedc,}
+\DoxyCodeLine{172     \textcolor{keyword}{typename} Derivedn>}
+\DoxyCodeLine{173   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_pseudonormal(}
+\DoxyCodeLine{174     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{175     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{176     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{177     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN> \& FN,}
+\DoxyCodeLine{178     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{179     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{180     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{181     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{182     Scalar \& s,}
+\DoxyCodeLine{183     Scalar \& sqrd,}
+\DoxyCodeLine{184     \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{185     Eigen::PlainObjectBase<Derivedc> \& c,}
+\DoxyCodeLine{186     Eigen::PlainObjectBase<Derivedn> \& n);}
+\DoxyCodeLine{187   \textcolor{keyword}{template} <}
+\DoxyCodeLine{188     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{189     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{190     \textcolor{keyword}{typename} DerivedEN,}
+\DoxyCodeLine{191     \textcolor{keyword}{typename} DerivedVN,}
+\DoxyCodeLine{192     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{193     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{194     \textcolor{keyword}{typename} Derivedc,}
+\DoxyCodeLine{195     \textcolor{keyword}{typename} Derivedn>}
+\DoxyCodeLine{196   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_pseudonormal(}
+\DoxyCodeLine{197     \textcolor{keyword}{const} AABB<DerivedV,2> \& tree,}
+\DoxyCodeLine{198     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{199     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{200     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEN> \& EN,}
+\DoxyCodeLine{201     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVN> \& VN,}
+\DoxyCodeLine{202     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{203     Scalar \& s,}
+\DoxyCodeLine{204     Scalar \& sqrd,}
+\DoxyCodeLine{205     \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{206     Eigen::PlainObjectBase<Derivedc> \& c,}
+\DoxyCodeLine{207     Eigen::PlainObjectBase<Derivedn> \& n);}
+\DoxyCodeLine{208   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{209   \textcolor{comment}{//   tree  AABB acceleration tree (see cgal/point\_mesh\_squared\_distance.h)}}
+\DoxyCodeLine{210   \textcolor{comment}{//   hier  Winding number evaluation hierarchy}}
+\DoxyCodeLine{211   \textcolor{comment}{//   q  Query point}}
+\DoxyCodeLine{212   \textcolor{comment}{// Returns signed distance to mesh}}
+\DoxyCodeLine{213   \textcolor{keyword}{template} <}
+\DoxyCodeLine{214     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{215     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{216     \textcolor{keyword}{typename} Derivedq>}
+\DoxyCodeLine{217   IGL\_INLINE \textcolor{keyword}{typename} DerivedV::Scalar signed\_distance\_winding\_number(}
+\DoxyCodeLine{218     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{219     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{220     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{221     \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Derivedq,DerivedV,DerivedF>}} \& hier,}
+\DoxyCodeLine{222     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q);}
+\DoxyCodeLine{223   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{224   \textcolor{comment}{//   s  sign}}
+\DoxyCodeLine{225   \textcolor{comment}{//   sqrd  squared distance}}
+\DoxyCodeLine{226   \textcolor{comment}{//   pp  closest point and primitve}}
+\DoxyCodeLine{227   \textcolor{keyword}{template} <}
+\DoxyCodeLine{228     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{229     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{230     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{231     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{232     \textcolor{keyword}{typename} Derivedc>}
+\DoxyCodeLine{233   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_winding\_number(}
+\DoxyCodeLine{234     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{235     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{236     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{237     \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Derivedq,DerivedV,DerivedF>}} \& hier,}
+\DoxyCodeLine{238     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{239     Scalar \& s,}
+\DoxyCodeLine{240     Scalar \& sqrd,}
+\DoxyCodeLine{241     \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{242     Eigen::PlainObjectBase<Derivedc> \& c);}
+\DoxyCodeLine{243   \textcolor{keyword}{template} <}
+\DoxyCodeLine{244     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{245     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{246     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{247     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{248     \textcolor{keyword}{typename} Derivedc>}
+\DoxyCodeLine{249   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_winding\_number(}
+\DoxyCodeLine{250     \textcolor{keyword}{const} AABB<DerivedV,2> \& tree,}
+\DoxyCodeLine{251     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{252     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{253     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{254     Scalar \& s,}
+\DoxyCodeLine{255     Scalar \& sqrd,}
+\DoxyCodeLine{256     \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{257     Eigen::PlainObjectBase<Derivedc> \& c);}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260   \textcolor{comment}{// Calculates signed distance at query points P, using fast winding number}}
+\DoxyCodeLine{261   \textcolor{comment}{//   for sign.}}
+\DoxyCodeLine{262   \textcolor{comment}{//}}
+\DoxyCodeLine{263   \textcolor{comment}{// Usage:}}
+\DoxyCodeLine{264   \textcolor{comment}{//     VectorXd S;  }}
+\DoxyCodeLine{265   \textcolor{comment}{//     VectorXd V, P; //where V is mesh vertices, P are query points}}
+\DoxyCodeLine{266   \textcolor{comment}{//     VectorXi F;  }}
+\DoxyCodeLine{267   \textcolor{comment}{//     igl::FastWindingNumberBVH fwn\_bvh;}}
+\DoxyCodeLine{268   \textcolor{comment}{//     igl::fast\_winding\_number(V.cast<float>(), F, 2, fwn\_bvh);}}
+\DoxyCodeLine{269   \textcolor{comment}{//     igl::signed\_distance\_fast\_winding\_number(P,V,F,tree,fwn\_bvh,S);}}
+\DoxyCodeLine{270   \textcolor{comment}{//}}
+\DoxyCodeLine{271   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{272   \textcolor{comment}{//   P  \#P by 3 list of query point positions}}
+\DoxyCodeLine{273   \textcolor{comment}{//   V  \#V by 3 list of triangle indices}}
+\DoxyCodeLine{274   \textcolor{comment}{//   F  \#F by 3 list of triangle normals }}
+\DoxyCodeLine{275   \textcolor{comment}{//   tree  AABB acceleration tree (see AABB.h)}}
+\DoxyCodeLine{276   \textcolor{comment}{//   bvh fast winding precomputation (see Fast\_Winding\_Number.h)   }}
+\DoxyCodeLine{277   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{278   \textcolor{comment}{//   S  \#P list of signed distances of each point in P}}
+\DoxyCodeLine{279   \textcolor{keyword}{template} <}
+\DoxyCodeLine{280     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{281     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{282     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{283     \textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{284   IGL\_INLINE \textcolor{keywordtype}{void} signed\_distance\_fast\_winding\_number(}
+\DoxyCodeLine{285     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{286     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{287     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{288     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{289     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{igl::FastWindingNumberBVH}} \& fwn\_bvh,}
+\DoxyCodeLine{290     Eigen::PlainObjectBase<DerivedS> \& S}
+\DoxyCodeLine{291   );}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{293   \textcolor{comment}{// Calculates signed distance at query point q, using fast winding number}}
+\DoxyCodeLine{294   \textcolor{comment}{//   for sign.}}
+\DoxyCodeLine{295   \textcolor{comment}{//}}
+\DoxyCodeLine{296   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{297   \textcolor{comment}{//   tree  AABB acceleration tree (see AABB.h)}}
+\DoxyCodeLine{298   \textcolor{comment}{//   V  \#V by 3 list of triangle indices}}
+\DoxyCodeLine{299   \textcolor{comment}{//   F  \#F by 3 list of triangle normals }}
+\DoxyCodeLine{300   \textcolor{comment}{//   bvh fast winding precomputation (see Fast\_Winding\_Number.h)   }}
+\DoxyCodeLine{301   \textcolor{comment}{//   q  1 by 3 list of query point positions}}
+\DoxyCodeLine{302   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{303   \textcolor{comment}{//   S  \#P list of signed distances of each point in P}}
+\DoxyCodeLine{304   \textcolor{keyword}{template} <}
+\DoxyCodeLine{305     \textcolor{keyword}{typename} Derivedq,}
+\DoxyCodeLine{306     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{307     \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{308   IGL\_INLINE \textcolor{keyword}{typename} DerivedV::Scalar signed\_distance\_fast\_winding\_number(}
+\DoxyCodeLine{309     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{310     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{311     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{312     \textcolor{keyword}{const} AABB<DerivedV,3> \& tree,}
+\DoxyCodeLine{313     \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_fast_winding_number_b_v_h}{igl::FastWindingNumberBVH}} \& fwn\_bvh}
+\DoxyCodeLine{314   );}
+\DoxyCodeLine{315 \}}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{318 \textcolor{preprocessor}{\#  include "{}signed\_distance.cpp"{}}}
+\DoxyCodeLine{319 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

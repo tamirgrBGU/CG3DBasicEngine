@@ -1,0 +1,59 @@
+\hypertarget{polar__dec_8h_source}{}\doxysection{polar\+\_\+dec.\+h}
+\label{polar__dec_8h_source}\index{igl/polar\_dec.h@{igl/polar\_dec.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_POLAR\_DEC}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_POLAR\_DEC}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Computes the polar decomposition (R,T) of a matrix A}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   A  3 by 3 matrix to be decomposed}}
+\DoxyCodeLine{18   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   R  3 by 3 orthonormal matrix part of decomposition}}
+\DoxyCodeLine{20   \textcolor{comment}{//   T  3 by 3 stretch matrix part of decomposition}}
+\DoxyCodeLine{21   \textcolor{comment}{//   U  3 by 3 left-\/singular vectors}}
+\DoxyCodeLine{22   \textcolor{comment}{//   S  3 by 1 singular values}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  3 by 3 right-\/singular vectors}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedT,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedU,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedS,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} polar\_dec(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedA> \& A,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedT> \& T,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedU> \& U,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedS> \& S,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedV> \& V);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedT>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{void} polar\_dec(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedA> \& A,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedR> \& R,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedT> \& T);}
+\DoxyCodeLine{48 \}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}polar\_dec.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+
+\end{DoxyCode}

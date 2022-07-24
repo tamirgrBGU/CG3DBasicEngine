@@ -1,0 +1,61 @@
+\hypertarget{unzip__corners_8h_source}{}\doxysection{unzip\+\_\+corners.\+h}
+\label{unzip__corners_8h_source}\index{igl/unzip\_corners.h@{igl/unzip\_corners.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNZIP\_CORNERS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNZIP\_CORNERS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// UNZIP\_CORNERS Given a triangle mesh where corners of each triangle index}}
+\DoxyCodeLine{18   \textcolor{comment}{// different matrices of attributes (e.g. read from an OBJ file), unzip the}}
+\DoxyCodeLine{19   \textcolor{comment}{// corners into unique efficiently: attributes become properly vertex valued}}
+\DoxyCodeLine{20   \textcolor{comment}{// (usually creating greater than \#V but less than \#F*3 vertices).}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// To pass a list of attributes this function takes an std::vector of}}
+\DoxyCodeLine{23   \textcolor{comment}{// std::reference\_wrapper of an Eigen::... type. This allows you to use list}}
+\DoxyCodeLine{24   \textcolor{comment}{// initializers **without** incurring a copy, but means you'll need to}}
+\DoxyCodeLine{25   \textcolor{comment}{// provide the derived type of A as an explicit template parameter:}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{//     unzip\_corners<Eigen::MatrixXi>(\{F,FTC,FN\},U,G,J);}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   A  \#A list of \#F by 3 attribute indices, typically \{F,FTC,FN\}}}
+\DoxyCodeLine{31   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   U  \#U by \#A list of indices into each attribute for each unique mesh}}
+\DoxyCodeLine{33   \textcolor{comment}{//     vertex: U(v,a) is the attribute index of vertex v in attribute a.}}
+\DoxyCodeLine{34   \textcolor{comment}{//   G  \#F by 3 list of triangle indices into U}}
+\DoxyCodeLine{35   \textcolor{comment}{//   J  \#F*3 by 1 list of indices so that A[](i,j) = U.row(i+j*\#F)}}
+\DoxyCodeLine{36   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{37   \textcolor{comment}{//   [V,F,TC,FTC] = readOBJ('\string~/Downloads/kiwis/kiwi.obj');}}
+\DoxyCodeLine{38   \textcolor{comment}{//   [U,G] = unzip\_corners(cat(3,F,FTC));}}
+\DoxyCodeLine{39   \textcolor{comment}{//   \% display mesh}}
+\DoxyCodeLine{40   \textcolor{comment}{//   tsurf(G,V(U(:,1),:));}}
+\DoxyCodeLine{41   \textcolor{comment}{//   \% display texture coordinates}}
+\DoxyCodeLine{42   \textcolor{comment}{//   tsurf(G,TC(U(:,2),:));}}
+\DoxyCodeLine{43   \textcolor{comment}{//}}
+\DoxyCodeLine{44   \textcolor{keyword}{template} < \textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedU, \textcolor{keyword}{typename} DerivedG, \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{45   IGL\_INLINE \textcolor{keywordtype}{void} unzip\_corners(}
+\DoxyCodeLine{46     \textcolor{keyword}{const} std::vector<std::reference\_wrapper<DerivedA> > \& A,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedU> \& U,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedG> \& G,}
+\DoxyCodeLine{49     Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#  include "{}unzip\_corners.cpp"{}}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

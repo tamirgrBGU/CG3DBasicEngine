@@ -1,0 +1,46 @@
+\hypertarget{rotate__vectors_8h_source}{}\doxysection{rotate\+\_\+vectors.\+h}
+\label{rotate__vectors_8h_source}\index{igl/rotate\_vectors.h@{igl/rotate\_vectors.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_ROTATE\_VECTORS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_ROTATE\_VECTORS\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Rotate the vectors V by A radians on the tangent plane spanned by B1 and}}
+\DoxyCodeLine{16   \textcolor{comment}{// B2}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   V     \#V by 3 eigen Matrix of vectors}}
+\DoxyCodeLine{20   \textcolor{comment}{//   A     \#V eigen vector of rotation angles or a single angle to be applied}}
+\DoxyCodeLine{21   \textcolor{comment}{//     to all vectors}}
+\DoxyCodeLine{22   \textcolor{comment}{//   B1    \#V by 3 eigen Matrix of base vector 1}}
+\DoxyCodeLine{23   \textcolor{comment}{//   B2    \#V by 3 eigen Matrix of base vector 2}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   Returns the rotated vectors}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   IGL\_INLINE Eigen::MatrixXd rotate\_vectors(}
+\DoxyCodeLine{29                                             \textcolor{keyword}{const} Eigen::MatrixXd\& V,}
+\DoxyCodeLine{30                                             \textcolor{keyword}{const} Eigen::VectorXd\& A,}
+\DoxyCodeLine{31                                             \textcolor{keyword}{const} Eigen::MatrixXd\& B1,}
+\DoxyCodeLine{32                                             \textcolor{keyword}{const} Eigen::MatrixXd\& B2);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#  include "{}rotate\_vectors.cpp"{}}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

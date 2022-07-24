@@ -1,0 +1,124 @@
+\hypertarget{_singular___value___decomposition___jacobi___conjugation___kernel_8hpp_source}{}\doxysection{Singular\+\_\+\+Value\+\_\+\+Decomposition\+\_\+\+Jacobi\+\_\+\+Conjugation\+\_\+\+Kernel.\+hpp}
+\label{_singular___value___decomposition___jacobi___conjugation___kernel_8hpp_source}\index{igl/Singular\_Value\_Decomposition\_Jacobi\_Conjugation\_Kernel.hpp@{igl/Singular\_Value\_Decomposition\_Jacobi\_Conjugation\_Kernel.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{2 \textcolor{comment}{// Copyright (c) 2010-\/2011, Eftychios Sifakis.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 \textcolor{comment}{// Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:}}
+\DoxyCodeLine{5 \textcolor{comment}{//   * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.}}
+\DoxyCodeLine{6 \textcolor{comment}{//   * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or}}
+\DoxyCodeLine{7 \textcolor{comment}{//     other materials provided with the distribution.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{comment}{// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "{}AS IS"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,}}
+\DoxyCodeLine{10 \textcolor{comment}{// BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT}}
+\DoxyCodeLine{11 \textcolor{comment}{// SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL}}
+\DoxyCodeLine{12 \textcolor{comment}{// DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS}}
+\DoxyCodeLine{13 \textcolor{comment}{// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING}}
+\DoxyCodeLine{14 \textcolor{comment}{// NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.}}
+\DoxyCodeLine{15 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{18 \textcolor{comment}{// Compute the Givens angle (and half-\/angle) }}
+\DoxyCodeLine{19 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.f=SS21.f*Sone\_half.f;)                                   ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_mul\_ps(VS21,Vone\_half);)                                ENABLE\_AVX\_IMPLEMENTATION(Vsh=\_mm256\_mul\_ps(VS21,Vone\_half);)}
+\DoxyCodeLine{22 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp5.f=SS11.f-\/SS22.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp5=\_mm\_sub\_ps(VS11,VS22);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp5=\_mm256\_sub\_ps(VS11,VS22);)}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Ssh.f*Ssh.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vsh,Vsh);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vsh,Vsh);)}
+\DoxyCodeLine{25 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.ui=(Stmp2.f>=Stiny\_number.f)?0xffffffff:0;)            ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_cmpge\_ps(Vtmp2,Vtiny\_number);)                        ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_cmp\_ps(Vtmp2,Vtiny\_number, \_CMP\_GE\_OS);) \textcolor{comment}{//ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_cmpge\_ps(Vtmp2,Vtiny\_number);)}}
+\DoxyCodeLine{26 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.ui=Stmp1.ui\&Ssh.ui;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_and\_ps(Vtmp1,Vsh);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vsh=\_mm256\_and\_ps(Vtmp1,Vsh);)}
+\DoxyCodeLine{27 ENABLE\_SCALAR\_IMPLEMENTATION(Sch.ui=Stmp1.ui\&Stmp5.ui;)                                   ENABLE\_SSE\_IMPLEMENTATION(Vch=\_mm\_and\_ps(Vtmp1,Vtmp5);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vch=\_mm256\_blendv\_ps(Vone,Vtmp5,Vtmp1);)}
+\DoxyCodeLine{28 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.ui=\string~Stmp1.ui\&Sone.ui;)                                 ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_andnot\_ps(Vtmp1,Vone);)}
+\DoxyCodeLine{29 ENABLE\_SCALAR\_IMPLEMENTATION(Sch.ui=Sch.ui|Stmp2.ui;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vch=\_mm\_or\_ps(Vch,Vtmp2);)}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=Ssh.f*Ssh.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(Vsh,Vsh);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(Vsh,Vsh);)}
+\DoxyCodeLine{32 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Sch.f*Sch.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vch,Vch);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vch,Vch);)}
+\DoxyCodeLine{33 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp3.f=Stmp1.f+Stmp2.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vtmp3=\_mm\_add\_ps(Vtmp1,Vtmp2);)                                 ENABLE\_AVX\_IMPLEMENTATION(Vtmp3=\_mm256\_add\_ps(Vtmp1,Vtmp2);)}
+\DoxyCodeLine{34 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=rsqrt(Stmp3.f);)                                     ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_rsqrt\_ps(Vtmp3);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_rsqrt\_ps(Vtmp3);)}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#ifdef USE\_ACCURATE\_RSQRT\_IN\_JACOBI\_CONJUGATION}}
+\DoxyCodeLine{37 ENABLE\_SCALAR\_IMPLEMENTATION(Ss.f=Stmp4.f*Sone\_half.f;)                                   ENABLE\_SSE\_IMPLEMENTATION(Vs=\_mm\_mul\_ps(Vtmp4,Vone\_half);)                                ENABLE\_AVX\_IMPLEMENTATION(Vs=\_mm256\_mul\_ps(Vtmp4,Vone\_half);)}
+\DoxyCodeLine{38 ENABLE\_SCALAR\_IMPLEMENTATION(Sc.f=Stmp4.f*Ss.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vc=\_mm\_mul\_ps(Vtmp4,Vs);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vc=\_mm256\_mul\_ps(Vtmp4,Vs);)}
+\DoxyCodeLine{39 ENABLE\_SCALAR\_IMPLEMENTATION(Sc.f=Stmp4.f*Sc.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vc=\_mm\_mul\_ps(Vtmp4,Vc);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vc=\_mm256\_mul\_ps(Vtmp4,Vc);)}
+\DoxyCodeLine{40 ENABLE\_SCALAR\_IMPLEMENTATION(Sc.f=Stmp3.f*Sc.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vc=\_mm\_mul\_ps(Vtmp3,Vc);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vc=\_mm256\_mul\_ps(Vtmp3,Vc);)}
+\DoxyCodeLine{41 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=Stmp4.f+Ss.f;)                                       ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_add\_ps(Vtmp4,Vs);)                                    ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_add\_ps(Vtmp4,Vs);)}
+\DoxyCodeLine{42 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=Stmp4.f-\/Sc.f;)                                       ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_sub\_ps(Vtmp4,Vc);)                                    ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_sub\_ps(Vtmp4,Vc);)}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.f=Stmp4.f*Ssh.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_mul\_ps(Vtmp4,Vsh);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vsh=\_mm256\_mul\_ps(Vtmp4,Vsh);)}
+\DoxyCodeLine{46 ENABLE\_SCALAR\_IMPLEMENTATION(Sch.f=Stmp4.f*Sch.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vch=\_mm\_mul\_ps(Vtmp4,Vch);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vch=\_mm256\_mul\_ps(Vtmp4,Vch);)}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=Sfour\_gamma\_squared.f*Stmp1.f;)                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(Vfour\_gamma\_squared,Vtmp1);)                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(Vfour\_gamma\_squared,Vtmp1);)}
+\DoxyCodeLine{49 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.ui=(Stmp2.f<=Stmp1.f)?0xffffffff:0;)                   ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_cmple\_ps(Vtmp2,Vtmp1);)                               ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_cmp\_ps(Vtmp2,Vtmp1, \_CMP\_LE\_OS);) \textcolor{comment}{//ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_cmple\_ps(Vtmp2,Vtmp1);)}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.ui=Ssine\_pi\_over\_eight.ui\&Stmp1.ui;)                   ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_and\_ps(Vsine\_pi\_over\_eight,Vtmp1);)                   ENABLE\_AVX\_IMPLEMENTATION(Vsh=\_mm256\_blendv\_ps(Vsh,Vsine\_pi\_over\_eight,Vtmp1);)}
+\DoxyCodeLine{52 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.ui=\string~Stmp1.ui\&Ssh.ui;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_andnot\_ps(Vtmp1,Vsh);)}
+\DoxyCodeLine{53 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.ui=Ssh.ui|Stmp2.ui;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_or\_ps(Vsh,Vtmp2);)}
+\DoxyCodeLine{54 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.ui=Scosine\_pi\_over\_eight.ui\&Stmp1.ui;)                 ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_and\_ps(Vcosine\_pi\_over\_eight,Vtmp1);)                 ENABLE\_AVX\_IMPLEMENTATION(Vch=\_mm256\_blendv\_ps(Vch,Vcosine\_pi\_over\_eight,Vtmp1);)}
+\DoxyCodeLine{55 ENABLE\_SCALAR\_IMPLEMENTATION(Sch.ui=\string~Stmp1.ui\&Sch.ui;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vch=\_mm\_andnot\_ps(Vtmp1,Vch);)}
+\DoxyCodeLine{56 ENABLE\_SCALAR\_IMPLEMENTATION(Sch.ui=Sch.ui|Stmp2.ui;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vch=\_mm\_or\_ps(Vch,Vtmp2);)}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=Ssh.f*Ssh.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(Vsh,Vsh);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(Vsh,Vsh);)}
+\DoxyCodeLine{59 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Sch.f*Sch.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vch,Vch);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vch,Vch);)}
+\DoxyCodeLine{60 ENABLE\_SCALAR\_IMPLEMENTATION(Sc.f=Stmp2.f-\/Stmp1.f;)                                       ENABLE\_SSE\_IMPLEMENTATION(Vc=\_mm\_sub\_ps(Vtmp2,Vtmp1);)                                    ENABLE\_AVX\_IMPLEMENTATION(Vc=\_mm256\_sub\_ps(Vtmp2,Vtmp1);)}
+\DoxyCodeLine{61 ENABLE\_SCALAR\_IMPLEMENTATION(Ss.f=Sch.f*Ssh.f;)                                           ENABLE\_SSE\_IMPLEMENTATION(Vs=\_mm\_mul\_ps(Vch,Vsh);)                                        ENABLE\_AVX\_IMPLEMENTATION(Vs=\_mm256\_mul\_ps(Vch,Vsh);)}
+\DoxyCodeLine{62 ENABLE\_SCALAR\_IMPLEMENTATION(Ss.f=Ss.f+Ss.f;)                                             ENABLE\_SSE\_IMPLEMENTATION(Vs=\_mm\_add\_ps(Vs,Vs);)                                          ENABLE\_AVX\_IMPLEMENTATION(Vs=\_mm256\_add\_ps(Vs,Vs);)}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{65 \textcolor{comment}{// Perform the actual Givens conjugation}}
+\DoxyCodeLine{66 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef USE\_ACCURATE\_RSQRT\_IN\_JACOBI\_CONJUGATION}}
+\DoxyCodeLine{69 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp3.f=Stmp1.f+Stmp2.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vtmp3=\_mm\_add\_ps(Vtmp1,Vtmp2);)                                 ENABLE\_AVX\_IMPLEMENTATION(Vtmp3=\_mm256\_add\_ps(Vtmp1,Vtmp2);)}
+\DoxyCodeLine{70 ENABLE\_SCALAR\_IMPLEMENTATION(SS33.f=SS33.f*Stmp3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS33=\_mm\_mul\_ps(VS33,Vtmp3);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS33=\_mm256\_mul\_ps(VS33,Vtmp3);)}
+\DoxyCodeLine{71 ENABLE\_SCALAR\_IMPLEMENTATION(SS31.f=SS31.f*Stmp3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS31=\_mm\_mul\_ps(VS31,Vtmp3);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS31=\_mm256\_mul\_ps(VS31,Vtmp3);)}
+\DoxyCodeLine{72 ENABLE\_SCALAR\_IMPLEMENTATION(SS32.f=SS32.f*Stmp3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS32=\_mm\_mul\_ps(VS32,Vtmp3);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS32=\_mm256\_mul\_ps(VS32,Vtmp3);)}
+\DoxyCodeLine{73 ENABLE\_SCALAR\_IMPLEMENTATION(SS33.f=SS33.f*Stmp3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS33=\_mm\_mul\_ps(VS33,Vtmp3);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS33=\_mm256\_mul\_ps(VS33,Vtmp3);)}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=Ss.f*SS31.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(Vs,VS31);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(Vs,VS31);)}
+\DoxyCodeLine{77 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Ss.f*SS32.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vs,VS32);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vs,VS32);)}
+\DoxyCodeLine{78 ENABLE\_SCALAR\_IMPLEMENTATION(SS31.f=Sc.f*SS31.f;)                                         ENABLE\_SSE\_IMPLEMENTATION(VS31=\_mm\_mul\_ps(Vc,VS31);)                                      ENABLE\_AVX\_IMPLEMENTATION(VS31=\_mm256\_mul\_ps(Vc,VS31);)}
+\DoxyCodeLine{79 ENABLE\_SCALAR\_IMPLEMENTATION(SS32.f=Sc.f*SS32.f;)                                         ENABLE\_SSE\_IMPLEMENTATION(VS32=\_mm\_mul\_ps(Vc,VS32);)                                      ENABLE\_AVX\_IMPLEMENTATION(VS32=\_mm256\_mul\_ps(Vc,VS32);)}
+\DoxyCodeLine{80 ENABLE\_SCALAR\_IMPLEMENTATION(SS31.f=Stmp2.f+SS31.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS31=\_mm\_add\_ps(Vtmp2,VS31);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS31=\_mm256\_add\_ps(Vtmp2,VS31);)}
+\DoxyCodeLine{81 ENABLE\_SCALAR\_IMPLEMENTATION(SS32.f=SS32.f-\/Stmp1.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS32=\_mm\_sub\_ps(VS32,Vtmp1);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS32=\_mm256\_sub\_ps(VS32,Vtmp1);)}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Ss.f*Ss.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vs,Vs);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vs,Vs);)         }
+\DoxyCodeLine{84 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=SS22.f*Stmp2.f;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(VS22,Vtmp2);)                                  ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(VS22,Vtmp2);)}
+\DoxyCodeLine{85 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp3.f=SS11.f*Stmp2.f;)                                     ENABLE\_SSE\_IMPLEMENTATION(Vtmp3=\_mm\_mul\_ps(VS11,Vtmp2);)                                  ENABLE\_AVX\_IMPLEMENTATION(Vtmp3=\_mm256\_mul\_ps(VS11,Vtmp2);)}
+\DoxyCodeLine{86 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=Sc.f*Sc.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_mul\_ps(Vc,Vc);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_mul\_ps(Vc,Vc);)}
+\DoxyCodeLine{87 ENABLE\_SCALAR\_IMPLEMENTATION(SS11.f=SS11.f*Stmp4.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS11=\_mm\_mul\_ps(VS11,Vtmp4);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS11=\_mm256\_mul\_ps(VS11,Vtmp4);)}
+\DoxyCodeLine{88 ENABLE\_SCALAR\_IMPLEMENTATION(SS22.f=SS22.f*Stmp4.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS22=\_mm\_mul\_ps(VS22,Vtmp4);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS22=\_mm256\_mul\_ps(VS22,Vtmp4);)}
+\DoxyCodeLine{89 ENABLE\_SCALAR\_IMPLEMENTATION(SS11.f=SS11.f+Stmp1.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS11=\_mm\_add\_ps(VS11,Vtmp1);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS11=\_mm256\_add\_ps(VS11,Vtmp1);)}
+\DoxyCodeLine{90 ENABLE\_SCALAR\_IMPLEMENTATION(SS22.f=SS22.f+Stmp3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS22=\_mm\_add\_ps(VS22,Vtmp3);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS22=\_mm256\_add\_ps(VS22,Vtmp3);)}
+\DoxyCodeLine{91 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=Stmp4.f-\/Stmp2.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_sub\_ps(Vtmp4,Vtmp2);)                                 ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_sub\_ps(Vtmp4,Vtmp2);)}
+\DoxyCodeLine{92 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=SS21.f+SS21.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_add\_ps(VS21,VS21);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_add\_ps(VS21,VS21);)}
+\DoxyCodeLine{93 ENABLE\_SCALAR\_IMPLEMENTATION(SS21.f=SS21.f*Stmp4.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS21=\_mm\_mul\_ps(VS21,Vtmp4);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS21=\_mm256\_mul\_ps(VS21,Vtmp4);)}
+\DoxyCodeLine{94 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp4.f=Sc.f*Ss.f;)                                          ENABLE\_SSE\_IMPLEMENTATION(Vtmp4=\_mm\_mul\_ps(Vc,Vs);)                                       ENABLE\_AVX\_IMPLEMENTATION(Vtmp4=\_mm256\_mul\_ps(Vc,Vs);)}
+\DoxyCodeLine{95 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Stmp2.f*Stmp4.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vtmp2,Vtmp4);)                                 ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vtmp2,Vtmp4);)}
+\DoxyCodeLine{96 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp5.f=Stmp5.f*Stmp4.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(Vtmp5=\_mm\_mul\_ps(Vtmp5,Vtmp4);)                                 ENABLE\_AVX\_IMPLEMENTATION(Vtmp5=\_mm256\_mul\_ps(Vtmp5,Vtmp4);)}
+\DoxyCodeLine{97 ENABLE\_SCALAR\_IMPLEMENTATION(SS11.f=SS11.f+Stmp2.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS11=\_mm\_add\_ps(VS11,Vtmp2);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS11=\_mm256\_add\_ps(VS11,Vtmp2);)}
+\DoxyCodeLine{98 ENABLE\_SCALAR\_IMPLEMENTATION(SS21.f=SS21.f-\/Stmp5.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS21=\_mm\_sub\_ps(VS21,Vtmp5);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS21=\_mm256\_sub\_ps(VS21,Vtmp5);)}
+\DoxyCodeLine{99 ENABLE\_SCALAR\_IMPLEMENTATION(SS22.f=SS22.f-\/Stmp2.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VS22=\_mm\_sub\_ps(VS22,Vtmp2);)                                   ENABLE\_AVX\_IMPLEMENTATION(VS22=\_mm256\_sub\_ps(VS22,Vtmp2);)}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{102 \textcolor{comment}{// Compute the cumulative rotation, in quaternion form}}
+\DoxyCodeLine{103 \textcolor{comment}{//\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#}}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp1.f=Ssh.f*Sqvvx.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp1=\_mm\_mul\_ps(Vsh,Vqvvx);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp1=\_mm256\_mul\_ps(Vsh,Vqvvx);)}
+\DoxyCodeLine{106 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp2.f=Ssh.f*Sqvvy.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp2=\_mm\_mul\_ps(Vsh,Vqvvy);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp2=\_mm256\_mul\_ps(Vsh,Vqvvy);)}
+\DoxyCodeLine{107 ENABLE\_SCALAR\_IMPLEMENTATION(Stmp3.f=Ssh.f*Sqvvz.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vtmp3=\_mm\_mul\_ps(Vsh,Vqvvz);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vtmp3=\_mm256\_mul\_ps(Vsh,Vqvvz);)}
+\DoxyCodeLine{108 ENABLE\_SCALAR\_IMPLEMENTATION(Ssh.f=Ssh.f*Sqvs.f;)                                         ENABLE\_SSE\_IMPLEMENTATION(Vsh=\_mm\_mul\_ps(Vsh,Vqvs);)                                      ENABLE\_AVX\_IMPLEMENTATION(Vsh=\_mm256\_mul\_ps(Vsh,Vqvs);)}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110 ENABLE\_SCALAR\_IMPLEMENTATION(Sqvs.f=Sch.f*Sqvs.f;)                                        ENABLE\_SSE\_IMPLEMENTATION(Vqvs=\_mm\_mul\_ps(Vch,Vqvs);)                                     ENABLE\_AVX\_IMPLEMENTATION(Vqvs=\_mm256\_mul\_ps(Vch,Vqvs);)}
+\DoxyCodeLine{111 ENABLE\_SCALAR\_IMPLEMENTATION(Sqvvx.f=Sch.f*Sqvvx.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vqvvx=\_mm\_mul\_ps(Vch,Vqvvx);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vqvvx=\_mm256\_mul\_ps(Vch,Vqvvx);)}
+\DoxyCodeLine{112 ENABLE\_SCALAR\_IMPLEMENTATION(Sqvvy.f=Sch.f*Sqvvy.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vqvvy=\_mm\_mul\_ps(Vch,Vqvvy);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vqvvy=\_mm256\_mul\_ps(Vch,Vqvvy);)}
+\DoxyCodeLine{113 ENABLE\_SCALAR\_IMPLEMENTATION(Sqvvz.f=Sch.f*Sqvvz.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vqvvz=\_mm\_mul\_ps(Vch,Vqvvz);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vqvvz=\_mm256\_mul\_ps(Vch,Vqvvz);)}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 ENABLE\_SCALAR\_IMPLEMENTATION(SQVVZ.f=SQVVZ.f+Ssh.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(VQVVZ=\_mm\_add\_ps(VQVVZ,Vsh);)                                   ENABLE\_AVX\_IMPLEMENTATION(VQVVZ=\_mm256\_add\_ps(VQVVZ,Vsh);)}
+\DoxyCodeLine{116 ENABLE\_SCALAR\_IMPLEMENTATION(Sqvs.f=Sqvs.f-\/STMP3.f;)                                      ENABLE\_SSE\_IMPLEMENTATION(Vqvs=\_mm\_sub\_ps(Vqvs,VTMP3);)                                   ENABLE\_AVX\_IMPLEMENTATION(Vqvs=\_mm256\_sub\_ps(Vqvs,VTMP3);)}
+\DoxyCodeLine{117 ENABLE\_SCALAR\_IMPLEMENTATION(SQVVX.f=SQVVX.f+STMP2.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(VQVVX=\_mm\_add\_ps(VQVVX,VTMP2);)                                 ENABLE\_AVX\_IMPLEMENTATION(VQVVX=\_mm256\_add\_ps(VQVVX,VTMP2);)}
+\DoxyCodeLine{118 ENABLE\_SCALAR\_IMPLEMENTATION(SQVVY.f=SQVVY.f-\/STMP1.f;)                                    ENABLE\_SSE\_IMPLEMENTATION(VQVVY=\_mm\_sub\_ps(VQVVY,VTMP1);)                                 ENABLE\_AVX\_IMPLEMENTATION(VQVVY=\_mm256\_sub\_ps(VQVVY,VTMP1);)}
+
+\end{DoxyCode}

@@ -1,0 +1,43 @@
+\hypertarget{round_8h_source}{}\doxysection{round.\+h}
+\label{round_8h_source}\index{igl/round.h@{igl/round.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ROUND\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ROUND\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Round a scalar value}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   x  number}}
+\DoxyCodeLine{18   \textcolor{comment}{// Returns x rounded to integer}}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{20   DerivedX round(\textcolor{keyword}{const} DerivedX r);}
+\DoxyCodeLine{21   \textcolor{comment}{// Round a given matrix to nearest integers}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   X  m by n matrix of scalars}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   Y  m by n matrix of rounded integers}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} < \textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} round(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedX>\& X,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedY>\& Y);}
+\DoxyCodeLine{31 \}}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#  include "{}round.cpp"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

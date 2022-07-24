@@ -1,0 +1,56 @@
+\hypertarget{voxel__grid_8h_source}{}\doxysection{voxel\+\_\+grid.\+h}
+\label{voxel__grid_8h_source}\index{igl/voxel\_grid.h@{igl/voxel\_grid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VOXEL\_GRID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VOXEL\_GRID\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Construct the cell center positions of a regular voxel grid (lattice) made}}
+\DoxyCodeLine{16   \textcolor{comment}{// of perfectly square voxels.}}
+\DoxyCodeLine{17   \textcolor{comment}{// }}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   box  bounding box to enclose by grid}}
+\DoxyCodeLine{20   \textcolor{comment}{//   s  number of cell centers on largest side (including 2*pad\_count)}}
+\DoxyCodeLine{21   \textcolor{comment}{//   pad\_count  number of cells beyond box}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   GV  side(0)*side(1)*side(2) by 3 list of cell center positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   side  1 by 3 list of dimension of voxel grid}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} Derivedside>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} voxel\_grid(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::AlignedBox<Scalar,3> \& box, }
+\DoxyCodeLine{31     \textcolor{keyword}{const} \textcolor{keywordtype}{int} s,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} \textcolor{keywordtype}{int} pad\_count,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedGV> \& GV,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<Derivedside> \& side);}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} Derivedside>}
+\DoxyCodeLine{39   IGL\_INLINE \textcolor{keywordtype}{void} voxel\_grid(}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar offset,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} \textcolor{keywordtype}{int} s,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{int} pad\_count,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedGV> \& GV,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<Derivedside> \& side);}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}voxel\_grid.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

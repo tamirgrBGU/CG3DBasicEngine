@@ -1,0 +1,85 @@
+\hypertarget{classigl_1_1matlab_1_1_matlab_workspace}{}\doxysection{igl\+::matlab\+::Matlab\+Workspace Class Reference}
+\label{classigl_1_1matlab_1_1_matlab_workspace}\index{igl::matlab::MatlabWorkspace@{igl::matlab::MatlabWorkspace}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_ae583f9f3840e306b65ef3c590fded313}\label{classigl_1_1matlab_1_1_matlab_workspace_ae583f9f3840e306b65ef3c590fded313}} 
+void {\bfseries clear} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a4cf22a9c3b4ff551a1032f237ef40938}\label{classigl_1_1matlab_1_1_matlab_workspace_a4cf22a9c3b4ff551a1032f237ef40938}} 
+bool {\bfseries write} (const std\+::string \&path) const
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a70ddccc669e0c63ac5c9bf4c82e40605}\label{classigl_1_1matlab_1_1_matlab_workspace_a70ddccc669e0c63ac5c9bf4c82e40605}} 
+bool {\bfseries read} (const std\+::string \&path)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a0e8f887139665c6bb6ce1d86736985ea}\label{classigl_1_1matlab_1_1_matlab_workspace_a0e8f887139665c6bb6ce1d86736985ea}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Plain\+Object\+Base$<$ DerivedM $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a952294f80ded66d91bcc32352a87d35e}\label{classigl_1_1matlab_1_1_matlab_workspace_a952294f80ded66d91bcc32352a87d35e}} 
+{\footnotesize template$<$typename MT $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Sparse\+Matrix$<$ MT $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a334ee31242c5700b6372ae2858188557}\label{classigl_1_1matlab_1_1_matlab_workspace_a334ee31242c5700b6372ae2858188557}} 
+{\footnotesize template$<$typename ScalarM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const std\+::vector$<$ std\+::vector$<$ ScalarM $>$ $>$ \&vM, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a69e14902d98940ff21d807d0ffea4f87}\label{classigl_1_1matlab_1_1_matlab_workspace_a69e14902d98940ff21d807d0ffea4f87}} 
+{\footnotesize template$<$typename ScalarV $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const std\+::vector$<$ ScalarV $>$ \&vV, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_ac3ab74c416d5d01cac69c7129750e625}\label{classigl_1_1matlab_1_1_matlab_workspace_ac3ab74c416d5d01cac69c7129750e625}} 
+{\footnotesize template$<$typename Q $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Quaternion$<$ Q $>$ \&q, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_aa287f217bfb87b2f5746e5f9191f5f9f}\label{classigl_1_1matlab_1_1_matlab_workspace_aa287f217bfb87b2f5746e5f9191f5f9f}} 
+\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save} (const double d, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a07f84232f1f98f97e1202ba69cffe482}\label{classigl_1_1matlab_1_1_matlab_workspace_a07f84232f1f98f97e1202ba69cffe482}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const Eigen\+::\+Dense\+Base$<$ DerivedM $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_ac3011f108daca874e85e45bf194d16dd}\label{classigl_1_1matlab_1_1_matlab_workspace_ac3011f108daca874e85e45bf194d16dd}} 
+{\footnotesize template$<$typename ScalarM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const std\+::vector$<$ std\+::vector$<$ ScalarM $>$ $>$ \&vM, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a49a0410c922a5f5ecca44308322c119a}\label{classigl_1_1matlab_1_1_matlab_workspace_a49a0410c922a5f5ecca44308322c119a}} 
+{\footnotesize template$<$typename ScalarV $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const std\+::vector$<$ ScalarV $>$ \&vV, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a4fe9cb0440cddb78e69dd3fb36632262}\label{classigl_1_1matlab_1_1_matlab_workspace_a4fe9cb0440cddb78e69dd3fb36632262}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\bool {\bfseries find} (const std\+::string \&name, Eigen\+::\+Plain\+Object\+Base$<$ DerivedM $>$ \&M)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_adfda9ed0fc7d141ccd7a882945517f92}\label{classigl_1_1matlab_1_1_matlab_workspace_adfda9ed0fc7d141ccd7a882945517f92}} 
+{\footnotesize template$<$typename MT $>$ }\\bool {\bfseries find} (const std\+::string \&name, Eigen\+::\+Sparse\+Matrix$<$ MT $>$ \&M)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a7d9a0efb5a9b882069d0fff3ccd273cb}\label{classigl_1_1matlab_1_1_matlab_workspace_a7d9a0efb5a9b882069d0fff3ccd273cb}} 
+bool {\bfseries find} (const std\+::string \&name, double \&d)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a1455269d9d2df30a7e9d596d6a745b0f}\label{classigl_1_1matlab_1_1_matlab_workspace_a1455269d9d2df30a7e9d596d6a745b0f}} 
+bool {\bfseries find} (const std\+::string \&name, int \&v)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_aa5795043aae313b4116c5ef9e14e8657}\label{classigl_1_1matlab_1_1_matlab_workspace_aa5795043aae313b4116c5ef9e14e8657}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\bool {\bfseries find\+\_\+index} (const std\+::string \&name, Eigen\+::\+Plain\+Object\+Base$<$ DerivedM $>$ \&M)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a1fd0d93869e68d06e9364941a00f27ac}\label{classigl_1_1matlab_1_1_matlab_workspace_a1fd0d93869e68d06e9364941a00f27ac}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Plain\+Object\+Base$<$ DerivedM $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_afc574cd5f9775c05a71e040b8f33f7ef}\label{classigl_1_1matlab_1_1_matlab_workspace_afc574cd5f9775c05a71e040b8f33f7ef}} 
+{\footnotesize template$<$typename MT $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Sparse\+Matrix$<$ MT $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_ad0c5911f4089ccd3af91165f63fb9853}\label{classigl_1_1matlab_1_1_matlab_workspace_ad0c5911f4089ccd3af91165f63fb9853}} 
+{\footnotesize template$<$typename ScalarM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save} (const std\+::vector$<$ std\+::vector$<$ ScalarM $>$ $>$ \&vM, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a24df15dad7f99070ef127bba7208573c}\label{classigl_1_1matlab_1_1_matlab_workspace_a24df15dad7f99070ef127bba7208573c}} 
+{\footnotesize template$<$typename ScalarV $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save} (const std\+::vector$<$ ScalarV $>$ \&vV, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_aa2a101b2341dc6433fcb2018aa1cddc5}\label{classigl_1_1matlab_1_1_matlab_workspace_aa2a101b2341dc6433fcb2018aa1cddc5}} 
+{\footnotesize template$<$typename Q $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save} (const Eigen\+::\+Quaternion$<$ Q $>$ \&q, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a3749dae04d721709a4ab7610e6528728}\label{classigl_1_1matlab_1_1_matlab_workspace_a3749dae04d721709a4ab7610e6528728}} 
+{\footnotesize template$<$typename DerivedM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const Eigen\+::\+Dense\+Base$<$ DerivedM $>$ \&M, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a6245584990c238e403a7e199e403fe95}\label{classigl_1_1matlab_1_1_matlab_workspace_a6245584990c238e403a7e199e403fe95}} 
+{\footnotesize template$<$typename ScalarM $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const std\+::vector$<$ std\+::vector$<$ ScalarM $>$ $>$ \&vM, const std\+::string \&name)
+\item 
+\mbox{\Hypertarget{classigl_1_1matlab_1_1_matlab_workspace_a9a21c19d5e382e3b8b5d910ae9b42e6f}\label{classigl_1_1matlab_1_1_matlab_workspace_a9a21c19d5e382e3b8b5d910ae9b42e6f}} 
+{\footnotesize template$<$typename ScalarV $>$ }\\\mbox{\hyperlink{classigl_1_1matlab_1_1_matlab_workspace}{igl\+::matlab\+::\+Matlab\+Workspace}} \& {\bfseries save\+\_\+index} (const std\+::vector$<$ ScalarV $>$ \&vV, const std\+::string \&name)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/matlab/Matlab\+Workspace.\+h\end{DoxyCompactItemize}

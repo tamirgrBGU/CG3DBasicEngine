@@ -1,0 +1,71 @@
+\hypertarget{shader_8h_source}{}\doxysection{shader.\+h}
+\label{shader_8h_source}\index{igl/opengl/glfw/shader.h@{igl/opengl/glfw/shader.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef SHADER\_INCLUDED\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define SHADER\_INCLUDED\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <unordered\_map>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{class }\mbox{\hyperlink{class_shader}{Shader}}}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10 \textcolor{keyword}{public}:}
+\DoxyCodeLine{11     \mbox{\hyperlink{class_shader}{Shader}}(\textcolor{keyword}{const} std::string\& fileName,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{12     \mbox{\hyperlink{class_shader}{Shader}}(\textcolor{keyword}{const} std::string\& fileName,\textcolor{keywordtype}{bool} overlay,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     \mbox{\hyperlink{class_shader}{Shader}}(\textcolor{keyword}{const} std::string \&vertex\_shader, \textcolor{keyword}{const} std::string \&fragment\_shader, \textcolor{keywordtype}{bool} overlay, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id});}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16     \textcolor{keywordtype}{void} Bind() \textcolor{keyword}{const};}
+\DoxyCodeLine{17     \textcolor{keywordtype}{void} Unbind() \textcolor{keyword}{const};}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19         \textcolor{comment}{//Set uniforms}}
+\DoxyCodeLine{20     \textcolor{keywordtype}{void} SetUniform1i(\textcolor{keyword}{const} std::string\& name, \textcolor{keywordtype}{int} value);}
+\DoxyCodeLine{21     \textcolor{keywordtype}{void} SetUniform4i(\textcolor{keyword}{const} std::string\& name, \textcolor{keywordtype}{int} vi0,\textcolor{keywordtype}{int} vi1,\textcolor{keywordtype}{int} vi2,\textcolor{keywordtype}{int} vi3);}
+\DoxyCodeLine{22     \textcolor{keywordtype}{void} SetUniform1f(\textcolor{keyword}{const} std::string\& name, \textcolor{keywordtype}{float} value);}
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} SetUniform4f(\textcolor{keyword}{const} std::string\& name, \textcolor{keywordtype}{float} v0, \textcolor{keywordtype}{float} v1, \textcolor{keywordtype}{float} f2, \textcolor{keywordtype}{float} f3 );}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} SetUniformMat4f(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} Eigen::Matrix4f\&  matrix);}
+\DoxyCodeLine{25     \textcolor{keywordtype}{void} SetUniformMat4fv(\textcolor{keyword}{const} std::string\& name,\textcolor{keyword}{const} Eigen::Matrix4f *matrix,\textcolor{keyword}{const} \textcolor{keywordtype}{int} length);}
+\DoxyCodeLine{26     \textcolor{keywordtype}{void} SetUniform4fv(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} Eigen::Vector4f * arr, \textcolor{keyword}{const} \textcolor{keywordtype}{int} length);}
+\DoxyCodeLine{27     \textcolor{keywordtype}{void} SetUniform4iv(\textcolor{keyword}{const} std::string\& name, \textcolor{keyword}{const} Eigen::Vector4i* arr, \textcolor{keyword}{const} \textcolor{keywordtype}{int} length);}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30      \mbox{\hyperlink{class_shader}{\string~Shader}}();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_program;}
+\DoxyCodeLine{33     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_id;}
+\DoxyCodeLine{34 \textcolor{keyword}{protected}:}
+\DoxyCodeLine{35 \textcolor{keyword}{private}:}
+\DoxyCodeLine{36     \textcolor{keyword}{enum} Attributes}
+\DoxyCodeLine{37     \{}
+\DoxyCodeLine{38         POSITION\_VB,}
+\DoxyCodeLine{39         NORMAL\_VB,}
+\DoxyCodeLine{40         KA\_VB,}
+\DoxyCodeLine{41         KD\_VB,}
+\DoxyCodeLine{42         KS\_VB,}
+\DoxyCodeLine{43         TEXCOORD\_VB,}
+\DoxyCodeLine{44         JOINT\_INDEX\_VB}
+\DoxyCodeLine{45     \};}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{keyword}{enum} Attributes\_overlay}
+\DoxyCodeLine{48     \{}
+\DoxyCodeLine{49         OV\_POSITION\_VB,}
+\DoxyCodeLine{50         OV\_COLOR,}
+\DoxyCodeLine{51     \};}
+\DoxyCodeLine{52     \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} NUM\_SHADERS = 2;}
+\DoxyCodeLine{53     \textcolor{keywordtype}{void} operator=(\textcolor{keyword}{const} \mbox{\hyperlink{class_shader}{Shader}}\& shader) \{\}}
+\DoxyCodeLine{54     \mbox{\hyperlink{class_shader}{Shader}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_shader}{Shader}}\& shader) = \textcolor{keyword}{delete};}
+\DoxyCodeLine{55     }
+\DoxyCodeLine{56     std::string LoadShader(\textcolor{keyword}{const} std::string\& fileName);}
+\DoxyCodeLine{57     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} CreateShader(\textcolor{keyword}{const} std::string\& text, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} type);}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_shaders[NUM\_SHADERS]\{\};}
+\DoxyCodeLine{60     std::unordered\_map<std::string, int> m\_UniformLocationCache;}
+\DoxyCodeLine{61     \textcolor{keywordtype}{int} GetUniformLocation (\textcolor{keyword}{const} std::string\& name);}
+\DoxyCodeLine{62     \textcolor{keywordtype}{void} CheckShaderError(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flag, \textcolor{keywordtype}{bool} isProgram, \textcolor{keyword}{const} std::string\& errorMessage);}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

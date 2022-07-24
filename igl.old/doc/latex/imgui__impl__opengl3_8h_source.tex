@@ -1,0 +1,52 @@
+\hypertarget{imgui__impl__opengl3_8h_source}{}\doxysection{imgui\+\_\+impl\+\_\+opengl3.\+h}
+\label{imgui__impl__opengl3_8h_source}\index{igl/opengl/glfw/imgui/imgui\_impl\_opengl3.h@{igl/opengl/glfw/imgui/imgui\_impl\_opengl3.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// dear imgui: Renderer for modern OpenGL with shaders / programmatic pipeline}}
+\DoxyCodeLine{2 \textcolor{comment}{// -\/ Desktop GL: 3.x 4.x}}
+\DoxyCodeLine{3 \textcolor{comment}{// -\/ Embedded GL: ES 2.0 (WebGL 1.0), ES 3.0 (WebGL 2.0)}}
+\DoxyCodeLine{4 \textcolor{comment}{// This needs to be used along with a Platform Binding (e.g. GLFW, SDL, Win32, custom..)}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{comment}{// Implemented features:}}
+\DoxyCodeLine{7 \textcolor{comment}{//  [X] Renderer: User texture binding. Use 'GLuint' OpenGL texture identifier as void*/ImTextureID. Read the FAQ about ImTextureID in imgui.cpp.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{// You can copy and use unmodified imgui\_impl\_* files in your project. See main.cpp for an example of using this.}}
+\DoxyCodeLine{10 \textcolor{comment}{// If you are new to dear imgui, read examples/README.txt and read the documentation at the top of imgui.cpp.}}
+\DoxyCodeLine{11 \textcolor{comment}{// https://github.com/ocornut/imgui}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{comment}{// About Desktop OpenGL function loaders:}}
+\DoxyCodeLine{14 \textcolor{comment}{//  Modern desktop OpenGL doesn't have a standard portable header file to load OpenGL function pointers.}}
+\DoxyCodeLine{15 \textcolor{comment}{//  Helper libraries are often used for this purpose! Here we are supporting a few common ones (gl3w, glew, glad).}}
+\DoxyCodeLine{16 \textcolor{comment}{//  You may use another loader/header of your choice (glext, glLoadGen, etc.), or chose to manually implement your own.}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{comment}{// About GLSL version:}}
+\DoxyCodeLine{19 \textcolor{comment}{//  The 'glsl\_version' initialization parameter should be NULL (default) or a "{}\#version XXX"{} string.}}
+\DoxyCodeLine{20 \textcolor{comment}{//  On computer platform the GLSL version default to "{}\#version 130"{}. On OpenGL ES 3 platform it defaults to "{}\#version 300 es"{}}}
+\DoxyCodeLine{21 \textcolor{comment}{//  Only override if your GL version doesn't handle this GLSL version. See GLSL version table at the top of imgui\_impl\_opengl3.cpp.}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{comment}{// Specific OpenGL versions}}
+\DoxyCodeLine{26 \textcolor{comment}{//\#define IMGUI\_IMPL\_OPENGL\_ES2     // Auto-\/detected on Emscripten}}
+\DoxyCodeLine{27 \textcolor{comment}{//\#define IMGUI\_IMPL\_OPENGL\_ES3     // Auto-\/detected on iOS/Android}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{comment}{// Set default OpenGL3 loader to be gl3w}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#if !defined(IMGUI\_IMPL\_OPENGL\_LOADER\_GL3W)     \(\backslash\)}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{ \&\& !defined(IMGUI\_IMPL\_OPENGL\_LOADER\_GLEW)     \(\backslash\)}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{ \&\& !defined(IMGUI\_IMPL\_OPENGL\_LOADER\_GLAD)     \(\backslash\)}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{ \&\& !defined(IMGUI\_IMPL\_OPENGL\_LOADER\_CUSTOM)}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define IMGUI\_IMPL\_OPENGL\_LOADER\_GL3W}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 IMGUI\_IMPL\_API \textcolor{keywordtype}{bool}     ImGui\_ImplOpenGL3\_Init(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* glsl\_version = NULL);}
+\DoxyCodeLine{38 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplOpenGL3\_Shutdown();}
+\DoxyCodeLine{39 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplOpenGL3\_NewFrame();}
+\DoxyCodeLine{40 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplOpenGL3\_RenderDrawData(ImDrawData* draw\_data);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{comment}{// Called by Init/NewFrame/Shutdown}}
+\DoxyCodeLine{43 IMGUI\_IMPL\_API \textcolor{keywordtype}{bool}     ImGui\_ImplOpenGL3\_CreateFontsTexture();}
+\DoxyCodeLine{44 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplOpenGL3\_DestroyFontsTexture();}
+\DoxyCodeLine{45 IMGUI\_IMPL\_API \textcolor{keywordtype}{bool}     ImGui\_ImplOpenGL3\_CreateDeviceObjects();}
+\DoxyCodeLine{46 IMGUI\_IMPL\_API \textcolor{keywordtype}{void}     ImGui\_ImplOpenGL3\_DestroyDeviceObjects();}
+
+\end{DoxyCode}

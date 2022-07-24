@@ -1,0 +1,58 @@
+\hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator}{}\doxysection{igl\+::copyleft\+::comiso\+::Frame\+Interpolator Class Reference}
+\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator}\index{igl::copyleft::comiso::FrameInterpolator@{igl::copyleft::comiso::FrameInterpolator}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac9aeea9932b9aee2e0e8d65d1cf06d01}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac9aeea9932b9aee2e0e8d65d1cf06d01}} 
+IGL\+\_\+\+INLINE {\bfseries Frame\+Interpolator} (const Eigen\+::\+Matrix\+Xd \&\+\_\+V, const Eigen\+::\+Matrix\+Xi \&\+\_\+F)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a3187f49328077b317ce0ff96d4aa7e1a}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a3187f49328077b317ce0ff96d4aa7e1a}} 
+IGL\+\_\+\+INLINE void {\bfseries reset\+Constraints} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ab81269a0c24141d68c76b1d696d4c872}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ab81269a0c24141d68c76b1d696d4c872}} 
+IGL\+\_\+\+INLINE void {\bfseries set\+Constraint} (const int fid, const Eigen\+::\+Vector\+Xd \&v)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_af5b89b8256109caecb9e7b9b3ba06920}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_af5b89b8256109caecb9e7b9b3ba06920}} 
+IGL\+\_\+\+INLINE void {\bfseries interpolate\+Symmetric} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a7502162f14f8ba7eed4ff0a412397621}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a7502162f14f8ba7eed4ff0a412397621}} 
+IGL\+\_\+\+INLINE void {\bfseries solve} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac01a5f71ece8e1f4f4cfaf9790f5e29e}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac01a5f71ece8e1f4f4cfaf9790f5e29e}} 
+IGL\+\_\+\+INLINE void {\bfseries frame2canonical} (const Eigen\+::\+Matrix\+Xd \&TP, const Eigen\+::\+Row\+Vector\+Xd \&v, double \&theta, Eigen\+::\+Vector\+Xd \&S)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a9f64cf68bd571864d5a05cf292d90b15}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a9f64cf68bd571864d5a05cf292d90b15}} 
+IGL\+\_\+\+INLINE void {\bfseries canonical2frame} (const Eigen\+::\+Matrix\+Xd \&TP, const double theta, const Eigen\+::\+Vector\+Xd \&S, Eigen\+::\+Row\+Vector\+Xd \&v)
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ad23576fefe8396d26066d609a1c218c1}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ad23576fefe8396d26066d609a1c218c1}} 
+IGL\+\_\+\+INLINE Eigen\+::\+Matrix\+Xd {\bfseries get\+Field\+Per\+Face} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a68584b6d3e4dcc4ec41ad80517f495e1}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a68584b6d3e4dcc4ec41ad80517f495e1}} 
+IGL\+\_\+\+INLINE void {\bfseries Polar\+Decomposition} (Eigen\+::\+Matrix\+Xd V, Eigen\+::\+Matrix\+Xd \&U, Eigen\+::\+Matrix\+Xd \&P)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ad8da5207a9d18a67dfc0cfcdbe7c050c}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ad8da5207a9d18a67dfc0cfcdbe7c050c}} 
+Eigen\+::\+Matrix\+Xd {\bfseries S}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ae9c901aebd752e52089ab9b235fa9ce8}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ae9c901aebd752e52089ab9b235fa9ce8}} 
+std\+::vector$<$ bool $>$ {\bfseries S\+\_\+c}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a180973af86b4ed39924f398622bbe4ea}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a180973af86b4ed39924f398622bbe4ea}} 
+Eigen\+::\+Matrix\+Xi {\bfseries TT}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_af79f1b00070c6ecf7026e167e0c1c2d6}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_af79f1b00070c6ecf7026e167e0c1c2d6}} 
+Eigen\+::\+Matrix\+Xi {\bfseries TTi}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac2afa44380f9c51deac3866cf16d54e5}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_ac2afa44380f9c51deac3866cf16d54e5}} 
+std\+::vector$<$ bool $>$ {\bfseries edge\+\_\+consistency}
+\item 
+\mbox{\Hypertarget{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a427b5bd1d6f446f79016d7a3be547840}\label{classigl_1_1copyleft_1_1comiso_1_1_frame_interpolator_a427b5bd1d6f446f79016d7a3be547840}} 
+Eigen\+::\+Matrix\+Xi {\bfseries edge\+\_\+consistency\+\_\+\+TT}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/copyleft/comiso/frame\+\_\+field.\+cpp\end{DoxyCompactItemize}

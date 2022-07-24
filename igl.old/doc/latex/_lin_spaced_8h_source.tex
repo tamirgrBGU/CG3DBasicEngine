@@ -1,0 +1,67 @@
+\hypertarget{_lin_spaced_8h_source}{}\doxysection{Lin\+Spaced.\+h}
+\label{_lin_spaced_8h_source}\index{igl/LinSpaced.h@{igl/LinSpaced.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_LINSPACED\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_LINSPACED\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{4 \textcolor{comment}{// This function is not intended to be a permanent function of libigl. Rather}}
+\DoxyCodeLine{5 \textcolor{comment}{// it is a "{}drop-\/in"{} workaround for documented bug in Eigen:}}
+\DoxyCodeLine{6 \textcolor{comment}{// http://eigen.tuxfamily.org/bz/show\_bug.cgi?id=1383}}
+\DoxyCodeLine{7 \textcolor{comment}{//}}
+\DoxyCodeLine{8 \textcolor{comment}{// Replace: }}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 \textcolor{comment}{//     Eigen::VectorXi::LinSpaced(size,low,high);}}
+\DoxyCodeLine{11 \textcolor{comment}{//}}
+\DoxyCodeLine{12 \textcolor{comment}{// With:}}
+\DoxyCodeLine{13 \textcolor{comment}{//}}
+\DoxyCodeLine{14 \textcolor{comment}{//     igl::LinSpaced<Eigen::VectorXi>(size,low,high);}}
+\DoxyCodeLine{15 \textcolor{comment}{//}}
+\DoxyCodeLine{16 \textcolor{comment}{// Specifcally, this version will \_always\_ return an empty vector if size==0,}}
+\DoxyCodeLine{17 \textcolor{comment}{// regardless of the values for low and high. If size != 0, then this simply}}
+\DoxyCodeLine{18 \textcolor{comment}{// returns the result of Eigen::Derived::LinSpaced.}}
+\DoxyCodeLine{19 \textcolor{comment}{//}}
+\DoxyCodeLine{20 \textcolor{comment}{// Until this bug is fixed, we should also avoid calls to the member function}}
+\DoxyCodeLine{21 \textcolor{comment}{// `.setLinSpaced`. This means replacing:}}
+\DoxyCodeLine{22 \textcolor{comment}{//}}
+\DoxyCodeLine{23 \textcolor{comment}{//     a.setLinSpaced(size,low,high);}}
+\DoxyCodeLine{24 \textcolor{comment}{//}}
+\DoxyCodeLine{25 \textcolor{comment}{// with}}
+\DoxyCodeLine{26 \textcolor{comment}{//}}
+\DoxyCodeLine{27 \textcolor{comment}{//     a = igl::LinSpaced<decltype(a) >(size,low,high);}}
+\DoxyCodeLine{28 \textcolor{comment}{//}}
+\DoxyCodeLine{29 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{32   \textcolor{comment}{//inline typename Eigen::DenseBase< Derived >::RandomAccessLinSpacedReturnType }}
+\DoxyCodeLine{33   \textcolor{keyword}{inline} Derived LinSpaced(}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} Derived::Index size,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keyword}{typename} Derived::Scalar \& low,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \textcolor{keyword}{typename} Derived::Scalar \& high);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{42 \textcolor{comment}{//inline typename Eigen::DenseBase< Derived >::RandomAccessLinSpacedReturnType }}
+\DoxyCodeLine{43 \textcolor{keyword}{inline} Derived}
+\DoxyCodeLine{44 igl::LinSpaced(}
+\DoxyCodeLine{45   \textcolor{keyword}{typename} Derived::Index size,}
+\DoxyCodeLine{46   \textcolor{keyword}{const} \textcolor{keyword}{typename} Derived::Scalar \& low,}
+\DoxyCodeLine{47   \textcolor{keyword}{const} \textcolor{keyword}{typename} Derived::Scalar \& high)}
+\DoxyCodeLine{48 \{}
+\DoxyCodeLine{49   \textcolor{keywordflow}{if}(size == 0)}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \textcolor{comment}{// Force empty vector with correct "{}RandomAccessLinSpacedReturnType"{} type.}}
+\DoxyCodeLine{52     \textcolor{keywordflow}{return} Derived::LinSpaced(0,0,1);}
+\DoxyCodeLine{53   \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(high < low)}
+\DoxyCodeLine{54   \{}
+\DoxyCodeLine{55     \textcolor{keywordflow}{return} low-\/Derived::LinSpaced(size,low-\/low,low-\/high).array();}
+\DoxyCodeLine{56   \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{57     \textcolor{keywordflow}{return} Derived::LinSpaced(size,low,high);}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

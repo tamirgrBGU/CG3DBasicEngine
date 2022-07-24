@@ -1,0 +1,99 @@
+\hypertarget{matlab__format_8h_source}{}\doxysection{matlab\+\_\+format.\+h}
+\label{matlab__format_8h_source}\index{igl/matlab\_format.h@{igl/matlab\_format.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MATLAB\_FORMAT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MATLAB\_FORMAT\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{comment}{// This is a routine to print a matrix using format suitable for pasting into}}
+\DoxyCodeLine{20   \textcolor{comment}{// the matlab IDE}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   DerivedM  e.g. derived from MatrixXd}}
+\DoxyCodeLine{24   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   input  some matrix to be formatted}}
+\DoxyCodeLine{26   \textcolor{comment}{//   name  name of matrix}}
+\DoxyCodeLine{27   \textcolor{comment}{// Returns  Formatted matrix}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{30   \textcolor{comment}{// // M := [1 2 3;4 5 6];}}
+\DoxyCodeLine{31   \textcolor{comment}{// cout<<matlab\_format(M)<<endl;}}
+\DoxyCodeLine{32   \textcolor{comment}{// // Prints:}}
+\DoxyCodeLine{33   \textcolor{comment}{// // [}}
+\DoxyCodeLine{34   \textcolor{comment}{// //   1 2 3}}
+\DoxyCodeLine{35   \textcolor{comment}{// //   4 5 6}}
+\DoxyCodeLine{36   \textcolor{comment}{// // ];}}
+\DoxyCodeLine{37   \textcolor{comment}{// cout<<matlab\_format(M,"{}M"{})<<endl;}}
+\DoxyCodeLine{38   \textcolor{comment}{// // Prints:}}
+\DoxyCodeLine{39   \textcolor{comment}{// // M = [}}
+\DoxyCodeLine{40   \textcolor{comment}{// //   1 2 3}}
+\DoxyCodeLine{41   \textcolor{comment}{// //   4 5 6}}
+\DoxyCodeLine{42   \textcolor{comment}{// // ];}}
+\DoxyCodeLine{43   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedM>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keyword}{const} Eigen::WithFormat< DerivedM > matlab\_format(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::DenseBase<DerivedM> \& M,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{47   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedM>}
+\DoxyCodeLine{48   IGL\_INLINE std::string matlab\_format\_index(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedM> \& M,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{51   \textcolor{comment}{// Same but for sparse matrices. Print IJV format into an auxiliary variable}}
+\DoxyCodeLine{52   \textcolor{comment}{// and then print a call to sparse which will construct the sparse matrix}}
+\DoxyCodeLine{53   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{54   \textcolor{comment}{// // S := [0 2 3;4 5 0];}}
+\DoxyCodeLine{55   \textcolor{comment}{// cout<<matlab\_format(S,"{}S"{})<<endl;}}
+\DoxyCodeLine{56   \textcolor{comment}{// // Prints:}}
+\DoxyCodeLine{57   \textcolor{comment}{// // SIJV = [}}
+\DoxyCodeLine{58   \textcolor{comment}{// //   2 1 4}}
+\DoxyCodeLine{59   \textcolor{comment}{// //   1 2 2}}
+\DoxyCodeLine{60   \textcolor{comment}{// //   2 2 5}}
+\DoxyCodeLine{61   \textcolor{comment}{// //   1 3 3}}
+\DoxyCodeLine{62   \textcolor{comment}{// // ];}}
+\DoxyCodeLine{63   \textcolor{comment}{// // S = sparse(SIJV(:,1),SIJV(:,2),SIJV(:,3));}}
+\DoxyCodeLine{64   \textcolor{comment}{//}}
+\DoxyCodeLine{65   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keyword}{const} std::string matlab\_format(}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::SparseMatrix<DerivedS> \& S,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{69   IGL\_INLINE \textcolor{keyword}{const} std::string matlab\_format(}
+\DoxyCodeLine{70     \textcolor{keyword}{const} \textcolor{keywordtype}{double} v,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{72   IGL\_INLINE \textcolor{keyword}{const} std::string matlab\_format(}
+\DoxyCodeLine{73     \textcolor{keyword}{const} \textcolor{keywordtype}{float} v,}
+\DoxyCodeLine{74     \textcolor{keyword}{const} std::string name = \textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{75   \textcolor{comment}{// Return just IOFormat }}
+\DoxyCodeLine{76   \textcolor{comment}{//}}
+\DoxyCodeLine{77   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{78   \textcolor{comment}{// // M := [1 2 3;4 5 6];}}
+\DoxyCodeLine{79   \textcolor{comment}{// cout<<M.format(matlab\_format())<<endl;}}
+\DoxyCodeLine{80   \textcolor{comment}{// // Prints:}}
+\DoxyCodeLine{81   \textcolor{comment}{// // [}}
+\DoxyCodeLine{82   \textcolor{comment}{// //   1 2 3}}
+\DoxyCodeLine{83   \textcolor{comment}{// //   4 5 6}}
+\DoxyCodeLine{84   \textcolor{comment}{// // ];}}
+\DoxyCodeLine{85   IGL\_INLINE Eigen::IOFormat matlab\_format();}
+\DoxyCodeLine{86 \}}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#  include "{}matlab\_format.cpp"{}}}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{93 }
+
+\end{DoxyCode}

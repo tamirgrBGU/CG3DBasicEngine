@@ -1,0 +1,55 @@
+\hypertarget{centroid_8h_source}{}\doxysection{centroid.\+h}
+\label{centroid_8h_source}\index{igl/centroid.h@{igl/centroid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_CENTROID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_CENTROID\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// CENTROID Computes the centroid of a closed mesh using a surface integral.}}
+\DoxyCodeLine{15   \textcolor{comment}{// }}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   V  \#V by dim list of rest domain positions}}
+\DoxyCodeLine{18   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//    c  dim vector of centroid coordinates}}
+\DoxyCodeLine{21   \textcolor{comment}{//    vol  total volume of solid.}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{26     \textcolor{keyword}{typename} Derivedc, }
+\DoxyCodeLine{27     \textcolor{keyword}{typename} Derivedvol>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} centroid(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<Derivedc>\& c,}
+\DoxyCodeLine{32     Derivedvol \& vol);}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{36     \textcolor{keyword}{typename} Derivedc>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} centroid(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<Derivedc>\& c);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#  include "{}centroid.cpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+
+\end{DoxyCode}

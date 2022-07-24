@@ -1,0 +1,45 @@
+\hypertarget{frame__to__cross__field_8h_source}{}\doxysection{frame\+\_\+to\+\_\+cross\+\_\+field.\+h}
+\label{frame__to__cross__field_8h_source}\index{igl/frame\_to\_cross\_field.h@{igl/frame\_to\_cross\_field.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FRAME\_TO\_CROSS\_FIELD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FRAME\_TO\_CROSS\_FIELD\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Convert a frame field into its closest cross field}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V       \#V by 3 coordinates of the vertices}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F       \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{20   \textcolor{comment}{//   FF1     \#F by 3 the first representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{21   \textcolor{comment}{//   FF2     \#F by 3 the second representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   X       \#F by 3 representative vector of the closest cross field}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} frame\_to\_cross\_field(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixXd\& V,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixXd\& FF1,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixXd\& FF2,}
+\DoxyCodeLine{31     Eigen::MatrixXd\& X);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#  include "{}frame\_to\_cross\_field.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

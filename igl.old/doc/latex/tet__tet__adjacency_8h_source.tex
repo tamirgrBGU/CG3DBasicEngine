@@ -1,0 +1,57 @@
+\hypertarget{tet__tet__adjacency_8h_source}{}\doxysection{tet\+\_\+tet\+\_\+adjacency.\+h}
+\label{tet__tet__adjacency_8h_source}\index{igl/tet\_tet\_adjacency.h@{igl/tet\_tet\_adjacency.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Oded Stein <oded.stein@columbia.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_TET\_TET\_ADJACENCY\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_TET\_TET\_ADJACENCY\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   }
+\DoxyCodeLine{19   \textcolor{comment}{// Constructs the tet\_tet adjacency matrix for a given tet mesh with tets T}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   T  \#T by 4 list of tets}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   TT   \#T by \#4 adjacency matrix, the element i,j is the id of the tet}}
+\DoxyCodeLine{25   \textcolor{comment}{//        adjacent to the j face of tet i}}
+\DoxyCodeLine{26   \textcolor{comment}{//   TTi  \#T by \#4 adjacency matrix, the element i,j is the id of face of}}
+\DoxyCodeLine{27   \textcolor{comment}{//        the tet TT(i,j) that is adjacent to tet i}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{comment}{// NOTE: the first face of a tet is [0,1,2], the second [0,1,3], the third}}
+\DoxyCodeLine{30   \textcolor{comment}{//       [1,2,3], and the fourth [2,0,3].}}
+\DoxyCodeLine{31   }
+\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedTT, \textcolor{keyword}{typename} DerivedTTi>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} tet\_tet\_adjacency(}
+\DoxyCodeLine{34                                     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T,}
+\DoxyCodeLine{35                                     Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{36                                     Eigen::PlainObjectBase<DerivedTTi>\& TTi);}
+\DoxyCodeLine{37   }
+\DoxyCodeLine{38   }
+\DoxyCodeLine{39   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedTT>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} tet\_tet\_adjacency(}
+\DoxyCodeLine{41                                     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT>\& T,}
+\DoxyCodeLine{42                                     Eigen::PlainObjectBase<DerivedTT>\& TT);}
+\DoxyCodeLine{43     }
+\DoxyCodeLine{44 \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}tet\_tet\_adjacency.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

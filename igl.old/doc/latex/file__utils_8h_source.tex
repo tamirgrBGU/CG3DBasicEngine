@@ -1,0 +1,68 @@
+\hypertarget{file__utils_8h_source}{}\doxysection{file\+\_\+utils.\+h}
+\label{file__utils_8h_source}\index{igl/file\_utils.h@{igl/file\_utils.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Jérémie Dumas <jeremie.dumas@ens-\/lyon.org>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FILE\_UTILS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FILE\_UTILS\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <streambuf>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <istream>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 IGL\_INLINE \textcolor{keywordtype}{void} read\_file\_binary(FILE *fp,}
+\DoxyCodeLine{21                                  std::vector<uint8\_t> \&fileBufferBytes);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1file__memory__buffer}{file\_memory\_buffer}} : \textcolor{keyword}{public} std::streambuf \{}
+\DoxyCodeLine{24   \textcolor{keywordtype}{char} *p\_start\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{25   \textcolor{keywordtype}{char} *p\_end\{\textcolor{keyword}{nullptr}\};}
+\DoxyCodeLine{26   \textcolor{keywordtype}{size\_t} size;}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28   \mbox{\hyperlink{structigl_1_1file__memory__buffer}{file\_memory\_buffer}}(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *first\_elem, \textcolor{keywordtype}{size\_t} size)}
+\DoxyCodeLine{29       : p\_start(\textcolor{keyword}{const\_cast<}\textcolor{keywordtype}{char} *\textcolor{keyword}{>}(first\_elem)), p\_end(p\_start + size),}
+\DoxyCodeLine{30         size(size) \{}
+\DoxyCodeLine{31     setg(p\_start, p\_start, p\_end);}
+\DoxyCodeLine{32   \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34   pos\_type seekoff(off\_type off, std::ios\_base::seekdir dir,}
+\DoxyCodeLine{35                    std::ios\_base::openmode which)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{36     \textcolor{keywordflow}{if} (dir == std::ios\_base::cur) \{}
+\DoxyCodeLine{37       gbump(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(off));}
+\DoxyCodeLine{38     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39       setg(p\_start, (dir == std::ios\_base::beg ? p\_start : p\_end) + off, p\_end);}
+\DoxyCodeLine{40     \}}
+\DoxyCodeLine{41     \textcolor{keywordflow}{return} gptr() -\/ p\_start;}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   pos\_type seekpos(pos\_type pos, std::ios\_base::openmode which)\textcolor{keyword}{ override }\{}
+\DoxyCodeLine{45     \textcolor{keywordflow}{return} seekoff(pos, std::ios\_base::beg, which);}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47 \};}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1file__memory__stream}{file\_memory\_stream}} : \textcolor{keyword}{virtual} \mbox{\hyperlink{structigl_1_1file__memory__buffer}{file\_memory\_buffer}}, \textcolor{keyword}{public} std::istream \{}
+\DoxyCodeLine{50   \mbox{\hyperlink{structigl_1_1file__memory__stream}{file\_memory\_stream}}(\textcolor{keywordtype}{char} \textcolor{keyword}{const} *first\_elem, \textcolor{keywordtype}{size\_t} size)}
+\DoxyCodeLine{51       : \mbox{\hyperlink{structigl_1_1file__memory__buffer}{file\_memory\_buffer}}(first\_elem, size), std::istream(}
+\DoxyCodeLine{52                                                   \textcolor{keyword}{static\_cast<}std::streambuf *\textcolor{keyword}{>}(}
+\DoxyCodeLine{53                                                       \textcolor{keyword}{this})) \{\}}
+\DoxyCodeLine{54 \};}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \} \textcolor{comment}{// namespace igl}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#include "{}file\_utils.cpp"{}}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

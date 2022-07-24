@@ -1,0 +1,73 @@
+\hypertarget{tetrahedralized__grid_8h_source}{}\doxysection{tetrahedralized\+\_\+grid.\+h}
+\label{tetrahedralized__grid_8h_source}\index{igl/tetrahedralized\_grid.h@{igl/tetrahedralized\_grid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_TETRAHEDRALIZED\_GRID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_TETRAHEDRALIZED\_GRID\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{keyword}{enum} TetrahedralizedGripType}
+\DoxyCodeLine{15   \{}
+\DoxyCodeLine{16     TETRAHEDRALIZED\_GRID\_TYPE\_5 = 0,}
+\DoxyCodeLine{17     TETRAHEDRALIZED\_GRID\_TYPE\_6\_ROTATIONAL = 1,}
+\DoxyCodeLine{18     NUM\_TETRAHEDRALIZED\_GRID\_TYPE = 2}
+\DoxyCodeLine{19   \};}
+\DoxyCodeLine{20   \textcolor{comment}{// Construct vertices of a regular grid, suitable for input to}}
+\DoxyCodeLine{21   \textcolor{comment}{// `igl::marching\_tets`}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   nx  number of grid vertices in x direction}}
+\DoxyCodeLine{25   \textcolor{comment}{//   ny  number of grid vertices in y direction}}
+\DoxyCodeLine{26   \textcolor{comment}{//   nz  number of grid vertices in z direction}}
+\DoxyCodeLine{27   \textcolor{comment}{//   type  type of tetrahedralization of cube to use}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   GV  nx*ny*nz by 3 list of grid vertex positions}}
+\DoxyCodeLine{30   \textcolor{comment}{//   GT  (nx-\/1)*(ny-\/1)*(nz-\/1)*k by 4 list of tetrahedron indices into rows of}}
+\DoxyCodeLine{31   \textcolor{comment}{//     V, where k is the number of tets per cube (dependent on type)}}
+\DoxyCodeLine{32   \textcolor{comment}{//}}
+\DoxyCodeLine{33   \textcolor{comment}{//   See also: triangulated\_grid, quad\_grid}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedGT>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} tetrahedralized\_grid(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nx,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \textcolor{keywordtype}{int} ny,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nz,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} TetrahedralizedGripType type,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedGV> \& GV,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedGT> \& GT);}
+\DoxyCodeLine{44   \textcolor{comment}{//}}
+\DoxyCodeLine{45   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{46   \textcolor{comment}{//   GV  nx*ny*nz by 3 list of grid vertex positions}}
+\DoxyCodeLine{47   \textcolor{comment}{//   side  3-\/long list \{nx,ny,nz\} see above}}
+\DoxyCodeLine{48   \textcolor{comment}{//   type  type of tetrahedralization of cube to use}}
+\DoxyCodeLine{49   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{50   \textcolor{comment}{//   GT  (nx-\/1)*(ny-\/1)*(nz-\/1)*k by 4 list of tetrahedron indices into rows of}}
+\DoxyCodeLine{51   \textcolor{comment}{//     V, where k is the number of tets per cube (dependent on type)}}
+\DoxyCodeLine{52   \textcolor{comment}{//}}
+\DoxyCodeLine{53   \textcolor{keyword}{template} <}
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedGV,}
+\DoxyCodeLine{55     \textcolor{keyword}{typename} Derivedside,}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedGT>}
+\DoxyCodeLine{57   IGL\_INLINE \textcolor{keywordtype}{void} tetrahedralized\_grid(}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedGV> \& GV,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedside> \& side,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} TetrahedralizedGripType type,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedGT> \& GT);}
+\DoxyCodeLine{62 \}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#  include "{}tetrahedralized\_grid.cpp"{}}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{67 }
+
+\end{DoxyCode}

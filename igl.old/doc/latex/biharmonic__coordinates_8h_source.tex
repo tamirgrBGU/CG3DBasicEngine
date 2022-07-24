@@ -1,0 +1,96 @@
+\hypertarget{biharmonic__coordinates_8h_source}{}\doxysection{biharmonic\+\_\+coordinates.\+h}
+\label{biharmonic__coordinates_8h_source}\index{igl/biharmonic\_coordinates.h@{igl/biharmonic\_coordinates.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BIHARMONIC\_COORDINATES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BIHARMONIC\_COORDINATES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Compute "{}discrete biharmonic generalized barycentric coordinates"{} as}}
+\DoxyCodeLine{16   \textcolor{comment}{// described in "{}Linear Subspace Design for Real-\/Time Shape Deformation"{}}}
+\DoxyCodeLine{17   \textcolor{comment}{// [Wang et al. 2015]. Not to be confused with "{}Bounded Biharmonic Weights}}
+\DoxyCodeLine{18   \textcolor{comment}{// for Real-\/Time Deformation"{} [Jacobson et al. 2011] or "{}Biharmonic}}
+\DoxyCodeLine{19   \textcolor{comment}{// Coordinates"{} (2D complex barycentric coordinates) [Weber et al. 2012].}}
+\DoxyCodeLine{20   \textcolor{comment}{// These weights minimize a discrete version of the squared Laplacian energy}}
+\DoxyCodeLine{21   \textcolor{comment}{// subject to positional interpolation constraints at selected vertices}}
+\DoxyCodeLine{22   \textcolor{comment}{// (point handles) and transformation interpolation constraints at regions}}
+\DoxyCodeLine{23   \textcolor{comment}{// (region handles).}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   HType  should be a simple index type e.g. `int`,`size\_t`}}
+\DoxyCodeLine{27   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{29   \textcolor{comment}{//   T  \#T by dim+1 list of / triangle indices into V      if dim=2}}
+\DoxyCodeLine{30   \textcolor{comment}{//                          \(\backslash\) tetrahedron indices into V   if dim=3}}
+\DoxyCodeLine{31   \textcolor{comment}{//   S  \#point-\/handles+\#region-\/handles list of lists of selected vertices for}}
+\DoxyCodeLine{32   \textcolor{comment}{//     each handle. Point handles should have singleton lists and region}}
+\DoxyCodeLine{33   \textcolor{comment}{//     handles should have lists of size at least dim+1 (and these points}}
+\DoxyCodeLine{34   \textcolor{comment}{//     should be in general position).}}
+\DoxyCodeLine{35   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   W  \#V by \#points-\/handles+(\#region-\/handles * dim+1) matrix of weights so}}
+\DoxyCodeLine{37   \textcolor{comment}{//     that columns correspond to each handles generalized barycentric}}
+\DoxyCodeLine{38   \textcolor{comment}{//     coordinates (for point-\/handles) or animation space weights (for region}}
+\DoxyCodeLine{39   \textcolor{comment}{//     handles).}}
+\DoxyCodeLine{40   \textcolor{comment}{// returns true only on success}}
+\DoxyCodeLine{41   \textcolor{comment}{//}}
+\DoxyCodeLine{42   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{43   \textcolor{comment}{//}}
+\DoxyCodeLine{44   \textcolor{comment}{//     MatrixXd W;}}
+\DoxyCodeLine{45   \textcolor{comment}{//     igl::biharmonic\_coordinates(V,F,S,W);}}
+\DoxyCodeLine{46   \textcolor{comment}{//     const size\_t dim = T.cols()-\/1;}}
+\DoxyCodeLine{47   \textcolor{comment}{//     MatrixXd H(W.cols(),dim);}}
+\DoxyCodeLine{48   \textcolor{comment}{//     \{}}
+\DoxyCodeLine{49   \textcolor{comment}{//       int c = 0;}}
+\DoxyCodeLine{50   \textcolor{comment}{//       for(int h = 0;h<S.size();h++)}}
+\DoxyCodeLine{51   \textcolor{comment}{//       \{}}
+\DoxyCodeLine{52   \textcolor{comment}{//         if(S[h].size()==1)}}
+\DoxyCodeLine{53   \textcolor{comment}{//         \{}}
+\DoxyCodeLine{54   \textcolor{comment}{//           H.row(c++) = V.block(S[h][0],0,1,dim);}}
+\DoxyCodeLine{55   \textcolor{comment}{//         \}else}}
+\DoxyCodeLine{56   \textcolor{comment}{//         \{}}
+\DoxyCodeLine{57   \textcolor{comment}{//           H.block(c,0,dim+1,dim).setIdentity();}}
+\DoxyCodeLine{58   \textcolor{comment}{//           c+=dim+1;}}
+\DoxyCodeLine{59   \textcolor{comment}{//         \}}}
+\DoxyCodeLine{60   \textcolor{comment}{//       \}}}
+\DoxyCodeLine{61   \textcolor{comment}{//     \}}}
+\DoxyCodeLine{62   \textcolor{comment}{//     assert( (V-\/(W*H)).array().maxCoeff() < 1e-\/7 );}}
+\DoxyCodeLine{63   \textcolor{keyword}{template} <}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{65     \textcolor{keyword}{typename} DerivedT,}
+\DoxyCodeLine{66     \textcolor{keyword}{typename} SType,}
+\DoxyCodeLine{67     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{68   IGL\_INLINE \textcolor{keywordtype}{bool} biharmonic\_coordinates(}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT> \& T,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} std::vector<std::vector<SType> > \& S,}
+\DoxyCodeLine{72     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{73   \textcolor{comment}{// k  2-\/-\/>biharmonic, 3-\/-\/>triharmonic}}
+\DoxyCodeLine{74   \textcolor{keyword}{template} <}
+\DoxyCodeLine{75     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{76     \textcolor{keyword}{typename} DerivedT,}
+\DoxyCodeLine{77     \textcolor{keyword}{typename} SType,}
+\DoxyCodeLine{78     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{79   IGL\_INLINE \textcolor{keywordtype}{bool} biharmonic\_coordinates(}
+\DoxyCodeLine{80     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{81     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT> \& T,}
+\DoxyCodeLine{82     \textcolor{keyword}{const} std::vector<std::vector<SType> > \& S,}
+\DoxyCodeLine{83     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{84     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \};}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#  ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#    include "{}biharmonic\_coordinates.cpp"{}}}
+\DoxyCodeLine{89 \textcolor{preprocessor}{\#  endif}}
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

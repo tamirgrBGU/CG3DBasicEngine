@@ -1,0 +1,31 @@
+\hypertarget{texture_8h_source}{}\doxysection{texture.\+h}
+\label{texture_8h_source}\index{igl/opengl/glfw/texture.h@{igl/opengl/glfw/texture.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{keyword}{using }std::string;}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{class }\mbox{\hyperlink{class_texture}{Texture}}}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8 \textcolor{keyword}{public}:}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{15     \mbox{\hyperlink{class_texture_a00064266f15fc72802a40d3701e5928f}{Texture}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& fileName, \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim);}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{27     \mbox{\hyperlink{class_texture_a00064266f15fc72802a40d3701e5928f}{Texture}}(\textcolor{keywordtype}{int} internalformat, \textcolor{keywordtype}{int} width, \textcolor{keywordtype}{int} height, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} format, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} type, \textcolor{keyword}{const} \textcolor{keywordtype}{void}* data);}
+\DoxyCodeLine{28      \mbox{\hyperlink{class_texture}{\string~Texture}}();}
+\DoxyCodeLine{29      \textcolor{keywordtype}{void} Bind(\textcolor{keywordtype}{int} slot);}
+\DoxyCodeLine{30      \textcolor{keywordtype}{void} Unbind(\textcolor{keywordtype}{int} slot);}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{keyword}{private}:}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char}* LoadFromFile(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& filename, \textcolor{keywordtype}{int}* width, \textcolor{keywordtype}{int}* height, \textcolor{keywordtype}{int}* numComponents, \textcolor{keywordtype}{int} reqComponents);}
+\DoxyCodeLine{35     \mbox{\hyperlink{class_texture_a00064266f15fc72802a40d3701e5928f}{Texture}}(\textcolor{keywordtype}{int} dim); \textcolor{comment}{// private constructor to initialize m\_type}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_texture = 0;}
+\DoxyCodeLine{38     \textcolor{keywordtype}{int} m\_dim;}
+\DoxyCodeLine{39     \textcolor{keywordtype}{int} m\_type = 0;}
+\DoxyCodeLine{40 \};}
+
+\end{DoxyCode}

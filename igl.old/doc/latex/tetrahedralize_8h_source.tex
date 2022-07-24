@@ -1,0 +1,208 @@
+\hypertarget{tetrahedralize_8h_source}{}\doxysection{tetrahedralize.\+h}
+\label{tetrahedralize_8h_source}\index{igl/copyleft/tetgen/tetrahedralize.h@{igl/copyleft/tetgen/tetrahedralize.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_TETGEN\_TETRAHEDRALIZE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_TETGEN\_TETRAHEDRALIZE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#ifndef TETLIBRARY}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define TETLIBRARY }}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <tetgen.h>} \textcolor{comment}{// Defined REAL}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{23   \{}
+\DoxyCodeLine{24     \textcolor{keyword}{namespace }tetgen}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26       \textcolor{comment}{// Mesh the interior of a surface mesh (V,F) using tetgen}}
+\DoxyCodeLine{27       \textcolor{comment}{//}}
+\DoxyCodeLine{28       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{29       \textcolor{comment}{//   V  \#V by 3 vertex position list}}
+\DoxyCodeLine{30       \textcolor{comment}{//   F  \#F list of polygon face indices into V (0-\/indexed)}}
+\DoxyCodeLine{31       \textcolor{comment}{//   switches  string of tetgen options (See tetgen documentation) e.g.}}
+\DoxyCodeLine{32       \textcolor{comment}{//     "{}pq1.414a0.01"{} tries to mesh the interior of a given surface with}}
+\DoxyCodeLine{33       \textcolor{comment}{//       quality and area constraints}}
+\DoxyCodeLine{34       \textcolor{comment}{//     "{}"{} will mesh the convex hull constrained to pass through V (ignores F)}}
+\DoxyCodeLine{35       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36       \textcolor{comment}{//   TV  \#V by 3 vertex position list}}
+\DoxyCodeLine{37       \textcolor{comment}{//   TT  \#T by 4 list of tet face indices}}
+\DoxyCodeLine{38       \textcolor{comment}{//   TF  \#F by 3 list of triangle face indices}}
+\DoxyCodeLine{39       \textcolor{comment}{// Returns status:}}
+\DoxyCodeLine{40       \textcolor{comment}{//   0 success}}
+\DoxyCodeLine{41       \textcolor{comment}{//   1 tetgen threw exception}}
+\DoxyCodeLine{42       \textcolor{comment}{//   2 tetgen did not crash but could not create any tets (probably there are}}
+\DoxyCodeLine{43       \textcolor{comment}{//     holes, duplicate faces etc.)}}
+\DoxyCodeLine{44       \textcolor{comment}{//   -\/1 other error}}
+\DoxyCodeLine{45       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{46         \textcolor{keyword}{const} std::vector<std::vector<REAL > > \& V, }
+\DoxyCodeLine{47         \textcolor{keyword}{const} std::vector<std::vector<int> > \& F, }
+\DoxyCodeLine{48         \textcolor{keyword}{const} std::string switches,}
+\DoxyCodeLine{49         std::vector<std::vector<REAL > > \& TV, }
+\DoxyCodeLine{50         std::vector<std::vector<int > > \& TT, }
+\DoxyCodeLine{51         std::vector<std::vector<int> > \& TF);}
+\DoxyCodeLine{52       }
+\DoxyCodeLine{53       \textcolor{comment}{// Wrapper with Eigen types}}
+\DoxyCodeLine{54       \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{55       \textcolor{comment}{//   DerivedV  real-\/value: i.e. from MatrixXd}}
+\DoxyCodeLine{56       \textcolor{comment}{//   DerivedF  integer-\/value: i.e. from MatrixXi}}
+\DoxyCodeLine{57       \textcolor{keyword}{template} <}
+\DoxyCodeLine{58         \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{59         \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{60         \textcolor{keyword}{typename} DerivedTV, }
+\DoxyCodeLine{61         \textcolor{keyword}{typename} DerivedTT, }
+\DoxyCodeLine{62         \textcolor{keyword}{typename} DerivedTF>}
+\DoxyCodeLine{63       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{64         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{65         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{66         \textcolor{keyword}{const} std::string switches,}
+\DoxyCodeLine{67         Eigen::PlainObjectBase<DerivedTV>\& TV,}
+\DoxyCodeLine{68         Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{69         Eigen::PlainObjectBase<DerivedTF>\& TF);}
+\DoxyCodeLine{70       }
+\DoxyCodeLine{71       \textcolor{comment}{// Mesh the interior of a surface mesh (V,F) using tetgen}}
+\DoxyCodeLine{72       \textcolor{comment}{//}}
+\DoxyCodeLine{73       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{74       \textcolor{comment}{//   V  \#V by 3 vertex position list}}
+\DoxyCodeLine{75       \textcolor{comment}{//   F  \#F list of polygon face indices into V (0-\/indexed)}}
+\DoxyCodeLine{76       \textcolor{comment}{//   M  \#V list of markers for vertices}}
+\DoxyCodeLine{77       \textcolor{comment}{//   switches  string of tetgen options (See tetgen documentation) e.g.}}
+\DoxyCodeLine{78       \textcolor{comment}{//     "{}pq1.414a0.01"{} tries to mesh the interior of a given surface with}}
+\DoxyCodeLine{79       \textcolor{comment}{//       quality and area constraints}}
+\DoxyCodeLine{80       \textcolor{comment}{//     "{}"{} will mesh the convex hull constrained to pass through V (ignores F)}}
+\DoxyCodeLine{81       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{82       \textcolor{comment}{//   TV  \#V by 3 vertex position list}}
+\DoxyCodeLine{83       \textcolor{comment}{//   TT  \#T by 4 list of tet face indices}}
+\DoxyCodeLine{84       \textcolor{comment}{//   TF  \#F by 3 list of triangle face indices}}
+\DoxyCodeLine{85       \textcolor{comment}{//   TM  \#V list of markers for vertices}}
+\DoxyCodeLine{86       \textcolor{comment}{// Returns status:}}
+\DoxyCodeLine{87       \textcolor{comment}{//   0 success}}
+\DoxyCodeLine{88       \textcolor{comment}{//   1 tetgen threw exception}}
+\DoxyCodeLine{89       \textcolor{comment}{//   2 tetgen did not crash but could not create any tets (probably there are}}
+\DoxyCodeLine{90       \textcolor{comment}{//     holes, duplicate faces etc.)}}
+\DoxyCodeLine{91       \textcolor{comment}{//   -\/1 other error}}
+\DoxyCodeLine{92       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{93         \textcolor{keyword}{const} std::vector<std::vector<REAL > > \& V, }
+\DoxyCodeLine{94         \textcolor{keyword}{const} std::vector<std::vector<int> > \& F, }
+\DoxyCodeLine{95         \textcolor{keyword}{const} std::vector<int> \& VM,}
+\DoxyCodeLine{96         \textcolor{keyword}{const} std::vector<int> \& FM,}
+\DoxyCodeLine{97         \textcolor{keyword}{const} std::string switches,}
+\DoxyCodeLine{98         std::vector<std::vector<REAL > > \& TV, }
+\DoxyCodeLine{99         std::vector<std::vector<int > > \& TT, }
+\DoxyCodeLine{100         std::vector<std::vector<int> > \& TF,}
+\DoxyCodeLine{101         std::vector<int> \& TM);}
+\DoxyCodeLine{102       \textcolor{comment}{// Wrapper with Eigen types}}
+\DoxyCodeLine{103       \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{104       \textcolor{comment}{//   DerivedV  real-\/value: i.e. from MatrixXd}}
+\DoxyCodeLine{105       \textcolor{comment}{//   DerivedF  integer-\/value: i.e. from MatrixXi}}
+\DoxyCodeLine{106       \textcolor{keyword}{template} <}
+\DoxyCodeLine{107         \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{108         \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{109         \textcolor{keyword}{typename} DerivedVM,}
+\DoxyCodeLine{110         \textcolor{keyword}{typename} DerivedFM,}
+\DoxyCodeLine{111         \textcolor{keyword}{typename} DerivedTV, }
+\DoxyCodeLine{112         \textcolor{keyword}{typename} DerivedTT, }
+\DoxyCodeLine{113         \textcolor{keyword}{typename} DerivedTF, }
+\DoxyCodeLine{114         \textcolor{keyword}{typename} DerivedTM>}
+\DoxyCodeLine{115       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{116         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{117         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{118         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedVM>\& VM,}
+\DoxyCodeLine{119         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFM>\& FM,}
+\DoxyCodeLine{120         \textcolor{keyword}{const} std::string switches,}
+\DoxyCodeLine{121         Eigen::PlainObjectBase<DerivedTV>\& TV,}
+\DoxyCodeLine{122         Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{123         Eigen::PlainObjectBase<DerivedTF>\& TF,}
+\DoxyCodeLine{124         Eigen::PlainObjectBase<DerivedTM>\& TM);}
+\DoxyCodeLine{125       \textcolor{comment}{// Mesh the interior of a surface mesh (V,F) using tetgen}}
+\DoxyCodeLine{126       \textcolor{comment}{//}}
+\DoxyCodeLine{127       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{128       \textcolor{comment}{//   V  \#V by 3 vertex position list}}
+\DoxyCodeLine{129       \textcolor{comment}{//   F  \#F list of polygon face indices into V (0-\/indexed)}}
+\DoxyCodeLine{130       \textcolor{comment}{//   H  \#H by 3 list of seed points inside holes}}
+\DoxyCodeLine{131       \textcolor{comment}{//   R  \#R by 5 list of region attributes            }}
+\DoxyCodeLine{132       \textcolor{comment}{//   switches  string of tetgen options (See tetgen documentation) e.g.}}
+\DoxyCodeLine{133       \textcolor{comment}{//     "{}pq1.414a0.01"{} tries to mesh the interior of a given surface with}}
+\DoxyCodeLine{134       \textcolor{comment}{//       quality and area constraints}}
+\DoxyCodeLine{135       \textcolor{comment}{//     "{}"{} will mesh the convex hull constrained to pass through V (ignores F)}}
+\DoxyCodeLine{136       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{137       \textcolor{comment}{//   TV  \#TV by 3 vertex position list}}
+\DoxyCodeLine{138       \textcolor{comment}{//   TT  \#TT by 4 list of tet face indices}}
+\DoxyCodeLine{139       \textcolor{comment}{//   TF  \#TF by 3 list of triangle face indices}}
+\DoxyCodeLine{140       \textcolor{comment}{//   TR  \#TT list of region ID for each tetrahedron      }}
+\DoxyCodeLine{141       \textcolor{comment}{//   TN  \#TT by 4 list of indices neighbors for each tetrahedron}}
+\DoxyCodeLine{142       \textcolor{comment}{//   PT  \#TV list of incident tetrahedron for a vertex}}
+\DoxyCodeLine{143       \textcolor{comment}{//   FT  \#TF by 2 list of tetrahedrons sharing a triface      }}
+\DoxyCodeLine{144       \textcolor{comment}{//   numRegions Number of regions in output mesh}}
+\DoxyCodeLine{145       \textcolor{comment}{// Returns status:}}
+\DoxyCodeLine{146       \textcolor{comment}{//   0 success}}
+\DoxyCodeLine{147       \textcolor{comment}{//   1 tetgen threw exception}}
+\DoxyCodeLine{148       \textcolor{comment}{//   2 tetgen did not crash but could not create any tets (probably there are}}
+\DoxyCodeLine{149       \textcolor{comment}{//     holes, duplicate faces etc.)}}
+\DoxyCodeLine{150       \textcolor{comment}{//   -\/1 other error}}
+\DoxyCodeLine{151       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{152         \textcolor{keyword}{const} std::vector<std::vector<REAL> > \&V, }
+\DoxyCodeLine{153         \textcolor{keyword}{const} std::vector<std::vector<int> >  \&F, }
+\DoxyCodeLine{154         \textcolor{keyword}{const} std::vector<std::vector<REAL> > \&H, }
+\DoxyCodeLine{155         \textcolor{keyword}{const} std::vector<std::vector<REAL> > \&R, }
+\DoxyCodeLine{156         \textcolor{keyword}{const} std::string switches, }
+\DoxyCodeLine{157         std::vector<std::vector<REAL > > \& TV,}
+\DoxyCodeLine{158         std::vector<std::vector<int > >  \& TT,}
+\DoxyCodeLine{159         std::vector<std::vector<int > >  \& TF,}
+\DoxyCodeLine{160         std::vector<std::vector<REAL > > \&TR,  }
+\DoxyCodeLine{161         std::vector<std::vector<int > > \&TN, }
+\DoxyCodeLine{162         std::vector<std::vector<int > > \&PT, }
+\DoxyCodeLine{163         std::vector<std::vector<int > > \&FT, }
+\DoxyCodeLine{164         \textcolor{keywordtype}{size\_t} \& numRegions);           }
+\DoxyCodeLine{165       \textcolor{comment}{// Wrapper with Eigen types}}
+\DoxyCodeLine{166       \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{167       \textcolor{comment}{//   DerivedV  real-\/value: i.e. from MatrixXd}}
+\DoxyCodeLine{168       \textcolor{comment}{//   DerivedF  integer-\/value: i.e. from MatrixXi      }}
+\DoxyCodeLine{169       \textcolor{keyword}{template} <}
+\DoxyCodeLine{170         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{171         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{172         \textcolor{keyword}{typename} DerivedH,}
+\DoxyCodeLine{173         \textcolor{keyword}{typename} DerivedR,}
+\DoxyCodeLine{174         \textcolor{keyword}{typename} DerivedTV,}
+\DoxyCodeLine{175         \textcolor{keyword}{typename} DerivedTT,}
+\DoxyCodeLine{176         \textcolor{keyword}{typename} DerivedTF,}
+\DoxyCodeLine{177         \textcolor{keyword}{typename} DerivedTR>      }
+\DoxyCodeLine{178       IGL\_INLINE \textcolor{keywordtype}{int} tetrahedralize(}
+\DoxyCodeLine{179         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{180         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{181         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedH>\& H,}
+\DoxyCodeLine{182         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedR>\& R,}
+\DoxyCodeLine{183         \textcolor{keyword}{const} std::string switches,}
+\DoxyCodeLine{184         Eigen::PlainObjectBase<DerivedTV>\& TV,}
+\DoxyCodeLine{185         Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{186         Eigen::PlainObjectBase<DerivedTF>\& TF,}
+\DoxyCodeLine{187         Eigen::PlainObjectBase<DerivedTR>\& TR, }
+\DoxyCodeLine{188         Eigen::PlainObjectBase<DerivedTT>\& TN, }
+\DoxyCodeLine{189         Eigen::PlainObjectBase<DerivedTT>\& PT, }
+\DoxyCodeLine{190         Eigen::PlainObjectBase<DerivedTT>\& FT, }
+\DoxyCodeLine{191         \textcolor{keywordtype}{size\_t} \& numRegions);            }
+\DoxyCodeLine{192    \}}
+\DoxyCodeLine{193   \}}
+\DoxyCodeLine{194 \}}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#  include "{}tetrahedralize.cpp"{}}}
+\DoxyCodeLine{199 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{202 }
+
+\end{DoxyCode}

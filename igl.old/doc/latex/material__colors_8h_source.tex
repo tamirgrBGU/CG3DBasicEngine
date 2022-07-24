@@ -1,0 +1,63 @@
+\hypertarget{material__colors_8h_source}{}\doxysection{material\+\_\+colors.\+h}
+\label{material__colors_8h_source}\index{igl/material\_colors.h@{igl/material\_colors.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MATERIAL\_COLORS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MATERIAL\_COLORS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{11 \textcolor{comment}{// Define constant material colors for use with opengl glMaterialfv}}
+\DoxyCodeLine{12 \textcolor{comment}{// Most of these colors come from IGL publications}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Gold/Silver used in BBW/MONO/STBS/FAST}}
+\DoxyCodeLine{16   \textcolor{keyword}{const} \textcolor{keywordtype}{float} GOLD\_AMBIENT[4] =   \{  51.0/255.0, 43.0/255.0,33.3/255.0,1.0f \};}
+\DoxyCodeLine{17   \textcolor{keyword}{const} \textcolor{keywordtype}{float} GOLD\_DIFFUSE[4] =   \{ 255.0/255.0,228.0/255.0,58.0/255.0,1.0f \};}
+\DoxyCodeLine{18   \textcolor{keyword}{const} \textcolor{keywordtype}{float} GOLD\_SPECULAR[4] =  \{ 255.0/255.0,235.0/255.0,80.0/255.0,1.0f \};}
+\DoxyCodeLine{19   \textcolor{keyword}{const} \textcolor{keywordtype}{float} SILVER\_AMBIENT[4] = \{ 0.2f, 0.2f, 0.2f, 1.0f \};}
+\DoxyCodeLine{20   \textcolor{keyword}{const} \textcolor{keywordtype}{float} SILVER\_DIFFUSE[4] = \{ 1.0f, 1.0f, 1.0f, 1.0f \};}
+\DoxyCodeLine{21   \textcolor{keyword}{const} \textcolor{keywordtype}{float} SILVER\_SPECULAR[4] = \{ 1.0f, 1.0f, 1.0f, 1.0f \};}
+\DoxyCodeLine{22   \textcolor{comment}{// Blue/Cyan more similar to Jovan Popovic's blue than to Mario Botsch's blue}}
+\DoxyCodeLine{23   \textcolor{keyword}{const} \textcolor{keywordtype}{float} CYAN\_AMBIENT[4] =   \{  59.0/255.0, 68.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{24   \textcolor{keyword}{const} \textcolor{keywordtype}{float} CYAN\_DIFFUSE[4] =   \{  94.0/255.0,185.0/255.0,238.0/255.0,1.0f \};}
+\DoxyCodeLine{25   \textcolor{keyword}{const} \textcolor{keywordtype}{float} CYAN\_SPECULAR[4] =   \{ 163.0/255.0,221.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{26   \textcolor{keyword}{const} \textcolor{keywordtype}{float} DENIS\_PURPLE\_DIFFUSE[4] =   \{ 80.0/255.0,64.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{27   \textcolor{keyword}{const} \textcolor{keywordtype}{float} LADISLAV\_ORANGE\_DIFFUSE[4] = \{1.0f, 125.0f / 255.0f, 19.0f / 255.0f, 0.0f\};}
+\DoxyCodeLine{28   \textcolor{comment}{// FAST armadillos colors}}
+\DoxyCodeLine{29   \textcolor{keyword}{const} \textcolor{keywordtype}{float} FAST\_GREEN\_DIFFUSE[4] = \{ 113.0f/255.0f, 239.0f/255.0f,  46.0f/255.0f, 1.0f\};}
+\DoxyCodeLine{30   \textcolor{keyword}{const} \textcolor{keywordtype}{float} FAST\_RED\_DIFFUSE[4]   = \{ 255.0f/255.0f,  65.0f/255.0f,  46.0f/255.0f, 1.0f\};}
+\DoxyCodeLine{31   \textcolor{keyword}{const} \textcolor{keywordtype}{float} FAST\_BLUE\_DIFFUSE[4]  = \{ 106.0f/255.0f, 106.0f/255.0f, 255.0f/255.0f, 1.0f\};}
+\DoxyCodeLine{32   \textcolor{keyword}{const} \textcolor{keywordtype}{float} FAST\_GRAY\_DIFFUSE[4]  = \{ 150.0f/255.0f, 150.0f/255.0f, 150.0f/255.0f, 1.0f\};}
+\DoxyCodeLine{33   \textcolor{comment}{// Basic colors}}
+\DoxyCodeLine{34   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WHITE[4] =   \{ 255.0/255.0,255.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{35   \textcolor{keyword}{const} \textcolor{keywordtype}{float} BLACK[4] =   \{ 0.0/255.0,0.0/255.0,0.0/255.0,1.0f \};}
+\DoxyCodeLine{36   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WHITE\_AMBIENT[4] =   \{ 255.0/255.0,255.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{37   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WHITE\_DIFFUSE[4] =   \{ 255.0/255.0,255.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{38   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WHITE\_SPECULAR[4] =  \{ 255.0/255.0,255.0/255.0,255.0/255.0,1.0f \};}
+\DoxyCodeLine{39   \textcolor{keyword}{const} \textcolor{keywordtype}{float} BBW\_POINT\_COLOR[4] = \{239./255.,213./255.,46./255.,255.0/255.0\};}
+\DoxyCodeLine{40   \textcolor{keyword}{const} \textcolor{keywordtype}{float} BBW\_LINE\_COLOR[4] = \{106./255.,106./255.,255./255.,255./255.\};}
+\DoxyCodeLine{41   \textcolor{keyword}{const} \textcolor{keywordtype}{float} MIDNIGHT\_BLUE\_DIFFUSE[4]  = \{ 21.0f/255.0f, 27.0f/255.0f, 84.0f/255.0f, 1.0f\};}
+\DoxyCodeLine{42   \textcolor{comment}{// Winding number colors}}
+\DoxyCodeLine{43   \textcolor{keyword}{const} \textcolor{keywordtype}{float} EASTER\_RED\_DIFFUSE[4] = \{0.603922,0.494118f,0.603922f,1.0f\};}
+\DoxyCodeLine{44   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WN\_OPEN\_BOUNDARY\_COLOR[4] = \{154./255.,0./255.,0./255.,1.0f\};}
+\DoxyCodeLine{45   \textcolor{keyword}{const} \textcolor{keywordtype}{float} WN\_NON\_MANIFOLD\_EDGE\_COLOR[4] = \{201./255., 51./255.,255./255.,1.0f\};}
+\DoxyCodeLine{46   \textcolor{keyword}{const} Eigen::Vector4f }
+\DoxyCodeLine{47     MAYA\_GREEN(128./255.,242./255.,0./255.,1.),}
+\DoxyCodeLine{48     MAYA\_YELLOW(255./255.,247./255.,50./255.,1.),}
+\DoxyCodeLine{49     MAYA\_RED(234./255.,63./255.,52./255.,1.),}
+\DoxyCodeLine{50     MAYA\_BLUE(0./255.,73./255.,252./255.,1.),}
+\DoxyCodeLine{51     MAYA\_PURPLE(180./255.,73./255.,200./255.,1.),}
+\DoxyCodeLine{52     MAYA\_VIOLET(31./255.,15./255.,66./255.,1.),}
+\DoxyCodeLine{53     MAYA\_GREY(0.5,0.5,0.5,1.0),}
+\DoxyCodeLine{54     MAYA\_CYAN(131./255.,219./255.,252./255.,1.),}
+\DoxyCodeLine{55     MAYA\_SEA\_GREEN(70./255.,252./255.,167./255.,1.);}
+\DoxyCodeLine{56 \}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

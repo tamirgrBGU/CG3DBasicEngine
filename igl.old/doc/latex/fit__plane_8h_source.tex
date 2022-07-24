@@ -1,0 +1,41 @@
+\hypertarget{fit__plane_8h_source}{}\doxysection{fit\+\_\+plane.\+h}
+\label{fit__plane_8h_source}\index{igl/fit\_plane.h@{igl/fit\_plane.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FIT\_PLANE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FIT\_PLANE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// This function fits a plane to a point cloud.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   V \#Vx3 matrix. The 3D point cloud, one row for each vertex.}}
+\DoxyCodeLine{20   \textcolor{comment}{// Output: }}
+\DoxyCodeLine{21   \textcolor{comment}{//   N 1x3 Vector. The normal of the fitted plane.}}
+\DoxyCodeLine{22   \textcolor{comment}{//   C 1x3 Vector. A point that lies in the fitted plane.}}
+\DoxyCodeLine{23   \textcolor{comment}{// From http://missingbytes.blogspot.com/2012/06/fitting-\/plane-\/to-\/point-\/cloud.html}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{void} fit\_plane(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{27     Eigen::RowVector3d \& N,}
+\DoxyCodeLine{28     Eigen::RowVector3d \& C);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#  include "{}fit\_plane.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

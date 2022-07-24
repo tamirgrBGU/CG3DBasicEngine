@@ -1,0 +1,70 @@
+\hypertarget{per__corner__normals_8h_source}{}\doxysection{per\+\_\+corner\+\_\+normals.\+h}
+\label{per__corner__normals_8h_source}\index{igl/per\_corner\_normals.h@{igl/per\_corner\_normals.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PER\_CORNER\_NORMALS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PER\_CORNER\_NORMALS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Compute vertex normals via vertex position list, face list}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 eigen Matrix of face (triangle) indices}}
+\DoxyCodeLine{20   \textcolor{comment}{//   corner\_threshold  threshold in degrees on sharp angles}}
+\DoxyCodeLine{21   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   CN  \#F*3 by 3 eigen Matrix of mesh vertex 3D normals, where the normal}}
+\DoxyCodeLine{23   \textcolor{comment}{//     for corner F(i,j) is at CN(i*3+j,:) }}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedCN>}
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{void} per\_corner\_normals(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} \textcolor{keywordtype}{double} corner\_threshold,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedCN> \& CN);}
+\DoxyCodeLine{30   \textcolor{comment}{// Other Inputs:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   FN  \#F by 3 eigen Matrix of face normals}}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedFN, }
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedCN>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} per\_corner\_normals(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{double} corner\_threshold,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedCN> \& CN);}
+\DoxyCodeLine{43   \textcolor{comment}{// Other Inputs:}}
+\DoxyCodeLine{44   \textcolor{comment}{//   VF  map from vertices to list of incident faces}}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedFN, }
+\DoxyCodeLine{49     \textcolor{keyword}{typename} IndexType,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} DerivedCN>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keywordtype}{void} per\_corner\_normals(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} std::vector<std::vector<IndexType> >\& VF,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} \textcolor{keywordtype}{double} corner\_threshold,}
+\DoxyCodeLine{57     Eigen::PlainObjectBase<DerivedCN> \& CN);}
+\DoxyCodeLine{58 \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#  include "{}per\_corner\_normals.cpp"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

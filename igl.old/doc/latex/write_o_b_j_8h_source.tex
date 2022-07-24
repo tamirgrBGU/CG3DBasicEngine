@@ -1,0 +1,78 @@
+\hypertarget{write_o_b_j_8h_source}{}\doxysection{write\+OBJ.\+h}
+\label{write_o_b_j_8h_source}\index{igl/writeOBJ.h@{igl/writeOBJ.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_WRITEOBJ\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_WRITEOBJ\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{comment}{// History:}}
+\DoxyCodeLine{12 \textcolor{comment}{//  return type changed from void to bool  Alec 20 Sept 2011}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \textcolor{comment}{// Write a mesh in an ascii obj file}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   str  path to outputfile}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by 3 mesh vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3|4 mesh indices into V}}
+\DoxyCodeLine{25   \textcolor{comment}{//   CN \#CN by 3 normal vectors}}
+\DoxyCodeLine{26   \textcolor{comment}{//   FN  \#F by 3|4 corner normal indices into CN}}
+\DoxyCodeLine{27   \textcolor{comment}{//   TC  \#TC by 2|3 texture coordinates}}
+\DoxyCodeLine{28   \textcolor{comment}{//   FTC \#F by 3|4 corner texture coord indices into TC}}
+\DoxyCodeLine{29   \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// Known issues: Horrifyingly, this does not have the same order of}}
+\DoxyCodeLine{32   \textcolor{comment}{// parameters as readOBJ.}}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedCN, }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedTC, }
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedFTC>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{bool} writeOBJ(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCN>\& CN,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedTC>\& TC,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFTC>\& FTC);}
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keywordtype}{bool} writeOBJ(}
+\DoxyCodeLine{50     \textcolor{keyword}{const} std::string str,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54   \textcolor{comment}{// Write a mesh of mixed tris and quads to an ascii obj file}}
+\DoxyCodeLine{55   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{56   \textcolor{comment}{//   str  path to outputfile}}
+\DoxyCodeLine{57   \textcolor{comment}{//   V  \#V by 3 mesh vertex positions}}
+\DoxyCodeLine{58   \textcolor{comment}{//   F  \#F std::vector of std::vector<Index> of size 3 or 4 mesh indices into V}}
+\DoxyCodeLine{59   \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{60   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} T>}
+\DoxyCodeLine{61   IGL\_INLINE \textcolor{keywordtype}{bool} writeOBJ(}
+\DoxyCodeLine{62     \textcolor{keyword}{const} std::string \&str,}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{64     \textcolor{keyword}{const} std::vector<std::vector<T> >\& F);}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#  include "{}writeOBJ.cpp"{}}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

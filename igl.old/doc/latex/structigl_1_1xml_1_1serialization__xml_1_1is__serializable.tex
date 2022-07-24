@@ -1,0 +1,34 @@
+\hypertarget{structigl_1_1xml_1_1serialization__xml_1_1is__serializable}{}\doxysection{igl\+::xml\+::serialization\+\_\+xml\+::is\+\_\+serializable\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structigl_1_1xml_1_1serialization__xml_1_1is__serializable}\index{igl::xml::serialization\_xml::is\_serializable$<$ T $>$@{igl::xml::serialization\_xml::is\_serializable$<$ T $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1xml_1_1serialization__xml_1_1is__serializable_a4b41b502fa5db4da6b5796e2761b5404}\label{structigl_1_1xml_1_1serialization__xml_1_1is__serializable_a4b41b502fa5db4da6b5796e2761b5404}} 
+using {\bfseries T0} = typename std\+::remove\+\_\+pointer$<$ T $>$\+::type
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const bool \mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__serializable_ab3d1e25411a041e2295cc436d63c0359}{value}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structigl_1_1xml_1_1serialization__xml_1_1is__serializable_ab3d1e25411a041e2295cc436d63c0359}\label{structigl_1_1xml_1_1serialization__xml_1_1is__serializable_ab3d1e25411a041e2295cc436d63c0359}} 
+\index{igl::xml::serialization\_xml::is\_serializable$<$ T $>$@{igl::xml::serialization\_xml::is\_serializable$<$ T $>$}!value@{value}}
+\index{value@{value}!igl::xml::serialization\_xml::is\_serializable$<$ T $>$@{igl::xml::serialization\_xml::is\_serializable$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{value}{value}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+const bool \mbox{\hyperlink{structigl_1_1xml_1_1serialization__xml_1_1is__serializable}{igl\+::xml\+::serialization\+\_\+xml\+::is\+\_\+serializable}}$<$ T $>$\+::value\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= std::is\_fundamental<T0>::value || std::is\_same<std::string,T0>::value || std::is\_base\_of<XMLSerializableBase,T0>::value}
+\DoxyCodeLine{          || is\_stl\_container<T0>::value || is\_eigen\_type<T0>::value}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/xml/serialize\+\_\+xml.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,57 @@
+\hypertarget{bezier_8h_source}{}\doxysection{bezier.\+h}
+\label{bezier_8h_source}\index{igl/bezier.h@{igl/bezier.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef BEZIER\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define BEZIER\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Evaluate a polynomial Bezier Curve.}}
+\DoxyCodeLine{9   \textcolor{comment}{//}}
+\DoxyCodeLine{10   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{11   \textcolor{comment}{//   V  \#V by dim list of Bezier control points}}
+\DoxyCodeLine{12   \textcolor{comment}{//   t  evaluation parameter within [0,1]}}
+\DoxyCodeLine{13   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   P  1 by dim output point }}
+\DoxyCodeLine{15   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{16   IGL\_INLINE \textcolor{keywordtype}{void} bezier(}
+\DoxyCodeLine{17     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{18     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar t,}
+\DoxyCodeLine{19     Eigen::PlainObjectBase<DerivedP> \& P);}
+\DoxyCodeLine{20   \textcolor{comment}{// Evaluate a polynomial Bezier Curve.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by dim list of Bezier control points}}
+\DoxyCodeLine{24   \textcolor{comment}{//   T  \#T evaluation parameters within [0,1]}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   P  \#T  by dim output points}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} bezier(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT> \& T,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedP> \& P);}
+\DoxyCodeLine{32   \textcolor{comment}{// Evaluate a polynomial Bezier spline with a fixed parameter set for each}}
+\DoxyCodeLine{33   \textcolor{comment}{// sub-\/curve}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   spline \#curves list of lists of Bezier control points}}
+\DoxyCodeLine{37   \textcolor{comment}{//   T  \#T evaluation parameters within [0,1] to use for each spline}}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   P  \#curves*\#T  by dim output points}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} VMat, \textcolor{keyword}{typename} DerivedT, \textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} bezier(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} std::vector<VMat> \& spline,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedT> \& T,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedP> \& P);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}bezier.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

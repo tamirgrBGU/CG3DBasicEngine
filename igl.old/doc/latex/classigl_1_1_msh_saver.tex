@@ -1,0 +1,87 @@
+\hypertarget{classigl_1_1_msh_saver}{}\doxysection{igl\+::Msh\+Saver Class Reference}
+\label{classigl_1_1_msh_saver}\index{igl::MshSaver@{igl::MshSaver}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_aafd90250682523c08ce5ff687614a710}\label{classigl_1_1_msh_saver_aafd90250682523c08ce5ff687614a710}} 
+enum \{ \newline
+{\bfseries ELEMENT\+\_\+\+LINE} =1
+, {\bfseries ELEMENT\+\_\+\+TRI} =2
+, {\bfseries ELEMENT\+\_\+\+QUAD} =3
+, {\bfseries ELEMENT\+\_\+\+TET} =4
+, \newline
+{\bfseries ELEMENT\+\_\+\+HEX} =5
+, {\bfseries ELEMENT\+\_\+\+PRISM} =6
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a3fef10a1a0dc3ace7283e7dbcf30078e}\label{classigl_1_1_msh_saver_a3fef10a1a0dc3ace7283e7dbcf30078e}} 
+typedef double {\bfseries Float}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a945ea2c6da475788ccf4bc10a702dece}\label{classigl_1_1_msh_saver_a945ea2c6da475788ccf4bc10a702dece}} 
+typedef std\+::vector$<$ int $>$ {\bfseries Index\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a1c543ddee654789540f2972bff826b26}\label{classigl_1_1_msh_saver_a1c543ddee654789540f2972bff826b26}} 
+typedef std\+::vector$<$ int $>$ {\bfseries Int\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_aaca191056efb814c54c1645d0037d304}\label{classigl_1_1_msh_saver_aaca191056efb814c54c1645d0037d304}} 
+typedef std\+::vector$<$ Float $>$ {\bfseries Float\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a7193eb49ad56815c95ce202a52705630}\label{classigl_1_1_msh_saver_a7193eb49ad56815c95ce202a52705630}} 
+typedef std\+::vector$<$ Float\+Vector $>$ {\bfseries Float\+Field}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_aeca12ba03c22dc302c708b5d780b9926}\label{classigl_1_1_msh_saver_aeca12ba03c22dc302c708b5d780b9926}} 
+typedef std\+::vector$<$ Int\+Vector $>$ {\bfseries Int\+Field}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a261940a64db6d7ba255d7755758e1cab}\label{classigl_1_1_msh_saver_a261940a64db6d7ba255d7755758e1cab}} 
+typedef std\+::vector$<$ std\+::string $>$ {\bfseries Field\+Names}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a3a2ff13e06ce4f6a6006e9f210ee366e}\label{classigl_1_1_msh_saver_a3a2ff13e06ce4f6a6006e9f210ee366e}} 
+{\bfseries Msh\+Saver} (const std\+::string \&filename, bool binary=true)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a39cc5139786a48dce2736913b91c3c09}\label{classigl_1_1_msh_saver_a39cc5139786a48dce2736913b91c3c09}} 
+void {\bfseries save\+\_\+mesh} (const Float\+Vector \&nodes, const Index\+Vector \&elements, const Int\+Vector \&element\+\_\+lengths, const Int\+Vector \&element\+\_\+type, const Int\+Vector \&element\+\_\+tags)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_afbaff45a2629d0f607638b977eb9502d}\label{classigl_1_1_msh_saver_afbaff45a2629d0f607638b977eb9502d}} 
+void {\bfseries save\+\_\+scalar\+\_\+field} (const std\+::string \&fieldname, const Float\+Vector \&field)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_aa54f37f86c1414e745e2e07c452f9195}\label{classigl_1_1_msh_saver_aa54f37f86c1414e745e2e07c452f9195}} 
+void {\bfseries save\+\_\+vector\+\_\+field} (const std\+::string \&fieldname, const Float\+Vector \&field)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_acda16fb2f26ab2e52bcc064acdb0758d}\label{classigl_1_1_msh_saver_acda16fb2f26ab2e52bcc064acdb0758d}} 
+void {\bfseries save\+\_\+elem\+\_\+scalar\+\_\+field} (const std\+::string \&fieldname, const Float\+Vector \&field)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a6dd27f6101d7890a5e44eeca3f7cb718}\label{classigl_1_1_msh_saver_a6dd27f6101d7890a5e44eeca3f7cb718}} 
+void {\bfseries save\+\_\+elem\+\_\+vector\+\_\+field} (const std\+::string \&fieldname, const Float\+Vector \&field)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a78be0980aee9b0d6fe260ff048b2c0b2}\label{classigl_1_1_msh_saver_a78be0980aee9b0d6fe260ff048b2c0b2}} 
+void {\bfseries save\+\_\+elem\+\_\+tensor\+\_\+field} (const std\+::string \&fieldname, const Float\+Vector \&field)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_ad744af830f12c85b3ec31813108a028b}\label{classigl_1_1_msh_saver_ad744af830f12c85b3ec31813108a028b}} 
+void {\bfseries save\+\_\+header} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_saver_aa95924adddb843002365b399d138aed6}\label{classigl_1_1_msh_saver_aa95924adddb843002365b399d138aed6}} 
+void {\bfseries save\+\_\+nodes} (const Float\+Vector \&nodes)
+\item 
+void \mbox{\hyperlink{classigl_1_1_msh_saver_a765eb6621b3097d739ce700dfded2fc7}{save\+\_\+elements}} (const Index\+Vector \&elements, const Int\+Vector \&element\+\_\+lengths, const Int\+Vector \&element\+\_\+type, const Int\+Vector \&element\+\_\+tags)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_msh_saver_a765eb6621b3097d739ce700dfded2fc7}\label{classigl_1_1_msh_saver_a765eb6621b3097d739ce700dfded2fc7}} 
+\index{igl::MshSaver@{igl::MshSaver}!save\_elements@{save\_elements}}
+\index{save\_elements@{save\_elements}!igl::MshSaver@{igl::MshSaver}}
+\doxysubsubsection{\texorpdfstring{save\_elements()}{save\_elements()}}
+{\footnotesize\ttfamily IGL\+\_\+\+INLINE void igl\+::\+Msh\+Saver\+::save\+\_\+elements (\begin{DoxyParamCaption}\item[{const Index\+Vector \&}]{elements,  }\item[{const Int\+Vector \&}]{element\+\_\+lengths,  }\item[{const Int\+Vector \&}]{element\+\_\+type,  }\item[{const Int\+Vector \&}]{element\+\_\+tags }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+VectorI elem = elements.\+segment(i, nodes\+\_\+per\+\_\+element) + Vector\+I\+::\+Ones(nodes\+\_\+per\+\_\+element);
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/Msh\+Saver.\+h\item 
+igl/Msh\+Saver.\+cpp\end{DoxyCompactItemize}

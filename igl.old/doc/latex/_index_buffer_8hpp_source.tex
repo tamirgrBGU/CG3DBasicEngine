@@ -1,0 +1,50 @@
+\hypertarget{_index_buffer_8hpp_source}{}\doxysection{Index\+Buffer.\+hpp}
+\label{_index_buffer_8hpp_source}\index{igl/opengl/glfw/IndexBuffer.hpp@{igl/opengl/glfw/IndexBuffer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{/*}}
+\DoxyCodeLine{2 \textcolor{comment}{ * VertexBuffer.hpp}}
+\DoxyCodeLine{3 \textcolor{comment}{ *}}
+\DoxyCodeLine{4 \textcolor{comment}{ *  Created on: 13 de dez de 2017}}
+\DoxyCodeLine{5 \textcolor{comment}{ *      Author: Casa}}
+\DoxyCodeLine{6 \textcolor{comment}{ */}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef SRC\_INDEXBUFFER\_HPP\_}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define SRC\_INDEXBUFFER\_HPP\_}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{class }\mbox{\hyperlink{class_index_buffer}{IndexBuffer}}\{}
+\DoxyCodeLine{12 \textcolor{keyword}{private}:}
+\DoxyCodeLine{13     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_RendererID;}
+\DoxyCodeLine{14     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} m\_Count;}
+\DoxyCodeLine{15 \textcolor{keyword}{public}:}
+\DoxyCodeLine{16     \mbox{\hyperlink{class_index_buffer}{IndexBuffer}}(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}* data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{17     \mbox{\hyperlink{class_index_buffer}{IndexBuffer}}();}
+\DoxyCodeLine{18     \textcolor{keywordtype}{void} Init(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}* data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{19     \mbox{\hyperlink{class_index_buffer}{IndexBuffer}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_index_buffer}{IndexBuffer}} \&ib);}
+\DoxyCodeLine{20     \mbox{\hyperlink{class_index_buffer}{\string~IndexBuffer}}();}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23     \textcolor{keywordtype}{void} Bind() \textcolor{keyword}{const};}
+\DoxyCodeLine{24     \textcolor{keywordtype}{void} Unbind() \textcolor{keyword}{const};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26     \textcolor{keyword}{inline} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} GetCount()  \{}
+\DoxyCodeLine{27         \textcolor{keywordflow}{return} m\_Count;}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{inline} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} GetRender()  \{}
+\DoxyCodeLine{31         \textcolor{keywordflow}{return} m\_RendererID;}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keywordtype}{void} ChangeData(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *data, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} count);}
+\DoxyCodeLine{36 \};}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* SRC\_VERTEXBUFFER\_HPP\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

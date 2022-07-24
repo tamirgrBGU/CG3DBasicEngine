@@ -1,0 +1,170 @@
+\hypertarget{_mesh_g_l_8h_source}{}\doxysection{Mesh\+GL.\+h}
+\label{_mesh_g_l_8h_source}\index{igl/opengl/MeshGL.h@{igl/opengl/MeshGL.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_MESHGL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_MESHGL\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// Coverts mesh data inside a igl::ViewerData class in an OpenGL}}
+\DoxyCodeLine{12 \textcolor{comment}{// compatible format The class includes a shader and the opengl calls to plot}}
+\DoxyCodeLine{13 \textcolor{comment}{// the data}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}glfw/VertexArray.hpp"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}glfw/IndexBuffer.hpp"{}}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}glfw/VertexBuffer.hpp"{}}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l}{MeshGL}}}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28 \textcolor{keyword}{public}:}
+\DoxyCodeLine{29   \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} GLuint;}
+\DoxyCodeLine{30   \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} GLint;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   \textcolor{keyword}{enum} DirtyFlags}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     DIRTY\_NONE           = 0x0000,}
+\DoxyCodeLine{35     DIRTY\_POSITION       = 0x0001,}
+\DoxyCodeLine{36     DIRTY\_UV             = 0x0002,}
+\DoxyCodeLine{37     DIRTY\_NORMAL         = 0x0004,}
+\DoxyCodeLine{38     DIRTY\_AMBIENT        = 0x0008,}
+\DoxyCodeLine{39     DIRTY\_DIFFUSE        = 0x0010,}
+\DoxyCodeLine{40     DIRTY\_SPECULAR       = 0x0020,}
+\DoxyCodeLine{41     DIRTY\_TEXTURE        = 0x0040,}
+\DoxyCodeLine{42     DIRTY\_FACE           = 0x0080,}
+\DoxyCodeLine{43     DIRTY\_MESH           = 0x00FF,}
+\DoxyCodeLine{44     DIRTY\_OVERLAY\_LINES  = 0x0100,}
+\DoxyCodeLine{45     DIRTY\_OVERLAY\_POINTS = 0x0200,}
+\DoxyCodeLine{46     DIRTY\_VERTEX\_LABELS  = 0x0400,}
+\DoxyCodeLine{47     DIRTY\_FACE\_LABELS    = 0x0800,}
+\DoxyCodeLine{48     DIRTY\_CUSTOM\_LABELS  = 0x1000,}
+\DoxyCodeLine{49     DIRTY\_ALL            = 0xFFFF}
+\DoxyCodeLine{50   \};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \textcolor{keywordtype}{bool} is\_initialized = \textcolor{keyword}{false};}
+\DoxyCodeLine{53   \mbox{\hyperlink{class_vertex_array}{VertexArray}} vao\_mesh;}
+\DoxyCodeLine{54   \mbox{\hyperlink{class_vertex_array}{VertexArray}} vao\_overlay\_lines;}
+\DoxyCodeLine{55   \mbox{\hyperlink{class_vertex_array}{VertexArray}} vao\_overlay\_points;}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V; \textcolor{comment}{// Vertices of the current mesh (\#V x 3)}}
+\DoxyCodeLine{58   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V\_uv; \textcolor{comment}{// UV coordinates for the current mesh (\#V x 2)}}
+\DoxyCodeLine{59   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V\_normals; \textcolor{comment}{// Vertices of the current mesh (\#V x 3)}}
+\DoxyCodeLine{60   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V\_ambient; \textcolor{comment}{// Ambient material  (\#V x 3)}}
+\DoxyCodeLine{61   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V\_diffuse; \textcolor{comment}{// Diffuse material  (\#V x 3)}}
+\DoxyCodeLine{62   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_V\_specular; \textcolor{comment}{// Specular material  (\#V x 3)}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \mbox{\hyperlink{class_index_buffer}{IndexBuffer}} vbo\_F; \textcolor{comment}{// Faces of the mesh (\#F x 3)}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \mbox{\hyperlink{class_index_buffer}{IndexBuffer}} vbo\_lines\_F;         \textcolor{comment}{// Indices of the line overlay}}
+\DoxyCodeLine{67   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_lines\_V;         \textcolor{comment}{// Vertices of the line overlay}}
+\DoxyCodeLine{68   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_lines\_V\_colors;  \textcolor{comment}{// Color values of the line overlay}}
+\DoxyCodeLine{69   \mbox{\hyperlink{class_index_buffer}{IndexBuffer}} vbo\_points\_F;        \textcolor{comment}{// Indices of the point overlay}}
+\DoxyCodeLine{70   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_points\_V;        \textcolor{comment}{// Vertices of the point overlay}}
+\DoxyCodeLine{71   \mbox{\hyperlink{class_vertex_buffer}{VertexBuffer}} vbo\_points\_V\_colors; \textcolor{comment}{// Color values of the point overlay}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// Temporary copy of the content of each VBO}}
+\DoxyCodeLine{74   \textcolor{keyword}{typedef} Eigen::Matrix<float,Eigen::Dynamic,Eigen::Dynamic,Eigen::RowMajor> RowMatrixXf;}
+\DoxyCodeLine{75   RowMatrixXf V\_vbo;}
+\DoxyCodeLine{76   RowMatrixXf V\_normals\_vbo;}
+\DoxyCodeLine{77   RowMatrixXf V\_ambient\_vbo;}
+\DoxyCodeLine{78   RowMatrixXf V\_diffuse\_vbo;}
+\DoxyCodeLine{79   RowMatrixXf V\_specular\_vbo;}
+\DoxyCodeLine{80   RowMatrixXf V\_uv\_vbo;}
+\DoxyCodeLine{81   RowMatrixXf lines\_V\_vbo;}
+\DoxyCodeLine{82   RowMatrixXf lines\_V\_colors\_vbo;}
+\DoxyCodeLine{83   RowMatrixXf points\_V\_vbo;}
+\DoxyCodeLine{84   RowMatrixXf points\_V\_colors\_vbo;}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86   \textcolor{comment}{// Text Rendering}}
+\DoxyCodeLine{87   \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{TextGL}}}
+\DoxyCodeLine{88   \{ }
+\DoxyCodeLine{89     uint32\_t dirty\_flag;}
+\DoxyCodeLine{90     GLuint vao\_labels;}
+\DoxyCodeLine{91     GLuint vbo\_labels\_pos;}
+\DoxyCodeLine{92     GLuint vbo\_labels\_characters;}
+\DoxyCodeLine{93     GLuint vbo\_labels\_offset; }
+\DoxyCodeLine{94     GLuint vbo\_labels\_indices;}
+\DoxyCodeLine{95     RowMatrixXf label\_pos\_vbo;}
+\DoxyCodeLine{96     RowMatrixXf label\_char\_vbo;}
+\DoxyCodeLine{97     RowMatrixXf label\_offset\_vbo;}
+\DoxyCodeLine{98     Eigen::Matrix<unsigned, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> label\_indices\_vbo;}
+\DoxyCodeLine{99     \textcolor{keywordtype}{void} init\_buffers();}
+\DoxyCodeLine{100     \textcolor{keywordtype}{void} free\_buffers();}
+\DoxyCodeLine{101   \};}
+\DoxyCodeLine{102   \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{TextGL}} vertex\_labels;}
+\DoxyCodeLine{103   \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{TextGL}} face\_labels;  }
+\DoxyCodeLine{104   \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{TextGL}} custom\_labels;}
+\DoxyCodeLine{105   GLuint font\_atlas;}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{keywordtype}{int} tex\_u;}
+\DoxyCodeLine{108   \textcolor{keywordtype}{int} tex\_v;}
+\DoxyCodeLine{109   GLint tex\_filter;}
+\DoxyCodeLine{110   GLint tex\_wrap;}
+\DoxyCodeLine{111   Eigen::Matrix<char,Eigen::Dynamic,1> tex;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   Eigen::Matrix<unsigned, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> F\_vbo;}
+\DoxyCodeLine{114   Eigen::Matrix<unsigned, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> lines\_F\_vbo;}
+\DoxyCodeLine{115   Eigen::Matrix<unsigned, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> points\_F\_vbo;}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117   \textcolor{comment}{// Marks dirty buffers that need to be uploaded to OpenGL}}
+\DoxyCodeLine{118   uint32\_t dirty\{\};}
+\DoxyCodeLine{119   uint64\_t dirty\_mesh\_shader\{\};}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121   IGL\_INLINE MeshGL();}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123   \textcolor{comment}{// Initialize shaders and buffers}}
+\DoxyCodeLine{124   IGL\_INLINE \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126   \textcolor{comment}{// Release all resources}}
+\DoxyCodeLine{127   IGL\_INLINE \textcolor{keywordtype}{void} free();}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129   \textcolor{comment}{// Create a new set of OpenGL buffer objects}}
+\DoxyCodeLine{130   IGL\_INLINE \textcolor{keywordtype}{void} init\_buffers();}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132   \textcolor{comment}{// Bind the underlying OpenGL buffer objects for subsequent mesh draw calls}}
+\DoxyCodeLine{133   IGL\_INLINE \textcolor{keywordtype}{void} bind\_mesh(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_mesh, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_id);}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{136   IGL\_INLINE \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l_ae3cecba4043ba7f848aacb171942807b}{draw\_mesh}}(\textcolor{keywordtype}{bool} solid, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \textcolor{comment}{// Bind the underlying OpenGL buffer objects for subsequent line overlay draw calls}}
+\DoxyCodeLine{139   IGL\_INLINE \textcolor{keywordtype}{void} bind\_overlay\_lines(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_overlay\_lines,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_id);}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{142   IGL\_INLINE \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l_a72f05eea86cc8d5a8a270d2b3b2b5c66}{draw\_overlay\_lines}}();}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144   \textcolor{comment}{// Bind the underlying OpenGL buffer objects for subsequent point overlay draw calls}}
+\DoxyCodeLine{145   IGL\_INLINE \textcolor{keywordtype}{void} bind\_overlay\_points(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_overlay\_points,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_id);}
+\DoxyCodeLine{146 }
+\DoxyCodeLine{148   IGL\_INLINE \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l_a3c1e1e2c5e415b4bde7f035b624d8951}{draw\_overlay\_points}}();}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150   \textcolor{comment}{// Text Binding and Draw functions}}
+\DoxyCodeLine{151   IGL\_INLINE \textcolor{keywordtype}{void} init\_text\_rendering();}
+\DoxyCodeLine{152   IGL\_INLINE \textcolor{keywordtype}{void} bind\_labels(\textcolor{keyword}{const} TextGL\& labels,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shader\_text);}
+\DoxyCodeLine{153   IGL\_INLINE \textcolor{keywordtype}{void} draw\_labels(\textcolor{keyword}{const} TextGL\& labels);}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155   \textcolor{comment}{// Release the OpenGL buffer objects}}
+\DoxyCodeLine{156   IGL\_INLINE \textcolor{keywordtype}{void} free\_buffers();}
+\DoxyCodeLine{157 }
+\DoxyCodeLine{158 \};}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160 \}}
+\DoxyCodeLine{161 \}}
+\DoxyCodeLine{162 }
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#  include "{}MeshGL.cpp"{}}}
+\DoxyCodeLine{165 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

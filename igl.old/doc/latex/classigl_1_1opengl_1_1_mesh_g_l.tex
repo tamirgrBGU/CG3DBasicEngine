@@ -1,0 +1,216 @@
+\hypertarget{classigl_1_1opengl_1_1_mesh_g_l}{}\doxysection{igl\+::opengl\+::Mesh\+GL Class Reference}
+\label{classigl_1_1opengl_1_1_mesh_g_l}\index{igl::opengl::MeshGL@{igl::opengl::MeshGL}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a81a97b4082a52abc4e29f46574b07862}\label{classigl_1_1opengl_1_1_mesh_g_l_a81a97b4082a52abc4e29f46574b07862}} 
+enum {\bfseries Dirty\+Flags} \{ \newline
+{\bfseries DIRTY\+\_\+\+NONE} = 0x0000
+, {\bfseries DIRTY\+\_\+\+POSITION} = 0x0001
+, {\bfseries DIRTY\+\_\+\+UV} = 0x0002
+, {\bfseries DIRTY\+\_\+\+NORMAL} = 0x0004
+, \newline
+{\bfseries DIRTY\+\_\+\+AMBIENT} = 0x0008
+, {\bfseries DIRTY\+\_\+\+DIFFUSE} = 0x0010
+, {\bfseries DIRTY\+\_\+\+SPECULAR} = 0x0020
+, {\bfseries DIRTY\+\_\+\+TEXTURE} = 0x0040
+, \newline
+{\bfseries DIRTY\+\_\+\+FACE} = 0x0080
+, {\bfseries DIRTY\+\_\+\+MESH} = 0x00\+FF
+, {\bfseries DIRTY\+\_\+\+OVERLAY\+\_\+\+LINES} = 0x0100
+, {\bfseries DIRTY\+\_\+\+OVERLAY\+\_\+\+POINTS} = 0x0200
+, \newline
+{\bfseries DIRTY\+\_\+\+VERTEX\+\_\+\+LABELS} = 0x0400
+, {\bfseries DIRTY\+\_\+\+FACE\+\_\+\+LABELS} = 0x0800
+, {\bfseries DIRTY\+\_\+\+CUSTOM\+\_\+\+LABELS} = 0x1000
+, {\bfseries DIRTY\+\_\+\+ALL} = 0x\+FFFF
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a01084d9717aedaa252e1fcdf13657532}\label{classigl_1_1opengl_1_1_mesh_g_l_a01084d9717aedaa252e1fcdf13657532}} 
+typedef unsigned int {\bfseries GLuint}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_aff43136617b15669459b7bd0558a98de}\label{classigl_1_1opengl_1_1_mesh_g_l_aff43136617b15669459b7bd0558a98de}} 
+typedef unsigned int {\bfseries GLint}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_adf75306956e300b76bd4eae9d424e331}\label{classigl_1_1opengl_1_1_mesh_g_l_adf75306956e300b76bd4eae9d424e331}} 
+typedef Eigen\+::\+Matrix$<$ float, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major $>$ {\bfseries Row\+Matrix\+Xf}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ac10d2df14bd0140819c74a30a5de4db6}\label{classigl_1_1opengl_1_1_mesh_g_l_ac10d2df14bd0140819c74a30a5de4db6}} 
+IGL\+\_\+\+INLINE void {\bfseries init} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a6b7418cbc89343a4f88bbac9eaba5975}\label{classigl_1_1opengl_1_1_mesh_g_l_a6b7418cbc89343a4f88bbac9eaba5975}} 
+IGL\+\_\+\+INLINE void {\bfseries free} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_abefcb567b6b3dc658e1909294a6431c0}\label{classigl_1_1opengl_1_1_mesh_g_l_abefcb567b6b3dc658e1909294a6431c0}} 
+IGL\+\_\+\+INLINE void {\bfseries init\+\_\+buffers} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a8728f8953de4e61c7d760dc1bde0e4f4}\label{classigl_1_1opengl_1_1_mesh_g_l_a8728f8953de4e61c7d760dc1bde0e4f4}} 
+IGL\+\_\+\+INLINE void {\bfseries bind\+\_\+mesh} (unsigned int shader\+\_\+mesh, unsigned int shader\+\_\+id)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ae3cecba4043ba7f848aacb171942807b}\label{classigl_1_1opengl_1_1_mesh_g_l_ae3cecba4043ba7f848aacb171942807b}} 
+IGL\+\_\+\+INLINE void {\bfseries draw\+\_\+mesh} (bool solid, unsigned int mode)
+\begin{DoxyCompactList}\small\item\em Draw the currently buffered mesh (either solid or wireframe) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ad3c6c682de1683773c7cc467bbbc0bd2}\label{classigl_1_1opengl_1_1_mesh_g_l_ad3c6c682de1683773c7cc467bbbc0bd2}} 
+IGL\+\_\+\+INLINE void {\bfseries bind\+\_\+overlay\+\_\+lines} (unsigned int shader\+\_\+overlay\+\_\+lines, unsigned int shader\+\_\+id)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a72f05eea86cc8d5a8a270d2b3b2b5c66}\label{classigl_1_1opengl_1_1_mesh_g_l_a72f05eea86cc8d5a8a270d2b3b2b5c66}} 
+IGL\+\_\+\+INLINE void {\bfseries draw\+\_\+overlay\+\_\+lines} ()
+\begin{DoxyCompactList}\small\item\em Draw the currently buffered line overlay. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a6744fcd684c7ccae1251e527101b44a2}\label{classigl_1_1opengl_1_1_mesh_g_l_a6744fcd684c7ccae1251e527101b44a2}} 
+IGL\+\_\+\+INLINE void {\bfseries bind\+\_\+overlay\+\_\+points} (unsigned int shader\+\_\+overlay\+\_\+points, unsigned int shader\+\_\+id)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a3c1e1e2c5e415b4bde7f035b624d8951}\label{classigl_1_1opengl_1_1_mesh_g_l_a3c1e1e2c5e415b4bde7f035b624d8951}} 
+IGL\+\_\+\+INLINE void {\bfseries draw\+\_\+overlay\+\_\+points} ()
+\begin{DoxyCompactList}\small\item\em Draw the currently buffered point overlay. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_af542c17da94e8ab0bcc9b7ef7f202854}\label{classigl_1_1opengl_1_1_mesh_g_l_af542c17da94e8ab0bcc9b7ef7f202854}} 
+IGL\+\_\+\+INLINE void {\bfseries init\+\_\+text\+\_\+rendering} ()
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a247ef19245bb2e172b134f7f679e88d8}\label{classigl_1_1opengl_1_1_mesh_g_l_a247ef19245bb2e172b134f7f679e88d8}} 
+IGL\+\_\+\+INLINE void {\bfseries bind\+\_\+labels} (const \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}} \&labels, unsigned int shader\+\_\+text)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ae197339ce285b26586afcbc86e1b7346}\label{classigl_1_1opengl_1_1_mesh_g_l_ae197339ce285b26586afcbc86e1b7346}} 
+IGL\+\_\+\+INLINE void {\bfseries draw\+\_\+labels} (const \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}} \&labels)
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a4026503501bc44f4ff31d9f684613c21}\label{classigl_1_1opengl_1_1_mesh_g_l_a4026503501bc44f4ff31d9f684613c21}} 
+IGL\+\_\+\+INLINE void {\bfseries free\+\_\+buffers} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ae686c55861e1cef7843e91dcc9fb4c28}\label{classigl_1_1opengl_1_1_mesh_g_l_ae686c55861e1cef7843e91dcc9fb4c28}} 
+bool {\bfseries is\+\_\+initialized} = false
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a7dbddecac79295a8420360ddc4e7b4bf}\label{classigl_1_1opengl_1_1_mesh_g_l_a7dbddecac79295a8420360ddc4e7b4bf}} 
+\mbox{\hyperlink{class_vertex_array}{Vertex\+Array}} {\bfseries vao\+\_\+mesh}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a5a9d778773f9a6de70697c1f997d17c4}\label{classigl_1_1opengl_1_1_mesh_g_l_a5a9d778773f9a6de70697c1f997d17c4}} 
+\mbox{\hyperlink{class_vertex_array}{Vertex\+Array}} {\bfseries vao\+\_\+overlay\+\_\+lines}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a9878a81013b098d69e925677a825ae76}\label{classigl_1_1opengl_1_1_mesh_g_l_a9878a81013b098d69e925677a825ae76}} 
+\mbox{\hyperlink{class_vertex_array}{Vertex\+Array}} {\bfseries vao\+\_\+overlay\+\_\+points}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_af383505c81cea9bf47a03a2b6d06ee6f}\label{classigl_1_1opengl_1_1_mesh_g_l_af383505c81cea9bf47a03a2b6d06ee6f}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+V}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a0e86642050027a0a6fb89680a2774f1c}\label{classigl_1_1opengl_1_1_mesh_g_l_a0e86642050027a0a6fb89680a2774f1c}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+\+V\+\_\+uv}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ab8fc3504d9f27f2f7b041c09b2bbb017}\label{classigl_1_1opengl_1_1_mesh_g_l_ab8fc3504d9f27f2f7b041c09b2bbb017}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+\+V\+\_\+normals}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_abaf28e9b8fc4bf683597e61d9253e0dd}\label{classigl_1_1opengl_1_1_mesh_g_l_abaf28e9b8fc4bf683597e61d9253e0dd}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+\+V\+\_\+ambient}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_adfc64d906764d8b3870fea7628e0d922}\label{classigl_1_1opengl_1_1_mesh_g_l_adfc64d906764d8b3870fea7628e0d922}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+\+V\+\_\+diffuse}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ae0a0d8081b86120934f3384818cd8baf}\label{classigl_1_1opengl_1_1_mesh_g_l_ae0a0d8081b86120934f3384818cd8baf}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+\+V\+\_\+specular}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ae6eee81bcb3a7cd853c4900f4d6d1e4e}\label{classigl_1_1opengl_1_1_mesh_g_l_ae6eee81bcb3a7cd853c4900f4d6d1e4e}} 
+\mbox{\hyperlink{class_index_buffer}{Index\+Buffer}} {\bfseries vbo\+\_\+F}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a0a83655e87ed33b91e6ea6787fefd324}\label{classigl_1_1opengl_1_1_mesh_g_l_a0a83655e87ed33b91e6ea6787fefd324}} 
+\mbox{\hyperlink{class_index_buffer}{Index\+Buffer}} {\bfseries vbo\+\_\+lines\+\_\+F}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a55236a2916c40919558db72ed84aeebf}\label{classigl_1_1opengl_1_1_mesh_g_l_a55236a2916c40919558db72ed84aeebf}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+lines\+\_\+V}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a8d15b37db99434d192171b73c7f48374}\label{classigl_1_1opengl_1_1_mesh_g_l_a8d15b37db99434d192171b73c7f48374}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+lines\+\_\+\+V\+\_\+colors}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_adae803f26be920294fc7cb68ebb7d37e}\label{classigl_1_1opengl_1_1_mesh_g_l_adae803f26be920294fc7cb68ebb7d37e}} 
+\mbox{\hyperlink{class_index_buffer}{Index\+Buffer}} {\bfseries vbo\+\_\+points\+\_\+F}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_acb1901c74ff2aed875328572153affe2}\label{classigl_1_1opengl_1_1_mesh_g_l_acb1901c74ff2aed875328572153affe2}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+points\+\_\+V}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a29b30fba45279be6e182f8177a7a824a}\label{classigl_1_1opengl_1_1_mesh_g_l_a29b30fba45279be6e182f8177a7a824a}} 
+\mbox{\hyperlink{class_vertex_buffer}{Vertex\+Buffer}} {\bfseries vbo\+\_\+points\+\_\+\+V\+\_\+colors}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ac2c590d6a4f3dff3752a3e205c04da61}\label{classigl_1_1opengl_1_1_mesh_g_l_ac2c590d6a4f3dff3752a3e205c04da61}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a0e7f829d716584272bc822f7166398e7}\label{classigl_1_1opengl_1_1_mesh_g_l_a0e7f829d716584272bc822f7166398e7}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+normals\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a78d983cb7c4f65ee3f9f3888f584b9ce}\label{classigl_1_1opengl_1_1_mesh_g_l_a78d983cb7c4f65ee3f9f3888f584b9ce}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+ambient\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a4e339a0daa6dadbf0c72f653d752de2c}\label{classigl_1_1opengl_1_1_mesh_g_l_a4e339a0daa6dadbf0c72f653d752de2c}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+diffuse\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_aed80f410684477bc78e3d84ffcce8752}\label{classigl_1_1opengl_1_1_mesh_g_l_aed80f410684477bc78e3d84ffcce8752}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+specular\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a4356ffc0522f0b071145297e9362c154}\label{classigl_1_1opengl_1_1_mesh_g_l_a4356ffc0522f0b071145297e9362c154}} 
+Row\+Matrix\+Xf {\bfseries V\+\_\+uv\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_aa953266e7d2e8ab68966c9c7b8207123}\label{classigl_1_1opengl_1_1_mesh_g_l_aa953266e7d2e8ab68966c9c7b8207123}} 
+Row\+Matrix\+Xf {\bfseries lines\+\_\+\+V\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a2d621ebb9b848feab4c9a32966f70f95}\label{classigl_1_1opengl_1_1_mesh_g_l_a2d621ebb9b848feab4c9a32966f70f95}} 
+Row\+Matrix\+Xf {\bfseries lines\+\_\+\+V\+\_\+colors\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a92962f0de9d353681d78e0f4fdfbd572}\label{classigl_1_1opengl_1_1_mesh_g_l_a92962f0de9d353681d78e0f4fdfbd572}} 
+Row\+Matrix\+Xf {\bfseries points\+\_\+\+V\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_af8bbeb3828c1e753047172f045582e01}\label{classigl_1_1opengl_1_1_mesh_g_l_af8bbeb3828c1e753047172f045582e01}} 
+Row\+Matrix\+Xf {\bfseries points\+\_\+\+V\+\_\+colors\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a1ee2a8dddbfb9fdb9efc69ad84a80ab7}\label{classigl_1_1opengl_1_1_mesh_g_l_a1ee2a8dddbfb9fdb9efc69ad84a80ab7}} 
+\mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}} {\bfseries vertex\+\_\+labels}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ad10fc12cd5f708c39d2d5b8ba9b276f5}\label{classigl_1_1opengl_1_1_mesh_g_l_ad10fc12cd5f708c39d2d5b8ba9b276f5}} 
+\mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}} {\bfseries face\+\_\+labels}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ab7495df16869f13f7714a8072a3e1da0}\label{classigl_1_1opengl_1_1_mesh_g_l_ab7495df16869f13f7714a8072a3e1da0}} 
+\mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{Text\+GL}} {\bfseries custom\+\_\+labels}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a6edcfc95e183e2f7959e3636d9e56967}\label{classigl_1_1opengl_1_1_mesh_g_l_a6edcfc95e183e2f7959e3636d9e56967}} 
+GLuint {\bfseries font\+\_\+atlas}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_af2cb2d30575300b0d13d551ad6ec74aa}\label{classigl_1_1opengl_1_1_mesh_g_l_af2cb2d30575300b0d13d551ad6ec74aa}} 
+int {\bfseries tex\+\_\+u}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a54d5896d8ee438cfdfe99e2a3b760852}\label{classigl_1_1opengl_1_1_mesh_g_l_a54d5896d8ee438cfdfe99e2a3b760852}} 
+int {\bfseries tex\+\_\+v}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ad2a87b02ac4d2a5d285cb8008742b1b5}\label{classigl_1_1opengl_1_1_mesh_g_l_ad2a87b02ac4d2a5d285cb8008742b1b5}} 
+GLint {\bfseries tex\+\_\+filter}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_af50502e1d1ad9ed8a4993e832d52b45b}\label{classigl_1_1opengl_1_1_mesh_g_l_af50502e1d1ad9ed8a4993e832d52b45b}} 
+GLint {\bfseries tex\+\_\+wrap}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a4244c2dfada501746521483c45a19568}\label{classigl_1_1opengl_1_1_mesh_g_l_a4244c2dfada501746521483c45a19568}} 
+Eigen\+::\+Matrix$<$ char, Eigen\+::\+Dynamic, 1 $>$ {\bfseries tex}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a250f1b8c09a20471d7fc029ed5dae56f}\label{classigl_1_1opengl_1_1_mesh_g_l_a250f1b8c09a20471d7fc029ed5dae56f}} 
+Eigen\+::\+Matrix$<$ unsigned, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major $>$ {\bfseries F\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a62beff09ea2f25888e3544a61b70e862}\label{classigl_1_1opengl_1_1_mesh_g_l_a62beff09ea2f25888e3544a61b70e862}} 
+Eigen\+::\+Matrix$<$ unsigned, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major $>$ {\bfseries lines\+\_\+\+F\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a8207c9ce024558a35b21486d18429ddb}\label{classigl_1_1opengl_1_1_mesh_g_l_a8207c9ce024558a35b21486d18429ddb}} 
+Eigen\+::\+Matrix$<$ unsigned, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic, Eigen\+::\+Row\+Major $>$ {\bfseries points\+\_\+\+F\+\_\+vbo}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_a3b736f78d2d9bac1fa104b4dc8ddcf95}\label{classigl_1_1opengl_1_1_mesh_g_l_a3b736f78d2d9bac1fa104b4dc8ddcf95}} 
+uint32\+\_\+t {\bfseries dirty} \{\}
+\item 
+\mbox{\Hypertarget{classigl_1_1opengl_1_1_mesh_g_l_ab668e388deb3ae2c0ed7e9364ae53d78}\label{classigl_1_1opengl_1_1_mesh_g_l_ab668e388deb3ae2c0ed7e9364ae53d78}} 
+uint64\+\_\+t {\bfseries dirty\+\_\+mesh\+\_\+shader} \{\}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/Mesh\+GL.\+h\item 
+igl/opengl/Mesh\+GL.\+cpp\end{DoxyCompactItemize}

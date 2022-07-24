@@ -1,0 +1,68 @@
+\hypertarget{octree_8h_source}{}\doxysection{octree.\+h}
+\label{octree_8h_source}\index{igl/octree.h@{igl/octree.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Gavin Barill <gavinpcb@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_OCTREE}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_OCTREE}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \textcolor{comment}{// Given a set of 3D points P, generate data structures for a pointerless}}
+\DoxyCodeLine{21   \textcolor{comment}{// octree. Each cell stores its points, children, center location and width.}}
+\DoxyCodeLine{22   \textcolor{comment}{// Our octree is not dense. We use the following rule: if the current cell}}
+\DoxyCodeLine{23   \textcolor{comment}{// has any number of points, it will have all 8 children. A leaf cell will}}
+\DoxyCodeLine{24   \textcolor{comment}{// have -\/1's as its list of child indices.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// We use a binary numbering of children. Treating the parent cell's center}}
+\DoxyCodeLine{27   \textcolor{comment}{// as the origin, we number the octants in the following manner:}}
+\DoxyCodeLine{28   \textcolor{comment}{// The first bit is 1 iff the octant's x coordinate is positive}}
+\DoxyCodeLine{29   \textcolor{comment}{// The second bit is 1 iff the octant's y coordinate is positive}}
+\DoxyCodeLine{30   \textcolor{comment}{// The third bit is 1 iff the octant's z coordinate is positive}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// For example, the octant with negative x, positive y, positive z is:}}
+\DoxyCodeLine{33   \textcolor{comment}{// 110 binary = 6 decimal}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{37   \textcolor{comment}{//}}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   point\_indices  a vector of vectors, where the ith entry is a vector of}}
+\DoxyCodeLine{40   \textcolor{comment}{//                  the indices into P that are the ith octree cell's points}}
+\DoxyCodeLine{41   \textcolor{comment}{//   CH     \#OctreeCells by 8, where the ith row is the indices of}}
+\DoxyCodeLine{42   \textcolor{comment}{//          the ith octree cell's children}}
+\DoxyCodeLine{43   \textcolor{comment}{//   CN     \#OctreeCells by 3, where the ith row is a 3d row vector}}
+\DoxyCodeLine{44   \textcolor{comment}{//          representing the position of the ith cell's center}}
+\DoxyCodeLine{45   \textcolor{comment}{//   W      \#OctreeCells, a vector where the ith entry is the width}}
+\DoxyCodeLine{46   \textcolor{comment}{//          of the ith octree cell}}
+\DoxyCodeLine{47   \textcolor{comment}{//}}
+\DoxyCodeLine{48   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedP, \textcolor{keyword}{typename} IndexType, \textcolor{keyword}{typename} DerivedCH,}
+\DoxyCodeLine{49   \textcolor{keyword}{typename} DerivedCN, \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{50   IGL\_INLINE \textcolor{keywordtype}{void} octree(\textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{51     std::vector<std::vector<IndexType> > \& point\_indices,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<DerivedCH>\& CH,}
+\DoxyCodeLine{53     Eigen::PlainObjectBase<DerivedCN>\& CN,}
+\DoxyCodeLine{54     Eigen::PlainObjectBase<DerivedW>\& W);}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#  include "{}octree.cpp"{}}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{62 }
+
+\end{DoxyCode}

@@ -1,0 +1,67 @@
+\hypertarget{sharp__edges_8h_source}{}\doxysection{sharp\+\_\+edges.\+h}
+\label{sharp__edges_8h_source}\index{igl/sharp\_edges.h@{igl/sharp\_edges.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_SHARP\_EDGES\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_SHARP\_EDGES\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10   \textcolor{comment}{// SHARP\_EDGES Given a mesh, compute sharp edges.}}
+\DoxyCodeLine{11   \textcolor{comment}{//}}
+\DoxyCodeLine{12   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{13   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{14   \textcolor{comment}{//   F  \#F by 3 list of triangle mesh indices into V}}
+\DoxyCodeLine{15   \textcolor{comment}{//   angle  dihedral angle considered to sharp (e.g., igl::PI * 0.11)}}
+\DoxyCodeLine{16   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   SE  \#SE by 2 list of edge indices into V}}
+\DoxyCodeLine{18   \textcolor{comment}{//   uE  \#uE by 2 list of unique undirected edges}}
+\DoxyCodeLine{19   \textcolor{comment}{//   EMAP \#F*3 list of indices into uE, mapping each directed edge to unique}}
+\DoxyCodeLine{20   \textcolor{comment}{//     undirected edge so that uE(EMAP(f+\#F*c)) is the unique edge}}
+\DoxyCodeLine{21   \textcolor{comment}{//     corresponding to E.row(f+\#F*c)}}
+\DoxyCodeLine{22   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges, so that}}
+\DoxyCodeLine{23   \textcolor{comment}{//     E.row(uE2E[i][j]) corresponds to uE.row(i) for all j in}}
+\DoxyCodeLine{24   \textcolor{comment}{//     0..uE2E[i].size()-\/1.}}
+\DoxyCodeLine{25   \textcolor{comment}{//   sharp  \#SE list of indices into uE revealing sharp undirected edges}}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedSE,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} uE2Etype,}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} sharptype>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} sharp\_edges(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar angle,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedSE> \& SE,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{41     Eigen::PlainObjectBase<DeriveduE> \& uE,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{43     std::vector<std::vector<uE2Etype> > \& uE2E,}
+\DoxyCodeLine{44     std::vector< sharptype > \& sharp);}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedSE>}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keywordtype}{void} sharp\_edges(}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Scalar angle,}
+\DoxyCodeLine{53     Eigen::PlainObjectBase<DerivedSE> \& SE}
+\DoxyCodeLine{54     );}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#  include "{}sharp\_edges.cpp"{}}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

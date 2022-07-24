@@ -1,0 +1,109 @@
+\hypertarget{propagate__winding__numbers_8h_source}{}\doxysection{propagate\+\_\+winding\+\_\+numbers.\+h}
+\label{propagate__winding__numbers_8h_source}\index{igl/copyleft/cgal/propagate\_winding\_numbers.h@{igl/copyleft/cgal/propagate\_winding\_numbers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_PROPAGATE\_WINDING\_NUMBERS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_PROPAGATE\_WINDING\_NUMBERS\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{comment}{// The following methods compute the winding number on each side of each facet}}
+\DoxyCodeLine{16 \textcolor{comment}{// or patch of a 3D mesh.  The input mesh is valid if it splits the ambient}}
+\DoxyCodeLine{17 \textcolor{comment}{// space, R\string^3, into subspaces with constant integer winding numbers.  That is}}
+\DoxyCodeLine{18 \textcolor{comment}{// the input mesh should be closed and for each directed edge the number of}}
+\DoxyCodeLine{19 \textcolor{comment}{// clockwise facing facets should equal the number of counterclockwise facing}}
+\DoxyCodeLine{20 \textcolor{comment}{// facets.}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{25   \{}
+\DoxyCodeLine{26     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28       \textcolor{comment}{// TODO: This shouldn't need to be in igl::copyleft::cgal, it should}}
+\DoxyCodeLine{29       \textcolor{comment}{// instead take as input an index of the ambient cell and the winding}}
+\DoxyCodeLine{30       \textcolor{comment}{// number vector there.}}
+\DoxyCodeLine{31       \textcolor{comment}{//}}
+\DoxyCodeLine{32       \textcolor{comment}{// Compute winding number on each side of the face.  The input mesh}}
+\DoxyCodeLine{33       \textcolor{comment}{// could contain multiple connected components.  The input mesh must}}
+\DoxyCodeLine{34       \textcolor{comment}{// represent the boundary of a valid 3D volume, which means it is}}
+\DoxyCodeLine{35       \textcolor{comment}{// closed, consistently oriented and induces integer winding numbers.}}
+\DoxyCodeLine{36       \textcolor{comment}{//}}
+\DoxyCodeLine{37       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{38       \textcolor{comment}{//   V  \#V by 3 list of vertex positions.}}
+\DoxyCodeLine{39       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V.}}
+\DoxyCodeLine{40       \textcolor{comment}{//   labels  \#F list of facet labels ranging from 0 to k-\/1.}}
+\DoxyCodeLine{41       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{42       \textcolor{comment}{//   W  \#F by k*2 list of winding numbers.  ``W(i,j*2)`` is the winding}}
+\DoxyCodeLine{43       \textcolor{comment}{//      number on the positive side of facet ``i`` with respect to the}}
+\DoxyCodeLine{44       \textcolor{comment}{//      facets labeled ``j``.  Similarly, ``W(i,j*2+1)`` is the winding}}
+\DoxyCodeLine{45       \textcolor{comment}{//      number on the negative side of facet ``i`` with respect to the}}
+\DoxyCodeLine{46       \textcolor{comment}{//      facets labeled ``j``.}}
+\DoxyCodeLine{47       \textcolor{comment}{// Returns true iff the input induces a piecewise-\/constant winding number}}
+\DoxyCodeLine{48       \textcolor{comment}{//   field.}}
+\DoxyCodeLine{49       \textcolor{keyword}{template}<}
+\DoxyCodeLine{50         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{51         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{52         \textcolor{keyword}{typename} DerivedL,}
+\DoxyCodeLine{53         \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{54       IGL\_INLINE \textcolor{keywordtype}{bool} propagate\_winding\_numbers(}
+\DoxyCodeLine{55         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{57         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedL>\& labels,}
+\DoxyCodeLine{58         Eigen::PlainObjectBase<DerivedW>\& W);}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{61       \textcolor{comment}{//   V  \#V by 3 list of vertex positions.}}
+\DoxyCodeLine{62       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V.}}
+\DoxyCodeLine{63       \textcolor{comment}{//   uE    \#uE by 2 list of vertex\_indices, represents undirected edges.}}
+\DoxyCodeLine{64       \textcolor{comment}{//   uE2E  \#uE list of lists that maps uE to E. (a one-\/to-\/many map)}}
+\DoxyCodeLine{65       \textcolor{comment}{//   num\_patches  number of patches}}
+\DoxyCodeLine{66       \textcolor{comment}{//   P  \#F list of patch ids.}}
+\DoxyCodeLine{67       \textcolor{comment}{//   num\_cells    number of cells}}
+\DoxyCodeLine{68       \textcolor{comment}{//   C  \#P by 2 list of cell ids on each side of each patch.}}
+\DoxyCodeLine{69       \textcolor{comment}{//   labels  \#F list of facet labels ranging from 0 to k-\/1.}}
+\DoxyCodeLine{70       \textcolor{comment}{// Output:}}
+\DoxyCodeLine{71       \textcolor{comment}{//   W  \#F by k*2 list of winding numbers.  ``W(i,j*2)`` is the winding}}
+\DoxyCodeLine{72       \textcolor{comment}{//      number on the positive side of facet ``i`` with respect to the}}
+\DoxyCodeLine{73       \textcolor{comment}{//      facets labeled ``j``.  Similarly, ``W(i,j*2+1)`` is the winding}}
+\DoxyCodeLine{74       \textcolor{comment}{//      number on the negative side of facet ``i`` with respect to the}}
+\DoxyCodeLine{75       \textcolor{comment}{//      facets labeled ``j``.}}
+\DoxyCodeLine{76       \textcolor{keyword}{template}<}
+\DoxyCodeLine{77         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{78         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{79         \textcolor{keyword}{typename} DeriveduE,}
+\DoxyCodeLine{80         \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{81         \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{82         \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{83         \textcolor{keyword}{typename} DerivedL,}
+\DoxyCodeLine{84         \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{85       IGL\_INLINE \textcolor{keywordtype}{bool} propagate\_winding\_numbers(}
+\DoxyCodeLine{86         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{87         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{88         \textcolor{keyword}{const} Eigen::PlainObjectBase<DeriveduE>\& uE,}
+\DoxyCodeLine{89         \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{90         \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_patches,}
+\DoxyCodeLine{91         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedP>\& P,}
+\DoxyCodeLine{92         \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_cells,}
+\DoxyCodeLine{93         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedC>\& C,}
+\DoxyCodeLine{94         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedL>\& labels,}
+\DoxyCodeLine{95         Eigen::PlainObjectBase<DerivedW>\& W);}
+\DoxyCodeLine{96     \}}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98 \}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#  include "{}propagate\_winding\_numbers.cpp"{}}}
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

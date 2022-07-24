@@ -1,0 +1,116 @@
+\hypertarget{outer__element_8h_source}{}\doxysection{outer\+\_\+element.\+h}
+\label{outer__element_8h_source}\index{igl/outer\_element.h@{igl/outer\_element.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OUTER\_ELEMENT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OUTER\_ELEMENT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Find a vertex that is reachable from infinite without crossing any faces.}}
+\DoxyCodeLine{15   \textcolor{comment}{// Such vertex is called "{}outer vertex."{}}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Precondition: The input mesh must have all self-\/intersection resolved and}}
+\DoxyCodeLine{18   \textcolor{comment}{// no duplicated vertices.  See cgal::remesh\_self\_intersections.h for how to}}
+\DoxyCodeLine{19   \textcolor{comment}{// obtain such input.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{24   \textcolor{comment}{//   I  \#I list of facets to consider}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   v\_index  index of outer vertex}}
+\DoxyCodeLine{27   \textcolor{comment}{//   A  \#A list of facets incident to the outer vertex}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{30       \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{31       \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{32       \textcolor{keyword}{typename} IndexType,}
+\DoxyCodeLine{33       \textcolor{keyword}{typename} DerivedA}
+\DoxyCodeLine{34       >}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} outer\_vertex(}
+\DoxyCodeLine{36           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{37           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{38           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{39           IndexType \& v\_index,}
+\DoxyCodeLine{40           Eigen::PlainObjectBase<DerivedA> \& A);}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{comment}{// Find an edge that is reachable from infinity without crossing any faces.}}
+\DoxyCodeLine{44   \textcolor{comment}{// Such edge is called "{}outer edge."{}}}
+\DoxyCodeLine{45   \textcolor{comment}{//}}
+\DoxyCodeLine{46   \textcolor{comment}{// Precondition: The input mesh must have all self-\/intersection resolved and}}
+\DoxyCodeLine{47   \textcolor{comment}{// no duplicated vertices.  The correctness of the output depends on the fact}}
+\DoxyCodeLine{48   \textcolor{comment}{// that there is no edge overlap.  See cgal::remesh\_self\_intersections.h for}}
+\DoxyCodeLine{49   \textcolor{comment}{// how to obtain such input.}}
+\DoxyCodeLine{50   \textcolor{comment}{//}}
+\DoxyCodeLine{51   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{52   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{53   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{54   \textcolor{comment}{//   I  \#I list of facets to consider}}
+\DoxyCodeLine{55   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{56   \textcolor{comment}{//   v1 index of the first end point of outer edge}}
+\DoxyCodeLine{57   \textcolor{comment}{//   v2 index of the second end point of outer edge}}
+\DoxyCodeLine{58   \textcolor{comment}{//   A  \#A list of facets incident to the outer edge}}
+\DoxyCodeLine{59   \textcolor{keyword}{template}<}
+\DoxyCodeLine{60       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{61       \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{62       \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{63       \textcolor{keyword}{typename} IndexType,}
+\DoxyCodeLine{64       \textcolor{keyword}{typename} DerivedA}
+\DoxyCodeLine{65       >}
+\DoxyCodeLine{66   IGL\_INLINE \textcolor{keywordtype}{void} outer\_edge(}
+\DoxyCodeLine{67           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{68           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{69           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{70           IndexType \& v1,}
+\DoxyCodeLine{71           IndexType \& v2,}
+\DoxyCodeLine{72           Eigen::PlainObjectBase<DerivedA> \& A);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   \textcolor{comment}{// Find a facet that is reachable from infinity without crossing any faces.}}
+\DoxyCodeLine{76   \textcolor{comment}{// Such facet is called "{}outer facet."{}}}
+\DoxyCodeLine{77   \textcolor{comment}{//}}
+\DoxyCodeLine{78   \textcolor{comment}{// Precondition: The input mesh must have all self-\/intersection resolved.  I.e}}
+\DoxyCodeLine{79   \textcolor{comment}{// there is no duplicated vertices, no overlapping edge and no intersecting}}
+\DoxyCodeLine{80   \textcolor{comment}{// faces (the only exception is there could be topologically duplicated faces).}}
+\DoxyCodeLine{81   \textcolor{comment}{// See cgal::remesh\_self\_intersections.h for how to obtain such input.}}
+\DoxyCodeLine{82   \textcolor{comment}{//}}
+\DoxyCodeLine{83   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{84   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{85   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{86   \textcolor{comment}{//   N  \#N by 3 list of face normals}}
+\DoxyCodeLine{87   \textcolor{comment}{//   I  \#I list of facets to consider}}
+\DoxyCodeLine{88   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{89   \textcolor{comment}{//   f  Index of the outer facet.}}
+\DoxyCodeLine{90   \textcolor{comment}{//   flipped  true iff the normal of f points inwards.}}
+\DoxyCodeLine{91   \textcolor{keyword}{template}<}
+\DoxyCodeLine{92       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{93       \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{94       \textcolor{keyword}{typename} DerivedN,}
+\DoxyCodeLine{95       \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{96       \textcolor{keyword}{typename} IndexType}
+\DoxyCodeLine{97       >}
+\DoxyCodeLine{98   IGL\_INLINE \textcolor{keywordtype}{void} outer\_facet(}
+\DoxyCodeLine{99           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{100           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{101           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN> \& N,}
+\DoxyCodeLine{102           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{103           IndexType \& f,}
+\DoxyCodeLine{104           \textcolor{keywordtype}{bool} \& flipped);}
+\DoxyCodeLine{105 \}}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#  include "{}outer\_element.cpp"{}}}
+\DoxyCodeLine{109 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{110 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

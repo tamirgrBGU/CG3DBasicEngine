@@ -1,0 +1,100 @@
+\hypertarget{lbs__matrix_8h_source}{}\doxysection{lbs\+\_\+matrix.\+h}
+\label{lbs__matrix_8h_source}\index{igl/lbs\_matrix.h@{igl/lbs\_matrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_LBS\_MATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_LBS\_MATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// LBS\_MATRIX Linear blend skinning can be expressed by V' = M * T where V' is}}
+\DoxyCodeLine{18   \textcolor{comment}{// a \#V by dim matrix of deformed vertex positions (one vertex per row), M is a}}
+\DoxyCodeLine{19   \textcolor{comment}{// \#V by (dim+1)*\#T (composed of weights and rest positions) and T is a}}
+\DoxyCodeLine{20   \textcolor{comment}{// \#T*(dim+1) by dim matrix of \#T stacked transposed transformation matrices.}}
+\DoxyCodeLine{21   \textcolor{comment}{// See equations (1) and (2) in "{}Fast Automatic Skinning Transformations"{}}}
+\DoxyCodeLine{22   \textcolor{comment}{// [Jacobson et al 2012]}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   V  \#V by dim list of rest positions}}
+\DoxyCodeLine{26   \textcolor{comment}{//   W  \#V+ by \#T  list of weights}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   M  \#V by \#T*(dim+1)}}
+\DoxyCodeLine{29   \textcolor{comment}{//}}
+\DoxyCodeLine{30   \textcolor{comment}{// In MATLAB:}}
+\DoxyCodeLine{31   \textcolor{comment}{//   kron(ones(1,size(W,2)),[V ones(size(V,1),1)]).*kron(W,ones(1,size(V,2)+1))}}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{void} lbs\_matrix(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{35     Eigen::MatrixXd \& M);}
+\DoxyCodeLine{36   \textcolor{comment}{// LBS\_MATRIX  construct a matrix that when multiplied against a column of}}
+\DoxyCodeLine{37   \textcolor{comment}{// affine transformation entries computes new coordinates of the vertices}}
+\DoxyCodeLine{38   \textcolor{comment}{//}}
+\DoxyCodeLine{39   \textcolor{comment}{// I'm not sure it makes since that the result is stored as a sparse matrix.}}
+\DoxyCodeLine{40   \textcolor{comment}{// The number of non-\/zeros per row *is* dependent on the number of mesh}}
+\DoxyCodeLine{41   \textcolor{comment}{// vertices and handles.}}
+\DoxyCodeLine{42   \textcolor{comment}{//}}
+\DoxyCodeLine{43   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{44   \textcolor{comment}{//   V  \#V by dim list of vertex rest positions}}
+\DoxyCodeLine{45   \textcolor{comment}{//   W  \#V by \#handles list of correspondence weights}}
+\DoxyCodeLine{46   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{47   \textcolor{comment}{//   M  \#V * dim by \#handles * dim * (dim+1) matrix such that}}
+\DoxyCodeLine{48   \textcolor{comment}{//     new\_V(:) = LBS(V,W,A) = reshape(M * A,size(V)), where A is a column}}
+\DoxyCodeLine{49   \textcolor{comment}{//     vectors formed by the entries in each handle's dim by dim+1 }}
+\DoxyCodeLine{50   \textcolor{comment}{//     transformation matrix. Specifcally, A =}}
+\DoxyCodeLine{51   \textcolor{comment}{//       reshape(permute(Astack,[3 1 2]),n*dim*(dim+1),1)}}
+\DoxyCodeLine{52   \textcolor{comment}{//     or A = [Lxx;Lyx;Lxy;Lyy;tx;ty], and likewise for other dim}}
+\DoxyCodeLine{53   \textcolor{comment}{//     if Astack(:,:,i) is the dim by (dim+1) transformation at handle i}}
+\DoxyCodeLine{54   IGL\_INLINE \textcolor{keywordtype}{void} lbs\_matrix\_column(}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{57     Eigen::SparseMatrix<double>\& M);}
+\DoxyCodeLine{58   IGL\_INLINE \textcolor{keywordtype}{void} lbs\_matrix\_column(}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{60     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{61     Eigen::MatrixXd \& M);}
+\DoxyCodeLine{62   \textcolor{comment}{// Same as LBS\_MATRIX above but instead of giving W as a full matrix of weights}}
+\DoxyCodeLine{63   \textcolor{comment}{// (each vertex has \#handles weights), a constant number of weights are given}}
+\DoxyCodeLine{64   \textcolor{comment}{// for each vertex.}}
+\DoxyCodeLine{65   \textcolor{comment}{// }}
+\DoxyCodeLine{66   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{67   \textcolor{comment}{//   V  \#V by dim list of vertex rest positions}}
+\DoxyCodeLine{68   \textcolor{comment}{//   W  \#V by k  list of k correspondence weights per vertex}}
+\DoxyCodeLine{69   \textcolor{comment}{//   WI  \#V by k  list of k correspondence weight indices per vertex. Such that}}
+\DoxyCodeLine{70   \textcolor{comment}{//     W(j,WI(i)) gives the ith most significant correspondence weight on vertex j}}
+\DoxyCodeLine{71   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{72   \textcolor{comment}{//   M  \#V * dim by \#handles * dim * (dim+1) matrix such that}}
+\DoxyCodeLine{73   \textcolor{comment}{//     new\_V(:) = LBS(V,W,A) = reshape(M * A,size(V)), where A is a column}}
+\DoxyCodeLine{74   \textcolor{comment}{//     vectors formed by the entries in each handle's dim by dim+1 }}
+\DoxyCodeLine{75   \textcolor{comment}{//     transformation matrix. Specifcally, A =}}
+\DoxyCodeLine{76   \textcolor{comment}{//       reshape(permute(Astack,[3 1 2]),n*dim*(dim+1),1)}}
+\DoxyCodeLine{77   \textcolor{comment}{//     or A = [Lxx;Lyx;Lxy;Lyy;tx;ty], and likewise for other dim}}
+\DoxyCodeLine{78   \textcolor{comment}{//     if Astack(:,:,i) is the dim by (dim+1) transformation at handle i}}
+\DoxyCodeLine{79   \textcolor{comment}{//}}
+\DoxyCodeLine{80   IGL\_INLINE \textcolor{keywordtype}{void} lbs\_matrix\_column(}
+\DoxyCodeLine{81     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{82     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{83     \textcolor{keyword}{const} Eigen::MatrixXi \& WI,}
+\DoxyCodeLine{84     Eigen::SparseMatrix<double>\& M);}
+\DoxyCodeLine{85   IGL\_INLINE \textcolor{keywordtype}{void} lbs\_matrix\_column(}
+\DoxyCodeLine{86     \textcolor{keyword}{const} Eigen::MatrixXd \& V, }
+\DoxyCodeLine{87     \textcolor{keyword}{const} Eigen::MatrixXd \& W,}
+\DoxyCodeLine{88     \textcolor{keyword}{const} Eigen::MatrixXi \& WI,}
+\DoxyCodeLine{89     Eigen::MatrixXd \& M);}
+\DoxyCodeLine{90 \}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#include "{}lbs\_matrix.cpp"{}}}
+\DoxyCodeLine{93 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,42 @@
+\hypertarget{edges__to__path_8h_source}{}\doxysection{edges\+\_\+to\+\_\+path.\+h}
+\label{edges__to__path_8h_source}\index{igl/edges\_to\_path.h@{igl/edges\_to\_path.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_EDGES\_TO\_PATH\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_EDGES\_TO\_PATH\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{6 \{}
+\DoxyCodeLine{7   \textcolor{comment}{// EDGES\_TO\_PATH Given a set of undirected, unique edges such that all form a}}
+\DoxyCodeLine{8   \textcolor{comment}{// single connected compoent with exactly 0 or 2 nodes with valence =1,}}
+\DoxyCodeLine{9   \textcolor{comment}{// determine the/a path visiting all nodes.}}
+\DoxyCodeLine{10   \textcolor{comment}{//}}
+\DoxyCodeLine{11   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{12   \textcolor{comment}{//   E  \#E by 2 list of undirected edges}}
+\DoxyCodeLine{13   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   I  \#E+1 list of nodes in order tracing the chain (loop), if the output}}
+\DoxyCodeLine{15   \textcolor{comment}{//     is a loop then I(1) == I(end)}}
+\DoxyCodeLine{16   \textcolor{comment}{//   J  \#I-\/1 list of indices into E of edges tracing I}}
+\DoxyCodeLine{17   \textcolor{comment}{//   K  \#I-\/1 list of indices into columns of E \{1,2\} so that K(i) means that}}
+\DoxyCodeLine{18   \textcolor{comment}{//     E(i,K(i)) comes before the other (i.e., E(i,3-\/K(i)) ). This means that }}
+\DoxyCodeLine{19   \textcolor{comment}{//     I(i) == E(J(i),K(i)) for i<\#I, or}}
+\DoxyCodeLine{20   \textcolor{comment}{//     I == E(sub2ind(size(E),J([1:end end]),[K;3-\/K(end)]))))}}
+\DoxyCodeLine{21   \textcolor{comment}{// }}
+\DoxyCodeLine{22   \textcolor{keyword}{template} <}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedK>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} edges\_to\_path(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{29     Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedK> \& K);}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#  include "{}edges\_to\_path.cpp"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

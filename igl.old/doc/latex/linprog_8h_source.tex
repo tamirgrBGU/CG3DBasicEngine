@@ -1,0 +1,71 @@
+\hypertarget{linprog_8h_source}{}\doxysection{linprog.\+h}
+\label{linprog_8h_source}\index{igl/linprog.h@{igl/linprog.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_LINPROG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_LINPROG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Solve a linear program given in "{}standard form"{}}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// min  f'x}}
+\DoxyCodeLine{17   \textcolor{comment}{// s.t. A(    1:k,:) x <= b(1:k)}}
+\DoxyCodeLine{18   \textcolor{comment}{//      A(k+1:end,:) x = b(k+1:end)}}
+\DoxyCodeLine{19   \textcolor{comment}{//   ** x >= 0 **}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// In contrast to other APIs the entries in b may be negative.}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   c  \#x list of linear coefficients}}
+\DoxyCodeLine{25   \textcolor{comment}{//   A  \#A by \#x matrix of linear constraint coefficients}}
+\DoxyCodeLine{26   \textcolor{comment}{//   b  \#A list of linear constraint right-\/hand sides}}
+\DoxyCodeLine{27   \textcolor{comment}{//   k  number of inequality constraints as first rows of A,b}}
+\DoxyCodeLine{28   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   x  \#x solution vector}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{bool} linprog(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::VectorXd \& c,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixXd \& A,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::VectorXd \& b,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{36     Eigen::VectorXd \& f);}
+\DoxyCodeLine{37   }
+\DoxyCodeLine{38   \textcolor{comment}{// Wrapper in friendlier general form (no implicit bounds on x)}}
+\DoxyCodeLine{39   \textcolor{comment}{//}}
+\DoxyCodeLine{40   \textcolor{comment}{// min  f'x}}
+\DoxyCodeLine{41   \textcolor{comment}{// s.t. A x <= b}}
+\DoxyCodeLine{42   \textcolor{comment}{//      B x = c}}
+\DoxyCodeLine{43   \textcolor{comment}{//}}
+\DoxyCodeLine{44   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{45   \textcolor{comment}{//   f  \#x list of linear coefficients}}
+\DoxyCodeLine{46   \textcolor{comment}{//   A  \#A by \#x matrix of linear inequality constraint coefficients}}
+\DoxyCodeLine{47   \textcolor{comment}{//   b  \#A list of linear constraint right-\/hand sides}}
+\DoxyCodeLine{48   \textcolor{comment}{//   B  \#B by \#x matrix of linear equality constraint coefficients}}
+\DoxyCodeLine{49   \textcolor{comment}{//   c  \#B list of linear constraint right-\/hand sides}}
+\DoxyCodeLine{50   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{51   \textcolor{comment}{//   x  \#x solution vector}}
+\DoxyCodeLine{52   \textcolor{comment}{//}}
+\DoxyCodeLine{53   IGL\_INLINE \textcolor{keywordtype}{bool} linprog(}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::VectorXd \& f,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::MatrixXd \& A,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::VectorXd \& b,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixXd \& B,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::VectorXd \& c,}
+\DoxyCodeLine{59     Eigen::VectorXd \& x);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#  include "{}linprog.cpp"{}}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

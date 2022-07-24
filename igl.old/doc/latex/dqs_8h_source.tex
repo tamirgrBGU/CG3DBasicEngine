@@ -1,0 +1,48 @@
+\hypertarget{dqs_8h_source}{}\doxysection{dqs.\+h}
+\label{dqs_8h_source}\index{igl/dqs.h@{igl/dqs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DQS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DQS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Dual quaternion skinning}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 3 list of rest positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   W  \#W by \#C list of weights}}
+\DoxyCodeLine{20   \textcolor{comment}{//   vQ  \#C list of rotation quaternions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   vT  \#C list of translation vectors}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   U  \#V by 3 list of new positions}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} Q,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} QAlloc,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} T,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedU>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} dqs(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedW> \& W,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} std::vector<Q,QAlloc> \& vQ,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} std::vector<T> \& vT,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedU> \& U);}
+\DoxyCodeLine{37 \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#  include "{}dqs.cpp"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

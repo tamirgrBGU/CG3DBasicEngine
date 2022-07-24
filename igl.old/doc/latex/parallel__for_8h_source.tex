@@ -1,0 +1,194 @@
+\hypertarget{parallel__for_8h_source}{}\doxysection{parallel\+\_\+for.\+h}
+\label{parallel__for_8h_source}\index{igl/parallel\_for.h@{igl/parallel\_for.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PARALLEL\_FOR\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PARALLEL\_FOR\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{comment}{//\#warning "{}Defining IGL\_PARALLEL\_FOR\_FORCE\_SERIAL"{}}}
+\DoxyCodeLine{14 \textcolor{comment}{//\#define IGL\_PARALLEL\_FOR\_FORCE\_SERIAL}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// PARALLEL\_FOR Functional implementation of a basic, open-\/mp style, parallel}}
+\DoxyCodeLine{19   \textcolor{comment}{// for loop. If the inner block of a for-\/loop can be rewritten/encapsulated in}}
+\DoxyCodeLine{20   \textcolor{comment}{// a single (anonymous/lambda) function call `func` so that the serial code}}
+\DoxyCodeLine{21   \textcolor{comment}{// looks like:}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{//     for(int i = 0;i<loop\_size;i++)}}
+\DoxyCodeLine{24   \textcolor{comment}{//     \{}}
+\DoxyCodeLine{25   \textcolor{comment}{//       func(i);}}
+\DoxyCodeLine{26   \textcolor{comment}{//     \}}}
+\DoxyCodeLine{27   \textcolor{comment}{//}}
+\DoxyCodeLine{28   \textcolor{comment}{// then `parallel\_for(loop\_size,func,min\_parallel)` will use as many threads as}}
+\DoxyCodeLine{29   \textcolor{comment}{// available on the current hardware to parallelize this for loop so long as}}
+\DoxyCodeLine{30   \textcolor{comment}{// loop\_size<min\_parallel, otherwise it will just use a serial for loop.}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{33   \textcolor{comment}{//   loop\_size  number of iterations. I.e. for(int i = 0;i<loop\_size;i++) ...}}
+\DoxyCodeLine{34   \textcolor{comment}{//   func  function handle taking iteration index as only argument to compute}}
+\DoxyCodeLine{35   \textcolor{comment}{//     inner block of for loop I.e. for(int i ...)\{ func(i); \}}}
+\DoxyCodeLine{36   \textcolor{comment}{//   min\_parallel  min size of loop\_size such that parallel (non-\/serial)}}
+\DoxyCodeLine{37   \textcolor{comment}{//     thread pooling should be attempted \{0\}}}
+\DoxyCodeLine{38   \textcolor{comment}{// Returns true iff thread pool was invoked}}
+\DoxyCodeLine{39   \textcolor{keyword}{template}<\textcolor{keyword}{typename} Index, \textcolor{keyword}{typename} FunctionType >}
+\DoxyCodeLine{40   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} parallel\_for(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Index loop\_size,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} FunctionType \& func,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} min\_parallel=0);}
+\DoxyCodeLine{44   \textcolor{comment}{// PARALLEL\_FOR Functional implementation of an open-\/mp style, parallel for}}
+\DoxyCodeLine{45   \textcolor{comment}{// loop with accumulation. For example, serial code separated into n chunks}}
+\DoxyCodeLine{46   \textcolor{comment}{// (each to be parallelized with a thread) might look like:}}
+\DoxyCodeLine{47   \textcolor{comment}{//}}
+\DoxyCodeLine{48   \textcolor{comment}{//     Eigen::VectorXd S;}}
+\DoxyCodeLine{49   \textcolor{comment}{//     const auto \& prep\_func = [\&S](int n)\{ S = Eigen:VectorXd::Zero(n); \};}}
+\DoxyCodeLine{50   \textcolor{comment}{//     const auto \& func = [\&X,\&S](int i, int t)\{ S(t) += X(i); \};}}
+\DoxyCodeLine{51   \textcolor{comment}{//     const auto \& accum\_func = [\&S,\&sum](int t)\{ sum += S(t); \};}}
+\DoxyCodeLine{52   \textcolor{comment}{//     prep\_func(n);}}
+\DoxyCodeLine{53   \textcolor{comment}{//     for(int i = 0;i<loop\_size;i++)}}
+\DoxyCodeLine{54   \textcolor{comment}{//     \{}}
+\DoxyCodeLine{55   \textcolor{comment}{//       func(i,i\%n);}}
+\DoxyCodeLine{56   \textcolor{comment}{//     \}}}
+\DoxyCodeLine{57   \textcolor{comment}{//     double sum = 0;}}
+\DoxyCodeLine{58   \textcolor{comment}{//     for(int t = 0;t<n;t++)}}
+\DoxyCodeLine{59   \textcolor{comment}{//     \{}}
+\DoxyCodeLine{60   \textcolor{comment}{//       accum\_func(t);}}
+\DoxyCodeLine{61   \textcolor{comment}{//     \}}}
+\DoxyCodeLine{62   \textcolor{comment}{//}}
+\DoxyCodeLine{63   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{64   \textcolor{comment}{//   loop\_size  number of iterations. I.e. for(int i = 0;i<loop\_size;i++) ...}}
+\DoxyCodeLine{65   \textcolor{comment}{//   prep\_func function handle taking n >= number of threads as only}}
+\DoxyCodeLine{66   \textcolor{comment}{//     argument}}
+\DoxyCodeLine{67   \textcolor{comment}{//   func  function handle taking iteration index i and thread id t as only}}
+\DoxyCodeLine{68   \textcolor{comment}{//     arguments to compute inner block of for loop I.e.}}
+\DoxyCodeLine{69   \textcolor{comment}{//     for(int i ...)\{ func(i,t); \}}}
+\DoxyCodeLine{70   \textcolor{comment}{//   accum\_func  function handle taking thread index as only argument, to be}}
+\DoxyCodeLine{71   \textcolor{comment}{//     called after all calls of func, e.g., for serial accumulation across}}
+\DoxyCodeLine{72   \textcolor{comment}{//     all n (potential) threads, see n in description of prep\_func.}}
+\DoxyCodeLine{73   \textcolor{comment}{//   min\_parallel  min size of loop\_size such that parallel (non-\/serial)}}
+\DoxyCodeLine{74   \textcolor{comment}{//     thread pooling should be attempted \{0\}}}
+\DoxyCodeLine{75   \textcolor{comment}{// Returns true iff thread pool was invoked}}
+\DoxyCodeLine{76   \textcolor{keyword}{template}<}
+\DoxyCodeLine{77     \textcolor{keyword}{typename} Index,}
+\DoxyCodeLine{78     \textcolor{keyword}{typename} PrepFunctionType,}
+\DoxyCodeLine{79     \textcolor{keyword}{typename} FunctionType,}
+\DoxyCodeLine{80     \textcolor{keyword}{typename} AccumFunctionType}
+\DoxyCodeLine{81     >}
+\DoxyCodeLine{82   \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} parallel\_for(}
+\DoxyCodeLine{83     \textcolor{keyword}{const} Index loop\_size,}
+\DoxyCodeLine{84     \textcolor{keyword}{const} PrepFunctionType \& prep\_func,}
+\DoxyCodeLine{85     \textcolor{keyword}{const} FunctionType \& func,}
+\DoxyCodeLine{86     \textcolor{keyword}{const} AccumFunctionType \& accum\_func,}
+\DoxyCodeLine{87     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} min\_parallel=0);}
+\DoxyCodeLine{88 \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#include "{}default\_num\_threads.h"{}}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#include <cmath>}}
+\DoxyCodeLine{95 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{96 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{97 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{98 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{99 }
+\DoxyCodeLine{100 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Index, \textcolor{keyword}{typename} FunctionType >}
+\DoxyCodeLine{101 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} igl::parallel\_for(}
+\DoxyCodeLine{102   \textcolor{keyword}{const} Index loop\_size,}
+\DoxyCodeLine{103   \textcolor{keyword}{const} FunctionType \& func,}
+\DoxyCodeLine{104   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} min\_parallel)}
+\DoxyCodeLine{105 \{}
+\DoxyCodeLine{106   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{107   \textcolor{comment}{// no op preparation/accumulation}}
+\DoxyCodeLine{108   \textcolor{keyword}{const} \textcolor{keyword}{auto} \& no\_op = [](\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \textcolor{comment}{/*n/t*/})\{\};}
+\DoxyCodeLine{109   \textcolor{comment}{// two-\/parameter wrapper ignoring thread id}}
+\DoxyCodeLine{110   \textcolor{keyword}{const} \textcolor{keyword}{auto} \& wrapper = [\&func](Index i,\textcolor{keywordtype}{size\_t} \textcolor{comment}{/*t*/})\{ func(i); \};}
+\DoxyCodeLine{111   \textcolor{keywordflow}{return} parallel\_for(loop\_size,no\_op,wrapper,no\_op,min\_parallel);}
+\DoxyCodeLine{112 \}}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{114 \textcolor{keyword}{template}<}
+\DoxyCodeLine{115   \textcolor{keyword}{typename} Index,}
+\DoxyCodeLine{116   \textcolor{keyword}{typename} PreFunctionType,}
+\DoxyCodeLine{117   \textcolor{keyword}{typename} FunctionType,}
+\DoxyCodeLine{118   \textcolor{keyword}{typename} AccumFunctionType>}
+\DoxyCodeLine{119 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} igl::parallel\_for(}
+\DoxyCodeLine{120   \textcolor{keyword}{const} Index loop\_size,}
+\DoxyCodeLine{121   \textcolor{keyword}{const} PreFunctionType \& prep\_func,}
+\DoxyCodeLine{122   \textcolor{keyword}{const} FunctionType \& func,}
+\DoxyCodeLine{123   \textcolor{keyword}{const} AccumFunctionType \& accum\_func,}
+\DoxyCodeLine{124   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} min\_parallel)}
+\DoxyCodeLine{125 \{}
+\DoxyCodeLine{126   assert(loop\_size>=0);}
+\DoxyCodeLine{127   \textcolor{keywordflow}{if}(loop\_size==0) \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{128   \textcolor{comment}{// Estimate number of threads in the pool}}
+\DoxyCodeLine{129   \textcolor{comment}{// http://ideone.com/Z7zldb}}
+\DoxyCodeLine{130 \textcolor{preprocessor}{\#ifdef IGL\_PARALLEL\_FOR\_FORCE\_SERIAL}}
+\DoxyCodeLine{131   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nthreads = 1;}
+\DoxyCodeLine{132 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{133   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} nthreads = igl::default\_num\_threads();}
+\DoxyCodeLine{134 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{135   \textcolor{keywordflow}{if}(loop\_size<min\_parallel || nthreads<=1)}
+\DoxyCodeLine{136   \{}
+\DoxyCodeLine{137     \textcolor{comment}{// serial}}
+\DoxyCodeLine{138     prep\_func(1);}
+\DoxyCodeLine{139     \textcolor{keywordflow}{for}(Index i = 0;i<loop\_size;i++) func(i,0);}
+\DoxyCodeLine{140     accum\_func(0);}
+\DoxyCodeLine{141     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{142   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{143   \{}
+\DoxyCodeLine{144     \textcolor{comment}{// Size of a slice for the range functions}}
+\DoxyCodeLine{145     Index slice =}
+\DoxyCodeLine{146       std::max(}
+\DoxyCodeLine{147         (Index)std::round((loop\_size+1)/\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(nthreads)),(Index)1);}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149     \textcolor{comment}{// [Helper] Inner loop}}
+\DoxyCodeLine{150     \textcolor{keyword}{const} \textcolor{keyword}{auto} \& range = [\&func](\textcolor{keyword}{const} Index k1, \textcolor{keyword}{const} Index k2, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} t)}
+\DoxyCodeLine{151     \{}
+\DoxyCodeLine{152       \textcolor{keywordflow}{for}(Index k = k1; k < k2; k++) func(k,t);}
+\DoxyCodeLine{153     \};}
+\DoxyCodeLine{154     prep\_func(nthreads);}
+\DoxyCodeLine{155     \textcolor{comment}{// Create pool and launch jobs}}
+\DoxyCodeLine{156     std::vector<std::thread> pool;}
+\DoxyCodeLine{157     pool.reserve(nthreads);}
+\DoxyCodeLine{158     \textcolor{comment}{// Inner range extents}}
+\DoxyCodeLine{159     Index i1 = 0;}
+\DoxyCodeLine{160     Index i2 = std::min(0 + slice, loop\_size);}
+\DoxyCodeLine{161     \{}
+\DoxyCodeLine{162       \textcolor{keywordtype}{size\_t} t = 0;}
+\DoxyCodeLine{163       \textcolor{keywordflow}{for} (; t+1 < nthreads \&\& i1 < loop\_size; ++t)}
+\DoxyCodeLine{164       \{}
+\DoxyCodeLine{165         pool.emplace\_back(range, i1, i2, t);}
+\DoxyCodeLine{166         i1 = i2;}
+\DoxyCodeLine{167         i2 = std::min(i2 + slice, loop\_size);}
+\DoxyCodeLine{168       \}}
+\DoxyCodeLine{169       \textcolor{keywordflow}{if} (i1 < loop\_size)}
+\DoxyCodeLine{170       \{}
+\DoxyCodeLine{171         pool.emplace\_back(range, i1, loop\_size, t);}
+\DoxyCodeLine{172       \}}
+\DoxyCodeLine{173     \}}
+\DoxyCodeLine{174     \textcolor{comment}{// Wait for jobs to finish}}
+\DoxyCodeLine{175     \textcolor{keywordflow}{for} (std::thread \&t : pool) \textcolor{keywordflow}{if} (t.joinable()) t.join();}
+\DoxyCodeLine{176     \textcolor{comment}{// Accumulate across threads}}
+\DoxyCodeLine{177     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{size\_t} t = 0;t<nthreads;t++)}
+\DoxyCodeLine{178     \{}
+\DoxyCodeLine{179       accum\_func(t);}
+\DoxyCodeLine{180     \}}
+\DoxyCodeLine{181     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{182   \}}
+\DoxyCodeLine{183 \}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185 \textcolor{comment}{//\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{186 \textcolor{comment}{//\#include "{}parallel\_for.cpp"{}}}
+\DoxyCodeLine{187 \textcolor{comment}{//\#endif}}
+\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

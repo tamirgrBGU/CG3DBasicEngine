@@ -1,0 +1,61 @@
+\hypertarget{cork_2mesh__boolean_8h_source}{}\doxysection{mesh\+\_\+boolean.\+h}
+\label{cork_2mesh__boolean_8h_source}\index{igl/copyleft/cork/mesh\_boolean.h@{igl/copyleft/cork/mesh\_boolean.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CORK\_MESH\_BOOLEAN\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CORK\_MESH\_BOOLEAN\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../MeshBooleanType.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <cork.h>} \textcolor{comment}{// for consistent uint}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cork}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21       \textcolor{comment}{// Compute a boolean operation on two input meshes using the cork library.}}
+\DoxyCodeLine{22       \textcolor{comment}{//}}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   VA  \#VA by 3 list of vertex positions of first mesh}}
+\DoxyCodeLine{25       \textcolor{comment}{//   FA  \#FA by 3 list of triangle indices into VA}}
+\DoxyCodeLine{26       \textcolor{comment}{//   VB  \#VB by 3 list of vertex positions of second mesh}}
+\DoxyCodeLine{27       \textcolor{comment}{//   FB  \#FB by 3 list of triangle indices into VB}}
+\DoxyCodeLine{28       \textcolor{comment}{//   type  of boolean operation see MeshBooleanType.h}}
+\DoxyCodeLine{29       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30       \textcolor{comment}{//   VC  \#VC by 3 list of vertex positions of output mesh}}
+\DoxyCodeLine{31       \textcolor{comment}{//   FC  \#FC by 3 list of triangle indices into VC}}
+\DoxyCodeLine{32       \textcolor{keyword}{template} <}
+\DoxyCodeLine{33         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{34         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{35         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{36         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{37         \textcolor{keyword}{typename} DerivedVC,}
+\DoxyCodeLine{38         \textcolor{keyword}{typename} DerivedFC>}
+\DoxyCodeLine{39       IGL\_INLINE \textcolor{keywordtype}{void} mesh\_boolean(}
+\DoxyCodeLine{40         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVA > \& VA,}
+\DoxyCodeLine{41         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFA > \& FA,}
+\DoxyCodeLine{42         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVB > \& VB,}
+\DoxyCodeLine{43         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFB > \& FB,}
+\DoxyCodeLine{44         \textcolor{keyword}{const} MeshBooleanType \& type,}
+\DoxyCodeLine{45         Eigen::PlainObjectBase<DerivedVC > \& VC,}
+\DoxyCodeLine{46         Eigen::PlainObjectBase<DerivedFC > \& FC);}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#  include "{}mesh\_boolean.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

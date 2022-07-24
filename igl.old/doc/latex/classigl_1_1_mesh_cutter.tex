@@ -1,0 +1,67 @@
+\hypertarget{classigl_1_1_mesh_cutter}{}\doxysection{igl\+::Mesh\+Cutter\texorpdfstring{$<$}{<} DerivedV, DerivedF, DerivedM, DerivedO \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_mesh_cutter}\index{igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$@{igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a28d358ef5346f999384b57086be29340}\label{classigl_1_1_mesh_cutter_a28d358ef5346f999384b57086be29340}} 
+{\bfseries Mesh\+Cutter} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V\+\_\+, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F\+\_\+, const Eigen\+::\+Matrix\+Base$<$ DerivedM $>$ \&Handle\+\_\+\+MMatch\+\_\+)
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a972d7519f7ddd78887a8380b96299dcf}\label{classigl_1_1_mesh_cutter_a972d7519f7ddd78887a8380b96299dcf}} 
+void {\bfseries cut} (Eigen\+::\+Plain\+Object\+Base$<$ DerivedO $>$ \&Handle\+\_\+\+Seams)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a1f3625eee4631ac403880df32fc39e28}\label{classigl_1_1_mesh_cutter_a1f3625eee4631ac403880df32fc39e28}} 
+bool {\bfseries Is\+Rot\+Seam} (const int f0, const int edge)
+\item 
+void \mbox{\hyperlink{classigl_1_1_mesh_cutter_a9593be186a12aa29884be92f8c318a47}{Flood\+Fill}} (const int start, Eigen\+::\+Plain\+Object\+Base$<$ DerivedO $>$ \&Handle\+\_\+\+Seams)
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_aa9734671f6bc33bf59fbdfe41e75f2ec}\label{classigl_1_1_mesh_cutter_aa9734671f6bc33bf59fbdfe41e75f2ec}} 
+void {\bfseries Retract} (Eigen\+::\+Plain\+Object\+Base$<$ DerivedO $>$ \&Handle\+\_\+\+Seams)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a0aebf11f97e289c3b0388086927fb65f}\label{classigl_1_1_mesh_cutter_a0aebf11f97e289c3b0388086927fb65f}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \& {\bfseries V}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a8363458ffc4a197b6066317d373ff103}\label{classigl_1_1_mesh_cutter_a8363458ffc4a197b6066317d373ff103}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \& {\bfseries F}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_ae4d68dd5825b2d939ee31e624e8417cb}\label{classigl_1_1_mesh_cutter_ae4d68dd5825b2d939ee31e624e8417cb}} 
+const Eigen\+::\+Matrix\+Base$<$ DerivedM $>$ \& {\bfseries Handle\+\_\+\+MMatch}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a7443e89658b6f830c45c6821326c61d2}\label{classigl_1_1_mesh_cutter_a7443e89658b6f830c45c6821326c61d2}} 
+Eigen\+::\+Vector\+Xi {\bfseries F\+\_\+visited}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a71a6b4a3bb155bea0ef1567a1e331449}\label{classigl_1_1_mesh_cutter_a71a6b4a3bb155bea0ef1567a1e331449}} 
+DerivedF {\bfseries TT}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a2e68affbbdb52ddaad0279da743c83ce}\label{classigl_1_1_mesh_cutter_a2e68affbbdb52ddaad0279da743c83ce}} 
+DerivedF {\bfseries TTi}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a88f03df809f8b53ad5e17dcfa12cc41b}\label{classigl_1_1_mesh_cutter_a88f03df809f8b53ad5e17dcfa12cc41b}} 
+Eigen\+::\+Matrix\+Xi {\bfseries E}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_ac5366eabe518f3f2f19a13d4c52134d1}\label{classigl_1_1_mesh_cutter_ac5366eabe518f3f2f19a13d4c52134d1}} 
+Eigen\+::\+Matrix\+Xi {\bfseries F2E}
+\item 
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a6a6fcc974b44e174a5f1ce894b63898b}\label{classigl_1_1_mesh_cutter_a6a6fcc974b44e174a5f1ce894b63898b}} 
+Eigen\+::\+Matrix\+Xi {\bfseries E2F}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_mesh_cutter_a9593be186a12aa29884be92f8c318a47}\label{classigl_1_1_mesh_cutter_a9593be186a12aa29884be92f8c318a47}} 
+\index{igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$@{igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$}!FloodFill@{FloodFill}}
+\index{FloodFill@{FloodFill}!igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$@{igl::MeshCutter$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$}}
+\doxysubsubsection{\texorpdfstring{FloodFill()}{FloodFill()}}
+{\footnotesize\ttfamily template$<$typename DerivedV , typename DerivedF , typename DerivedM , typename DerivedO $>$ \\
+void \mbox{\hyperlink{classigl_1_1_mesh_cutter}{igl\+::\+Mesh\+Cutter}}$<$ DerivedV, DerivedF, DerivedM, DerivedO $>$\+::\+Flood\+Fill (\begin{DoxyParamCaption}\item[{const int}]{start,  }\item[{Eigen\+::\+Plain\+Object\+Base$<$ DerivedO $>$ \&}]{Handle\+\_\+\+Seams }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+clean the visited flag
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/cut\+\_\+mesh\+\_\+from\+\_\+singularities.\+cpp\end{DoxyCompactItemize}

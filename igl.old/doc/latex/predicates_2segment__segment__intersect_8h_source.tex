@@ -1,0 +1,50 @@
+\hypertarget{predicates_2segment__segment__intersect_8h_source}{}\doxysection{segment\+\_\+segment\+\_\+intersect.\+h}
+\label{predicates_2segment__segment__intersect_8h_source}\index{igl/predicates/segment\_segment\_intersect.h@{igl/predicates/segment\_segment\_intersect.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Hanxiao Shen <hanxiao@cs.nyu.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_PREDICATES\_SEGMENT\_SEGMENT\_INTERSECT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_PREDICATES\_SEGMENT\_SEGMENT\_INTERSECT\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}predicates.h"{}}}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }predicates}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19   }
+\DoxyCodeLine{20     \textcolor{comment}{// Given two segments in 2d test whether they intersect each other}}
+\DoxyCodeLine{21     \textcolor{comment}{// using predicates orient2d}}
+\DoxyCodeLine{22     \textcolor{comment}{// }}
+\DoxyCodeLine{23     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24     \textcolor{comment}{//   A:   1st endpoint of segment 1}}
+\DoxyCodeLine{25     \textcolor{comment}{//   B:   2st endpoint of segment 1}}
+\DoxyCodeLine{26     \textcolor{comment}{//   C:   1st endpoint of segment 2}}
+\DoxyCodeLine{27     \textcolor{comment}{//   D:   2st endpoint of segment 2}}
+\DoxyCodeLine{28     \textcolor{comment}{// Returns true if they intersect}}
+\DoxyCodeLine{29     }
+\DoxyCodeLine{30     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedP>}
+\DoxyCodeLine{31     IGL\_INLINE \textcolor{keywordtype}{bool} segment\_segment\_intersect(}
+\DoxyCodeLine{32       \textcolor{comment}{// input:}}
+\DoxyCodeLine{33       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& A,}
+\DoxyCodeLine{34       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& B,}
+\DoxyCodeLine{35       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& C,}
+\DoxyCodeLine{36       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& D}
+\DoxyCodeLine{37     );}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39   \}}
+\DoxyCodeLine{40 \}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#   include "{}segment\_segment\_intersect.cpp"{}}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//IGL\_PREDICATES\_SEGMENT\_SEGMENT\_INTERSECT\_H}}
+
+\end{DoxyCode}

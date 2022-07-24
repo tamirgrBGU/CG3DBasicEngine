@@ -1,0 +1,128 @@
+\hypertarget{harmonic_8h_source}{}\doxysection{harmonic.\+h}
+\label{harmonic_8h_source}\index{igl/harmonic.h@{igl/harmonic.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_HARMONIC\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_HARMONIC\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Compute k-\/harmonic weight functions "{}coordinates"{}.}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   V  \#V by dim vertex positions}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by simplex-\/size list of element indices}}
+\DoxyCodeLine{21   \textcolor{comment}{//   b  \#b boundary indices into V}}
+\DoxyCodeLine{22   \textcolor{comment}{//   bc \#b by \#W list of boundary values}}
+\DoxyCodeLine{23   \textcolor{comment}{//   k  power of harmonic operation (1: harmonic, 2: biharmonic, etc)}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   W  \#V by \#W list of weights}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} Derivedb,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} Derivedbc,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{bool} harmonic(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedb> \& b,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedbc> \& bc,}
+\DoxyCodeLine{38     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{40   \textcolor{comment}{// Compute harmonic map using uniform laplacian operator}}
+\DoxyCodeLine{41   \textcolor{comment}{//}}
+\DoxyCodeLine{42   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{43   \textcolor{comment}{//   F  \#F by simplex-\/size list of element indices}}
+\DoxyCodeLine{44   \textcolor{comment}{//   b  \#b boundary indices into V}}
+\DoxyCodeLine{45   \textcolor{comment}{//   bc \#b by \#W list of boundary values}}
+\DoxyCodeLine{46   \textcolor{comment}{//   k  power of harmonic operation (1: harmonic, 2: biharmonic, etc)}}
+\DoxyCodeLine{47   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{48   \textcolor{comment}{//   W  \#V by \#W list of weights}}
+\DoxyCodeLine{49   \textcolor{comment}{//}}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{52     \textcolor{keyword}{typename} Derivedb,}
+\DoxyCodeLine{53     \textcolor{keyword}{typename} Derivedbc,}
+\DoxyCodeLine{54     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{55   IGL\_INLINE \textcolor{keywordtype}{bool} harmonic(}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedb> \& b,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedbc> \& bc,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{61   \textcolor{comment}{// Compute a harmonic map using a given Laplacian and mass matrix}}
+\DoxyCodeLine{62   \textcolor{comment}{//}}
+\DoxyCodeLine{63   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{64   \textcolor{comment}{//   L  \#V by \#V discrete (integrated) Laplacian  }}
+\DoxyCodeLine{65   \textcolor{comment}{//   M  \#V by \#V mass matrix}}
+\DoxyCodeLine{66   \textcolor{comment}{//   b  \#b boundary indices into V}}
+\DoxyCodeLine{67   \textcolor{comment}{//   bc  \#b by \#W list of boundary values}}
+\DoxyCodeLine{68   \textcolor{comment}{//   k  power of harmonic operation (1: harmonic, 2: biharmonic, etc)}}
+\DoxyCodeLine{69   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{70   \textcolor{comment}{//   W  \#V by \#V list of weights}}
+\DoxyCodeLine{71   \textcolor{keyword}{template} <}
+\DoxyCodeLine{72     \textcolor{keyword}{typename} DerivedL,}
+\DoxyCodeLine{73     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{74     \textcolor{keyword}{typename} Derivedb,}
+\DoxyCodeLine{75     \textcolor{keyword}{typename} Derivedbc,}
+\DoxyCodeLine{76     \textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{77   IGL\_INLINE \textcolor{keywordtype}{bool} harmonic(}
+\DoxyCodeLine{78     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedL> \& L,}
+\DoxyCodeLine{79     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedM> \& M,}
+\DoxyCodeLine{80     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedb> \& b,}
+\DoxyCodeLine{81     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedbc> \& bc,}
+\DoxyCodeLine{82     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{83     Eigen::PlainObjectBase<DerivedW> \& W);}
+\DoxyCodeLine{84   \textcolor{comment}{// Build the discrete k-\/harmonic operator (computing integrated quantities).}}
+\DoxyCodeLine{85   \textcolor{comment}{// That is, if the k-\/harmonic PDE is Q x = 0, then this minimizes x' Q x}}
+\DoxyCodeLine{86   \textcolor{comment}{//}}
+\DoxyCodeLine{87   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{88   \textcolor{comment}{//   L  \#V by \#V discrete (integrated) Laplacian  }}
+\DoxyCodeLine{89   \textcolor{comment}{//   M  \#V by \#V mass matrix}}
+\DoxyCodeLine{90   \textcolor{comment}{//   k  power of harmonic operation (1: harmonic, 2: biharmonic, etc)}}
+\DoxyCodeLine{91   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{92   \textcolor{comment}{//   Q  \#V by \#V discrete (integrated) k-\/Laplacian  }}
+\DoxyCodeLine{93   \textcolor{keyword}{template} <}
+\DoxyCodeLine{94     \textcolor{keyword}{typename} DerivedL,}
+\DoxyCodeLine{95     \textcolor{keyword}{typename} DerivedM,}
+\DoxyCodeLine{96     \textcolor{keyword}{typename} DerivedQ>}
+\DoxyCodeLine{97   IGL\_INLINE \textcolor{keywordtype}{void} harmonic(}
+\DoxyCodeLine{98     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedL> \& L,}
+\DoxyCodeLine{99     \textcolor{keyword}{const} Eigen::SparseCompressedBase<DerivedM> \& M,}
+\DoxyCodeLine{100     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{101     DerivedQ \& Q);}
+\DoxyCodeLine{102   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{103   \textcolor{comment}{//   V  \#V by dim vertex positions}}
+\DoxyCodeLine{104   \textcolor{comment}{//   F  \#F by simplex-\/size list of element indices}}
+\DoxyCodeLine{105   \textcolor{comment}{//   k  power of harmonic operation (1: harmonic, 2: biharmonic, etc)}}
+\DoxyCodeLine{106   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{107   \textcolor{comment}{//   Q  \#V by \#V discrete (integrated) k-\/Laplacian  }}
+\DoxyCodeLine{108   \textcolor{keyword}{template} <}
+\DoxyCodeLine{109     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{110     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{111     \textcolor{keyword}{typename} DerivedQ>}
+\DoxyCodeLine{112   IGL\_INLINE \textcolor{keywordtype}{void} harmonic(}
+\DoxyCodeLine{113     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{114     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{115     \textcolor{keyword}{const} \textcolor{keywordtype}{int} k,}
+\DoxyCodeLine{116     DerivedQ \& Q);}
+\DoxyCodeLine{117 \};}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#include "{}harmonic.cpp"{}}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

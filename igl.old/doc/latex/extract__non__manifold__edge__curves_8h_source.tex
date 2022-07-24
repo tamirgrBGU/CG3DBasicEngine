@@ -1,0 +1,53 @@
+\hypertarget{extract__non__manifold__edge__curves_8h_source}{}\doxysection{extract\+\_\+non\+\_\+manifold\+\_\+edge\+\_\+curves.\+h}
+\label{extract__non__manifold__edge__curves_8h_source}\index{igl/extract\_non\_manifold\_edge\_curves.h@{igl/extract\_non\_manifold\_edge\_curves.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NON\_MANIFOLD\_EDGE\_CURVES}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NON\_MANIFOLD\_EDGE\_CURVES}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16     \textcolor{comment}{// Extract non-\/manifold curves from a given mesh.}}
+\DoxyCodeLine{17     \textcolor{comment}{// A non-\/manifold curves are a set of connected non-\/manifold edges that}}
+\DoxyCodeLine{18     \textcolor{comment}{// does not touch other non-\/manifold edges except at the end points.}}
+\DoxyCodeLine{19     \textcolor{comment}{// They are also maximal in the sense that they cannot be expanded by}}
+\DoxyCodeLine{20     \textcolor{comment}{// including more edges.}}
+\DoxyCodeLine{21     \textcolor{comment}{//}}
+\DoxyCodeLine{22     \textcolor{comment}{// Assumes the input mesh have all self-\/intersection resolved.  See}}
+\DoxyCodeLine{23     \textcolor{comment}{// ``igl::cgal::remesh\_self\_intersection`` for more details.}}
+\DoxyCodeLine{24     \textcolor{comment}{//}}
+\DoxyCodeLine{25     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{26     \textcolor{comment}{//   F  \#F by 3 list representing triangles.}}
+\DoxyCodeLine{27     \textcolor{comment}{//   EMAP  \#F*3 list of indices of unique undirected edges.}}
+\DoxyCodeLine{28     \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges.}}
+\DoxyCodeLine{29     \textcolor{comment}{//}}
+\DoxyCodeLine{30     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{31     \textcolor{comment}{//   curves  An array of arries of unique edge indices.}}
+\DoxyCodeLine{32     \textcolor{keyword}{template}<}
+\DoxyCodeLine{33         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{34         \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{35         \textcolor{keyword}{typename} uE2EType>}
+\DoxyCodeLine{36     IGL\_INLINE \textcolor{keywordtype}{void} extract\_non\_manifold\_edge\_curves(}
+\DoxyCodeLine{37             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{38             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{39             \textcolor{keyword}{const} std::vector<std::vector<uE2EType> >\& uE2E,}
+\DoxyCodeLine{40             std::vector<std::vector<size\_t> >\& curves);}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#  include "{}extract\_non\_manifold\_edge\_curves.cpp"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

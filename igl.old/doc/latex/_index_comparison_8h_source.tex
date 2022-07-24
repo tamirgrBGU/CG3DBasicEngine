@@ -1,0 +1,123 @@
+\hypertarget{_index_comparison_8h_source}{}\doxysection{Index\+Comparison.\+h}
+\label{_index_comparison_8h_source}\index{igl/IndexComparison.h@{igl/IndexComparison.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_INDEXCOMPARISON\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_INDEXCOMPARISON\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }igl\{}
+\DoxyCodeLine{12   \textcolor{comment}{// Comparison struct used by sort}}
+\DoxyCodeLine{13   \textcolor{comment}{// http://bytes.com/topic/c/answers/132045-\/sort-\/get-\/index}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15   \textcolor{comment}{// For use with functions like std::sort}}
+\DoxyCodeLine{16   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_less_than}{IndexLessThan}}}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \mbox{\hyperlink{structigl_1_1_index_less_than}{IndexLessThan}}(\textcolor{keyword}{const} T arr) : arr(arr) \{\}}
+\DoxyCodeLine{19     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{20 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{21       \textcolor{keywordflow}{return} arr[a] < arr[b];}
+\DoxyCodeLine{22     \}}
+\DoxyCodeLine{23     \textcolor{keyword}{const} T arr;}
+\DoxyCodeLine{24   \};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   \textcolor{comment}{// For use with functions like std::unique}}
+\DoxyCodeLine{27   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_equals}{IndexEquals}}}
+\DoxyCodeLine{28   \{}
+\DoxyCodeLine{29     \mbox{\hyperlink{structigl_1_1_index_equals}{IndexEquals}}(\textcolor{keyword}{const} T arr) : arr(arr) \{\}}
+\DoxyCodeLine{30     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{31 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{32       \textcolor{keywordflow}{return} arr[a] == arr[b];}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34     \textcolor{keyword}{const} T arr;}
+\DoxyCodeLine{35   \};}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37   \textcolor{comment}{// For use with functions like std::sort}}
+\DoxyCodeLine{38   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_vector_less_than}{IndexVectorLessThan}}}
+\DoxyCodeLine{39   \{}
+\DoxyCodeLine{40     \mbox{\hyperlink{structigl_1_1_index_vector_less_than}{IndexVectorLessThan}}(\textcolor{keyword}{const} T \& vec) : vec ( vec) \{\}}
+\DoxyCodeLine{41     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{42 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{43       \textcolor{keywordflow}{return} vec(a) < vec(b);}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45     \textcolor{keyword}{const} T \& vec;}
+\DoxyCodeLine{46   \};}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48   \textcolor{comment}{// For use with functions like std::sort}}
+\DoxyCodeLine{49   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_dim_less_than}{IndexDimLessThan}}}
+\DoxyCodeLine{50   \{}
+\DoxyCodeLine{51     \mbox{\hyperlink{structigl_1_1_index_dim_less_than}{IndexDimLessThan}}(\textcolor{keyword}{const} T \& mat,\textcolor{keyword}{const} \textcolor{keywordtype}{int} \& dim, \textcolor{keyword}{const} \textcolor{keywordtype}{int} \& j) : }
+\DoxyCodeLine{52       mat(mat),}
+\DoxyCodeLine{53       dim(dim),}
+\DoxyCodeLine{54       j(j)}
+\DoxyCodeLine{55     \{\}}
+\DoxyCodeLine{56     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{57 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{58       \textcolor{keywordflow}{if}(dim == 1)}
+\DoxyCodeLine{59       \{}
+\DoxyCodeLine{60         \textcolor{keywordflow}{return} mat(a,j) < mat(b,j);}
+\DoxyCodeLine{61       \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{62       \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{return} mat(j,a) < mat(j,b);}
+\DoxyCodeLine{64       \}}
+\DoxyCodeLine{65     \}}
+\DoxyCodeLine{66     \textcolor{keyword}{const} T \& mat;}
+\DoxyCodeLine{67     \textcolor{keyword}{const} \textcolor{keywordtype}{int} \& dim;}
+\DoxyCodeLine{68     \textcolor{keyword}{const} \textcolor{keywordtype}{int} \& j;}
+\DoxyCodeLine{69   \};}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{71   \textcolor{comment}{// For use with functions like std::sort}}
+\DoxyCodeLine{72   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_row_less_than}{IndexRowLessThan}}}
+\DoxyCodeLine{73   \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{structigl_1_1_index_row_less_than}{IndexRowLessThan}}(\textcolor{keyword}{const} T \& mat) : mat ( mat) \{\}}
+\DoxyCodeLine{75     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{76 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{77       \textcolor{keyword}{const} \textcolor{keywordtype}{int} cols = mat.cols();}
+\DoxyCodeLine{78       \textcolor{comment}{// Lexicographical order}}
+\DoxyCodeLine{79       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<cols;j++)}
+\DoxyCodeLine{80       \{}
+\DoxyCodeLine{81         \textcolor{keywordflow}{if}(mat(a,j) > mat(b,j))}
+\DoxyCodeLine{82         \{}
+\DoxyCodeLine{83           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{84         \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(mat(a,j) < mat(b,j))}
+\DoxyCodeLine{85         \{}
+\DoxyCodeLine{86           \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{87         \}}
+\DoxyCodeLine{88       \}}
+\DoxyCodeLine{89       \textcolor{comment}{// equality is false}}
+\DoxyCodeLine{90       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92     \textcolor{keyword}{const} T \& mat;}
+\DoxyCodeLine{93   \};}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{comment}{// For use with functions like std::sort}}
+\DoxyCodeLine{96   \textcolor{keyword}{template}<\textcolor{keyword}{class} T> \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_index_row_equals}{IndexRowEquals}}}
+\DoxyCodeLine{97   \{}
+\DoxyCodeLine{98     \mbox{\hyperlink{structigl_1_1_index_row_equals}{IndexRowEquals}}(\textcolor{keyword}{const} T \& mat) : mat ( mat) \{\}}
+\DoxyCodeLine{99     \textcolor{keywordtype}{bool} operator()(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} a, \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} b)\textcolor{keyword}{ const}}
+\DoxyCodeLine{100 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{101       \textcolor{keyword}{const} \textcolor{keywordtype}{int} cols = mat.cols();}
+\DoxyCodeLine{102       \textcolor{comment}{// Lexicographical order}}
+\DoxyCodeLine{103       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<cols;j++)}
+\DoxyCodeLine{104       \{}
+\DoxyCodeLine{105         \textcolor{keywordflow}{if}(mat(a,j) !=  mat(b,j))}
+\DoxyCodeLine{106         \{}
+\DoxyCodeLine{107           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{108         \}}
+\DoxyCodeLine{109       \}}
+\DoxyCodeLine{110       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{111     \}}
+\DoxyCodeLine{112     \textcolor{keyword}{const} T \& mat;}
+\DoxyCodeLine{113   \};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

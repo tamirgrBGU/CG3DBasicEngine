@@ -1,0 +1,38 @@
+\hypertarget{quat__conjugate_8h_source}{}\doxysection{quat\+\_\+conjugate.\+h}
+\label{quat__conjugate_8h_source}\index{igl/quat\_conjugate.h@{igl/quat\_conjugate.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_QUAT\_CONJUGATE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_QUAT\_CONJUGATE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Compute conjugate of given quaternion}}
+\DoxyCodeLine{15   \textcolor{comment}{// http://en.wikipedia.org/wiki/Quaternion\#Conjugation.2C\_the\_norm.2C\_and\_reciprocal}}
+\DoxyCodeLine{16   \textcolor{comment}{// A Quaternion, q, is defined here as an arrays of four scalars (x,y,z,w),}}
+\DoxyCodeLine{17   \textcolor{comment}{// such that q = x*i + y*j + z*k + w}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   q1  input quaternion}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   out  result of conjugation, allowed to be same as input}}
+\DoxyCodeLine{22   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Q\_type>}
+\DoxyCodeLine{23   IGL\_INLINE \textcolor{keywordtype}{void} quat\_conjugate(}
+\DoxyCodeLine{24     \textcolor{keyword}{const} Q\_type *q1, }
+\DoxyCodeLine{25     Q\_type *out);}
+\DoxyCodeLine{26 \};}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#  include "{}quat\_conjugate.cpp"{}}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

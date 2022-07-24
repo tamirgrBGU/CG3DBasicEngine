@@ -1,0 +1,68 @@
+\hypertarget{_draw_info_8h_source}{}\doxysection{Draw\+Info.\+h}
+\label{_draw_info_8h_source}\index{igl/opengl/glfw/DrawInfo.h@{igl/opengl/glfw/DrawInfo.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{//}}
+\DoxyCodeLine{2 \textcolor{comment}{// Created by hedi1 on 04/02/2022.}}
+\DoxyCodeLine{3 \textcolor{comment}{//}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#ifndef LIBIGL\_DRAWINFO\_H}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define LIBIGL\_DRAWINFO\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{8 \textcolor{keyword}{struct }\mbox{\hyperlink{struct_draw_info}{DrawInfo}}}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10     \textcolor{keywordtype}{int} viewportIndx;}
+\DoxyCodeLine{11     \textcolor{keywordtype}{int} cameraIndx;}
+\DoxyCodeLine{12     \textcolor{keywordtype}{int} shaderIndx;}
+\DoxyCodeLine{13     \textcolor{keywordtype}{int} buffer;}
+\DoxyCodeLine{14     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} flags;}
+\DoxyCodeLine{15     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} property\_id;}
+\DoxyCodeLine{16     Eigen::Vector4f Clear\_RGBA;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 }
+\DoxyCodeLine{19     \mbox{\hyperlink{struct_draw_info}{DrawInfo}}(\textcolor{keywordtype}{int} view, \textcolor{keywordtype}{int} camera, \textcolor{keywordtype}{int} shader, \textcolor{keywordtype}{int} buff,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \_flags,\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \_property\_id)}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21         viewportIndx = view;}
+\DoxyCodeLine{22         cameraIndx = camera;}
+\DoxyCodeLine{23         shaderIndx = shader;}
+\DoxyCodeLine{24         buffer = buff;}
+\DoxyCodeLine{25         flags = \_flags;}
+\DoxyCodeLine{26         property\_id = \_property\_id;}
+\DoxyCodeLine{27         Clear\_RGBA = Eigen::Vector4f (1,1,1,1);}
+\DoxyCodeLine{28     \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} SetCamera(\textcolor{keywordtype}{int} indx)}
+\DoxyCodeLine{31     \{}
+\DoxyCodeLine{32         cameraIndx = indx;}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} SetFlags(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} value) \{ flags = flags | value; \}}
+\DoxyCodeLine{36     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} ClearFlags(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} value) \{ flags = flags \& \string~value; \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} set(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \&property\_mask, \textcolor{keywordtype}{bool} value)}
+\DoxyCodeLine{39     \{}
+\DoxyCodeLine{40         \textcolor{keywordflow}{if} (!value)}
+\DoxyCodeLine{41             unset(property\_mask);}
+\DoxyCodeLine{42         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{43             property\_mask |= property\_id;}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} unset(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \&property\_mask)\textcolor{keyword}{ const}}
+\DoxyCodeLine{47 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{48         property\_mask \&= \string~property\_id;}
+\DoxyCodeLine{49     \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} toggle(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \&property\_mask)\textcolor{keyword}{ const}}
+\DoxyCodeLine{52 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{53         property\_mask \string^= property\_id;}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56     \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} is\_set(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} property\_mask)\textcolor{keyword}{ const}}
+\DoxyCodeLine{57 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{58         \textcolor{keywordflow}{return} (property\_mask \& property\_id);}
+\DoxyCodeLine{59     \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \};}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//LIBIGL\_DRAWINFO\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,143 @@
+\hypertarget{classigl_1_1_msh_loader}{}\doxysection{igl\+::Msh\+Loader Class Reference}
+\label{classigl_1_1_msh_loader}\index{igl::MshLoader@{igl::MshLoader}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\+\_\+struct}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a6a47c8b8e574ed9a32b0b79fd894d66b}\label{classigl_1_1_msh_loader_a6a47c8b8e574ed9a32b0b79fd894d66b}} 
+enum \{ \newline
+{\bfseries ELEMENT\+\_\+\+LINE} =1
+, {\bfseries ELEMENT\+\_\+\+TRI} =2
+, {\bfseries ELEMENT\+\_\+\+QUAD} =3
+, {\bfseries ELEMENT\+\_\+\+TET} =4
+, \newline
+{\bfseries ELEMENT\+\_\+\+HEX} =5
+, {\bfseries ELEMENT\+\_\+\+PRISM} =6
+, {\bfseries ELEMENT\+\_\+\+PYRAMID} =7
+, {\bfseries ELEMENT\+\_\+\+LINE\+\_\+2\+ND\+\_\+\+ORDER} =8
+, \newline
+{\bfseries ELEMENT\+\_\+\+TRI\+\_\+2\+ND\+\_\+\+ORDER} =9
+, {\bfseries ELEMENT\+\_\+\+QUAD\+\_\+2\+ND\+\_\+\+ORDER} =10
+, {\bfseries ELEMENT\+\_\+\+TET\+\_\+2\+ND\+\_\+\+ORDER} =11
+, {\bfseries ELEMENT\+\_\+\+HEX\+\_\+2\+ND\+\_\+\+ORDER} =12
+, \newline
+{\bfseries ELEMENT\+\_\+\+PRISM\+\_\+2\+ND\+\_\+\+ORDER} =13
+, {\bfseries ELEMENT\+\_\+\+PYRAMID\+\_\+2\+ND\+\_\+\+ORDER} =14
+, {\bfseries ELEMENT\+\_\+\+POINT} =15
+ \}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a79ff327370d2391101d877b5c4bd6cb9}\label{classigl_1_1_msh_loader_a79ff327370d2391101d877b5c4bd6cb9}} 
+typedef double {\bfseries Float}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a5db8b9522e76f31685f58134e09c932f}\label{classigl_1_1_msh_loader_a5db8b9522e76f31685f58134e09c932f}} 
+typedef std\+::vector$<$ int $>$ {\bfseries Index\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a318626d045076f67e77c64e37511d12b}\label{classigl_1_1_msh_loader_a318626d045076f67e77c64e37511d12b}} 
+typedef std\+::vector$<$ int $>$ {\bfseries Int\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a803bba10a589e120fe7042a773ea28f9}\label{classigl_1_1_msh_loader_a803bba10a589e120fe7042a773ea28f9}} 
+typedef std\+::vector$<$ Float $>$ {\bfseries Float\+Vector}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a61602b2dcd11fefa9ff3d89cf2f5fdaf}\label{classigl_1_1_msh_loader_a61602b2dcd11fefa9ff3d89cf2f5fdaf}} 
+typedef std\+::vector$<$ Float\+Vector $>$ {\bfseries Float\+Field}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_af3233603ec4a2f4d45c41102df24367b}\label{classigl_1_1_msh_loader_af3233603ec4a2f4d45c41102df24367b}} 
+typedef std\+::vector$<$ Int\+Vector $>$ {\bfseries Int\+Field}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a6ed977f8a22da332fd01ba0e31087a0f}\label{classigl_1_1_msh_loader_a6ed977f8a22da332fd01ba0e31087a0f}} 
+typedef std\+::vector$<$ std\+::string $>$ {\bfseries Field\+Names}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_aabbaacccd2590b3fb7090a6ffedd81b1}\label{classigl_1_1_msh_loader_aabbaacccd2590b3fb7090a6ffedd81b1}} 
+typedef std\+::multimap$<$ \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\+\_\+struct}}, int $>$ {\bfseries Struct\+Index}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a68d74708a3c79e49975b4253fd17a0e7}\label{classigl_1_1_msh_loader_a68d74708a3c79e49975b4253fd17a0e7}} 
+typedef std\+::vector$<$ \mbox{\hyperlink{structigl_1_1_msh_loader_1_1msh__struct}{msh\+\_\+struct}} $>$ {\bfseries Struct\+Vector}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a157935a5c32952accf195af6c2241b3a}\label{classigl_1_1_msh_loader_a157935a5c32952accf195af6c2241b3a}} 
+{\bfseries Msh\+Loader} (const std\+::string \&filename)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a3aa6191b7aba84707d7bf1f0381e8166}\label{classigl_1_1_msh_loader_a3aa6191b7aba84707d7bf1f0381e8166}} 
+const Float\+Vector \& {\bfseries get\+\_\+nodes} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a5e3b20fb972d12909e7c1fbf695a01bb}\label{classigl_1_1_msh_loader_a5e3b20fb972d12909e7c1fbf695a01bb}} 
+const Index\+Vector \& {\bfseries get\+\_\+elements} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a1df3d4d4bfc731fe247a4985fe2c226d}\label{classigl_1_1_msh_loader_a1df3d4d4bfc731fe247a4985fe2c226d}} 
+const Int\+Vector \& {\bfseries get\+\_\+elements\+\_\+types} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_aef8b7f77c90c3e62a944b2ba7ed600f5}\label{classigl_1_1_msh_loader_aef8b7f77c90c3e62a944b2ba7ed600f5}} 
+const Int\+Vector \& {\bfseries get\+\_\+elements\+\_\+lengths} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_ac19adcafde032cd6d13a40fb07e38311}\label{classigl_1_1_msh_loader_ac19adcafde032cd6d13a40fb07e38311}} 
+const Int\+Field \& {\bfseries get\+\_\+elements\+\_\+tags} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a608573efc3a26ded3ffcdd51955991ca}\label{classigl_1_1_msh_loader_a608573efc3a26ded3ffcdd51955991ca}} 
+const Int\+Vector \& {\bfseries get\+\_\+elements\+\_\+ids} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a11aac617272a2f1607d6cf84cb60ae29}\label{classigl_1_1_msh_loader_a11aac617272a2f1607d6cf84cb60ae29}} 
+const Index\+Vector \& {\bfseries get\+\_\+elements\+\_\+nodes\+\_\+idx} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a70ff48be7be9eae0a4cb5606a93f5f42}\label{classigl_1_1_msh_loader_a70ff48be7be9eae0a4cb5606a93f5f42}} 
+const Float\+Field \& {\bfseries get\+\_\+node\+\_\+fields} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a8440951ccec4ed10812d34c90f79a849}\label{classigl_1_1_msh_loader_a8440951ccec4ed10812d34c90f79a849}} 
+const Field\+Names \& {\bfseries get\+\_\+node\+\_\+fields\+\_\+names} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a0acc796cdca4dbd8a077b9fab13eb546}\label{classigl_1_1_msh_loader_a0acc796cdca4dbd8a077b9fab13eb546}} 
+const Int\+Vector \& {\bfseries get\+\_\+node\+\_\+fields\+\_\+components} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a848759be4eb4c5298855dfdaf1b271ac}\label{classigl_1_1_msh_loader_a848759be4eb4c5298855dfdaf1b271ac}} 
+int {\bfseries get\+\_\+node\+\_\+field\+\_\+components} (size\+\_\+t c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a4584080aa283c685016d40ee150649bf}\label{classigl_1_1_msh_loader_a4584080aa283c685016d40ee150649bf}} 
+const Float\+Field \& {\bfseries get\+\_\+element\+\_\+fields} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_aebc8937478779a3396bde0cec8a33f16}\label{classigl_1_1_msh_loader_aebc8937478779a3396bde0cec8a33f16}} 
+const Field\+Names \& {\bfseries get\+\_\+element\+\_\+fields\+\_\+names} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_abcff2435c0ea168cb2d5fd7fea4e784f}\label{classigl_1_1_msh_loader_abcff2435c0ea168cb2d5fd7fea4e784f}} 
+const Int\+Vector \& {\bfseries get\+\_\+element\+\_\+fields\+\_\+components} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_aa1c712170575cee5b750818fabd90d4c}\label{classigl_1_1_msh_loader_aa1c712170575cee5b750818fabd90d4c}} 
+int {\bfseries get\+\_\+element\+\_\+field\+\_\+components} (size\+\_\+t c) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a1a75e3dc68b723334632046cb2e766f3}\label{classigl_1_1_msh_loader_a1a75e3dc68b723334632046cb2e766f3}} 
+bool {\bfseries is\+\_\+node\+\_\+field} (const std\+::string \&fieldname) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a55567e76f7e04a88c18cd961849bc82c}\label{classigl_1_1_msh_loader_a55567e76f7e04a88c18cd961849bc82c}} 
+bool {\bfseries is\+\_\+element\+\_\+field} (const std\+::string \&fieldname) const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_afa0ecc2353eab1f47acb5a3aa88bcb22}\label{classigl_1_1_msh_loader_afa0ecc2353eab1f47acb5a3aa88bcb22}} 
+bool {\bfseries is\+\_\+element\+\_\+map\+\_\+identity} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a139b79e461c5c145fa2b396dfdcd9946}\label{classigl_1_1_msh_loader_a139b79e461c5c145fa2b396dfdcd9946}} 
+void {\bfseries index\+\_\+structures} (int tag\+\_\+column)
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a2065fd180788a0ba185548ab63c9a805}\label{classigl_1_1_msh_loader_a2065fd180788a0ba185548ab63c9a805}} 
+const Struct\+Index \& {\bfseries get\+\_\+structure\+\_\+index} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_aa8f37bd333194846c9d91f524fd73332}\label{classigl_1_1_msh_loader_aa8f37bd333194846c9d91f524fd73332}} 
+const Struct\+Index \& {\bfseries get\+\_\+structure\+\_\+length} () const
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a69f610310571325d4ee5e4e581452fff}\label{classigl_1_1_msh_loader_a69f610310571325d4ee5e4e581452fff}} 
+const Struct\+Vector \& {\bfseries get\+\_\+structures} () const
+\begin{DoxyCompactList}\small\item\em get list of structures \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_msh_loader_a069f721069f8fbceb617e56fa676a00e}\label{classigl_1_1_msh_loader_a069f721069f8fbceb617e56fa676a00e}} 
+static int {\bfseries num\+\_\+nodes\+\_\+per\+\_\+elem\+\_\+type} (int elem\+\_\+type)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/Msh\+Loader.\+h\item 
+igl/Msh\+Loader.\+cpp\end{DoxyCompactItemize}

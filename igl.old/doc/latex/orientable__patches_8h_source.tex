@@ -1,0 +1,47 @@
+\hypertarget{orientable__patches_8h_source}{}\doxysection{orientable\+\_\+patches.\+h}
+\label{orientable__patches_8h_source}\index{igl/orientable\_patches.h@{igl/orientable\_patches.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ORIENTABLE\_PATCHES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ORIENTABLE\_PATCHES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{//  Compute connected components of facets connected by manifold edges.}}
+\DoxyCodeLine{16   \textcolor{comment}{// }}
+\DoxyCodeLine{17   \textcolor{comment}{//  Known bugs: This will detect a moebius strip as a single patch (manifold,}}
+\DoxyCodeLine{18   \textcolor{comment}{//  non-\/orientable) and also non-\/manfiold, yet orientable patches. }}
+\DoxyCodeLine{19   \textcolor{comment}{// }}
+\DoxyCodeLine{20   \textcolor{comment}{//  Q: Does this find exactly (manifold || orientable) patches?}}
+\DoxyCodeLine{21   \textcolor{comment}{// }}
+\DoxyCodeLine{22   \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//    F  \#F by simplex-\/size list of facets}}
+\DoxyCodeLine{24   \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//    C  \#F list of component ids}}
+\DoxyCodeLine{26   \textcolor{comment}{//    A  \#F by \#F adjacency matrix}}
+\DoxyCodeLine{27   \textcolor{comment}{// }}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} AScalar>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} orientable\_patches(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{32     Eigen::SparseMatrix<AScalar> \& A);}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{void} orientable\_patches(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{37 \};}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  include "{}orientable\_patches.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

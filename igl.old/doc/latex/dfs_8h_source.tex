@@ -1,0 +1,55 @@
+\hypertarget{dfs_8h_source}{}\doxysection{dfs.\+h}
+\label{dfs_8h_source}\index{igl/dfs.h@{igl/dfs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_DFS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_DFS\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Traverse a **directed** graph represented by an adjacency list using}}
+\DoxyCodeLine{9   \textcolor{comment}{// depth first search}}
+\DoxyCodeLine{10   \textcolor{comment}{//}}
+\DoxyCodeLine{11   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{12   \textcolor{comment}{//   A  \#V list of adjacency lists}}
+\DoxyCodeLine{13   \textcolor{comment}{//   s  starting node (index into A)}}
+\DoxyCodeLine{14   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{15   \textcolor{comment}{//   D  \#V list of indices into rows of A in the order in which graph nodes}}
+\DoxyCodeLine{16   \textcolor{comment}{//     are discovered.}}
+\DoxyCodeLine{17   \textcolor{comment}{//   P  \#V list of indices into rows of A of predecessor in resulting}}
+\DoxyCodeLine{18   \textcolor{comment}{//     spanning tree \{-\/1 indicates root/not discovered), order corresponds to}}
+\DoxyCodeLine{19   \textcolor{comment}{//     V **not** D.}}
+\DoxyCodeLine{20   \textcolor{comment}{//   C  \#V list of indices into rows of A in order that nodes are "{}closed"{}}}
+\DoxyCodeLine{21   \textcolor{comment}{//     (all descendants have been discovered)}}
+\DoxyCodeLine{22   \textcolor{keyword}{template} <}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} AType,}
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedD,}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{27   IGL\_INLINE \textcolor{keywordtype}{void} dfs(}
+\DoxyCodeLine{28     \textcolor{keyword}{const} std::vector<std::vector<AType> > \& A,}
+\DoxyCodeLine{29     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} s,}
+\DoxyCodeLine{30     Eigen::PlainObjectBase<DerivedD> \& D,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedP> \& P,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{33   \textcolor{keyword}{template} <}
+\DoxyCodeLine{34     \textcolor{keyword}{typename} AType,}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DType,}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} PType,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} CType>}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{void} dfs(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} std::vector<std::vector<AType> > \& A,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} s,}
+\DoxyCodeLine{41     std::vector<DType> \& D,}
+\DoxyCodeLine{42     std::vector<PType> \& P,}
+\DoxyCodeLine{43     std::vector<CType> \& C);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#  include "{}dfs.cpp"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

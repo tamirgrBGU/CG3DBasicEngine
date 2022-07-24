@@ -1,0 +1,119 @@
+\hypertarget{_im_gui_helpers_8h_source}{}\doxysection{Im\+Gui\+Helpers.\+h}
+\label{_im_gui_helpers_8h_source}\index{igl/opengl/glfw/imgui/ImGuiHelpers.h@{igl/opengl/glfw/imgui/ImGuiHelpers.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Jérémie Dumas <jeremie.dumas@ens-\/lyon.org>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIHELPERS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIHELPERS\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}ImGuiTraits.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <../imgui/imgui.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <cstddef>}}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{comment}{// Extend ImGui by populating its namespace directly}}
+\DoxyCodeLine{22 \textcolor{comment}{//}}
+\DoxyCodeLine{23 \textcolor{comment}{// Code snippets taken from there:}}
+\DoxyCodeLine{24 \textcolor{comment}{// https://eliasdaler.github.io/using-\/imgui-\/with-\/sfml-\/pt2/}}
+\DoxyCodeLine{25 \textcolor{keyword}{namespace }ImGui}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{keyword}{static} \textcolor{keyword}{auto} vector\_getter = [](\textcolor{keywordtype}{void}* vec, \textcolor{keywordtype}{int} idx, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** out\_text)}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{keyword}{auto}\& vector = *\textcolor{keyword}{static\_cast<}std::vector<std::string>*\textcolor{keyword}{>}(vec);}
+\DoxyCodeLine{31   \textcolor{keywordflow}{if} (idx < 0 || idx >= \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(vector.size())) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{32   *out\_text = vector.at(idx).c\_str();}
+\DoxyCodeLine{33   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{34 \};}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} Combo(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* label, \textcolor{keywordtype}{int}* idx, std::vector<std::string>\& values)}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keywordflow}{if} (values.empty()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{39   \textcolor{keywordflow}{return} Combo(label, idx, vector\_getter,}
+\DoxyCodeLine{40     \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\&values), values.size());}
+\DoxyCodeLine{41 \}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} Combo(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* label, \textcolor{keywordtype}{int}* idx, std::function<\textcolor{keyword}{const} \textcolor{keywordtype}{char} *(\textcolor{keywordtype}{int})> getter, \textcolor{keywordtype}{int} items\_count)}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keyword}{auto} func = [](\textcolor{keywordtype}{void}* data, \textcolor{keywordtype}{int} i, \textcolor{keyword}{const} \textcolor{keywordtype}{char}** out\_text) \{}
+\DoxyCodeLine{46     \textcolor{keyword}{auto} \&getter = *\textcolor{keyword}{reinterpret\_cast<}std::function<\textcolor{keyword}{const }\textcolor{keywordtype}{char} *(\textcolor{keywordtype}{int})\textcolor{keyword}{>} *>(data);}
+\DoxyCodeLine{47     \textcolor{keyword}{const} \textcolor{keywordtype}{char} *s = getter(i);}
+\DoxyCodeLine{48     \textcolor{keywordflow}{if} (s) \{ *out\_text = s; \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{49     \textcolor{keywordflow}{else} \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{50   \};}
+\DoxyCodeLine{51   \textcolor{keywordflow}{return} Combo(label, idx, func, \textcolor{keyword}{reinterpret\_cast<}\textcolor{keywordtype}{void} *\textcolor{keyword}{>}(\&getter), items\_count);}
+\DoxyCodeLine{52 \}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} ListBox(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* label, \textcolor{keywordtype}{int}* idx, std::vector<std::string>\& values)}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (values.empty()) \{ \textcolor{keywordflow}{return} \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{return} ListBox(label, idx, vector\_getter,}
+\DoxyCodeLine{58     \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{void}*\textcolor{keyword}{>}(\&values), values.size());}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} InputText(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* label, std::string \&str, ImGuiInputTextFlags flags = 0, ImGuiInputTextCallback callback = NULL, \textcolor{keywordtype}{void}* user\_data = NULL)}
+\DoxyCodeLine{62 \{}
+\DoxyCodeLine{63   \textcolor{keywordtype}{char} buf[1024];}
+\DoxyCodeLine{64   std::fill\_n(buf, 1024, 0);}
+\DoxyCodeLine{65   std::copy\_n(str.begin(), std::min(1024, (\textcolor{keywordtype}{int}) str.size()), buf);}
+\DoxyCodeLine{66   \textcolor{keywordflow}{if} (ImGui::InputText(label, buf, 1024, flags, callback, user\_data))}
+\DoxyCodeLine{67   \{}
+\DoxyCodeLine{68     str = std::string(buf);}
+\DoxyCodeLine{69     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{70   \}}
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{72 \}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{comment}{// template<typename T>}}
+\DoxyCodeLine{75 \textcolor{comment}{// inline bool DragScalar(const char *label, T* value, void* v, float v\_speed, const void* v\_min = NULL, const void* v\_max = NULL, const char* format = NULL, float power = 1.0f)}}
+\DoxyCodeLine{76 \textcolor{comment}{// \{}}
+\DoxyCodeLine{77 \textcolor{comment}{//   const char *fmt = format;}}
+\DoxyCodeLine{78 \textcolor{comment}{//   if (format == nullptr) \{}}
+\DoxyCodeLine{79 \textcolor{comment}{//     fmt = ImGuiDataTypeTraits<T>::format;}}
+\DoxyCodeLine{80 \textcolor{comment}{//   \}}}
+\DoxyCodeLine{81 \textcolor{comment}{//   return DragScalar(label, ImGuiDataTypeTraits<T>::value, value, \&min, \&max, fmt);}}
+\DoxyCodeLine{82 \textcolor{comment}{// \}}}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{comment}{// template<typename T>}}
+\DoxyCodeLine{85 \textcolor{comment}{// inline bool InputScalar(const char *label, T* value, T min = 0, T max = 0, const char* format = nulltptr)}}
+\DoxyCodeLine{86 \textcolor{comment}{// \{}}
+\DoxyCodeLine{87 \textcolor{comment}{//   const char *fmt = format;}}
+\DoxyCodeLine{88 \textcolor{comment}{//   if (format == nullptr) \{}}
+\DoxyCodeLine{89 \textcolor{comment}{//     fmt = ImGuiDataTypeTraits<T>::format;}}
+\DoxyCodeLine{90 \textcolor{comment}{//   \}}}
+\DoxyCodeLine{91 \textcolor{comment}{//   return InputScalar(label, ImGuiDataTypeTraits<T>::value, value, \&min, \&max, fmt);}}
+\DoxyCodeLine{92 \textcolor{comment}{// \}}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{95 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} SliderScalar(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *label, T* value, T min = 0, T max = 0, \textcolor{keyword}{const} \textcolor{keywordtype}{char}* format = \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{96 \{}
+\DoxyCodeLine{97   \textcolor{keyword}{const} \textcolor{keywordtype}{char} *fmt = format;}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (format == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{99     fmt = ImGuiDataTypeTraits<T>::format;}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101   \textcolor{keywordflow}{return} SliderScalar(label, ImGuiDataTypeTraits<T>::value, value, \&min, \&max, fmt);}
+\DoxyCodeLine{102 \}}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{104 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Getter, \textcolor{keyword}{typename} Setter>}
+\DoxyCodeLine{105 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} Checkbox(\textcolor{keyword}{const} \textcolor{keywordtype}{char}* label, Getter get, Setter set)}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107   \textcolor{keywordtype}{bool} value = get();}
+\DoxyCodeLine{108   \textcolor{keywordtype}{bool} ret = ImGui::Checkbox(label, \&value);}
+\DoxyCodeLine{109   set(value);}
+\DoxyCodeLine{110   \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{111 \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113 \} \textcolor{comment}{// namespace ImGui}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// IGL\_OPENGL\_GLFW\_IMGUI\_IMGUIHELPERS\_H}}
+
+\end{DoxyCode}

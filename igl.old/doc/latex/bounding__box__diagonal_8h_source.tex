@@ -1,0 +1,33 @@
+\hypertarget{bounding__box__diagonal_8h_source}{}\doxysection{bounding\+\_\+box\+\_\+diagonal.\+h}
+\label{bounding__box__diagonal_8h_source}\index{igl/bounding\_box\_diagonal.h@{igl/bounding\_box\_diagonal.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_BOUNDING\_BOX\_DIAGONAL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_BOUNDING\_BOX\_DIAGONAL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Compute the length of the diagonal of a given meshes axis-\/aligned bounding}}
+\DoxyCodeLine{15   \textcolor{comment}{// box}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 3 list of vertex/point positions}}
+\DoxyCodeLine{19   \textcolor{comment}{// Returns length of bounding box diagonal}}
+\DoxyCodeLine{20   IGL\_INLINE \textcolor{keywordtype}{double} bounding\_box\_diagonal( \textcolor{keyword}{const} Eigen::MatrixXd \& V);}
+\DoxyCodeLine{21 \}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#  include "{}bounding\_box\_diagonal.cpp"{}}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

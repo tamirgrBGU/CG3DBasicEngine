@@ -1,0 +1,59 @@
+\hypertarget{read_w_r_l_8h_source}{}\doxysection{read\+WRL.\+h}
+\label{read_w_r_l_8h_source}\index{igl/readWRL.h@{igl/readWRL.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_READWRL\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_READWRL\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Read a mesh from an ascii wrl file, filling in vertex positions and face}}
+\DoxyCodeLine{19   \textcolor{comment}{// indices of the first model. Mesh may have faces of any number of degree}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   Scalar  type for positions and vectors (will be read as double and cast}}
+\DoxyCodeLine{23   \textcolor{comment}{//     to Scalar)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   Index  type for indices (will be read as int and cast to Index)}}
+\DoxyCodeLine{25   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//  str  path to .wrl file}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   V  double matrix of vertex positions  \#V by 3}}
+\DoxyCodeLine{29   \textcolor{comment}{//   F  \#F list of face indices into vertex positions}}
+\DoxyCodeLine{30   \textcolor{comment}{// Returns true on success, false on errors}}
+\DoxyCodeLine{31   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{32   IGL\_INLINE \textcolor{keywordtype}{bool} readWRL(}
+\DoxyCodeLine{33     \textcolor{keyword}{const} std::string wrl\_file\_name, }
+\DoxyCodeLine{34     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{35     std::vector<std::vector<Index > > \& F);}
+\DoxyCodeLine{36   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{37   \textcolor{comment}{//   wrl\_file  pointer to already opened .wrl file }}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   wrl\_file  closed file}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{bool} readWRL(}
+\DoxyCodeLine{42     FILE * wrl\_file,}
+\DoxyCodeLine{43     std::vector<std::vector<Scalar > > \& V,}
+\DoxyCodeLine{44     std::vector<std::vector<Index > > \& F);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}readWRL.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{53 }
+
+\end{DoxyCode}

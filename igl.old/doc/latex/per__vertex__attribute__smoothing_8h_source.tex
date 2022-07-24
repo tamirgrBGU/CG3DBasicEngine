@@ -1,0 +1,38 @@
+\hypertarget{per__vertex__attribute__smoothing_8h_source}{}\doxysection{per\+\_\+vertex\+\_\+attribute\+\_\+smoothing.\+h}
+\label{per__vertex__attribute__smoothing_8h_source}\index{igl/per\_vertex\_attribute\_smoothing.h@{igl/per\_vertex\_attribute\_smoothing.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PER\_VERTEX\_ATTRIBUTE\_SMOOTHING\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PER\_VERTEX\_ATTRIBUTE\_SMOOTHING\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Smooth vertex attributes using uniform Laplacian}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   Ain  \#V by \#A eigen Matrix of mesh vertex attributes (each vertex has \#A attributes)}}
+\DoxyCodeLine{18   \textcolor{comment}{//   F    \#F by 3 eigne Matrix of face (triangle) indices}}
+\DoxyCodeLine{19   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Aout \#V by \#A eigen Matrix of mesh vertex attributes}}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{22   IGL\_INLINE \textcolor{keywordtype}{void} per\_vertex\_attribute\_smoothing(}
+\DoxyCodeLine{23     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& Ain,}
+\DoxyCodeLine{24     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{25     Eigen::PlainObjectBase<DerivedV> \& Aout);}
+\DoxyCodeLine{26 \}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#  include "{}per\_vertex\_attribute\_smoothing.cpp"{}}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

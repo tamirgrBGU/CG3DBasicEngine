@@ -1,0 +1,128 @@
+\hypertarget{decimate_8h_source}{}\doxysection{decimate.\+h}
+\label{decimate_8h_source}\index{igl/decimate.h@{igl/decimate.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DECIMATE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DECIMATE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}decimate\_callback\_types.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Assumes (V,F) is a manifold mesh (possibly with boundary) Collapses edges}}
+\DoxyCodeLine{16   \textcolor{comment}{// until desired number of faces is achieved. This uses default edge cost and}}
+\DoxyCodeLine{17   \textcolor{comment}{// merged vertex placement functions \{edge length, edge midpoint\}.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F  \#F by 3 list of face indices into V.}}
+\DoxyCodeLine{22   \textcolor{comment}{//   max\_m  desired number of output faces}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   U  \#U by dim list of output vertex posistions (can be same ref as V)}}
+\DoxyCodeLine{25   \textcolor{comment}{//   G  \#G by 3 list of output face indices into U (can be same ref as G)}}
+\DoxyCodeLine{26   \textcolor{comment}{//   J  \#G list of indices into F of birth face}}
+\DoxyCodeLine{27   \textcolor{comment}{//   I  \#U list of indices into V of birth vertices}}
+\DoxyCodeLine{28   \textcolor{comment}{// Returns true if m was reached (otherwise \#G > m)}}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{bool} decimate(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} max\_m,}
+\DoxyCodeLine{33     Eigen::MatrixXd \& U,}
+\DoxyCodeLine{34     Eigen::MatrixXi \& G,}
+\DoxyCodeLine{35     Eigen::VectorXi \& J,}
+\DoxyCodeLine{36     Eigen::VectorXi \& I);}
+\DoxyCodeLine{37   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{38   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{39   \textcolor{comment}{//   F  \#F by 3 list of face indices into V.}}
+\DoxyCodeLine{40   \textcolor{comment}{//   max\_m  desired number of output faces}}
+\DoxyCodeLine{41   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{42   \textcolor{comment}{//   U  \#U by dim list of output vertex posistions (can be same ref as V)}}
+\DoxyCodeLine{43   \textcolor{comment}{//   G  \#G by 3 list of output face indices into U (can be same ref as G)}}
+\DoxyCodeLine{44   \textcolor{comment}{//   J  \#G list of indices into F of birth face}}
+\DoxyCodeLine{45   \textcolor{comment}{// Returns true if m was reached (otherwise \#G > m)}}
+\DoxyCodeLine{46   IGL\_INLINE \textcolor{keywordtype}{bool} decimate(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} max\_m,}
+\DoxyCodeLine{50     Eigen::MatrixXd \& U,}
+\DoxyCodeLine{51     Eigen::MatrixXi \& G,}
+\DoxyCodeLine{52     Eigen::VectorXi \& J);}
+\DoxyCodeLine{53   \textcolor{comment}{// Assumes a **closed** manifold mesh. See igl::connect\_boundary\_to\_infinity}}
+\DoxyCodeLine{54   \textcolor{comment}{// and igl::decimate in decimate.cpp}}
+\DoxyCodeLine{55   \textcolor{comment}{// is handling meshes with boundary by connecting all boundary edges with}}
+\DoxyCodeLine{56   \textcolor{comment}{// dummy facets to infinity **and** modifying the stopping criteria.}}
+\DoxyCodeLine{57   \textcolor{comment}{//}}
+\DoxyCodeLine{58   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{59   \textcolor{comment}{//   cost\_and\_placement  function computing cost of collapsing an edge and 3d}}
+\DoxyCodeLine{60   \textcolor{comment}{//     position where it should be placed:}}
+\DoxyCodeLine{61   \textcolor{comment}{//     cost\_and\_placement(V,F,E,EMAP,EF,EI,cost,placement);}}
+\DoxyCodeLine{62   \textcolor{comment}{//   stopping\_condition  function returning whether to stop collapsing edges}}
+\DoxyCodeLine{63   \textcolor{comment}{//     based on current state. Guaranteed to be called after \_successfully\_}}
+\DoxyCodeLine{64   \textcolor{comment}{//     collapsing edge e removing edges (e,e1,e2) and faces (f1,f2):}}
+\DoxyCodeLine{65   \textcolor{comment}{//     bool should\_stop =}}
+\DoxyCodeLine{66   \textcolor{comment}{//       stopping\_condition(V,F,E,EMAP,EF,EI,Q,Qit,C,e,e1,e2,f1,f2);}}
+\DoxyCodeLine{67   IGL\_INLINE \textcolor{keywordtype}{bool} decimate(}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} decimate\_stopping\_condition\_callback \& stopping\_condition,}
+\DoxyCodeLine{72     Eigen::MatrixXd \& U,}
+\DoxyCodeLine{73     Eigen::MatrixXi \& G,}
+\DoxyCodeLine{74     Eigen::VectorXi \& J,}
+\DoxyCodeLine{75     Eigen::VectorXi \& I);}
+\DoxyCodeLine{76   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{77   \textcolor{comment}{//   pre\_collapse  callback called with index of edge whose collapse is about}}
+\DoxyCodeLine{78   \textcolor{comment}{//     to be attempted (see collapse\_edge)}}
+\DoxyCodeLine{79   \textcolor{comment}{//   post\_collapse  callback called with index of edge whose collapse was}}
+\DoxyCodeLine{80   \textcolor{comment}{//     just attempted and a flag revealing whether this was successful (see}}
+\DoxyCodeLine{81   \textcolor{comment}{//     collapse\_edge)}}
+\DoxyCodeLine{82   IGL\_INLINE \textcolor{keywordtype}{bool} decimate(}
+\DoxyCodeLine{83     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{84     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{85     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{86     \textcolor{keyword}{const} decimate\_stopping\_condition\_callback \& stopping\_condition,}
+\DoxyCodeLine{87     \textcolor{keyword}{const} decimate\_pre\_collapse\_callback       \& pre\_collapse,}
+\DoxyCodeLine{88     \textcolor{keyword}{const} decimate\_post\_collapse\_callback      \& post\_collapse,}
+\DoxyCodeLine{89     Eigen::MatrixXd \& U,}
+\DoxyCodeLine{90     Eigen::MatrixXi \& G,}
+\DoxyCodeLine{91     Eigen::VectorXi \& J,}
+\DoxyCodeLine{92     Eigen::VectorXi \& I);}
+\DoxyCodeLine{93   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{94   \textcolor{comment}{//   EMAP \#F*3 list of indices into E, mapping each directed edge to unique}}
+\DoxyCodeLine{95   \textcolor{comment}{//     unique edge in E}}
+\DoxyCodeLine{96   \textcolor{comment}{//   EF  \#E by 2 list of edge flaps, EF(e,0)=f means e=(i-\/-\/>j) is the edge of}}
+\DoxyCodeLine{97   \textcolor{comment}{//     F(f,:) opposite the vth corner, where EI(e,0)=v. Similarly EF(e,1) "{}}}
+\DoxyCodeLine{98   \textcolor{comment}{//     e=(j-\/>i)}}
+\DoxyCodeLine{99   \textcolor{comment}{//   EI  \#E by 2 list of edge flap corners (see above).}}
+\DoxyCodeLine{100   IGL\_INLINE \textcolor{keywordtype}{bool} decimate(}
+\DoxyCodeLine{101     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{102     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{103     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{104     \textcolor{keyword}{const} decimate\_stopping\_condition\_callback \& stopping\_condition,}
+\DoxyCodeLine{105     \textcolor{keyword}{const} decimate\_pre\_collapse\_callback       \& pre\_collapse,}
+\DoxyCodeLine{106     \textcolor{keyword}{const} decimate\_post\_collapse\_callback      \& post\_collapse,}
+\DoxyCodeLine{107     \textcolor{keyword}{const} Eigen::MatrixXi \& E,}
+\DoxyCodeLine{108     \textcolor{keyword}{const} Eigen::VectorXi \& EMAP,}
+\DoxyCodeLine{109     \textcolor{keyword}{const} Eigen::MatrixXi \& EF,}
+\DoxyCodeLine{110     \textcolor{keyword}{const} Eigen::MatrixXi \& EI,}
+\DoxyCodeLine{111     Eigen::MatrixXd \& U,}
+\DoxyCodeLine{112     Eigen::MatrixXi \& G,}
+\DoxyCodeLine{113     Eigen::VectorXi \& J,}
+\DoxyCodeLine{114     Eigen::VectorXi \& I);}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#  include "{}decimate.cpp"{}}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{122 }
+
+\end{DoxyCode}

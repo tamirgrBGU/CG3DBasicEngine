@@ -1,0 +1,109 @@
+\hypertarget{read_m_s_h_8h_source}{}\doxysection{read\+MSH.\+h}
+\label{read_m_s_h_8h_source}\index{igl/readMSH.h@{igl/readMSH.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// high level interface for MshLoader.h/.cpp}}
+\DoxyCodeLine{2 }
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Vladimir Fonov <vladimir.fonov@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla}}
+\DoxyCodeLine{6 \textcolor{comment}{// Public License v. 2.0. If a copy of the MPL was not distribute}}
+\DoxyCodeLine{7 \textcolor{comment}{// with this file, You can obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_READ\_MSH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_READ\_MSH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19     \textcolor{comment}{// read triangle surface mesh and tetrahedral volume mesh from .msh file}}
+\DoxyCodeLine{20     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21     \textcolor{comment}{//   msh -\/ file name}}
+\DoxyCodeLine{22     \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{23     \textcolor{comment}{//   X  eigen double matrix of vertex positions  \#X by 3}}
+\DoxyCodeLine{24     \textcolor{comment}{//   Tri  \#Tri eigen integer matrix of triangular faces indices into vertex positions}}
+\DoxyCodeLine{25     \textcolor{comment}{//   Tet  \#Tet eigen integer matrix of tetrahedral indices into vertex positions}}
+\DoxyCodeLine{26     \textcolor{comment}{//   TriTag \#Tri eigen integer vector of tags associated with surface faces}}
+\DoxyCodeLine{27     \textcolor{comment}{//   TetTag \#Tet eigen integer vector of tags associated with volume elements}}
+\DoxyCodeLine{28     \textcolor{comment}{//   XFields \#XFields list of strings with field names associated with nodes}}
+\DoxyCodeLine{29     \textcolor{comment}{//   XF      \#XFields list of eigen double matrices, fields associated with nodes }}
+\DoxyCodeLine{30     \textcolor{comment}{//   EFields \#EFields list of strings with field names associated with elements}}
+\DoxyCodeLine{31     \textcolor{comment}{//   TriF    \#EFields list of eigen double matrices, fields associated with surface elements}}
+\DoxyCodeLine{32     \textcolor{comment}{//   TetF    \#EFields list of eigen double matrices, fields associated with volume elements}}
+\DoxyCodeLine{33     \textcolor{comment}{// Known bugs: }}
+\DoxyCodeLine{34     \textcolor{comment}{//     only version 2.2 of .msh file is supported (gmsh 3.X)}}
+\DoxyCodeLine{35     \textcolor{comment}{//     only triangle surface elements and tetrahedral volumetric elements are supported}}
+\DoxyCodeLine{36     \textcolor{comment}{//     only 3D information is supported}}
+\DoxyCodeLine{37     \textcolor{comment}{//     only the 1st tag per element is returned (physical) }}
+\DoxyCodeLine{38     \textcolor{comment}{//     same element fields are expected to be associated with surface elements and volumetric elements}}
+\DoxyCodeLine{39     IGL\_INLINE \textcolor{keywordtype}{bool} readMSH(\textcolor{keyword}{const} std::string \&msh,}
+\DoxyCodeLine{40                 Eigen::MatrixXd \&X,}
+\DoxyCodeLine{41                 Eigen::MatrixXi \&Tri,}
+\DoxyCodeLine{42                 Eigen::MatrixXi \&Tet,}
+\DoxyCodeLine{43                 Eigen::VectorXi \&TriTag,}
+\DoxyCodeLine{44                 Eigen::VectorXi \&TetTag,}
+\DoxyCodeLine{45                 std::vector<std::string> \&XFields,}
+\DoxyCodeLine{46                 std::vector<Eigen::MatrixXd> \&XF,}
+\DoxyCodeLine{47                 std::vector<std::string> \&EFields,}
+\DoxyCodeLine{48                 std::vector<Eigen::MatrixXd> \&TriF,}
+\DoxyCodeLine{49                 std::vector<Eigen::MatrixXd> \&TetF}
+\DoxyCodeLine{50                 );}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52     \textcolor{comment}{// read triangle surface mesh and tetrahedral volume mesh from .msh file}}
+\DoxyCodeLine{53     \textcolor{comment}{// ignoring any fields}}
+\DoxyCodeLine{54     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{55     \textcolor{comment}{//   msh -\/ file name}}
+\DoxyCodeLine{56     \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{57     \textcolor{comment}{//   X  eigen double matrix of vertex positions  \#X by 3}}
+\DoxyCodeLine{58     \textcolor{comment}{//   Tri  \#Tri eigen integer matrix of triangular faces indices into vertex positions}}
+\DoxyCodeLine{59     \textcolor{comment}{//   Tet  \#Tet eigen integer matrix of tetrahedral indices into vertex positions}}
+\DoxyCodeLine{60     \textcolor{comment}{//   TriTag \#Tri eigen integer vector of tags associated with surface faces}}
+\DoxyCodeLine{61     \textcolor{comment}{//   TetTag \#Tet eigen integer vector of tags associated with volume elements}}
+\DoxyCodeLine{62     IGL\_INLINE \textcolor{keywordtype}{bool} readMSH(\textcolor{keyword}{const} std::string \&msh,}
+\DoxyCodeLine{63                 Eigen::MatrixXd \&X,}
+\DoxyCodeLine{64                 Eigen::MatrixXi \&Tri,}
+\DoxyCodeLine{65                 Eigen::MatrixXi \&Tet,}
+\DoxyCodeLine{66                 Eigen::VectorXi \&TriTag,}
+\DoxyCodeLine{67                 Eigen::VectorXi \&TetTag}
+\DoxyCodeLine{68                 );}
+\DoxyCodeLine{69     }
+\DoxyCodeLine{70     \textcolor{comment}{// read triangle surface mesh and tetrahedral volume mesh from .msh file}}
+\DoxyCodeLine{71     \textcolor{comment}{// ignoring any fields, and any volumetric elements}}
+\DoxyCodeLine{72     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{73     \textcolor{comment}{//   msh -\/ file name}}
+\DoxyCodeLine{74     \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{75     \textcolor{comment}{//   X  eigen double matrix of vertex positions  \#X by 3}}
+\DoxyCodeLine{76     \textcolor{comment}{//   Tri  \#Tri eigen integer matrix of triangular faces indices into vertex positions}}
+\DoxyCodeLine{77     \textcolor{comment}{//   TriTag \#Tri eigen integer vector of tags associated with surface faces}}
+\DoxyCodeLine{78     IGL\_INLINE \textcolor{keywordtype}{bool} readMSH(\textcolor{keyword}{const} std::string \&msh,}
+\DoxyCodeLine{79                 Eigen::MatrixXd \&X,}
+\DoxyCodeLine{80                 Eigen::MatrixXi \&Tri,}
+\DoxyCodeLine{81                 Eigen::VectorXi \&TriTag}
+\DoxyCodeLine{82                 );}
+\DoxyCodeLine{83     }
+\DoxyCodeLine{84     \textcolor{comment}{// read triangle surface mesh and tetrahedral volume mesh from .msh file}}
+\DoxyCodeLine{85     \textcolor{comment}{// ignoring any fields, and any volumetric elements and tags}}
+\DoxyCodeLine{86     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{87     \textcolor{comment}{//   msh -\/ file name}}
+\DoxyCodeLine{88     \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{89     \textcolor{comment}{//   X  eigen double matrix of vertex positions  \#X by 3}}
+\DoxyCodeLine{90     \textcolor{comment}{//   Tri  \#Tri eigen integer matrix of triangular faces indices into vertex positions}}
+\DoxyCodeLine{91     IGL\_INLINE \textcolor{keywordtype}{bool} readMSH(\textcolor{keyword}{const} std::string \&msh,}
+\DoxyCodeLine{92                 Eigen::MatrixXd \&X,}
+\DoxyCodeLine{93                 Eigen::MatrixXi \&Tri}
+\DoxyCodeLine{94                 );}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96 \}}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#  include "{}readMSH.cpp"{}}}
+\DoxyCodeLine{101 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{102 }
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//IGL\_READ\_MSH\_H}}
+
+\end{DoxyCode}

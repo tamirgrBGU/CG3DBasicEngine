@@ -1,0 +1,45 @@
+\hypertarget{flipped__triangles_8h_source}{}\doxysection{flipped\+\_\+triangles.\+h}
+\label{flipped__triangles_8h_source}\index{igl/flipped\_triangles.h@{igl/flipped\_triangles.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Michael Rabinovich <michaelrabinovich27@gmail.com@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_FLIPPED\_TRIANGLES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_FLIPPED\_TRIANGLES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Finds the ids of the flipped triangles of the mesh V,F in the UV mapping uv}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 2 list of mesh vertex positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   X  \#flipped list of containing the indices into F of the flipped triangles}}
+\DoxyCodeLine{22   \textcolor{comment}{// Wrapper with return type}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{void} flipped\_triangles(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{27     Eigen::PlainObjectBase<DerivedX> \& X);}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keyword}{typename} Index>}
+\DoxyCodeLine{29   IGL\_INLINE Eigen::VectorXi flipped\_triangles(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<Scalar> \& V,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::MatrixBase<Index> \& F);}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#  include "{}flipped\_triangles.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

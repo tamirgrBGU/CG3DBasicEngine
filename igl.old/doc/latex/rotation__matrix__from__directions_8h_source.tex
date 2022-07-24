@@ -1,0 +1,40 @@
+\hypertarget{rotation__matrix__from__directions_8h_source}{}\doxysection{rotation\+\_\+matrix\+\_\+from\+\_\+directions.\+h}
+\label{rotation__matrix__from__directions_8h_source}\index{igl/rotation\_matrix\_from\_directions.h@{igl/rotation\_matrix\_from\_directions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson, Daniele Panozzo, Olga Diamanti }}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ROTATION\_MATRIX\_FROM\_DIRECTIONS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ROTATION\_MATRIX\_FROM\_DIRECTIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Given 2 vectors centered on origin calculate the rotation matrix from}}
+\DoxyCodeLine{17   \textcolor{comment}{// first to the second}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   v0  3D column vector}}
+\DoxyCodeLine{21   \textcolor{comment}{//   v1  3D column vector}}
+\DoxyCodeLine{22   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   3 by 3 rotation matrix that takes v0 to v1}}
+\DoxyCodeLine{24   \textcolor{comment}{//}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{26   IGL\_INLINE Eigen::Matrix<Scalar, 3, 3> rotation\_matrix\_from\_directions(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::Matrix<Scalar, 3, 1> v0,}
+\DoxyCodeLine{28     \textcolor{keyword}{const} Eigen::Matrix<Scalar, 3, 1> v1);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include "{}rotation\_matrix\_from\_directions.cpp"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,80 @@
+\hypertarget{assign__scalar_8h_source}{}\doxysection{assign\+\_\+scalar.\+h}
+\label{assign__scalar_8h_source}\index{igl/copyleft/cgal/assign\_scalar.h@{igl/copyleft/cgal/assign\_scalar.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_ASSIGN\_SCALAR\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_ASSIGN\_SCALAR\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel\_with\_sqrt.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef WIN32}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <CGAL/gmpxx.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{20   \{}
+\DoxyCodeLine{21     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{22     \{}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   cgal  cgal scalar}}
+\DoxyCodeLine{25       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26       \textcolor{comment}{//   d  output scalar}}
+\DoxyCodeLine{27       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{28         \textcolor{keyword}{const} CGAL::Epeck::FT \& cgal,}
+\DoxyCodeLine{29         CGAL::Epeck::FT \& d);}
+\DoxyCodeLine{30       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{31         \textcolor{keyword}{const} CGAL::Epeck::FT \& cgal,}
+\DoxyCodeLine{32         \textcolor{keywordtype}{double} \& d);}
+\DoxyCodeLine{33       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{34         \textcolor{keyword}{const} CGAL::Epeck::FT \& cgal,}
+\DoxyCodeLine{35         \textcolor{keywordtype}{float}\& d);}
+\DoxyCodeLine{36       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{37         \textcolor{keyword}{const} \textcolor{keywordtype}{double} \& c,}
+\DoxyCodeLine{38         \textcolor{keywordtype}{double} \& d);}
+\DoxyCodeLine{39       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{40         \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& c,}
+\DoxyCodeLine{41         \textcolor{keywordtype}{float} \& d);}
+\DoxyCodeLine{42       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{43         \textcolor{keyword}{const} \textcolor{keywordtype}{float}\& c,}
+\DoxyCodeLine{44         \textcolor{keywordtype}{double}\& d);}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{47         \textcolor{keyword}{const} CGAL::Exact\_predicates\_exact\_constructions\_kernel\_with\_sqrt::FT \& cgal,}
+\DoxyCodeLine{48         CGAL::Exact\_predicates\_exact\_constructions\_kernel\_with\_sqrt::FT \& d);}
+\DoxyCodeLine{49       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{50         \textcolor{keyword}{const} CGAL::Exact\_predicates\_exact\_constructions\_kernel\_with\_sqrt::FT \& cgal,}
+\DoxyCodeLine{51         \textcolor{keywordtype}{double} \& d);}
+\DoxyCodeLine{52       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{53         \textcolor{keyword}{const} CGAL::Exact\_predicates\_exact\_constructions\_kernel\_with\_sqrt::FT \& cgal,}
+\DoxyCodeLine{54         \textcolor{keywordtype}{float}\& d);}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#ifndef WIN32}}
+\DoxyCodeLine{57       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{58         \textcolor{keyword}{const} CGAL::Simple\_cartesian<mpq\_class>::FT \& cgal,}
+\DoxyCodeLine{59         CGAL::Simple\_cartesian<mpq\_class>::FT \& d);}
+\DoxyCodeLine{60       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{61         \textcolor{keyword}{const} CGAL::Simple\_cartesian<mpq\_class>::FT \& cgal,}
+\DoxyCodeLine{62         \textcolor{keywordtype}{double} \& d);}
+\DoxyCodeLine{63       IGL\_INLINE \textcolor{keywordtype}{void} assign\_scalar(}
+\DoxyCodeLine{64         \textcolor{keyword}{const} CGAL::Simple\_cartesian<mpq\_class>::FT \& cgal,}
+\DoxyCodeLine{65         \textcolor{keywordtype}{float}\& d);}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// WIN32}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#  include "{}assign\_scalar.cpp"{}}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

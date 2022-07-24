@@ -1,0 +1,59 @@
+\hypertarget{class_shader}{}\doxysection{Shader Class Reference}
+\label{class_shader}\index{Shader@{Shader}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_a73ac15be167347c2d2bb94dfa45c8b2b}\label{class_shader_a73ac15be167347c2d2bb94dfa45c8b2b}} 
+{\bfseries Shader} (const std\+::string \&file\+Name, unsigned int id)
+\item 
+\mbox{\Hypertarget{class_shader_afef043133bf18883d475bd6a47a5857b}\label{class_shader_afef043133bf18883d475bd6a47a5857b}} 
+{\bfseries Shader} (const std\+::string \&file\+Name, bool overlay, unsigned int id)
+\item 
+\mbox{\Hypertarget{class_shader_ad67472f63aa745473b4bc919d366a3ee}\label{class_shader_ad67472f63aa745473b4bc919d366a3ee}} 
+{\bfseries Shader} (const std\+::string \&vertex\+\_\+shader, const std\+::string \&fragment\+\_\+shader, bool overlay, unsigned int id)
+\item 
+\mbox{\Hypertarget{class_shader_a5a5a24f72050f46f03cb839b41490527}\label{class_shader_a5a5a24f72050f46f03cb839b41490527}} 
+void {\bfseries Bind} () const
+\item 
+\mbox{\Hypertarget{class_shader_aebfe8baf7c63c605e0ed429085a4e06a}\label{class_shader_aebfe8baf7c63c605e0ed429085a4e06a}} 
+void {\bfseries Unbind} () const
+\item 
+\mbox{\Hypertarget{class_shader_a90001fce693c6b597754403eb313c2ee}\label{class_shader_a90001fce693c6b597754403eb313c2ee}} 
+void {\bfseries Set\+Uniform1i} (const std\+::string \&name, int value)
+\item 
+\mbox{\Hypertarget{class_shader_a42ff8fe9b7b438c8f2b86eec6719ce1f}\label{class_shader_a42ff8fe9b7b438c8f2b86eec6719ce1f}} 
+void {\bfseries Set\+Uniform4i} (const std\+::string \&name, int vi0, int vi1, int vi2, int vi3)
+\item 
+\mbox{\Hypertarget{class_shader_aa03bfc2c930f12462bcaf414f3350779}\label{class_shader_aa03bfc2c930f12462bcaf414f3350779}} 
+void {\bfseries Set\+Uniform1f} (const std\+::string \&name, float value)
+\item 
+\mbox{\Hypertarget{class_shader_af52dfd9564e8a995f5fcca29e5a65669}\label{class_shader_af52dfd9564e8a995f5fcca29e5a65669}} 
+void {\bfseries Set\+Uniform4f} (const std\+::string \&name, float v0, float v1, float f2, float f3)
+\item 
+\mbox{\Hypertarget{class_shader_a32dac77026443de2971af76f65047dea}\label{class_shader_a32dac77026443de2971af76f65047dea}} 
+void {\bfseries Set\+Uniform\+Mat4f} (const std\+::string \&name, const Eigen\+::\+Matrix4f \&matrix)
+\item 
+\mbox{\Hypertarget{class_shader_aebece338b32da53a59981ca30fc3eec0}\label{class_shader_aebece338b32da53a59981ca30fc3eec0}} 
+void {\bfseries Set\+Uniform\+Mat4fv} (const std\+::string \&name, const Eigen\+::\+Matrix4f $\ast$matrix, const int length)
+\item 
+\mbox{\Hypertarget{class_shader_a47d650e03e41ddae24ab640cb3a6dff9}\label{class_shader_a47d650e03e41ddae24ab640cb3a6dff9}} 
+void {\bfseries Set\+Uniform4fv} (const std\+::string \&name, const Eigen\+::\+Vector4f $\ast$arr, const int length)
+\item 
+\mbox{\Hypertarget{class_shader_aaa5dd72278f650afee54a7cba058a191}\label{class_shader_aaa5dd72278f650afee54a7cba058a191}} 
+void {\bfseries Set\+Uniform4iv} (const std\+::string \&name, const Eigen\+::\+Vector4i $\ast$arr, const int length)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_shader_ac0f3d14366a782edef85827bc2cddc00}\label{class_shader_ac0f3d14366a782edef85827bc2cddc00}} 
+unsigned int {\bfseries m\+\_\+program}
+\item 
+\mbox{\Hypertarget{class_shader_a3961294f53df5b856c5eb438e629dc14}\label{class_shader_a3961294f53df5b856c5eb438e629dc14}} 
+unsigned int {\bfseries m\+\_\+id}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/opengl/glfw/shader.\+h\item 
+igl/opengl/glfw/shader.\+cpp\end{DoxyCompactItemize}

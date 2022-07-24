@@ -1,0 +1,69 @@
+\hypertarget{half__space__box_8h_source}{}\doxysection{half\+\_\+space\+\_\+box.\+h}
+\label{half__space__box_8h_source}\index{igl/copyleft/cgal/half\_space\_box.h@{igl/copyleft/cgal/half\_space\_box.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_HALF\_SPACE\_BOX\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_HALF\_SPACE\_BOX\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <CGAL/Plane\_3.h>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{11   \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14       \textcolor{comment}{// Construct a mesh of box (BV,BF) so that it contains the intersection of}}
+\DoxyCodeLine{15       \textcolor{comment}{// the half-\/space under the plane (P) and the bounding box of V, and does not}}
+\DoxyCodeLine{16       \textcolor{comment}{// contain any of the half-\/space above (P).}}
+\DoxyCodeLine{17       \textcolor{comment}{//}}
+\DoxyCodeLine{18       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19       \textcolor{comment}{//   P  plane so that normal points away from half-\/space}}
+\DoxyCodeLine{20       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{21       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22       \textcolor{comment}{//   BV  \#BV by 3 list of box vertex positions}}
+\DoxyCodeLine{23       \textcolor{comment}{//   BF  \#BF b3 list of box triangle indices into BV}}
+\DoxyCodeLine{24       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{25       IGL\_INLINE \textcolor{keywordtype}{void} half\_space\_box(}
+\DoxyCodeLine{26         \textcolor{keyword}{const} CGAL::Plane\_3<CGAL::Epeck> \& P,}
+\DoxyCodeLine{27         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{28         Eigen::Matrix<CGAL::Epeck::FT,8,3> \& BV,}
+\DoxyCodeLine{29         Eigen::Matrix<int,12,3> \& BF);}
+\DoxyCodeLine{30       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{31       \textcolor{comment}{//   p  3d point on plane}}
+\DoxyCodeLine{32       \textcolor{comment}{//   n  3d vector of normal of plane pointing away from inside}}
+\DoxyCodeLine{33       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{34       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35       \textcolor{comment}{//   BV  \#BV by 3 list of box vertex positions}}
+\DoxyCodeLine{36       \textcolor{comment}{//   BF  \#BF b3 list of box triangle indices into BV}}
+\DoxyCodeLine{37       \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedp, \textcolor{keyword}{typename} Derivedn, \textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{38       IGL\_INLINE \textcolor{keywordtype}{void} half\_space\_box(}
+\DoxyCodeLine{39         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedp> \& p,}
+\DoxyCodeLine{40         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedn> \& n,}
+\DoxyCodeLine{41         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{42         Eigen::Matrix<CGAL::Epeck::FT,8,3> \& BV,}
+\DoxyCodeLine{43         Eigen::Matrix<int,12,3> \& BF);}
+\DoxyCodeLine{44       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{45       \textcolor{comment}{//   equ  plane equation: a*x+b*y+c*z + d = 0}}
+\DoxyCodeLine{46       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{47       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{48       \textcolor{comment}{//   BV  \#BV by 3 list of box vertex positions}}
+\DoxyCodeLine{49       \textcolor{comment}{//   BF  \#BF b3 list of box triangle indices into BV}}
+\DoxyCodeLine{50       \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedequ, \textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{51       IGL\_INLINE \textcolor{keywordtype}{void} half\_space\_box(}
+\DoxyCodeLine{52         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedequ> \& equ,}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{54         Eigen::Matrix<CGAL::Epeck::FT,8,3> \& BV,}
+\DoxyCodeLine{55         Eigen::Matrix<int,12,3> \& BF);}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#  include "{}half\_space\_box.cpp"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

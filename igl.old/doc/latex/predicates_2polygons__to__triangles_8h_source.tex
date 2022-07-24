@@ -1,0 +1,58 @@
+\hypertarget{predicates_2polygons__to__triangles_8h_source}{}\doxysection{polygons\+\_\+to\+\_\+triangles.\+h}
+\label{predicates_2polygons__to__triangles_8h_source}\index{igl/predicates/polygons\_to\_triangles.h@{igl/predicates/polygons\_to\_triangles.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2020 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_POLYGONS\_TO\_TRIANGLES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_POLYGONS\_TO\_TRIANGLES\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }predicates}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Given a polygon mesh, trivially triangulate each polygon with a fan. This}}
+\DoxyCodeLine{20     \textcolor{comment}{// purely combinatorial triangulation will work well for convex/flat polygons}}
+\DoxyCodeLine{21     \textcolor{comment}{// and degrade otherwise.}}
+\DoxyCodeLine{22     \textcolor{comment}{//}}
+\DoxyCodeLine{23     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24     \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{25     \textcolor{comment}{//   I  \#I vectorized list of polygon corner indices into rows of some matrix V}}
+\DoxyCodeLine{26     \textcolor{comment}{//   C  \#polygons+1 list of cumulative polygon sizes so that C(i+1)-\/C(i) =}}
+\DoxyCodeLine{27     \textcolor{comment}{//     size of the ith polygon, and so I(C(i)) through I(C(i+1)-\/1) are the}}
+\DoxyCodeLine{28     \textcolor{comment}{//     indices of the ith polygon}}
+\DoxyCodeLine{29     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30     \textcolor{comment}{//   F  \#F by 3 list of triangle indices into rows of V}}
+\DoxyCodeLine{31     \textcolor{comment}{//   J  \#F list of indices into 0:\#P-\/1 of corresponding polygon}}
+\DoxyCodeLine{32     \textcolor{comment}{//}}
+\DoxyCodeLine{33     \textcolor{keyword}{template} <}
+\DoxyCodeLine{34       \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{35       \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{36       \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{37       \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{38       \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{39     IGL\_INLINE \textcolor{keywordtype}{void} polygons\_to\_triangles(}
+\DoxyCodeLine{40       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{41       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI> \& I,}
+\DoxyCodeLine{42       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{43       Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{44       Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}polygons\_to\_triangles.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

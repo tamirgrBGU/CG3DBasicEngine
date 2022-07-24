@@ -1,0 +1,40 @@
+\hypertarget{average__onto__faces_8h_source}{}\doxysection{average\+\_\+onto\+\_\+faces.\+h}
+\label{average__onto__faces_8h_source}\index{igl/average\_onto\_faces.h@{igl/average\_onto\_faces.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_AVERAGE\_ONTO\_FACES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_AVERAGE\_ONTO\_FACES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// average\_onto\_vertices }}
+\DoxyCodeLine{16   \textcolor{comment}{// Move a scalar field defined on faces to vertices by averaging}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by ss list of simples/faces}}
+\DoxyCodeLine{20   \textcolor{comment}{//   S  \#V by dim list of per-\/vertex values}}
+\DoxyCodeLine{21   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   SF  \#F by dim list of per-\/face values}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedS, \textcolor{keyword}{typename} DerivedSF>}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{void} average\_onto\_faces(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedS> \& S,}
+\DoxyCodeLine{27     Eigen::PlainObjectBase<DerivedSF> \& SF);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}average\_onto\_faces.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

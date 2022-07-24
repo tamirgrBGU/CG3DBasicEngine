@@ -1,0 +1,394 @@
+\hypertarget{_winding_number_a_a_b_b_8h_source}{}\doxysection{Winding\+Number\+AABB.\+h}
+\label{_winding_number_a_a_b_b_8h_source}\index{igl/WindingNumberAABB.h@{igl/WindingNumberAABB.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{// \# MUTUAL DEPENDENCY ISSUE FOR HEADER ONLY VERSION}}
+\DoxyCodeLine{10 \textcolor{comment}{// MUST INCLUDE winding\_number.h first before guard:}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}winding\_number.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#ifndef IGL\_WINDINGNUMBERAABB\_H}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define IGL\_WINDINGNUMBERAABB\_H}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}WindingNumberTree.h"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <}
+\DoxyCodeLine{20     \textcolor{keyword}{typename} Point,}
+\DoxyCodeLine{21     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{22     \textcolor{keyword}{typename} DerivedF >}
+\DoxyCodeLine{23   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{WindingNumberAABB}} : \textcolor{keyword}{public} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}}<Point,DerivedV,DerivedF>}
+\DoxyCodeLine{24   \{}
+\DoxyCodeLine{25     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{26       Point min\_corner;}
+\DoxyCodeLine{27       Point max\_corner;}
+\DoxyCodeLine{28       \textcolor{keyword}{typename} DerivedV::Scalar total\_positive\_area;}
+\DoxyCodeLine{29     \textcolor{keyword}{public}: }
+\DoxyCodeLine{30       \textcolor{keyword}{enum} SplitMethod}
+\DoxyCodeLine{31       \{}
+\DoxyCodeLine{32         CENTER\_ON\_LONGEST\_AXIS = 0,}
+\DoxyCodeLine{33         MEDIAN\_ON\_LONGEST\_AXIS = 1,}
+\DoxyCodeLine{34         NUM\_SPLIT\_METHODS = 2}
+\DoxyCodeLine{35       \} split\_method;}
+\DoxyCodeLine{36     \textcolor{keyword}{public}:}
+\DoxyCodeLine{37       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{WindingNumberAABB}}():}
+\DoxyCodeLine{38         total\_positive\_area(std::numeric\_limits<typename DerivedV::Scalar>::infinity()),}
+\DoxyCodeLine{39         split\_method(MEDIAN\_ON\_LONGEST\_AXIS)}
+\DoxyCodeLine{40       \{\}}
+\DoxyCodeLine{41       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{WindingNumberAABB}}(}
+\DoxyCodeLine{42         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{43         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{44       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{WindingNumberAABB}}(}
+\DoxyCodeLine{45         \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree<Point,DerivedV,DerivedF>}} \& parent,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{47       \textcolor{comment}{// Initialize some things}}
+\DoxyCodeLine{48       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} set\_mesh(}
+\DoxyCodeLine{49         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{50         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{51       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} init();}
+\DoxyCodeLine{52       \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} inside(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{53       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} grow();}
+\DoxyCodeLine{54       \textcolor{comment}{// Compute min and max corners}}
+\DoxyCodeLine{55       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} compute\_min\_max\_corners();}
+\DoxyCodeLine{56       \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar max\_abs\_winding\_number(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{57       \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar max\_simple\_abs\_winding\_number(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{58   \};}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#include "{}winding\_number.h"{}}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#include "{}barycenter.h"{}}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#include "{}median.h"{}}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#include "{}doublearea.h"{}}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#include "{}per\_face\_normals.h"{}}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{comment}{// Minimum number of faces in a hierarchy element (this is probably dependent}}
+\DoxyCodeLine{75 \textcolor{comment}{// on speed of machine and compiler optimization)}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#ifndef WindingNumberAABB\_MIN\_F}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#  define WindingNumberAABB\_MIN\_F 100}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{81 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::set\_mesh}}(}
+\DoxyCodeLine{82     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{83     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F)}
+\DoxyCodeLine{84 \{}
+\DoxyCodeLine{85   \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::set\_mesh}}(V,F);}
+\DoxyCodeLine{86   init();}
+\DoxyCodeLine{87 \}}
+\DoxyCodeLine{88 }
+\DoxyCodeLine{89 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{90 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::init}}()}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{93   assert(max\_corner.size() == 3);}
+\DoxyCodeLine{94   assert(min\_corner.size() == 3);}
+\DoxyCodeLine{95   compute\_min\_max\_corners();}
+\DoxyCodeLine{96   Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,1> dblA;}
+\DoxyCodeLine{97   doublearea(this-\/>getV(),this-\/>getF(),dblA);}
+\DoxyCodeLine{98   total\_positive\_area = dblA.sum()/2.0;}
+\DoxyCodeLine{99 \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{102 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::WindingNumberAABB}}(}
+\DoxyCodeLine{103   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{104   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F):}
+\DoxyCodeLine{105   WindingNumberTree<Point,DerivedV,DerivedF>(V,F),}
+\DoxyCodeLine{106   min\_corner(),}
+\DoxyCodeLine{107   max\_corner(),}
+\DoxyCodeLine{108   total\_positive\_area(}
+\DoxyCodeLine{109     std::numeric\_limits<typename DerivedV::Scalar>::infinity()),}
+\DoxyCodeLine{110   split\_method(MEDIAN\_ON\_LONGEST\_AXIS)}
+\DoxyCodeLine{111 \{}
+\DoxyCodeLine{112   init();}
+\DoxyCodeLine{113 \}}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{116 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::WindingNumberAABB}}(}
+\DoxyCodeLine{117   \textcolor{keyword}{const} WindingNumberTree<Point,DerivedV,DerivedF> \& parent,}
+\DoxyCodeLine{118   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F):}
+\DoxyCodeLine{119   WindingNumberTree<Point,DerivedV,DerivedF>(parent,F),}
+\DoxyCodeLine{120   min\_corner(),}
+\DoxyCodeLine{121   max\_corner(),}
+\DoxyCodeLine{122   total\_positive\_area(}
+\DoxyCodeLine{123     std::numeric\_limits<typename DerivedV::Scalar>::infinity()),}
+\DoxyCodeLine{124   split\_method(MEDIAN\_ON\_LONGEST\_AXIS)}
+\DoxyCodeLine{125 \{}
+\DoxyCodeLine{126   init();}
+\DoxyCodeLine{127 \}}
+\DoxyCodeLine{128 }
+\DoxyCodeLine{129 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{130 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::grow}}()}
+\DoxyCodeLine{131 \{}
+\DoxyCodeLine{132   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{133   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{134   \textcolor{comment}{// Clear anything that already exists}}
+\DoxyCodeLine{135   this-\/>delete\_children();}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137   \textcolor{comment}{//cout<<"{}cap.rows(): "{}<<this-\/>getcap().rows()<<endl;}}
+\DoxyCodeLine{138   \textcolor{comment}{//cout<<"{}F.rows(): "{}<<this-\/>getF().rows()<<endl;}}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140   \textcolor{comment}{// Base cases}}
+\DoxyCodeLine{141   \textcolor{keywordflow}{if}(}
+\DoxyCodeLine{142     this-\/>getF().rows() <= (WindingNumberAABB\_MIN\_F>0?WindingNumberAABB\_MIN\_F:0) ||}
+\DoxyCodeLine{143     (this-\/>getcap().rows() -\/ 2) >= this-\/>getF().rows())}
+\DoxyCodeLine{144   \{}
+\DoxyCodeLine{145     \textcolor{comment}{// Don't grow}}
+\DoxyCodeLine{146     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{147   \}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149   \textcolor{comment}{// Compute longest direction}}
+\DoxyCodeLine{150   \textcolor{keywordtype}{int} max\_d = -\/1;}
+\DoxyCodeLine{151   \textcolor{keyword}{typename} DerivedV::Scalar max\_len = }
+\DoxyCodeLine{152     -\/numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{153   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} d = 0;d<min\_corner.size();d++)}
+\DoxyCodeLine{154   \{}
+\DoxyCodeLine{155     \textcolor{keywordflow}{if}( (max\_corner[d] -\/ min\_corner[d]) > max\_len )}
+\DoxyCodeLine{156     \{}
+\DoxyCodeLine{157       max\_len = (max\_corner[d] -\/ min\_corner[d]);}
+\DoxyCodeLine{158       max\_d = d;}
+\DoxyCodeLine{159     \}}
+\DoxyCodeLine{160   \}}
+\DoxyCodeLine{161   \textcolor{comment}{// Compute facet barycenters}}
+\DoxyCodeLine{162   Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,Eigen::Dynamic> BC;}
+\DoxyCodeLine{163   barycenter(this-\/>getV(),this-\/>getF(),BC);}
+\DoxyCodeLine{164 }
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166   \textcolor{comment}{// Blerg, why is selecting rows so difficult}}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168   \textcolor{keyword}{typename} DerivedV::Scalar split\_value;}
+\DoxyCodeLine{169   \textcolor{comment}{// Split in longest direction}}
+\DoxyCodeLine{170   \textcolor{keywordflow}{switch}(split\_method)}
+\DoxyCodeLine{171   \{}
+\DoxyCodeLine{172     \textcolor{keywordflow}{case} MEDIAN\_ON\_LONGEST\_AXIS:}
+\DoxyCodeLine{173       \textcolor{comment}{// Determine median}}
+\DoxyCodeLine{174       median(BC.col(max\_d),split\_value);}
+\DoxyCodeLine{175       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{176     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{177       assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{178     \textcolor{keywordflow}{case} CENTER\_ON\_LONGEST\_AXIS:}
+\DoxyCodeLine{179       split\_value = 0.5*(max\_corner[max\_d] + min\_corner[max\_d]);}
+\DoxyCodeLine{180       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{181   \}}
+\DoxyCodeLine{182   \textcolor{comment}{//cout<<"{}c: "{}<<0.5*(max\_corner[max\_d] + min\_corner[max\_d])<<"{} "{}<<}}
+\DoxyCodeLine{183   \textcolor{comment}{//  "{}m: "{}<<split\_value<<endl;;}}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185   vector<int> id( this-\/>getF().rows());}
+\DoxyCodeLine{186   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<this-\/>getF().rows();i++)}
+\DoxyCodeLine{187   \{}
+\DoxyCodeLine{188     \textcolor{keywordflow}{if}(BC(i,max\_d) <= split\_value)}
+\DoxyCodeLine{189     \{}
+\DoxyCodeLine{190       \textcolor{keywordtype}{id}[i] = 0; \textcolor{comment}{//left}}
+\DoxyCodeLine{191     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{192     \{}
+\DoxyCodeLine{193       \textcolor{keywordtype}{id}[i] = 1; \textcolor{comment}{//right}}
+\DoxyCodeLine{194     \}}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196 }
+\DoxyCodeLine{197   \textcolor{keyword}{const} \textcolor{keywordtype}{int} lefts = (int) count(\textcolor{keywordtype}{id}.begin(),\textcolor{keywordtype}{id}.end(),0);}
+\DoxyCodeLine{198   \textcolor{keyword}{const} \textcolor{keywordtype}{int} rights = (int) count(\textcolor{keywordtype}{id}.begin(),\textcolor{keywordtype}{id}.end(),1);}
+\DoxyCodeLine{199   \textcolor{keywordflow}{if}(lefts == 0 || rights == 0)}
+\DoxyCodeLine{200   \{}
+\DoxyCodeLine{201     \textcolor{comment}{// badly balanced base case (could try to recut)}}
+\DoxyCodeLine{202     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{203   \}}
+\DoxyCodeLine{204   assert(lefts+rights == this-\/>getF().rows());}
+\DoxyCodeLine{205   DerivedF leftF(lefts,  this-\/>getF().cols());}
+\DoxyCodeLine{206   DerivedF rightF(rights,this-\/>getF().cols());}
+\DoxyCodeLine{207   \textcolor{keywordtype}{int} left\_i = 0;}
+\DoxyCodeLine{208   \textcolor{keywordtype}{int} right\_i = 0;}
+\DoxyCodeLine{209   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<this-\/>getF().rows();i++)}
+\DoxyCodeLine{210   \{}
+\DoxyCodeLine{211     \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}[i] == 0)}
+\DoxyCodeLine{212     \{}
+\DoxyCodeLine{213       leftF.row(left\_i++) = this-\/>getF().row(i);}
+\DoxyCodeLine{214     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id}[i] == 1)}
+\DoxyCodeLine{215     \{}
+\DoxyCodeLine{216       rightF.row(right\_i++) = this-\/>getF().row(i);}
+\DoxyCodeLine{217     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{218     \{}
+\DoxyCodeLine{219       assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{220     \}}
+\DoxyCodeLine{221   \}}
+\DoxyCodeLine{222   assert(right\_i == rightF.rows());}
+\DoxyCodeLine{223   assert(left\_i == leftF.rows());}
+\DoxyCodeLine{224   \textcolor{comment}{// Finally actually grow children and Recursively grow}}
+\DoxyCodeLine{225   WindingNumberAABB<Point,DerivedV,DerivedF> * leftWindingNumberAABB = }
+\DoxyCodeLine{226     \textcolor{keyword}{new} WindingNumberAABB<Point,DerivedV,DerivedF>(*\textcolor{keyword}{this},leftF);}
+\DoxyCodeLine{227   leftWindingNumberAABB-\/>grow();}
+\DoxyCodeLine{228   this-\/>children.push\_back(leftWindingNumberAABB);}
+\DoxyCodeLine{229   WindingNumberAABB<Point,DerivedV,DerivedF> * rightWindingNumberAABB = }
+\DoxyCodeLine{230     \textcolor{keyword}{new} WindingNumberAABB<Point,DerivedV,DerivedF>(*\textcolor{keyword}{this},rightF);}
+\DoxyCodeLine{231   rightWindingNumberAABB-\/>grow();}
+\DoxyCodeLine{232   this-\/>children.push\_back(rightWindingNumberAABB);}
+\DoxyCodeLine{233 \}}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{236 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::inside}}(\textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{237 \textcolor{keyword}{}\{}
+\DoxyCodeLine{238   assert(p.size() == max\_corner.size());}
+\DoxyCodeLine{239   assert(p.size() == min\_corner.size());}
+\DoxyCodeLine{240   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<p.size();i++)}
+\DoxyCodeLine{241   \{}
+\DoxyCodeLine{243     \textcolor{comment}{//if( p(i) < min\_corner(i) || p(i) >= max\_corner(i))}}
+\DoxyCodeLine{244     \textcolor{comment}{// **MUST** be conservative}}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if}( p(i) < min\_corner(i) || p(i) > max\_corner(i))}
+\DoxyCodeLine{246     \{}
+\DoxyCodeLine{247       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{248     \}}
+\DoxyCodeLine{249   \}}
+\DoxyCodeLine{250   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{251 \}}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{254 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::compute\_min\_max\_corners}}()}
+\DoxyCodeLine{255 \{}
+\DoxyCodeLine{256   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{257   \textcolor{comment}{// initialize corners}}
+\DoxyCodeLine{258   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} d = 0;d<min\_corner.size();d++)}
+\DoxyCodeLine{259   \{}
+\DoxyCodeLine{260     min\_corner[d] =  numeric\_limits<typename Point::Scalar>::infinity();}
+\DoxyCodeLine{261     max\_corner[d] = -\/numeric\_limits<typename Point::Scalar>::infinity();}
+\DoxyCodeLine{262   \}}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{264   this-\/>center = Point(0,0,0);}
+\DoxyCodeLine{265   \textcolor{comment}{// Loop over facets}}
+\DoxyCodeLine{266   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<this-\/>getF().rows();i++)}
+\DoxyCodeLine{267   \{}
+\DoxyCodeLine{268     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<this-\/>getF().cols();j++)}
+\DoxyCodeLine{269     \{}
+\DoxyCodeLine{270       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} d = 0;d<min\_corner.size();d++)}
+\DoxyCodeLine{271       \{}
+\DoxyCodeLine{272         min\_corner[d] = }
+\DoxyCodeLine{273           this-\/>getV()(this-\/>getF()(i,j),d) < min\_corner[d] ?  }
+\DoxyCodeLine{274             this-\/>getV()(this-\/>getF()(i,j),d) : min\_corner[d];}
+\DoxyCodeLine{275         max\_corner[d] = }
+\DoxyCodeLine{276           this-\/>getV()(this-\/>getF()(i,j),d) > max\_corner[d] ?  }
+\DoxyCodeLine{277             this-\/>getV()(this-\/>getF()(i,j),d) : max\_corner[d];}
+\DoxyCodeLine{278       \}}
+\DoxyCodeLine{279       \textcolor{comment}{// This is biased toward vertices incident on more than one face, but}}
+\DoxyCodeLine{280       \textcolor{comment}{// perhaps that's good}}
+\DoxyCodeLine{281       this-\/>center += this-\/>getV().row(this-\/>getF()(i,j));}
+\DoxyCodeLine{282     \}}
+\DoxyCodeLine{283   \}}
+\DoxyCodeLine{284   \textcolor{comment}{// Average}}
+\DoxyCodeLine{285   this-\/>center.array() /= this-\/>getF().size();}
+\DoxyCodeLine{286 }
+\DoxyCodeLine{287   \textcolor{comment}{//cout<<"{}min\_corner: "{}<<this-\/>min\_corner.transpose()<<endl;}}
+\DoxyCodeLine{288   \textcolor{comment}{//cout<<"{}Center: "{}<<this-\/>center.transpose()<<endl;}}
+\DoxyCodeLine{289   \textcolor{comment}{//cout<<"{}max\_corner: "{}<<this-\/>max\_corner.transpose()<<endl;}}
+\DoxyCodeLine{290   \textcolor{comment}{//cout<<"{}Diag center: "{}<<((this-\/>max\_corner + this-\/>min\_corner)*0.5).transpose()<<endl;}}
+\DoxyCodeLine{291   \textcolor{comment}{//cout<<endl;}}
+\DoxyCodeLine{292 }
+\DoxyCodeLine{293   this-\/>radius = (max\_corner-\/min\_corner).norm()/2.0;}
+\DoxyCodeLine{294 \}}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{296 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{297 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar}
+\DoxyCodeLine{298 \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::max\_abs\_winding\_number}}(\textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{299 \textcolor{keyword}{}\{}
+\DoxyCodeLine{300   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{301   \textcolor{comment}{// Only valid if not inside}}
+\DoxyCodeLine{302   \textcolor{keywordflow}{if}(inside(p))}
+\DoxyCodeLine{303   \{}
+\DoxyCodeLine{304     \textcolor{keywordflow}{return} numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{305   \}}
+\DoxyCodeLine{306   \textcolor{comment}{// Q: we know the total positive area so what's the most this could project}}
+\DoxyCodeLine{307   \textcolor{comment}{// to? Remember it could be layered in the same direction.}}
+\DoxyCodeLine{308   \textcolor{keywordflow}{return} numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{309 \}}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{311 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{312 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{313   \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Point,DerivedV,DerivedF>::max\_simple\_abs\_winding\_number}}(}
+\DoxyCodeLine{314   \textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{315 \textcolor{keyword}{}\{}
+\DoxyCodeLine{316   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{317   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{318   \textcolor{comment}{// Only valid if not inside}}
+\DoxyCodeLine{319   \textcolor{keywordflow}{if}(inside(p))}
+\DoxyCodeLine{320   \{}
+\DoxyCodeLine{321     \textcolor{keywordflow}{return} numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{322   \}}
+\DoxyCodeLine{323   \textcolor{comment}{// Max simple is the same as sum of positive winding number contributions of}}
+\DoxyCodeLine{324   \textcolor{comment}{// bounding box}}
+\DoxyCodeLine{325 }
+\DoxyCodeLine{326   \textcolor{comment}{// begin precomputation}}
+\DoxyCodeLine{327   \textcolor{comment}{//MatrixXd BV((int)pow(2,3),3);}}
+\DoxyCodeLine{328   \textcolor{keyword}{typedef}}
+\DoxyCodeLine{329     Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,Eigen::Dynamic>}
+\DoxyCodeLine{330     MatrixXS;}
+\DoxyCodeLine{331   \textcolor{keyword}{typedef}}
+\DoxyCodeLine{332     Eigen::Matrix<typename DerivedF::Scalar,Eigen::Dynamic,Eigen::Dynamic>}
+\DoxyCodeLine{333     MatrixXF;}
+\DoxyCodeLine{334   MatrixXS BV((\textcolor{keywordtype}{int})(1<<3),3);}
+\DoxyCodeLine{335   BV <<}
+\DoxyCodeLine{336     min\_corner[0],min\_corner[1],min\_corner[2],}
+\DoxyCodeLine{337     min\_corner[0],min\_corner[1],max\_corner[2],}
+\DoxyCodeLine{338     min\_corner[0],max\_corner[1],min\_corner[2],}
+\DoxyCodeLine{339     min\_corner[0],max\_corner[1],max\_corner[2],}
+\DoxyCodeLine{340     max\_corner[0],min\_corner[1],min\_corner[2],}
+\DoxyCodeLine{341     max\_corner[0],min\_corner[1],max\_corner[2],}
+\DoxyCodeLine{342     max\_corner[0],max\_corner[1],min\_corner[2],}
+\DoxyCodeLine{343     max\_corner[0],max\_corner[1],max\_corner[2];}
+\DoxyCodeLine{344   MatrixXF BF(2*2*3,3);}
+\DoxyCodeLine{345   BF <<}
+\DoxyCodeLine{346     0,6,4,}
+\DoxyCodeLine{347     0,2,6,}
+\DoxyCodeLine{348     0,3,2,}
+\DoxyCodeLine{349     0,1,3,}
+\DoxyCodeLine{350     2,7,6,}
+\DoxyCodeLine{351     2,3,7,}
+\DoxyCodeLine{352     4,6,7,}
+\DoxyCodeLine{353     4,7,5,}
+\DoxyCodeLine{354     0,4,5,}
+\DoxyCodeLine{355     0,5,1,}
+\DoxyCodeLine{356     1,5,7,}
+\DoxyCodeLine{357     1,7,3;}
+\DoxyCodeLine{358   MatrixXS BFN;}
+\DoxyCodeLine{359   per\_face\_normals(BV,BF,BFN);}
+\DoxyCodeLine{360   \textcolor{comment}{// end of precomputation}}
+\DoxyCodeLine{361 }
+\DoxyCodeLine{362   \textcolor{comment}{// Only keep those with positive dot products}}
+\DoxyCodeLine{363   MatrixXF PBF(BF.rows(),BF.cols());}
+\DoxyCodeLine{364   \textcolor{keywordtype}{int} pbfi = 0;}
+\DoxyCodeLine{365   Point p2c = 0.5*(min\_corner+max\_corner)-\/p;}
+\DoxyCodeLine{366   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<BFN.rows();i++)}
+\DoxyCodeLine{367   \{}
+\DoxyCodeLine{368     \textcolor{keywordflow}{if}(p2c.dot(BFN.row(i)) > 0)}
+\DoxyCodeLine{369     \{}
+\DoxyCodeLine{370       PBF.row(pbfi++) = BF.row(i);}
+\DoxyCodeLine{371     \}}
+\DoxyCodeLine{372   \}}
+\DoxyCodeLine{373   PBF.conservativeResize(pbfi,PBF.cols());}
+\DoxyCodeLine{374   \textcolor{keywordflow}{return} igl::winding\_number(BV,PBF,p);}
+\DoxyCodeLine{375 \}}
+\DoxyCodeLine{376 }
+\DoxyCodeLine{377 \textcolor{comment}{// This is a bullshit template because AABB annoyingly needs templates for bad}}
+\DoxyCodeLine{378 \textcolor{comment}{// combinations of 3D V with DIM=2 AABB}}
+\DoxyCodeLine{379 \textcolor{comment}{//}}
+\DoxyCodeLine{380 \textcolor{comment}{// \_Define\_ as a no-\/op rather than monkeying around with the proper code above}}
+\DoxyCodeLine{381 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{382 \{}
+\DoxyCodeLine{383   \textcolor{keyword}{template} <> \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Eigen::Matrix<double, 1, 3, 1, 1, 3>}},Eigen::Matrix<double, -\/1, 2, 0, -\/1, 2>,Eigen::Matrix<int, -\/1, 2, 0, -\/1, 2>>::WindingNumberAABB(\textcolor{keyword}{const} Eigen::MatrixBase<Eigen::Matrix<double, -\/1, 2, 0, -\/1, 2>> \& V, \textcolor{keyword}{const} Eigen::MatrixBase<Eigen::Matrix<int, -\/1, 2, 0, -\/1, 2>> \& F)\{\};}
+\DoxyCodeLine{384   \textcolor{keyword}{template} <> \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Eigen::Matrix<double, 1, 3, 1, 1, 3>}},Eigen::Matrix<double, -\/1, 2, 0, -\/1, 2>,Eigen::Matrix<int, -\/1, 2, 0, -\/1, 2>>::grow()\{\};}
+\DoxyCodeLine{385   \textcolor{keyword}{template} <> \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_a_a_b_b}{igl::WindingNumberAABB<Eigen::Matrix<double, 1, 3, 1, 1, 3>}},Eigen::Matrix<double, -\/1, 2, 0, -\/1, 2>,Eigen::Matrix<int, -\/1, 2, 0, -\/1, 2>>::init()\{\};}
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387 \}}
+\DoxyCodeLine{388 }
+\DoxyCodeLine{389 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

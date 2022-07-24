@@ -1,0 +1,47 @@
+\hypertarget{copyleft_2cgal_2piecewise__constant__winding__number_8h_source}{}\doxysection{piecewise\+\_\+constant\+\_\+winding\+\_\+number.\+h}
+\label{copyleft_2cgal_2piecewise__constant__winding__number_8h_source}\index{igl/copyleft/cgal/piecewise\_constant\_winding\_number.h@{igl/copyleft/cgal/piecewise\_constant\_winding\_number.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_PIECEWISE\_CONSTANT\_WINDING\_NUMBER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_PIECEWISE\_CONSTANT\_WINDING\_NUMBER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19       \textcolor{comment}{// PIECEWISE\_CONSTANT\_WINDING\_NUMBER Determine if a given mesh induces a}}
+\DoxyCodeLine{20       \textcolor{comment}{// piecewise constant winding number field: Is this mesh valid input to}}
+\DoxyCodeLine{21       \textcolor{comment}{// solid set operations.}}
+\DoxyCodeLine{22       \textcolor{comment}{// }}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   V  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{25       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{26       \textcolor{comment}{// Returns true if the mesh \_combinatorially\_ induces a piecewise}}
+\DoxyCodeLine{27       \textcolor{comment}{// constant winding number field.}}
+\DoxyCodeLine{28       \textcolor{keyword}{template} <}
+\DoxyCodeLine{29         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{30         \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{31       IGL\_INLINE \textcolor{keywordtype}{bool} piecewise\_constant\_winding\_number(}
+\DoxyCodeLine{32         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{33         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F);}
+\DoxyCodeLine{34     \}}
+\DoxyCodeLine{35   \}}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}piecewise\_constant\_winding\_number.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+
+\end{DoxyCode}

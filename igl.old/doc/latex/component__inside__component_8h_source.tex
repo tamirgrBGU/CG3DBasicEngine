@@ -1,0 +1,81 @@
+\hypertarget{component__inside__component_8h_source}{}\doxysection{component\+\_\+inside\+\_\+component.\+h}
+\label{component__inside__component_8h_source}\index{igl/copyleft/cgal/component\_inside\_component.h@{igl/copyleft/cgal/component\_inside\_component.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_COMONENT\_INSIDE\_COMPONENT}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_COMONENT\_INSIDE\_COMPONENT}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }cgal \{}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20         \textcolor{comment}{// Determine if connected facet component (V1, F1, I1) is inside of}}
+\DoxyCodeLine{21         \textcolor{comment}{// connected facet component (V2, F2, I2).}}
+\DoxyCodeLine{22         \textcolor{comment}{//}}
+\DoxyCodeLine{23         \textcolor{comment}{// Precondition:}}
+\DoxyCodeLine{24         \textcolor{comment}{// Both components must represent closed, self-\/intersection free,}}
+\DoxyCodeLine{25         \textcolor{comment}{// non-\/degenerated surfaces that are the boundary of 3D volumes. In}}
+\DoxyCodeLine{26         \textcolor{comment}{// addition, (V1, F1, I1) must not intersect with (V2, F2, I2).}}
+\DoxyCodeLine{27         \textcolor{comment}{//}}
+\DoxyCodeLine{28         \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{29         \textcolor{comment}{//   V1  \#V1 by 3 list of vertex position of mesh 1}}
+\DoxyCodeLine{30         \textcolor{comment}{//   F1  \#F1 by 3 list of triangles indices into V1}}
+\DoxyCodeLine{31         \textcolor{comment}{//   I1  \#I1 list of indices into F1, indicate the facets of component}}
+\DoxyCodeLine{32         \textcolor{comment}{//   V2  \#V2 by 3 list of vertex position of mesh 2}}
+\DoxyCodeLine{33         \textcolor{comment}{//   F2  \#F2 by 3 list of triangles indices into V2}}
+\DoxyCodeLine{34         \textcolor{comment}{//   I2  \#I2 list of indices into F2, indicate the facets of component}}
+\DoxyCodeLine{35         \textcolor{comment}{//}}
+\DoxyCodeLine{36         \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{37         \textcolor{comment}{//   return true iff (V1, F1, I1) is entirely inside of (V2, F2, I2).}}
+\DoxyCodeLine{38         \textcolor{keyword}{template}<\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{39             IGL\_INLINE \textcolor{keywordtype}{bool} component\_inside\_component(}
+\DoxyCodeLine{40                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V1,}
+\DoxyCodeLine{41                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F1,}
+\DoxyCodeLine{42                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I1,}
+\DoxyCodeLine{43                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V2,}
+\DoxyCodeLine{44                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F2,}
+\DoxyCodeLine{45                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I2);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47         \textcolor{comment}{// Determine if mesh (V1, F1) is inside of mesh (V2, F2).}}
+\DoxyCodeLine{48         \textcolor{comment}{//}}
+\DoxyCodeLine{49         \textcolor{comment}{// Precondition:}}
+\DoxyCodeLine{50         \textcolor{comment}{// Both meshes must be closed, self-\/intersection free, non-\/degenerated}}
+\DoxyCodeLine{51         \textcolor{comment}{// surfaces that are the boundary of 3D volumes.  They should not}}
+\DoxyCodeLine{52         \textcolor{comment}{// intersect each other.}}
+\DoxyCodeLine{53         \textcolor{comment}{//}}
+\DoxyCodeLine{54         \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{55         \textcolor{comment}{//   V1  \#V1 by 3 list of vertex position of mesh 1}}
+\DoxyCodeLine{56         \textcolor{comment}{//   F1  \#F1 by 3 list of triangles indices into V1}}
+\DoxyCodeLine{57         \textcolor{comment}{//   V2  \#V2 by 3 list of vertex position of mesh 2}}
+\DoxyCodeLine{58         \textcolor{comment}{//   F2  \#F2 by 3 list of triangles indices into V2}}
+\DoxyCodeLine{59         \textcolor{comment}{//}}
+\DoxyCodeLine{60         \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{61         \textcolor{comment}{//   return true iff (V1, F1) is entirely inside of (V2, F2).}}
+\DoxyCodeLine{62         \textcolor{keyword}{template}<\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{63             IGL\_INLINE \textcolor{keywordtype}{bool} component\_inside\_component(}
+\DoxyCodeLine{64                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V1,}
+\DoxyCodeLine{65                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F1,}
+\DoxyCodeLine{66                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V2,}
+\DoxyCodeLine{67                     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F2);}
+\DoxyCodeLine{68     \}}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#include "{}component\_inside\_component.cpp"{}}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

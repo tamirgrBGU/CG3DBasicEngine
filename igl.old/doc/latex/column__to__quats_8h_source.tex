@@ -1,0 +1,40 @@
+\hypertarget{column__to__quats_8h_source}{}\doxysection{column\+\_\+to\+\_\+quats.\+h}
+\label{column__to__quats_8h_source}\index{igl/column\_to\_quats.h@{igl/column\_to\_quats.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COLUMN\_TO\_QUATS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COLUMN\_TO\_QUATS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/StdVector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// "{}Columnize"{} a list of quaternions (q1x,q1y,q1z,q1w,q2x,q2y,q2z,q2w,...)}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Q  n*4-\/long list of coefficients}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   vQ  n-\/long list of quaternions}}
+\DoxyCodeLine{23   \textcolor{comment}{// Returns false if n\%4!=0}}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{bool} column\_to\_quats(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::VectorXd \& Q,}
+\DoxyCodeLine{26     std::vector<}
+\DoxyCodeLine{27       Eigen::Quaterniond,Eigen::aligned\_allocator<Eigen::Quaterniond> > \& vQ);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}column\_to\_quats.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

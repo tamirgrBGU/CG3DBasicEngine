@@ -1,0 +1,42 @@
+\hypertarget{_remesh_self_intersections_param_8h_source}{}\doxysection{Remesh\+Self\+Intersections\+Param.\+h}
+\label{_remesh_self_intersections_param_8h_source}\index{igl/copyleft/cgal/RemeshSelfIntersectionsParam.h@{igl/copyleft/cgal/RemeshSelfIntersectionsParam.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_REMESH\_SELF\_INTERSECTIONS\_PARAM\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_REMESH\_SELF\_INTERSECTIONS\_PARAM\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{14   \{}
+\DoxyCodeLine{15     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{16     \{}
+\DoxyCodeLine{17       \textcolor{comment}{// Optional Parameters}}
+\DoxyCodeLine{18       \textcolor{comment}{//   DetectOnly  Only compute IF, leave VV and FF alone}}
+\DoxyCodeLine{19       \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{RemeshSelfIntersectionsParam}}}
+\DoxyCodeLine{20       \{}
+\DoxyCodeLine{21         \textcolor{keywordtype}{bool} detect\_only;}
+\DoxyCodeLine{22         \textcolor{keywordtype}{bool} first\_only;}
+\DoxyCodeLine{23         \textcolor{keywordtype}{bool} stitch\_all;}
+\DoxyCodeLine{24         \textcolor{keyword}{inline} \mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{RemeshSelfIntersectionsParam}}(}
+\DoxyCodeLine{25           \textcolor{keywordtype}{bool} \_detect\_only=\textcolor{keyword}{false}, }
+\DoxyCodeLine{26           \textcolor{keywordtype}{bool} \_first\_only=\textcolor{keyword}{false},}
+\DoxyCodeLine{27           \textcolor{keywordtype}{bool} \_stitch\_all=\textcolor{keyword}{false}):}
+\DoxyCodeLine{28           detect\_only(\_detect\_only),}
+\DoxyCodeLine{29           first\_only(\_first\_only),}
+\DoxyCodeLine{30           stitch\_all(\_stitch\_all)\{\};}
+\DoxyCodeLine{31       \};}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

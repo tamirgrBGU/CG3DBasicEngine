@@ -1,0 +1,49 @@
+\hypertarget{arap__rhs_8h_source}{}\doxysection{arap\+\_\+rhs.\+h}
+\label{arap__rhs_8h_source}\index{igl/arap\_rhs.h@{igl/arap\_rhs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ARAP\_RHS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ARAP\_RHS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <igl/ARAPEnergyType.h>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// ARAP\_RHS build right-\/hand side constructor of global poisson solve for}}
+\DoxyCodeLine{19   \textcolor{comment}{// various Arap energies}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   V  \#V by Vdim list of initial domain positions}}
+\DoxyCodeLine{22   \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{23   \textcolor{comment}{//   dim  dimension being used at solve time. For deformation usually dim =}}
+\DoxyCodeLine{24   \textcolor{comment}{//     V.cols(), for surface parameterization V.cols() = 3 and dim = 2}}
+\DoxyCodeLine{25   \textcolor{comment}{//   energy  igl::ARAPEnergyType enum value defining which energy is being}}
+\DoxyCodeLine{26   \textcolor{comment}{//     used. See igl::ARAPEnergyType.h for valid options and explanations.}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   K  \#V*dim by \#(F|V)*dim*dim matrix such that:}}
+\DoxyCodeLine{29   \textcolor{comment}{//     b = K * reshape(permute(R,[3 1 2]),size(V|F,1)*size(V,2)*size(V,2),1);}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// See also: arap\_linear\_block}}
+\DoxyCodeLine{32   \textcolor{keyword}{template}<\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedK>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} arap\_rhs(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} igl::ARAPEnergyType energy,}
+\DoxyCodeLine{38     Eigen::SparseCompressedBase<DerivedK>\& K);}
+\DoxyCodeLine{39 \}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include "{}arap\_rhs.cpp"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

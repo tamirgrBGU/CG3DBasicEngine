@@ -1,0 +1,892 @@
+\hypertarget{min__quad__with__fixed_8impl_8h_source}{}\doxysection{min\+\_\+quad\+\_\+with\+\_\+fixed.\+impl.\+h}
+\label{min__quad__with__fixed_8impl_8h_source}\index{igl/min\_quad\_with\_fixed.impl.h@{igl/min\_quad\_with\_fixed.impl.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}min\_quad\_with\_fixed.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}slice.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}is\_symmetric.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}find.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}sparse.h"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}repmat.h"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}EPS.h"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}cat.h"{}}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{comment}{//\#include <Eigen/SparseExtra>}}
+\DoxyCodeLine{21 \textcolor{comment}{// Bug in unsupported/Eigen/SparseExtra needs iostream first}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include <unsupported/Eigen/SparseExtra>}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include <cstdio>}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include <igl/matlab\_format.h>}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T, \textcolor{keyword}{typename} Derivedknown>}
+\DoxyCodeLine{30 IGL\_INLINE \textcolor{keywordtype}{bool} igl::min\_quad\_with\_fixed\_precompute(}
+\DoxyCodeLine{31   \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& A2,}
+\DoxyCodeLine{32   \textcolor{keyword}{const} Eigen::MatrixBase<Derivedknown> \& known,}
+\DoxyCodeLine{33   \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& Aeq,}
+\DoxyCodeLine{34   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} pd,}
+\DoxyCodeLine{35   min\_quad\_with\_fixed\_data<T> \& data}
+\DoxyCodeLine{36   )}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38 \textcolor{comment}{//\#define MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{39   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{40   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{41   \textcolor{keyword}{const} Eigen::SparseMatrix<T> A = 0.5*A2;}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{43   cout<<\textcolor{stringliteral}{"{}    pre"{}}<<endl;}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{45   \textcolor{comment}{// number of rows}}
+\DoxyCodeLine{46   \textcolor{keywordtype}{int} n = A.rows();}
+\DoxyCodeLine{47   \textcolor{comment}{// cache problem size}}
+\DoxyCodeLine{48   data.n = n;}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50   \textcolor{keywordtype}{int} neq = Aeq.rows();}
+\DoxyCodeLine{51   \textcolor{comment}{// default is to have 0 linear equality constraints}}
+\DoxyCodeLine{52   \textcolor{keywordflow}{if}(Aeq.size() != 0)}
+\DoxyCodeLine{53   \{}
+\DoxyCodeLine{54     assert(n == Aeq.cols() \&\& \textcolor{stringliteral}{"{}\#Aeq.cols() should match A.rows()"{}});}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57   assert(known.cols() == 1 \&\& \textcolor{stringliteral}{"{}known should be a vector"{}});}
+\DoxyCodeLine{58   assert(A.rows() == n \&\& \textcolor{stringliteral}{"{}A should be square"{}});}
+\DoxyCodeLine{59   assert(A.cols() == n \&\& \textcolor{stringliteral}{"{}A should be square"{}});}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \textcolor{comment}{// number of known rows}}
+\DoxyCodeLine{62   \textcolor{keywordtype}{int} kr = known.size();}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   assert((kr == 0 || known.minCoeff() >= 0)\&\& \textcolor{stringliteral}{"{}known indices should be in [0,n)"{}});}
+\DoxyCodeLine{65   assert((kr == 0 || known.maxCoeff() < n) \&\& \textcolor{stringliteral}{"{}known indices should be in [0,n)"{}});}
+\DoxyCodeLine{66   assert(neq <= n \&\& \textcolor{stringliteral}{"{}Number of equality constraints should be less than DOFs"{}});}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \textcolor{comment}{// cache known}}
+\DoxyCodeLine{70   \textcolor{comment}{// FIXME: This is *NOT* generic and introduces a copy.}}
+\DoxyCodeLine{71   data.known = known.template cast<int>();}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73   \textcolor{comment}{// get list of unknown indices}}
+\DoxyCodeLine{74   data.unknown.resize(n-\/kr);}
+\DoxyCodeLine{75   std::vector<bool> unknown\_mask;}
+\DoxyCodeLine{76   unknown\_mask.resize(n,\textcolor{keyword}{true});}
+\DoxyCodeLine{77   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<kr;i++)}
+\DoxyCodeLine{78   \{}
+\DoxyCodeLine{79     unknown\_mask[known(i, 0)] = \textcolor{keyword}{false};}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81   \textcolor{keywordtype}{int} u = 0;}
+\DoxyCodeLine{82   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<n;i++)}
+\DoxyCodeLine{83   \{}
+\DoxyCodeLine{84     \textcolor{keywordflow}{if}(unknown\_mask[i])}
+\DoxyCodeLine{85     \{}
+\DoxyCodeLine{86       data.unknown(u) = i;}
+\DoxyCodeLine{87       u++;}
+\DoxyCodeLine{88     \}}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90   \textcolor{comment}{// get list of lagrange multiplier indices}}
+\DoxyCodeLine{91   data.lagrange.resize(neq);}
+\DoxyCodeLine{92   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<neq;i++)}
+\DoxyCodeLine{93   \{}
+\DoxyCodeLine{94     data.lagrange(i) = n + i;}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96   \textcolor{comment}{// cache unknown followed by lagrange indices}}
+\DoxyCodeLine{97   data.unknown\_lagrange.resize(data.unknown.size()+data.lagrange.size());}
+\DoxyCodeLine{98   \textcolor{comment}{// Would like to do:}}
+\DoxyCodeLine{99   \textcolor{comment}{//data.unknown\_lagrange << data.unknown, data.lagrange;}}
+\DoxyCodeLine{100   \textcolor{comment}{// but Eigen can't handle empty vectors in comma initialization}}
+\DoxyCodeLine{101   \textcolor{comment}{// https://forum.kde.org/viewtopic.php?f=74\&t=107974\&p=364947\#p364947}}
+\DoxyCodeLine{102   \textcolor{keywordflow}{if}(data.unknown.size() > 0)}
+\DoxyCodeLine{103   \{}
+\DoxyCodeLine{104     data.unknown\_lagrange.head(data.unknown.size()) = data.unknown;}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106   \textcolor{keywordflow}{if}(data.lagrange.size() > 0)}
+\DoxyCodeLine{107   \{}
+\DoxyCodeLine{108     data.unknown\_lagrange.tail(data.lagrange.size()) = data.lagrange;}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111   SparseMatrix<T> Auu;}
+\DoxyCodeLine{112   slice(A,data.unknown,data.unknown,Auu);}
+\DoxyCodeLine{113   assert(Auu.size() != 0 \&\& Auu.rows() > 0 \&\& \textcolor{stringliteral}{"{}There should be at least one unknown."{}});}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115   \textcolor{comment}{// Positive definiteness is *not* determined, rather it is given as a}}
+\DoxyCodeLine{116   \textcolor{comment}{// parameter}}
+\DoxyCodeLine{117   data.Auu\_pd = pd;}
+\DoxyCodeLine{118   \textcolor{keywordflow}{if}(data.Auu\_pd)}
+\DoxyCodeLine{119   \{}
+\DoxyCodeLine{120     \textcolor{comment}{// PD implies symmetric}}
+\DoxyCodeLine{121     data.Auu\_sym = \textcolor{keyword}{true};}
+\DoxyCodeLine{122     \textcolor{comment}{// This is an annoying assertion unless EPS can be chosen in a nicer way.}}
+\DoxyCodeLine{123     \textcolor{comment}{//assert(is\_symmetric(Auu,EPS<double>()));}}
+\DoxyCodeLine{124     assert(is\_symmetric(Auu,1.0) \&\&}
+\DoxyCodeLine{125       \textcolor{stringliteral}{"{}Auu should be symmetric if positive definite"{}});}
+\DoxyCodeLine{126   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{127   \{}
+\DoxyCodeLine{128     \textcolor{comment}{// determine if A(unknown,unknown) is symmetric and/or positive definite}}
+\DoxyCodeLine{129     VectorXi AuuI,AuuJ;}
+\DoxyCodeLine{130     MatrixXd AuuV;}
+\DoxyCodeLine{131     find(Auu,AuuI,AuuJ,AuuV);}
+\DoxyCodeLine{132     data.Auu\_sym = is\_symmetric(Auu,EPS<double>()*AuuV.maxCoeff());}
+\DoxyCodeLine{133   \}}
+\DoxyCodeLine{134 }
+\DoxyCodeLine{135   \textcolor{comment}{// Determine number of linearly independent constraints}}
+\DoxyCodeLine{136   \textcolor{keywordtype}{int} nc = 0;}
+\DoxyCodeLine{137   \textcolor{keywordflow}{if}(neq>0)}
+\DoxyCodeLine{138   \{}
+\DoxyCodeLine{139 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{140     cout<<\textcolor{stringliteral}{"{}    qr"{}}<<endl;}
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{142     \textcolor{comment}{// QR decomposition to determine row rank in Aequ}}
+\DoxyCodeLine{143     slice(Aeq,data.unknown,2,data.Aequ);}
+\DoxyCodeLine{144     assert(data.Aequ.rows() == neq \&\&}
+\DoxyCodeLine{145       \textcolor{stringliteral}{"{}\#Rows in Aequ should match \#constraints"{}});}
+\DoxyCodeLine{146     assert(data.Aequ.cols() == data.unknown.size() \&\&}
+\DoxyCodeLine{147       \textcolor{stringliteral}{"{}\#cols in Aequ should match \#unknowns"{}});}
+\DoxyCodeLine{148     data.AeqTQR.compute(data.Aequ.transpose().eval());}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{150     \textcolor{comment}{//cout<<endl<<matlab\_format(SparseMatrix<T>(data.Aequ.transpose().eval()),"{}AeqT"{})<<endl<<endl;}}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{152     \textcolor{keywordflow}{switch}(data.AeqTQR.info())}
+\DoxyCodeLine{153     \{}
+\DoxyCodeLine{154       \textcolor{keywordflow}{case} Eigen::Success:}
+\DoxyCodeLine{155         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{156       \textcolor{keywordflow}{case} Eigen::NumericalIssue:}
+\DoxyCodeLine{157         cerr<<\textcolor{stringliteral}{"{}Error: Numerical issue."{}}<<endl;}
+\DoxyCodeLine{158         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{159       \textcolor{keywordflow}{case} Eigen::InvalidInput:}
+\DoxyCodeLine{160         cerr<<\textcolor{stringliteral}{"{}Error: Invalid input."{}}<<endl;}
+\DoxyCodeLine{161         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{162       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{163         cerr<<\textcolor{stringliteral}{"{}Error: Other."{}}<<endl;}
+\DoxyCodeLine{164         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{165     \}}
+\DoxyCodeLine{166     nc = data.AeqTQR.rank();}
+\DoxyCodeLine{167     assert(nc<=neq \&\&}
+\DoxyCodeLine{168       \textcolor{stringliteral}{"{}Rank of reduced constraints should be <= \#original constraints"{}});}
+\DoxyCodeLine{169     data.Aeq\_li = nc == neq;}
+\DoxyCodeLine{170     \textcolor{comment}{//cout<<"{}data.Aeq\_li: "{}<<data.Aeq\_li<<endl;}}
+\DoxyCodeLine{171   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{172   \{}
+\DoxyCodeLine{173     data.Aeq\_li = \textcolor{keyword}{true};}
+\DoxyCodeLine{174   \}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{176   \textcolor{keywordflow}{if}(data.Aeq\_li)}
+\DoxyCodeLine{177   \{}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{179     cout<<\textcolor{stringliteral}{"{}    Aeq\_li=true"{}}<<endl;}
+\DoxyCodeLine{180 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{181     \textcolor{comment}{// Append lagrange multiplier quadratic terms}}
+\DoxyCodeLine{182     SparseMatrix<T> new\_A;}
+\DoxyCodeLine{183     SparseMatrix<T> AeqT = Aeq.transpose();}
+\DoxyCodeLine{184     SparseMatrix<T> Z(neq,neq);}
+\DoxyCodeLine{185     \textcolor{comment}{// This is a bit slower. But why isn't cat fast?}}
+\DoxyCodeLine{186     new\_A = cat(1, cat(2,   A, AeqT ),}
+\DoxyCodeLine{187                    cat(2, Aeq,    Z ));}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189     \textcolor{comment}{// precompute RHS builders}}
+\DoxyCodeLine{190     \textcolor{keywordflow}{if}(kr > 0)}
+\DoxyCodeLine{191     \{}
+\DoxyCodeLine{192       SparseMatrix<T> Aulk,Akul;}
+\DoxyCodeLine{193       \textcolor{comment}{// Slow}}
+\DoxyCodeLine{194       slice(new\_A,data.unknown\_lagrange,data.known,Aulk);}
+\DoxyCodeLine{196       \textcolor{comment}{//data.preY = Aulk + Akul.transpose();}}
+\DoxyCodeLine{197       \textcolor{comment}{// Slow}}
+\DoxyCodeLine{198       \textcolor{keywordflow}{if}(data.Auu\_sym)}
+\DoxyCodeLine{199       \{}
+\DoxyCodeLine{200         data.preY = Aulk*2;}
+\DoxyCodeLine{201       \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{202       \{}
+\DoxyCodeLine{203         slice(new\_A,data.known,data.unknown\_lagrange,Akul);}
+\DoxyCodeLine{204         SparseMatrix<T> AkulT = Akul.transpose();}
+\DoxyCodeLine{205         data.preY = Aulk + AkulT;}
+\DoxyCodeLine{206       \}}
+\DoxyCodeLine{207     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{208     \{}
+\DoxyCodeLine{209       data.preY.resize(data.unknown\_lagrange.size(),0);}
+\DoxyCodeLine{210     \}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212     \textcolor{comment}{// Positive definite and no equality constraints (Positive definiteness}}
+\DoxyCodeLine{213     \textcolor{comment}{// implies symmetric)}}
+\DoxyCodeLine{214 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{215     cout<<\textcolor{stringliteral}{"{}    factorize"{}}<<endl;}
+\DoxyCodeLine{216 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{217     \textcolor{keywordflow}{if}(data.Auu\_pd \&\& neq == 0)}
+\DoxyCodeLine{218     \{}
+\DoxyCodeLine{219 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{220     cout<<\textcolor{stringliteral}{"{}    llt"{}}<<endl;}
+\DoxyCodeLine{221 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{222       data.llt.compute(Auu);}
+\DoxyCodeLine{223       \textcolor{keywordflow}{switch}(data.llt.info())}
+\DoxyCodeLine{224       \{}
+\DoxyCodeLine{225         \textcolor{keywordflow}{case} Eigen::Success:}
+\DoxyCodeLine{226           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{227         \textcolor{keywordflow}{case} Eigen::NumericalIssue:}
+\DoxyCodeLine{228           cerr<<\textcolor{stringliteral}{"{}Error: Numerical issue."{}}<<endl;}
+\DoxyCodeLine{229           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{230         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{231           cerr<<\textcolor{stringliteral}{"{}Error: Other."{}}<<endl;}
+\DoxyCodeLine{232           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{233       \}}
+\DoxyCodeLine{234       data.solver\_type = min\_quad\_with\_fixed\_data<T>::LLT;}
+\DoxyCodeLine{235     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{236     \{}
+\DoxyCodeLine{237 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{238     cout<<\textcolor{stringliteral}{"{}    ldlt"{}}<<endl;}
+\DoxyCodeLine{239 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{240       \textcolor{comment}{// Either not PD or there are equality constraints}}
+\DoxyCodeLine{241       SparseMatrix<T> NA;}
+\DoxyCodeLine{242       slice(new\_A,data.unknown\_lagrange,data.unknown\_lagrange,NA);}
+\DoxyCodeLine{243       data.NA = NA;}
+\DoxyCodeLine{244       \textcolor{comment}{// Ideally we'd use LDLT but Eigen doesn't support positive semi-\/definite}}
+\DoxyCodeLine{245       \textcolor{comment}{// matrices:}}
+\DoxyCodeLine{246       \textcolor{comment}{// http://forum.kde.org/viewtopic.php?f=74\&t=106962\&p=291990\#p291990}}
+\DoxyCodeLine{247       \textcolor{keywordflow}{if}(data.Auu\_sym \&\& \textcolor{keyword}{false})}
+\DoxyCodeLine{248       \{}
+\DoxyCodeLine{249         data.ldlt.compute(NA);}
+\DoxyCodeLine{250         \textcolor{keywordflow}{switch}(data.ldlt.info())}
+\DoxyCodeLine{251         \{}
+\DoxyCodeLine{252           \textcolor{keywordflow}{case} Eigen::Success:}
+\DoxyCodeLine{253             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{254           \textcolor{keywordflow}{case} Eigen::NumericalIssue:}
+\DoxyCodeLine{255             cerr<<\textcolor{stringliteral}{"{}Error: Numerical issue."{}}<<endl;}
+\DoxyCodeLine{256             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{257           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{258             cerr<<\textcolor{stringliteral}{"{}Error: Other."{}}<<endl;}
+\DoxyCodeLine{259             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{260         \}}
+\DoxyCodeLine{261         data.solver\_type = min\_quad\_with\_fixed\_data<T>::LDLT;}
+\DoxyCodeLine{262       \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{263       \{}
+\DoxyCodeLine{264 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{265     cout<<\textcolor{stringliteral}{"{}    lu"{}}<<endl;}
+\DoxyCodeLine{266 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{267         \textcolor{comment}{// Resort to LU}}
+\DoxyCodeLine{268         \textcolor{comment}{// Bottleneck >1/2}}
+\DoxyCodeLine{269         data.lu.compute(NA);}
+\DoxyCodeLine{270         \textcolor{comment}{//std::cout<<"{}NA=["{}<<std::endl<<NA<<std::endl<<"{}];"{}<<std::endl;}}
+\DoxyCodeLine{271         \textcolor{keywordflow}{switch}(data.lu.info())}
+\DoxyCodeLine{272         \{}
+\DoxyCodeLine{273           \textcolor{keywordflow}{case} Eigen::Success:}
+\DoxyCodeLine{274             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{275           \textcolor{keywordflow}{case} Eigen::NumericalIssue:}
+\DoxyCodeLine{276             cerr<<\textcolor{stringliteral}{"{}Error: Numerical issue."{}}<<endl;}
+\DoxyCodeLine{277             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{278           \textcolor{keywordflow}{case} Eigen::InvalidInput:}
+\DoxyCodeLine{279             cerr<<\textcolor{stringliteral}{"{}Error: Invalid Input."{}}<<endl;}
+\DoxyCodeLine{280             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{281           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{282             cerr<<\textcolor{stringliteral}{"{}Error: Other."{}}<<endl;}
+\DoxyCodeLine{283             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{284         \}}
+\DoxyCodeLine{285         data.solver\_type = min\_quad\_with\_fixed\_data<T>::LU;}
+\DoxyCodeLine{286       \}}
+\DoxyCodeLine{287     \}}
+\DoxyCodeLine{288   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{289   \{}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{291     cout<<\textcolor{stringliteral}{"{}    Aeq\_li=false"{}}<<endl;}
+\DoxyCodeLine{292 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{293     data.neq = neq;}
+\DoxyCodeLine{294     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nu = data.unknown.size();}
+\DoxyCodeLine{295     \textcolor{comment}{//cout<<"{}nu: "{}<<nu<<endl;}}
+\DoxyCodeLine{296     \textcolor{comment}{//cout<<"{}neq: "{}<<neq<<endl;}}
+\DoxyCodeLine{297     \textcolor{comment}{//cout<<"{}nc: "{}<<nc<<endl;}}
+\DoxyCodeLine{298     \textcolor{comment}{//cout<<"{}    matrixR"{}<<endl;}}
+\DoxyCodeLine{299     SparseMatrix<T> AeqTR,AeqTQ;}
+\DoxyCodeLine{300     AeqTR = data.AeqTQR.matrixR();}
+\DoxyCodeLine{301     \textcolor{comment}{// This shouldn't be necessary}}
+\DoxyCodeLine{302     AeqTR.prune(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(0.0));}
+\DoxyCodeLine{303 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{304     cout<<\textcolor{stringliteral}{"{}    matrixQ"{}}<<endl;}
+\DoxyCodeLine{305 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{306     \textcolor{comment}{// THIS IS ESSENTIALLY DENSE AND THIS IS BY FAR THE BOTTLENECK}}
+\DoxyCodeLine{307     \textcolor{comment}{// http://forum.kde.org/viewtopic.php?f=74\&t=117500}}
+\DoxyCodeLine{308     AeqTQ = data.AeqTQR.matrixQ();}
+\DoxyCodeLine{309 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{310     cout<<\textcolor{stringliteral}{"{}    prune"{}}<<endl;}
+\DoxyCodeLine{311     cout<<\textcolor{stringliteral}{"{}      nnz: "{}}<<AeqTQ.nonZeros()<<endl;}
+\DoxyCodeLine{312 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{313     \textcolor{comment}{// This shouldn't be necessary}}
+\DoxyCodeLine{314     AeqTQ.prune(\textcolor{keyword}{static\_cast<}T\textcolor{keyword}{>}(0.0));}
+\DoxyCodeLine{315     \textcolor{comment}{//cout<<"{}AeqTQ: "{}<<AeqTQ.rows()<<"{} "{}<<AeqTQ.cols()<<endl;}}
+\DoxyCodeLine{316     \textcolor{comment}{//cout<<matlab\_format(AeqTQ,"{}AeqTQ"{})<<endl;}}
+\DoxyCodeLine{317     \textcolor{comment}{//cout<<"{}    perms"{}<<endl;}}
+\DoxyCodeLine{318 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{319     cout<<\textcolor{stringliteral}{"{}      nnz: "{}}<<AeqTQ.nonZeros()<<endl;}
+\DoxyCodeLine{320     cout<<\textcolor{stringliteral}{"{}    perm"{}}<<endl;}
+\DoxyCodeLine{321 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{322     SparseMatrix<T> I(neq,neq);}
+\DoxyCodeLine{323     I.setIdentity();}
+\DoxyCodeLine{324     data.AeqTE = data.AeqTQR.colsPermutation() * I;}
+\DoxyCodeLine{325     data.AeqTET = data.AeqTQR.colsPermutation().transpose() * I;}
+\DoxyCodeLine{326     assert(AeqTR.rows() == nu   \&\& \textcolor{stringliteral}{"{}\#rows in AeqTR should match \#unknowns"{}});}
+\DoxyCodeLine{327     assert(AeqTR.cols() == neq  \&\& \textcolor{stringliteral}{"{}\#cols in AeqTR should match \#constraints"{}});}
+\DoxyCodeLine{328     assert(AeqTQ.rows() == nu \&\& \textcolor{stringliteral}{"{}\#rows in AeqTQ should match \#unknowns"{}});}
+\DoxyCodeLine{329     assert(AeqTQ.cols() == nu \&\& \textcolor{stringliteral}{"{}\#cols in AeqTQ should match \#unknowns"{}});}
+\DoxyCodeLine{330     \textcolor{comment}{//cout<<"{}    slice"{}<<endl;}}
+\DoxyCodeLine{331 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{332     cout<<\textcolor{stringliteral}{"{}    slice"{}}<<endl;}
+\DoxyCodeLine{333 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{334     data.AeqTQ1 = AeqTQ.topLeftCorner(nu,nc);}
+\DoxyCodeLine{335     data.AeqTQ1T = data.AeqTQ1.transpose().eval();}
+\DoxyCodeLine{336     \textcolor{comment}{// ALREADY TRIM (Not 100\% sure about this)}}
+\DoxyCodeLine{337     data.AeqTR1 = AeqTR.topLeftCorner(nc,nc);}
+\DoxyCodeLine{338     data.AeqTR1T = data.AeqTR1.transpose().eval();}
+\DoxyCodeLine{339     \textcolor{comment}{//cout<<"{}AeqTR1T.size() "{}<<data.AeqTR1T.rows()<<"{} "{}<<data.AeqTR1T.cols()<<endl;}}
+\DoxyCodeLine{340     \textcolor{comment}{// Null space}}
+\DoxyCodeLine{341     data.AeqTQ2 = AeqTQ.bottomRightCorner(nu,nu-\/nc);}
+\DoxyCodeLine{342     data.AeqTQ2T = data.AeqTQ2.transpose().eval();}
+\DoxyCodeLine{343 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{344     cout<<\textcolor{stringliteral}{"{}    proj"{}}<<endl;}
+\DoxyCodeLine{345 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{346     \textcolor{comment}{// Projected hessian}}
+\DoxyCodeLine{347     SparseMatrix<T> QRAuu = data.AeqTQ2T * Auu * data.AeqTQ2;}
+\DoxyCodeLine{348     \{}
+\DoxyCodeLine{349 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{350       cout<<\textcolor{stringliteral}{"{}    factorize"{}}<<endl;}
+\DoxyCodeLine{351 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{352       \textcolor{comment}{// QRAuu should always be PD}}
+\DoxyCodeLine{353       data.llt.compute(QRAuu);}
+\DoxyCodeLine{354       \textcolor{keywordflow}{switch}(data.llt.info())}
+\DoxyCodeLine{355       \{}
+\DoxyCodeLine{356         \textcolor{keywordflow}{case} Eigen::Success:}
+\DoxyCodeLine{357           \textcolor{keywordflow}{break};}
+\DoxyCodeLine{358         \textcolor{keywordflow}{case} Eigen::NumericalIssue:}
+\DoxyCodeLine{359           cerr<<\textcolor{stringliteral}{"{}Error: Numerical issue."{}}<<endl;}
+\DoxyCodeLine{360           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{361         \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{362           cerr<<\textcolor{stringliteral}{"{}Error: Other."{}}<<endl;}
+\DoxyCodeLine{363           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{364       \}}
+\DoxyCodeLine{365       data.solver\_type = min\_quad\_with\_fixed\_data<T>::QR\_LLT;}
+\DoxyCodeLine{366     \}}
+\DoxyCodeLine{367 \textcolor{preprocessor}{\#ifdef MIN\_QUAD\_WITH\_FIXED\_CPP\_DEBUG}}
+\DoxyCodeLine{368     cout<<\textcolor{stringliteral}{"{}    smash"{}}<<endl;}
+\DoxyCodeLine{369 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{370     \textcolor{comment}{// Known value multiplier}}
+\DoxyCodeLine{371     SparseMatrix<T> Auk;}
+\DoxyCodeLine{372     slice(A,data.unknown,data.known,Auk);}
+\DoxyCodeLine{373     SparseMatrix<T> Aku;}
+\DoxyCodeLine{374     slice(A,data.known,data.unknown,Aku);}
+\DoxyCodeLine{375     SparseMatrix<T> AkuT = Aku.transpose();}
+\DoxyCodeLine{376     data.preY = Auk + AkuT;}
+\DoxyCodeLine{377     \textcolor{comment}{// Needed during solve}}
+\DoxyCodeLine{378     data.Auu = Auu;}
+\DoxyCodeLine{379     slice(Aeq,data.known,2,data.Aeqk);}
+\DoxyCodeLine{380     assert(data.Aeqk.rows() == neq);}
+\DoxyCodeLine{381     assert(data.Aeqk.cols() == data.known.size());}
+\DoxyCodeLine{382   \}}
+\DoxyCodeLine{383   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{384 \}}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{386 }
+\DoxyCodeLine{387 \textcolor{keyword}{template} <}
+\DoxyCodeLine{388   \textcolor{keyword}{typename} T,}
+\DoxyCodeLine{389   \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{390   \textcolor{keyword}{typename} DerivedY,}
+\DoxyCodeLine{391   \textcolor{keyword}{typename} DerivedBeq,}
+\DoxyCodeLine{392   \textcolor{keyword}{typename} DerivedZ,}
+\DoxyCodeLine{393   \textcolor{keyword}{typename} Derivedsol>}
+\DoxyCodeLine{394 IGL\_INLINE \textcolor{keywordtype}{bool} igl::min\_quad\_with\_fixed\_solve(}
+\DoxyCodeLine{395   \textcolor{keyword}{const} min\_quad\_with\_fixed\_data<T> \& data,}
+\DoxyCodeLine{396   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{397   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedY> \& Y,}
+\DoxyCodeLine{398   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedBeq> \& Beq,}
+\DoxyCodeLine{399   Eigen::PlainObjectBase<DerivedZ> \& Z,}
+\DoxyCodeLine{400   Eigen::PlainObjectBase<Derivedsol> \& sol)}
+\DoxyCodeLine{401 \{}
+\DoxyCodeLine{402   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{403   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{404   \textcolor{keyword}{typedef} Matrix<T,Dynamic,1> VectorXT;}
+\DoxyCodeLine{405   \textcolor{keyword}{typedef} Matrix<T,Dynamic,Dynamic> MatrixXT;}
+\DoxyCodeLine{406   \textcolor{comment}{// number of known rows}}
+\DoxyCodeLine{407   \textcolor{keywordtype}{int} kr = data.known.size();}
+\DoxyCodeLine{408   \textcolor{keywordflow}{if}(kr!=0)}
+\DoxyCodeLine{409   \{}
+\DoxyCodeLine{410     assert(kr == Y.rows());}
+\DoxyCodeLine{411   \}}
+\DoxyCodeLine{412   \textcolor{comment}{// number of columns to solve}}
+\DoxyCodeLine{413   \textcolor{keywordtype}{int} cols = Y.cols();}
+\DoxyCodeLine{414   assert(B.cols() == 1 || B.cols() == cols);}
+\DoxyCodeLine{415   assert(Beq.size() == 0 || Beq.cols() == 1 || Beq.cols() == cols);}
+\DoxyCodeLine{416 }
+\DoxyCodeLine{417   \textcolor{comment}{// resize output}}
+\DoxyCodeLine{418   Z.resize(data.n,cols);}
+\DoxyCodeLine{419   \textcolor{comment}{// Set known values}}
+\DoxyCodeLine{420   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i < kr;i++)}
+\DoxyCodeLine{421   \{}
+\DoxyCodeLine{422     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j < cols;j++)}
+\DoxyCodeLine{423     \{}
+\DoxyCodeLine{424       Z(data.known(i),j) = Y(i,j);}
+\DoxyCodeLine{425     \}}
+\DoxyCodeLine{426   \}}
+\DoxyCodeLine{427 }
+\DoxyCodeLine{428   \textcolor{keywordflow}{if}(data.Aeq\_li)}
+\DoxyCodeLine{429   \{}
+\DoxyCodeLine{430     \textcolor{comment}{// number of lagrange multipliers aka linear equality constraints}}
+\DoxyCodeLine{431     \textcolor{keywordtype}{int} neq = data.lagrange.size();}
+\DoxyCodeLine{432     \textcolor{comment}{// append lagrange multiplier rhs's}}
+\DoxyCodeLine{433     MatrixXT BBeq(B.rows() + Beq.rows(),cols);}
+\DoxyCodeLine{434     \textcolor{keywordflow}{if}(B.size() > 0)}
+\DoxyCodeLine{435     \{}
+\DoxyCodeLine{436       BBeq.topLeftCorner(B.rows(),cols) = B.replicate(1,B.cols()==cols?1:cols);}
+\DoxyCodeLine{437     \}}
+\DoxyCodeLine{438     \textcolor{keywordflow}{if}(Beq.size() > 0)}
+\DoxyCodeLine{439     \{}
+\DoxyCodeLine{440       BBeq.bottomLeftCorner(Beq.rows(),cols) = -\/2.0*Beq.replicate(1,Beq.cols()==cols?1:cols);}
+\DoxyCodeLine{441     \}}
+\DoxyCodeLine{442 }
+\DoxyCodeLine{443     \textcolor{comment}{// Build right hand side}}
+\DoxyCodeLine{444     MatrixXT BBequlcols;}
+\DoxyCodeLine{445     igl::slice(BBeq,data.unknown\_lagrange,1,BBequlcols);}
+\DoxyCodeLine{446     MatrixXT NB;}
+\DoxyCodeLine{447     \textcolor{keywordflow}{if}(kr == 0)}
+\DoxyCodeLine{448     \{}
+\DoxyCodeLine{449       NB = BBequlcols;}
+\DoxyCodeLine{450     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{451     \{}
+\DoxyCodeLine{452       NB = data.preY * Y + BBequlcols;}
+\DoxyCodeLine{453     \}}
+\DoxyCodeLine{454 }
+\DoxyCodeLine{455     \textcolor{comment}{//std::cout<<"{}NB=["{}<<std::endl<<NB<<std::endl<<"{}];"{}<<std::endl;}}
+\DoxyCodeLine{456     \textcolor{comment}{//cout<<matlab\_format(NB,"{}NB"{})<<endl;}}
+\DoxyCodeLine{457     \textcolor{keywordflow}{switch}(data.solver\_type)}
+\DoxyCodeLine{458     \{}
+\DoxyCodeLine{459       \textcolor{keywordflow}{case} \mbox{\hyperlink{structigl_1_1min__quad__with__fixed__data}{igl::min\_quad\_with\_fixed\_data<T>::LLT}}:}
+\DoxyCodeLine{460         sol = data.llt.solve(NB);}
+\DoxyCodeLine{461         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{462       \textcolor{keywordflow}{case} \mbox{\hyperlink{structigl_1_1min__quad__with__fixed__data}{igl::min\_quad\_with\_fixed\_data<T>::LDLT}}:}
+\DoxyCodeLine{463         sol = data.ldlt.solve(NB);}
+\DoxyCodeLine{464         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{465       \textcolor{keywordflow}{case} \mbox{\hyperlink{structigl_1_1min__quad__with__fixed__data}{igl::min\_quad\_with\_fixed\_data<T>::LU}}:}
+\DoxyCodeLine{466         \textcolor{comment}{// Not a bottleneck}}
+\DoxyCodeLine{467         sol = data.lu.solve(NB);}
+\DoxyCodeLine{468         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{469       \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{470         cerr<<\textcolor{stringliteral}{"{}Error: invalid solver type"{}}<<endl;}
+\DoxyCodeLine{471         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{472     \}}
+\DoxyCodeLine{473     \textcolor{comment}{//std::cout<<"{}sol=["{}<<std::endl<<sol<<std::endl<<"{}];"{}<<std::endl;}}
+\DoxyCodeLine{474     \textcolor{comment}{// Now sol contains sol/-\/0.5}}
+\DoxyCodeLine{475     sol *= -\/0.5;}
+\DoxyCodeLine{476     \textcolor{comment}{// Now sol contains solution}}
+\DoxyCodeLine{477     \textcolor{comment}{// Place solution in Z}}
+\DoxyCodeLine{478     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<(sol.rows()-\/neq);i++)}
+\DoxyCodeLine{479     \{}
+\DoxyCodeLine{480       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<sol.cols();j++)}
+\DoxyCodeLine{481       \{}
+\DoxyCodeLine{482         Z(data.unknown\_lagrange(i),j) = sol(i,j);}
+\DoxyCodeLine{483       \}}
+\DoxyCodeLine{484     \}}
+\DoxyCodeLine{485   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{486   \{}
+\DoxyCodeLine{487     assert(data.solver\_type == min\_quad\_with\_fixed\_data<T>::QR\_LLT);}
+\DoxyCodeLine{488     MatrixXT eff\_Beq;}
+\DoxyCodeLine{489     \textcolor{comment}{// Adjust Aeq rhs to include known parts}}
+\DoxyCodeLine{490     eff\_Beq =}
+\DoxyCodeLine{491       \textcolor{comment}{//data.AeqTQR.colsPermutation().transpose() * (-\/data.Aeqk * Y + Beq);}}
+\DoxyCodeLine{492       data.AeqTET * (-\/data.Aeqk * Y + Beq.replicate(1,Beq.cols()==cols?1:cols));}
+\DoxyCodeLine{493     \textcolor{comment}{// Where did this -\/0.5 come from? Probably the same place as above.}}
+\DoxyCodeLine{494     MatrixXT Bu;}
+\DoxyCodeLine{495     slice(B,data.unknown,1,Bu);}
+\DoxyCodeLine{496     MatrixXT NB;}
+\DoxyCodeLine{497     NB = -\/0.5*(Bu.replicate(1,B.cols()==cols?1:cols) + data.preY * Y);}
+\DoxyCodeLine{498     \textcolor{comment}{// Trim eff\_Beq}}
+\DoxyCodeLine{499     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nc = data.AeqTQR.rank();}
+\DoxyCodeLine{500     \textcolor{keyword}{const} \textcolor{keywordtype}{int} neq = Beq.rows();}
+\DoxyCodeLine{501     eff\_Beq = eff\_Beq.topLeftCorner(nc,cols).eval();}
+\DoxyCodeLine{502     data.AeqTR1T.template triangularView<Lower>().solveInPlace(eff\_Beq);}
+\DoxyCodeLine{503     \textcolor{comment}{// Now eff\_Beq = (data.AeqTR1T \(\backslash\) (data.AeqTET * (-\/data.Aeqk * Y + Beq)))}}
+\DoxyCodeLine{504     MatrixXT lambda\_0;}
+\DoxyCodeLine{505     lambda\_0 = data.AeqTQ1 * eff\_Beq;}
+\DoxyCodeLine{506     \textcolor{comment}{//cout<<matlab\_format(lambda\_0,"{}lambda\_0"{})<<endl;}}
+\DoxyCodeLine{507     MatrixXT QRB;}
+\DoxyCodeLine{508     QRB = -\/data.AeqTQ2T * (data.Auu * lambda\_0) + data.AeqTQ2T * NB;}
+\DoxyCodeLine{509     Derivedsol lambda;}
+\DoxyCodeLine{510     lambda = data.llt.solve(QRB);}
+\DoxyCodeLine{511     \textcolor{comment}{// prepare output}}
+\DoxyCodeLine{512     Derivedsol solu;}
+\DoxyCodeLine{513     solu = data.AeqTQ2 * lambda + lambda\_0;}
+\DoxyCodeLine{514     \textcolor{comment}{//  http://www.math.uh.edu/\string~rohop/fall\_06/Chapter3.pdf}}
+\DoxyCodeLine{515     Derivedsol solLambda;}
+\DoxyCodeLine{516     \{}
+\DoxyCodeLine{517       Derivedsol temp1,temp2;}
+\DoxyCodeLine{518       temp1 = (data.AeqTQ1T * NB -\/ data.AeqTQ1T * data.Auu * solu);}
+\DoxyCodeLine{519       data.AeqTR1.template triangularView<Upper>().solveInPlace(temp1);}
+\DoxyCodeLine{520       \textcolor{comment}{//cout<<matlab\_format(temp1,"{}temp1"{})<<endl;}}
+\DoxyCodeLine{521       temp2 = Derivedsol::Zero(neq,cols);}
+\DoxyCodeLine{522       temp2.topLeftCorner(nc,cols) = temp1;}
+\DoxyCodeLine{523       \textcolor{comment}{//solLambda = data.AeqTQR.colsPermutation() * temp2;}}
+\DoxyCodeLine{524       solLambda = data.AeqTE * temp2;}
+\DoxyCodeLine{525     \}}
+\DoxyCodeLine{526     \textcolor{comment}{// sol is [Z(unknown);Lambda]}}
+\DoxyCodeLine{527     assert(data.unknown.size() == solu.rows());}
+\DoxyCodeLine{528     assert(cols == solu.cols());}
+\DoxyCodeLine{529     assert(data.neq == neq);}
+\DoxyCodeLine{530     assert(data.neq == solLambda.rows());}
+\DoxyCodeLine{531     assert(cols == solLambda.cols());}
+\DoxyCodeLine{532     sol.resize(data.unknown.size()+data.neq,cols);}
+\DoxyCodeLine{533     sol.block(0,0,solu.rows(),solu.cols()) = solu;}
+\DoxyCodeLine{534     sol.block(solu.rows(),0,solLambda.rows(),solLambda.cols()) = solLambda;}
+\DoxyCodeLine{535     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} u = 0;u<data.unknown.size();u++)}
+\DoxyCodeLine{536     \{}
+\DoxyCodeLine{537       \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<Z.cols();j++)}
+\DoxyCodeLine{538       \{}
+\DoxyCodeLine{539         Z(data.unknown(u),j) = solu(u,j);}
+\DoxyCodeLine{540       \}}
+\DoxyCodeLine{541     \}}
+\DoxyCodeLine{542   \}}
+\DoxyCodeLine{543   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{544 \}}
+\DoxyCodeLine{545 }
+\DoxyCodeLine{546 \textcolor{keyword}{template} <}
+\DoxyCodeLine{547   \textcolor{keyword}{typename} T,}
+\DoxyCodeLine{548   \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{549   \textcolor{keyword}{typename} DerivedY,}
+\DoxyCodeLine{550   \textcolor{keyword}{typename} DerivedBeq,}
+\DoxyCodeLine{551   \textcolor{keyword}{typename} DerivedZ>}
+\DoxyCodeLine{552 IGL\_INLINE \textcolor{keywordtype}{bool} igl::min\_quad\_with\_fixed\_solve(}
+\DoxyCodeLine{553   \textcolor{keyword}{const} min\_quad\_with\_fixed\_data<T> \& data,}
+\DoxyCodeLine{554   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{555   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedY> \& Y,}
+\DoxyCodeLine{556   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedBeq> \& Beq,}
+\DoxyCodeLine{557   Eigen::PlainObjectBase<DerivedZ> \& Z)}
+\DoxyCodeLine{558 \{}
+\DoxyCodeLine{559   Eigen::Matrix<typename DerivedZ::Scalar, Eigen::Dynamic, Eigen::Dynamic> sol;}
+\DoxyCodeLine{560   \textcolor{keywordflow}{return} min\_quad\_with\_fixed\_solve(data,B,Y,Beq,Z,sol);}
+\DoxyCodeLine{561 \}}
+\DoxyCodeLine{562 }
+\DoxyCodeLine{563 \textcolor{keyword}{template} <}
+\DoxyCodeLine{564   \textcolor{keyword}{typename} T,}
+\DoxyCodeLine{565   \textcolor{keyword}{typename} Derivedknown,}
+\DoxyCodeLine{566   \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{567   \textcolor{keyword}{typename} DerivedY,}
+\DoxyCodeLine{568   \textcolor{keyword}{typename} DerivedBeq,}
+\DoxyCodeLine{569   \textcolor{keyword}{typename} DerivedZ>}
+\DoxyCodeLine{570 IGL\_INLINE \textcolor{keywordtype}{bool} igl::min\_quad\_with\_fixed(}
+\DoxyCodeLine{571   \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& A,}
+\DoxyCodeLine{572   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedB> \& B,}
+\DoxyCodeLine{573   \textcolor{keyword}{const} Eigen::MatrixBase<Derivedknown> \& known,}
+\DoxyCodeLine{574   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedY> \& Y,}
+\DoxyCodeLine{575   \textcolor{keyword}{const} Eigen::SparseMatrix<T>\& Aeq,}
+\DoxyCodeLine{576   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedBeq> \& Beq,}
+\DoxyCodeLine{577   \textcolor{keyword}{const} \textcolor{keywordtype}{bool} pd,}
+\DoxyCodeLine{578   Eigen::PlainObjectBase<DerivedZ> \& Z)}
+\DoxyCodeLine{579 \{}
+\DoxyCodeLine{580   min\_quad\_with\_fixed\_data<T> data;}
+\DoxyCodeLine{581   \textcolor{keywordflow}{if}(!min\_quad\_with\_fixed\_precompute(A,known,Aeq,pd,data))}
+\DoxyCodeLine{582   \{}
+\DoxyCodeLine{583     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{584   \}}
+\DoxyCodeLine{585   \textcolor{keywordflow}{return} min\_quad\_with\_fixed\_solve(data,B,Y,Beq,Z);}
+\DoxyCodeLine{586 \}}
+\DoxyCodeLine{587 }
+\DoxyCodeLine{588 }
+\DoxyCodeLine{589 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} m, \textcolor{keywordtype}{bool} Hpd>}
+\DoxyCodeLine{590 IGL\_INLINE Eigen::Matrix<Scalar,n,1> igl::min\_quad\_with\_fixed(}
+\DoxyCodeLine{591   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,n> \& H,}
+\DoxyCodeLine{592   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& f,}
+\DoxyCodeLine{593   \textcolor{keyword}{const} Eigen::Array<bool,n,1> \& k,}
+\DoxyCodeLine{594   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& bc,}
+\DoxyCodeLine{595   \textcolor{keyword}{const} Eigen::Matrix<Scalar,m,n> \& A,}
+\DoxyCodeLine{596   \textcolor{keyword}{const} Eigen::Matrix<Scalar,m,1> \& b)}
+\DoxyCodeLine{597 \{}
+\DoxyCodeLine{598   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_n = n == Eigen::Dynamic ? H.rows() : n;}
+\DoxyCodeLine{599   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_m = m == Eigen::Dynamic ? A.rows() : m;}
+\DoxyCodeLine{600   \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \textcolor{keywordtype}{int} nn = n == Eigen::Dynamic ? Eigen::Dynamic : n+m;}
+\DoxyCodeLine{601   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_nn = nn == Eigen::Dynamic ? dyn\_n+dyn\_m : nn;}
+\DoxyCodeLine{602   \textcolor{keywordflow}{if}(dyn\_m == 0)}
+\DoxyCodeLine{603   \{}
+\DoxyCodeLine{604     \textcolor{keywordflow}{return} igl::min\_quad\_with\_fixed<Scalar,n,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{605   \}}
+\DoxyCodeLine{606   \textcolor{comment}{// min\_x ½ xᵀ H x + xᵀ f   subject to A x = b and x(k) = bc(k)}}
+\DoxyCodeLine{607   \textcolor{comment}{// let zᵀ = [xᵀ λᵀ]}}
+\DoxyCodeLine{608   \textcolor{comment}{// min\_z ½ zᵀ [H Aᵀ;A 0] z + zᵀ [f;-\/b]   z(k) = bc(k)}}
+\DoxyCodeLine{609   \textcolor{keyword}{const} \textcolor{keyword}{auto} make\_HH = [\&]()}
+\DoxyCodeLine{610   \{}
+\DoxyCodeLine{611     \textcolor{comment}{// Windows can't remember that nn is const.}}
+\DoxyCodeLine{612     \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \textcolor{keywordtype}{int} nn = n == Eigen::Dynamic ? Eigen::Dynamic : n+m;}
+\DoxyCodeLine{613     Eigen::Matrix<Scalar,nn,nn> HH =}
+\DoxyCodeLine{614       Eigen::Matrix<Scalar,nn,nn>::Zero(dyn\_nn,dyn\_nn);}
+\DoxyCodeLine{615     HH.topLeftCorner(dyn\_n,dyn\_n) = H;}
+\DoxyCodeLine{616     HH.bottomLeftCorner(dyn\_m,dyn\_n) = A;}
+\DoxyCodeLine{617     HH.topRightCorner(dyn\_n,dyn\_m) = A.transpose();}
+\DoxyCodeLine{618     \textcolor{keywordflow}{return} HH;}
+\DoxyCodeLine{619   \};}
+\DoxyCodeLine{620   \textcolor{keyword}{const} Eigen::Matrix<Scalar,nn,nn> HH = make\_HH();}
+\DoxyCodeLine{621   \textcolor{keyword}{const} \textcolor{keyword}{auto} make\_ff  = [\&]()}
+\DoxyCodeLine{622   \{}
+\DoxyCodeLine{623     \textcolor{comment}{// Windows can't remember that nn is const.}}
+\DoxyCodeLine{624     \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \textcolor{keywordtype}{int} nn = n == Eigen::Dynamic ? Eigen::Dynamic : n+m;}
+\DoxyCodeLine{625     Eigen::Matrix<Scalar,nn,1> ff(dyn\_nn);}
+\DoxyCodeLine{626     ff.head(dyn\_n) =  f;}
+\DoxyCodeLine{627     ff.tail(dyn\_m) = -\/b;}
+\DoxyCodeLine{628     \textcolor{keywordflow}{return} ff;}
+\DoxyCodeLine{629   \};}
+\DoxyCodeLine{630   \textcolor{keyword}{const} Eigen::Matrix<Scalar,nn,1> ff = make\_ff();}
+\DoxyCodeLine{631   \textcolor{keyword}{const} \textcolor{keyword}{auto} make\_kk  = [\&]()}
+\DoxyCodeLine{632   \{}
+\DoxyCodeLine{633     \textcolor{comment}{// Windows can't remember that nn is const.}}
+\DoxyCodeLine{634     \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \textcolor{keywordtype}{int} nn = n == Eigen::Dynamic ? Eigen::Dynamic : n+m;}
+\DoxyCodeLine{635     Eigen::Array<bool,nn,1> kk =}
+\DoxyCodeLine{636       Eigen::Array<bool,nn,1>::Constant(dyn\_nn,1,\textcolor{keyword}{false});}
+\DoxyCodeLine{637     kk.head(dyn\_n) =  k;}
+\DoxyCodeLine{638     \textcolor{keywordflow}{return} kk;}
+\DoxyCodeLine{639   \};}
+\DoxyCodeLine{640   \textcolor{keyword}{const} Eigen::Array<bool,nn,1> kk = make\_kk();}
+\DoxyCodeLine{641   \textcolor{keyword}{const} \textcolor{keyword}{auto} make\_bcbc= [\&]()}
+\DoxyCodeLine{642   \{}
+\DoxyCodeLine{643     \textcolor{comment}{// Windows can't remember that nn is const.}}
+\DoxyCodeLine{644     \textcolor{keyword}{constexpr} \textcolor{keyword}{const} \textcolor{keywordtype}{int} nn = n == Eigen::Dynamic ? Eigen::Dynamic : n+m;}
+\DoxyCodeLine{645     Eigen::Matrix<Scalar,nn,1> bcbc(dyn\_nn);}
+\DoxyCodeLine{646     bcbc.head(dyn\_n) =  bc;}
+\DoxyCodeLine{647     \textcolor{keywordflow}{return} bcbc;}
+\DoxyCodeLine{648   \};}
+\DoxyCodeLine{649   \textcolor{keyword}{const} Eigen::Matrix<double,nn,1> bcbc = make\_bcbc();}
+\DoxyCodeLine{650   \textcolor{keyword}{const} Eigen::Matrix<Scalar,nn,1> xx =}
+\DoxyCodeLine{651     min\_quad\_with\_fixed<Scalar,nn,false>(HH,ff,kk,bcbc);}
+\DoxyCodeLine{652   \textcolor{keywordflow}{return} xx.head(dyn\_n);}
+\DoxyCodeLine{653 \}}
+\DoxyCodeLine{654 }
+\DoxyCodeLine{655 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{bool} Hpd>}
+\DoxyCodeLine{656 IGL\_INLINE Eigen::Matrix<Scalar,n,1> igl::min\_quad\_with\_fixed(}
+\DoxyCodeLine{657   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,n> \& H,}
+\DoxyCodeLine{658   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& f,}
+\DoxyCodeLine{659   \textcolor{keyword}{const} Eigen::Array<bool,n,1> \& k,}
+\DoxyCodeLine{660   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& bc)}
+\DoxyCodeLine{661 \{}
+\DoxyCodeLine{662   assert(H.isApprox(H.transpose(),1e-\/7));}
+\DoxyCodeLine{663   assert(H.rows() == H.cols());}
+\DoxyCodeLine{664   assert(H.rows() == f.size());}
+\DoxyCodeLine{665   assert(H.rows() == k.size());}
+\DoxyCodeLine{666   assert(H.rows() == bc.size());}
+\DoxyCodeLine{667   \textcolor{keyword}{const} \textcolor{keyword}{auto} kcount = k.count();}
+\DoxyCodeLine{668   \textcolor{comment}{// Everything fixed}}
+\DoxyCodeLine{669   \textcolor{keywordflow}{if}(kcount == (Eigen::Dynamic?H.rows():n))}
+\DoxyCodeLine{670   \{}
+\DoxyCodeLine{671     \textcolor{keywordflow}{return} bc;}
+\DoxyCodeLine{672   \}}
+\DoxyCodeLine{673   \textcolor{comment}{// Nothing fixed}}
+\DoxyCodeLine{674   \textcolor{keywordflow}{if}(kcount == 0)}
+\DoxyCodeLine{675   \{}
+\DoxyCodeLine{676     \textcolor{comment}{// avoid function call}}
+\DoxyCodeLine{677     \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,n,n> MatrixSn;}
+\DoxyCodeLine{678     \textcolor{keyword}{typedef} \textcolor{keyword}{typename}}
+\DoxyCodeLine{679       std::conditional<Hpd,Eigen::LLT<MatrixSn>,Eigen::CompleteOrthogonalDecomposition<MatrixSn>>::type}
+\DoxyCodeLine{680       Solver;}
+\DoxyCodeLine{681     \textcolor{keywordflow}{return} Solver(H).solve(-\/f);}
+\DoxyCodeLine{682   \}}
+\DoxyCodeLine{683   \textcolor{comment}{// All-\/but-\/one fixed}}
+\DoxyCodeLine{684   \textcolor{keywordflow}{if}( (Eigen::Dynamic?H.rows():n)-\/kcount == 1)}
+\DoxyCodeLine{685   \{}
+\DoxyCodeLine{686     \textcolor{comment}{// which one is not fixed?}}
+\DoxyCodeLine{687     \textcolor{keywordtype}{int} u = -\/1;}
+\DoxyCodeLine{688     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<k.size();i++)\{ \textcolor{keywordflow}{if}(!k(i))\{ u=i; \textcolor{keywordflow}{break}; \} \}}
+\DoxyCodeLine{689     assert(u>=0);}
+\DoxyCodeLine{690     \textcolor{comment}{// min ½ x(u) Huu x(u) + x(u)(fu + H(u,k)bc(k))}}
+\DoxyCodeLine{691     \textcolor{comment}{// Huu x(u) = -\/(fu + H(u,k) bc(k))}}
+\DoxyCodeLine{692     \textcolor{comment}{// x(u) = (-\/fu + ∑ -\/Huj bcj)/Huu}}
+\DoxyCodeLine{693     Eigen::Matrix<Scalar,n,1> x = bc;}
+\DoxyCodeLine{694     x(u) = -\/f(u);}
+\DoxyCodeLine{695     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=0;i<k.size();i++)\{ \textcolor{keywordflow}{if}(i!=u)\{ x(u)-\/=bc(i)*H(i,u); \} \}}
+\DoxyCodeLine{696     x(u) /= H(u,u);}
+\DoxyCodeLine{697     \textcolor{keywordflow}{return} x;}
+\DoxyCodeLine{698   \}}
+\DoxyCodeLine{699   \textcolor{comment}{// Alec: Is there a smart template way to do this?}}
+\DoxyCodeLine{700   \textcolor{comment}{// jdumas: I guess you could do a templated for-\/loop starting from 16, and}}
+\DoxyCodeLine{701   \textcolor{comment}{// dispatching to the appropriate templated function when the argument matches}}
+\DoxyCodeLine{702   \textcolor{comment}{// (with a fallback to the dynamic version). Cf this example:}}
+\DoxyCodeLine{703   \textcolor{comment}{// https://gist.github.com/disconnect3d/13c2d035bb31b244df14}}
+\DoxyCodeLine{704   \textcolor{keywordflow}{switch}(kcount)}
+\DoxyCodeLine{705   \{}
+\DoxyCodeLine{706     \textcolor{keywordflow}{case} 0: assert(\textcolor{keyword}{false} \&\& \textcolor{stringliteral}{"{}Handled above."{}}); \textcolor{keywordflow}{return} Eigen::Matrix<Scalar,n,1>();}
+\DoxyCodeLine{707     \textcolor{comment}{// \% Matlibberish for generating these case statements:}}
+\DoxyCodeLine{708     \textcolor{comment}{// maxi=16;for i=1:maxi;fprintf('    case \%d:\(\backslash\)n    \{\(\backslash\)n     const bool D = (n-\/\%d<=0)||(\%d>=n)||(n>\%d);\(\backslash\)n     return min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:\%d,Hpd>(H,f,k,bc);\(\backslash\)n    \}\(\backslash\)n',[i i i maxi i]);end}}
+\DoxyCodeLine{709     \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{710     \{}
+\DoxyCodeLine{711      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/1<=0)||(1>=n)||(n>16);}
+\DoxyCodeLine{712      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:1,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{713     \}}
+\DoxyCodeLine{714     \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{715     \{}
+\DoxyCodeLine{716      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/2<=0)||(2>=n)||(n>16);}
+\DoxyCodeLine{717      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:2,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{718     \}}
+\DoxyCodeLine{719     \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{720     \{}
+\DoxyCodeLine{721      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/3<=0)||(3>=n)||(n>16);}
+\DoxyCodeLine{722      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:3,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{723     \}}
+\DoxyCodeLine{724     \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{725     \{}
+\DoxyCodeLine{726      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/4<=0)||(4>=n)||(n>16);}
+\DoxyCodeLine{727      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:4,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{728     \}}
+\DoxyCodeLine{729     \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{730     \{}
+\DoxyCodeLine{731      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/5<=0)||(5>=n)||(n>16);}
+\DoxyCodeLine{732      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:5,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{733     \}}
+\DoxyCodeLine{734     \textcolor{keywordflow}{case} 6:}
+\DoxyCodeLine{735     \{}
+\DoxyCodeLine{736      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/6<=0)||(6>=n)||(n>16);}
+\DoxyCodeLine{737      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:6,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{738     \}}
+\DoxyCodeLine{739     \textcolor{keywordflow}{case} 7:}
+\DoxyCodeLine{740     \{}
+\DoxyCodeLine{741      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/7<=0)||(7>=n)||(n>16);}
+\DoxyCodeLine{742      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:7,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{743     \}}
+\DoxyCodeLine{744     \textcolor{keywordflow}{case} 8:}
+\DoxyCodeLine{745     \{}
+\DoxyCodeLine{746      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/8<=0)||(8>=n)||(n>16);}
+\DoxyCodeLine{747      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:8,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{748     \}}
+\DoxyCodeLine{749     \textcolor{keywordflow}{case} 9:}
+\DoxyCodeLine{750     \{}
+\DoxyCodeLine{751      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/9<=0)||(9>=n)||(n>16);}
+\DoxyCodeLine{752      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:9,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{753     \}}
+\DoxyCodeLine{754     \textcolor{keywordflow}{case} 10:}
+\DoxyCodeLine{755     \{}
+\DoxyCodeLine{756      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/10<=0)||(10>=n)||(n>16);}
+\DoxyCodeLine{757      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:10,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{758     \}}
+\DoxyCodeLine{759     \textcolor{keywordflow}{case} 11:}
+\DoxyCodeLine{760     \{}
+\DoxyCodeLine{761      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/11<=0)||(11>=n)||(n>16);}
+\DoxyCodeLine{762      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:11,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{763     \}}
+\DoxyCodeLine{764     \textcolor{keywordflow}{case} 12:}
+\DoxyCodeLine{765     \{}
+\DoxyCodeLine{766      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/12<=0)||(12>=n)||(n>16);}
+\DoxyCodeLine{767      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:12,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{768     \}}
+\DoxyCodeLine{769     \textcolor{keywordflow}{case} 13:}
+\DoxyCodeLine{770     \{}
+\DoxyCodeLine{771      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/13<=0)||(13>=n)||(n>16);}
+\DoxyCodeLine{772      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:13,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{773     \}}
+\DoxyCodeLine{774     \textcolor{keywordflow}{case} 14:}
+\DoxyCodeLine{775     \{}
+\DoxyCodeLine{776      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/14<=0)||(14>=n)||(n>16);}
+\DoxyCodeLine{777      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:14,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{778     \}}
+\DoxyCodeLine{779     \textcolor{keywordflow}{case} 15:}
+\DoxyCodeLine{780     \{}
+\DoxyCodeLine{781      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/15<=0)||(15>=n)||(n>16);}
+\DoxyCodeLine{782      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:15,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{783     \}}
+\DoxyCodeLine{784     \textcolor{keywordflow}{case} 16:}
+\DoxyCodeLine{785     \{}
+\DoxyCodeLine{786      \textcolor{keyword}{const} \textcolor{keywordtype}{bool} D = (n-\/16<=0)||(16>=n)||(n>16);}
+\DoxyCodeLine{787      \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,D?Eigen::Dynamic:n,D?Eigen::Dynamic:16,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{788     \}}
+\DoxyCodeLine{789     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{790       \textcolor{keywordflow}{return} min\_quad\_with\_fixed<Scalar,Eigen::Dynamic,Eigen::Dynamic,Hpd>(H,f,k,bc);}
+\DoxyCodeLine{791   \}}
+\DoxyCodeLine{792 \}}
+\DoxyCodeLine{793 }
+\DoxyCodeLine{794 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar, \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} kcount, \textcolor{keywordtype}{bool} Hpd>}
+\DoxyCodeLine{795 IGL\_INLINE Eigen::Matrix<Scalar,n,1> igl::min\_quad\_with\_fixed(}
+\DoxyCodeLine{796   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,n> \& H,}
+\DoxyCodeLine{797   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& f,}
+\DoxyCodeLine{798   \textcolor{keyword}{const} Eigen::Array<bool,n,1> \& k,}
+\DoxyCodeLine{799   \textcolor{keyword}{const} Eigen::Matrix<Scalar,n,1> \& bc)}
+\DoxyCodeLine{800 \{}
+\DoxyCodeLine{801   \textcolor{comment}{// 0 and n should be handle outside this function}}
+\DoxyCodeLine{802   \textcolor{keyword}{static\_assert}(kcount==Eigen::Dynamic || kcount>0                  ,\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{803   \textcolor{keyword}{static\_assert}(kcount==Eigen::Dynamic || kcount<n                  ,\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{804   \textcolor{keyword}{const} \textcolor{keywordtype}{int} ucount = n==Eigen::Dynamic ? Eigen::Dynamic : n-\/kcount;}
+\DoxyCodeLine{805   \textcolor{keyword}{static\_assert}(kcount==Eigen::Dynamic || ucount+kcount == n        ,\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{806   \textcolor{keyword}{static\_assert}((n==Eigen::Dynamic) == (ucount==Eigen::Dynamic),\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{807   \textcolor{keyword}{static\_assert}((kcount==Eigen::Dynamic) == (ucount==Eigen::Dynamic),\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{808   assert((n==Eigen::Dynamic) || n == H.rows());}
+\DoxyCodeLine{809   assert((kcount==Eigen::Dynamic) || kcount == k.count());}
+\DoxyCodeLine{810   \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,ucount,ucount> MatrixSuu;}
+\DoxyCodeLine{811   \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,ucount,kcount> MatrixSuk;}
+\DoxyCodeLine{812   \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,n,1>      VectorSn;}
+\DoxyCodeLine{813   \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,ucount,1> VectorSu;}
+\DoxyCodeLine{814   \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,kcount,1> VectorSk;}
+\DoxyCodeLine{815   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_n = n==Eigen::Dynamic ? H.rows() : n;}
+\DoxyCodeLine{816   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_kcount = kcount==Eigen::Dynamic ? k.count() : kcount;}
+\DoxyCodeLine{817   \textcolor{keyword}{const} \textcolor{keyword}{auto} dyn\_ucount = ucount==Eigen::Dynamic ? dyn\_n-\/ dyn\_kcount : ucount;}
+\DoxyCodeLine{818   \textcolor{comment}{// For ucount==2 or kcount==2 this calls the coefficient initiliazer rather}}
+\DoxyCodeLine{819   \textcolor{comment}{// than the size initilizer, but I guess that's ok.}}
+\DoxyCodeLine{820   MatrixSuu Huu(dyn\_ucount,dyn\_ucount);}
+\DoxyCodeLine{821   MatrixSuk Huk(dyn\_ucount,dyn\_kcount);}
+\DoxyCodeLine{822   VectorSu mrhs(dyn\_ucount);}
+\DoxyCodeLine{823   VectorSk  bck(dyn\_kcount);}
+\DoxyCodeLine{824   \{}
+\DoxyCodeLine{825     \textcolor{keywordtype}{int} ui = 0;}
+\DoxyCodeLine{826     \textcolor{keywordtype}{int} ki = 0;}
+\DoxyCodeLine{827     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<dyn\_n;i++)}
+\DoxyCodeLine{828     \{}
+\DoxyCodeLine{829       \textcolor{keywordflow}{if}(k(i))}
+\DoxyCodeLine{830       \{}
+\DoxyCodeLine{831         bck(ki) = bc(i);}
+\DoxyCodeLine{832         ki++;}
+\DoxyCodeLine{833       \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{834       \{}
+\DoxyCodeLine{835         mrhs(ui) = f(i);}
+\DoxyCodeLine{836         \textcolor{keywordtype}{int} uj = 0;}
+\DoxyCodeLine{837         \textcolor{keywordtype}{int} kj = 0;}
+\DoxyCodeLine{838         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} j = 0;j<dyn\_n;j++)}
+\DoxyCodeLine{839         \{}
+\DoxyCodeLine{840           \textcolor{keywordflow}{if}(k(j))}
+\DoxyCodeLine{841           \{}
+\DoxyCodeLine{842             Huk(ui,kj) = H(i,j);}
+\DoxyCodeLine{843             kj++;}
+\DoxyCodeLine{844           \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{845           \{}
+\DoxyCodeLine{846             Huu(ui,uj) = H(i,j);}
+\DoxyCodeLine{847             uj++;}
+\DoxyCodeLine{848           \}}
+\DoxyCodeLine{849         \}}
+\DoxyCodeLine{850         ui++;}
+\DoxyCodeLine{851       \}}
+\DoxyCodeLine{852     \}}
+\DoxyCodeLine{853   \}}
+\DoxyCodeLine{854   mrhs += Huk * bck;}
+\DoxyCodeLine{855   \textcolor{keyword}{typedef} \textcolor{keyword}{typename}}
+\DoxyCodeLine{856     std::conditional<Hpd,}
+\DoxyCodeLine{857       Eigen::LLT<MatrixSuu>,}
+\DoxyCodeLine{858       \textcolor{comment}{// LDLT should be faster for indefinite problems but already found some}}
+\DoxyCodeLine{859       \textcolor{comment}{// cases where it was too inaccurate when called via quadprog\_primal.}}
+\DoxyCodeLine{860       \textcolor{comment}{// Ideally this function takes LLT,LDLT, or}}
+\DoxyCodeLine{861       \textcolor{comment}{// CompleteOrthogonalDecomposition as a template parameter.  "{}template}}
+\DoxyCodeLine{862       \textcolor{comment}{// template"{} parameters did work because LLT,LDLT have different number of}}
+\DoxyCodeLine{863       \textcolor{comment}{// template parameters from CompleteOrthogonalDecomposition.  Perhaps}}
+\DoxyCodeLine{864       \textcolor{comment}{// there's a way to take advantage of LLT and LDLT's default template}}
+\DoxyCodeLine{865       \textcolor{comment}{// parameters (I couldn't figure out how).}}
+\DoxyCodeLine{866       Eigen::CompleteOrthogonalDecomposition<MatrixSuu>>::type}
+\DoxyCodeLine{867     Solver;}
+\DoxyCodeLine{868   VectorSu xu = Solver(Huu).solve(-\/mrhs);}
+\DoxyCodeLine{869   VectorSn x(dyn\_n);}
+\DoxyCodeLine{870   \{}
+\DoxyCodeLine{871     \textcolor{keywordtype}{int} ui = 0;}
+\DoxyCodeLine{872     \textcolor{keywordtype}{int} ki = 0;}
+\DoxyCodeLine{873     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<dyn\_n;i++)}
+\DoxyCodeLine{874     \{}
+\DoxyCodeLine{875       \textcolor{keywordflow}{if}(k(i))}
+\DoxyCodeLine{876       \{}
+\DoxyCodeLine{877         x(i) = bck(ki);}
+\DoxyCodeLine{878         ki++;}
+\DoxyCodeLine{879       \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{880       \{}
+\DoxyCodeLine{881         x(i) = xu(ui);}
+\DoxyCodeLine{882         ui++;}
+\DoxyCodeLine{883       \}}
+\DoxyCodeLine{884     \}}
+\DoxyCodeLine{885   \}}
+\DoxyCodeLine{886   \textcolor{keywordflow}{return} x;}
+\DoxyCodeLine{887 \}}
+
+\end{DoxyCode}

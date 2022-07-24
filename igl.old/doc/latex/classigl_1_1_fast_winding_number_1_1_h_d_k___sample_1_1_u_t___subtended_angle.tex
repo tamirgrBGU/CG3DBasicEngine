@@ -1,0 +1,71 @@
+\hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{}\doxysection{igl\+::Fast\+Winding\+Number\+::HDK\+\_\+\+Sample\+::UT\+\_\+\+Subtended\+Angle\texorpdfstring{$<$}{<} T, S \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}}
+
+
+{\ttfamily \#include $<$Fast\+Winding\+Number\+For\+Soups.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_1_1_box_data}{Box\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a68059677fec9dafe51c85e7584b50707}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a68059677fec9dafe51c85e7584b50707}} 
+{\bfseries UT\+\_\+\+Subtended\+Angle} ()
+\begin{DoxyCompactList}\small\item\em This is outlined so that we don\textquotesingle{}t need to include UT\+\_\+\+BVHImpl.\+h. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a275c84325a45b156d2ba3d9595c4ee9c}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a275c84325a45b156d2ba3d9595c4ee9c}} 
+{\bfseries $\sim$\+UT\+\_\+\+Subtended\+Angle} ()
+\begin{DoxyCompactList}\small\item\em This is outlined so that we don\textquotesingle{}t need to include UT\+\_\+\+BVHImpl.\+h. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a1b9af6316c7ebb505b29f71257cd9cee}{UT\+\_\+\+Subtended\+Angle}} (const int nsegments, const int $\ast$const segment\+\_\+points, const int npoints, const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ S $>$ $\ast$const positions, const int order=2)
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_ad6b2ca6da0cdbeb464585a3d5bd0352c}{init}} (const int nsegments, const int $\ast$const segment\+\_\+points, const int npoints, const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ S $>$ $\ast$const positions, const int order=2)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a0dd575d86cde093a6a96bde080b2908c}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a0dd575d86cde093a6a96bde080b2908c}} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Frees my\+Tree and my\+Data, and clears the rest. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a01ad05dfed460b78b5713ee6bb356759}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a01ad05dfed460b78b5713ee6bb356759}} 
+bool {\bfseries is\+Clear} () const
+\begin{DoxyCompactList}\small\item\em Returns true if this is clear. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a437d3490a66618bcb6871809f807d860}{compute\+Angle}} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ T $>$ \&query\+\_\+point, const T accuracy\+\_\+scale=T(2.\+0)) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename S$>$\newline
+class igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle$<$ T, S $>$}
+Class for quickly approximating signed subtended angle of a large curve from many query points. This is useful for computing the generalized winding number at many points.
+
+NOTE\+: This is currently only instantiated for \texorpdfstring{$<$}{<}float,float\texorpdfstring{$>$}{>}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a1b9af6316c7ebb505b29f71257cd9cee}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a1b9af6316c7ebb505b29f71257cd9cee}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}!UT\_SubtendedAngle@{UT\_SubtendedAngle}}
+\index{UT\_SubtendedAngle@{UT\_SubtendedAngle}!igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{UT\_SubtendedAngle()}{UT\_SubtendedAngle()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle}}$<$ T, S $>$\+::\+UT\+\_\+\+Subtended\+Angle (\begin{DoxyParamCaption}\item[{const int}]{nsegments,  }\item[{const int $\ast$const}]{segment\+\_\+points,  }\item[{const int}]{npoints,  }\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ S $>$ $\ast$const}]{positions,  }\item[{const int}]{order = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+NOTE\+: This does not take ownership over segment\+\_\+points or positions, but does keep pointers to them, so the caller must keep them in scope for the lifetime of this structure. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a437d3490a66618bcb6871809f807d860}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_a437d3490a66618bcb6871809f807d860}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}!computeAngle@{computeAngle}}
+\index{computeAngle@{computeAngle}!igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{computeAngle()}{computeAngle()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle}}$<$ T, S $>$\+::compute\+Angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ T $>$ \&}]{query\+\_\+point,  }\item[{const T}]{accuracy\+\_\+scale = {\ttfamily T(2.0)} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns an approximation of the signed solid angle of the mesh from the specified query\+\_\+point accuracy\+\_\+scale is the value of (max\+P/q) beyond which the approximation of the box will be used. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_ad6b2ca6da0cdbeb464585a3d5bd0352c}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle_ad6b2ca6da0cdbeb464585a3d5bd0352c}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}!init@{init}}
+\index{init@{init}!igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SubtendedAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___subtended_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Subtended\+Angle}}$<$ T, S $>$\+::init (\begin{DoxyParamCaption}\item[{const int}]{nsegments,  }\item[{const int $\ast$const}]{segment\+\_\+points,  }\item[{const int}]{npoints,  }\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector2T}}$<$ S $>$ $\ast$const}]{positions,  }\item[{const int}]{order = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Initialize the tree and data. NOTE\+: It is safe to call init on a \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{UT\+\_\+\+Solid\+Angle}} that has had init called on it before, to re-\/initialize it. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/Fast\+Winding\+Number\+For\+Soups.\+h\end{DoxyCompactItemize}

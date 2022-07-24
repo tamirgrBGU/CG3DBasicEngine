@@ -1,0 +1,112 @@
+\hypertarget{tga_8h_source}{}\doxysection{tga.\+h}
+\label{tga_8h_source}\index{igl/copyleft/opengl2/tga.h@{igl/copyleft/opengl2/tga.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_TGA\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_OPENGL\_TGA\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../../opengl2/gl.h"{}}}
+\DoxyCodeLine{13 \textcolor{comment}{// See license in tga.cpp}}
+\DoxyCodeLine{14 \textcolor{comment}{/* tga.h -\/ interface for TrueVision (TGA) image file loader */}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#ifdef \_WIN32}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <windows.h>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{27   GLsizei  width;}
+\DoxyCodeLine{28   GLsizei  height;}
+\DoxyCodeLine{29   GLint    components;}
+\DoxyCodeLine{30   GLenum   format;}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32   GLsizei  cmapEntries;}
+\DoxyCodeLine{33   GLenum   cmapFormat;}
+\DoxyCodeLine{34   GLubyte *cmap;}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36   GLubyte *pixels;}
+\DoxyCodeLine{37   }
+\DoxyCodeLine{38 \} \mbox{\hyperlink{structigl_1_1opengl_1_1gli_generic_image}{gliGenericImage}};}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{41   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} idLength;}
+\DoxyCodeLine{42   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} colorMapType;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{comment}{/* The image type. */}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#define TGA\_TYPE\_MAPPED 1}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#define TGA\_TYPE\_COLOR 2}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define TGA\_TYPE\_GRAY 3}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define TGA\_TYPE\_MAPPED\_RLE 9}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define TGA\_TYPE\_COLOR\_RLE 10}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define TGA\_TYPE\_GRAY\_RLE 11}}
+\DoxyCodeLine{51   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} imageType;}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53   \textcolor{comment}{/* Color Map Specification. */}}
+\DoxyCodeLine{54   \textcolor{comment}{/* We need to separately specify high and low bytes to avoid endianness}}
+\DoxyCodeLine{55 \textcolor{comment}{     and alignment problems. */}}
+\DoxyCodeLine{56   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} colorMapIndexLo, colorMapIndexHi;}
+\DoxyCodeLine{57   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} colorMapLengthLo, colorMapLengthHi;}
+\DoxyCodeLine{58   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} colorMapSize;}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60   \textcolor{comment}{/* Image Specification. */}}
+\DoxyCodeLine{61   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} xOriginLo, xOriginHi;}
+\DoxyCodeLine{62   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} yOriginLo, yOriginHi;}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} widthLo, widthHi;}
+\DoxyCodeLine{65   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} heightLo, heightHi;}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} bpp;}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \textcolor{comment}{/* Image descriptor.}}
+\DoxyCodeLine{70 \textcolor{comment}{     3-\/0: attribute bpp}}
+\DoxyCodeLine{71 \textcolor{comment}{     4:   left-\/to-\/right ordering}}
+\DoxyCodeLine{72 \textcolor{comment}{     5:   top-\/to-\/bottom ordering}}
+\DoxyCodeLine{73 \textcolor{comment}{     7-\/6: zero}}
+\DoxyCodeLine{74 \textcolor{comment}{     */}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#define TGA\_DESC\_ABITS 0x0f}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#define TGA\_DESC\_HORIZONTAL 0x10}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#define TGA\_DESC\_VERTICAL 0x20}}
+\DoxyCodeLine{78   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} descriptor;}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \} \mbox{\hyperlink{structigl_1_1opengl_1_1_tga_header}{TgaHeader}};}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{83   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} extensionAreaOffset;}
+\DoxyCodeLine{84   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} developerDirectoryOffset;}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#define TGA\_SIGNATURE "{}TRUEVISION-\/XFILE"{}}}
+\DoxyCodeLine{86   \textcolor{keywordtype}{char} signature[16];}
+\DoxyCodeLine{87   \textcolor{keywordtype}{char} dot;}
+\DoxyCodeLine{88   \textcolor{keywordtype}{char} null;}
+\DoxyCodeLine{89 \} \mbox{\hyperlink{structigl_1_1opengl_1_1_tga_footer}{TgaFooter}};}
+\DoxyCodeLine{90 }
+\DoxyCodeLine{91 IGL\_INLINE \textcolor{keyword}{extern} \mbox{\hyperlink{structigl_1_1opengl_1_1gli_generic_image}{gliGenericImage}} *gliReadTGA(FILE *fp, \textcolor{keywordtype}{char} *name, \textcolor{keywordtype}{int} hflip, \textcolor{keywordtype}{int} vflip);}
+\DoxyCodeLine{92 IGL\_INLINE \textcolor{keywordtype}{int} gli\_verbose(\textcolor{keywordtype}{int} new\_verbose);}
+\DoxyCodeLine{93 IGL\_INLINE \textcolor{keyword}{extern} \textcolor{keywordtype}{int} gliVerbose(\textcolor{keywordtype}{int} newVerbose);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95 IGL\_INLINE \textcolor{keywordtype}{void} writeTGA( \mbox{\hyperlink{structigl_1_1opengl_1_1gli_generic_image}{gliGenericImage}}* image, FILE *fp);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98 }
+\DoxyCodeLine{99 \} \textcolor{comment}{// end of igl namespace}}
+\DoxyCodeLine{100 \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{102 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#  include "{}tga.cpp"{}}}
+\DoxyCodeLine{104 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106 \textcolor{preprocessor}{\#endif }}
+
+\end{DoxyCode}

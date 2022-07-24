@@ -1,0 +1,497 @@
+\hypertarget{_winding_number_tree_8h_source}{}\doxysection{Winding\+Number\+Tree.\+h}
+\label{_winding_number_tree_8h_source}\index{igl/WindingNumberTree.h@{igl/WindingNumberTree.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_WINDINGNUMBERTREE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_WINDINGNUMBERTREE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}WindingNumberMethod.h"{}}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Space partitioning tree for computing winding number hierarchically.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Point  type for points in space, e.g. Eigen::Vector3d}}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <}
+\DoxyCodeLine{22     \textcolor{keyword}{typename} Point,}
+\DoxyCodeLine{23     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{24     \textcolor{keyword}{typename} DerivedF >}
+\DoxyCodeLine{25   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}}}
+\DoxyCodeLine{26   \{}
+\DoxyCodeLine{27     \textcolor{keyword}{public}:}
+\DoxyCodeLine{28       \textcolor{comment}{// Method to use (see enum above)}}
+\DoxyCodeLine{29       \textcolor{comment}{//static double min\_max\_w;}}
+\DoxyCodeLine{30       \textcolor{keyword}{static} std::map< }
+\DoxyCodeLine{31         std::pair<const WindingNumberTree*,const WindingNumberTree*>, }
+\DoxyCodeLine{32         \textcolor{keyword}{typename} DerivedV::Scalar>}
+\DoxyCodeLine{33           cached;}
+\DoxyCodeLine{34       \textcolor{comment}{// This is only need to fill in references, it should never actually be touched}}
+\DoxyCodeLine{35       \textcolor{comment}{// and shouldn't cause race conditions. (This is a hack, but I think it's "{}safe"{})}}
+\DoxyCodeLine{36       \textcolor{keyword}{static} DerivedV dummyV;}
+\DoxyCodeLine{37     \textcolor{keyword}{protected}:}
+\DoxyCodeLine{38       WindingNumberMethod method;}
+\DoxyCodeLine{39       \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}} * parent;}
+\DoxyCodeLine{40       std::list<WindingNumberTree * > children;}
+\DoxyCodeLine{41       \textcolor{keyword}{typedef} }
+\DoxyCodeLine{42         Eigen::Matrix<typename DerivedV::Scalar,Eigen::Dynamic,Eigen::Dynamic>}
+\DoxyCodeLine{43         MatrixXS;}
+\DoxyCodeLine{44       \textcolor{keyword}{typedef} }
+\DoxyCodeLine{45         Eigen::Matrix<typename DerivedF::Scalar,Eigen::Dynamic,Eigen::Dynamic>}
+\DoxyCodeLine{46         MatrixXF;}
+\DoxyCodeLine{48       \textcolor{comment}{//const Eigen::MatrixXi boundary;}}
+\DoxyCodeLine{49       \textcolor{comment}{// Base mesh vertices}}
+\DoxyCodeLine{50       DerivedV \& V;}
+\DoxyCodeLine{51       \textcolor{comment}{// Base mesh vertices with duplicates removed}}
+\DoxyCodeLine{52       MatrixXS SV;}
+\DoxyCodeLine{53       \textcolor{comment}{// Facets in this bounding volume}}
+\DoxyCodeLine{54       MatrixXF F;}
+\DoxyCodeLine{55       \textcolor{comment}{// Tessellated boundary curve}}
+\DoxyCodeLine{56       MatrixXF cap;}
+\DoxyCodeLine{57       \textcolor{comment}{// Upper Bound on radius of enclosing ball}}
+\DoxyCodeLine{58       \textcolor{keyword}{typename} DerivedV::Scalar radius;}
+\DoxyCodeLine{59       \textcolor{comment}{// (Approximate) center (of mass)}}
+\DoxyCodeLine{60       Point center;}
+\DoxyCodeLine{61     \textcolor{keyword}{public}:}
+\DoxyCodeLine{62       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}}();}
+\DoxyCodeLine{63       \textcolor{comment}{// For root}}
+\DoxyCodeLine{64       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}}(}
+\DoxyCodeLine{65         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{66         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{67       \textcolor{comment}{// For chilluns }}
+\DoxyCodeLine{68       \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}}(}
+\DoxyCodeLine{69         \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree<Point,DerivedV,DerivedF>}} \& parent,}
+\DoxyCodeLine{70         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{71       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{\string~WindingNumberTree}}();}
+\DoxyCodeLine{72       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} delete\_children();}
+\DoxyCodeLine{73       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} set\_mesh(}
+\DoxyCodeLine{74         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{75         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F);}
+\DoxyCodeLine{76       \textcolor{comment}{// Set method}}
+\DoxyCodeLine{77       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} set\_method( \textcolor{keyword}{const} WindingNumberMethod \& m);}
+\DoxyCodeLine{78     \textcolor{keyword}{public}:}
+\DoxyCodeLine{79       \textcolor{keyword}{inline} \textcolor{keyword}{const} DerivedV \& getV() \textcolor{keyword}{const};}
+\DoxyCodeLine{80       \textcolor{keyword}{inline} \textcolor{keyword}{const} MatrixXF \& getF() \textcolor{keyword}{const};}
+\DoxyCodeLine{81       \textcolor{keyword}{inline} \textcolor{keyword}{const} MatrixXF \& getcap() \textcolor{keyword}{const};}
+\DoxyCodeLine{82       \textcolor{comment}{// Grow the Tree recursively}}
+\DoxyCodeLine{83       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} grow();}
+\DoxyCodeLine{84       \textcolor{comment}{// Determine whether a given point is inside the bounding }}
+\DoxyCodeLine{85       \textcolor{comment}{//}}
+\DoxyCodeLine{86       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{87       \textcolor{comment}{//   p  query point }}
+\DoxyCodeLine{88       \textcolor{comment}{// Returns true if the point p is inside this bounding volume}}
+\DoxyCodeLine{89       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} inside(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{90       \textcolor{comment}{// Compute the (partial) winding number of a given point p}}
+\DoxyCodeLine{91       \textcolor{comment}{// According to method}}
+\DoxyCodeLine{92       \textcolor{comment}{//  }}
+\DoxyCodeLine{93       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{94       \textcolor{comment}{//   p  query point }}
+\DoxyCodeLine{95       \textcolor{comment}{// Returns winding number }}
+\DoxyCodeLine{96       \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar winding\_number(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{97       \textcolor{comment}{// Same as above, but always computes winding number using exact method}}
+\DoxyCodeLine{98       \textcolor{comment}{// (sum over every facet)}}
+\DoxyCodeLine{99       \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar winding\_number\_all(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{100       \textcolor{comment}{// Same as above, but always computes using sum over tessllated boundary}}
+\DoxyCodeLine{101       \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar winding\_number\_boundary(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{111       \textcolor{comment}{//double winding\_number\_approx\_simple(}}
+\DoxyCodeLine{112       \textcolor{comment}{//  const Point \& p, }}
+\DoxyCodeLine{113       \textcolor{comment}{//  const double min\_max\_w);}}
+\DoxyCodeLine{114       \textcolor{comment}{// Print contents of Tree}}
+\DoxyCodeLine{115       \textcolor{comment}{//}}
+\DoxyCodeLine{116       \textcolor{comment}{// Optional input:}}
+\DoxyCodeLine{117       \textcolor{comment}{//   tab  tab to show depth}}
+\DoxyCodeLine{118       \textcolor{keyword}{inline} \textcolor{keywordtype}{void} print(\textcolor{keyword}{const} \textcolor{keywordtype}{char} * tab=\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{119       \textcolor{comment}{// Determine max absolute winding number}}
+\DoxyCodeLine{120       \textcolor{comment}{//}}
+\DoxyCodeLine{121       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{122       \textcolor{comment}{//   p  query point }}
+\DoxyCodeLine{123       \textcolor{comment}{// Returns max winding number of }}
+\DoxyCodeLine{124       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keyword}{typename} DerivedV::Scalar max\_abs\_winding\_number(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const}; }
+\DoxyCodeLine{125       \textcolor{comment}{// Same as above, but stronger assumptions on (V,F). Assumes (V,F) is a}}
+\DoxyCodeLine{126       \textcolor{comment}{// simple polyhedron}}
+\DoxyCodeLine{127       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keyword}{typename} DerivedV::Scalar max\_simple\_abs\_winding\_number(\textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{128       \textcolor{comment}{// Compute or read cached winding number for point p with respect to mesh}}
+\DoxyCodeLine{129       \textcolor{comment}{// in bounding box, recursing according to approximation criteria}}
+\DoxyCodeLine{130       \textcolor{comment}{//}}
+\DoxyCodeLine{131       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{132       \textcolor{comment}{//   p  query point }}
+\DoxyCodeLine{133       \textcolor{comment}{//   that  WindingNumberTree containing mesh w.r.t. which we're computing w.n.}}
+\DoxyCodeLine{134       \textcolor{comment}{// Returns cached winding number}}
+\DoxyCodeLine{135       \textcolor{keyword}{inline} \textcolor{keyword}{virtual} \textcolor{keyword}{typename} DerivedV::Scalar cached\_winding\_number(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{WindingNumberTree}} \& that, \textcolor{keyword}{const} Point \& p) \textcolor{keyword}{const};}
+\DoxyCodeLine{136   \};}
+\DoxyCodeLine{137 \}}
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#include "{}WindingNumberTree.h"{}}}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#include "{}winding\_number.h"{}}}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#include "{}triangle\_fan.h"{}}}
+\DoxyCodeLine{144 \textcolor{preprocessor}{\#include "{}exterior\_edges.h"{}}}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#include <igl/PI.h>}}
+\DoxyCodeLine{147 \textcolor{preprocessor}{\#include <igl/remove\_duplicate\_vertices.h>}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#include <limits>}}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 \textcolor{comment}{//template <typename Point, typename DerivedV, typename DerivedF>}}
+\DoxyCodeLine{153 \textcolor{comment}{//WindingNumberMethod WindingNumberTree<Point,DerivedV,DerivedF>::method = EXACT\_WINDING\_NUMBER\_METHOD;}}
+\DoxyCodeLine{154 \textcolor{comment}{//template <typename Point, typename DerivedV, typename DerivedF>}}
+\DoxyCodeLine{155 \textcolor{comment}{//double WindingNumberTree<Point,DerivedV,DerivedF>::min\_max\_w = 0;}}
+\DoxyCodeLine{156 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{157 std::map< std::pair<const igl::WindingNumberTree<Point,DerivedV,DerivedF>*,\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>}}*>, \textcolor{keyword}{typename} DerivedV::Scalar>}
+\DoxyCodeLine{158   \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::cached}};}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{160 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{161 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::WindingNumberTree}}():}
+\DoxyCodeLine{162   method(EXACT\_WINDING\_NUMBER\_METHOD),}
+\DoxyCodeLine{163   parent(NULL),}
+\DoxyCodeLine{164   V(dummyV),}
+\DoxyCodeLine{165   SV(),}
+\DoxyCodeLine{166   F(),}
+\DoxyCodeLine{167   cap(),}
+\DoxyCodeLine{168   radius(std::numeric\_limits<typename DerivedV::Scalar>::infinity()),}
+\DoxyCodeLine{169   center(0,0,0)}
+\DoxyCodeLine{170 \{}
+\DoxyCodeLine{171 \}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{174 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::WindingNumberTree}}(}
+\DoxyCodeLine{175   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& \_V,}
+\DoxyCodeLine{176   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& \_F):}
+\DoxyCodeLine{177   method(EXACT\_WINDING\_NUMBER\_METHOD),}
+\DoxyCodeLine{178   parent(NULL),}
+\DoxyCodeLine{179   V(dummyV),}
+\DoxyCodeLine{180   SV(),}
+\DoxyCodeLine{181   F(),}
+\DoxyCodeLine{182   cap(),}
+\DoxyCodeLine{183   radius(std::numeric\_limits<typename DerivedV::Scalar>::infinity()),}
+\DoxyCodeLine{184   center(0,0,0)}
+\DoxyCodeLine{185 \{}
+\DoxyCodeLine{186   set\_mesh(\_V,\_F);}
+\DoxyCodeLine{187 \}}
+\DoxyCodeLine{188 }
+\DoxyCodeLine{189 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{190 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::set\_mesh}}(}
+\DoxyCodeLine{191     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& \_V,}
+\DoxyCodeLine{192     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& \_F)}
+\DoxyCodeLine{193 \{}
+\DoxyCodeLine{194   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{195   \textcolor{comment}{// Remove any exactly duplicate vertices}}
+\DoxyCodeLine{196   \textcolor{comment}{// Q: Can this ever increase the complexity of the boundary?}}
+\DoxyCodeLine{197   \textcolor{comment}{// Q: Would we gain even more by remove almost exactly duplicate vertices?}}
+\DoxyCodeLine{198   MatrixXF SF,SVI,SVJ;}
+\DoxyCodeLine{199   igl::remove\_duplicate\_vertices(\_V,\_F,0.0,SV,SVI,SVJ,F);}
+\DoxyCodeLine{200   triangle\_fan(igl::exterior\_edges(F),cap);}
+\DoxyCodeLine{201   V = SV;}
+\DoxyCodeLine{202 \}}
+\DoxyCodeLine{203 }
+\DoxyCodeLine{204 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{205 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::WindingNumberTree}}(}
+\DoxyCodeLine{206   \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>}} \& parent,}
+\DoxyCodeLine{207   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& \_F):}
+\DoxyCodeLine{208   method(parent.method),}
+\DoxyCodeLine{209   parent(\&parent),}
+\DoxyCodeLine{210   V(parent.V),}
+\DoxyCodeLine{211   SV(),}
+\DoxyCodeLine{212   F(\_F),}
+\DoxyCodeLine{213   cap(triangle\_fan(igl::exterior\_edges(\_F)))}
+\DoxyCodeLine{214 \{}
+\DoxyCodeLine{215 \}}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{218 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::\string~WindingNumberTree}}()}
+\DoxyCodeLine{219 \{}
+\DoxyCodeLine{220   delete\_children();}
+\DoxyCodeLine{221 \}}
+\DoxyCodeLine{222 }
+\DoxyCodeLine{223 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{224 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::delete\_children}}()}
+\DoxyCodeLine{225 \{}
+\DoxyCodeLine{226   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{227   \textcolor{comment}{// Delete children}}
+\DoxyCodeLine{228   \textcolor{keyword}{typename} list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();}
+\DoxyCodeLine{229   \textcolor{keywordflow}{while}(cit != children.end())}
+\DoxyCodeLine{230   \{}
+\DoxyCodeLine{231     \textcolor{comment}{// clear the memory of this item}}
+\DoxyCodeLine{232     \textcolor{keyword}{delete} (* cit);}
+\DoxyCodeLine{233     \textcolor{comment}{// erase from list, returns next element in iterator}}
+\DoxyCodeLine{234     cit = children.erase(cit);}
+\DoxyCodeLine{235   \}}
+\DoxyCodeLine{236 \}}
+\DoxyCodeLine{237       }
+\DoxyCodeLine{238 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{239 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::set\_method}}(\textcolor{keyword}{const} WindingNumberMethod \& m)}
+\DoxyCodeLine{240 \{}
+\DoxyCodeLine{241   this-\/>method = m;}
+\DoxyCodeLine{242   \textcolor{keywordflow}{for}(\textcolor{keyword}{auto} child : children)}
+\DoxyCodeLine{243   \{}
+\DoxyCodeLine{244     child-\/>set\_method(m);}
+\DoxyCodeLine{245   \}}
+\DoxyCodeLine{246 \}}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{249 \textcolor{keyword}{inline} \textcolor{keyword}{const} DerivedV \& \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::getV}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{250 \textcolor{keyword}{}\{}
+\DoxyCodeLine{251   \textcolor{keywordflow}{return} V;}
+\DoxyCodeLine{252 \}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{255 \textcolor{keyword}{inline} \textcolor{keyword}{const} \textcolor{keyword}{typename} igl::WindingNumberTree<Point,DerivedV,DerivedF>::MatrixXF\& }
+\DoxyCodeLine{256   \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::getF}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{257 \textcolor{keyword}{}\{}
+\DoxyCodeLine{258   \textcolor{keywordflow}{return} F;}
+\DoxyCodeLine{259 \}}
+\DoxyCodeLine{260 }
+\DoxyCodeLine{261 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{262 \textcolor{keyword}{inline} \textcolor{keyword}{const} \textcolor{keyword}{typename} igl::WindingNumberTree<Point,DerivedV,DerivedF>::MatrixXF\& }
+\DoxyCodeLine{263   \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::getcap}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{264 \textcolor{keyword}{}\{}
+\DoxyCodeLine{265   \textcolor{keywordflow}{return} cap;}
+\DoxyCodeLine{266 \}}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{269 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::grow}}()}
+\DoxyCodeLine{270 \{}
+\DoxyCodeLine{271   \textcolor{comment}{// Don't grow}}
+\DoxyCodeLine{272   \textcolor{keywordflow}{return};}
+\DoxyCodeLine{273 \}}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{276 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::inside}}(\textcolor{keyword}{const} Point \& \textcolor{comment}{/*p*/})\textcolor{keyword}{ const}}
+\DoxyCodeLine{277 \textcolor{keyword}{}\{}
+\DoxyCodeLine{278   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{279 \}}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{281 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{282 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{283 \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding\_number}}(\textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{284 \textcolor{keyword}{}\{}
+\DoxyCodeLine{285   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{286   \textcolor{comment}{//cout<<"{}+"{}<<boundary.rows();}}
+\DoxyCodeLine{287   \textcolor{comment}{// If inside then we need to be careful}}
+\DoxyCodeLine{288   \textcolor{keywordflow}{if}(inside(p))}
+\DoxyCodeLine{289   \{}
+\DoxyCodeLine{290     \textcolor{comment}{// If not a leaf then recurse}}
+\DoxyCodeLine{291     \textcolor{keywordflow}{if}(children.size()>0)}
+\DoxyCodeLine{292     \{}
+\DoxyCodeLine{293       \textcolor{comment}{// Recurse on each child and accumulate}}
+\DoxyCodeLine{294       \textcolor{keyword}{typename} DerivedV::Scalar sum = 0;}
+\DoxyCodeLine{295       \textcolor{keywordflow}{for}(}
+\DoxyCodeLine{296         \textcolor{keyword}{typename} list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const\_iterator cit = children.begin();}
+\DoxyCodeLine{297         cit != children.end();}
+\DoxyCodeLine{298         cit++)}
+\DoxyCodeLine{299       \{}
+\DoxyCodeLine{300         \textcolor{keywordflow}{switch}(method)}
+\DoxyCodeLine{301         \{}
+\DoxyCodeLine{302           \textcolor{keywordflow}{case} EXACT\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{303             sum += (*cit)-\/>winding\_number(p);}
+\DoxyCodeLine{304             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{305           \textcolor{keywordflow}{case} APPROX\_SIMPLE\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{306           \textcolor{keywordflow}{case} APPROX\_CACHE\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{307             \textcolor{comment}{//if((*cit)-\/>max\_simple\_abs\_winding\_number(p) > min\_max\_w)}}
+\DoxyCodeLine{308             \textcolor{comment}{//\{}}
+\DoxyCodeLine{309               sum += (*cit)-\/>winding\_number(p);}
+\DoxyCodeLine{310             \textcolor{comment}{//\}}}
+\DoxyCodeLine{311             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{312           \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{313             assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{314             \textcolor{keywordflow}{break};}
+\DoxyCodeLine{315         \}}
+\DoxyCodeLine{316       \}}
+\DoxyCodeLine{317       \textcolor{keywordflow}{return} sum;}
+\DoxyCodeLine{318     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{319     \{}
+\DoxyCodeLine{320       \textcolor{keywordflow}{return} winding\_number\_all(p);}
+\DoxyCodeLine{321     \}}
+\DoxyCodeLine{322   \}\textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{323     \textcolor{comment}{// Otherwise we can just consider boundary}}
+\DoxyCodeLine{324     \textcolor{comment}{// Q: If we using the "{}multipole"{} method should we also subdivide the}}
+\DoxyCodeLine{325     \textcolor{comment}{// boundary case?}}
+\DoxyCodeLine{326     \textcolor{keywordflow}{if}((cap.rows() -\/ 2) < F.rows())}
+\DoxyCodeLine{327     \{}
+\DoxyCodeLine{328       \textcolor{keywordflow}{switch}(method)}
+\DoxyCodeLine{329       \{}
+\DoxyCodeLine{330         \textcolor{keywordflow}{case} EXACT\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{331           \textcolor{keywordflow}{return} winding\_number\_boundary(p);}
+\DoxyCodeLine{332         \textcolor{keywordflow}{case} APPROX\_SIMPLE\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{333         \{}
+\DoxyCodeLine{334           \textcolor{keyword}{typename} DerivedV::Scalar dist = (p-\/center).norm();}
+\DoxyCodeLine{335           \textcolor{comment}{// Radius is already an overestimate of inside}}
+\DoxyCodeLine{336           \textcolor{keywordflow}{if}(dist>1.0*radius)}
+\DoxyCodeLine{337           \{}
+\DoxyCodeLine{338             \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{339           \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{340           \{}
+\DoxyCodeLine{341             \textcolor{keywordflow}{return} winding\_number\_boundary(p);}
+\DoxyCodeLine{342           \}}
+\DoxyCodeLine{343         \}}
+\DoxyCodeLine{344         \textcolor{keywordflow}{case} APPROX\_CACHE\_WINDING\_NUMBER\_METHOD:}
+\DoxyCodeLine{345         \{}
+\DoxyCodeLine{346           \textcolor{keywordflow}{return} parent-\/>cached\_winding\_number(*\textcolor{keyword}{this},p);}
+\DoxyCodeLine{347         \}}
+\DoxyCodeLine{348         \textcolor{keywordflow}{default}: assert(\textcolor{keyword}{false});\textcolor{keywordflow}{break};}
+\DoxyCodeLine{349       \}}
+\DoxyCodeLine{350     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{351     \{}
+\DoxyCodeLine{352       \textcolor{comment}{// doesn't pay off to use boundary}}
+\DoxyCodeLine{353       \textcolor{keywordflow}{return} winding\_number\_all(p);}
+\DoxyCodeLine{354     \}}
+\DoxyCodeLine{355   \}}
+\DoxyCodeLine{356   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{357 \}}
+\DoxyCodeLine{358 }
+\DoxyCodeLine{359 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{360 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{361   \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding\_number\_all}}(\textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{362 \textcolor{keyword}{}\{}
+\DoxyCodeLine{363   \textcolor{keywordflow}{return} igl::winding\_number(V,F,p);}
+\DoxyCodeLine{364 \}}
+\DoxyCodeLine{365 }
+\DoxyCodeLine{366 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{367 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{368 \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding\_number\_boundary}}(\textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{369 \textcolor{keyword}{}\{}
+\DoxyCodeLine{370   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{371   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{372   \textcolor{keywordflow}{return} igl::winding\_number(V,cap,p);}
+\DoxyCodeLine{373 \}}
+\DoxyCodeLine{374 }
+\DoxyCodeLine{375 \textcolor{comment}{//template <typename Point, typename DerivedV, typename DerivedF>}}
+\DoxyCodeLine{376 \textcolor{comment}{//inline double igl::WindingNumberTree<Point,DerivedV,DerivedF>::winding\_number\_approx\_simple(}}
+\DoxyCodeLine{377 \textcolor{comment}{//  const Point \& p, }}
+\DoxyCodeLine{378 \textcolor{comment}{//  const double min\_max\_w)}}
+\DoxyCodeLine{379 \textcolor{comment}{//\{}}
+\DoxyCodeLine{380 \textcolor{comment}{//  using namespace std;}}
+\DoxyCodeLine{381 \textcolor{comment}{//  if(max\_simple\_abs\_winding\_number(p) > min\_max\_w)}}
+\DoxyCodeLine{382 \textcolor{comment}{//  \{}}
+\DoxyCodeLine{383 \textcolor{comment}{//    return winding\_number(p);}}
+\DoxyCodeLine{384 \textcolor{comment}{//  \}else}}
+\DoxyCodeLine{385 \textcolor{comment}{//  \{}}
+\DoxyCodeLine{386 \textcolor{comment}{//    cout<<"{}Skipped! "{}<<max\_simple\_abs\_winding\_number(p)<<"{}<"{}<<min\_max\_w<<endl;}}
+\DoxyCodeLine{387 \textcolor{comment}{//    return 0;}}
+\DoxyCodeLine{388 \textcolor{comment}{//  \}}}
+\DoxyCodeLine{389 \textcolor{comment}{//\}}}
+\DoxyCodeLine{390 }
+\DoxyCodeLine{391 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{392 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::print}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} * tab)}
+\DoxyCodeLine{393 \{}
+\DoxyCodeLine{394   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{395   \textcolor{comment}{// Print all facets}}
+\DoxyCodeLine{396   cout<<tab<<\textcolor{stringliteral}{"{}["{}}<<endl<<F<<endl<<\textcolor{stringliteral}{"{}]"{}};}
+\DoxyCodeLine{397   \textcolor{comment}{// Print children}}
+\DoxyCodeLine{398   \textcolor{keywordflow}{for}(}
+\DoxyCodeLine{399       \textcolor{keyword}{typename} list<WindingNumberTree<Point,DerivedV,DerivedF>* >::iterator cit = children.begin();}
+\DoxyCodeLine{400       cit != children.end();}
+\DoxyCodeLine{401       cit++)}
+\DoxyCodeLine{402   \{}
+\DoxyCodeLine{403     cout<<\textcolor{stringliteral}{"{},"{}}<<endl;}
+\DoxyCodeLine{404     (*cit)-\/>print((\textcolor{keywordtype}{string}(tab)+\textcolor{stringliteral}{"{}"{}}).c\_str());}
+\DoxyCodeLine{405   \}}
+\DoxyCodeLine{406 \}}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{409 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{410 \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::max\_abs\_winding\_number}}(\textcolor{keyword}{const} Point \& \textcolor{comment}{/*p*/})\textcolor{keyword}{ const}}
+\DoxyCodeLine{411 \textcolor{keyword}{}\{}
+\DoxyCodeLine{412   \textcolor{keywordflow}{return} std::numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{413 \}}
+\DoxyCodeLine{414 }
+\DoxyCodeLine{415 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{416 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{417 \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::max\_simple\_abs\_winding\_number}}(}
+\DoxyCodeLine{418   \textcolor{keyword}{const} Point \& \textcolor{comment}{/*p*/})\textcolor{keyword}{ const}}
+\DoxyCodeLine{419 \textcolor{keyword}{}\{}
+\DoxyCodeLine{420   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{421   \textcolor{keywordflow}{return} numeric\_limits<typename DerivedV::Scalar>::infinity();}
+\DoxyCodeLine{422 \}}
+\DoxyCodeLine{423 }
+\DoxyCodeLine{424 \textcolor{keyword}{template} <\textcolor{keyword}{typename} Po\textcolor{keywordtype}{int}, \textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{425 \textcolor{keyword}{inline} \textcolor{keyword}{typename} DerivedV::Scalar }
+\DoxyCodeLine{426 \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::cached\_winding\_number}}(}
+\DoxyCodeLine{427   \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>}} \& that,}
+\DoxyCodeLine{428   \textcolor{keyword}{const} Point \& p)\textcolor{keyword}{ const}}
+\DoxyCodeLine{429 \textcolor{keyword}{}\{}
+\DoxyCodeLine{430   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{431   \textcolor{comment}{// Simple metric for `is\_far`}}
+\DoxyCodeLine{432   \textcolor{comment}{//}}
+\DoxyCodeLine{433   \textcolor{comment}{//   this             that}}
+\DoxyCodeLine{434   \textcolor{comment}{//                   -\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{435   \textcolor{comment}{//   -\/-\/-\/-\/-\/          /   |    \(\backslash\) .}}
+\DoxyCodeLine{436   \textcolor{comment}{//  /  r  \(\backslash\)        /    R     \(\backslash\) .}}
+\DoxyCodeLine{437   \textcolor{comment}{// | p !   |      |     !      |}}
+\DoxyCodeLine{438   \textcolor{comment}{//  \(\backslash\)\_\_\_\_\_/        \(\backslash\)          /}}
+\DoxyCodeLine{439   \textcolor{comment}{//                  \(\backslash\)\_\_\_\_\_\_\_\_/}}
+\DoxyCodeLine{440   \textcolor{comment}{//}}
+\DoxyCodeLine{441   \textcolor{comment}{// }}
+\DoxyCodeLine{442   \textcolor{comment}{// a = angle formed by trapazoid formed by raising sides with lengths r and R}}
+\DoxyCodeLine{443   \textcolor{comment}{// at respective centers.}}
+\DoxyCodeLine{444   \textcolor{comment}{//}}
+\DoxyCodeLine{445   \textcolor{comment}{// a = atan2(R-\/r,d), where d is the distance between centers}}
+\DoxyCodeLine{446 }
+\DoxyCodeLine{447   \textcolor{comment}{// That should be bigger (what about parent? what about sister?)}}
+\DoxyCodeLine{448   \textcolor{keywordtype}{bool} is\_far = this-\/>radius<that.radius;}
+\DoxyCodeLine{449   \textcolor{keywordflow}{if}(is\_far)}
+\DoxyCodeLine{450   \{}
+\DoxyCodeLine{451     \textcolor{keyword}{typename} DerivedV::Scalar a = atan2(}
+\DoxyCodeLine{452       that.radius -\/ this-\/>radius,}
+\DoxyCodeLine{453       (that.center -\/ this-\/>center).norm());}
+\DoxyCodeLine{454     assert(a>0);}
+\DoxyCodeLine{455     is\_far = (a<PI/8.0);}
+\DoxyCodeLine{456   \}}
+\DoxyCodeLine{457 }
+\DoxyCodeLine{458   \textcolor{keywordflow}{if}(is\_far)}
+\DoxyCodeLine{459   \{}
+\DoxyCodeLine{460     \textcolor{comment}{// Not implemented yet}}
+\DoxyCodeLine{461     pair<const WindingNumberTree*,const WindingNumberTree*> this\_that(\textcolor{keyword}{this},\&that);}
+\DoxyCodeLine{462     \textcolor{comment}{// Need to compute it for first time?}}
+\DoxyCodeLine{463     \textcolor{keywordflow}{if}(cached.count(this\_that)==0)}
+\DoxyCodeLine{464     \{}
+\DoxyCodeLine{465       cached[this\_that] = }
+\DoxyCodeLine{466         that.winding\_number\_boundary(this-\/>center);}
+\DoxyCodeLine{467     \}}
+\DoxyCodeLine{468     \textcolor{keywordflow}{return} cached[this\_that];}
+\DoxyCodeLine{469   \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(children.size() == 0)}
+\DoxyCodeLine{470   \{}
+\DoxyCodeLine{471     \textcolor{comment}{// not far and hierarchy ended too soon: can't use cache}}
+\DoxyCodeLine{472     \textcolor{keywordflow}{return} that.winding\_number\_boundary(p);}
+\DoxyCodeLine{473   \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{474   \{}
+\DoxyCodeLine{475     \textcolor{keywordflow}{for}(}
+\DoxyCodeLine{476       \textcolor{keyword}{typename} list<WindingNumberTree<Point,DerivedV,DerivedF>* >::const\_iterator cit = children.begin();}
+\DoxyCodeLine{477       cit != children.end();}
+\DoxyCodeLine{478       cit++)}
+\DoxyCodeLine{479     \{}
+\DoxyCodeLine{480       \textcolor{keywordflow}{if}((*cit)-\/>inside(p))}
+\DoxyCodeLine{481       \{}
+\DoxyCodeLine{482         \textcolor{keywordflow}{return} (*cit)-\/>cached\_winding\_number(that,p);}
+\DoxyCodeLine{483       \}}
+\DoxyCodeLine{484     \}}
+\DoxyCodeLine{485     \textcolor{comment}{// Not inside any children? This can totally happen because bounding boxes}}
+\DoxyCodeLine{486     \textcolor{comment}{// are set to bound contained facets. So sibilings may overlap and their}}
+\DoxyCodeLine{487     \textcolor{comment}{// union may not contain their parent (though, their union is certainly a}}
+\DoxyCodeLine{488     \textcolor{comment}{// subset of their parent).}}
+\DoxyCodeLine{489     assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{490   \}}
+\DoxyCodeLine{491   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{492 \}}
+\DoxyCodeLine{493 }
+\DoxyCodeLine{494 \textcolor{comment}{// Explicit instantiation of static variable}}
+\DoxyCodeLine{495 \textcolor{keyword}{template} <}
+\DoxyCodeLine{496   \textcolor{keyword}{typename} Point,}
+\DoxyCodeLine{497   \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{498   \textcolor{keyword}{typename} DerivedF >}
+\DoxyCodeLine{499 DerivedV \mbox{\hyperlink{classigl_1_1_winding_number_tree}{igl::WindingNumberTree<Point,DerivedV,DerivedF>::dummyV}};}
+\DoxyCodeLine{500 }
+\DoxyCodeLine{501 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

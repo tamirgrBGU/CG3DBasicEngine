@@ -1,0 +1,57 @@
+\hypertarget{mat__min_8h_source}{}\doxysection{mat\+\_\+min.\+h}
+\label{mat__min_8h_source}\index{igl/mat\_min.h@{igl/mat\_min.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MAT\_MIN\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MAT\_MIN\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Ideally this becomes a super overloaded function supporting everything}}
+\DoxyCodeLine{16   \textcolor{comment}{// that matlab's min supports}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18   \textcolor{comment}{// Min function for matrices to act like matlab's min function. Specifically}}
+\DoxyCodeLine{19   \textcolor{comment}{// like [Y,I] = min(X,[],dim);}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   T  should be a eigen matrix primitive type like int or double}}
+\DoxyCodeLine{23   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   X  m by n matrix}}
+\DoxyCodeLine{25   \textcolor{comment}{//   dim  dimension along which to take min }}
+\DoxyCodeLine{26   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   Y  n-\/long sparse vector (if dim == 1) }}
+\DoxyCodeLine{28   \textcolor{comment}{//   or}}
+\DoxyCodeLine{29   \textcolor{comment}{//   Y  m-\/long sparse vector (if dim == 2)}}
+\DoxyCodeLine{30   \textcolor{comment}{//   I  vector the same size as Y containing the indices along dim of minimum}}
+\DoxyCodeLine{31   \textcolor{comment}{//     entries}}
+\DoxyCodeLine{32   \textcolor{comment}{//}}
+\DoxyCodeLine{33   \textcolor{comment}{// See also: mat\_max}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedX, \textcolor{keyword}{typename} DerivedY, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{35   IGL\_INLINE \textcolor{keywordtype}{void} mat\_min(}
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::DenseBase<DerivedX> \& X,}
+\DoxyCodeLine{37     \textcolor{keyword}{const} \textcolor{keywordtype}{int} dim,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<DerivedY> \& Y,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{40   \textcolor{comment}{// Use Y = X.colwise().minCoeff() instead}}
+\DoxyCodeLine{42 \textcolor{comment}{}  \textcolor{comment}{//template <typename T>}}
+\DoxyCodeLine{43   \textcolor{comment}{//IGL\_INLINE Eigen::Matrix<T,Eigen::Dynamic,1> mat\_min(}}
+\DoxyCodeLine{44   \textcolor{comment}{//  const Eigen::Matrix<T,Eigen::Dynamic,Eigen::Dynamic> \& X,}}
+\DoxyCodeLine{45   \textcolor{comment}{//  const int dim);}}
+\DoxyCodeLine{46 \}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#  include "{}mat\_min.cpp"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

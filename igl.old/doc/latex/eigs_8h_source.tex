@@ -1,0 +1,67 @@
+\hypertarget{eigs_8h_source}{}\doxysection{eigs.\+h}
+\label{eigs_8h_source}\index{igl/eigs.h@{igl/eigs.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_EIGS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_EIGS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Act like MATLAB's eigs function. Compute the first/last k eigen pairs of}}
+\DoxyCodeLine{17   \textcolor{comment}{// the generalized eigen value problem:}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{//     A u = s B u}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Solutions are approximate and sorted. }}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// Ideally one should use ARPACK and the Eigen unsupported ARPACK module.}}
+\DoxyCodeLine{24   \textcolor{comment}{// This implementation does simple, naive power iterations.}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   A  \#A by \#A symmetric matrix}}
+\DoxyCodeLine{28   \textcolor{comment}{//   B  \#A by \#A symmetric positive-\/definite matrix}}
+\DoxyCodeLine{29   \textcolor{comment}{//   k  number of eigen pairs to compute}}
+\DoxyCodeLine{30   \textcolor{comment}{//   type  whether to extract from the high or low end}}
+\DoxyCodeLine{31   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   sU  \#A by k list of sorted eigen vectors (descending)}}
+\DoxyCodeLine{33   \textcolor{comment}{//   sS  k list of sorted eigen values (descending)}}
+\DoxyCodeLine{34   \textcolor{comment}{//}}
+\DoxyCodeLine{35   \textcolor{comment}{// Known issues:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   -\/ only the 'sm' small magnitude eigen values are well supported}}
+\DoxyCodeLine{37   \textcolor{comment}{//   }}
+\DoxyCodeLine{38   \textcolor{keyword}{enum} EigsType}
+\DoxyCodeLine{39   \{}
+\DoxyCodeLine{40     EIGS\_TYPE\_SM = 0,}
+\DoxyCodeLine{41     EIGS\_TYPE\_LM = 1,}
+\DoxyCodeLine{42     NUM\_EIGS\_TYPES = 2}
+\DoxyCodeLine{43   \};}
+\DoxyCodeLine{44   \textcolor{keyword}{template} <}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} Atype,}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} Btype,}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedU,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedS>}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keywordtype}{bool} eigs(}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::SparseMatrix<Atype> \& A,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::SparseMatrix<Btype> \& B,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} k,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} EigsType type,}
+\DoxyCodeLine{54     Eigen::PlainObjectBase<DerivedU> \& sU,}
+\DoxyCodeLine{55     Eigen::PlainObjectBase<DerivedS> \& sS);}
+\DoxyCodeLine{56 \}}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#include "{}eigs.cpp"{}}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

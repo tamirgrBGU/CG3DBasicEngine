@@ -1,0 +1,42 @@
+\hypertarget{_a_r_a_p_energy_type_8h_source}{}\doxysection{ARAPEnergy\+Type.\+h}
+\label{_a_r_a_p_energy_type_8h_source}\index{igl/ARAPEnergyType.h@{igl/ARAPEnergyType.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ARAPENERGYTYPE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ARAPENERGYTYPE\_H}}
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \textcolor{comment}{//     ARAP\_ENERGY\_TYPE\_SPOKES  "{}As-\/rigid-\/as-\/possible Surface Modeling"{} by [Sorkine and}}
+\DoxyCodeLine{13   \textcolor{comment}{//       Alexa 2007], rotations defined at vertices affecting incident edges,}}
+\DoxyCodeLine{14   \textcolor{comment}{//       default}}
+\DoxyCodeLine{15   \textcolor{comment}{//     ARAP\_ENERGY\_TYPE\_SPOKES-\/AND-\/RIMS  Adapted version of "{}As-\/rigid-\/as-\/possible Surface}}
+\DoxyCodeLine{16   \textcolor{comment}{//       Modeling"{} by [Sorkine and Alexa 2007] presented in section 4.2 of or}}
+\DoxyCodeLine{17   \textcolor{comment}{//       "{}A simple geometric model for elastic deformation"{} by [Chao et al.}}
+\DoxyCodeLine{18   \textcolor{comment}{//       2010], rotations defined at vertices affecting incident edges and}}
+\DoxyCodeLine{19   \textcolor{comment}{//       opposite edges}}
+\DoxyCodeLine{20   \textcolor{comment}{//     ARAP\_ENERGY\_TYPE\_ELEMENTS  "{}A local-\/global approach to mesh parameterization"{} by}}
+\DoxyCodeLine{21   \textcolor{comment}{//       [Liu et al.  2010] or "{}A simple geometric model for elastic}}
+\DoxyCodeLine{22   \textcolor{comment}{//       deformation"{} by [Chao et al.  2010], rotations defined at elements}}
+\DoxyCodeLine{23   \textcolor{comment}{//       (triangles or tets) }}
+\DoxyCodeLine{24   \textcolor{comment}{//     ARAP\_ENERGY\_TYPE\_DEFAULT  Choose one automatically: spokes and rims}}
+\DoxyCodeLine{25   \textcolor{comment}{//       for surfaces, elements for planar meshes and tets (not fully}}
+\DoxyCodeLine{26   \textcolor{comment}{//       supported)}}
+\DoxyCodeLine{27   \textcolor{keyword}{enum} ARAPEnergyType}
+\DoxyCodeLine{28   \{}
+\DoxyCodeLine{29     ARAP\_ENERGY\_TYPE\_SPOKES = 0,}
+\DoxyCodeLine{30     ARAP\_ENERGY\_TYPE\_SPOKES\_AND\_RIMS = 1,}
+\DoxyCodeLine{31     ARAP\_ENERGY\_TYPE\_ELEMENTS = 2,}
+\DoxyCodeLine{32     ARAP\_ENERGY\_TYPE\_DEFAULT = 3,}
+\DoxyCodeLine{33     NUM\_ARAP\_ENERGY\_TYPES = 4}
+\DoxyCodeLine{34   \};}
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

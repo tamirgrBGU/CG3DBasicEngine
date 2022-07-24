@@ -1,0 +1,36 @@
+\hypertarget{min__size_8h_source}{}\doxysection{min\+\_\+size.\+h}
+\label{min__size_8h_source}\index{igl/min\_size.h@{igl/min\_size.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MIN\_SIZE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MIN\_SIZE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Determine min size of lists in a vector}}
+\DoxyCodeLine{16   \textcolor{comment}{// Template:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   T  some list type object that implements .size()}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   V  vector of list types T}}
+\DoxyCodeLine{20   \textcolor{comment}{// Returns min .size() found in V, returns -\/1 if V is empty}}
+\DoxyCodeLine{21   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22   IGL\_INLINE \textcolor{keywordtype}{int} min\_size(\textcolor{keyword}{const} std::vector<T> \& V);}
+\DoxyCodeLine{23 \}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#  include "{}min\_size.cpp"{}}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,939 @@
+\hypertarget{_self_intersect_mesh_8h_source}{}\doxysection{Self\+Intersect\+Mesh.\+h}
+\label{_self_intersect_mesh_8h_source}\index{igl/copyleft/cgal/SelfIntersectMesh.h@{igl/copyleft/cgal/SelfIntersectMesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_SELFINTERSECTMESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_SELFINTERSECTMESH\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}CGAL\_includes.hpp"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}RemeshSelfIntersectionsParam.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}../../unique.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../../default\_num\_threads.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <thread>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <mutex>}}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{comment}{//\#define IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#ifndef IGL\_FIRST\_HIT\_EXCEPTION}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#define IGL\_FIRST\_HIT\_EXCEPTION 10}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{comment}{// The easiest way to keep track of everything is to use a class}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{33   \{}
+\DoxyCodeLine{34     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{35     \{}
+\DoxyCodeLine{36       \textcolor{comment}{// Kernel is a CGAL kernel like:}}
+\DoxyCodeLine{37       \textcolor{comment}{//     CGAL::Exact\_predicates\_inexact\_constructions\_kernel}}
+\DoxyCodeLine{38       \textcolor{comment}{// or}}
+\DoxyCodeLine{39       \textcolor{comment}{//     CGAL::Exact\_predicates\_exact\_constructions\_kernel}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41       \textcolor{keyword}{template} <}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{47         \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{48         \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{49         \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{50       \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{SelfIntersectMesh}}}
+\DoxyCodeLine{51       \{}
+\DoxyCodeLine{52         \textcolor{keyword}{typedef}}
+\DoxyCodeLine{53           \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{SelfIntersectMesh}}<}
+\DoxyCodeLine{54           Kernel,}
+\DoxyCodeLine{55           DerivedV,}
+\DoxyCodeLine{56           DerivedF,}
+\DoxyCodeLine{57           DerivedVV,}
+\DoxyCodeLine{58           DerivedFF,}
+\DoxyCodeLine{59           DerivedIF,}
+\DoxyCodeLine{60           DerivedJ,}
+\DoxyCodeLine{61           DerivedIM> \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{Self}};}
+\DoxyCodeLine{62         \textcolor{keyword}{public}:}
+\DoxyCodeLine{63           \textcolor{comment}{// 3D Primitives}}
+\DoxyCodeLine{64           \textcolor{keyword}{typedef} CGAL::Point\_3<Kernel>    Point\_3;}
+\DoxyCodeLine{65           \textcolor{keyword}{typedef} CGAL::Segment\_3<Kernel>  Segment\_3;}
+\DoxyCodeLine{66           \textcolor{keyword}{typedef} CGAL::Triangle\_3<Kernel> Triangle\_3;}
+\DoxyCodeLine{67           \textcolor{keyword}{typedef} CGAL::Plane\_3<Kernel>    Plane\_3;}
+\DoxyCodeLine{68           \textcolor{keyword}{typedef} CGAL::Tetrahedron\_3<Kernel> Tetrahedron\_3;}
+\DoxyCodeLine{69           \textcolor{comment}{// 2D Primitives}}
+\DoxyCodeLine{70           \textcolor{keyword}{typedef} CGAL::Point\_2<Kernel>    Point\_2;}
+\DoxyCodeLine{71           \textcolor{keyword}{typedef} CGAL::Segment\_2<Kernel>  Segment\_2;}
+\DoxyCodeLine{72           \textcolor{keyword}{typedef} CGAL::Triangle\_2<Kernel> Triangle\_2;}
+\DoxyCodeLine{73           \textcolor{comment}{// 2D Constrained Delaunay Triangulation types}}
+\DoxyCodeLine{74           \textcolor{keyword}{typedef} CGAL::Exact\_intersections\_tag Itag;}
+\DoxyCodeLine{75           \textcolor{comment}{// Axis-\/align boxes for all-\/pairs self-\/intersection detection}}
+\DoxyCodeLine{76           \textcolor{keyword}{typedef} std::vector<Triangle\_3> Triangles;}
+\DoxyCodeLine{77           \textcolor{keyword}{typedef} \textcolor{keyword}{typename} Triangles::iterator TrianglesIterator;}
+\DoxyCodeLine{78           \textcolor{keyword}{typedef} \textcolor{keyword}{typename} Triangles::const\_iterator TrianglesConstIterator;}
+\DoxyCodeLine{79           \textcolor{keyword}{typedef}}
+\DoxyCodeLine{80             CGAL::Box\_intersection\_d::Box\_with\_handle\_d<double,3,TrianglesIterator>}
+\DoxyCodeLine{81             Box;}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83           \textcolor{comment}{// Input mesh}}
+\DoxyCodeLine{84           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V;}
+\DoxyCodeLine{85           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F;}
+\DoxyCodeLine{86           \textcolor{comment}{// Number of self-\/intersecting triangle pairs}}
+\DoxyCodeLine{87           \textcolor{keyword}{typedef} \textcolor{keyword}{typename} DerivedF::Index Index;}
+\DoxyCodeLine{88           Index count;}
+\DoxyCodeLine{89           \textcolor{keyword}{typedef} std::vector<std::pair<Index, CGAL::Object>> ObjectList;}
+\DoxyCodeLine{90           \textcolor{comment}{// Using a vector here makes this **not** output sensitive}}
+\DoxyCodeLine{91           Triangles T;}
+\DoxyCodeLine{92           \textcolor{keyword}{typedef} std::vector<Index> IndexList;}
+\DoxyCodeLine{93           IndexList lIF;}
+\DoxyCodeLine{94           \textcolor{comment}{// \#F-\/long list of faces with intersections mapping to the order in}}
+\DoxyCodeLine{95           \textcolor{comment}{// which they were first found}}
+\DoxyCodeLine{96           std::map<Index,ObjectList> offending;}
+\DoxyCodeLine{97           \textcolor{comment}{// Make a short name for the edge map's key}}
+\DoxyCodeLine{98           \textcolor{keyword}{typedef} std::pair<Index,Index> EMK;}
+\DoxyCodeLine{99           \textcolor{comment}{// Make a short name for the type stored at each edge, the edge map's}}
+\DoxyCodeLine{100           \textcolor{comment}{// value}}
+\DoxyCodeLine{101           \textcolor{keyword}{typedef} std::vector<Index> EMV;}
+\DoxyCodeLine{102           \textcolor{comment}{// Make a short name for the edge map}}
+\DoxyCodeLine{103           \textcolor{keyword}{typedef} std::map<EMK,EMV> EdgeMap;}
+\DoxyCodeLine{104           \textcolor{comment}{// Maps edges of offending faces to all incident offending faces}}
+\DoxyCodeLine{105           std::vector<std::pair<TrianglesIterator, TrianglesIterator> >}
+\DoxyCodeLine{106               candidate\_triangle\_pairs;}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         \textcolor{keyword}{public}:}
+\DoxyCodeLine{109           \mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{RemeshSelfIntersectionsParam}} params;}
+\DoxyCodeLine{110         \textcolor{keyword}{public}:}
+\DoxyCodeLine{111           \textcolor{comment}{// Constructs (VV,FF) a new mesh with self-\/intersections of (V,F)}}
+\DoxyCodeLine{112           \textcolor{comment}{// subdivided}}
+\DoxyCodeLine{113           \textcolor{comment}{//}}
+\DoxyCodeLine{114           \textcolor{comment}{// See also: remesh\_self\_intersections.h}}
+\DoxyCodeLine{115           \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{SelfIntersectMesh}}(}
+\DoxyCodeLine{116               \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{117               \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{118               \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1copyleft_1_1cgal_1_1_remesh_self_intersections_param}{RemeshSelfIntersectionsParam}} \& params,}
+\DoxyCodeLine{119               Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{120               Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{121               Eigen::PlainObjectBase<DerivedIF> \& IF,}
+\DoxyCodeLine{122               Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{123               Eigen::PlainObjectBase<DerivedIM> \& IM);}
+\DoxyCodeLine{124         \textcolor{keyword}{private}:}
+\DoxyCodeLine{125           \textcolor{comment}{// Helper function to mark a face as offensive}}
+\DoxyCodeLine{126           \textcolor{comment}{//}}
+\DoxyCodeLine{127           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{128           \textcolor{comment}{//   f  index of face in F}}
+\DoxyCodeLine{129           \textcolor{keyword}{inline} \textcolor{keywordtype}{void} mark\_offensive(\textcolor{keyword}{const} Index f);}
+\DoxyCodeLine{130           \textcolor{comment}{// Helper function to count intersections between faces}}
+\DoxyCodeLine{131           \textcolor{comment}{//}}
+\DoxyCodeLine{132           \textcolor{comment}{// Input:}}
+\DoxyCodeLine{133           \textcolor{comment}{//   fa  index of face A in F}}
+\DoxyCodeLine{134           \textcolor{comment}{//   fb  index of face B in F}}
+\DoxyCodeLine{135           \textcolor{keyword}{inline} \textcolor{keywordtype}{void} count\_intersection( \textcolor{keyword}{const} Index fa, \textcolor{keyword}{const} Index fb);}
+\DoxyCodeLine{136           \textcolor{comment}{// Helper function for box\_intersect. Intersect two triangles A and B,}}
+\DoxyCodeLine{137           \textcolor{comment}{// append the intersection object (point,segment,triangle) to a running}}
+\DoxyCodeLine{138           \textcolor{comment}{// list for A and B}}
+\DoxyCodeLine{139           \textcolor{comment}{//}}
+\DoxyCodeLine{140           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{141           \textcolor{comment}{//   A  triangle in 3D}}
+\DoxyCodeLine{142           \textcolor{comment}{//   B  triangle in 3D}}
+\DoxyCodeLine{143           \textcolor{comment}{//   fa  index of A in F (and key into offending)}}
+\DoxyCodeLine{144           \textcolor{comment}{//   fb  index of B in F (and key into offending)}}
+\DoxyCodeLine{145           \textcolor{comment}{// Returns true only if A intersects B}}
+\DoxyCodeLine{146           \textcolor{comment}{//}}
+\DoxyCodeLine{147           \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} intersect(}
+\DoxyCodeLine{148               \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{149               \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{150               \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{151               \textcolor{keyword}{const} Index fb);}
+\DoxyCodeLine{152           \textcolor{comment}{// Helper function for box\_intersect. In the case where A and B have}}
+\DoxyCodeLine{153           \textcolor{comment}{// already been identified to share a vertex, then we only want to}}
+\DoxyCodeLine{154           \textcolor{comment}{// add possible segment intersections. Assumes truly duplicate}}
+\DoxyCodeLine{155           \textcolor{comment}{// triangles are not given as input}}
+\DoxyCodeLine{156           \textcolor{comment}{//}}
+\DoxyCodeLine{157           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{158           \textcolor{comment}{//   A  triangle in 3D}}
+\DoxyCodeLine{159           \textcolor{comment}{//   B  triangle in 3D}}
+\DoxyCodeLine{160           \textcolor{comment}{//   fa  index of A in F (and key into offending)}}
+\DoxyCodeLine{161           \textcolor{comment}{//   fb  index of B in F (and key into offending)}}
+\DoxyCodeLine{162           \textcolor{comment}{//   va  index of shared vertex in A (and key into offending)}}
+\DoxyCodeLine{163           \textcolor{comment}{//   vb  index of shared vertex in B (and key into offending)}}
+\DoxyCodeLine{164           \textcolor{comment}{//   Returns true if intersection (besides shared point)}}
+\DoxyCodeLine{165           \textcolor{comment}{//}}
+\DoxyCodeLine{166           \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} single\_shared\_vertex(}
+\DoxyCodeLine{167               \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{168               \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{169               \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{170               \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{171               \textcolor{keyword}{const} Index va,}
+\DoxyCodeLine{172               \textcolor{keyword}{const} Index vb);}
+\DoxyCodeLine{173           \textcolor{comment}{// Helper handling one direction}}
+\DoxyCodeLine{174           \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} single\_shared\_vertex(}
+\DoxyCodeLine{175               \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{176               \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{177               \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{178               \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{179               \textcolor{keyword}{const} Index va);}
+\DoxyCodeLine{180           \textcolor{comment}{// Helper function for box\_intersect. In the case where A and B have}}
+\DoxyCodeLine{181           \textcolor{comment}{// already been identified to share two vertices, then we only want}}
+\DoxyCodeLine{182           \textcolor{comment}{// to add a possible coplanar (Triangle) intersection. Assumes truly}}
+\DoxyCodeLine{183           \textcolor{comment}{// degenerate facets are not givin as input.}}
+\DoxyCodeLine{184           \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} double\_shared\_vertex(}
+\DoxyCodeLine{185               \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{186               \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{187               \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{188               \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{189               \textcolor{keyword}{const} std::vector<std::pair<Index,Index> > shared);}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191         \textcolor{keyword}{public}:}
+\DoxyCodeLine{192           \textcolor{comment}{// Callback function called during box self intersections test. Means}}
+\DoxyCodeLine{193           \textcolor{comment}{// boxes a and b intersect. This method then checks if the triangles}}
+\DoxyCodeLine{194           \textcolor{comment}{// in each box intersect and if so, then processes the intersections}}
+\DoxyCodeLine{195           \textcolor{comment}{//}}
+\DoxyCodeLine{196           \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{197           \textcolor{comment}{//   a  box containing a triangle}}
+\DoxyCodeLine{198           \textcolor{comment}{//   b  box containing a triangle}}
+\DoxyCodeLine{199           \textcolor{keyword}{inline} \textcolor{keywordtype}{void} box\_intersect(\textcolor{keyword}{const} Box\& a, \textcolor{keyword}{const} Box\& b);}
+\DoxyCodeLine{200           \textcolor{keyword}{inline} \textcolor{keywordtype}{void} process\_intersecting\_boxes();}
+\DoxyCodeLine{201         \textcolor{keyword}{public}:}
+\DoxyCodeLine{202           \textcolor{comment}{// Getters:}}
+\DoxyCodeLine{203           \textcolor{comment}{//const IndexList\& get\_lIF() const\{ return lIF;\}}}
+\DoxyCodeLine{204           \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} box\_intersect\_static(}
+\DoxyCodeLine{205             \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{SelfIntersectMesh}} * SIM,}
+\DoxyCodeLine{206             \textcolor{keyword}{const} Box \&a,}
+\DoxyCodeLine{207             \textcolor{keyword}{const} Box \&b);}
+\DoxyCodeLine{208         \textcolor{keyword}{private}:}
+\DoxyCodeLine{209           std::mutex m\_offending\_lock;}
+\DoxyCodeLine{210       \};}
+\DoxyCodeLine{211     \}}
+\DoxyCodeLine{212   \}}
+\DoxyCodeLine{213 \}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{comment}{// Implementation}}
+\DoxyCodeLine{216 }
+\DoxyCodeLine{217 \textcolor{preprocessor}{\#include "{}mesh\_to\_cgal\_triangle\_list.h"{}}}
+\DoxyCodeLine{218 \textcolor{preprocessor}{\#include "{}remesh\_intersections.h"{}}}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220 \textcolor{preprocessor}{\#include "{}../../REDRUM.h"{}}}
+\DoxyCodeLine{221 \textcolor{preprocessor}{\#include "{}../../get\_seconds.h"{}}}
+\DoxyCodeLine{222 \textcolor{preprocessor}{\#include "{}../../C\_STR.h"{}}}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{226 \textcolor{preprocessor}{\#include <algorithm>}}
+\DoxyCodeLine{227 \textcolor{preprocessor}{\#include <exception>}}
+\DoxyCodeLine{228 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{229 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231 \textcolor{comment}{// References:}}
+\DoxyCodeLine{232 \textcolor{comment}{// http://minregret.googlecode.com/svn/trunk/skyline/src/extern/CGAL-\/3.3.1/examples/Polyhedron/polyhedron\_self\_intersection.cpp}}
+\DoxyCodeLine{233 \textcolor{comment}{// http://www.cgal.org/Manual/3.9/examples/Boolean\_set\_operations\_2/do\_intersect.cpp}}
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235 \textcolor{comment}{// Q: Should we be using CGAL::Polyhedron\_3?}}
+\DoxyCodeLine{236 \textcolor{comment}{// A: No! Input is just a list of unoriented triangles. Polyhedron\_3 requires}}
+\DoxyCodeLine{237 \textcolor{comment}{// a 2-\/manifold.}}
+\DoxyCodeLine{238 \textcolor{comment}{// A: But! It seems we could use CGAL::Triangulation\_3. Though it won't be easy}}
+\DoxyCodeLine{239 \textcolor{comment}{// to take advantage of functions like insert\_in\_facet because we want to}}
+\DoxyCodeLine{240 \textcolor{comment}{// constrain segments. Hmmm. Actually Triangulation\_3 doesn't look right...}}
+\DoxyCodeLine{241 }
+\DoxyCodeLine{242 \textcolor{comment}{// CGAL's box\_self\_intersection\_d uses C-\/style function callbacks without}}
+\DoxyCodeLine{243 \textcolor{comment}{// userdata. This is a leapfrog method for calling a member function. It should}}
+\DoxyCodeLine{244 \textcolor{comment}{// be bound as if the prototype was:}}
+\DoxyCodeLine{245 \textcolor{comment}{//   static void box\_intersect(const Box \&a, const Box \&b)}}
+\DoxyCodeLine{246 \textcolor{comment}{// using boost:}}
+\DoxyCodeLine{247 \textcolor{comment}{//  boost::function<void(const Box \&a,const Box \&b)> cb}}
+\DoxyCodeLine{248 \textcolor{comment}{//    = boost::bind(\&::box\_intersect, this, \_1,\_2);}}
+\DoxyCodeLine{249 \textcolor{comment}{//}}
+\DoxyCodeLine{250 \textcolor{keyword}{template} <}
+\DoxyCodeLine{251   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{252   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{253   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{254   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{255   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{256   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{257   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{258   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{259 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{260   Kernel,}
+\DoxyCodeLine{261   DerivedV,}
+\DoxyCodeLine{262   DerivedF,}
+\DoxyCodeLine{263   DerivedVV,}
+\DoxyCodeLine{264   DerivedFF,}
+\DoxyCodeLine{265   DerivedIF,}
+\DoxyCodeLine{266   DerivedJ,}
+\DoxyCodeLine{267   DerivedIM>::box\_intersect\_static(}
+\DoxyCodeLine{268   Self * SIM,}
+\DoxyCodeLine{269   \textcolor{keyword}{const} \textcolor{keyword}{typename} Self::Box \&a,}
+\DoxyCodeLine{270   \textcolor{keyword}{const} \textcolor{keyword}{typename} Self::Box \&b)}
+\DoxyCodeLine{271 \{}
+\DoxyCodeLine{272   SIM-\/>box\_intersect(a,b);}
+\DoxyCodeLine{273 \}}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275 \textcolor{keyword}{template} <}
+\DoxyCodeLine{276   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{277   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{278   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{279   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{280   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{281   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{282   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{283   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{284 \textcolor{keyword}{inline} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{285   Kernel,}
+\DoxyCodeLine{286   DerivedV,}
+\DoxyCodeLine{287   DerivedF,}
+\DoxyCodeLine{288   DerivedVV,}
+\DoxyCodeLine{289   DerivedFF,}
+\DoxyCodeLine{290   DerivedIF,}
+\DoxyCodeLine{291   DerivedJ,}
+\DoxyCodeLine{292   DerivedIM>::SelfIntersectMesh(}
+\DoxyCodeLine{293   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{294   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{295   \textcolor{keyword}{const} RemeshSelfIntersectionsParam \& params,}
+\DoxyCodeLine{296   Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{297   Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{298   Eigen::PlainObjectBase<DerivedIF> \& IF,}
+\DoxyCodeLine{299   Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{300   Eigen::PlainObjectBase<DerivedIM> \& IM):}
+\DoxyCodeLine{301   V(V),}
+\DoxyCodeLine{302   F(F),}
+\DoxyCodeLine{303   count(0),}
+\DoxyCodeLine{304   T(),}
+\DoxyCodeLine{305   lIF(),}
+\DoxyCodeLine{306   offending(),}
+\DoxyCodeLine{307   params(params)}
+\DoxyCodeLine{308 \{}
+\DoxyCodeLine{309   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{310   \textcolor{keyword}{using namespace }Eigen;}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{312 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{313   \textcolor{keyword}{const} \textcolor{keyword}{auto} \& tictoc = []() -\/> \textcolor{keywordtype}{double}}
+\DoxyCodeLine{314   \{}
+\DoxyCodeLine{315     \textcolor{keyword}{static} \textcolor{keywordtype}{double} t\_start = igl::get\_seconds();}
+\DoxyCodeLine{316     \textcolor{keywordtype}{double} diff = igl::get\_seconds()-\/t\_start;}
+\DoxyCodeLine{317     t\_start += diff;}
+\DoxyCodeLine{318     \textcolor{keywordflow}{return} diff;}
+\DoxyCodeLine{319   \};}
+\DoxyCodeLine{320   \textcolor{keyword}{const} \textcolor{keyword}{auto} log\_time = [\&](\textcolor{keyword}{const} std::string\& label) -\/> \textcolor{keywordtype}{void}\{}
+\DoxyCodeLine{321     std::cout << \textcolor{stringliteral}{"{}SelfIntersectMesh."{}} << label << \textcolor{stringliteral}{"{}: "{}}}
+\DoxyCodeLine{322       << tictoc() << std::endl;}
+\DoxyCodeLine{323   \};}
+\DoxyCodeLine{324   tictoc();}
+\DoxyCodeLine{325 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{326 }
+\DoxyCodeLine{327   \textcolor{comment}{// Compute and process self intersections}}
+\DoxyCodeLine{328   mesh\_to\_cgal\_triangle\_list(V,F,T);}
+\DoxyCodeLine{329 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{330   log\_time(\textcolor{stringliteral}{"{}convert\_to\_triangle\_list"{}});}
+\DoxyCodeLine{331 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{332   \textcolor{comment}{// http://www.cgal.org/Manual/latest/doc\_html/cgal\_manual/Box\_intersection\_d/Chapter\_main.html\#Section\_63.5}}
+\DoxyCodeLine{333   \textcolor{comment}{// Create the corresponding vector of bounding boxes}}
+\DoxyCodeLine{334   std::vector<Box> boxes;}
+\DoxyCodeLine{335   boxes.reserve(T.size());}
+\DoxyCodeLine{336   \textcolor{keywordflow}{for} (}
+\DoxyCodeLine{337     TrianglesIterator tit = T.begin();}
+\DoxyCodeLine{338     tit != T.end();}
+\DoxyCodeLine{339     ++tit)}
+\DoxyCodeLine{340   \{}
+\DoxyCodeLine{341     \textcolor{keywordflow}{if} (!tit-\/>is\_degenerate())}
+\DoxyCodeLine{342     \{}
+\DoxyCodeLine{343       boxes.push\_back(Box(tit-\/>bbox(), tit));}
+\DoxyCodeLine{344     \}}
+\DoxyCodeLine{345   \}}
+\DoxyCodeLine{346   \textcolor{comment}{// Leapfrog callback}}
+\DoxyCodeLine{347   std::function<void(\textcolor{keyword}{const} Box \&a,\textcolor{keyword}{const} Box \&b)> cb =}
+\DoxyCodeLine{348     std::bind(\&box\_intersect\_static, \textcolor{keyword}{this},}
+\DoxyCodeLine{349       \textcolor{comment}{// Explicitly use std namespace to avoid confusion with boost (who puts}}
+\DoxyCodeLine{350       \textcolor{comment}{// \_1 etc. in global namespace)}}
+\DoxyCodeLine{351       std::placeholders::\_1,}
+\DoxyCodeLine{352       std::placeholders::\_2);}
+\DoxyCodeLine{353 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{354   log\_time(\textcolor{stringliteral}{"{}box\_and\_bind"{}});}
+\DoxyCodeLine{355 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{356   \textcolor{comment}{// Run the self intersection algorithm with all defaults}}
+\DoxyCodeLine{357   CGAL::box\_self\_intersection\_d(boxes.begin(), boxes.end(),cb);}
+\DoxyCodeLine{358 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{359   log\_time(\textcolor{stringliteral}{"{}box\_intersection\_d"{}});}
+\DoxyCodeLine{360 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{361   \textcolor{keywordflow}{try}\{}
+\DoxyCodeLine{362     process\_intersecting\_boxes();}
+\DoxyCodeLine{363   \}\textcolor{keywordflow}{catch}(\textcolor{keywordtype}{int} e)}
+\DoxyCodeLine{364   \{}
+\DoxyCodeLine{365     \textcolor{comment}{// Rethrow if not IGL\_FIRST\_HIT\_EXCEPTION}}
+\DoxyCodeLine{366     \textcolor{keywordflow}{if}(e != IGL\_FIRST\_HIT\_EXCEPTION)}
+\DoxyCodeLine{367     \{}
+\DoxyCodeLine{368       \textcolor{keywordflow}{throw} e;}
+\DoxyCodeLine{369     \}}
+\DoxyCodeLine{370     \textcolor{comment}{// Otherwise just fall through}}
+\DoxyCodeLine{371   \}}
+\DoxyCodeLine{372 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{373   log\_time(\textcolor{stringliteral}{"{}resolve\_intersection"{}});}
+\DoxyCodeLine{374 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{375 }
+\DoxyCodeLine{376   \textcolor{comment}{// Convert lIF to Eigen matrix}}
+\DoxyCodeLine{377   assert(lIF.size()\%2 == 0);}
+\DoxyCodeLine{378   IF.resize(lIF.size()/2,2);}
+\DoxyCodeLine{379   \{}
+\DoxyCodeLine{380     Index i=0;}
+\DoxyCodeLine{381     \textcolor{keywordflow}{for}(}
+\DoxyCodeLine{382       \textcolor{keyword}{typename} IndexList::const\_iterator ifit = lIF.begin();}
+\DoxyCodeLine{383       ifit!=lIF.end();}
+\DoxyCodeLine{384       )}
+\DoxyCodeLine{385     \{}
+\DoxyCodeLine{386       IF(i,0) = (*ifit);}
+\DoxyCodeLine{387       ifit++;}
+\DoxyCodeLine{388       IF(i,1) = (*ifit);}
+\DoxyCodeLine{389       ifit++;}
+\DoxyCodeLine{390       i++;}
+\DoxyCodeLine{391     \}}
+\DoxyCodeLine{392   \}}
+\DoxyCodeLine{393 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{394   log\_time(\textcolor{stringliteral}{"{}store\_intersecting\_face\_pairs"{}});}
+\DoxyCodeLine{395 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{397   \textcolor{keywordflow}{if}(params.detect\_only)}
+\DoxyCodeLine{398   \{}
+\DoxyCodeLine{399     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{400   \}}
+\DoxyCodeLine{401 }
+\DoxyCodeLine{402   remesh\_intersections(}
+\DoxyCodeLine{403     V,F,T,offending,params.stitch\_all,VV,FF,J,IM);}
+\DoxyCodeLine{404 }
+\DoxyCodeLine{405 \textcolor{preprocessor}{\#ifdef IGL\_SELFINTERSECTMESH\_DEBUG}}
+\DoxyCodeLine{406   log\_time(\textcolor{stringliteral}{"{}remesh\_intersection"{}});}
+\DoxyCodeLine{407 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{408 \}}
+\DoxyCodeLine{409 }
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411 \textcolor{keyword}{template} <}
+\DoxyCodeLine{412   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{413   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{414   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{415   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{416   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{417   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{418   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{419   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{420 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{421   Kernel,}
+\DoxyCodeLine{422   DerivedV,}
+\DoxyCodeLine{423   DerivedF,}
+\DoxyCodeLine{424   DerivedVV,}
+\DoxyCodeLine{425   DerivedFF,}
+\DoxyCodeLine{426   DerivedIF,}
+\DoxyCodeLine{427   DerivedJ,}
+\DoxyCodeLine{428   DerivedIM>::mark\_offensive(\textcolor{keyword}{const} Index f)}
+\DoxyCodeLine{429 \{}
+\DoxyCodeLine{430   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{431   lIF.push\_back(f);}
+\DoxyCodeLine{432   \textcolor{keywordflow}{if}(offending.count(f) == 0)}
+\DoxyCodeLine{433   \{}
+\DoxyCodeLine{434     \textcolor{comment}{// first time marking, initialize with new id and empty list}}
+\DoxyCodeLine{435     offending[f] = \{\};}
+\DoxyCodeLine{436   \}}
+\DoxyCodeLine{437 \}}
+\DoxyCodeLine{438 }
+\DoxyCodeLine{439 \textcolor{keyword}{template} <}
+\DoxyCodeLine{440   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{441   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{442   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{443   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{444   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{445   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{446   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{447   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{448 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{449   Kernel,}
+\DoxyCodeLine{450   DerivedV,}
+\DoxyCodeLine{451   DerivedF,}
+\DoxyCodeLine{452   DerivedVV,}
+\DoxyCodeLine{453   DerivedFF,}
+\DoxyCodeLine{454   DerivedIF,}
+\DoxyCodeLine{455   DerivedJ,}
+\DoxyCodeLine{456   DerivedIM>::count\_intersection(}
+\DoxyCodeLine{457   \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{458   \textcolor{keyword}{const} Index fb)}
+\DoxyCodeLine{459 \{}
+\DoxyCodeLine{460   std::lock\_guard<std::mutex> guard(m\_offending\_lock);}
+\DoxyCodeLine{461   mark\_offensive(fa);}
+\DoxyCodeLine{462   mark\_offensive(fb);}
+\DoxyCodeLine{463   this-\/>count++;}
+\DoxyCodeLine{464   \textcolor{comment}{// We found the first intersection}}
+\DoxyCodeLine{465   \textcolor{keywordflow}{if}(params.first\_only \&\& this-\/>count >= 1)}
+\DoxyCodeLine{466   \{}
+\DoxyCodeLine{467     \textcolor{keywordflow}{throw} IGL\_FIRST\_HIT\_EXCEPTION;}
+\DoxyCodeLine{468   \}}
+\DoxyCodeLine{469 }
+\DoxyCodeLine{470 \}}
+\DoxyCodeLine{471 }
+\DoxyCodeLine{472 \textcolor{keyword}{template} <}
+\DoxyCodeLine{473   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{474   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{475   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{476   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{477   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{478   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{479   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{480   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{481 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{482   Kernel,}
+\DoxyCodeLine{483   DerivedV,}
+\DoxyCodeLine{484   DerivedF,}
+\DoxyCodeLine{485   DerivedVV,}
+\DoxyCodeLine{486   DerivedFF,}
+\DoxyCodeLine{487   DerivedIF,}
+\DoxyCodeLine{488   DerivedJ,}
+\DoxyCodeLine{489   DerivedIM>::intersect(}
+\DoxyCodeLine{490   \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{491   \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{492   \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{493   \textcolor{keyword}{const} Index fb)}
+\DoxyCodeLine{494 \{}
+\DoxyCodeLine{495   \textcolor{comment}{// Determine whether there is an intersection}}
+\DoxyCodeLine{496   \textcolor{keywordflow}{if}(!CGAL::do\_intersect(A,B))}
+\DoxyCodeLine{497   \{}
+\DoxyCodeLine{498     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{499   \}}
+\DoxyCodeLine{500   count\_intersection(fa,fb);}
+\DoxyCodeLine{501   \textcolor{keywordflow}{if}(!params.detect\_only)}
+\DoxyCodeLine{502   \{}
+\DoxyCodeLine{503     \textcolor{comment}{// Construct intersection}}
+\DoxyCodeLine{504     CGAL::Object result = CGAL::intersection(A,B);}
+\DoxyCodeLine{505     std::lock\_guard<std::mutex> guard(m\_offending\_lock);}
+\DoxyCodeLine{506     offending[fa].push\_back(\{fb, result\});}
+\DoxyCodeLine{507     offending[fb].push\_back(\{fa, result\});}
+\DoxyCodeLine{508   \}}
+\DoxyCodeLine{509   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{510 \}}
+\DoxyCodeLine{511 }
+\DoxyCodeLine{512 \textcolor{keyword}{template} <}
+\DoxyCodeLine{513   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{514   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{515   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{516   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{517   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{518   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{519   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{520   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{521 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{522   Kernel,}
+\DoxyCodeLine{523   DerivedV,}
+\DoxyCodeLine{524   DerivedF,}
+\DoxyCodeLine{525   DerivedVV,}
+\DoxyCodeLine{526   DerivedFF,}
+\DoxyCodeLine{527   DerivedIF,}
+\DoxyCodeLine{528   DerivedJ,}
+\DoxyCodeLine{529   DerivedIM>::single\_shared\_vertex(}
+\DoxyCodeLine{530   \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{531   \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{532   \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{533   \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{534   \textcolor{keyword}{const} Index va,}
+\DoxyCodeLine{535   \textcolor{keyword}{const} Index vb)}
+\DoxyCodeLine{536 \{}
+\DoxyCodeLine{537   \textcolor{keywordflow}{if}(single\_shared\_vertex(A,B,fa,fb,va))}
+\DoxyCodeLine{538   \{}
+\DoxyCodeLine{539     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{540   \}}
+\DoxyCodeLine{541   \textcolor{keywordflow}{return} single\_shared\_vertex(B,A,fb,fa,vb);}
+\DoxyCodeLine{542 \}}
+\DoxyCodeLine{543 }
+\DoxyCodeLine{544 \textcolor{keyword}{template} <}
+\DoxyCodeLine{545   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{546   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{547   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{548   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{549   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{550   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{551   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{552   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{553 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{554   Kernel,}
+\DoxyCodeLine{555   DerivedV,}
+\DoxyCodeLine{556   DerivedF,}
+\DoxyCodeLine{557   DerivedVV,}
+\DoxyCodeLine{558   DerivedFF,}
+\DoxyCodeLine{559   DerivedIF,}
+\DoxyCodeLine{560   DerivedJ,}
+\DoxyCodeLine{561   DerivedIM>::single\_shared\_vertex(}
+\DoxyCodeLine{562   \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{563   \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{564   \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{565   \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{566   \textcolor{keyword}{const} Index va)}
+\DoxyCodeLine{567 \{}
+\DoxyCodeLine{568   \textcolor{comment}{// This was not a good idea. It will not handle coplanar triangles well.}}
+\DoxyCodeLine{569   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{570   Segment\_3 sa(}
+\DoxyCodeLine{571     A.vertex((va+1)\%3),}
+\DoxyCodeLine{572     A.vertex((va+2)\%3));}
+\DoxyCodeLine{573 }
+\DoxyCodeLine{574   \textcolor{keywordflow}{if}(CGAL::do\_intersect(sa,B))}
+\DoxyCodeLine{575   \{}
+\DoxyCodeLine{576     \textcolor{comment}{// can't put count\_intersection(fa,fb) here since we use intersect below}}
+\DoxyCodeLine{577     \textcolor{comment}{// and then it will be counted twice.}}
+\DoxyCodeLine{578     \textcolor{keywordflow}{if}(params.detect\_only)}
+\DoxyCodeLine{579     \{}
+\DoxyCodeLine{580       count\_intersection(fa,fb);}
+\DoxyCodeLine{581       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{582     \}}
+\DoxyCodeLine{583     CGAL::Object result = CGAL::intersection(sa,B);}
+\DoxyCodeLine{584     \textcolor{keywordflow}{if}(\textcolor{keyword}{const} Point\_3 * p = CGAL::object\_cast<Point\_3 >(\&result))}
+\DoxyCodeLine{585     \{}
+\DoxyCodeLine{586       \textcolor{comment}{// Single intersection -\/-\/> segment from shared point to intersection}}
+\DoxyCodeLine{587       CGAL::Object seg = CGAL::make\_object(Segment\_3(}
+\DoxyCodeLine{588         A.vertex(va),}
+\DoxyCodeLine{589         *p));}
+\DoxyCodeLine{590       count\_intersection(fa,fb);}
+\DoxyCodeLine{591       std::lock\_guard<std::mutex> guard(m\_offending\_lock);}
+\DoxyCodeLine{592       offending[fa].push\_back(\{fb, seg\});}
+\DoxyCodeLine{593       offending[fb].push\_back(\{fa, seg\});}
+\DoxyCodeLine{594       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{595     \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(CGAL::object\_cast<Segment\_3 >(\&result))}
+\DoxyCodeLine{596     \{}
+\DoxyCodeLine{597       \textcolor{comment}{// Need to do full test. Intersection could be a general poly.}}
+\DoxyCodeLine{598       \textcolor{keywordtype}{bool} test = intersect(A,B,fa,fb);}
+\DoxyCodeLine{599       ((void)test);}
+\DoxyCodeLine{600       assert(test \&\& \textcolor{stringliteral}{"{}intersect should agree with do\_intersect"{}});}
+\DoxyCodeLine{601       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{602     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{603     \{}
+\DoxyCodeLine{604       cerr<<REDRUM(\textcolor{stringliteral}{"{}Segment ∩ triangle neither point nor segment?"{}})<<endl;}
+\DoxyCodeLine{605       assert(\textcolor{keyword}{false});}
+\DoxyCodeLine{606     \}}
+\DoxyCodeLine{607   \}}
+\DoxyCodeLine{608 }
+\DoxyCodeLine{609   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{610 \}}
+\DoxyCodeLine{611 }
+\DoxyCodeLine{612 }
+\DoxyCodeLine{613 \textcolor{keyword}{template} <}
+\DoxyCodeLine{614   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{615   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{616   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{617   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{618   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{619   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{620   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{621   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{622 \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{623   Kernel,}
+\DoxyCodeLine{624   DerivedV,}
+\DoxyCodeLine{625   DerivedF,}
+\DoxyCodeLine{626   DerivedVV,}
+\DoxyCodeLine{627   DerivedFF,}
+\DoxyCodeLine{628   DerivedIF,}
+\DoxyCodeLine{629   DerivedJ,}
+\DoxyCodeLine{630   DerivedIM>::double\_shared\_vertex(}
+\DoxyCodeLine{631   \textcolor{keyword}{const} Triangle\_3 \& A,}
+\DoxyCodeLine{632   \textcolor{keyword}{const} Triangle\_3 \& B,}
+\DoxyCodeLine{633   \textcolor{keyword}{const} Index fa,}
+\DoxyCodeLine{634   \textcolor{keyword}{const} Index fb,}
+\DoxyCodeLine{635   \textcolor{keyword}{const} std::vector<std::pair<Index,Index> > shared)}
+\DoxyCodeLine{636 \{}
+\DoxyCodeLine{637   \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{638 }
+\DoxyCodeLine{639   \textcolor{comment}{// must be co-\/planar}}
+\DoxyCodeLine{640   \textcolor{keywordflow}{if}(}
+\DoxyCodeLine{641     A.supporting\_plane() != B.supporting\_plane() \&\&}
+\DoxyCodeLine{642     A.supporting\_plane() != B.supporting\_plane().opposite())}
+\DoxyCodeLine{643   \{}
+\DoxyCodeLine{644     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{645   \}}
+\DoxyCodeLine{646   \textcolor{comment}{// Since A and B are non-\/degenerate the intersection must be a polygon}}
+\DoxyCodeLine{647   \textcolor{comment}{// (triangle). Either}}
+\DoxyCodeLine{648   \textcolor{comment}{//   -\/ the vertex of A (B) opposite the shared edge of lies on B (A), or}}
+\DoxyCodeLine{649   \textcolor{comment}{//   -\/ an edge of A intersects and edge of B without sharing a vertex}}
+\DoxyCodeLine{650   \textcolor{comment}{//}}
+\DoxyCodeLine{651   \textcolor{comment}{// Determine if the vertex opposite edge (a0,a1) in triangle A lies in}}
+\DoxyCodeLine{652   \textcolor{comment}{// (intersects) triangle B}}
+\DoxyCodeLine{653   \textcolor{keyword}{const} \textcolor{keyword}{auto} \& opposite\_point\_inside = [](}
+\DoxyCodeLine{654     \textcolor{keyword}{const} Triangle\_3 \& A, \textcolor{keyword}{const} Index a0, \textcolor{keyword}{const} Index a1, \textcolor{keyword}{const} Triangle\_3 \& B)}
+\DoxyCodeLine{655     -\/> \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{656   \{}
+\DoxyCodeLine{657     \textcolor{comment}{// get opposite index}}
+\DoxyCodeLine{658     Index a2 = -\/1;}
+\DoxyCodeLine{659     \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} c = 0;c<3;c++)}
+\DoxyCodeLine{660     \{}
+\DoxyCodeLine{661       \textcolor{keywordflow}{if}(c != a0 \&\& c != a1)}
+\DoxyCodeLine{662       \{}
+\DoxyCodeLine{663         a2 = c;}
+\DoxyCodeLine{664         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{665       \}}
+\DoxyCodeLine{666     \}}
+\DoxyCodeLine{667     assert(a2 != -\/1);}
+\DoxyCodeLine{668     \textcolor{keywordtype}{bool} ret = CGAL::do\_intersect(A.vertex(a2),B);}
+\DoxyCodeLine{669     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{670   \};}
+\DoxyCodeLine{671 }
+\DoxyCodeLine{672   \textcolor{comment}{// Determine if edge opposite vertex va in triangle A intersects edge}}
+\DoxyCodeLine{673   \textcolor{comment}{// opposite vertex vb in triangle B.}}
+\DoxyCodeLine{674   \textcolor{keyword}{const} \textcolor{keyword}{auto} \& opposite\_edges\_intersect = [](}
+\DoxyCodeLine{675     \textcolor{keyword}{const} Triangle\_3 \& A, \textcolor{keyword}{const} Index va,}
+\DoxyCodeLine{676     \textcolor{keyword}{const} Triangle\_3 \& B, \textcolor{keyword}{const} Index vb) -\/> \textcolor{keywordtype}{bool}}
+\DoxyCodeLine{677   \{}
+\DoxyCodeLine{678     Segment\_3 sa( A.vertex((va+1)\%3), A.vertex((va+2)\%3));}
+\DoxyCodeLine{679     Segment\_3 sb( B.vertex((vb+1)\%3), B.vertex((vb+2)\%3));}
+\DoxyCodeLine{680     \textcolor{keywordtype}{bool} ret = CGAL::do\_intersect(sa,sb);}
+\DoxyCodeLine{681     \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{682   \};}
+\DoxyCodeLine{683 }
+\DoxyCodeLine{684   \textcolor{keywordflow}{if}(}
+\DoxyCodeLine{685     !opposite\_point\_inside(A,shared[0].first,shared[1].first,B) \&\&}
+\DoxyCodeLine{686     !opposite\_point\_inside(B,shared[0].second,shared[1].second,A) \&\&}
+\DoxyCodeLine{687     !opposite\_edges\_intersect(A,shared[0].first,B,shared[1].second) \&\&}
+\DoxyCodeLine{688     !opposite\_edges\_intersect(A,shared[1].first,B,shared[0].second))}
+\DoxyCodeLine{689   \{}
+\DoxyCodeLine{690     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{691   \}}
+\DoxyCodeLine{692 }
+\DoxyCodeLine{693   \textcolor{comment}{// there is an intersection indeed}}
+\DoxyCodeLine{694   count\_intersection(fa,fb);}
+\DoxyCodeLine{695   \textcolor{keywordflow}{if}(params.detect\_only)}
+\DoxyCodeLine{696   \{}
+\DoxyCodeLine{697     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{698   \}}
+\DoxyCodeLine{699   \textcolor{comment}{// Construct intersection}}
+\DoxyCodeLine{700   \textcolor{keywordflow}{try}}
+\DoxyCodeLine{701   \{}
+\DoxyCodeLine{702     \textcolor{comment}{// This can fail for Epick but not Epeck}}
+\DoxyCodeLine{703     CGAL::Object result = CGAL::intersection(A,B);}
+\DoxyCodeLine{704     \textcolor{keywordflow}{if}(!result.empty())}
+\DoxyCodeLine{705     \{}
+\DoxyCodeLine{706       \textcolor{keywordflow}{if}(CGAL::object\_cast<Segment\_3 >(\&result))}
+\DoxyCodeLine{707       \{}
+\DoxyCodeLine{708         \textcolor{comment}{// not coplanar}}
+\DoxyCodeLine{709         assert(\textcolor{keyword}{false} \&\&}
+\DoxyCodeLine{710           \textcolor{stringliteral}{"{}Co-\/planar non-\/degenerate triangles should intersect over triangle"{}});}
+\DoxyCodeLine{711         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{712       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(CGAL::object\_cast<Point\_3 >(\&result))}
+\DoxyCodeLine{713       \{}
+\DoxyCodeLine{714         \textcolor{comment}{// this "{}shouldn't"{} happen but does for inexact}}
+\DoxyCodeLine{715         assert(\textcolor{keyword}{false} \&\&}
+\DoxyCodeLine{716           \textcolor{stringliteral}{"{}Co-\/planar non-\/degenerate triangles should intersect over triangle"{}});}
+\DoxyCodeLine{717         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{718       \} \textcolor{keywordflow}{else}}
+\DoxyCodeLine{719       \{}
+\DoxyCodeLine{720         \textcolor{comment}{// Triangle object}}
+\DoxyCodeLine{721         std::lock\_guard<std::mutex> guard(m\_offending\_lock);}
+\DoxyCodeLine{722         offending[fa].push\_back(\{fb, result\});}
+\DoxyCodeLine{723         offending[fb].push\_back(\{fa, result\});}
+\DoxyCodeLine{724         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{725       \}}
+\DoxyCodeLine{726     \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{727     \{}
+\DoxyCodeLine{728       \textcolor{comment}{// CGAL::intersection is disagreeing with do\_intersect}}
+\DoxyCodeLine{729       assert(\textcolor{keyword}{false} \&\& \textcolor{stringliteral}{"{}CGAL::intersection should agree with predicate tests"{}});}
+\DoxyCodeLine{730       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{731     \}}
+\DoxyCodeLine{732   \}\textcolor{keywordflow}{catch}(...)}
+\DoxyCodeLine{733   \{}
+\DoxyCodeLine{734     \textcolor{comment}{// This catches some cgal assertion:}}
+\DoxyCodeLine{735     \textcolor{comment}{//     CGAL error: assertion violation!}}
+\DoxyCodeLine{736     \textcolor{comment}{//     Expression : is\_finite(d)}}
+\DoxyCodeLine{737     \textcolor{comment}{//     File       : /opt/local/include/CGAL/GMP/Gmpq\_type.h}}
+\DoxyCodeLine{738     \textcolor{comment}{//     Line       : 132}}
+\DoxyCodeLine{739     \textcolor{comment}{//     Explanation:}}
+\DoxyCodeLine{740     \textcolor{comment}{// But only if NDEBUG is not defined, otherwise there's an uncaught}}
+\DoxyCodeLine{741     \textcolor{comment}{// "{}Floating point exception: 8"{} SIGFPE}}
+\DoxyCodeLine{742     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{743   \}}
+\DoxyCodeLine{744   \textcolor{comment}{// No intersection.}}
+\DoxyCodeLine{745   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{746 \}}
+\DoxyCodeLine{747 }
+\DoxyCodeLine{748 \textcolor{keyword}{template} <}
+\DoxyCodeLine{749   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{750   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{751   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{752   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{753   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{754   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{755   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{756   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{757 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{758   Kernel,}
+\DoxyCodeLine{759   DerivedV,}
+\DoxyCodeLine{760   DerivedF,}
+\DoxyCodeLine{761   DerivedVV,}
+\DoxyCodeLine{762   DerivedFF,}
+\DoxyCodeLine{763   DerivedIF,}
+\DoxyCodeLine{764   DerivedJ,}
+\DoxyCodeLine{765   DerivedIM>::box\_intersect(}
+\DoxyCodeLine{766   \textcolor{keyword}{const} Box\& a,}
+\DoxyCodeLine{767   \textcolor{keyword}{const} Box\& b)}
+\DoxyCodeLine{768 \{}
+\DoxyCodeLine{769   candidate\_triangle\_pairs.push\_back(\{a.handle(), b.handle()\});}
+\DoxyCodeLine{770 \}}
+\DoxyCodeLine{771 }
+\DoxyCodeLine{772 \textcolor{keyword}{template} <}
+\DoxyCodeLine{773   \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{774   \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{775   \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{776   \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{777   \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{778   \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{779   \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{780   \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{781 \textcolor{keyword}{inline} \textcolor{keywordtype}{void} \mbox{\hyperlink{classigl_1_1copyleft_1_1cgal_1_1_self_intersect_mesh}{igl::copyleft::cgal::SelfIntersectMesh}}<}
+\DoxyCodeLine{782   Kernel,}
+\DoxyCodeLine{783   DerivedV,}
+\DoxyCodeLine{784   DerivedF,}
+\DoxyCodeLine{785   DerivedVV,}
+\DoxyCodeLine{786   DerivedFF,}
+\DoxyCodeLine{787   DerivedIF,}
+\DoxyCodeLine{788   DerivedJ,}
+\DoxyCodeLine{789   DerivedIM>::process\_intersecting\_boxes()}
+\DoxyCodeLine{790 \{}
+\DoxyCodeLine{791   std::vector<std::mutex> triangle\_locks(T.size());}
+\DoxyCodeLine{792   std::vector<std::mutex> vertex\_locks(V.rows());}
+\DoxyCodeLine{793   std::mutex index\_lock;}
+\DoxyCodeLine{794   std::mutex exception\_mutex;}
+\DoxyCodeLine{795   \textcolor{keywordtype}{bool} exception\_fired = \textcolor{keyword}{false};}
+\DoxyCodeLine{796   \textcolor{keywordtype}{int} exception = -\/1;}
+\DoxyCodeLine{797   \textcolor{keyword}{auto} process\_chunk =}
+\DoxyCodeLine{798     [\&](}
+\DoxyCodeLine{799       \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} first,}
+\DoxyCodeLine{800       \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} last) -\/> \textcolor{keywordtype}{void}}
+\DoxyCodeLine{801   \{}
+\DoxyCodeLine{802     \textcolor{keywordflow}{try}}
+\DoxyCodeLine{803     \{}
+\DoxyCodeLine{804       assert(last >= first);}
+\DoxyCodeLine{805 }
+\DoxyCodeLine{806       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i=first; i<last; i++)}
+\DoxyCodeLine{807       \{}
+\DoxyCodeLine{808         \textcolor{keywordflow}{if}(exception\_fired) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{809         Index fa=T.size(), fb=T.size();}
+\DoxyCodeLine{810         \{}
+\DoxyCodeLine{811           \textcolor{comment}{// Before knowing which triangles are involved, we need to lock}}
+\DoxyCodeLine{812           \textcolor{comment}{// everything to prevent race condition in updating reference}}
+\DoxyCodeLine{813           \textcolor{comment}{// counters.}}
+\DoxyCodeLine{814           std::lock\_guard<std::mutex> guard(index\_lock);}
+\DoxyCodeLine{815           \textcolor{keyword}{const} \textcolor{keyword}{auto}\& tri\_pair = candidate\_triangle\_pairs[i];}
+\DoxyCodeLine{816           fa = tri\_pair.first -\/ T.begin();}
+\DoxyCodeLine{817           fb = tri\_pair.second -\/ T.begin();}
+\DoxyCodeLine{818         \}}
+\DoxyCodeLine{819         assert(fa < T.size());}
+\DoxyCodeLine{820         assert(fb < T.size());}
+\DoxyCodeLine{821 }
+\DoxyCodeLine{822         \textcolor{comment}{// Lock triangles}}
+\DoxyCodeLine{823         std::lock\_guard<std::mutex> guard\_A(triangle\_locks[fa]);}
+\DoxyCodeLine{824         std::lock\_guard<std::mutex> guard\_B(triangle\_locks[fb]);}
+\DoxyCodeLine{825 }
+\DoxyCodeLine{826         \textcolor{comment}{// Lock vertices}}
+\DoxyCodeLine{827         std::list<std::lock\_guard<std::mutex> > guard\_vertices;}
+\DoxyCodeLine{828         \{}
+\DoxyCodeLine{829           std::vector<typename DerivedF::Scalar> unique\_vertices;}
+\DoxyCodeLine{830           std::vector<size\_t> tmp1, tmp2;}
+\DoxyCodeLine{831           igl::unique(\{F(fa,0), F(fa,1), F(fa,2), F(fb,0), F(fb,1), F(fb,2)\},}
+\DoxyCodeLine{832               unique\_vertices, tmp1, tmp2);}
+\DoxyCodeLine{833           std::for\_each(unique\_vertices.begin(), unique\_vertices.end(),}
+\DoxyCodeLine{834               [\&](\textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedF::Scalar\& vi) \{}
+\DoxyCodeLine{835               guard\_vertices.emplace\_back(vertex\_locks[vi]);}
+\DoxyCodeLine{836               \});}
+\DoxyCodeLine{837         \}}
+\DoxyCodeLine{838         \textcolor{keywordflow}{if}(exception\_fired) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{839 }
+\DoxyCodeLine{840         \textcolor{keyword}{const} Triangle\_3\& A = T[fa];}
+\DoxyCodeLine{841         \textcolor{keyword}{const} Triangle\_3\& B = T[fb];}
+\DoxyCodeLine{842 }
+\DoxyCodeLine{843         \textcolor{comment}{// Number of combinatorially shared vertices}}
+\DoxyCodeLine{844         Index comb\_shared\_vertices = 0;}
+\DoxyCodeLine{845         \textcolor{comment}{// Number of geometrically shared vertices (*not* including}}
+\DoxyCodeLine{846         \textcolor{comment}{// combinatorially shared)}}
+\DoxyCodeLine{847         Index geo\_shared\_vertices = 0;}
+\DoxyCodeLine{848         \textcolor{comment}{// Keep track of shared vertex indices}}
+\DoxyCodeLine{849         std::vector<std::pair<Index,Index> > shared;}
+\DoxyCodeLine{850         Index ea,eb;}
+\DoxyCodeLine{851         \textcolor{keywordflow}{for}(ea=0;ea<3;ea++)}
+\DoxyCodeLine{852         \{}
+\DoxyCodeLine{853           \textcolor{keywordflow}{for}(eb=0;eb<3;eb++)}
+\DoxyCodeLine{854           \{}
+\DoxyCodeLine{855             \textcolor{keywordflow}{if}(F(fa,ea) == F(fb,eb))}
+\DoxyCodeLine{856             \{}
+\DoxyCodeLine{857               comb\_shared\_vertices++;}
+\DoxyCodeLine{858               shared.emplace\_back(ea,eb);}
+\DoxyCodeLine{859             \}\textcolor{keywordflow}{else} \textcolor{keywordflow}{if}(A.vertex(ea) == B.vertex(eb))}
+\DoxyCodeLine{860             \{}
+\DoxyCodeLine{861               geo\_shared\_vertices++;}
+\DoxyCodeLine{862               shared.emplace\_back(ea,eb);}
+\DoxyCodeLine{863             \}}
+\DoxyCodeLine{864           \}}
+\DoxyCodeLine{865         \}}
+\DoxyCodeLine{866         \textcolor{keyword}{const} Index total\_shared\_vertices =}
+\DoxyCodeLine{867           comb\_shared\_vertices + geo\_shared\_vertices;}
+\DoxyCodeLine{868         \textcolor{keywordflow}{if}(exception\_fired) \textcolor{keywordflow}{return};}
+\DoxyCodeLine{869 }
+\DoxyCodeLine{870         \textcolor{keywordflow}{if}(comb\_shared\_vertices== 3)}
+\DoxyCodeLine{871         \{}
+\DoxyCodeLine{872           assert(shared.size() == 3);}
+\DoxyCodeLine{873           \textcolor{comment}{// Combinatorially duplicate face, these should be removed by}}
+\DoxyCodeLine{874           \textcolor{comment}{// preprocessing}}
+\DoxyCodeLine{875           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{876         \}}
+\DoxyCodeLine{877         \textcolor{keywordflow}{if}(total\_shared\_vertices== 3)}
+\DoxyCodeLine{878         \{}
+\DoxyCodeLine{879           assert(shared.size() == 3);}
+\DoxyCodeLine{880           \textcolor{comment}{// Geometrically duplicate face, these should be removed by}}
+\DoxyCodeLine{881           \textcolor{comment}{// preprocessing}}
+\DoxyCodeLine{882           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{883         \}}
+\DoxyCodeLine{884         \textcolor{keywordflow}{if}(total\_shared\_vertices == 2)}
+\DoxyCodeLine{885         \{}
+\DoxyCodeLine{886           assert(shared.size() == 2);}
+\DoxyCodeLine{887           \textcolor{comment}{// Q: What about coplanar?}}
+\DoxyCodeLine{888           \textcolor{comment}{//}}
+\DoxyCodeLine{889           \textcolor{comment}{// o    o}}
+\DoxyCodeLine{890           \textcolor{comment}{// |\(\backslash\)  /|}}
+\DoxyCodeLine{891           \textcolor{comment}{// | \(\backslash\)/ |}}
+\DoxyCodeLine{892           \textcolor{comment}{// | /\(\backslash\) |}}
+\DoxyCodeLine{893           \textcolor{comment}{// |/  \(\backslash\)|}}
+\DoxyCodeLine{894           \textcolor{comment}{// o-\/-\/-\/-\/o}}
+\DoxyCodeLine{895           double\_shared\_vertex(A,B,fa,fb,shared);}
+\DoxyCodeLine{896           \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{897         \}}
+\DoxyCodeLine{898         assert(total\_shared\_vertices<=1);}
+\DoxyCodeLine{899         \textcolor{keywordflow}{if}(total\_shared\_vertices==1)}
+\DoxyCodeLine{900         \{}
+\DoxyCodeLine{901           single\_shared\_vertex(A,B,fa,fb,shared[0].first,shared[0].second);}
+\DoxyCodeLine{902         \}\textcolor{keywordflow}{else}}
+\DoxyCodeLine{903         \{}
+\DoxyCodeLine{904           intersect(A,B,fa,fb);}
+\DoxyCodeLine{905         \}}
+\DoxyCodeLine{906       \}}
+\DoxyCodeLine{907     \}\textcolor{keywordflow}{catch}(\textcolor{keywordtype}{int} e)}
+\DoxyCodeLine{908     \{}
+\DoxyCodeLine{909       std::lock\_guard<std::mutex> exception\_lock(exception\_mutex);}
+\DoxyCodeLine{910       exception\_fired = \textcolor{keyword}{true};}
+\DoxyCodeLine{911       exception = e;}
+\DoxyCodeLine{912     \}}
+\DoxyCodeLine{913   \};}
+\DoxyCodeLine{914   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_threads = default\_num\_threads();}
+\DoxyCodeLine{915   assert(num\_threads > 0);}
+\DoxyCodeLine{916   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} num\_pairs = candidate\_triangle\_pairs.size();}
+\DoxyCodeLine{917   \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} chunk\_size = num\_pairs / num\_threads;}
+\DoxyCodeLine{918   std::vector<std::thread> threads;}
+\DoxyCodeLine{919   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i=0; i<num\_threads-\/1; i++)}
+\DoxyCodeLine{920   \{}
+\DoxyCodeLine{921     threads.emplace\_back(process\_chunk, i*chunk\_size, (i+1)*chunk\_size);}
+\DoxyCodeLine{922   \}}
+\DoxyCodeLine{923   \textcolor{comment}{// Do some work in the master thread.}}
+\DoxyCodeLine{924   process\_chunk((num\_threads-\/1)*chunk\_size, num\_pairs);}
+\DoxyCodeLine{925   \textcolor{keywordflow}{for} (\textcolor{keyword}{auto}\& t : threads)}
+\DoxyCodeLine{926   \{}
+\DoxyCodeLine{927     \textcolor{keywordflow}{if} (t.joinable()) t.join();}
+\DoxyCodeLine{928   \}}
+\DoxyCodeLine{929   \textcolor{keywordflow}{if}(exception\_fired) \textcolor{keywordflow}{throw} exception;}
+\DoxyCodeLine{930   \textcolor{comment}{//process\_chunk(0, candidate\_triangle\_pairs.size());}}
+\DoxyCodeLine{931 \}}
+\DoxyCodeLine{932 }
+\DoxyCodeLine{933 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,40 @@
+\hypertarget{background__window_8h_source}{}\doxysection{background\+\_\+window.\+h}
+\label{background__window_8h_source}\index{igl/opengl/glfw/background\_window.h@{igl/opengl/glfw/background\_window.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_BACKGROUND\_WINDOW\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_BACKGROUND\_WINDOW\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include "{}../gl.h"{}}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <GLFW/glfw3.h>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{9 \{}
+\DoxyCodeLine{10   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{11   \{}
+\DoxyCodeLine{12     \textcolor{keyword}{namespace }glfw}
+\DoxyCodeLine{13     \{}
+\DoxyCodeLine{14       \textcolor{comment}{// Create a background window with a valid core profile opengl context}}
+\DoxyCodeLine{15       \textcolor{comment}{// set to current.}}
+\DoxyCodeLine{16       \textcolor{comment}{//}}
+\DoxyCodeLine{17       \textcolor{comment}{// After you're finished with this window you may call}}
+\DoxyCodeLine{18       \textcolor{comment}{// `glfwDestroyWindow(window)`}}
+\DoxyCodeLine{19       \textcolor{comment}{//}}
+\DoxyCodeLine{20       \textcolor{comment}{// After you're finished with glfw you should call `glfwTerminate()`}}
+\DoxyCodeLine{21       \textcolor{comment}{//}}
+\DoxyCodeLine{22       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23       \textcolor{comment}{//    window  pointer to glfw window}}
+\DoxyCodeLine{24       \textcolor{comment}{// Returns true iff success}}
+\DoxyCodeLine{25       IGL\_INLINE \textcolor{keywordtype}{bool} background\_window(GLFWwindow* \& window);}
+\DoxyCodeLine{26     \}}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}background\_window.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

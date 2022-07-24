@@ -1,0 +1,82 @@
+\hypertarget{kelvinlets_8h_source}{}\doxysection{kelvinlets.\+h}
+\label{kelvinlets_8h_source}\index{igl/kelvinlets.h@{igl/kelvinlets.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_KELVINLETS\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_KELVINLETS\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <array>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{enum class} BrushType : \textcolor{keywordtype}{int}}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   GRAB,}
+\DoxyCodeLine{13   SCALE,}
+\DoxyCodeLine{14   TWIST,}
+\DoxyCodeLine{15   PINCH,}
+\DoxyCodeLine{16 \};}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{template}<\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{19 \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1_kelvinlet_params}{KelvinletParams}}}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \textcolor{keyword}{const} Scalar epsilon;}
+\DoxyCodeLine{22   \textcolor{keyword}{const} \textcolor{keywordtype}{int} scale;}
+\DoxyCodeLine{23   \textcolor{keyword}{const} BrushType brushType;}
+\DoxyCodeLine{24   std::array<Scalar, 3> ep\{\}, w\{\};}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26   \mbox{\hyperlink{structigl_1_1_kelvinlet_params}{KelvinletParams}}(\textcolor{keyword}{const} Scalar\& epsilon,}
+\DoxyCodeLine{27                   \textcolor{keyword}{const} \textcolor{keywordtype}{int} falloff,}
+\DoxyCodeLine{28                   \textcolor{keyword}{const} BrushType\& type)}
+\DoxyCodeLine{29     : epsilon(epsilon)}
+\DoxyCodeLine{30     , scale(falloff)}
+\DoxyCodeLine{31     , brushType(type)}
+\DoxyCodeLine{32   \{}
+\DoxyCodeLine{33     \textcolor{keyword}{static} \textcolor{keyword}{constexpr} std::array<Scalar, 3> brush\_scaling\_params\{ 1.0f,}
+\DoxyCodeLine{34                                                                  1.1f,}
+\DoxyCodeLine{35                                                                  1.21f \};}
+\DoxyCodeLine{36     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < 3; i++) \{}
+\DoxyCodeLine{37       ep[i] = epsilon * brush\_scaling\_params[i];}
+\DoxyCodeLine{38     \}}
+\DoxyCodeLine{39     w[0] = 1;}
+\DoxyCodeLine{40     w[1] = -\/((ep[2] * ep[2] -\/ ep[0] * ep[0]) / (ep[2] * ep[2] -\/ ep[1] * ep[1]));}
+\DoxyCodeLine{41     w[2] = (ep[1] * ep[1] -\/ ep[0] * ep[0]) / (ep[2] * ep[2] -\/ ep[1] * ep[1]);}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \};}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{comment}{// Implements Pixar's Regularized Kelvinlets (Pixar Technical Memo \#17-\/03):}}
+\DoxyCodeLine{46 \textcolor{comment}{// Sculpting Brushes based on Fundamental Solutions of Elasticity, a technique}}
+\DoxyCodeLine{47 \textcolor{comment}{// for real-\/time physically based volume sculpting of virtual elastic materials}}
+\DoxyCodeLine{48 \textcolor{comment}{//}}
+\DoxyCodeLine{49 \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{50 \textcolor{comment}{//   V  \#V by dim list of input points in space}}
+\DoxyCodeLine{51 \textcolor{comment}{//   x0  dim-\/vector of brush tip}}
+\DoxyCodeLine{52 \textcolor{comment}{//   f  dim-\/vector of brush force (translation)}}
+\DoxyCodeLine{53 \textcolor{comment}{//   F  dim by dim matrix of brush force matrix  (linear)}}
+\DoxyCodeLine{54 \textcolor{comment}{//   params  parameters for the kelvinlet brush like brush radius, scale etc}}
+\DoxyCodeLine{55 \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{56 \textcolor{comment}{//   X  \#V by dim list of output points in space}}
+\DoxyCodeLine{57 \textcolor{keyword}{template}<\textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{58          \textcolor{keyword}{typename} Derivedx0,}
+\DoxyCodeLine{59          \textcolor{keyword}{typename} Derivedf,}
+\DoxyCodeLine{60          \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{61          \textcolor{keyword}{typename} DerivedU>}
+\DoxyCodeLine{62 IGL\_INLINE \textcolor{keywordtype}{void} kelvinlets(}
+\DoxyCodeLine{63   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{64   \textcolor{keyword}{const} Eigen::MatrixBase<Derivedx0>\& x0,}
+\DoxyCodeLine{65   \textcolor{keyword}{const} Eigen::MatrixBase<Derivedf>\& f,}
+\DoxyCodeLine{66   \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{67   \textcolor{keyword}{const} \mbox{\hyperlink{structigl_1_1_kelvinlet_params}{KelvinletParams<typename DerivedV::Scalar>}}\& params,}
+\DoxyCodeLine{68   Eigen::PlainObjectBase<DerivedU>\& U);}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#include "{}kelvinlets.cpp"{}}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

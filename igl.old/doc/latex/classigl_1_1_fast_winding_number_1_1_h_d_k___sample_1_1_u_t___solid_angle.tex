@@ -1,0 +1,72 @@
+\hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{}\doxysection{igl\+::Fast\+Winding\+Number\+::HDK\+\_\+\+Sample\+::UT\+\_\+\+Solid\+Angle\texorpdfstring{$<$}{<} T, S \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}\index{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}}
+
+
+{\ttfamily \#include $<$Fast\+Winding\+Number\+For\+Soups.\+h$>$}
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_1_1_box_data}{Box\+Data}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ae1704f04a0df876936689d13cb9c6d35}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ae1704f04a0df876936689d13cb9c6d35}} 
+{\bfseries UT\+\_\+\+Solid\+Angle} ()
+\begin{DoxyCompactList}\small\item\em This is outlined so that we don\textquotesingle{}t need to include UT\+\_\+\+BVHImpl.\+h. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ab0f832fc1c30730efa6d255587f561f4}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ab0f832fc1c30730efa6d255587f561f4}} 
+{\bfseries $\sim$\+UT\+\_\+\+Solid\+Angle} ()
+\begin{DoxyCompactList}\small\item\em This is outlined so that we don\textquotesingle{}t need to include UT\+\_\+\+BVHImpl.\+h. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_acc98d1bf03ac5b71884679098c78eadb}{UT\+\_\+\+Solid\+Angle}} (const int ntriangles, const int $\ast$const triangle\+\_\+points, const int npoints, const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ S $>$ $\ast$const positions, const int order=2)
+\item 
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ad41d698faa3e887e69e673d2d7244922}{init}} (const int ntriangles, const int $\ast$const triangle\+\_\+points, const int npoints, const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ S $>$ $\ast$const positions, const int order=2)
+\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_a8ad1372bee047c40dc9c84687692f5fd}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_a8ad1372bee047c40dc9c84687692f5fd}} 
+void {\bfseries clear} ()
+\begin{DoxyCompactList}\small\item\em Frees my\+Tree and my\+Data, and clears the rest. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_aac0ed912e885c23e876fe47e6bc4efdb}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_aac0ed912e885c23e876fe47e6bc4efdb}} 
+bool {\bfseries is\+Clear} () const
+\begin{DoxyCompactList}\small\item\em Returns true if this is clear. \end{DoxyCompactList}\item 
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ac7c59a22313b6586ac59fc770d43843e}{compute\+Solid\+Angle}} (const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ T $>$ \&query\+\_\+point, const T accuracy\+\_\+scale=T(2.\+0)) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename S$>$\newline
+class igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Solid\+Angle$<$ T, S $>$}
+Class for quickly approximating signed solid angle of a large mesh from many query points. This is useful for computing the generalized winding number at many points.
+
+NOTE\+: This is currently only instantiated for \texorpdfstring{$<$}{<}float,float\texorpdfstring{$>$}{>}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_acc98d1bf03ac5b71884679098c78eadb}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_acc98d1bf03ac5b71884679098c78eadb}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}!UT\_SolidAngle@{UT\_SolidAngle}}
+\index{UT\_SolidAngle@{UT\_SolidAngle}!igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{UT\_SolidAngle()}{UT\_SolidAngle()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+\mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Solid\+Angle}}$<$ T, S $>$\+::\+UT\+\_\+\+Solid\+Angle (\begin{DoxyParamCaption}\item[{const int}]{ntriangles,  }\item[{const int $\ast$const}]{triangle\+\_\+points,  }\item[{const int}]{npoints,  }\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ S $>$ $\ast$const}]{positions,  }\item[{const int}]{order = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+NOTE\+: This does not take ownership over triangle\+\_\+points or positions, but does keep pointers to them, so the caller must keep them in scope for the lifetime of this structure. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ac7c59a22313b6586ac59fc770d43843e}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ac7c59a22313b6586ac59fc770d43843e}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}!computeSolidAngle@{computeSolidAngle}}
+\index{computeSolidAngle@{computeSolidAngle}!igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{computeSolidAngle()}{computeSolidAngle()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+T \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Solid\+Angle}}$<$ T, S $>$\+::compute\+Solid\+Angle (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ T $>$ \&}]{query\+\_\+point,  }\item[{const T}]{accuracy\+\_\+scale = {\ttfamily T(2.0)} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Returns an approximation of the signed solid angle of the mesh from the specified query\+\_\+point accuracy\+\_\+scale is the value of (max\+P/q) beyond which the approximation of the box will be used. \mbox{\Hypertarget{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ad41d698faa3e887e69e673d2d7244922}\label{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle_ad41d698faa3e887e69e673d2d7244922}} 
+\index{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}!init@{init}}
+\index{init@{init}!igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$@{igl::FastWindingNumber::HDK\_Sample::UT\_SolidAngle$<$ T, S $>$}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily template$<$typename T , typename S $>$ \\
+void \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{igl\+::\+Fast\+Winding\+Number\+::\+HDK\+\_\+\+Sample\+::\+UT\+\_\+\+Solid\+Angle}}$<$ T, S $>$\+::init (\begin{DoxyParamCaption}\item[{const int}]{ntriangles,  }\item[{const int $\ast$const}]{triangle\+\_\+points,  }\item[{const int}]{npoints,  }\item[{const \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_u_t___fixed_vector}{UT\+\_\+\+Vector3T}}$<$ S $>$ $\ast$const}]{positions,  }\item[{const int}]{order = {\ttfamily 2} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Initialize the tree and data. NOTE\+: It is safe to call init on a \mbox{\hyperlink{classigl_1_1_fast_winding_number_1_1_h_d_k___sample_1_1_u_t___solid_angle}{UT\+\_\+\+Solid\+Angle}} that has had init called on it before, to re-\/initialize it. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/fast\+\_\+winding\+\_\+number.\+h\item 
+igl/Fast\+Winding\+Number\+For\+Soups.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,132 @@
+\hypertarget{triangle__triangle__adjacency_8h_source}{}\doxysection{triangle\+\_\+triangle\+\_\+adjacency.\+h}
+\label{triangle__triangle__adjacency_8h_source}\index{igl/triangle\_triangle\_adjacency.h@{igl/triangle\_triangle\_adjacency.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_TRIANGLE\_TRIANGLE\_ADJACENCY\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_TRIANGLE\_TRIANGLE\_ADJACENCY\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Constructs the triangle-\/triangle adjacency matrix for a given}}
+\DoxyCodeLine{17   \textcolor{comment}{// mesh (V,F).}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by simplex\_size list of mesh faces (must be triangles)}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   TT   \#F by \#3 adjacent matrix, the element i,j is the id of the triangle}}
+\DoxyCodeLine{23   \textcolor{comment}{//        adjacent to the j edge of triangle i}}
+\DoxyCodeLine{24   \textcolor{comment}{//   TTi  \#F by \#3 adjacent matrix, the element i,j is the id of edge of the}}
+\DoxyCodeLine{25   \textcolor{comment}{//        triangle TT(i,j) that is adjacent with triangle i}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// NOTE: the first edge of a triangle is [0,1] the second [1,2] and the third}}
+\DoxyCodeLine{28   \textcolor{comment}{//       [2,3].  this convention is DIFFERENT from}}
+\DoxyCodeLine{29   \textcolor{comment}{//       cotmatrix\_entries.h/edge\_lengths.h/etc. To fix this you could use:}}
+\DoxyCodeLine{30   \textcolor{comment}{//           // Fix mis-\/match convention}}
+\DoxyCodeLine{31   \textcolor{comment}{//           \{}}
+\DoxyCodeLine{32   \textcolor{comment}{//             Eigen::PermutationMatrix<3,3> perm(3);}}
+\DoxyCodeLine{33   \textcolor{comment}{//             perm.indices() = Eigen::Vector3i(1,2,0);}}
+\DoxyCodeLine{34   \textcolor{comment}{//             TT = (TT*perm).eval();}}
+\DoxyCodeLine{35   \textcolor{comment}{//             TTi = (TTi*perm).eval();}}
+\DoxyCodeLine{36   \textcolor{comment}{//             for(int i=0;i<TTi.rows();i++)}}
+\DoxyCodeLine{37   \textcolor{comment}{//               for(int j=0;j<TTi.cols();j++)}}
+\DoxyCodeLine{38   \textcolor{comment}{//                 TTi(i,j)=TTi(i,j)==-\/1?-\/1:(TTi(i,j)+3-\/1)\%3;}}
+\DoxyCodeLine{39   \textcolor{comment}{//           \}}}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedTT, \textcolor{keyword}{typename} DerivedTTi>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedTT>\& TT,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedTTi>\& TTi);}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedTT>}
+\DoxyCodeLine{46   IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{47     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedTT>\& TT);}
+\DoxyCodeLine{49   \textcolor{comment}{// Preprocessing}}
+\DoxyCodeLine{50   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} TTT\_type>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency\_preprocess(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{53     std::vector<std::vector<TTT\_type> >\& TTT);}
+\DoxyCodeLine{54   \textcolor{comment}{// Extract the face adjacencies}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} TTT\_type, \textcolor{keyword}{typename} DerivedTT>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency\_extractTT(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{58     std::vector<std::vector<TTT\_type> >\& TTT,}
+\DoxyCodeLine{59     Eigen::PlainObjectBase<DerivedTT>\& TT);}
+\DoxyCodeLine{60   \textcolor{comment}{// Extract the face adjacencies indices (needed for fast traversal)}}
+\DoxyCodeLine{61   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} TTT\_type, \textcolor{keyword}{typename} DerivedTTi>}
+\DoxyCodeLine{62   IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency\_extractTTi(}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{64     std::vector<std::vector<TTT\_type> >\& TTT,}
+\DoxyCodeLine{65     Eigen::PlainObjectBase<DerivedTTi>\& TTi);}
+\DoxyCodeLine{66   \textcolor{comment}{// Adjacency list version, which works with non-\/manifold meshes}}
+\DoxyCodeLine{67   \textcolor{comment}{//}}
+\DoxyCodeLine{68   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{69   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{70   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{71   \textcolor{comment}{//   TT  \#F by 3 list of lists so that TT[i][c] -\/-\/> \{j,k,...\} means that}}
+\DoxyCodeLine{72   \textcolor{comment}{//     faces j and k etc. are edge-\/neighbors of face i on face i's edge}}
+\DoxyCodeLine{73   \textcolor{comment}{//     opposite corner c}}
+\DoxyCodeLine{74   \textcolor{comment}{//   TTj  \#F list of lists so that TTj[i][c] -\/-\/> \{j,k,...\} means that face}}
+\DoxyCodeLine{75   \textcolor{comment}{//     TT[i][c][0] is an edge-\/neighbor of face i incident on the edge of face}}
+\DoxyCodeLine{76   \textcolor{comment}{//     TT[i][c][0] opposite corner j, and TT[i][c][1] "{} corner k, etc.}}
+\DoxyCodeLine{77   \textcolor{keyword}{template} <}
+\DoxyCodeLine{78     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{79     \textcolor{keyword}{typename} TTIndex, }
+\DoxyCodeLine{80     \textcolor{keyword}{typename} TTiIndex>}
+\DoxyCodeLine{81     IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{82       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{83       std::vector<std::vector<std::vector<TTIndex> > > \& TT,}
+\DoxyCodeLine{84       std::vector<std::vector<std::vector<TTiIndex> > > \& TTi);}
+\DoxyCodeLine{85   \textcolor{keyword}{template} < \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} TTIndex>}
+\DoxyCodeLine{86     IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{87       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{88       std::vector<std::vector<std::vector<TTIndex> > > \& TT);}
+\DoxyCodeLine{89   \textcolor{comment}{// Wrapper with bool to choose whether to compute TTi (this prototype should}}
+\DoxyCodeLine{90   \textcolor{comment}{// be "{}hidden"{}).}}
+\DoxyCodeLine{91   \textcolor{keyword}{template} <}
+\DoxyCodeLine{92     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{93     \textcolor{keyword}{typename} TTIndex, }
+\DoxyCodeLine{94     \textcolor{keyword}{typename} TTiIndex>}
+\DoxyCodeLine{95     IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{96       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{97       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} construct\_TTi,}
+\DoxyCodeLine{98       std::vector<std::vector<std::vector<TTIndex> > > \& TT,}
+\DoxyCodeLine{99       std::vector<std::vector<std::vector<TTiIndex> > > \& TTi);}
+\DoxyCodeLine{100   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{101   \textcolor{comment}{//   E  \#F*3 by 2 list of all of directed edges in order (see}}
+\DoxyCodeLine{102   \textcolor{comment}{//     `oriented\_facets`)}}
+\DoxyCodeLine{103   \textcolor{comment}{//   EMAP \#F*3 list of indices into uE, mapping each directed edge to unique}}
+\DoxyCodeLine{104   \textcolor{comment}{//     undirected edge}}
+\DoxyCodeLine{105   \textcolor{comment}{//   uE2E  \#uE list of lists of indices into E of coexisting edges}}
+\DoxyCodeLine{106   \textcolor{comment}{// See also: unique\_edge\_map, oriented\_facets}}
+\DoxyCodeLine{107   \textcolor{keyword}{template} <}
+\DoxyCodeLine{108     \textcolor{keyword}{typename} DerivedE, }
+\DoxyCodeLine{109     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{110     \textcolor{keyword}{typename} uE2EType,}
+\DoxyCodeLine{111     \textcolor{keyword}{typename} TTIndex, }
+\DoxyCodeLine{112     \textcolor{keyword}{typename} TTiIndex>}
+\DoxyCodeLine{113     IGL\_INLINE \textcolor{keywordtype}{void} triangle\_triangle\_adjacency(}
+\DoxyCodeLine{114       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedE> \& E,}
+\DoxyCodeLine{115       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP> \& EMAP,}
+\DoxyCodeLine{116       \textcolor{keyword}{const} std::vector<std::vector<uE2EType > > \& uE2E,}
+\DoxyCodeLine{117       \textcolor{keyword}{const} \textcolor{keywordtype}{bool} construct\_TTi,}
+\DoxyCodeLine{118       std::vector<std::vector<std::vector<TTIndex> > > \& TT,}
+\DoxyCodeLine{119       std::vector<std::vector<std::vector<TTiIndex> > > \& TTi);}
+\DoxyCodeLine{120 \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#  include "{}triangle\_triangle\_adjacency.cpp"{}}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

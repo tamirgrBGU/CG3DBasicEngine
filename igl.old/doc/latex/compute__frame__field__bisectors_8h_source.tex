@@ -1,0 +1,59 @@
+\hypertarget{compute__frame__field__bisectors_8h_source}{}\doxysection{compute\+\_\+frame\+\_\+field\+\_\+bisectors.\+h}
+\label{compute__frame__field__bisectors_8h_source}\index{igl/compute\_frame\_field\_bisectors.h@{igl/compute\_frame\_field\_bisectors.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>, Olga Diamanti <olga.diam@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COMPUTE\_FRAME\_FIELD\_BISECTORS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COMPUTE\_FRAME\_FIELD\_BISECTORS\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// Compute bisectors of a frame field defined on mesh faces}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   V     \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{18   \textcolor{comment}{//   F     \#F by 3 eigen Matrix of face (triangle) indices}}
+\DoxyCodeLine{19   \textcolor{comment}{//   B1    \#F by 3 eigen Matrix of face (triangle) base vector 1}}
+\DoxyCodeLine{20   \textcolor{comment}{//   B2    \#F by 3 eigen Matrix of face (triangle) base vector 2}}
+\DoxyCodeLine{21   \textcolor{comment}{//   PD1   \#F by 3 eigen Matrix of the first per face frame field vector}}
+\DoxyCodeLine{22   \textcolor{comment}{//   PD2   \#F by 3 eigen Matrix of the second per face frame field vector}}
+\DoxyCodeLine{23   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   BIS1  \#F by 3 eigen Matrix of the first per face frame field bisector}}
+\DoxyCodeLine{25   \textcolor{comment}{//   BIS2  \#F by 3 eigen Matrix of the second per face frame field bisector}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} compute\_frame\_field\_bisectors(}
+\DoxyCodeLine{29                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{30                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{31                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& B1,}
+\DoxyCodeLine{32                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& B2,}
+\DoxyCodeLine{33                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& PD1,}
+\DoxyCodeLine{34                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& PD2,}
+\DoxyCodeLine{35                                                 Eigen::PlainObjectBase<DerivedV>\& BIS1,}
+\DoxyCodeLine{36                                                 Eigen::PlainObjectBase<DerivedV>\& BIS2);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{comment}{// Wrapper without given basis vectors.}}
+\DoxyCodeLine{39   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} compute\_frame\_field\_bisectors(}
+\DoxyCodeLine{41                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{42                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{43                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& PD1,}
+\DoxyCodeLine{44                                                 \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& PD2,}
+\DoxyCodeLine{45                                                 Eigen::PlainObjectBase<DerivedV>\& BIS1,}
+\DoxyCodeLine{46                                                 Eigen::PlainObjectBase<DerivedV>\& BIS2);}
+\DoxyCodeLine{47 \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#  include "{}compute\_frame\_field\_bisectors.cpp"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

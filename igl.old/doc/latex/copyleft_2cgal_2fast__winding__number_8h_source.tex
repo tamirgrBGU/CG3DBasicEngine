@@ -1,0 +1,85 @@
+\hypertarget{copyleft_2cgal_2fast__winding__number_8h_source}{}\doxysection{fast\+\_\+winding\+\_\+number.\+h}
+\label{copyleft_2cgal_2fast__winding__number_8h_source}\index{igl/copyleft/cgal/fast\_winding\_number.h@{igl/copyleft/cgal/fast\_winding\_number.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_FAST\_WINDING\_NUMBER}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_FAST\_WINDING\_NUMBER}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{9   \{}
+\DoxyCodeLine{10     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{11     \{}
+\DoxyCodeLine{12     \textcolor{comment}{// Evaluate the fast winding number for point data, without known areas. The}}
+\DoxyCodeLine{13     \textcolor{comment}{// areas are calculated using igl::knn and igl::copyleft::cgal::point\_areas.}}
+\DoxyCodeLine{14     \textcolor{comment}{//}}
+\DoxyCodeLine{15     \textcolor{comment}{// This function performes the precomputation and evaluation all in one.}}
+\DoxyCodeLine{16     \textcolor{comment}{// If you need to acess the precomuptation for repeated evaluations, use the}}
+\DoxyCodeLine{17     \textcolor{comment}{// two functions designed for exposed precomputation, which are the first two}}
+\DoxyCodeLine{18     \textcolor{comment}{// functions see in igl/fast\_winding\_number.h}}
+\DoxyCodeLine{19     \textcolor{comment}{//}}
+\DoxyCodeLine{20     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21     \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{22     \textcolor{comment}{//   N  \#P by 3 list of point normals}}
+\DoxyCodeLine{23     \textcolor{comment}{//   Q  \#Q by 3 list of query points for the winding number}}
+\DoxyCodeLine{24     \textcolor{comment}{//   beta  This is a Barnes-\/Hut style accuracy term that separates near feild}}
+\DoxyCodeLine{25     \textcolor{comment}{//         from far field. The higher the beta, the more accurate and slower}}
+\DoxyCodeLine{26     \textcolor{comment}{//         the evaluation. We reccommend using a beta value of 2.}}
+\DoxyCodeLine{27     \textcolor{comment}{//   expansion\_order    the order of the taylor expansion. We support 0,1,2.}}
+\DoxyCodeLine{28     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{29     \textcolor{comment}{//   WN  \#Q by 1 list of windinng number values at each query point}}
+\DoxyCodeLine{30     \textcolor{comment}{//}}
+\DoxyCodeLine{31     \textcolor{keyword}{template} <}
+\DoxyCodeLine{32       \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{33       \textcolor{keyword}{typename} DerivedN, }
+\DoxyCodeLine{34       \textcolor{keyword}{typename} DerivedQ,}
+\DoxyCodeLine{35       \textcolor{keyword}{typename} BetaType, }
+\DoxyCodeLine{36       \textcolor{keyword}{typename} DerivedWN>}
+\DoxyCodeLine{37     IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{38       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{39       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{40       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ>\& Q,}
+\DoxyCodeLine{41       \textcolor{keyword}{const} \textcolor{keywordtype}{int} expansion\_order,}
+\DoxyCodeLine{42       \textcolor{keyword}{const} BetaType beta,}
+\DoxyCodeLine{43       Eigen::PlainObjectBase<DerivedWN>\& WN);}
+\DoxyCodeLine{44     }
+\DoxyCodeLine{45     \textcolor{comment}{// Evaluate the fast winding number for point data, without known areas. The}}
+\DoxyCodeLine{46     \textcolor{comment}{// areas are calculated using igl::knn and}}
+\DoxyCodeLine{47     \textcolor{comment}{// igl::point\_areas. This function uses the default expansion}}
+\DoxyCodeLine{48     \textcolor{comment}{// order and beta (both are set to 2).}}
+\DoxyCodeLine{49     \textcolor{comment}{//}}
+\DoxyCodeLine{50     \textcolor{comment}{// This function performes the precomputation and evaluation all in one.}}
+\DoxyCodeLine{51     \textcolor{comment}{// If you need to acess the precomuptation for repeated evaluations, use the}}
+\DoxyCodeLine{52     \textcolor{comment}{// two functions designed for exposed precomputation (described above).}}
+\DoxyCodeLine{53     }
+\DoxyCodeLine{54     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{55     \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{56     \textcolor{comment}{//   N  \#P by 3 list of point normals}}
+\DoxyCodeLine{57     \textcolor{comment}{//   Q  \#Q by 3 list of query points for the winding number}}
+\DoxyCodeLine{58     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{59     \textcolor{comment}{//   WN  \#Q by 1 list of windinng number values at each query point}}
+\DoxyCodeLine{60     \textcolor{comment}{//}}
+\DoxyCodeLine{61     \textcolor{keyword}{template} <}
+\DoxyCodeLine{62       \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{63       \textcolor{keyword}{typename} DerivedN, }
+\DoxyCodeLine{64       \textcolor{keyword}{typename} DerivedQ, }
+\DoxyCodeLine{65       \textcolor{keyword}{typename} DerivedWN>}
+\DoxyCodeLine{66     IGL\_INLINE \textcolor{keywordtype}{void} fast\_winding\_number(}
+\DoxyCodeLine{67       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{68       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedN>\& N,}
+\DoxyCodeLine{69       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedQ>\& Q,}
+\DoxyCodeLine{70       Eigen::PlainObjectBase<DerivedWN>\& WN);}
+\DoxyCodeLine{71     \}}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73 \}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#  include "{}fast\_winding\_number.cpp"{}}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{79 }
+
+\end{DoxyCode}

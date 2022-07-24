@@ -1,0 +1,70 @@
+\hypertarget{swept__volume__signed__distance_8h_source}{}\doxysection{swept\+\_\+volume\+\_\+signed\+\_\+distance.\+h}
+\label{swept__volume__signed__distance_8h_source}\index{igl/swept\_volume\_signed\_distance.h@{igl/swept\_volume\_signed\_distance.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SWEPT\_VOLUME\_SIGNED\_DISTANCE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SWEPT\_VOLUME\_SIGNED\_DISTANCE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Compute the signed distance to a sweep surface of a mesh under-\/going}}
+\DoxyCodeLine{17   \textcolor{comment}{// an arbitrary motion V(t) discretely sampled at `steps`-\/many moments in}}
+\DoxyCodeLine{18   \textcolor{comment}{// time at a grid.}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   V  \#V by 3 list of mesh positions in reference pose}}
+\DoxyCodeLine{22   \textcolor{comment}{//   F  \#F by 3 list of triangle indices [0,n)}}
+\DoxyCodeLine{23   \textcolor{comment}{//   transform  function handle so that transform(t) returns the rigid}}
+\DoxyCodeLine{24   \textcolor{comment}{//     transformation at time t∈[0,1]}}
+\DoxyCodeLine{25   \textcolor{comment}{//   steps  number of time steps: steps=3 -\/-\/> t∈\{0,0.5,1\}}}
+\DoxyCodeLine{26   \textcolor{comment}{//   GV  \#GV by 3 list of evaluation point grid positions}}
+\DoxyCodeLine{27   \textcolor{comment}{//   res  3-\/long resolution of GV grid}}
+\DoxyCodeLine{28   \textcolor{comment}{//   h  edge-\/length of grid}}
+\DoxyCodeLine{29   \textcolor{comment}{//   isolevel  isolevel to "{}focus"{} on; grid positions far enough away from}}
+\DoxyCodeLine{30   \textcolor{comment}{//     isolevel (based on h) will get approximate values). Set}}
+\DoxyCodeLine{31   \textcolor{comment}{//     isolevel=infinity to get good values everywhere (slow and}}
+\DoxyCodeLine{32   \textcolor{comment}{//     unnecessary if just trying to extract isolevel-\/level set).}}
+\DoxyCodeLine{33   \textcolor{comment}{//   S0  \#GV initial values (will take minimum with these), can be same}}
+\DoxyCodeLine{34   \textcolor{comment}{//     as S)}}
+\DoxyCodeLine{35   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   S  \#GV list of signed distances}}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} swept\_volume\_signed\_distance(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{40     \textcolor{keyword}{const} std::function<Eigen::Affine3d(\textcolor{keyword}{const} \textcolor{keywordtype}{double} t)> \& transform,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \& steps,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixXd \& GV,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::RowVector3i \& res,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keywordtype}{double} h,}
+\DoxyCodeLine{45     \textcolor{keyword}{const} \textcolor{keywordtype}{double} isolevel,}
+\DoxyCodeLine{46     \textcolor{keyword}{const} Eigen::VectorXd \& S0,}
+\DoxyCodeLine{47     Eigen::VectorXd \& S);}
+\DoxyCodeLine{48   IGL\_INLINE \textcolor{keywordtype}{void} swept\_volume\_signed\_distance(}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixXd \& V,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::MatrixXi \& F,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} std::function<Eigen::Affine3d(\textcolor{keyword}{const} \textcolor{keywordtype}{double} t)> \& transform,}
+\DoxyCodeLine{52     \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \& steps,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::MatrixXd \& GV,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::RowVector3i \& res,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} \textcolor{keywordtype}{double} h,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} \textcolor{keywordtype}{double} isolevel,}
+\DoxyCodeLine{57     Eigen::VectorXd \& S);}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#  include "{}swept\_volume\_signed\_distance.cpp"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif }}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

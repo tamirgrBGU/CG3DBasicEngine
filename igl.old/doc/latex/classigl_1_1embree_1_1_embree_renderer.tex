@@ -1,0 +1,91 @@
+\hypertarget{classigl_1_1embree_1_1_embree_renderer}{}\doxysection{igl\+::embree\+::Embree\+Renderer Class Reference}
+\label{classigl_1_1embree_1_1_embree_renderer}\index{igl::embree::EmbreeRenderer@{igl::embree::EmbreeRenderer}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structigl_1_1embree_1_1_embree_renderer_1_1_hit}{Hit}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a7947b9f36e9721fdf53be6950e131d54}\label{classigl_1_1embree_1_1_embree_renderer_a7947b9f36e9721fdf53be6950e131d54}} 
+typedef Eigen\+::\+Row\+Vector3f {\bfseries Vec3f}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a0a342d195ae1640f96d397d41adf80fb}\label{classigl_1_1embree_1_1_embree_renderer_a0a342d195ae1640f96d397d41adf80fb}} 
+typedef Eigen\+::\+Matrix$<$ float, Eigen\+::\+Dynamic, 3 $>$ {\bfseries Point\+Matrix\+Type}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a2071b09ef710281aa672721dd2902fa4}\label{classigl_1_1embree_1_1_embree_renderer_a2071b09ef710281aa672721dd2902fa4}} 
+typedef Eigen\+::\+Matrix$<$ float, Eigen\+::\+Dynamic, 3 $>$ {\bfseries Color\+Matrix\+Type}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ac6a6fd8c5b77bce3680bc44160b09003}\label{classigl_1_1embree_1_1_embree_renderer_ac6a6fd8c5b77bce3680bc44160b09003}} 
+typedef Eigen\+::\+Matrix$<$ int, Eigen\+::\+Dynamic, 3 $>$ {\bfseries Face\+Matrix\+Type}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a1eb6b181aa64d2f65d4860923175ee08}\label{classigl_1_1embree_1_1_embree_renderer_a1eb6b181aa64d2f65d4860923175ee08}} 
+typedef Eigen\+::\+Matrix$<$ unsigned char, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ {\bfseries Pixel\+Matrix\+Type}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_afda7b6874ae025a7dacd024d60ddf2f8}\label{classigl_1_1embree_1_1_embree_renderer_afda7b6874ae025a7dacd024d60ddf2f8}} 
+{\footnotesize template$<$typename DerivedV , typename DerivedF $>$ }\\void {\bfseries set\+\_\+mesh} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&V, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&F, bool is\+\_\+static=true)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ab0400a192630a21b69aacad25ec2d9c4}\label{classigl_1_1embree_1_1_embree_renderer_ab0400a192630a21b69aacad25ec2d9c4}} 
+{\footnotesize template$<$typename DerivedC $>$ }\\void {\bfseries set\+\_\+colors} (const Eigen\+::\+Matrix\+Base$<$ DerivedC $>$ \&C)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ab1b7db44396ce99d0a1826d1c67d3a34}\label{classigl_1_1embree_1_1_embree_renderer_ab1b7db44396ce99d0a1826d1c67d3a34}} 
+{\footnotesize template$<$typename DerivedD $>$ }\\void {\bfseries set\+\_\+data} (const Eigen\+::\+Matrix\+Base$<$ DerivedD $>$ \&D, igl\+::\+Color\+Map\+Type cmap=igl\+::\+COLOR\+\_\+\+MAP\+\_\+\+TYPE\+\_\+\+VIRIDIS)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_aee25d18f36238be02191d43515586ffe}\label{classigl_1_1embree_1_1_embree_renderer_aee25d18f36238be02191d43515586ffe}} 
+{\footnotesize template$<$typename DerivedD , typename T $>$ }\\void {\bfseries set\+\_\+data} (const Eigen\+::\+Matrix\+Base$<$ DerivedD $>$ \&D, T caxis\+\_\+min, T caxis\+\_\+max, igl\+::\+Color\+Map\+Type cmap=igl\+::\+COLOR\+\_\+\+MAP\+\_\+\+TYPE\+\_\+\+VIRIDIS)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a0154188ddad59c7cac37f8b31c5744e0}\label{classigl_1_1embree_1_1_embree_renderer_a0154188ddad59c7cac37f8b31c5744e0}} 
+{\footnotesize template$<$typename Derivedr $>$ }\\void {\bfseries set\+\_\+rot} (const Eigen\+::\+Matrix\+Base$<$ Derivedr $>$ \&r)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_aa5c77e9689e945de89f7405cc5ac5f73}\label{classigl_1_1embree_1_1_embree_renderer_aa5c77e9689e945de89f7405cc5ac5f73}} 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries set\+\_\+zoom} (T z)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a146db982aae8ffe3a07bc03d4df9e90f}\label{classigl_1_1embree_1_1_embree_renderer_a146db982aae8ffe3a07bc03d4df9e90f}} 
+{\footnotesize template$<$typename Derivedtr $>$ }\\void {\bfseries set\+\_\+translation} (const Eigen\+::\+Matrix\+Base$<$ Derivedtr $>$ \&tr)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ae64ae0d2416ed9d1abcc8d4cd87a7c87}\label{classigl_1_1embree_1_1_embree_renderer_ae64ae0d2416ed9d1abcc8d4cd87a7c87}} 
+void {\bfseries set\+\_\+face\+\_\+based} (bool f)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ae0ad269139963f2467037b32f1ef5cc4}\label{classigl_1_1embree_1_1_embree_renderer_ae0ad269139963f2467037b32f1ef5cc4}} 
+void {\bfseries set\+\_\+orthographic} (bool f)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_aa6d36856d2e69dae69134cbaf0995eb3}\label{classigl_1_1embree_1_1_embree_renderer_aa6d36856d2e69dae69134cbaf0995eb3}} 
+void {\bfseries set\+\_\+double\+\_\+sided} (bool f)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a13524425055281bef71894eb29021741}\label{classigl_1_1embree_1_1_embree_renderer_a13524425055281bef71894eb29021741}} 
+void {\bfseries render\+\_\+buffer} (Pixel\+Matrix\+Type \&R, Pixel\+Matrix\+Type \&G, Pixel\+Matrix\+Type \&B, Pixel\+Matrix\+Type \&A)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_aac8d8b32ec658a88cd74d92a45b86a08}\label{classigl_1_1embree_1_1_embree_renderer_aac8d8b32ec658a88cd74d92a45b86a08}} 
+bool {\bfseries intersect\+\_\+ray} (const Eigen\+::\+Row\+Vector3f \&origin, const Eigen\+::\+Row\+Vector3f \&direction, \mbox{\hyperlink{structigl_1_1embree_1_1_embree_renderer_1_1_hit}{Hit}} \&hit, float tnear=0, float tfar=std\+::numeric\+\_\+limits$<$ float $>$\+::infinity(), int mask=0x\+FFFFFFFF) const
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_ac94650df845264bcab90e0e471a70e4f}\label{classigl_1_1embree_1_1_embree_renderer_ac94650df845264bcab90e0e471a70e4f}} 
+{\footnotesize template$<$typename DerivedV , typename DerivedF $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+mesh} (const Eigen\+::\+Matrix\+Base$<$ DerivedV $>$ \&MV, const Eigen\+::\+Matrix\+Base$<$ DerivedF $>$ \&MF, bool is\+\_\+static)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_af5f849ca5e0a26044879ef4fb3053b43}\label{classigl_1_1embree_1_1_embree_renderer_af5f849ca5e0a26044879ef4fb3053b43}} 
+{\footnotesize template$<$typename DerivedC $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+colors} (const Eigen\+::\+Matrix\+Base$<$ DerivedC $>$ \&C)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_aea7d42187786e64171ee9936072531fa}\label{classigl_1_1embree_1_1_embree_renderer_aea7d42187786e64171ee9936072531fa}} 
+{\footnotesize template$<$typename DerivedD $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+data} (const Eigen\+::\+Matrix\+Base$<$ DerivedD $>$ \&D, igl\+::\+Color\+Map\+Type cmap)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a556aa1edabb5b1b35310782e90e22f4f}\label{classigl_1_1embree_1_1_embree_renderer_a556aa1edabb5b1b35310782e90e22f4f}} 
+{\footnotesize template$<$typename DerivedD , typename T $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+data} (const Eigen\+::\+Matrix\+Base$<$ DerivedD $>$ \&D, T caxis\+\_\+min, T caxis\+\_\+max, igl\+::\+Color\+Map\+Type cmap)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a8fba9c5ec4ee1e9c32693ddbd96f66c8}\label{classigl_1_1embree_1_1_embree_renderer_a8fba9c5ec4ee1e9c32693ddbd96f66c8}} 
+{\footnotesize template$<$typename Derivedr $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+rot} (const Eigen\+::\+Matrix\+Base$<$ Derivedr $>$ \&r)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a4d37ff123f05d54ea115f892248ba486}\label{classigl_1_1embree_1_1_embree_renderer_a4d37ff123f05d54ea115f892248ba486}} 
+{\footnotesize template$<$typename T $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+zoom} (T zoom)
+\item 
+\mbox{\Hypertarget{classigl_1_1embree_1_1_embree_renderer_a88cb329ec0e6d9647fa1666f77dffbd3}\label{classigl_1_1embree_1_1_embree_renderer_a88cb329ec0e6d9647fa1666f77dffbd3}} 
+{\footnotesize template$<$typename Derivedtr $>$ }\\IGL\+\_\+\+INLINE void {\bfseries set\+\_\+translation} (const Eigen\+::\+Matrix\+Base$<$ Derivedtr $>$ \&tr)
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+igl/embree/Embree\+Renderer.\+h\item 
+igl/embree/Embree\+Renderer.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,107 @@
+\hypertarget{structigl_1_1min__quad__with__fixed__data}{}\doxysection{igl\+::min\+\_\+quad\+\_\+with\+\_\+fixed\+\_\+data\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\label{structigl_1_1min__quad__with__fixed__data}\index{igl::min\_quad\_with\_fixed\_data$<$ T $>$@{igl::min\_quad\_with\_fixed\_data$<$ T $>$}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a0ecb4d6605c0d09f0d9cd9e3beaf9022}\label{structigl_1_1min__quad__with__fixed__data_a0ecb4d6605c0d09f0d9cd9e3beaf9022}} 
+enum {\bfseries Solver\+Type} \{ \newline
+{\bfseries LLT} = 0
+, {\bfseries LDLT} = 1
+, {\bfseries LU} = 2
+, {\bfseries QR\+\_\+\+LLT} = 3
+, \newline
+{\bfseries NUM\+\_\+\+SOLVER\+\_\+\+TYPES} = 4
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_aa2f79821dd5f69c2c704d4f8d2e0c34d}\label{structigl_1_1min__quad__with__fixed__data_aa2f79821dd5f69c2c704d4f8d2e0c34d}} 
+int {\bfseries n}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ad3ec9b5eb512ccd82dc39fc7c670eae5}\label{structigl_1_1min__quad__with__fixed__data_ad3ec9b5eb512ccd82dc39fc7c670eae5}} 
+bool {\bfseries Auu\+\_\+pd}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ab1604a8b1d543c6dfc4ac01dc42df0a6}\label{structigl_1_1min__quad__with__fixed__data_ab1604a8b1d543c6dfc4ac01dc42df0a6}} 
+bool {\bfseries Auu\+\_\+sym}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a0b135eb50ef96353f9959dbfdc4e9844}\label{structigl_1_1min__quad__with__fixed__data_a0b135eb50ef96353f9959dbfdc4e9844}} 
+Eigen\+::\+Vector\+Xi {\bfseries known}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a45a26b0e5d41d28bfea348ee51f52e4b}\label{structigl_1_1min__quad__with__fixed__data_a45a26b0e5d41d28bfea348ee51f52e4b}} 
+Eigen\+::\+Vector\+Xi {\bfseries unknown}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ab07863971db161e5eb7cdf2ec28afb06}\label{structigl_1_1min__quad__with__fixed__data_ab07863971db161e5eb7cdf2ec28afb06}} 
+Eigen\+::\+Vector\+Xi {\bfseries lagrange}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ac680271bddf24abc8337ca15965a200d}\label{structigl_1_1min__quad__with__fixed__data_ac680271bddf24abc8337ca15965a200d}} 
+Eigen\+::\+Vector\+Xi {\bfseries unknown\+\_\+lagrange}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a3db371095ff5ecf7dc8c42c3e34a3695}\label{structigl_1_1min__quad__with__fixed__data_a3db371095ff5ecf7dc8c42c3e34a3695}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries preY}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_adf555171e037b12e5177ebd81fd33de5}\label{structigl_1_1min__quad__with__fixed__data_adf555171e037b12e5177ebd81fd33de5}} 
+enum igl\+::min\+\_\+quad\+\_\+with\+\_\+fixed\+\_\+data\+::\+Solver\+Type {\bfseries solver\+\_\+type}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a4ef765c434c7997a24378788a7fd9c84}\label{structigl_1_1min__quad__with__fixed__data_a4ef765c434c7997a24378788a7fd9c84}} 
+Eigen\+::\+Simplicial\+LLT$<$ Eigen\+::\+Sparse\+Matrix$<$ T $>$ $>$ {\bfseries llt}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a1bd2d40db9381b99df7cafafa3e9b8ac}\label{structigl_1_1min__quad__with__fixed__data_a1bd2d40db9381b99df7cafafa3e9b8ac}} 
+Eigen\+::\+Simplicial\+LDLT$<$ Eigen\+::\+Sparse\+Matrix$<$ T $>$ $>$ {\bfseries ldlt}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a7c60ca349277d0e6e85e5cdd489e5dc2}\label{structigl_1_1min__quad__with__fixed__data_a7c60ca349277d0e6e85e5cdd489e5dc2}} 
+Eigen\+::\+Sparse\+LU$<$ Eigen\+::\+Sparse\+Matrix$<$ T, Eigen\+::\+Col\+Major $>$, Eigen\+::\+COLAMDOrdering$<$ int $>$ $>$ {\bfseries lu}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_aae738302bbd952761f3e48fcaa1b11f9}\label{structigl_1_1min__quad__with__fixed__data_aae738302bbd952761f3e48fcaa1b11f9}} 
+bool {\bfseries Aeq\+\_\+li}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_abdd3d36254dbf348fb6296f80bb3eaa0}\label{structigl_1_1min__quad__with__fixed__data_abdd3d36254dbf348fb6296f80bb3eaa0}} 
+int {\bfseries neq}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a0dd37f713f6578dc75ab710458d4654c}\label{structigl_1_1min__quad__with__fixed__data_a0dd37f713f6578dc75ab710458d4654c}} 
+Eigen\+::\+Sparse\+QR$<$ Eigen\+::\+Sparse\+Matrix$<$ T $>$, Eigen\+::\+COLAMDOrdering$<$ int $>$ $>$ {\bfseries Aeq\+TQR}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_add2a92c1b4fb911ff47f193b37650afa}\label{structigl_1_1min__quad__with__fixed__data_add2a92c1b4fb911ff47f193b37650afa}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeqk}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ae7eec6673505fc46af7fb9e65aa6c426}\label{structigl_1_1min__quad__with__fixed__data_ae7eec6673505fc46af7fb9e65aa6c426}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aequ}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_adde8448b08fd094fb92f2638ae476814}\label{structigl_1_1min__quad__with__fixed__data_adde8448b08fd094fb92f2638ae476814}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Auu}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a6dd70a80c9696cbd95cc4a11413caa8e}\label{structigl_1_1min__quad__with__fixed__data_a6dd70a80c9696cbd95cc4a11413caa8e}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TQ1}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_af29f3f637f6a03ece40aa8c4811ad6f0}\label{structigl_1_1min__quad__with__fixed__data_af29f3f637f6a03ece40aa8c4811ad6f0}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TQ1T}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a65ebbedaafb67501de8a7cb0798b70ab}\label{structigl_1_1min__quad__with__fixed__data_a65ebbedaafb67501de8a7cb0798b70ab}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TQ2}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ada118a14cca10b66554139cc28883b49}\label{structigl_1_1min__quad__with__fixed__data_ada118a14cca10b66554139cc28883b49}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TQ2T}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_abe2e974252d7deadea02f19093374781}\label{structigl_1_1min__quad__with__fixed__data_abe2e974252d7deadea02f19093374781}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TR1}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_ad67e1f780d301ce6928c4bcf60563288}\label{structigl_1_1min__quad__with__fixed__data_ad67e1f780d301ce6928c4bcf60563288}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TR1T}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_aeedc9f4d675bbd636b1782a75d0bbef3}\label{structigl_1_1min__quad__with__fixed__data_aeedc9f4d675bbd636b1782a75d0bbef3}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TE}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_acabf6c24ee8ff41b8e536923a48c7395}\label{structigl_1_1min__quad__with__fixed__data_acabf6c24ee8ff41b8e536923a48c7395}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries Aeq\+TET}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a482c165d8729c4765dddf56137d03ab1}\label{structigl_1_1min__quad__with__fixed__data_a482c165d8729c4765dddf56137d03ab1}} 
+Eigen\+::\+Sparse\+Matrix$<$ T $>$ {\bfseries NA}
+\item 
+\mbox{\Hypertarget{structigl_1_1min__quad__with__fixed__data_a5ebf64e81dccd7a909e252ff13d2dfee}\label{structigl_1_1min__quad__with__fixed__data_a5ebf64e81dccd7a909e252ff13d2dfee}} 
+Eigen\+::\+Matrix$<$ T, Eigen\+::\+Dynamic, Eigen\+::\+Dynamic $>$ {\bfseries NB}
+\end{DoxyCompactItemize}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/min\+\_\+quad\+\_\+with\+\_\+fixed.\+h\end{DoxyCompactItemize}

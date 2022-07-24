@@ -1,0 +1,83 @@
+\hypertarget{colormap_8h_source}{}\doxysection{colormap.\+h}
+\label{colormap_8h_source}\index{igl/colormap.h@{igl/colormap.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Joe Graus <jgraus@gmu.edu>, Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COLORMAP\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COLORMAP\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17   \textcolor{keyword}{enum} ColorMapType}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     COLOR\_MAP\_TYPE\_INFERNO = 0,}
+\DoxyCodeLine{20     COLOR\_MAP\_TYPE\_JET = 1,}
+\DoxyCodeLine{21     COLOR\_MAP\_TYPE\_MAGMA = 2,}
+\DoxyCodeLine{22     COLOR\_MAP\_TYPE\_PARULA = 3,}
+\DoxyCodeLine{23     COLOR\_MAP\_TYPE\_PLASMA = 4,}
+\DoxyCodeLine{24     COLOR\_MAP\_TYPE\_VIRIDIS = 5,}
+\DoxyCodeLine{25     COLOR\_MAP\_TYPE\_TURBO = 6,}
+\DoxyCodeLine{26     NUM\_COLOR\_MAP\_TYPES = 7}
+\DoxyCodeLine{27   \};}
+\DoxyCodeLine{28   \textcolor{comment}{// Comput [r,g,b] values of the selected colormap for}}
+\DoxyCodeLine{29   \textcolor{comment}{// a given factor f between 0 and 1}}
+\DoxyCodeLine{30   \textcolor{comment}{//}}
+\DoxyCodeLine{31   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{32   \textcolor{comment}{//   c  colormap enum}}
+\DoxyCodeLine{33   \textcolor{comment}{//   f  factor determining color value as if 0 was min and 1 was max}}
+\DoxyCodeLine{34   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   rgb  red, green, blue value}}
+\DoxyCodeLine{36   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} colormap(\textcolor{keyword}{const} ColorMapType cm, \textcolor{keyword}{const} T f, T * rgb);}
+\DoxyCodeLine{38   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{39   \textcolor{comment}{//   r  red value}}
+\DoxyCodeLine{40   \textcolor{comment}{//   g  green value}}
+\DoxyCodeLine{41   \textcolor{comment}{//   b  blue value}}
+\DoxyCodeLine{42   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{43   IGL\_INLINE \textcolor{keywordtype}{void} colormap(\textcolor{keyword}{const} ColorMapType cm, \textcolor{keyword}{const} T f, T \& r, T \& g, T \& b);}
+\DoxyCodeLine{44   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{45   \textcolor{comment}{//    palette  256 by 3 array of color values}}
+\DoxyCodeLine{46   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{47   IGL\_INLINE \textcolor{keywordtype}{void} colormap(}
+\DoxyCodeLine{48     \textcolor{keyword}{const} \textcolor{keywordtype}{double} palette[256][3], \textcolor{keyword}{const} T x\_in, T \& r, T \& g, T \& b);}
+\DoxyCodeLine{49   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{50   \textcolor{comment}{//   cm selected colormap palette to interpolate from}}
+\DoxyCodeLine{51   \textcolor{comment}{//   Z  \#Z list of factors}}
+\DoxyCodeLine{52   \textcolor{comment}{//   normalize  whether to normalize Z to be tightly between [0,1]}}
+\DoxyCodeLine{53   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{54   \textcolor{comment}{//   C  \#C by 3 list of rgb colors}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedZ, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} colormap(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} ColorMapType cm,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedZ> \& Z,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} normalize,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{61   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{62   \textcolor{comment}{//   min\_z  value at "{}0"{}}}
+\DoxyCodeLine{63   \textcolor{comment}{//   max\_z  value at "{}1"{}}}
+\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedZ, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{65   IGL\_INLINE \textcolor{keywordtype}{void} colormap(}
+\DoxyCodeLine{66     \textcolor{keyword}{const} ColorMapType cm,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedZ> \& Z,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} \textcolor{keywordtype}{double} min\_Z,}
+\DoxyCodeLine{69     \textcolor{keyword}{const} \textcolor{keywordtype}{double} max\_Z,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedC> \& C);}
+\DoxyCodeLine{71 \};}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#  include "{}colormap.cpp"{}}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,86 @@
+\hypertarget{per__vertex__normals_8h_source}{}\doxysection{per\+\_\+vertex\+\_\+normals.\+h}
+\label{per__vertex__normals_8h_source}\index{igl/per\_vertex\_normals.h@{igl/per\_vertex\_normals.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_PER\_VERTEX\_NORMALS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_PER\_VERTEX\_NORMALS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{comment}{// Note: It would be nice to support more or all of the methods here:}}
+\DoxyCodeLine{13 \textcolor{comment}{// "{}A comparison of algorithms for vertex normal computation"{}}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{enum} PerVertexNormalsWeightingType}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{comment}{// Incident face normals have uniform influence on vertex normal}}
+\DoxyCodeLine{19     PER\_VERTEX\_NORMALS\_WEIGHTING\_TYPE\_UNIFORM = 0,}
+\DoxyCodeLine{20     \textcolor{comment}{// Incident face normals are averaged weighted by area}}
+\DoxyCodeLine{21     PER\_VERTEX\_NORMALS\_WEIGHTING\_TYPE\_AREA = 1,}
+\DoxyCodeLine{22     \textcolor{comment}{// Incident face normals are averaged weighted by incident angle of vertex}}
+\DoxyCodeLine{23     PER\_VERTEX\_NORMALS\_WEIGHTING\_TYPE\_ANGLE = 2,}
+\DoxyCodeLine{24     \textcolor{comment}{// Area weights}}
+\DoxyCodeLine{25     PER\_VERTEX\_NORMALS\_WEIGHTING\_TYPE\_DEFAULT = 3,}
+\DoxyCodeLine{26     NUM\_PER\_VERTEX\_NORMALS\_WEIGHTING\_TYPE = 4}
+\DoxyCodeLine{27   \};}
+\DoxyCodeLine{28   \textcolor{comment}{// Compute vertex normals via vertex position list, face list}}
+\DoxyCodeLine{29   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   V  \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{31   \textcolor{comment}{//   F  \#F by 3 eigne Matrix of face (triangle) indices}}
+\DoxyCodeLine{32   \textcolor{comment}{//   weighting  Weighting type}}
+\DoxyCodeLine{33   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{34   \textcolor{comment}{//   N  \#V by 3 eigen Matrix of mesh vertex 3D normals}}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{39   IGL\_INLINE \textcolor{keywordtype}{void} per\_vertex\_normals(}
+\DoxyCodeLine{40     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} igl::PerVertexNormalsWeightingType weighting,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{44   \textcolor{comment}{// Without weighting}}
+\DoxyCodeLine{45   \textcolor{keyword}{template} <}
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{49   IGL\_INLINE \textcolor{keywordtype}{void} per\_vertex\_normals(}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{53   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{54   \textcolor{comment}{//   FN  \#F by 3 matrix of face (triangle) normals}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedFN, \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} per\_vertex\_normals(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} PerVertexNormalsWeightingType weighting,}
+\DoxyCodeLine{60     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{62   \textcolor{comment}{// Without weighting}}
+\DoxyCodeLine{63   \textcolor{keyword}{template} <}
+\DoxyCodeLine{64     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{65     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{66     \textcolor{keyword}{typename} DerivedFN,}
+\DoxyCodeLine{67     \textcolor{keyword}{typename} DerivedN>}
+\DoxyCodeLine{68   IGL\_INLINE \textcolor{keywordtype}{void} per\_vertex\_normals(}
+\DoxyCodeLine{69     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{70     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{71     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedFN>\& FN,}
+\DoxyCodeLine{72     Eigen::PlainObjectBase<DerivedN> \& N);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#  include "{}per\_vertex\_normals.cpp"{}}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

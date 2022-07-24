@@ -1,0 +1,54 @@
+\hypertarget{write_d_m_a_t_8h_source}{}\doxysection{write\+DMAT.\+h}
+\label{write_d_m_a_t_8h_source}\index{igl/writeDMAT.h@{igl/writeDMAT.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_WRITEDMAT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_WRITEDMAT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{comment}{// See writeDMAT.h for a description of the .dmat file type}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Write a matrix using ascii dmat file type}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Template:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   Mat  matrix type that supports .rows(), .cols(), operator(i,j)}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   file\_name  path to .dmat file}}
+\DoxyCodeLine{23   \textcolor{comment}{//   W  eigen matrix containing to-\/be-\/written coefficients}}
+\DoxyCodeLine{24   \textcolor{comment}{//   ascii  write ascii file \{true\}}}
+\DoxyCodeLine{25   \textcolor{comment}{// Returns true on success, false on error}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedW>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{bool} writeDMAT(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} std::string file\_name, }
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedW> \& W,}
+\DoxyCodeLine{31     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascii=\textcolor{keyword}{true});}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{bool} writeDMAT(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} std::string file\_name, }
+\DoxyCodeLine{35     \textcolor{keyword}{const} std::vector<std::vector<Scalar> > \& W,}
+\DoxyCodeLine{36     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascii=\textcolor{keyword}{true});}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{bool} writeDMAT(}
+\DoxyCodeLine{39     \textcolor{keyword}{const} std::string file\_name, }
+\DoxyCodeLine{40     \textcolor{keyword}{const} std::vector<Scalar > \&W,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} ascii=\textcolor{keyword}{true});}
+\DoxyCodeLine{42 \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#  include "{}writeDMAT.cpp"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{47 }
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

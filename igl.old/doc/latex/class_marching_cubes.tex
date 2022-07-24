@@ -1,0 +1,40 @@
+\hypertarget{class_marching_cubes}{}\doxysection{Marching\+Cubes\texorpdfstring{$<$}{<} Derived\+Values, Derived\+Points, Derived\+Vertices, Derived\+Indices, Derived\+Faces \texorpdfstring{$>$}{>} Class Template Reference}
+\label{class_marching_cubes}\index{MarchingCubes$<$ DerivedValues, DerivedPoints, DerivedVertices, DerivedIndices, DerivedFaces $>$@{MarchingCubes$<$ DerivedValues, DerivedPoints, DerivedVertices, DerivedIndices, DerivedFaces $>$}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a2215aafbc499526b7e71f7eb7366e834}\label{class_marching_cubes_a2215aafbc499526b7e71f7eb7366e834}} 
+{\bfseries Marching\+Cubes} (const Eigen\+::\+Matrix\+Base$<$ Derived\+Values $>$ \&values, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const unsigned x\+\_\+res, const unsigned y\+\_\+res, const unsigned z\+\_\+res, const double isovalue, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Faces $>$ \&faces)
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a2ea7c519183c5fe059cd73affb6b524c}\label{class_marching_cubes_a2ea7c519183c5fe059cd73affb6b524c}} 
+{\bfseries Marching\+Cubes} (const Eigen\+::\+Matrix\+Base$<$ Derived\+Values $>$ \&values, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const Eigen\+::\+Matrix\+Base$<$ Derived\+Indices $>$ \&cubes, const double isovalue, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Faces $>$ \&faces)
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a937996852e647d08f88704098518df86}\label{class_marching_cubes_a937996852e647d08f88704098518df86}} 
+{\footnotesize template$<$typename Derived\+Value , typename Derived\+Point $>$ }\\{\bfseries Marching\+Cubes} (const std\+::function$<$ Derived\+Value(const Derived\+Point \&) $>$ \&value\+\_\+fun, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const unsigned x\+\_\+res, const unsigned y\+\_\+res, const unsigned z\+\_\+res, const double isovalue, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Faces $>$ \&faces)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_marching_cubes_aeacf4dcb63c35c169fce2c614a085c68}\label{class_marching_cubes_aeacf4dcb63c35c169fce2c614a085c68}} 
+{\footnotesize template$<$typename Cube\+Index\+Type $>$ }\\static void {\bfseries add\+\_\+cube} (const Eigen\+::\+Matrix\+Base$<$ Derived\+Values $>$ \&values, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const double isovalue, const Cube\+Index\+Type corner\mbox{[}$\,$\mbox{]}, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, int \&num\+\_\+vertices, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Faces $>$ \&faces, int \&num\+\_\+faces, My\+Map \&edge2vertex)
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a21ef966c33943a3d0fb74ce4e4ee524b}\label{class_marching_cubes_a21ef966c33943a3d0fb74ce4e4ee524b}} 
+{\footnotesize template$<$typename Derived\+Value , typename Derived\+Point , typename Cube\+Index\+Type $>$ }\\static void {\bfseries add\+\_\+cube} (const std\+::function$<$ Derived\+Value(const Derived\+Point \&) $>$ \&value\+\_\+fun, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const double isovalue, const Cube\+Index\+Type corner\mbox{[}$\,$\mbox{]}, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, int \&num\+\_\+vertices, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Faces $>$ \&faces, int \&num\+\_\+faces, My\+Map \&edge2vertex)
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a4783ea46c7f5a0469dd3db5479258b2f}\label{class_marching_cubes_a4783ea46c7f5a0469dd3db5479258b2f}} 
+static Derived\+Faces\+::\+Scalar {\bfseries add\+\_\+vertex} (const Eigen\+::\+Matrix\+Base$<$ Derived\+Values $>$ \&values, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const double isovalue, unsigned int i0, unsigned int i1, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, int \&num\+\_\+vertices, My\+Map \&edge2vertex)
+\item 
+\mbox{\Hypertarget{class_marching_cubes_a5e32ce67fc314a2e68352501a7161b50}\label{class_marching_cubes_a5e32ce67fc314a2e68352501a7161b50}} 
+{\footnotesize template$<$typename Derived\+Value , typename Derived\+Point $>$ }\\static Derived\+Faces\+::\+Scalar {\bfseries add\+\_\+vertex} (const std\+::function$<$ Derived\+Value(const Derived\+Point \&) $>$ \&value\+\_\+fun, const Eigen\+::\+Matrix\+Base$<$ Derived\+Points $>$ \&points, const double isovalue, unsigned int i0, unsigned int i1, Eigen\+::\+Plain\+Object\+Base$<$ Derived\+Vertices $>$ \&vertices, int \&num\+\_\+vertices, My\+Map \&edge2vertex)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_marching_cubes_ab4d142a1408209f263b2d3758f335a0f}\label{class_marching_cubes_ab4d142a1408209f263b2d3758f335a0f}} 
+My\+Map {\bfseries edge2vertex}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/copyleft/marching\+\_\+cubes.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,90 @@
+\hypertarget{cut__mesh_8h_source}{}\doxysection{cut\+\_\+mesh.\+h}
+\label{cut__mesh_8h_source}\index{igl/cut\_mesh.h@{igl/cut\_mesh.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Hanxiao Shen <hanxiao@cims.nyu.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_CUT\_MESH\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_CUT\_MESH\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Given a mesh and a list of edges that are to be cut, the function}}
+\DoxyCodeLine{17   \textcolor{comment}{// generates a new disk-\/topology mesh that has the cuts at its boundary.}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{//}}
+\DoxyCodeLine{20   \textcolor{comment}{// Known issues: Assumes mesh is edge-\/manifold.}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by 3 list of the vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3 list of the faces}}
+\DoxyCodeLine{25   \textcolor{comment}{//   cuts  \#F by 3 list of boolean flags, indicating the edges that need to}}
+\DoxyCodeLine{26   \textcolor{comment}{//     be cut (has 1 at the face edges that are to be cut, 0 otherwise)}}
+\DoxyCodeLine{27   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   Vn  \#V by 3 list of the vertex positions of the cut mesh. This matrix}}
+\DoxyCodeLine{29   \textcolor{comment}{//     will be similar to the original vertices except some rows will be}}
+\DoxyCodeLine{30   \textcolor{comment}{//     duplicated.}}
+\DoxyCodeLine{31   \textcolor{comment}{//   Fn  \#F by 3 list of the faces of the cut mesh(must be triangles). This}}
+\DoxyCodeLine{32   \textcolor{comment}{//     matrix will be similar to the original face matrix except some indices}}
+\DoxyCodeLine{33   \textcolor{comment}{//     will be redirected to point to the newly duplicated vertices.}}
+\DoxyCodeLine{34   \textcolor{comment}{//   I   \#V by 1 list of the map between Vn to original V index.}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36   \textcolor{comment}{// In place mesh cut}}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{38   IGL\_INLINE \textcolor{keywordtype}{void} cut\_mesh(}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC>\& cuts,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedI>\& I}
+\DoxyCodeLine{43   );}
+\DoxyCodeLine{44   }
+\DoxyCodeLine{45   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedFF, \textcolor{keyword}{typename} DerivedFFi, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{46   IGL\_INLINE \textcolor{keywordtype}{void} cut\_mesh(}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{48     Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{49     Eigen::MatrixBase<DerivedFF>\& FF,}
+\DoxyCodeLine{50     Eigen::MatrixBase<DerivedFFi>\& FFi,}
+\DoxyCodeLine{51     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC>\& C,}
+\DoxyCodeLine{52     Eigen::PlainObjectBase<DerivedI>\& I}
+\DoxyCodeLine{53   );}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{56   IGL\_INLINE \textcolor{keywordtype}{void} cut\_mesh(}
+\DoxyCodeLine{57     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{58     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{59     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC>\& cuts,}
+\DoxyCodeLine{60     Eigen::PlainObjectBase<DerivedV>\& Vn,}
+\DoxyCodeLine{61     Eigen::PlainObjectBase<DerivedF>\& Fn}
+\DoxyCodeLine{62   );}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{65   IGL\_INLINE \textcolor{keywordtype}{void} cut\_mesh(}
+\DoxyCodeLine{66     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{67     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{68     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC>\& cuts,}
+\DoxyCodeLine{69     Eigen::PlainObjectBase<DerivedV>\& Vn,}
+\DoxyCodeLine{70     Eigen::PlainObjectBase<DerivedF>\& Fn,}
+\DoxyCodeLine{71     Eigen::PlainObjectBase<DerivedI>\& I}
+\DoxyCodeLine{72   );}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74 }
+\DoxyCodeLine{75   }
+\DoxyCodeLine{76 \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#include "{}cut\_mesh.cpp"{}}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{82 }
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

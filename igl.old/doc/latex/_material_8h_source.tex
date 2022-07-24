@@ -1,0 +1,38 @@
+\hypertarget{_material_8h_source}{}\doxysection{Material.\+h}
+\label{_material_8h_source}\index{igl/opengl/glfw/Material.h@{igl/opengl/glfw/Material.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#pragma once}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}texture.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}shader.h"{}}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{keyword}{using }std::vector;}
+\DoxyCodeLine{7 \textcolor{keyword}{using }std::shared\_ptr;}
+\DoxyCodeLine{8 \textcolor{keyword}{using }std::string;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{class }\mbox{\hyperlink{class_material}{Material}}}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12 \textcolor{keyword}{private}:}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14     shared\_ptr<Shader> m\_shader;}
+\DoxyCodeLine{15     vector<shared\_ptr<Texture>> m\_textures;}
+\DoxyCodeLine{16     vector<int> m\_textureSlots;}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{public}:}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{25     \textcolor{keyword}{explicit} \mbox{\hyperlink{class_material_a77a02746e229fc44a3667f70da9bbbb1}{Material}}(shared\_ptr<Shader> shader);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{34     \mbox{\hyperlink{class_material_a77a02746e229fc44a3667f70da9bbbb1}{Material}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string}\& shaderFileName, \textcolor{keywordtype}{bool} overlay, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} shaderId);}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{41     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_material_a6d6bcdc6f1f6fe46632e1c8afec5b242}{AddTexture}}(\textcolor{keywordtype}{int} slot, shared\_ptr<Texture> texture);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{50     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_material_a6d6bcdc6f1f6fe46632e1c8afec5b242}{AddTexture}}(\textcolor{keywordtype}{int} slot, \textcolor{keyword}{const} \textcolor{keywordtype}{string}\& textureFileName, \textcolor{keywordtype}{int} dim);}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{56     shared\_ptr<Shader> \mbox{\hyperlink{class_material_af412ccc5ddad9cd3649e16f9625047c3}{Bind}}();}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58     \textcolor{keyword}{inline} shared\_ptr<Shader> GetShader() \{ \textcolor{keywordflow}{return} m\_shader; \}}
+\DoxyCodeLine{59 \};}
+\DoxyCodeLine{60 }
+
+\end{DoxyCode}

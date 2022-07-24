@@ -1,0 +1,36 @@
+\hypertarget{angular__distance_8h_source}{}\doxysection{angular\+\_\+distance.\+h}
+\label{angular__distance_8h_source}\index{igl/angular\_distance.h@{igl/angular\_distance.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ANGULAR\_DISTANCE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ANGULAR\_DISTANCE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// The "{}angular distance"{} between two unit quaternions is the angle of the}}
+\DoxyCodeLine{15   \textcolor{comment}{// smallest rotation (treated as an Axis and Angle) that takes A to B.}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   A  unit quaternion}}
+\DoxyCodeLine{19   \textcolor{comment}{//   B  unit quaternion}}
+\DoxyCodeLine{20   \textcolor{comment}{// Returns angular distance}}
+\DoxyCodeLine{21   IGL\_INLINE \textcolor{keywordtype}{double} angular\_distance(}
+\DoxyCodeLine{22     \textcolor{keyword}{const} Eigen::Quaterniond \& A,}
+\DoxyCodeLine{23     \textcolor{keyword}{const} Eigen::Quaterniond \& B);}
+\DoxyCodeLine{24 \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include "{}angular\_distance.cpp"{}}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

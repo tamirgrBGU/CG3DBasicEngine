@@ -1,0 +1,55 @@
+\hypertarget{cotmatrix__entries_8h_source}{}\doxysection{cotmatrix\+\_\+entries.\+h}
+\label{cotmatrix__entries_8h_source}\index{igl/cotmatrix\_entries.h@{igl/cotmatrix\_entries.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{5 \textcolor{comment}{// }}
+\DoxyCodeLine{6 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{7 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{8 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COTMATRIX\_ENTRIES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COTMATRIX\_ENTRIES\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// COTMATRIX\_ENTRIES compute the cotangents of each angle in mesh (V,F)}}
+\DoxyCodeLine{16   \textcolor{comment}{// }}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by dim list of rest domain positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by \{3|4\} list of \{triangle|tetrahedra\} indices into V}}
+\DoxyCodeLine{20   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//     C  \#F by 3 list of 1/2*cotangents corresponding angles}}
+\DoxyCodeLine{22   \textcolor{comment}{//       for triangles, columns correspond to edges [1,2],[2,0],[0,1]}}
+\DoxyCodeLine{23   \textcolor{comment}{//   OR}}
+\DoxyCodeLine{24   \textcolor{comment}{//     C  \#F by 6 list of 1/6*cotangents of dihedral angles*edge lengths}}
+\DoxyCodeLine{25   \textcolor{comment}{//       for tets, columns along edges [1,2],[2,0],[0,1],[3,0],[3,1],[3,2] }}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{28   IGL\_INLINE \textcolor{keywordtype}{void} cotmatrix\_entries(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedC>\& C);}
+\DoxyCodeLine{32   \textcolor{comment}{// Intrinsic version.}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{35   \textcolor{comment}{//   l  \#F by 3 list of triangle edge lengths (see edge\_lengths)}}
+\DoxyCodeLine{36   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{37   \textcolor{comment}{//   C  \#F by 3 list of 1/2*cotangents corresponding angles}}
+\DoxyCodeLine{38   \textcolor{comment}{//     for triangles, columns correspond to edges [1,2],[2,0],[0,1]}}
+\DoxyCodeLine{39   \textcolor{keyword}{template} <\textcolor{keyword}{typename} Derivedl, \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} cotmatrix\_entries(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<Derivedl>\& l,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedC>\& C);}
+\DoxyCodeLine{43 \}}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#  include "{}cotmatrix\_entries.cpp"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

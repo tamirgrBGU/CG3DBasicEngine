@@ -1,0 +1,69 @@
+\hypertarget{map__texture_8h_source}{}\doxysection{map\+\_\+texture.\+h}
+\label{map__texture_8h_source}\index{igl/opengl/glfw/map\_texture.h@{igl/opengl/glfw/map\_texture.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_OPENGL\_GLFW\_MAP\_TEXTURE\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_OPENGL\_GLFW\_MAP\_TEXTURE\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#ifdef IGL\_OPENGL\_4}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{13   \{}
+\DoxyCodeLine{14     \textcolor{keyword}{namespace }glfw}
+\DoxyCodeLine{15     \{}
+\DoxyCodeLine{16       \textcolor{comment}{// Given a mesh (V,F) in [0,1]² and new positions (U) and a texture image}}
+\DoxyCodeLine{17       \textcolor{comment}{// (in\_data), \_render\_ a new image (out\_data) of the same size.}}
+\DoxyCodeLine{18       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19       \textcolor{comment}{//   V  \#V by 2 list of undeformed mesh vertex positions (matching texture)}}
+\DoxyCodeLine{20       \textcolor{comment}{//   F  \#F by 3 list of mesh triangle indices into V}}
+\DoxyCodeLine{21       \textcolor{comment}{//   U  \#U by 2 list of deformed vertex positions}}
+\DoxyCodeLine{22       \textcolor{comment}{//   in\_data  w*h*nc array of color values, channels, then columns, then}}
+\DoxyCodeLine{23       \textcolor{comment}{//     rows (e.g., what stbi\_image returns and expects)}}
+\DoxyCodeLine{24       \textcolor{comment}{//   w  width}}
+\DoxyCodeLine{25       \textcolor{comment}{//   h  height}}
+\DoxyCodeLine{26       \textcolor{comment}{//   nc  number of channels}}
+\DoxyCodeLine{27       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{28       \textcolor{comment}{//   out\_data  h*w*nc list of output colors in same order as input}}
+\DoxyCodeLine{29       \textcolor{comment}{//}}
+\DoxyCodeLine{30       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedU>}
+\DoxyCodeLine{31       IGL\_INLINE \textcolor{keywordtype}{bool} map\_texture(}
+\DoxyCodeLine{32         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{33         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{34         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedU> \& U,}
+\DoxyCodeLine{35         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} * in\_data,}
+\DoxyCodeLine{36         \textcolor{keyword}{const} \textcolor{keywordtype}{int} w,}
+\DoxyCodeLine{37         \textcolor{keyword}{const} \textcolor{keywordtype}{int} h,}
+\DoxyCodeLine{38         \textcolor{keyword}{const} \textcolor{keywordtype}{int} nc,}
+\DoxyCodeLine{39         std::vector<unsigned char> \& out\_data);}
+\DoxyCodeLine{40       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedU>}
+\DoxyCodeLine{41       IGL\_INLINE \textcolor{keywordtype}{bool} map\_texture(}
+\DoxyCodeLine{42         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& \_V,}
+\DoxyCodeLine{43         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& \_F,}
+\DoxyCodeLine{44         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedU> \& \_U,}
+\DoxyCodeLine{45         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} * in\_data,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} \textcolor{keywordtype}{int} w,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} \textcolor{keywordtype}{int} h,}
+\DoxyCodeLine{48         \textcolor{keyword}{const} \textcolor{keywordtype}{int} nc,}
+\DoxyCodeLine{49         std::vector<unsigned char> \& out\_data,}
+\DoxyCodeLine{50         \textcolor{keywordtype}{int} \& out\_w,}
+\DoxyCodeLine{51         \textcolor{keywordtype}{int} \& out\_h,}
+\DoxyCodeLine{52         \textcolor{keywordtype}{int} \& out\_nc);}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#  include "{}map\_texture.cpp"{}}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// IGL\_OPENGL\_4}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

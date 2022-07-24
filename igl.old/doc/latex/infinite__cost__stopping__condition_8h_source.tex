@@ -1,0 +1,45 @@
+\hypertarget{infinite__cost__stopping__condition_8h_source}{}\doxysection{infinite\+\_\+cost\+\_\+stopping\+\_\+condition.\+h}
+\label{infinite__cost__stopping__condition_8h_source}\index{igl/infinite\_cost\_stopping\_condition.h@{igl/infinite\_cost\_stopping\_condition.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_INFINITE\_COST\_STOPPING\_CONDITION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_INFINITE\_COST\_STOPPING\_CONDITION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}decimate\_callback\_types.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <functional>}}
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Stopping condition function compatible with igl::decimate. The output}}
+\DoxyCodeLine{19   \textcolor{comment}{// function handle will return true if cost of next edge is infinite.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   cost\_and\_placement  handle being used by igl::collapse\_edge}}
+\DoxyCodeLine{23   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{24   \textcolor{comment}{//   stopping\_condition}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   IGL\_INLINE \textcolor{keywordtype}{void} infinite\_cost\_stopping\_condition(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement,}
+\DoxyCodeLine{28     decimate\_stopping\_condition\_callback \& stopping\_condition);}
+\DoxyCodeLine{29   IGL\_INLINE decimate\_stopping\_condition\_callback}
+\DoxyCodeLine{30     infinite\_cost\_stopping\_condition(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} decimate\_cost\_and\_placement\_callback \& cost\_and\_placement);}
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#  include "{}infinite\_cost\_stopping\_condition.cpp"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 }
+
+\end{DoxyCode}

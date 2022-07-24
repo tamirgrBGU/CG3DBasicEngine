@@ -1,0 +1,63 @@
+\hypertarget{frame__field_8h_source}{}\doxysection{frame\+\_\+field.\+h}
+\label{frame__field_8h_source}\index{igl/copyleft/comiso/frame\_field.h@{igl/copyleft/comiso/frame\_field.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COMISO\_FRAMEFIELD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COMISO\_FRAMEFIELD\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <igl/PI.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }comiso}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22 \textcolor{comment}{// Generate a piecewise-\/constant frame-\/field field from a sparse set of constraints on faces}}
+\DoxyCodeLine{23 \textcolor{comment}{// using the algorithm proposed in:}}
+\DoxyCodeLine{24 \textcolor{comment}{// Frame Fields: Anisotropic and Non-\/Orthogonal Cross Fields}}
+\DoxyCodeLine{25 \textcolor{comment}{// Daniele Panozzo, Enrico Puppo, Marco Tarini, Olga Sorkine-\/Hornung,}}
+\DoxyCodeLine{26 \textcolor{comment}{// ACM Transactions on Graphics (SIGGRAPH, 2014)}}
+\DoxyCodeLine{27 \textcolor{comment}{//}}
+\DoxyCodeLine{28 \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{29 \textcolor{comment}{//   V       \#V by 3 list of mesh vertex coordinates}}
+\DoxyCodeLine{30 \textcolor{comment}{//   F       \#F by 3 list of mesh faces (must be triangles)}}
+\DoxyCodeLine{31 \textcolor{comment}{//   b       \#B by 1 list of constrained face indices}}
+\DoxyCodeLine{32 \textcolor{comment}{//   bc1     \#B by 3 list of the constrained first representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{33 \textcolor{comment}{//   bc2     \#B by 3 list of the constrained second representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{34 \textcolor{comment}{//}}
+\DoxyCodeLine{35 \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36 \textcolor{comment}{//   FF1      \#F by 3 the first representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{37 \textcolor{comment}{//   FF2      \#F by 3 the second representative vector of the frame field (up to permutation and sign)}}
+\DoxyCodeLine{38 \textcolor{comment}{//}}
+\DoxyCodeLine{39 \textcolor{comment}{// TODO: it now supports only soft constraints, should be extended to support both hard and soft constraints}}
+\DoxyCodeLine{40 IGL\_INLINE \textcolor{keywordtype}{void} frame\_field(}
+\DoxyCodeLine{41   \textcolor{keyword}{const} Eigen::MatrixXd\& V,}
+\DoxyCodeLine{42   \textcolor{keyword}{const} Eigen::MatrixXi\& F,}
+\DoxyCodeLine{43   \textcolor{keyword}{const} Eigen::VectorXi\& b,}
+\DoxyCodeLine{44   \textcolor{keyword}{const} Eigen::MatrixXd\& bc1,}
+\DoxyCodeLine{45   \textcolor{keyword}{const} Eigen::MatrixXd\& bc2,}
+\DoxyCodeLine{46   Eigen::MatrixXd\& FF1,}
+\DoxyCodeLine{47   Eigen::MatrixXd\& FF2}
+\DoxyCodeLine{48   );}
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 \}}
+\DoxyCodeLine{51 \}}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#  include "{}frame\_field.cpp"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

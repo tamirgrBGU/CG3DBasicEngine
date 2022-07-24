@@ -1,0 +1,50 @@
+\hypertarget{sort__triangles_8h_source}{}\doxysection{sort\+\_\+triangles.\+h}
+\label{sort__triangles_8h_source}\index{igl/sort\_triangles.h@{igl/sort\_triangles.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SORT\_TRIANGLES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SORT\_TRIANGLES\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   V  \#V by **4** list of homogeneous vertex positions}}
+\DoxyCodeLine{18   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{19   \textcolor{comment}{//   MV  4 by 4 model view matrix}}
+\DoxyCodeLine{20   \textcolor{comment}{//   P  4 by 4 projection matrix}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   FF  \#F by 3 list of sorted triangles indices}}
+\DoxyCodeLine{23   \textcolor{comment}{//   I  \#F list of sorted indices}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedMV,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedP,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} sort\_triangles(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedMV> \& MV,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{37     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{38 \}}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#  include "{}sort\_triangles.cpp"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

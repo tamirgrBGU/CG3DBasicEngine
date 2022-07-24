@@ -1,0 +1,72 @@
+\hypertarget{_sortable_row_8h_source}{}\doxysection{Sortable\+Row.\+h}
+\label{_sortable_row_8h_source}\index{igl/SortableRow.h@{igl/SortableRow.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SORTABLE\_ROW\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SORTABLE\_ROW\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{comment}{// Simple class to contain a rowvector which allows rowwise sorting and}}
+\DoxyCodeLine{12 \textcolor{comment}{// reordering}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   T  should be a matrix that implements .size(), and operator(int i)}}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{20   \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}}}
+\DoxyCodeLine{21   \{}
+\DoxyCodeLine{22     \textcolor{keyword}{public}:}
+\DoxyCodeLine{23       T data;}
+\DoxyCodeLine{24     \textcolor{keyword}{public}:}
+\DoxyCodeLine{25       \mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}}():data()\{\};}
+\DoxyCodeLine{26       \mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}}(\textcolor{keyword}{const} T \& data):data(data)\{\};}
+\DoxyCodeLine{27       \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}} \& that)\textcolor{keyword}{ const}}
+\DoxyCodeLine{28 \textcolor{keyword}{      }\{}
+\DoxyCodeLine{29         \textcolor{comment}{// Lexicographical}}
+\DoxyCodeLine{30         \textcolor{keywordtype}{int} minc = (this-\/>data.size() < that.data.size()?}
+\DoxyCodeLine{31             this-\/>data.size() : that.data.size());}
+\DoxyCodeLine{32         \textcolor{comment}{// loop over columns}}
+\DoxyCodeLine{33         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<minc;i++)}
+\DoxyCodeLine{34         \{}
+\DoxyCodeLine{35           \textcolor{keywordflow}{if}(this-\/>data(i) == that.data(i))}
+\DoxyCodeLine{36           \{}
+\DoxyCodeLine{37             \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{38           \}}
+\DoxyCodeLine{39           \textcolor{keywordflow}{return} this-\/>data(i) < that.data(i);}
+\DoxyCodeLine{40         \}}
+\DoxyCodeLine{41         \textcolor{comment}{// All characters the same, comes done to length}}
+\DoxyCodeLine{42         \textcolor{keywordflow}{return} this-\/>data.size()<that.data.size();}
+\DoxyCodeLine{43       \};}
+\DoxyCodeLine{44       \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}} \& that)\textcolor{keyword}{ const}}
+\DoxyCodeLine{45 \textcolor{keyword}{      }\{}
+\DoxyCodeLine{46         \textcolor{keywordflow}{if}(this-\/>data.size() != that.data.size())}
+\DoxyCodeLine{47         \{}
+\DoxyCodeLine{48           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{49         \}}
+\DoxyCodeLine{50         \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i = 0;i<this-\/>data.size();i++)}
+\DoxyCodeLine{51         \{}
+\DoxyCodeLine{52           \textcolor{keywordflow}{if}(this-\/>data(i) != that.data(i))}
+\DoxyCodeLine{53           \{}
+\DoxyCodeLine{54             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{55           \}}
+\DoxyCodeLine{56         \}}
+\DoxyCodeLine{57         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{58       \};}
+\DoxyCodeLine{59       \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_sortable_row}{SortableRow}} \& that)\textcolor{keyword}{ const}}
+\DoxyCodeLine{60 \textcolor{keyword}{      }\{}
+\DoxyCodeLine{61         \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == that);}
+\DoxyCodeLine{62       \};}
+\DoxyCodeLine{63   \};}
+\DoxyCodeLine{64 \}}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

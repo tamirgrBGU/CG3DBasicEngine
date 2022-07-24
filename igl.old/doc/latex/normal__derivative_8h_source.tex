@@ -1,0 +1,50 @@
+\hypertarget{normal__derivative_8h_source}{}\doxysection{normal\+\_\+derivative.\+h}
+\label{normal__derivative_8h_source}\index{igl/normal\_derivative.h@{igl/normal\_derivative.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NORMAL\_DERIVATIVE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NORMAL\_DERIVATIVE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// NORMAL\_DERIVATIVE Computes the directional derivative **normal** to}}
+\DoxyCodeLine{17   \textcolor{comment}{// **all** (half-\/)edges of a triangle mesh (not just boundary edges). These}}
+\DoxyCodeLine{18   \textcolor{comment}{// are integrated along the edge: they're the per-\/face constant gradient dot}}
+\DoxyCodeLine{19   \textcolor{comment}{// the rotated edge vector (unit rotated edge vector for direction then}}
+\DoxyCodeLine{20   \textcolor{comment}{// magnitude for integration).}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{24   \textcolor{comment}{//   F  \#F by 3|4 list of triangle|tetrahedron indices into V}}
+\DoxyCodeLine{25   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{26   \textcolor{comment}{//   DD  \#F*3|4 by \#V sparse matrix representing operator to compute}}
+\DoxyCodeLine{27   \textcolor{comment}{//     directional derivative with respect to each facet of each element.}}
+\DoxyCodeLine{28   \textcolor{comment}{//}}
+\DoxyCodeLine{29   \textcolor{keyword}{template} <}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{31     \textcolor{keyword}{typename} DerivedEle,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{33   IGL\_INLINE \textcolor{keywordtype}{void} normal\_derivative(}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele,}
+\DoxyCodeLine{36     Eigen::SparseMatrix<Scalar>\& DD);}
+\DoxyCodeLine{37 \}}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#  include "{}normal\_derivative.cpp"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44 }
+
+\end{DoxyCode}

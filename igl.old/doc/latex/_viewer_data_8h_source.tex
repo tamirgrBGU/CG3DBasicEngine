@@ -1,0 +1,420 @@
+\hypertarget{_viewer_data_8h_source}{}\doxysection{Viewer\+Data.\+h}
+\label{_viewer_data_8h_source}\index{igl/opengl/ViewerData.h@{igl/opengl/ViewerData.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Daniele Panozzo <daniele.panozzo@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_VIEWERDATA\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_VIEWERDATA\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}MeshGL.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}glfw/VertexArray.hpp"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}glfw/shader.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}glfw/Material.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <igl/colormap.h>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <cassert>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}Movable.h"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{comment}{// Alec: This is a mesh class containing a variety of data types (normals,}}
+\DoxyCodeLine{25 \textcolor{comment}{// overlays, material colors, etc.)}}
+\DoxyCodeLine{26 \textcolor{comment}{//}}
+\DoxyCodeLine{27 \textcolor{comment}{// WARNING: Eigen data members (such as Eigen::Vector4f) should explicitly}}
+\DoxyCodeLine{28 \textcolor{comment}{// disable alignment (e.g. use `Eigen::Matrix<float, 4, 1, Eigen::DontAlign>`),}}
+\DoxyCodeLine{29 \textcolor{comment}{// in order to avoid alignment issues further down the line (esp. if the}}
+\DoxyCodeLine{30 \textcolor{comment}{// structure are stored in a std::vector).}}
+\DoxyCodeLine{31 \textcolor{comment}{//}}
+\DoxyCodeLine{32 \textcolor{comment}{// See this thread for a more detailed discussion:}}
+\DoxyCodeLine{33 \textcolor{comment}{// https://github.com/libigl/libigl/pull/1029}}
+\DoxyCodeLine{34 \textcolor{comment}{//}}
+\DoxyCodeLine{35 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{keyword}{namespace }opengl}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{comment}{// Forward declaration}}
+\DoxyCodeLine{42 \textcolor{keyword}{class }ViewerCore;}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{ViewerData}} : \textcolor{keyword}{public} \mbox{\hyperlink{class_movable}{Movable}}}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46 \textcolor{keyword}{private}:}
+\DoxyCodeLine{47     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} materialID;}
+\DoxyCodeLine{48     \textcolor{keywordtype}{bool} isCopy;}
+\DoxyCodeLine{49     \textcolor{keywordtype}{bool} isStatic;}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{keyword}{public}:}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{53     shared\_ptr<Material> m\_material; \textcolor{comment}{// TODO: TAL: do something with this...}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55   \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{ViewerData}}();}
+\DoxyCodeLine{56     IGL\_INLINE \textcolor{keywordtype}{void} Draw(\mbox{\hyperlink{class_shader}{Shader}}* shader, \textcolor{keywordtype}{bool} cond);}
+\DoxyCodeLine{57     \textcolor{comment}{/* TAL: removing getter and setter as a first step to get rid of these ids}}
+\DoxyCodeLine{58 \textcolor{comment}{    IGL\_INLINE void SetShader(const int id) \{ shaderID = id; \}}}
+\DoxyCodeLine{59 \textcolor{comment}{    IGL\_INLINE int GetShader() const\{}}
+\DoxyCodeLine{60 \textcolor{comment}{        return shaderID;}}
+\DoxyCodeLine{61 \textcolor{comment}{    \}}}
+\DoxyCodeLine{62 \textcolor{comment}{    */}}
+\DoxyCodeLine{63   \textcolor{comment}{// Empty all fields}}
+\DoxyCodeLine{64   IGL\_INLINE \textcolor{keywordtype}{void} clear();}
+\DoxyCodeLine{65 }
+\DoxyCodeLine{66   \textcolor{comment}{// Change the visualization mode, invalidating the cache if necessary}}
+\DoxyCodeLine{67   IGL\_INLINE \textcolor{keywordtype}{void} set\_face\_based(\textcolor{keywordtype}{bool} newvalue);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69   \textcolor{comment}{// Helpers that can draw the most common meshes}}
+\DoxyCodeLine{70   IGL\_INLINE \textcolor{keywordtype}{void} set\_mesh(\textcolor{keyword}{const} Eigen::MatrixXd\& V, \textcolor{keyword}{const} Eigen::MatrixXi\& F);}
+\DoxyCodeLine{71   IGL\_INLINE \textcolor{keywordtype}{void} set\_vertices(\textcolor{keyword}{const} Eigen::MatrixXd\& V);}
+\DoxyCodeLine{72   IGL\_INLINE \textcolor{keywordtype}{void} set\_normals(\textcolor{keyword}{const} Eigen::MatrixXd\& N);}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   IGL\_INLINE \textcolor{keywordtype}{void} set\_visible(\textcolor{keywordtype}{bool} value, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} property\_id = 1);}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \textcolor{comment}{// Set the color of the mesh}}
+\DoxyCodeLine{77   \textcolor{comment}{//}}
+\DoxyCodeLine{78   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{79   \textcolor{comment}{//   C  \#V|\#F|1 by 3 list of colors}}
+\DoxyCodeLine{80   IGL\_INLINE \textcolor{keywordtype}{void} set\_colors(\textcolor{keyword}{const} Eigen::MatrixXd \&C);}
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82   \textcolor{comment}{// Set per-\/vertex UV coordinates}}
+\DoxyCodeLine{83   \textcolor{comment}{//}}
+\DoxyCodeLine{84   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{85   \textcolor{comment}{//   UV  \#V by 2 list of UV coordinates (indexed by F)}}
+\DoxyCodeLine{86   IGL\_INLINE \textcolor{keywordtype}{void} set\_uv(\textcolor{keyword}{const} Eigen::MatrixXd\& UV);}
+\DoxyCodeLine{87 }
+\DoxyCodeLine{88   \textcolor{comment}{// Set per-\/corner UV coordinates}}
+\DoxyCodeLine{89   \textcolor{comment}{//}}
+\DoxyCodeLine{90   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{91   \textcolor{comment}{//   UV\_V  \#UV by 2 list of UV coordinates}}
+\DoxyCodeLine{92   \textcolor{comment}{//   UV\_F  \#F by 3 list of UV indices into UV\_V}}
+\DoxyCodeLine{93   IGL\_INLINE \textcolor{keywordtype}{void} set\_uv(\textcolor{keyword}{const} Eigen::MatrixXd\& UV\_V, \textcolor{keyword}{const} Eigen::MatrixXi\& UV\_F);}
+\DoxyCodeLine{94 }
+\DoxyCodeLine{95   \textcolor{comment}{// Set the texture associated with the mesh.}}
+\DoxyCodeLine{96   \textcolor{comment}{//}}
+\DoxyCodeLine{97   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{98   \textcolor{comment}{//   R  width by height image matrix of red channel}}
+\DoxyCodeLine{99   \textcolor{comment}{//   G  width by height image matrix of green channel}}
+\DoxyCodeLine{100   \textcolor{comment}{//   B  width by height image matrix of blue channel}}
+\DoxyCodeLine{101   \textcolor{comment}{//}}
+\DoxyCodeLine{102   IGL\_INLINE \textcolor{keywordtype}{void} set\_texture(}
+\DoxyCodeLine{103     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& R,}
+\DoxyCodeLine{104     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& G,}
+\DoxyCodeLine{105     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& B);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{107   \textcolor{comment}{// Set the texture associated with the mesh.}}
+\DoxyCodeLine{108   \textcolor{comment}{//}}
+\DoxyCodeLine{109   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{110   \textcolor{comment}{//   R  width by height image matrix of red channel}}
+\DoxyCodeLine{111   \textcolor{comment}{//   G  width by height image matrix of green channel}}
+\DoxyCodeLine{112   \textcolor{comment}{//   B  width by height image matrix of blue channel}}
+\DoxyCodeLine{113   \textcolor{comment}{//   A  width by height image matrix of alpha channel}}
+\DoxyCodeLine{114   \textcolor{comment}{//}}
+\DoxyCodeLine{115   IGL\_INLINE \textcolor{keywordtype}{void} set\_texture(}
+\DoxyCodeLine{116     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& R,}
+\DoxyCodeLine{117     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& G,}
+\DoxyCodeLine{118     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& B,}
+\DoxyCodeLine{119     \textcolor{keyword}{const} Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic>\& A);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121   \textcolor{comment}{// Set pseudo-\/colorable scalar data associated with the mesh.}}
+\DoxyCodeLine{122   \textcolor{comment}{//}}
+\DoxyCodeLine{123   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{124   \textcolor{comment}{//   caxis\_min  caxis minimum bound}}
+\DoxyCodeLine{125   \textcolor{comment}{//   caxis\_max  caxis maximum bound}}
+\DoxyCodeLine{126   \textcolor{comment}{//   D  \#V by 1 list of scalar values}}
+\DoxyCodeLine{127   \textcolor{comment}{//   cmap colormap type}}
+\DoxyCodeLine{128   \textcolor{comment}{//   num\_steps number of intervals to discretize the colormap}}
+\DoxyCodeLine{129   \textcolor{comment}{//}}
+\DoxyCodeLine{130   \textcolor{comment}{// To-\/do: support \#F by 1 per-\/face data}}
+\DoxyCodeLine{131   IGL\_INLINE \textcolor{keywordtype}{void} set\_data(}
+\DoxyCodeLine{132     \textcolor{keyword}{const} Eigen::VectorXd \& D,}
+\DoxyCodeLine{133     \textcolor{keywordtype}{double} caxis\_min,}
+\DoxyCodeLine{134     \textcolor{keywordtype}{double} caxis\_max,}
+\DoxyCodeLine{135     igl::ColorMapType cmap = igl::COLOR\_MAP\_TYPE\_VIRIDIS,}
+\DoxyCodeLine{136     \textcolor{keywordtype}{int} num\_steps = 21);}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138   \textcolor{comment}{// Use min(D) and max(D) to set caxis.}}
+\DoxyCodeLine{139   IGL\_INLINE \textcolor{keywordtype}{void} set\_data(\textcolor{keyword}{const} Eigen::VectorXd \& D,}
+\DoxyCodeLine{140     igl::ColorMapType cmap = igl::COLOR\_MAP\_TYPE\_VIRIDIS,}
+\DoxyCodeLine{141     \textcolor{keywordtype}{int} num\_steps = 21);}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{143   \textcolor{comment}{// Not to be confused with set\_colors, this creates a \_texture\_ that will be}}
+\DoxyCodeLine{144   \textcolor{comment}{// referenced to pseudocolor according to the scalar field passed to set\_data.}}
+\DoxyCodeLine{145   \textcolor{comment}{//}}
+\DoxyCodeLine{146   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{147   \textcolor{comment}{//   CM  \#CM by 3 list of colors}}
+\DoxyCodeLine{148   IGL\_INLINE \textcolor{keywordtype}{void} set\_colormap(\textcolor{keyword}{const} Eigen::MatrixXd \& CM);}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150   \textcolor{comment}{// Sets points given a list of point vertices. In constrast to `add\_points`}}
+\DoxyCodeLine{151   \textcolor{comment}{// this will (purposefully) clober existing points.}}
+\DoxyCodeLine{152   \textcolor{comment}{//}}
+\DoxyCodeLine{153   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{154   \textcolor{comment}{//   P  \#P by 3 list of vertex positions}}
+\DoxyCodeLine{155   \textcolor{comment}{//   C  \#P|1 by 3 color(s)}}
+\DoxyCodeLine{156   IGL\_INLINE \textcolor{keywordtype}{void} set\_points(}
+\DoxyCodeLine{157     \textcolor{keyword}{const} Eigen::MatrixXd\& P,}
+\DoxyCodeLine{158     \textcolor{keyword}{const} Eigen::MatrixXd\& C);}
+\DoxyCodeLine{159   IGL\_INLINE \textcolor{keywordtype}{void} add\_points(\textcolor{keyword}{const} Eigen::MatrixXd\& P,  \textcolor{keyword}{const} Eigen::MatrixXd\& C);}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161   \textcolor{comment}{// Clear the point data}}
+\DoxyCodeLine{162   IGL\_INLINE \textcolor{keywordtype}{void} clear\_points();}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164   \textcolor{comment}{// Sets edges given a list of edge vertices and edge indices. In constrast}}
+\DoxyCodeLine{165   \textcolor{comment}{// to `add\_edges` this will (purposefully) clober existing edges.}}
+\DoxyCodeLine{166   \textcolor{comment}{//}}
+\DoxyCodeLine{167   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{168   \textcolor{comment}{//   P  \#P by 3 list of vertex positions}}
+\DoxyCodeLine{169   \textcolor{comment}{//   E  \#E by 2 list of edge indices into P}}
+\DoxyCodeLine{170   \textcolor{comment}{//   C  \#E|1 by 3 color(s)}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{172   IGL\_INLINE \textcolor{keywordtype}{void} set\_edges (\textcolor{keyword}{const} Eigen::MatrixXd\& P, \textcolor{keyword}{const} Eigen::MatrixXi\& E, \textcolor{keyword}{const} Eigen::MatrixXd\& C);}
+\DoxyCodeLine{173   \textcolor{comment}{// Alec: This is very confusing. Why does add\_edges have a different API from}}
+\DoxyCodeLine{174   \textcolor{comment}{// set\_edges?}}
+\DoxyCodeLine{175   IGL\_INLINE \textcolor{keywordtype}{void} add\_edges (\textcolor{keyword}{const} Eigen::MatrixXd\& P1, \textcolor{keyword}{const} Eigen::MatrixXd\& P2, \textcolor{keyword}{const} Eigen::MatrixXd\& C);}
+\DoxyCodeLine{176   \textcolor{comment}{// Sets edges given a list of points and eminating vectors}}
+\DoxyCodeLine{177   IGL\_INLINE \textcolor{keywordtype}{void} set\_edges\_from\_vector\_field(}
+\DoxyCodeLine{178     \textcolor{keyword}{const} Eigen::MatrixXd\& P, }
+\DoxyCodeLine{179     \textcolor{keyword}{const} Eigen::MatrixXd\& V, }
+\DoxyCodeLine{180     \textcolor{keyword}{const} Eigen::MatrixXd\& C);}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182   \textcolor{comment}{// Clear the edge data}}
+\DoxyCodeLine{183   IGL\_INLINE \textcolor{keywordtype}{void} clear\_edges();}
+\DoxyCodeLine{184 }
+\DoxyCodeLine{185   \textcolor{comment}{// Sets / Adds text labels at the given positions in 3D.}}
+\DoxyCodeLine{186   \textcolor{comment}{// Note: This requires the ImGui viewer plugin to display text labels.}}
+\DoxyCodeLine{187   IGL\_INLINE \textcolor{keywordtype}{void} add\_label (\textcolor{keyword}{const} Eigen::VectorXd\& P,  \textcolor{keyword}{const} std::string\& str);}
+\DoxyCodeLine{188   IGL\_INLINE \textcolor{keywordtype}{void} set\_labels (\textcolor{keyword}{const} Eigen::MatrixXd\& P,  \textcolor{keyword}{const} std::vector<std::string>\& str);}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190   \textcolor{comment}{// Clear the label data}}
+\DoxyCodeLine{191   IGL\_INLINE \textcolor{keywordtype}{void} clear\_labels ();}
+\DoxyCodeLine{192 }
+\DoxyCodeLine{193   \textcolor{comment}{// Computes the normals of the mesh}}
+\DoxyCodeLine{194   IGL\_INLINE \textcolor{keywordtype}{void} compute\_normals();}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196   \textcolor{comment}{// Assigns uniform colors to all faces/vertices}}
+\DoxyCodeLine{197   IGL\_INLINE \textcolor{keywordtype}{void} uniform\_colors(}
+\DoxyCodeLine{198     \textcolor{keyword}{const} Eigen::Vector3d\& diffuse,}
+\DoxyCodeLine{199     \textcolor{keyword}{const} Eigen::Vector3d\& ambient,}
+\DoxyCodeLine{200     \textcolor{keyword}{const} Eigen::Vector3d\& specular);}
+\DoxyCodeLine{201 }
+\DoxyCodeLine{202   \textcolor{comment}{// Assigns uniform colors to all faces/vertices}}
+\DoxyCodeLine{203   IGL\_INLINE \textcolor{keywordtype}{void} uniform\_colors(}
+\DoxyCodeLine{204     \textcolor{keyword}{const} Eigen::Vector4d\& ambient,}
+\DoxyCodeLine{205     \textcolor{keyword}{const} Eigen::Vector4d\& diffuse,}
+\DoxyCodeLine{206     \textcolor{keyword}{const} Eigen::Vector4d\& specular);}
+\DoxyCodeLine{207 }
+\DoxyCodeLine{208   \textcolor{comment}{// Generate a normal image matcap}}
+\DoxyCodeLine{209   IGL\_INLINE \textcolor{keywordtype}{void} normal\_matcap();}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211   \textcolor{comment}{// Generates a default grid texture (without uvs)}}
+\DoxyCodeLine{212   IGL\_INLINE \textcolor{keywordtype}{void} grid\_texture();}
+\DoxyCodeLine{213 \textcolor{comment}{//  IGL\_INLINE void image\_texture(const std::string\& fileName );}}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215   \textcolor{comment}{// Copy visualization options from one viewport to another}}
+\DoxyCodeLine{216   IGL\_INLINE \textcolor{keywordtype}{void} copy\_options(\textcolor{keyword}{const} ViewerCore \&from, \textcolor{keyword}{const} ViewerCore \&to);}
+\DoxyCodeLine{217   IGL\_INLINE \textcolor{keywordtype}{void} SetMaterial(\textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id}) \{ materialID = id; \}}
+\DoxyCodeLine{218   IGL\_INLINE \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} GetMaterial() \{ \textcolor{keywordflow}{return} materialID; \}}
+\DoxyCodeLine{219   Eigen::MatrixXd V; \textcolor{comment}{// Vertices of the current mesh (\#V x 3)}}
+\DoxyCodeLine{220   Eigen::MatrixXi F; \textcolor{comment}{// Faces of the mesh (\#F x 3)}}
+\DoxyCodeLine{221 }
+\DoxyCodeLine{222   \textcolor{comment}{// Per face attributes}}
+\DoxyCodeLine{223   Eigen::MatrixXd F\_normals; \textcolor{comment}{// One normal per face}}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225   Eigen::MatrixXd F\_material\_ambient; \textcolor{comment}{// Per face ambient color}}
+\DoxyCodeLine{226   Eigen::MatrixXd F\_material\_diffuse; \textcolor{comment}{// Per face diffuse color}}
+\DoxyCodeLine{227   Eigen::MatrixXd F\_material\_specular; \textcolor{comment}{// Per face specular color}}
+\DoxyCodeLine{228 }
+\DoxyCodeLine{229   \textcolor{comment}{// Per vertex attributes}}
+\DoxyCodeLine{230   Eigen::MatrixXd V\_normals; \textcolor{comment}{// One normal per vertex}}
+\DoxyCodeLine{231 }
+\DoxyCodeLine{232   Eigen::MatrixXd V\_material\_ambient; \textcolor{comment}{// Per vertex ambient color}}
+\DoxyCodeLine{233   Eigen::MatrixXd V\_material\_diffuse; \textcolor{comment}{// Per vertex diffuse color}}
+\DoxyCodeLine{234   Eigen::MatrixXd V\_material\_specular; \textcolor{comment}{// Per vertex specular color}}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{236   \textcolor{comment}{// UV parametrization}}
+\DoxyCodeLine{237   Eigen::MatrixXd V\_uv; \textcolor{comment}{// UV vertices}}
+\DoxyCodeLine{238   Eigen::MatrixXi F\_uv; \textcolor{comment}{// optional faces for UVs}}
+\DoxyCodeLine{239 }
+\DoxyCodeLine{240   \textcolor{comment}{// Texture}}
+\DoxyCodeLine{241   Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> texture\_R;}
+\DoxyCodeLine{242   Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> texture\_G;}
+\DoxyCodeLine{243   Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> texture\_B;}
+\DoxyCodeLine{244   Eigen::Matrix<unsigned char,Eigen::Dynamic,Eigen::Dynamic> texture\_A;}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{246   \textcolor{comment}{// Overlays}}
+\DoxyCodeLine{247 }
+\DoxyCodeLine{248   \textcolor{comment}{// Lines plotted over the scene}}
+\DoxyCodeLine{249   \textcolor{comment}{// (Every row contains 9 doubles in the following format S\_x, S\_y, S\_z, T\_x, T\_y, T\_z, C\_r, C\_g, C\_b),}}
+\DoxyCodeLine{250   \textcolor{comment}{// with S and T the coordinates of the two vertices of the line in global coordinates, and C the color in floating point rgb format}}
+\DoxyCodeLine{251   Eigen::MatrixXd lines;}
+\DoxyCodeLine{252 }
+\DoxyCodeLine{253   \textcolor{comment}{// Points plotted over the scene}}
+\DoxyCodeLine{254   \textcolor{comment}{// (Every row contains 6 doubles in the following format P\_x, P\_y, P\_z, C\_r, C\_g, C\_b),}}
+\DoxyCodeLine{255   \textcolor{comment}{// with P the position in global coordinates of the center of the point, and C the color in floating point rgb format}}
+\DoxyCodeLine{256   Eigen::MatrixXd points;}
+\DoxyCodeLine{257 }
+\DoxyCodeLine{258   \textcolor{comment}{// Text labels plotted over the scene}}
+\DoxyCodeLine{259   \textcolor{comment}{// Textp contains, in the i-\/th row, the position in global coordinates where the i-\/th label should be anchored}}
+\DoxyCodeLine{260   \textcolor{comment}{// Texts contains in the i-\/th position the text of the i-\/th label}}
+\DoxyCodeLine{261   Eigen::MatrixXd           vertex\_labels\_positions;}
+\DoxyCodeLine{262   Eigen::MatrixXd           face\_labels\_positions;}
+\DoxyCodeLine{263   Eigen::MatrixXd           labels\_positions;}
+\DoxyCodeLine{264   std::vector<std::string>  vertex\_labels\_strings;}
+\DoxyCodeLine{265   std::vector<std::string>  face\_labels\_strings;}
+\DoxyCodeLine{266   std::vector<std::string>  labels\_strings;}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268   \textcolor{comment}{// Marks dirty buffers that need to be uploaded to OpenGL}}
+\DoxyCodeLine{269   uint32\_t dirty;}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271   \textcolor{comment}{// Enable per-\/face or per-\/vertex properties}}
+\DoxyCodeLine{272   \textcolor{keywordtype}{bool} face\_based;}
+\DoxyCodeLine{273 }
+\DoxyCodeLine{274   \textcolor{comment}{// Enable double-\/sided lighting on faces}}
+\DoxyCodeLine{275   \textcolor{keywordtype}{bool} double\_sided;}
+\DoxyCodeLine{276 }
+\DoxyCodeLine{277   \textcolor{comment}{// Invert mesh normals}}
+\DoxyCodeLine{278   \textcolor{keywordtype}{bool} invert\_normals;}
+\DoxyCodeLine{279 }
+\DoxyCodeLine{280   \textcolor{comment}{// Visualization options}}
+\DoxyCodeLine{281   \textcolor{comment}{// Each option is a binary mask specifying on which viewport each option is set.}}
+\DoxyCodeLine{282   \textcolor{comment}{// When using a single viewport, standard boolean can still be used for simplicity.}}
+\DoxyCodeLine{283   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} is\_visible;}
+\DoxyCodeLine{284   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_overlay;}
+\DoxyCodeLine{285   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_overlay\_depth;}
+\DoxyCodeLine{286   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_texture;}
+\DoxyCodeLine{287   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} use\_matcap;}
+\DoxyCodeLine{288   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_faces;}
+\DoxyCodeLine{289   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_lines;}
+\DoxyCodeLine{290   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_vertex\_labels;}
+\DoxyCodeLine{291   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_face\_labels;}
+\DoxyCodeLine{292   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} show\_custom\_labels;}
+\DoxyCodeLine{293   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} viewports;}
+\DoxyCodeLine{294   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} mode;}
+\DoxyCodeLine{295   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} type;}
+\DoxyCodeLine{296   \textcolor{keywordtype}{bool} hide;}
+\DoxyCodeLine{297   \textcolor{keywordtype}{bool} show\_vertid; \textcolor{comment}{// shared across viewports for now}}
+\DoxyCodeLine{298   \textcolor{keywordtype}{bool} show\_faceid; \textcolor{comment}{// shared across viewports for now}}
+\DoxyCodeLine{299 }
+\DoxyCodeLine{300   \textcolor{comment}{// Point size / line width}}
+\DoxyCodeLine{301   \textcolor{keywordtype}{float} point\_size;}
+\DoxyCodeLine{302   \textcolor{comment}{// line\_width is NOT SUPPORTED on Mac OS and Windows}}
+\DoxyCodeLine{303   \textcolor{keywordtype}{float} line\_width;}
+\DoxyCodeLine{304   Eigen::Matrix<float, 4, 1, Eigen::DontAlign> line\_color;}
+\DoxyCodeLine{305   Eigen::Matrix<float, 4, 1, Eigen::DontAlign> label\_color;}
+\DoxyCodeLine{306 }
+\DoxyCodeLine{307   \textcolor{comment}{// Shape material}}
+\DoxyCodeLine{308   \textcolor{keywordtype}{float} shininess;}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{310   \textcolor{comment}{// Unique identifier}}
+\DoxyCodeLine{311   \textcolor{keywordtype}{int} id;}
+\DoxyCodeLine{312   \textcolor{keywordtype}{int} shaderID;}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314 }
+\DoxyCodeLine{315     \textcolor{comment}{// OpenGL representation of the mesh}}
+\DoxyCodeLine{316   \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l}{igl::opengl::MeshGL}} meshgl;}
+\DoxyCodeLine{317 }
+\DoxyCodeLine{318   \textcolor{comment}{// Update contents from a 'Data' instance}}
+\DoxyCodeLine{319   IGL\_INLINE \textcolor{keywordtype}{void} update\_labels(}
+\DoxyCodeLine{320     \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l}{igl::opengl::MeshGL}}\& meshgl,}
+\DoxyCodeLine{321     \mbox{\hyperlink{structigl_1_1opengl_1_1_mesh_g_l_1_1_text_g_l}{igl::opengl::MeshGL::TextGL}}\& GL\_labels,}
+\DoxyCodeLine{322     \textcolor{keyword}{const} Eigen::MatrixXd\& positions,}
+\DoxyCodeLine{323     \textcolor{keyword}{const} std::vector<std::string>\& strings}
+\DoxyCodeLine{324   );}
+\DoxyCodeLine{325   IGL\_INLINE \textcolor{keywordtype}{void} updateGL(}
+\DoxyCodeLine{326     \textcolor{keyword}{const} \textcolor{keywordtype}{bool} invert\_normals,}
+\DoxyCodeLine{327     \mbox{\hyperlink{classigl_1_1opengl_1_1_mesh_g_l}{igl::opengl::MeshGL}}\& meshgl);}
+\DoxyCodeLine{328 }
+\DoxyCodeLine{329     IGL\_INLINE \textcolor{keywordtype}{void} AddViewport(\textcolor{keywordtype}{int} viewport) \{ viewports = viewports | (1<<viewport); \}}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331     IGL\_INLINE \textcolor{keywordtype}{void} RemoveViewport(\textcolor{keywordtype}{int} viewport) \{ viewports = viewports \& \string~(1 << viewport); \}}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{333     IGL\_INLINE \textcolor{keywordtype}{bool} Is2Render(\textcolor{keywordtype}{int} viewport) \{ \textcolor{keywordflow}{return}  (viewports \& (1 << viewport)) \&\& !hide ; \}}
+\DoxyCodeLine{334 }
+\DoxyCodeLine{335     \textcolor{keyword}{inline} \textcolor{keywordtype}{bool} IsStatic() \{ \textcolor{keywordflow}{return} isStatic; \}}
+\DoxyCodeLine{336     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} SetStatic() \{ isStatic = !isStatic; \}}
+\DoxyCodeLine{337     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} Hide() \{ hide = \textcolor{keyword}{true}; \}}
+\DoxyCodeLine{338     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} UnHide() \{ hide = \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{339 }
+\DoxyCodeLine{340     \textcolor{keywordtype}{void} Draw\_overlay(\mbox{\hyperlink{class_shader}{Shader}} *shader, \textcolor{keywordtype}{bool} cond);}
+\DoxyCodeLine{341 }
+\DoxyCodeLine{342     \textcolor{keywordtype}{void} Draw\_overlay\_points(\mbox{\hyperlink{class_shader}{Shader}} *shader, \textcolor{keywordtype}{bool} cond);}
+\DoxyCodeLine{343 \};}
+\DoxyCodeLine{344 }
+\DoxyCodeLine{345 \} \textcolor{comment}{// namespace opengl}}
+\DoxyCodeLine{346 \} \textcolor{comment}{// namespace igl}}
+\DoxyCodeLine{347 }
+\DoxyCodeLine{349 }
+\DoxyCodeLine{350 \textcolor{preprocessor}{\#include <igl/serialize.h>}}
+\DoxyCodeLine{351 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{352 \{}
+\DoxyCodeLine{353   \textcolor{keyword}{namespace }serialization}
+\DoxyCodeLine{354   \{}
+\DoxyCodeLine{355     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialization(\textcolor{keywordtype}{bool} s, \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{igl::opengl::ViewerData}}\& obj, std::vector<char>\& buffer)}
+\DoxyCodeLine{356     \{}
+\DoxyCodeLine{357       SERIALIZE\_MEMBER(V);}
+\DoxyCodeLine{358       SERIALIZE\_MEMBER(F);}
+\DoxyCodeLine{359       SERIALIZE\_MEMBER(F\_normals);}
+\DoxyCodeLine{360       SERIALIZE\_MEMBER(F\_material\_ambient);}
+\DoxyCodeLine{361       SERIALIZE\_MEMBER(F\_material\_diffuse);}
+\DoxyCodeLine{362       SERIALIZE\_MEMBER(F\_material\_specular);}
+\DoxyCodeLine{363       SERIALIZE\_MEMBER(V\_normals);}
+\DoxyCodeLine{364       SERIALIZE\_MEMBER(V\_material\_ambient);}
+\DoxyCodeLine{365       SERIALIZE\_MEMBER(V\_material\_diffuse);}
+\DoxyCodeLine{366       SERIALIZE\_MEMBER(V\_material\_specular);}
+\DoxyCodeLine{367       SERIALIZE\_MEMBER(V\_uv);}
+\DoxyCodeLine{368       SERIALIZE\_MEMBER(F\_uv);}
+\DoxyCodeLine{369       SERIALIZE\_MEMBER(texture\_R);}
+\DoxyCodeLine{370       SERIALIZE\_MEMBER(texture\_G);}
+\DoxyCodeLine{371       SERIALIZE\_MEMBER(texture\_B);}
+\DoxyCodeLine{372       SERIALIZE\_MEMBER(texture\_A);}
+\DoxyCodeLine{373       SERIALIZE\_MEMBER(lines);}
+\DoxyCodeLine{374       SERIALIZE\_MEMBER(points);}
+\DoxyCodeLine{375       SERIALIZE\_MEMBER(labels\_positions);}
+\DoxyCodeLine{376       SERIALIZE\_MEMBER(labels\_strings);}
+\DoxyCodeLine{377       SERIALIZE\_MEMBER(dirty);}
+\DoxyCodeLine{378       SERIALIZE\_MEMBER(face\_based);}
+\DoxyCodeLine{379       SERIALIZE\_MEMBER(show\_faces);}
+\DoxyCodeLine{380       SERIALIZE\_MEMBER(show\_lines);}
+\DoxyCodeLine{381       SERIALIZE\_MEMBER(invert\_normals);}
+\DoxyCodeLine{382       SERIALIZE\_MEMBER(show\_overlay);}
+\DoxyCodeLine{383       SERIALIZE\_MEMBER(show\_overlay\_depth);}
+\DoxyCodeLine{384       SERIALIZE\_MEMBER(show\_vertid);}
+\DoxyCodeLine{385       SERIALIZE\_MEMBER(show\_faceid);}
+\DoxyCodeLine{386       SERIALIZE\_MEMBER(show\_vertex\_labels);}
+\DoxyCodeLine{387       SERIALIZE\_MEMBER(show\_face\_labels);}
+\DoxyCodeLine{388       SERIALIZE\_MEMBER(show\_custom\_labels);}
+\DoxyCodeLine{389       SERIALIZE\_MEMBER(show\_texture);}
+\DoxyCodeLine{390       SERIALIZE\_MEMBER(double\_sided);}
+\DoxyCodeLine{391       SERIALIZE\_MEMBER(point\_size);}
+\DoxyCodeLine{392       SERIALIZE\_MEMBER(line\_width);}
+\DoxyCodeLine{393       SERIALIZE\_MEMBER(line\_color);}
+\DoxyCodeLine{394       SERIALIZE\_MEMBER(shininess);}
+\DoxyCodeLine{395       SERIALIZE\_MEMBER(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{396     \}}
+\DoxyCodeLine{397     \textcolor{keyword}{template}<>}
+\DoxyCodeLine{398     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} serialize(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{igl::opengl::ViewerData}}\& obj, std::vector<char>\& buffer)}
+\DoxyCodeLine{399     \{}
+\DoxyCodeLine{400       serialization(\textcolor{keyword}{true}, \textcolor{keyword}{const\_cast<}\mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{igl::opengl::ViewerData}}\&\textcolor{keyword}{>}(obj), buffer);}
+\DoxyCodeLine{401     \}}
+\DoxyCodeLine{402     \textcolor{keyword}{template}<>}
+\DoxyCodeLine{403     \textcolor{keyword}{inline} \textcolor{keywordtype}{void} deserialize(\mbox{\hyperlink{classigl_1_1opengl_1_1_viewer_data}{igl::opengl::ViewerData}}\& obj, \textcolor{keyword}{const} std::vector<char>\& buffer)}
+\DoxyCodeLine{404     \{}
+\DoxyCodeLine{405       serialization(\textcolor{keyword}{false}, obj, \textcolor{keyword}{const\_cast<}std::vector<char>\&\textcolor{keyword}{>}(buffer));}
+\DoxyCodeLine{406       obj.dirty = igl::opengl::MeshGL::DIRTY\_ALL;}
+\DoxyCodeLine{407     \}}
+\DoxyCodeLine{408   \}}
+\DoxyCodeLine{409 \}}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{412 \textcolor{preprocessor}{\#  include "{}ViewerData.cpp"{}}}
+\DoxyCodeLine{413 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{414 }
+\DoxyCodeLine{415 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

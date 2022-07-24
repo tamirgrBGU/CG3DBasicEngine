@@ -1,0 +1,134 @@
+\hypertarget{copyleft_2marching__cubes_8h_source}{}\doxysection{marching\+\_\+cubes.\+h}
+\label{copyleft_2marching__cubes_8h_source}\index{igl/copyleft/marching\_cubes.h@{igl/copyleft/marching\_cubes.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_MARCHINGCUBES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_MARCHINGCUBES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{comment}{// marching\_cubes( values, points, x\_res, y\_res, z\_res, isovalue, vertices, faces )}}
+\DoxyCodeLine{18     \textcolor{comment}{//}}
+\DoxyCodeLine{19     \textcolor{comment}{// performs marching cubes reconstruction on a grid defined by values, and}}
+\DoxyCodeLine{20     \textcolor{comment}{// points, and generates a mesh defined by vertices and faces}}
+\DoxyCodeLine{21     \textcolor{comment}{//}}
+\DoxyCodeLine{22     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{23     \textcolor{comment}{//  values  \#number\_of\_grid\_points x 1 array -\/-\/ the scalar values of an}}
+\DoxyCodeLine{24     \textcolor{comment}{//    implicit function defined on the grid points (<0 in the inside of the}}
+\DoxyCodeLine{25     \textcolor{comment}{//    surface, 0 on the border, >0 outside)}}
+\DoxyCodeLine{26     \textcolor{comment}{//  points  \#number\_of\_grid\_points x 3 array -\/-\/ 3-\/D positions of the grid}}
+\DoxyCodeLine{27     \textcolor{comment}{//    points, ordered in x,y,z order:}}
+\DoxyCodeLine{28     \textcolor{comment}{//      points[index] = the point at (x,y,z) where :}}
+\DoxyCodeLine{29     \textcolor{comment}{//      x = (index \% (xres -\/1),}}
+\DoxyCodeLine{30     \textcolor{comment}{//      y = (index / (xres-\/1)) \%(yres-\/1),}}
+\DoxyCodeLine{31     \textcolor{comment}{//      z = index / (xres -\/1) / (yres -\/1) ).}}
+\DoxyCodeLine{32     \textcolor{comment}{//      where x,y,z index x, y, z dimensions}}
+\DoxyCodeLine{33     \textcolor{comment}{//      i.e. index = x + y*xres + z*xres*yres}}
+\DoxyCodeLine{34     \textcolor{comment}{//  xres  resolutions of the grid in x dimension}}
+\DoxyCodeLine{35     \textcolor{comment}{//  yres  resolutions of the grid in y dimension}}
+\DoxyCodeLine{36     \textcolor{comment}{//  zres  resolutions of the grid in z dimension}}
+\DoxyCodeLine{37     \textcolor{comment}{//  isovalue  the isovalue of the surface to reconstruct}}
+\DoxyCodeLine{38     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{39     \textcolor{comment}{//   vertices  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{40     \textcolor{comment}{//   faces  \#F by 3 list of mesh triangle indices}}
+\DoxyCodeLine{41     \textcolor{comment}{//}}
+\DoxyCodeLine{42     \textcolor{comment}{// See also: igl::marching\_cubes}}
+\DoxyCodeLine{43     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedValues, \textcolor{keyword}{typename} DerivedPo\textcolor{keywordtype}{int}s, \textcolor{keyword}{typename} DerivedVertices, \textcolor{keyword}{typename} DerivedFaces>}
+\DoxyCodeLine{44     IGL\_INLINE \textcolor{keywordtype}{void} marching\_cubes(}
+\DoxyCodeLine{45         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedValues> \&values,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedPoints> \&points,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} x\_res,}
+\DoxyCodeLine{48         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} y\_res,}
+\DoxyCodeLine{49         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} z\_res,}
+\DoxyCodeLine{50         \textcolor{keyword}{const} \textcolor{keywordtype}{double} isovalue,}
+\DoxyCodeLine{51         Eigen::PlainObjectBase<DerivedVertices> \&vertices,}
+\DoxyCodeLine{52         Eigen::PlainObjectBase<DerivedFaces> \&faces);}
+\DoxyCodeLine{53     \textcolor{keyword}{template} <}
+\DoxyCodeLine{54       \textcolor{keyword}{typename} DerivedValue, }
+\DoxyCodeLine{55       \textcolor{keyword}{typename} DerivedPoint,}
+\DoxyCodeLine{56       \textcolor{keyword}{typename} DerivedPoints, }
+\DoxyCodeLine{57       \textcolor{keyword}{typename} DerivedVertices, }
+\DoxyCodeLine{58       \textcolor{keyword}{typename} DerivedFaces>}
+\DoxyCodeLine{59     IGL\_INLINE \textcolor{keywordtype}{void} marching\_cubes(}
+\DoxyCodeLine{60         \textcolor{keyword}{const} std::function< DerivedValue(\textcolor{keyword}{const} DerivedPoint \& ) > \& value\_fun,}
+\DoxyCodeLine{61         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedPoints> \&points,}
+\DoxyCodeLine{62         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} x\_res,}
+\DoxyCodeLine{63         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} y\_res,}
+\DoxyCodeLine{64         \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} z\_res,}
+\DoxyCodeLine{65         \textcolor{keyword}{const} \textcolor{keywordtype}{double} isovalue, }
+\DoxyCodeLine{66         Eigen::PlainObjectBase<DerivedVertices> \&vertices,}
+\DoxyCodeLine{67         Eigen::PlainObjectBase<DerivedFaces> \&faces);}
+\DoxyCodeLine{68 }
+\DoxyCodeLine{69     \textcolor{comment}{// Overload of the above function where the isovalue defaults to 0.0}}
+\DoxyCodeLine{70     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedValues, \textcolor{keyword}{typename} DerivedPo\textcolor{keywordtype}{int}s, \textcolor{keyword}{typename} DerivedVertices, \textcolor{keyword}{typename} DerivedFaces>}
+\DoxyCodeLine{71     IGL\_INLINE \textcolor{keywordtype}{void} marching\_cubes(}
+\DoxyCodeLine{72       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedValues> \&values,}
+\DoxyCodeLine{73       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedPoints> \&points,}
+\DoxyCodeLine{74       \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} x\_res,}
+\DoxyCodeLine{75       \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} y\_res,}
+\DoxyCodeLine{76       \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} z\_res,}
+\DoxyCodeLine{77       Eigen::PlainObjectBase<DerivedVertices> \&vertices,}
+\DoxyCodeLine{78       Eigen::PlainObjectBase<DerivedFaces> \&faces);}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81 }
+\DoxyCodeLine{82     \textcolor{comment}{// marching\_cubes( values, points, indices, vertices, faces )}}
+\DoxyCodeLine{83     \textcolor{comment}{//}}
+\DoxyCodeLine{84     \textcolor{comment}{// Perform marching cubes reconstruction on the sparse grid cells defined by (indices, points).}}
+\DoxyCodeLine{85     \textcolor{comment}{// The indices parameter is an nx8 dense array of index values into the points and values arrays.}}
+\DoxyCodeLine{86     \textcolor{comment}{// Each row of indices represents a cube for which to generate vertices and faces over.}}
+\DoxyCodeLine{87     \textcolor{comment}{//}}
+\DoxyCodeLine{88     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{89     \textcolor{comment}{//  values  \#number\_of\_grid\_points x 1 array -\/-\/ the scalar values of an}}
+\DoxyCodeLine{90     \textcolor{comment}{//    implicit function defined on the grid points (<0 in the inside of the}}
+\DoxyCodeLine{91     \textcolor{comment}{//    surface, 0 on the border, >0 outside)}}
+\DoxyCodeLine{92     \textcolor{comment}{//  points  \#number\_of\_grid\_points x 3 array -\/-\/ 3-\/D positions of the grid}}
+\DoxyCodeLine{93     \textcolor{comment}{//    points, ordered in x,y,z order:}}
+\DoxyCodeLine{94     \textcolor{comment}{//  indices  \#cubes x 8 array -\/-\/ one row for each cube where each value is}}
+\DoxyCodeLine{95     \textcolor{comment}{//    the index of a vertex in points and a scalar in values.}}
+\DoxyCodeLine{96     \textcolor{comment}{//    i.e. points[indices[i, j]] = the position of the j'th vertex of the i'th cube}}
+\DoxyCodeLine{97     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{98     \textcolor{comment}{//   vertices  \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{99     \textcolor{comment}{//   faces  \#F by 3 list of mesh triangle indices}}
+\DoxyCodeLine{100     \textcolor{comment}{// Note: The winding direction of the cube indices will affect the output winding of the faces}}
+\DoxyCodeLine{101     \textcolor{comment}{//}}
+\DoxyCodeLine{102     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedValues, \textcolor{keyword}{typename} DerivedPo\textcolor{keywordtype}{int}s, \textcolor{keyword}{typename} DerivedVertices, \textcolor{keyword}{typename} DerivedIndices, \textcolor{keyword}{typename} DerivedFaces>}
+\DoxyCodeLine{103     IGL\_INLINE \textcolor{keywordtype}{void} marching\_cubes(}
+\DoxyCodeLine{104       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedValues> \&values,}
+\DoxyCodeLine{105       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedPoints> \&points,}
+\DoxyCodeLine{106       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedIndices> \&indices,}
+\DoxyCodeLine{107       \textcolor{keyword}{const} \textcolor{keywordtype}{double} isovalue,}
+\DoxyCodeLine{108       Eigen::PlainObjectBase<DerivedVertices> \&vertices,}
+\DoxyCodeLine{109       Eigen::PlainObjectBase<DerivedFaces> \&faces);}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111     \textcolor{comment}{// Overload of the above function where the isovalue defaults to 0.0}}
+\DoxyCodeLine{112     \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedValues, \textcolor{keyword}{typename} DerivedPo\textcolor{keywordtype}{int}s, \textcolor{keyword}{typename} DerivedVertices, \textcolor{keyword}{typename} DerivedIndices, \textcolor{keyword}{typename} DerivedFaces>}
+\DoxyCodeLine{113     IGL\_INLINE \textcolor{keywordtype}{void} marching\_cubes(}
+\DoxyCodeLine{114       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedValues> \&values,}
+\DoxyCodeLine{115       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedPoints> \&points,}
+\DoxyCodeLine{116       \textcolor{keyword}{const} Eigen::MatrixBase<DerivedIndices> \&indices,}
+\DoxyCodeLine{117       Eigen::PlainObjectBase<DerivedVertices> \&vertices,}
+\DoxyCodeLine{118       Eigen::PlainObjectBase<DerivedFaces> \&faces);}
+\DoxyCodeLine{119 }
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \}}
+\DoxyCodeLine{123 }
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{125 \textcolor{preprocessor}{\#  include "{}marching\_cubes.cpp"{}}}
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

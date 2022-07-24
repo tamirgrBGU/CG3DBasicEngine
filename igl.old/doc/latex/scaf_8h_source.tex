@@ -1,0 +1,128 @@
+\hypertarget{scaf_8h_source}{}\doxysection{scaf.\+h}
+\label{scaf_8h_source}\index{igl/triangle/scaf.h@{igl/triangle/scaf.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Zhongshi Jiang <jiangzs@nyu.edu>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SCAF\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SCAF\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../slim.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}../MappingEnergyType.h"{}}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }triangle}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{comment}{// Use a similar interface to igl::slim}}
+\DoxyCodeLine{20     \textcolor{comment}{// Implement ready-\/to-\/use 2D version of the algorithm described in }}
+\DoxyCodeLine{21     \textcolor{comment}{// SCAF: Simplicial Complex Augmentation Framework for Bijective Maps}}
+\DoxyCodeLine{22     \textcolor{comment}{// Zhongshi Jiang, Scott Schaefer, Daniele Panozzo, ACM Trancaction on Graphics (Proc. SIGGRAPH Asia 2017)}}
+\DoxyCodeLine{23     \textcolor{comment}{// For a complete implementation and customized UI, please refer to https://github.com/jiangzhongshi/scaffold-\/map}}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1triangle_1_1_s_c_a_f_data}{SCAFData}}}
+\DoxyCodeLine{26     \{}
+\DoxyCodeLine{27       \textcolor{keywordtype}{double} scaffold\_factor = 10;}
+\DoxyCodeLine{28       igl::MappingEnergyType scaf\_energy = igl::MappingEnergyType::SYMMETRIC\_DIRICHLET;}
+\DoxyCodeLine{29       igl::MappingEnergyType slim\_energy = igl::MappingEnergyType::SYMMETRIC\_DIRICHLET;}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31       \textcolor{comment}{// Output}}
+\DoxyCodeLine{32       \textcolor{keywordtype}{int} dim = 2;}
+\DoxyCodeLine{33       \textcolor{keywordtype}{double} total\_energy; \textcolor{comment}{// scaffold + isometric }}
+\DoxyCodeLine{34       \textcolor{keywordtype}{double} energy; \textcolor{comment}{// objective value}}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{36       \textcolor{keywordtype}{long} mv\_num = 0, mf\_num = 0;}
+\DoxyCodeLine{37       \textcolor{keywordtype}{long} sv\_num = 0, sf\_num = 0;}
+\DoxyCodeLine{38       \textcolor{keywordtype}{long} v\_num\{\}, f\_num = 0;}
+\DoxyCodeLine{39       Eigen::MatrixXd m\_V; \textcolor{comment}{// input initial mesh V}}
+\DoxyCodeLine{40       Eigen::MatrixXi m\_T; \textcolor{comment}{// input initial mesh F/T}}
+\DoxyCodeLine{41       \textcolor{comment}{// INTERNAL}}
+\DoxyCodeLine{42       Eigen::MatrixXd w\_uv; \textcolor{comment}{// whole domain uv: mesh + free vertices}}
+\DoxyCodeLine{43       Eigen::MatrixXi s\_T; \textcolor{comment}{// scaffold domain tets: scaffold tets}}
+\DoxyCodeLine{44       Eigen::MatrixXi w\_T;}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46       Eigen::VectorXd m\_M; \textcolor{comment}{// mesh area or volume}}
+\DoxyCodeLine{47       Eigen::VectorXd s\_M; \textcolor{comment}{// scaffold area or volume}}
+\DoxyCodeLine{48       Eigen::VectorXd w\_M; \textcolor{comment}{// area/volume weights for whole}}
+\DoxyCodeLine{49       \textcolor{keywordtype}{double} mesh\_measure; \textcolor{comment}{// area or volume}}
+\DoxyCodeLine{50       \textcolor{keywordtype}{double} proximal\_p = 0;}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52       Eigen::VectorXi frame\_ids;}
+\DoxyCodeLine{53       Eigen::VectorXi fixed\_ids;}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55       std::map<int, Eigen::RowVectorXd> soft\_cons;}
+\DoxyCodeLine{56       \textcolor{keywordtype}{double} soft\_const\_p = 1e4;}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{58       Eigen::VectorXi internal\_bnd;}
+\DoxyCodeLine{59       Eigen::MatrixXd rect\_frame\_V;}
+\DoxyCodeLine{60       \textcolor{comment}{// multi-\/chart support}}
+\DoxyCodeLine{61       std::vector<int> component\_sizes;}
+\DoxyCodeLine{62       std::vector<int> bnd\_sizes;}
+\DoxyCodeLine{63     }
+\DoxyCodeLine{64         \textcolor{comment}{// reweightedARAP interior variables.}}
+\DoxyCodeLine{65         \textcolor{keywordtype}{bool} has\_pre\_calc = \textcolor{keyword}{false};}
+\DoxyCodeLine{66         Eigen::SparseMatrix<double> Dx\_s, Dy\_s, Dz\_s;}
+\DoxyCodeLine{67         Eigen::SparseMatrix<double> Dx\_m, Dy\_m, Dz\_m;}
+\DoxyCodeLine{68         Eigen::MatrixXd Ri\_m, Ji\_m, Ri\_s, Ji\_s;}
+\DoxyCodeLine{69         Eigen::MatrixXd W\_m, W\_s;}
+\DoxyCodeLine{70     \};}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73     \textcolor{comment}{// Compute necessary information to start using SCAF}}
+\DoxyCodeLine{74     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{75     \textcolor{comment}{//      V           \#V by 3 list of mesh vertex positions}}
+\DoxyCodeLine{76     \textcolor{comment}{//      F           \#F by 3/3 list of mesh faces (triangles/tets)}}
+\DoxyCodeLine{77     \textcolor{comment}{//    data          igl::SCAFData}}
+\DoxyCodeLine{78     \textcolor{comment}{//    slim\_energy Energy type to minimize}}
+\DoxyCodeLine{79     \textcolor{comment}{//    b           list of boundary indices into V (soft constraint)}}
+\DoxyCodeLine{80     \textcolor{comment}{//    bc          \#b by dim list of boundary conditions (soft constraint)}}
+\DoxyCodeLine{81     \textcolor{comment}{//    soft\_p      Soft penalty factor (can be zero)}}
+\DoxyCodeLine{82     IGL\_INLINE \textcolor{keywordtype}{void} scaf\_precompute(}
+\DoxyCodeLine{83         \textcolor{keyword}{const} Eigen::MatrixXd \&V,}
+\DoxyCodeLine{84         \textcolor{keyword}{const} Eigen::MatrixXi \&F,}
+\DoxyCodeLine{85         \textcolor{keyword}{const} Eigen::MatrixXd \&V\_init,}
+\DoxyCodeLine{86         \mbox{\hyperlink{structigl_1_1triangle_1_1_s_c_a_f_data}{triangle::SCAFData}} \&data,}
+\DoxyCodeLine{87         MappingEnergyType slim\_energy,}
+\DoxyCodeLine{88         Eigen::VectorXi\& b,}
+\DoxyCodeLine{89         Eigen::MatrixXd\& bc,}
+\DoxyCodeLine{90         \textcolor{keywordtype}{double} soft\_p);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{92     \textcolor{comment}{// Run iter\_num iterations of SCAF, with precomputed data}}
+\DoxyCodeLine{93     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{94     \textcolor{comment}{//    V\_o (in SLIMData): \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{95     IGL\_INLINE Eigen::MatrixXd scaf\_solve(\mbox{\hyperlink{structigl_1_1triangle_1_1_s_c_a_f_data}{triangle::SCAFData}} \&data, \textcolor{keywordtype}{int} iter\_num);}
+\DoxyCodeLine{96 }
+\DoxyCodeLine{97     \textcolor{comment}{// Set up the SCAF system L * uv = rhs, without solving it.}}
+\DoxyCodeLine{98     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{99     \textcolor{comment}{//    s:   igl::SCAFData. Will be modified by energy and Jacobian computation.}}
+\DoxyCodeLine{100     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{101     \textcolor{comment}{//    L:   m by m matrix}}
+\DoxyCodeLine{102     \textcolor{comment}{//    rhs: m by 1 vector}}
+\DoxyCodeLine{103     \textcolor{comment}{//         with m = dim * (\#V\_mesh + \#V\_scaf -\/ \#V\_frame)}}
+\DoxyCodeLine{104     IGL\_INLINE \textcolor{keywordtype}{void} scaf\_system(\mbox{\hyperlink{structigl_1_1triangle_1_1_s_c_a_f_data}{triangle::SCAFData}} \&s, Eigen::SparseMatrix<double> \&L, Eigen::VectorXd \&rhs);}
+\DoxyCodeLine{105 }
+\DoxyCodeLine{106     \textcolor{keyword}{namespace }scaf}
+\DoxyCodeLine{107     \{}
+\DoxyCodeLine{108         \textcolor{comment}{// Compute SCAF energy}}
+\DoxyCodeLine{109         \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{110         \textcolor{comment}{//    s:     igl::SCAFData}}
+\DoxyCodeLine{111         \textcolor{comment}{//    w\_uv:  (\#V\_mesh + \#V\_scaf) by dim matrix}}
+\DoxyCodeLine{112         \textcolor{comment}{//    whole: Include scaffold if true}}
+\DoxyCodeLine{113         IGL\_INLINE \textcolor{keywordtype}{double} compute\_energy(\mbox{\hyperlink{structigl_1_1triangle_1_1_s_c_a_f_data}{SCAFData}} \&s, \textcolor{keyword}{const} Eigen::MatrixXd \&w\_uv, \textcolor{keywordtype}{bool} whole);}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115   \}}
+\DoxyCodeLine{116 \}}
+\DoxyCodeLine{117 }
+\DoxyCodeLine{118 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#  include "{}scaf.cpp"{}}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{121 }
+\DoxyCodeLine{122 \textcolor{preprocessor}{\#endif }\textcolor{comment}{//IGL\_SCAF\_H}}
+
+\end{DoxyCode}

@@ -1,0 +1,61 @@
+\hypertarget{sparse__voxel__grid_8h_source}{}\doxysection{sparse\+\_\+voxel\+\_\+grid.\+h}
+\label{sparse__voxel__grid_8h_source}\index{igl/sparse\_voxel\_grid.h@{igl/sparse\_voxel\_grid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Francis Williams <francis@fwilliams.info>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SPARSE\_VOXEL\_GRID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SPARSE\_VOXEL\_GRID\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// sparse\_voxel\_grid( p0, scalarFunc, eps, CV, CS, CI )}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Given a point, p0, on an isosurface, construct a shell of epsilon sized cubes surrounding the surface.}}
+\DoxyCodeLine{19   \textcolor{comment}{// These cubes can be used as the input to marching cubes.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// Input:}}
+\DoxyCodeLine{22   \textcolor{comment}{//  p0  A 3D point on the isosurface surface defined by scalarFunc(x) = 0}}
+\DoxyCodeLine{23   \textcolor{comment}{//  scalarFunc  A scalar function from R\string^3 to R -\/-\/ points which map to 0 lie}}
+\DoxyCodeLine{24   \textcolor{comment}{//              on the surface, points which are negative lie inside the surface,}}
+\DoxyCodeLine{25   \textcolor{comment}{//              and points which are positive lie outside the surface}}
+\DoxyCodeLine{26   \textcolor{comment}{//  eps  The edge length of the cubes surrounding the surface}}
+\DoxyCodeLine{27   \textcolor{comment}{//  expected\_number\_of\_cubes  This pre-\/allocates internal data structures to speed things up}}
+\DoxyCodeLine{28   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{29   \textcolor{comment}{//   CS  \#CV by 1 list of scalar values at the cube vertices}}
+\DoxyCodeLine{30   \textcolor{comment}{//   CV  \#CV by 3 list of cube vertex positions}}
+\DoxyCodeLine{31   \textcolor{comment}{//   CI  \#CI by 8 list of cube indices into rows of CS and CV. Each row}}
+\DoxyCodeLine{32   \textcolor{comment}{//     represents 8 corners of cube in y-\/x-\/z binary counting order.}}
+\DoxyCodeLine{33   \textcolor{comment}{//}}
+\DoxyCodeLine{34   \textcolor{keyword}{template} <}
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedP0, }
+\DoxyCodeLine{36     \textcolor{keyword}{typename} Func, }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedS, }
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} sparse\_voxel\_grid(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP0>\& p0,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Func\& scalarFunc,}
+\DoxyCodeLine{43     \textcolor{keyword}{const} \textcolor{keywordtype}{double} eps,}
+\DoxyCodeLine{44     \textcolor{keyword}{const} \textcolor{keywordtype}{int} expected\_number\_of\_cubes,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<DerivedS>\& CS,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedV>\& CV,}
+\DoxyCodeLine{47     Eigen::PlainObjectBase<DerivedI>\& CI);}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49 \}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#    include "{}sparse\_voxel\_grid.cpp"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

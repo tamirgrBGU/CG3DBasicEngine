@@ -1,0 +1,39 @@
+\hypertarget{pinv_8h_source}{}\doxysection{pinv.\+h}
+\label{pinv_8h_source}\index{igl/pinv.h@{igl/pinv.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef IGL\_PINV\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define IGL\_PINV\_H}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include "{}deprecated.h"{}}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{6 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{7 \{}
+\DoxyCodeLine{8   \textcolor{comment}{// Compute the Moore-\/Penrose pseudoinverse}}
+\DoxyCodeLine{9   \textcolor{comment}{//}}
+\DoxyCodeLine{10   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{11   \textcolor{comment}{//   A  m by n matrix }}
+\DoxyCodeLine{12   \textcolor{comment}{//   tol  tolerance (if negative then default is used)}}
+\DoxyCodeLine{13   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{14   \textcolor{comment}{//   X  n by m matrix so that A*X*A = A and X*A*X = X and A*X = (A*X)' and}}
+\DoxyCodeLine{15   \textcolor{comment}{//     (X*A) = (X*A)'}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Obsolete: Use Eigen::CompleteOrthogonalDecomposition<Eigen::MatrixXd>}}
+\DoxyCodeLine{18   \textcolor{comment}{// .solve() or .pseudoinverse() instead.}}
+\DoxyCodeLine{19   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{20   IGL\_DEPRECATED \textcolor{keywordtype}{void} pinv(}
+\DoxyCodeLine{21     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{22     \textcolor{keyword}{typename} DerivedA::Scalar tol,}
+\DoxyCodeLine{23     Eigen::PlainObjectBase<DerivedX> \& X);}
+\DoxyCodeLine{24   \textcolor{comment}{// Wrapper using default tol}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedX>}
+\DoxyCodeLine{26   IGL\_DEPRECATED \textcolor{keywordtype}{void} pinv(}
+\DoxyCodeLine{27     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedA> \& A,}
+\DoxyCodeLine{28     Eigen::PlainObjectBase<DerivedX> \& X);}
+\DoxyCodeLine{29 \}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}pinv.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

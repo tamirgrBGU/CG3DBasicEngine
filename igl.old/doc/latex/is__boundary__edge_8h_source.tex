@@ -1,0 +1,57 @@
+\hypertarget{is__boundary__edge_8h_source}{}\doxysection{is\+\_\+boundary\+\_\+edge.\+h}
+\label{is__boundary__edge_8h_source}\index{igl/is\_boundary\_edge.h@{igl/is\_boundary\_edge.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IS\_BOUNDARY\_EDGE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IS\_BOUNDARY\_EDGE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{//  IS\_BOUNDARY\_EDGE Determine for each edge E if it is a "{}boundary edge"{} in F.}}
+\DoxyCodeLine{15   \textcolor{comment}{//  Boundary edges are undirected edges which occur only once.}}
+\DoxyCodeLine{16   \textcolor{comment}{// }}
+\DoxyCodeLine{17   \textcolor{comment}{//  Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//    E  \#E by 2 list of edges}}
+\DoxyCodeLine{19   \textcolor{comment}{//    F  \#F by 3 list of triangles}}
+\DoxyCodeLine{20   \textcolor{comment}{//  Outputs:}}
+\DoxyCodeLine{21   \textcolor{comment}{//    B  \#E list bools. true iff unoriented edge occurs exactly once in F}}
+\DoxyCodeLine{22   \textcolor{comment}{//      (non-\/manifold and non-\/existant edges will be false)}}
+\DoxyCodeLine{23   \textcolor{comment}{// }}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedB>}
+\DoxyCodeLine{28   \textcolor{keywordtype}{void} is\_boundary\_edge(}
+\DoxyCodeLine{29     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedB> \& B);}
+\DoxyCodeLine{32   \textcolor{comment}{// Wrapper where Edges should also be computed from F}}
+\DoxyCodeLine{33   \textcolor{comment}{//   E  \#E by 2 list of edges}}
+\DoxyCodeLine{34   \textcolor{comment}{//   EMAP  \#F*3 list of indices mapping allE to E}}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedEMAP>}
+\DoxyCodeLine{40   \textcolor{keywordtype}{void} is\_boundary\_edge(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF> \& F,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedB> \& B,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedEMAP> \& EMAP);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}is\_boundary\_edge.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

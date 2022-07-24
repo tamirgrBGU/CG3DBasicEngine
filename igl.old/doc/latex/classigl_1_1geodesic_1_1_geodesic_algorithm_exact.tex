@@ -1,0 +1,71 @@
+\hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact}{}\doxysection{igl\+::geodesic\+::Geodesic\+Algorithm\+Exact Class Reference}
+\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact}\index{igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}}
+Inheritance diagram for igl\+::geodesic\+::Geodesic\+Algorithm\+Exact\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classigl_1_1geodesic_1_1_geodesic_algorithm_exact}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a78a7a6ab64804b6bb69b38a40e451811}\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a78a7a6ab64804b6bb69b38a40e451811}} 
+{\bfseries Geodesic\+Algorithm\+Exact} (\mbox{\hyperlink{classigl_1_1geodesic_1_1_mesh}{geodesic\+::\+Mesh}} $\ast$mesh)
+\item 
+void \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a2bae7d204731e8db2ff74a5ae527bd79}{propagate}} (std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ \&sources, double max\+\_\+propagation\+\_\+distance=GEODESIC\+\_\+\+INF, std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ $\ast$stop\+\_\+points=NULL)
+\item 
+void \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a52c1d55e64a0ab6603256cff419672c3}{trace\+\_\+back}} (\mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} \&destination, std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ \&path)
+\item 
+unsigned \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a9f7e0be50a05e59176b7fc87ac95bc62}{best\+\_\+source}} (\mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} \&point, double \&best\+\_\+source\+\_\+distance)
+\item 
+void \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a5c2e4737714ea6673680642c4ec73a4b}{print\+\_\+statistics}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a9f7e0be50a05e59176b7fc87ac95bc62}\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a9f7e0be50a05e59176b7fc87ac95bc62}} 
+\index{igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}!best\_source@{best\_source}}
+\index{best\_source@{best\_source}!igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}}
+\doxysubsubsection{\texorpdfstring{best\_source()}{best\_source()}}
+{\footnotesize\ttfamily unsigned igl\+::geodesic\+::\+Geodesic\+Algorithm\+Exact\+::best\+\_\+source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} \&}]{point,  }\item[{double \&}]{best\+\_\+source\+\_\+distance }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_base}{igl\+::geodesic\+::\+Geodesic\+Algorithm\+Base}}.
+
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a5c2e4737714ea6673680642c4ec73a4b}\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a5c2e4737714ea6673680642c4ec73a4b}} 
+\index{igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}!print\_statistics@{print\_statistics}}
+\index{print\_statistics@{print\_statistics}!igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}}
+\doxysubsubsection{\texorpdfstring{print\_statistics()}{print\_statistics()}}
+{\footnotesize\ttfamily void igl\+::geodesic\+::\+Geodesic\+Algorithm\+Exact\+::print\+\_\+statistics (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_base}{igl\+::geodesic\+::\+Geodesic\+Algorithm\+Base}}.
+
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a2bae7d204731e8db2ff74a5ae527bd79}\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a2bae7d204731e8db2ff74a5ae527bd79}} 
+\index{igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}!propagate@{propagate}}
+\index{propagate@{propagate}!igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}}
+\doxysubsubsection{\texorpdfstring{propagate()}{propagate()}}
+{\footnotesize\ttfamily void igl\+::geodesic\+::\+Geodesic\+Algorithm\+Exact\+::propagate (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ \&}]{sources,  }\item[{double}]{max\+\_\+propagation\+\_\+distance = {\ttfamily GEODESIC\+\_\+INF},  }\item[{std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ $\ast$}]{stop\+\_\+points = {\ttfamily NULL} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_base}{igl\+::geodesic\+::\+Geodesic\+Algorithm\+Base}}.
+
+\mbox{\Hypertarget{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a52c1d55e64a0ab6603256cff419672c3}\label{classigl_1_1geodesic_1_1_geodesic_algorithm_exact_a52c1d55e64a0ab6603256cff419672c3}} 
+\index{igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}!trace\_back@{trace\_back}}
+\index{trace\_back@{trace\_back}!igl::geodesic::GeodesicAlgorithmExact@{igl::geodesic::GeodesicAlgorithmExact}}
+\doxysubsubsection{\texorpdfstring{trace\_back()}{trace\_back()}}
+{\footnotesize\ttfamily void igl\+::geodesic\+::\+Geodesic\+Algorithm\+Exact\+::trace\+\_\+back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} \&}]{destination,  }\item[{std\+::vector$<$ \mbox{\hyperlink{classigl_1_1geodesic_1_1_surface_point}{Surface\+Point}} $>$ \&}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classigl_1_1geodesic_1_1_geodesic_algorithm_base}{igl\+::geodesic\+::\+Geodesic\+Algorithm\+Base}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+igl/exact\+\_\+geodesic.\+cpp\end{DoxyCompactItemize}

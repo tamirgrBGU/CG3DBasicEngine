@@ -1,0 +1,33 @@
+\hypertarget{_normal_type_8h_source}{}\doxysection{Normal\+Type.\+h}
+\label{_normal_type_8h_source}\index{igl/NormalType.h@{igl/NormalType.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_NORMALTYPE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_NORMALTYPE\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13   \textcolor{comment}{// PER\_VERTEX\_NORMALS  Normals computed per vertex based on incident faces}}
+\DoxyCodeLine{14   \textcolor{comment}{// PER\_FACE\_NORMALS  Normals computed per face}}
+\DoxyCodeLine{15   \textcolor{comment}{// PER\_CORNER\_NORMALS  Normals computed per corner (aka wedge) based on}}
+\DoxyCodeLine{16   \textcolor{comment}{//   incident faces without sharp edge}}
+\DoxyCodeLine{17   \textcolor{keyword}{enum} NormalType}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     PER\_VERTEX\_NORMALS,}
+\DoxyCodeLine{20     PER\_FACE\_NORMALS,}
+\DoxyCodeLine{21     PER\_CORNER\_NORMALS}
+\DoxyCodeLine{22   \};}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#  define NUM\_NORMAL\_TYPE 3}}
+\DoxyCodeLine{24 \}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{27 }
+
+\end{DoxyCode}

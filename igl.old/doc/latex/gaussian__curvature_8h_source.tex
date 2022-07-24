@@ -1,0 +1,41 @@
+\hypertarget{gaussian__curvature_8h_source}{}\doxysection{gaussian\+\_\+curvature.\+h}
+\label{gaussian__curvature_8h_source}\index{igl/gaussian\_curvature.h@{igl/gaussian\_curvature.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_GAUSSIAN\_CURVATURE\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_GAUSSIAN\_CURVATURE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Compute discrete local integral gaussian curvature (angle deficit, without}}
+\DoxyCodeLine{15   \textcolor{comment}{// averaging by local area).}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 3 eigen Matrix of mesh vertex 3D positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 eigen Matrix of face (triangle) indices}}
+\DoxyCodeLine{20   \textcolor{comment}{// Output:}}
+\DoxyCodeLine{21   \textcolor{comment}{//   K  \#V by 1 eigen Matrix of discrete gaussian curvature values}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} DerivedK>}
+\DoxyCodeLine{24   IGL\_INLINE \textcolor{keywordtype}{void} gaussian\_curvature(}
+\DoxyCodeLine{25     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{27     Eigen::PlainObjectBase<DerivedK> \& K);}
+\DoxyCodeLine{28 \}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#  include "{}gaussian\_curvature.cpp"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{35 }
+
+\end{DoxyCode}

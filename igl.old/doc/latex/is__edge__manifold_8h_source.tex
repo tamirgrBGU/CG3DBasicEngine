@@ -1,0 +1,78 @@
+\hypertarget{is__edge__manifold_8h_source}{}\doxysection{is\+\_\+edge\+\_\+manifold.\+h}
+\label{is__edge__manifold_8h_source}\index{igl/is\_edge\_manifold.h@{igl/is\_edge\_manifold.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2014 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_IS\_EDGE\_MANIFOLD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_IS\_EDGE\_MANIFOLD\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl }
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// check if the mesh is edge-\/manifold (every edge is incident one one face}}
+\DoxyCodeLine{17   \textcolor{comment}{// (boundary) or two oppositely oriented faces).}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{21   \textcolor{comment}{// Returns true iff all edges are manifold}}
+\DoxyCodeLine{22   \textcolor{comment}{//}}
+\DoxyCodeLine{23   \textcolor{comment}{// See also: is\_vertex\_manifold}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedF>}
+\DoxyCodeLine{25   IGL\_INLINE \textcolor{keywordtype}{bool} is\_edge\_manifold(}
+\DoxyCodeLine{26     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F);}
+\DoxyCodeLine{27   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{28   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{29   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{30   \textcolor{comment}{//   BF  \#F by 3 list of flags revealing if edge opposite corresponding vertex}}
+\DoxyCodeLine{31   \textcolor{comment}{//   is non-\/manifold.}}
+\DoxyCodeLine{32   \textcolor{comment}{//   E  \#E by 2 list of unique edges}}
+\DoxyCodeLine{33   \textcolor{comment}{//   EMAP  3*\#F list of indices of opposite edges in "{}E"{}}}
+\DoxyCodeLine{34   \textcolor{comment}{//   BE  \#E list of flages whether edge is non-\/manifold}}
+\DoxyCodeLine{35   \textcolor{keyword}{template} <}
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{37     \textcolor{keyword}{typename} DerivedBF,}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedE,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedBE>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{bool} is\_edge\_manifold(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedBF>\& BF,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedE>\& E,}
+\DoxyCodeLine{45     Eigen::PlainObjectBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{46     Eigen::PlainObjectBase<DerivedBE>\& BE);}
+\DoxyCodeLine{47   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{48   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{49   \textcolor{comment}{//   ne  number of edges (\#E)}}
+\DoxyCodeLine{50   \textcolor{comment}{//   EMAP  3*\#F list of indices of opposite edges in "{}E"{}}}
+\DoxyCodeLine{51   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{52   \textcolor{comment}{//   BF  \#F by 3 list of flags revealing if edge opposite corresponding vertex}}
+\DoxyCodeLine{53   \textcolor{comment}{//     is non-\/manifold.}}
+\DoxyCodeLine{54   \textcolor{comment}{//   BE  ne list of flages whether edge is non-\/manifold}}
+\DoxyCodeLine{55   \textcolor{keyword}{template} <}
+\DoxyCodeLine{56     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{57     \textcolor{keyword}{typename} DerivedEMAP,}
+\DoxyCodeLine{58     \textcolor{keyword}{typename} DerivedBF,}
+\DoxyCodeLine{59     \textcolor{keyword}{typename} DerivedBE>}
+\DoxyCodeLine{60   IGL\_INLINE \textcolor{keywordtype}{bool} is\_edge\_manifold(}
+\DoxyCodeLine{61     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{62     \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedF::Index ne,}
+\DoxyCodeLine{63     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEMAP>\& EMAP,}
+\DoxyCodeLine{64     Eigen::PlainObjectBase<DerivedBF>\& BF,}
+\DoxyCodeLine{65     Eigen::PlainObjectBase<DerivedBE>\& BE);}
+\DoxyCodeLine{66 \}}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#  include "{}is\_edge\_manifold.cpp"{}}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{71 }
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

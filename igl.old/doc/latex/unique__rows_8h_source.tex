@@ -1,0 +1,47 @@
+\hypertarget{unique__rows_8h_source}{}\doxysection{unique\+\_\+rows.\+h}
+\label{unique__rows_8h_source}\index{igl/unique\_rows.h@{igl/unique\_rows.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2017 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_UNIQUE\_ROWS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_UNIQUE\_ROWS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Act like matlab's [C,IA,IC] = unique(X,'rows')}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   DerivedA derived scalar type, e.g. MatrixXi or MatrixXd}}
+\DoxyCodeLine{20   \textcolor{comment}{//   DerivedIA derived integer type, e.g. MatrixXi}}
+\DoxyCodeLine{21   \textcolor{comment}{//   DerivedIC derived integer type, e.g. MatrixXi}}
+\DoxyCodeLine{22   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   A  m by n matrix whose entries are to unique'd according to rows}}
+\DoxyCodeLine{24   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   C  \#C vector of unique rows in A}}
+\DoxyCodeLine{26   \textcolor{comment}{//   IA  \#C index vector so that C = A(IA,:);}}
+\DoxyCodeLine{27   \textcolor{comment}{//   IC  \#A index vector so that A = C(IC,:);}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedA, \textcolor{keyword}{typename} DerivedC, \textcolor{keyword}{typename} DerivedIA, \textcolor{keyword}{typename} DerivedIC>}
+\DoxyCodeLine{29   IGL\_INLINE \textcolor{keywordtype}{void} unique\_rows(}
+\DoxyCodeLine{30     \textcolor{keyword}{const} Eigen::DenseBase<DerivedA>\& A,}
+\DoxyCodeLine{31     Eigen::PlainObjectBase<DerivedC>\& C,}
+\DoxyCodeLine{32     Eigen::PlainObjectBase<DerivedIA>\& IA,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedIC>\& IC);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \}}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#  include "{}unique\_rows.cpp"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

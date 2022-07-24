@@ -1,0 +1,70 @@
+\hypertarget{submesh__aabb__tree_8h_source}{}\doxysection{submesh\+\_\+aabb\+\_\+tree.\+h}
+\label{submesh__aabb__tree_8h_source}\index{igl/copyleft/cgal/submesh\_aabb\_tree.h@{igl/copyleft/cgal/submesh\_aabb\_tree.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COPYLET\_CGAL\_SUBMESH\_AABB\_TREE\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COPYLET\_CGAL\_SUBMESH\_AABB\_TREE\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <CGAL/AABB\_tree.h>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <CGAL/AABB\_traits.h>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <CGAL/AABB\_triangle\_primitive.h>}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include <CGAL/intersections.h>}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include <CGAL/Exact\_predicates\_exact\_constructions\_kernel.h>}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{25   \{}
+\DoxyCodeLine{26     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28       \textcolor{comment}{// Build an AABB tree for a submesh indicated by a face selection list I}}
+\DoxyCodeLine{29       \textcolor{comment}{// of a full mesh (V,F)}}
+\DoxyCodeLine{30       \textcolor{comment}{//}}
+\DoxyCodeLine{31       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{32       \textcolor{comment}{//   V  \#V by 3 array of vertices.}}
+\DoxyCodeLine{33       \textcolor{comment}{//   F  \#F by 3 array of faces.}}
+\DoxyCodeLine{34       \textcolor{comment}{//   I  \#I list of triangle indices to consider.}}
+\DoxyCodeLine{35       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36       \textcolor{comment}{//   tree  aabb containing triangles of (V,F(I,:))}}
+\DoxyCodeLine{37       \textcolor{comment}{//   triangles  \#I list of cgal triangles}}
+\DoxyCodeLine{38       \textcolor{comment}{//   in\_I  \#F list of whether in submesh}}
+\DoxyCodeLine{39       \textcolor{keyword}{template}<}
+\DoxyCodeLine{40         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedI,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} Kernel>}
+\DoxyCodeLine{44       IGL\_INLINE \textcolor{keywordtype}{void} submesh\_aabb\_tree(}
+\DoxyCodeLine{45         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{46         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{47         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedI>\& I,}
+\DoxyCodeLine{48         CGAL::AABB\_tree<}
+\DoxyCodeLine{49           CGAL::AABB\_traits<}
+\DoxyCodeLine{50             Kernel, }
+\DoxyCodeLine{51             CGAL::AABB\_triangle\_primitive<}
+\DoxyCodeLine{52               Kernel, \textcolor{keyword}{typename} std::vector<}
+\DoxyCodeLine{53                 \textcolor{keyword}{typename} Kernel::Triangle\_3 >::iterator > > > \& tree,}
+\DoxyCodeLine{54         std::vector<typename Kernel::Triangle\_3 > \& triangles,}
+\DoxyCodeLine{55         std::vector<bool> \& in\_I);}
+\DoxyCodeLine{56     \}}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 \}}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#  include "{}submesh\_aabb\_tree.cpp"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

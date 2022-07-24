@@ -1,0 +1,57 @@
+\hypertarget{deprecated_8h_source}{}\doxysection{deprecated.\+h}
+\label{deprecated_8h_source}\index{igl/deprecated.h@{igl/deprecated.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_DEPRECATED\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_DEPRECATED\_H}}
+\DoxyCodeLine{10 \textcolor{comment}{// Macro for marking a function as deprecated.}}
+\DoxyCodeLine{11 \textcolor{comment}{// Use C++14 feature [[deprecated]] if available.}}
+\DoxyCodeLine{12 \textcolor{comment}{// See also https://stackoverflow.com/questions/295120/c-\/mark-\/as-\/deprecated/21265197\#21265197}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#ifdef \_\_has\_cpp\_attribute}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#  define IGL\_HAS\_CPP\_ATTRIBUTE(x) \_\_has\_cpp\_attribute(x)}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#  define IGL\_HAS\_CPP\_ATTRIBUTE(x) 0}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#ifdef \_MSC\_VER}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#  define IGL\_MSC\_VER \_MSC\_VER}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#  define IGL\_MSC\_VER 0}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#ifndef IGL\_DEPRECATED}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#  if (IGL\_HAS\_CPP\_ATTRIBUTE(deprecated) \&\& \_\_cplusplus >= 201402L) || \(\backslash\)}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{      IGL\_MSC\_VER >= 1900}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#    define IGL\_DEPRECATED [[deprecated]]}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#  else}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#    if defined(\_\_GNUC\_\_) || defined(\_\_clang\_\_)}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#      define IGL\_DEPRECATED \_\_attribute\_\_((deprecated))}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#    elif IGL\_MSC\_VER}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#      define IGL\_DEPRECATED \_\_declspec(deprecated)}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#    else}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#      pragma message("{}WARNING: You need to implement IGL\_DEPRECATED for this compiler"{}})}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#      define IGL\_DEPRECATED }\textcolor{comment}{/* deprecated */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#    endif}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  endif}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{comment}{// Usage:}}
+\DoxyCodeLine{43 \textcolor{comment}{//}}
+\DoxyCodeLine{44 \textcolor{comment}{//     template <typename T>}}
+\DoxyCodeLine{45 \textcolor{comment}{//     IGL\_INLINE void my\_func(Arg1 a);}}
+\DoxyCodeLine{46 \textcolor{comment}{//}}
+\DoxyCodeLine{47 \textcolor{comment}{// becomes}}
+\DoxyCodeLine{48 \textcolor{comment}{//}}
+\DoxyCodeLine{49 \textcolor{comment}{//     template <typename T>}}
+\DoxyCodeLine{50 \textcolor{comment}{//     IGL\_DEPRECATED IGL\_INLINE void my\_func(Arg1 a);}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

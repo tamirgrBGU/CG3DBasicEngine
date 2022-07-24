@@ -1,0 +1,100 @@
+\hypertarget{remesh__intersections_8h_source}{}\doxysection{remesh\+\_\+intersections.\+h}
+\label{remesh__intersections_8h_source}\index{igl/copyleft/cgal/remesh\_intersections.h@{igl/copyleft/cgal/remesh\_intersections.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Qingnan Zhou <qnzhou@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{comment}{//}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_REMESH\_INTERSECTIONS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_REMESH\_INTERSECTIONS\_H}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}CGAL\_includes.hpp"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{19   \{}
+\DoxyCodeLine{20     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{21     \{}
+\DoxyCodeLine{22       \textcolor{comment}{// Remesh faces according to results of intersection detection and}}
+\DoxyCodeLine{23       \textcolor{comment}{// construction (e.g. from `igl::copyleft::cgal::intersect\_other` or}}
+\DoxyCodeLine{24       \textcolor{comment}{// `igl::copyleft::cgal::SelfIntersectMesh`)}}
+\DoxyCodeLine{25       \textcolor{comment}{//}}
+\DoxyCodeLine{26       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{27       \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{28       \textcolor{comment}{//   F  \#F by 3 list of triangle indices into V}}
+\DoxyCodeLine{29       \textcolor{comment}{//   T  \#F list of cgal triangles}}
+\DoxyCodeLine{30       \textcolor{comment}{//   offending \#offending map taking face indices into F to pairs of order}}
+\DoxyCodeLine{31       \textcolor{comment}{//     of first finding and list of intersection objects from all}}
+\DoxyCodeLine{32       \textcolor{comment}{//     intersections}}
+\DoxyCodeLine{33       \textcolor{comment}{//   stitch\_all  if true, merge all vertices with the same coordinate.}}
+\DoxyCodeLine{34       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{35       \textcolor{comment}{//   VV  \#VV by 3 list of vertex positions, if stitch\_all = false then}}
+\DoxyCodeLine{36       \textcolor{comment}{//     first \#V vertices will always be V}}
+\DoxyCodeLine{37       \textcolor{comment}{//   FF  \#FF by 3 list of triangle indices into V}}
+\DoxyCodeLine{38       \textcolor{comment}{//   IF  \#intersecting face pairs by 2  list of intersecting face pairs,}}
+\DoxyCodeLine{39       \textcolor{comment}{//     indexing F}}
+\DoxyCodeLine{40       \textcolor{comment}{//   J  \#FF list of indices into F denoting birth triangle}}
+\DoxyCodeLine{41       \textcolor{comment}{//   IM  / stitch\_all = true   \#VV list from 0 to \#VV-\/1}}
+\DoxyCodeLine{42       \textcolor{comment}{//       \(\backslash\) stitch\_all = false  \#VV list of indices into VV of unique vertices.}}
+\DoxyCodeLine{43       \textcolor{comment}{//}}
+\DoxyCodeLine{44       \textcolor{keyword}{template} <}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{47         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{48         \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{49         \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{50         \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{51         \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{52       IGL\_INLINE \textcolor{keywordtype}{void} remesh\_intersections(}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{54         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{55         \textcolor{keyword}{const} std::vector<CGAL::Triangle\_3<Kernel> > \& T,}
+\DoxyCodeLine{56         \textcolor{keyword}{const} std::map<}
+\DoxyCodeLine{57           \textcolor{keyword}{typename} DerivedF::Index,}
+\DoxyCodeLine{58             std::vector<}
+\DoxyCodeLine{59             std::pair<typename DerivedF::Index, CGAL::Object> > > \& offending,}
+\DoxyCodeLine{60         \textcolor{keywordtype}{bool} stitch\_all,}
+\DoxyCodeLine{61         Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{62         Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{63         Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{64         Eigen::PlainObjectBase<DerivedIM> \& IM);}
+\DoxyCodeLine{65       \textcolor{comment}{// Same as above except stitch\_all is assumed "{}false"{}}}
+\DoxyCodeLine{66       \textcolor{keyword}{template} <}
+\DoxyCodeLine{67         \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{68         \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{69         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{70         \textcolor{keyword}{typename} DerivedVV,}
+\DoxyCodeLine{71         \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{72         \textcolor{keyword}{typename} DerivedJ,}
+\DoxyCodeLine{73         \textcolor{keyword}{typename} DerivedIM>}
+\DoxyCodeLine{74       IGL\_INLINE \textcolor{keywordtype}{void} remesh\_intersections(}
+\DoxyCodeLine{75         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{76         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{77         \textcolor{keyword}{const} std::vector<CGAL::Triangle\_3<Kernel> > \& T,}
+\DoxyCodeLine{78         \textcolor{keyword}{const} std::map<}
+\DoxyCodeLine{79           \textcolor{keyword}{typename} DerivedF::Index,}
+\DoxyCodeLine{80             std::vector<}
+\DoxyCodeLine{81             std::pair<typename DerivedF::Index, CGAL::Object> > > \& offending,}
+\DoxyCodeLine{82         Eigen::PlainObjectBase<DerivedVV> \& VV,}
+\DoxyCodeLine{83         Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{84         Eigen::PlainObjectBase<DerivedJ> \& J,}
+\DoxyCodeLine{85         Eigen::PlainObjectBase<DerivedIM> \& IM);}
+\DoxyCodeLine{86     \}}
+\DoxyCodeLine{87   \}}
+\DoxyCodeLine{88 \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#  include "{}remesh\_intersections.cpp"{}}}
+\DoxyCodeLine{92 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

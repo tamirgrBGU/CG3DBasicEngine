@@ -1,0 +1,49 @@
+\hypertarget{orient__outward_8h_source}{}\doxysection{orient\+\_\+outward.\+h}
+\label{orient__outward_8h_source}\index{igl/orient\_outward.h@{igl/orient\_outward.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_ORIENT\_OUTWARD\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_ORIENT\_OUTWARD\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Orient each component (identified by C) of a mesh (V,F) so the normals on}}
+\DoxyCodeLine{15   \textcolor{comment}{// average point away from the patch's centroid.}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 list of triangle indices}}
+\DoxyCodeLine{20   \textcolor{comment}{//   C  \#F list of components (output of orientable\_patches)}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   FF  \#F by 3 list of new triangle indices such that FF(\string~I,:) = F(\string~I,:) and}}
+\DoxyCodeLine{23   \textcolor{comment}{//     FF(I,:) = fliplr(F(I,:)) (OK if \&FF = \&F)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   I  max(C)+1 list of whether face has been flipped}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedFF,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} orient\_outward(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F,}
+\DoxyCodeLine{34     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedC> \& C,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DerivedFF> \& FF,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{37 \};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#  include "{}orient\_outward.cpp"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

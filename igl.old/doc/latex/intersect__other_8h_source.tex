@@ -1,0 +1,97 @@
+\hypertarget{intersect__other_8h_source}{}\doxysection{intersect\+\_\+other.\+h}
+\label{intersect__other_8h_source}\index{igl/copyleft/cgal/intersect\_other.h@{igl/copyleft/cgal/intersect\_other.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_INTERSECT\_OTHER\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_INTERSECT\_OTHER\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}RemeshSelfIntersectionsParam.h"{}}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{18   \{}
+\DoxyCodeLine{19     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{20     \{}
+\DoxyCodeLine{21       \textcolor{comment}{// INTERSECT\_OTHER Given a triangle mesh (VA,FA) and another mesh (VB,FB)}}
+\DoxyCodeLine{22       \textcolor{comment}{// find all pairs of intersecting faces. Note that self-\/intersections are}}
+\DoxyCodeLine{23       \textcolor{comment}{// ignored.}}
+\DoxyCodeLine{24       \textcolor{comment}{// }}
+\DoxyCodeLine{25       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{26       \textcolor{comment}{//   VA  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{27       \textcolor{comment}{//   FA  \#F by 3 list of triangle indices into VA}}
+\DoxyCodeLine{28       \textcolor{comment}{//   VB  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{29       \textcolor{comment}{//   FB  \#F by 3 list of triangle indices into VB}}
+\DoxyCodeLine{30       \textcolor{comment}{//   params   whether to detect only and then whether to only find first}}
+\DoxyCodeLine{31       \textcolor{comment}{//     intersection}}
+\DoxyCodeLine{32       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{33       \textcolor{comment}{//   IF  \#intersecting face pairs by 2 list of intersecting face pairs,}}
+\DoxyCodeLine{34       \textcolor{comment}{//     indexing FA and FB}}
+\DoxyCodeLine{35       \textcolor{comment}{//   VVAB  \#VVAB by 3 list of vertex positions}}
+\DoxyCodeLine{36       \textcolor{comment}{//   FFAB  \#FFAB by 3 list of triangle indices into VVA}}
+\DoxyCodeLine{37       \textcolor{comment}{//   JAB  \#FFAB list of indices into [FA;FB] denoting birth triangle}}
+\DoxyCodeLine{38       \textcolor{comment}{//   IMAB  \#VVAB list of indices stitching duplicates (resulting from}}
+\DoxyCodeLine{39       \textcolor{comment}{//     mesh intersections) together}}
+\DoxyCodeLine{40       \textcolor{keyword}{template} <}
+\DoxyCodeLine{41         \textcolor{keyword}{typename} DerivedVA,}
+\DoxyCodeLine{42         \textcolor{keyword}{typename} DerivedFA,}
+\DoxyCodeLine{43         \textcolor{keyword}{typename} DerivedVB,}
+\DoxyCodeLine{44         \textcolor{keyword}{typename} DerivedFB,}
+\DoxyCodeLine{45         \textcolor{keyword}{typename} DerivedIF,}
+\DoxyCodeLine{46         \textcolor{keyword}{typename} DerivedVVAB,}
+\DoxyCodeLine{47         \textcolor{keyword}{typename} DerivedFFAB,}
+\DoxyCodeLine{48         \textcolor{keyword}{typename} DerivedJAB,}
+\DoxyCodeLine{49         \textcolor{keyword}{typename} DerivedIMAB>}
+\DoxyCodeLine{50       IGL\_INLINE \textcolor{keywordtype}{bool} intersect\_other(}
+\DoxyCodeLine{51         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVA> \& VA,}
+\DoxyCodeLine{52         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFA> \& FA,}
+\DoxyCodeLine{53         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedVB> \& VB,}
+\DoxyCodeLine{54         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFB> \& FB,}
+\DoxyCodeLine{55         \textcolor{keyword}{const} RemeshSelfIntersectionsParam \& params,}
+\DoxyCodeLine{56         Eigen::PlainObjectBase<DerivedIF> \& IF,}
+\DoxyCodeLine{57         Eigen::PlainObjectBase<DerivedVVAB> \& VVAB,}
+\DoxyCodeLine{58         Eigen::PlainObjectBase<DerivedFFAB> \& FFAB,}
+\DoxyCodeLine{59         Eigen::PlainObjectBase<DerivedJAB>  \& JAB,}
+\DoxyCodeLine{60         Eigen::PlainObjectBase<DerivedIMAB> \& IMAB);}
+\DoxyCodeLine{61       \textcolor{comment}{// Legacy wrapper for detect only using common types.}}
+\DoxyCodeLine{62       \textcolor{comment}{//}}
+\DoxyCodeLine{63       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{64       \textcolor{comment}{//   VA  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{65       \textcolor{comment}{//   FA  \#F by 3 list of triangle indices into VA}}
+\DoxyCodeLine{66       \textcolor{comment}{//   VB  \#V by 3 list of vertex positions}}
+\DoxyCodeLine{67       \textcolor{comment}{//   FB  \#F by 3 list of triangle indices into VB}}
+\DoxyCodeLine{68       \textcolor{comment}{//   first\_only  whether to only detect the first intersection.}}
+\DoxyCodeLine{69       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{70       \textcolor{comment}{//   IF  \#intersecting face pairs by 2 list of intersecting face pairs,}}
+\DoxyCodeLine{71       \textcolor{comment}{//     indexing FA and FB}}
+\DoxyCodeLine{72       \textcolor{comment}{// Returns true if any intersections were found}}
+\DoxyCodeLine{73       \textcolor{comment}{//}}
+\DoxyCodeLine{74       \textcolor{comment}{// See also: remesh\_self\_intersections}}
+\DoxyCodeLine{75       IGL\_INLINE \textcolor{keywordtype}{bool} intersect\_other(}
+\DoxyCodeLine{76         \textcolor{keyword}{const} Eigen::MatrixXd \& VA,}
+\DoxyCodeLine{77         \textcolor{keyword}{const} Eigen::MatrixXi \& FA,}
+\DoxyCodeLine{78         \textcolor{keyword}{const} Eigen::MatrixXd \& VB,}
+\DoxyCodeLine{79         \textcolor{keyword}{const} Eigen::MatrixXi \& FB,}
+\DoxyCodeLine{80         \textcolor{keyword}{const} \textcolor{keywordtype}{bool} first\_only,}
+\DoxyCodeLine{81         Eigen::MatrixXi \& IF);}
+\DoxyCodeLine{82     \}}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84 \}}
+\DoxyCodeLine{85 }
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#  include "{}intersect\_other.cpp"{}}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{89   }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{91 }
+
+\end{DoxyCode}

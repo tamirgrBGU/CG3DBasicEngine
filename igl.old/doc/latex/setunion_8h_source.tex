@@ -1,0 +1,49 @@
+\hypertarget{setunion_8h_source}{}\doxysection{setunion.\+h}
+\label{setunion_8h_source}\index{igl/setunion.h@{igl/setunion.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SETUNION\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SETUNION\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Union of elements of matrices (like matlab's `union`)}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   A  m-\/long vector of indices}}
+\DoxyCodeLine{18   \textcolor{comment}{//   B  n-\/long vector of indices}}
+\DoxyCodeLine{19   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   C  (k>=m)-\/long vector of unique elements appearing in A and/or B}}
+\DoxyCodeLine{21   \textcolor{comment}{//   IA  (<k>=m)-\/long list of indices into A so that C = sort([A(IA);B(IB)])}}
+\DoxyCodeLine{22   \textcolor{comment}{//   IB  (<k>=m)-\/long list of indices into B so that C = sort([A(IA);B(IB)])}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{keyword}{template} <}
+\DoxyCodeLine{25     \textcolor{keyword}{typename} DerivedA,}
+\DoxyCodeLine{26     \textcolor{keyword}{typename} DerivedB,}
+\DoxyCodeLine{27     \textcolor{keyword}{typename} DerivedC,}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedIA,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedIB>}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{void} setunion(}
+\DoxyCodeLine{31     \textcolor{keyword}{const} Eigen::DenseBase<DerivedA> \& A,}
+\DoxyCodeLine{32     \textcolor{keyword}{const} Eigen::DenseBase<DerivedB> \& B,}
+\DoxyCodeLine{33     Eigen::PlainObjectBase<DerivedC> \& C,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedIA> \& IA,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DerivedIB> \& IB);}
+\DoxyCodeLine{36 \}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#  include "{}setunion.cpp"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43 }
+
+\end{DoxyCode}

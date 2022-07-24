@@ -1,0 +1,94 @@
+\hypertarget{knn_8h_source}{}\doxysection{knn.\+h}
+\label{knn_8h_source}\index{igl/knn.h@{igl/knn.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Gavin Barill <gavinpcb@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{//}}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License}}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can}}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef IGL\_KNN\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define IGL\_KNN\_H}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17   \textcolor{comment}{// Given a 3D set of points P, an whole number k, and an octree}}
+\DoxyCodeLine{18   \textcolor{comment}{// find the indicies of the k nearest neighbors for each point in P.}}
+\DoxyCodeLine{19   \textcolor{comment}{// Note that each point is its own neighbor.}}
+\DoxyCodeLine{20   \textcolor{comment}{//}}
+\DoxyCodeLine{21   \textcolor{comment}{// The octree data structures used in this function are intended to be the}}
+\DoxyCodeLine{22   \textcolor{comment}{// same ones output from igl::octree}}
+\DoxyCodeLine{23   \textcolor{comment}{//}}
+\DoxyCodeLine{24   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{25   \textcolor{comment}{//   P  \#P by 3 list of point locations}}
+\DoxyCodeLine{26   \textcolor{comment}{//   k  number of neighbors to find}}
+\DoxyCodeLine{27   \textcolor{comment}{//   point\_indices  a vector of vectors, where the ith entry is a vector of}}
+\DoxyCodeLine{28   \textcolor{comment}{//                  the indices into P that are the ith octree cell's points}}
+\DoxyCodeLine{29   \textcolor{comment}{//   CH     \#OctreeCells by 8, where the ith row is the indices of}}
+\DoxyCodeLine{30   \textcolor{comment}{//          the ith octree cell's children}}
+\DoxyCodeLine{31   \textcolor{comment}{//   CN     \#OctreeCells by 3, where the ith row is a 3d row vector}}
+\DoxyCodeLine{32   \textcolor{comment}{//          representing the position of the ith cell's center}}
+\DoxyCodeLine{33   \textcolor{comment}{//   W      \#OctreeCells, a vector where the ith entry is the width}}
+\DoxyCodeLine{34   \textcolor{comment}{//          of the ith octree cell}}
+\DoxyCodeLine{35   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{36   \textcolor{comment}{//   I  \#P by k list of k-\/nearest-\/neighbor indices into P}}
+\DoxyCodeLine{37   \textcolor{keyword}{template} <}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{39     \textcolor{keyword}{typename} IndexType,}
+\DoxyCodeLine{40     \textcolor{keyword}{typename} DerivedCH,}
+\DoxyCodeLine{41     \textcolor{keyword}{typename} DerivedCN,}
+\DoxyCodeLine{42     \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{43     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{44   IGL\_INLINE \textcolor{keywordtype}{void} knn(}
+\DoxyCodeLine{45     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{46     \textcolor{keywordtype}{size\_t} k,}
+\DoxyCodeLine{47     \textcolor{keyword}{const} std::vector<std::vector<IndexType> > \& point\_indices,}
+\DoxyCodeLine{48     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCH>\& CH,}
+\DoxyCodeLine{49     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCN>\& CN,}
+\DoxyCodeLine{50     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedW>\& W,}
+\DoxyCodeLine{51     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{52   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{53   \textcolor{comment}{//   P  \#P by 3 list of point locations for which which we want the neighbors of}}
+\DoxyCodeLine{54   \textcolor{comment}{//   V  \#V by 3 list of point locations for which may be neighbors }}
+\DoxyCodeLine{55   \textcolor{comment}{//   k  number of neighbors to find}}
+\DoxyCodeLine{56   \textcolor{comment}{//   point\_indices  a vector of vectors, where the ith entry is a vector of}}
+\DoxyCodeLine{57   \textcolor{comment}{//                  the indices into P that are the ith octree cell's points}}
+\DoxyCodeLine{58   \textcolor{comment}{//   CH     \#OctreeCells by 8, where the ith row is the indices of}}
+\DoxyCodeLine{59   \textcolor{comment}{//          the ith octree cell's children}}
+\DoxyCodeLine{60   \textcolor{comment}{//   CN     \#OctreeCells by 3, where the ith row is a 3d row vector}}
+\DoxyCodeLine{61   \textcolor{comment}{//          representing the position of the ith cell's center}}
+\DoxyCodeLine{62   \textcolor{comment}{//   W      \#OctreeCells, a vector where the ith entry is the width}}
+\DoxyCodeLine{63   \textcolor{comment}{//          of the ith octree cell}}
+\DoxyCodeLine{64   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{65   \textcolor{comment}{//   I  \#P by k list of k-\/nearest-\/neighbor indices into V}}
+\DoxyCodeLine{66   \textcolor{keyword}{template} <}
+\DoxyCodeLine{67     \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{68     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{69     \textcolor{keyword}{typename} IndexType,}
+\DoxyCodeLine{70     \textcolor{keyword}{typename} DerivedCH,}
+\DoxyCodeLine{71     \textcolor{keyword}{typename} DerivedCN,}
+\DoxyCodeLine{72     \textcolor{keyword}{typename} DerivedW,}
+\DoxyCodeLine{73     \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{74   IGL\_INLINE \textcolor{keywordtype}{void} knn(}
+\DoxyCodeLine{75     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP>\& P,}
+\DoxyCodeLine{76     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{77     \textcolor{keywordtype}{size\_t} k,}
+\DoxyCodeLine{78     \textcolor{keyword}{const} std::vector<std::vector<IndexType> > \& point\_indices,}
+\DoxyCodeLine{79     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCH>\& CH,}
+\DoxyCodeLine{80     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedCN>\& CN,}
+\DoxyCodeLine{81     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedW>\& W,}
+\DoxyCodeLine{82     Eigen::PlainObjectBase<DerivedI> \& I);}
+\DoxyCodeLine{83 \}}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#  include "{}knn.cpp"{}}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{88 }
+
+\end{DoxyCode}

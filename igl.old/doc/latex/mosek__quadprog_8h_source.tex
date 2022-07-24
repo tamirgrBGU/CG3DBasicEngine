@@ -1,0 +1,151 @@
+\hypertarget{mosek__quadprog_8h_source}{}\doxysection{mosek\+\_\+quadprog.\+h}
+\label{mosek__quadprog_8h_source}\index{igl/mosek/mosek\_quadprog.h@{igl/mosek/mosek\_quadprog.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_MOSEK\_MOSEK\_QUADPROG\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_MOSEK\_MOSEK\_QUADPROG\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <mosek.h>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define EIGEN\_YES\_I\_KNOW\_SPARSE\_MODULE\_IS\_NOT\_STABLE\_YET}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22   \textcolor{keyword}{namespace }mosek}
+\DoxyCodeLine{23   \{}
+\DoxyCodeLine{24     \textcolor{keyword}{struct }\mbox{\hyperlink{structigl_1_1mosek_1_1_mosek_data}{MosekData}}}
+\DoxyCodeLine{25     \{}
+\DoxyCodeLine{26       \textcolor{comment}{// Integer parameters}}
+\DoxyCodeLine{27       std::map<MSKiparame,int> intparam;}
+\DoxyCodeLine{28       \textcolor{comment}{// Double parameters}}
+\DoxyCodeLine{29       std::map<MSKdparame,double> douparam;}
+\DoxyCodeLine{30       \textcolor{comment}{// Default values}}
+\DoxyCodeLine{31       IGL\_INLINE \mbox{\hyperlink{structigl_1_1mosek_1_1_mosek_data}{MosekData}}();}
+\DoxyCodeLine{32     \};}
+\DoxyCodeLine{33     \textcolor{comment}{// Solve a convex quadratic optimization problem with linear and constant}}
+\DoxyCodeLine{34     \textcolor{comment}{// bounds, that is:}}
+\DoxyCodeLine{35     \textcolor{comment}{//}}
+\DoxyCodeLine{36     \textcolor{comment}{// Minimize: ½ * xT * Q⁰ * x + cT * x + cf}}
+\DoxyCodeLine{37     \textcolor{comment}{//}}
+\DoxyCodeLine{38     \textcolor{comment}{// Subject to: lc ≤ Ax ≤ uc}}
+\DoxyCodeLine{39     \textcolor{comment}{//             lx ≤ x ≤ ux}}
+\DoxyCodeLine{40     \textcolor{comment}{//}}
+\DoxyCodeLine{41     \textcolor{comment}{// where we are trying to find the optimal vector of values x. }}
+\DoxyCodeLine{42     \textcolor{comment}{//}}
+\DoxyCodeLine{43     \textcolor{comment}{// Note: Q⁰ must be symmetric and the ½ is a convention of MOSEK}}
+\DoxyCodeLine{44     \textcolor{comment}{//}}
+\DoxyCodeLine{45     \textcolor{comment}{// Note: Because of how MOSEK accepts different parts of the system, Q}}
+\DoxyCodeLine{46     \textcolor{comment}{// should be stored in IJV (aka Coordinate) format and should only include}}
+\DoxyCodeLine{47     \textcolor{comment}{// entries in the lower triangle. A should be stored in Column compressed}}
+\DoxyCodeLine{48     \textcolor{comment}{// (aka Harwell Boeing) format. As described:}}
+\DoxyCodeLine{49     \textcolor{comment}{// http://netlib.org/linalg/html\_templates/node92.html}}
+\DoxyCodeLine{50     \textcolor{comment}{// or}}
+\DoxyCodeLine{51     \textcolor{comment}{// http://en.wikipedia.org/wiki/Sparse\_matrix}}
+\DoxyCodeLine{52     \textcolor{comment}{//   \#Compressed\_sparse\_column\_.28CSC\_or\_CCS.29}}
+\DoxyCodeLine{53     \textcolor{comment}{// }}
+\DoxyCodeLine{54     \textcolor{comment}{//}}
+\DoxyCodeLine{55     \textcolor{comment}{// Templates:}}
+\DoxyCodeLine{56     \textcolor{comment}{//   Index  type for index variables}}
+\DoxyCodeLine{57     \textcolor{comment}{//   Scalar  type for floating point variables (gets cast to double?)}}
+\DoxyCodeLine{58     \textcolor{comment}{// Input:}}
+\DoxyCodeLine{59     \textcolor{comment}{//   n  number of variables, i.e. size of x}}
+\DoxyCodeLine{60     \textcolor{comment}{//   Qi  vector of qnnz row indices of non-\/zeros in LOWER TRIANGLE ONLY of}}
+\DoxyCodeLine{61     \textcolor{comment}{//       Q⁰}}
+\DoxyCodeLine{62     \textcolor{comment}{//   Qj  vector of qnnz column indices of non-\/zeros in LOWER TRIANGLE ONLY}}
+\DoxyCodeLine{63     \textcolor{comment}{//       of Q⁰}}
+\DoxyCodeLine{64     \textcolor{comment}{//   Qv  vector of qnnz values of non-\/zeros in LOWER TRIANGLE ONLY of Q⁰, }}
+\DoxyCodeLine{65     \textcolor{comment}{//       such that:}}
+\DoxyCodeLine{66     \textcolor{comment}{//}}
+\DoxyCodeLine{67     \textcolor{comment}{//           Q⁰(Qi[k],Qj[k]) = Qv[k] for k ∈ [0,Qnnz-\/1], where Qnnz is the}}
+\DoxyCodeLine{68     \textcolor{comment}{// }}
+\DoxyCodeLine{69     \textcolor{comment}{//       number of non-\/zeros in Q⁰}}
+\DoxyCodeLine{70     \textcolor{comment}{//   c   (optional) vector of n values of c, transpose of coefficient row}}
+\DoxyCodeLine{71     \textcolor{comment}{//       vector of linear terms, EMPTY means c == 0}}
+\DoxyCodeLine{72     \textcolor{comment}{//   cf  (ignored) value of constant term in objective, 0 means cf == 0, so}}
+\DoxyCodeLine{73     \textcolor{comment}{//       optional only in the sense that it is mandatory}}
+\DoxyCodeLine{74     \textcolor{comment}{//   m  number of constraints, therefore also number of rows in linear}}
+\DoxyCodeLine{75     \textcolor{comment}{//      constraint coefficient matrix A, and in linear constraint bound}}
+\DoxyCodeLine{76     \textcolor{comment}{//      vectors lc and uc}}
+\DoxyCodeLine{77     \textcolor{comment}{//   Av  vector of non-\/zero values of A, in column compressed order}}
+\DoxyCodeLine{78     \textcolor{comment}{//   Ari  vector of row indices corresponding to non-\/zero values of A,}}
+\DoxyCodeLine{79     \textcolor{comment}{//   Acp  vector of indices into Ari and Av of the first entry for each}}
+\DoxyCodeLine{80     \textcolor{comment}{//        column of A, size(Acp) = (\# columns of A) + 1 = n + 1}}
+\DoxyCodeLine{81     \textcolor{comment}{//   lc  vector of m linear constraint lower bounds}}
+\DoxyCodeLine{82     \textcolor{comment}{//   uc  vector of m linear constraint upper bounds}}
+\DoxyCodeLine{83     \textcolor{comment}{//   lx  vector of n constant lower bounds}}
+\DoxyCodeLine{84     \textcolor{comment}{//   ux  vector of n constant upper bounds}}
+\DoxyCodeLine{85     \textcolor{comment}{// Output:}}
+\DoxyCodeLine{86     \textcolor{comment}{//   x  vector of size n to hold output of optimization}}
+\DoxyCodeLine{87     \textcolor{comment}{// Return:}}
+\DoxyCodeLine{88     \textcolor{comment}{//   true only if optimization was successful with no errors}}
+\DoxyCodeLine{89     \textcolor{comment}{// }}
+\DoxyCodeLine{90     \textcolor{comment}{// Note: All indices are 0-\/based}}
+\DoxyCodeLine{91     \textcolor{comment}{//}}
+\DoxyCodeLine{92     \textcolor{keyword}{template} <\textcolor{keyword}{typename} Index, \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{93     IGL\_INLINE \textcolor{keywordtype}{bool} mosek\_quadprog(}
+\DoxyCodeLine{94       \textcolor{keyword}{const} Index n,}
+\DoxyCodeLine{95       \textcolor{comment}{/* mosek won't allow this to be const*/} std::vector<Index> \& Qi,}
+\DoxyCodeLine{96       \textcolor{comment}{/* mosek won't allow this to be const*/} std::vector<Index> \& Qj,}
+\DoxyCodeLine{97       \textcolor{comment}{/* mosek won't allow this to be const*/} std::vector<Scalar> \& Qv,}
+\DoxyCodeLine{98       \textcolor{keyword}{const} std::vector<Scalar> \& c,}
+\DoxyCodeLine{99       \textcolor{keyword}{const} Scalar cf,}
+\DoxyCodeLine{100       \textcolor{keyword}{const} Index m,}
+\DoxyCodeLine{101       \textcolor{comment}{/* mosek won't allow this to be const*/} std::vector<Scalar> \& Av,}
+\DoxyCodeLine{102       \textcolor{comment}{/* mosek won't allow this to be const*/} std::vector<Index> \& Ari,}
+\DoxyCodeLine{103       \textcolor{keyword}{const} std::vector<Index> \& Acp,}
+\DoxyCodeLine{104       \textcolor{keyword}{const} std::vector<Scalar> \& lc,}
+\DoxyCodeLine{105       \textcolor{keyword}{const} std::vector<Scalar> \& uc,}
+\DoxyCodeLine{106       \textcolor{keyword}{const} std::vector<Scalar> \& lx,}
+\DoxyCodeLine{107       \textcolor{keyword}{const} std::vector<Scalar> \& ux,}
+\DoxyCodeLine{108       \mbox{\hyperlink{structigl_1_1mosek_1_1_mosek_data}{MosekData}} \& mosek\_data,}
+\DoxyCodeLine{109       std::vector<Scalar> \& x);}
+\DoxyCodeLine{110     \textcolor{comment}{// Wrapper with Eigen elements}}
+\DoxyCodeLine{111     \textcolor{comment}{//}}
+\DoxyCodeLine{112     \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{113     \textcolor{comment}{//   Q  n by n square quadratic coefficients matrix **only lower triangle}}
+\DoxyCodeLine{114     \textcolor{comment}{//      is used**.}}
+\DoxyCodeLine{115     \textcolor{comment}{//   c  n-\/long vector of linear coefficients}}
+\DoxyCodeLine{116     \textcolor{comment}{//   cf  constant coefficient}}
+\DoxyCodeLine{117     \textcolor{comment}{//   A  m by n square linear coefficienst matrix of inequality constraints}}
+\DoxyCodeLine{118     \textcolor{comment}{//   lc  m-\/long vector of lower bounds for linear inequality constraints}}
+\DoxyCodeLine{119     \textcolor{comment}{//   uc  m-\/long vector of upper bounds for linear inequality constraints}}
+\DoxyCodeLine{120     \textcolor{comment}{//   lx  n-\/long vector of lower bounds}}
+\DoxyCodeLine{121     \textcolor{comment}{//   ux  n-\/long vector of upper bounds}}
+\DoxyCodeLine{122     \textcolor{comment}{//   mosek\_data  parameters struct}}
+\DoxyCodeLine{123     \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{124     \textcolor{comment}{//   x  n-\/long solution vector}}
+\DoxyCodeLine{125     \textcolor{comment}{// Returns true only if optimization finishes without error}}
+\DoxyCodeLine{126     \textcolor{comment}{//}}
+\DoxyCodeLine{127     IGL\_INLINE \textcolor{keywordtype}{bool} mosek\_quadprog(}
+\DoxyCodeLine{128       \textcolor{keyword}{const} Eigen::SparseMatrix<double> \& Q,}
+\DoxyCodeLine{129       \textcolor{keyword}{const} Eigen::VectorXd \& c,}
+\DoxyCodeLine{130       \textcolor{keyword}{const} \textcolor{keywordtype}{double} cf,}
+\DoxyCodeLine{131       \textcolor{keyword}{const} Eigen::SparseMatrix<double> \& A,}
+\DoxyCodeLine{132       \textcolor{keyword}{const} Eigen::VectorXd \& lc,}
+\DoxyCodeLine{133       \textcolor{keyword}{const} Eigen::VectorXd \& uc,}
+\DoxyCodeLine{134       \textcolor{keyword}{const} Eigen::VectorXd \& lx,}
+\DoxyCodeLine{135       \textcolor{keyword}{const} Eigen::VectorXd \& ux,}
+\DoxyCodeLine{136       \mbox{\hyperlink{structigl_1_1mosek_1_1_mosek_data}{MosekData}} \& mosek\_data,}
+\DoxyCodeLine{137       Eigen::VectorXd \& x);}
+\DoxyCodeLine{138   \}}
+\DoxyCodeLine{139 \}}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#  include "{}mosek\_quadprog.cpp"{}}}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{144 }
+\DoxyCodeLine{145 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

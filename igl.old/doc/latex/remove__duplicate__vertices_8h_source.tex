@@ -1,0 +1,71 @@
+\hypertarget{remove__duplicate__vertices_8h_source}{}\doxysection{remove\+\_\+duplicate\+\_\+vertices.\+h}
+\label{remove__duplicate__vertices_8h_source}\index{igl/remove\_duplicate\_vertices.h@{igl/remove\_duplicate\_vertices.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_REMOVE\_DUPLICATE\_VERTICES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_REMOVE\_DUPLICATE\_VERTICES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Dense>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// REMOVE\_DUPLICATE\_VERTICES Remove duplicate vertices upto a uniqueness}}
+\DoxyCodeLine{15   \textcolor{comment}{// tolerance (epsilon)}}
+\DoxyCodeLine{16   \textcolor{comment}{//}}
+\DoxyCodeLine{17   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{18   \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{19   \textcolor{comment}{//   epsilon  uniqueness tolerance used coordinate-\/wise: 1e0 -\/-\/> integer}}
+\DoxyCodeLine{20   \textcolor{comment}{//     match, 1e-\/1 -\/-\/> match up to first decimal, ... , 0 -\/-\/> exact match.}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   SV  \#SV by dim new list of vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   SVI \#SV by 1 list of indices so SV = V(SVI,:) }}
+\DoxyCodeLine{24   \textcolor{comment}{//   SVJ \#V by 1 list of indices so V = SV(SVJ,:)}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{27   \textcolor{comment}{//   \% Mesh in (V,F)}}
+\DoxyCodeLine{28   \textcolor{comment}{//   [SV,SVI,SVJ] = remove\_duplicate\_vertices(V,1e-\/7);}}
+\DoxyCodeLine{29   \textcolor{comment}{//   \% remap faces}}
+\DoxyCodeLine{30   \textcolor{comment}{//   SF = SVJ(F);}}
+\DoxyCodeLine{31   \textcolor{comment}{//}}
+\DoxyCodeLine{32   \textcolor{keyword}{template} <}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{34     \textcolor{keyword}{typename} DerivedSV, }
+\DoxyCodeLine{35     \textcolor{keyword}{typename} DerivedSVI, }
+\DoxyCodeLine{36     \textcolor{keyword}{typename} DerivedSVJ>}
+\DoxyCodeLine{37   IGL\_INLINE \textcolor{keywordtype}{void} remove\_duplicate\_vertices(}
+\DoxyCodeLine{38     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{39     \textcolor{keyword}{const} \textcolor{keywordtype}{double} epsilon,}
+\DoxyCodeLine{40     Eigen::PlainObjectBase<DerivedSV>\& SV,}
+\DoxyCodeLine{41     Eigen::PlainObjectBase<DerivedSVI>\& SVI,}
+\DoxyCodeLine{42     Eigen::PlainObjectBase<DerivedSVJ>\& SVJ);}
+\DoxyCodeLine{43   \textcolor{comment}{// Wrapper that also remaps given faces (F) -\/-\/> (SF) so that SF index SV}}
+\DoxyCodeLine{44   \textcolor{keyword}{template} <}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedF,}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedSV, }
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedSVI, }
+\DoxyCodeLine{49     \textcolor{keyword}{typename} DerivedSVJ,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} DerivedSF>}
+\DoxyCodeLine{51   IGL\_INLINE \textcolor{keywordtype}{void} remove\_duplicate\_vertices(}
+\DoxyCodeLine{52     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV>\& V,}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF>\& F,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} \textcolor{keywordtype}{double} epsilon,}
+\DoxyCodeLine{55     Eigen::PlainObjectBase<DerivedSV>\& SV,}
+\DoxyCodeLine{56     Eigen::PlainObjectBase<DerivedSVI>\& SVI,}
+\DoxyCodeLine{57     Eigen::PlainObjectBase<DerivedSVJ>\& SVJ,}
+\DoxyCodeLine{58     Eigen::PlainObjectBase<DerivedSF>\& SF);}
+\DoxyCodeLine{59 \}}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#  include "{}remove\_duplicate\_vertices.cpp"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,56 @@
+\hypertarget{quad__grid_8h_source}{}\doxysection{quad\+\_\+grid.\+h}
+\label{quad__grid_8h_source}\index{igl/quad\_grid.h@{igl/quad\_grid.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2019 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_QUAD\_GRID\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_QUAD\_GRID\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <igl/igl\_inline.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{comment}{// Generate a quad mesh over a regular grid.}}
+\DoxyCodeLine{17   \textcolor{comment}{//}}
+\DoxyCodeLine{18   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{19   \textcolor{comment}{//   nx  number of vertices in the x direction}}
+\DoxyCodeLine{20   \textcolor{comment}{//   ny  number of vertices in the y direction}}
+\DoxyCodeLine{21   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{22   \textcolor{comment}{//   V  nx*ny by 2 list of vertex positions}}
+\DoxyCodeLine{23   \textcolor{comment}{//   Q  (nx-\/1)*(ny-\/1) by 4 list of quad indices into V}}
+\DoxyCodeLine{24   \textcolor{comment}{//   E  (nx-\/1)*ny+(ny-\/1)*nx by 2 list of undirected quad edge indices into V}}
+\DoxyCodeLine{25   \textcolor{comment}{//}}
+\DoxyCodeLine{26   \textcolor{comment}{//   See also: grid, triangulated\_grid}}
+\DoxyCodeLine{27   \textcolor{keyword}{template}<}
+\DoxyCodeLine{28     \textcolor{keyword}{typename} DerivedV,}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedQ,}
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{31   IGL\_INLINE \textcolor{keywordtype}{void} quad\_grid(}
+\DoxyCodeLine{32     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nx,}
+\DoxyCodeLine{33     \textcolor{keyword}{const} \textcolor{keywordtype}{int} ny,}
+\DoxyCodeLine{34     Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{35     Eigen::PlainObjectBase<DerivedQ> \& Q,}
+\DoxyCodeLine{36     Eigen::PlainObjectBase<DerivedE> \& E);}
+\DoxyCodeLine{37   \textcolor{keyword}{template}<}
+\DoxyCodeLine{38     \textcolor{keyword}{typename} DerivedQ,}
+\DoxyCodeLine{39     \textcolor{keyword}{typename} DerivedE>}
+\DoxyCodeLine{40   IGL\_INLINE \textcolor{keywordtype}{void} quad\_grid(}
+\DoxyCodeLine{41     \textcolor{keyword}{const} \textcolor{keywordtype}{int} nx,}
+\DoxyCodeLine{42     \textcolor{keyword}{const} \textcolor{keywordtype}{int} ny,}
+\DoxyCodeLine{43     Eigen::PlainObjectBase<DerivedQ> \& Q,}
+\DoxyCodeLine{44     Eigen::PlainObjectBase<DerivedE> \& E);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}quad\_grid.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

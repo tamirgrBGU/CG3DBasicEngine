@@ -1,0 +1,419 @@
+\hypertarget{_a_a_b_b_8h_source}{}\doxysection{AABB.\+h}
+\label{_a_a_b_b_8h_source}\index{igl/AABB.h@{igl/AABB.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2015 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_AABB\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_AABB\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}Hit.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <Eigen/Geometry>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{16 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// Implementation of semi-\/general purpose axis-\/aligned bounding box hierarchy.}}
+\DoxyCodeLine{19   \textcolor{comment}{// The mesh (V,Ele) is stored and managed by the caller and each routine here}}
+\DoxyCodeLine{20   \textcolor{comment}{// simply takes it as references (it better not change between calls).}}
+\DoxyCodeLine{21   \textcolor{comment}{//}}
+\DoxyCodeLine{22   \textcolor{comment}{// It's a little annoying that the Dimension is a template parameter and not}}
+\DoxyCodeLine{23   \textcolor{comment}{// picked up at run time from V. This leads to duplicated code for 2d/3d (up to}}
+\DoxyCodeLine{24   \textcolor{comment}{// dim).}}
+\DoxyCodeLine{25   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keywordtype}{int} DIM>}
+\DoxyCodeLine{26     \textcolor{keyword}{class }\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} }
+\DoxyCodeLine{27     \{}
+\DoxyCodeLine{28 \textcolor{keyword}{public}:}
+\DoxyCodeLine{29       \textcolor{keyword}{typedef} \textcolor{keyword}{typename} DerivedV::Scalar Scalar;}
+\DoxyCodeLine{30       \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,1,DIM> RowVectorDIMS;}
+\DoxyCodeLine{31       \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,DIM,1> VectorDIMS;}
+\DoxyCodeLine{32       \textcolor{keyword}{typedef} Eigen::Matrix<Scalar,Eigen::Dynamic,DIM> MatrixXDIMS;}
+\DoxyCodeLine{33       \textcolor{comment}{// Shared pointers are slower...}}
+\DoxyCodeLine{34       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} * m\_left;}
+\DoxyCodeLine{35       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} * m\_right;}
+\DoxyCodeLine{36       Eigen::AlignedBox<Scalar,DIM> m\_box;}
+\DoxyCodeLine{37       \textcolor{comment}{// -\/1 non-\/leaf}}
+\DoxyCodeLine{38       \textcolor{keywordtype}{int} m\_primitive;}
+\DoxyCodeLine{39       \textcolor{comment}{//Scalar m\_low\_sqr\_d;}}
+\DoxyCodeLine{40       \textcolor{comment}{//int m\_depth;}}
+\DoxyCodeLine{41       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}():}
+\DoxyCodeLine{42         m\_left(NULL), m\_right(NULL),}
+\DoxyCodeLine{43         m\_box(), m\_primitive(-\/1)}
+\DoxyCodeLine{44         \textcolor{comment}{//m\_low\_sqr\_d(std::numeric\_limits<double>::infinity()),}}
+\DoxyCodeLine{45         \textcolor{comment}{//m\_depth(0)}}
+\DoxyCodeLine{46     \{\}}
+\DoxyCodeLine{47       \textcolor{comment}{// http://stackoverflow.com/a/3279550/148668}}
+\DoxyCodeLine{48       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}(\textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}\& other):}
+\DoxyCodeLine{49         m\_left(other.m\_left ? \textcolor{keyword}{new} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}(*other.m\_left) : NULL),}
+\DoxyCodeLine{50         m\_right(other.m\_right ? \textcolor{keyword}{new} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}(*other.m\_right) : NULL),}
+\DoxyCodeLine{51         m\_box(other.m\_box),}
+\DoxyCodeLine{52         m\_primitive(other.m\_primitive)}
+\DoxyCodeLine{53         \textcolor{comment}{//m\_low\_sqr\_d(other.m\_low\_sqr\_d),}}
+\DoxyCodeLine{54         \textcolor{comment}{//m\_depth(std::max(}}
+\DoxyCodeLine{55         \textcolor{comment}{//   m\_left ? m\_left-\/>m\_depth + 1 : 0,}}
+\DoxyCodeLine{56         \textcolor{comment}{//   m\_right ? m\_right-\/>m\_depth + 1 : 0))}}
+\DoxyCodeLine{57         \{}
+\DoxyCodeLine{58         \}}
+\DoxyCodeLine{59       \textcolor{comment}{// copy-\/swap idiom}}
+\DoxyCodeLine{60       \textcolor{keyword}{friend} \textcolor{keywordtype}{void} swap(\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}\& first, \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}\& second)}
+\DoxyCodeLine{61       \{}
+\DoxyCodeLine{62         \textcolor{comment}{// Enable ADL}}
+\DoxyCodeLine{63         \textcolor{keyword}{using }std::swap;}
+\DoxyCodeLine{64         swap(first.m\_left,second.m\_left);}
+\DoxyCodeLine{65         swap(first.m\_right,second.m\_right);}
+\DoxyCodeLine{66         swap(first.m\_box,second.m\_box);}
+\DoxyCodeLine{67         swap(first.m\_primitive,second.m\_primitive);}
+\DoxyCodeLine{68         \textcolor{comment}{//swap(first.m\_low\_sqr\_d,second.m\_low\_sqr\_d);}}
+\DoxyCodeLine{69         \textcolor{comment}{//swap(first.m\_depth,second.m\_depth);}}
+\DoxyCodeLine{70       \}}
+\DoxyCodeLine{71       \textcolor{comment}{// Pass-\/by-\/value (aka copy)}}
+\DoxyCodeLine{72       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}\& operator=(\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}} other)}
+\DoxyCodeLine{73       \{}
+\DoxyCodeLine{74         swap(*\textcolor{keyword}{this},other);}
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{76       \}}
+\DoxyCodeLine{77       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}(\mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}\&\& other):}
+\DoxyCodeLine{78         \textcolor{comment}{// initialize via default constructor}}
+\DoxyCodeLine{79         \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB}}() }
+\DoxyCodeLine{80       \{}
+\DoxyCodeLine{81         swap(*\textcolor{keyword}{this},other);}
+\DoxyCodeLine{82       \}}
+\DoxyCodeLine{83       \textcolor{comment}{// Seems like there should have been an elegant solution to this using}}
+\DoxyCodeLine{84       \textcolor{comment}{// the copy-\/swap idiom above:}}
+\DoxyCodeLine{85       IGL\_INLINE \textcolor{keywordtype}{void} deinit()}
+\DoxyCodeLine{86       \{}
+\DoxyCodeLine{87         m\_primitive = -\/1;}
+\DoxyCodeLine{88         m\_box = Eigen::AlignedBox<Scalar,DIM>();}
+\DoxyCodeLine{89         \textcolor{keyword}{delete} m\_left;}
+\DoxyCodeLine{90         m\_left = NULL;}
+\DoxyCodeLine{91         \textcolor{keyword}{delete} m\_right;}
+\DoxyCodeLine{92         m\_right = NULL;}
+\DoxyCodeLine{93       \}}
+\DoxyCodeLine{94       \mbox{\hyperlink{classigl_1_1_a_a_b_b}{\string~AABB}}()}
+\DoxyCodeLine{95       \{}
+\DoxyCodeLine{96         deinit();}
+\DoxyCodeLine{97       \}}
+\DoxyCodeLine{98       \textcolor{comment}{// Build an Axis-\/Aligned Bounding Box tree for a given mesh and given}}
+\DoxyCodeLine{99       \textcolor{comment}{// serialization of a previous AABB tree.}}
+\DoxyCodeLine{100       \textcolor{comment}{//}}
+\DoxyCodeLine{101       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{102       \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions. }}
+\DoxyCodeLine{103       \textcolor{comment}{//   Ele  \#Ele by dim+1 list of mesh indices into \#V. }}
+\DoxyCodeLine{104       \textcolor{comment}{//   bb\_mins  max\_tree by dim list of bounding box min corner positions}}
+\DoxyCodeLine{105       \textcolor{comment}{//   bb\_maxs  max\_tree by dim list of bounding box max corner positions}}
+\DoxyCodeLine{106       \textcolor{comment}{//   elements  max\_tree list of element or (not leaf id) indices into Ele}}
+\DoxyCodeLine{107       \textcolor{comment}{//   i  recursive call index \{0\}}}
+\DoxyCodeLine{108       \textcolor{keyword}{template} <}
+\DoxyCodeLine{109         \textcolor{keyword}{typename} DerivedEle, }
+\DoxyCodeLine{110         \textcolor{keyword}{typename} Derivedbb\_mins, }
+\DoxyCodeLine{111         \textcolor{keyword}{typename} Derivedbb\_maxs,}
+\DoxyCodeLine{112         \textcolor{keyword}{typename} Derivedelements>}
+\DoxyCodeLine{113         IGL\_INLINE \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{114             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{115             \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{116             \textcolor{keyword}{const} Eigen::MatrixBase<Derivedbb\_mins> \& bb\_mins,}
+\DoxyCodeLine{117             \textcolor{keyword}{const} Eigen::MatrixBase<Derivedbb\_maxs> \& bb\_maxs,}
+\DoxyCodeLine{118             \textcolor{keyword}{const} Eigen::MatrixBase<Derivedelements> \& elements,}
+\DoxyCodeLine{119             \textcolor{keyword}{const} \textcolor{keywordtype}{int} i = 0);}
+\DoxyCodeLine{120       \textcolor{comment}{// Wrapper for root with empty serialization}}
+\DoxyCodeLine{121       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{122       IGL\_INLINE \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{123           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{124           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele);}
+\DoxyCodeLine{125       \textcolor{comment}{// Build an Axis-\/Aligned Bounding Box tree for a given mesh.}}
+\DoxyCodeLine{126       \textcolor{comment}{//}}
+\DoxyCodeLine{127       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{128       \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions. }}
+\DoxyCodeLine{129       \textcolor{comment}{//   Ele  \#Ele by dim+1 list of mesh indices into \#V. }}
+\DoxyCodeLine{130       \textcolor{comment}{//   SI  \#Ele by dim list revealing for each coordinate where Ele's}}
+\DoxyCodeLine{131       \textcolor{comment}{//     barycenters would be sorted: SI(e,d) = i -\/-\/> the dth coordinate of}}
+\DoxyCodeLine{132       \textcolor{comment}{//     the barycenter of the eth element would be placed at position i in a}}
+\DoxyCodeLine{133       \textcolor{comment}{//     sorted list.}}
+\DoxyCodeLine{134       \textcolor{comment}{//   I  \#I list of indices into Ele of elements to include (for recursive}}
+\DoxyCodeLine{135       \textcolor{comment}{//     calls)}}
+\DoxyCodeLine{136       \textcolor{comment}{// }}
+\DoxyCodeLine{137       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle, \textcolor{keyword}{typename} DerivedSI, \textcolor{keyword}{typename} DerivedI>}
+\DoxyCodeLine{138       IGL\_INLINE \textcolor{keywordtype}{void} init(}
+\DoxyCodeLine{139           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{140           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{141           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedSI> \& SI,}
+\DoxyCodeLine{142           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedI>\& I);}
+\DoxyCodeLine{143       \textcolor{comment}{// Return whether at leaf node}}
+\DoxyCodeLine{144       IGL\_INLINE \textcolor{keywordtype}{bool} is\_leaf() \textcolor{keyword}{const};}
+\DoxyCodeLine{145       \textcolor{comment}{// Find the indices of elements containing given point: this makes sense}}
+\DoxyCodeLine{146       \textcolor{comment}{// when Ele is a co-\/dimension 0 simplex (tets in 3D, triangles in 2D).}}
+\DoxyCodeLine{147       \textcolor{comment}{//}}
+\DoxyCodeLine{148       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{149       \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions. **Should be same as used to}}
+\DoxyCodeLine{150       \textcolor{comment}{//     construct mesh.**}}
+\DoxyCodeLine{151       \textcolor{comment}{//   Ele  \#Ele by dim+1 list of mesh indices into \#V. **Should be same as used to}}
+\DoxyCodeLine{152       \textcolor{comment}{//     construct mesh.**}}
+\DoxyCodeLine{153       \textcolor{comment}{//   q  dim row-\/vector query position}}
+\DoxyCodeLine{154       \textcolor{comment}{//   first  whether to only return first element containing q}}
+\DoxyCodeLine{155       \textcolor{comment}{// Returns:}}
+\DoxyCodeLine{156       \textcolor{comment}{//   list of indices of elements containing q}}
+\DoxyCodeLine{157       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle, \textcolor{keyword}{typename} Derivedq>}
+\DoxyCodeLine{158       IGL\_INLINE std::vector<int> find(}
+\DoxyCodeLine{159           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{160           \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{161           \textcolor{keyword}{const} Eigen::MatrixBase<Derivedq> \& q,}
+\DoxyCodeLine{162           \textcolor{keyword}{const} \textcolor{keywordtype}{bool} first=\textcolor{keyword}{false}) \textcolor{keyword}{const};}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164       \textcolor{comment}{// If number of elements m then total tree size should be 2*h where h is}}
+\DoxyCodeLine{165       \textcolor{comment}{// the deepest depth 2\string^ceil(log(\#Ele*2-\/1))}}
+\DoxyCodeLine{166       IGL\_INLINE \textcolor{keywordtype}{int} subtree\_size() \textcolor{keyword}{const};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168       \textcolor{comment}{// Serialize this class into 3 arrays (so we can pass it pack to matlab)}}
+\DoxyCodeLine{169       \textcolor{comment}{//}}
+\DoxyCodeLine{170       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{171       \textcolor{comment}{//   bb\_mins  max\_tree by dim list of bounding box min corner positions}}
+\DoxyCodeLine{172       \textcolor{comment}{//   bb\_maxs  max\_tree by dim list of bounding box max corner positions}}
+\DoxyCodeLine{173       \textcolor{comment}{//   elements  max\_tree list of element or (not leaf id) indices into Ele}}
+\DoxyCodeLine{174       \textcolor{comment}{//   i  recursive call index into these arrays \{0\}}}
+\DoxyCodeLine{175       \textcolor{keyword}{template} <}
+\DoxyCodeLine{176         \textcolor{keyword}{typename} Derivedbb\_mins, }
+\DoxyCodeLine{177         \textcolor{keyword}{typename} Derivedbb\_maxs,}
+\DoxyCodeLine{178         \textcolor{keyword}{typename} Derivedelements>}
+\DoxyCodeLine{179         IGL\_INLINE \textcolor{keywordtype}{void} serialize(}
+\DoxyCodeLine{180             Eigen::PlainObjectBase<Derivedbb\_mins> \& bb\_mins,}
+\DoxyCodeLine{181             Eigen::PlainObjectBase<Derivedbb\_maxs> \& bb\_maxs,}
+\DoxyCodeLine{182             Eigen::PlainObjectBase<Derivedelements> \& elements,}
+\DoxyCodeLine{183             \textcolor{keyword}{const} \textcolor{keywordtype}{int} i = 0) \textcolor{keyword}{const};}
+\DoxyCodeLine{184       \textcolor{comment}{// Compute squared distance to a query point}}
+\DoxyCodeLine{185       \textcolor{comment}{//}}
+\DoxyCodeLine{186       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{187       \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{188       \textcolor{comment}{//   Ele  \#Ele by dim list of simplex indices}}
+\DoxyCodeLine{189       \textcolor{comment}{//   p  dim-\/long query point }}
+\DoxyCodeLine{190       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{191       \textcolor{comment}{//   i  facet index corresponding to smallest distances}}
+\DoxyCodeLine{192       \textcolor{comment}{//   c  closest point}}
+\DoxyCodeLine{193       \textcolor{comment}{// Returns squared distance}}
+\DoxyCodeLine{194       \textcolor{comment}{//}}
+\DoxyCodeLine{195       \textcolor{comment}{// Known bugs: currently assumes Elements are triangles regardless of}}
+\DoxyCodeLine{196       \textcolor{comment}{// dimension.}}
+\DoxyCodeLine{197       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{198       IGL\_INLINE Scalar squared\_distance(}
+\DoxyCodeLine{199         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{200         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{201         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{202         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{203         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{204 \textcolor{comment}{//private:}}
+\DoxyCodeLine{205       \textcolor{comment}{// Compute squared distance to a query point}}
+\DoxyCodeLine{206       \textcolor{comment}{//}}
+\DoxyCodeLine{207       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{208       \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{209       \textcolor{comment}{//   Ele  \#Ele by dim list of simplex indices}}
+\DoxyCodeLine{210       \textcolor{comment}{//   p  dim-\/long query point }}
+\DoxyCodeLine{211       \textcolor{comment}{//   low\_sqr\_d  lower bound on squared distance, specified maximum squared}}
+\DoxyCodeLine{212       \textcolor{comment}{//     distance }}
+\DoxyCodeLine{213       \textcolor{comment}{//   up\_sqr\_d  current upper bounded on squared distance, current minimum}}
+\DoxyCodeLine{214       \textcolor{comment}{//     squared distance (only consider distances less than this), see}}
+\DoxyCodeLine{215       \textcolor{comment}{//     output.}}
+\DoxyCodeLine{216       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{217       \textcolor{comment}{//   up\_sqr\_d  updated current minimum squared distance}}
+\DoxyCodeLine{218       \textcolor{comment}{//   i  facet index corresponding to smallest distances}}
+\DoxyCodeLine{219       \textcolor{comment}{//   c  closest point}}
+\DoxyCodeLine{220       \textcolor{comment}{// Returns squared distance}}
+\DoxyCodeLine{221       \textcolor{comment}{//}}
+\DoxyCodeLine{222       \textcolor{comment}{// Known bugs: currently assumes Elements are triangles regardless of}}
+\DoxyCodeLine{223       \textcolor{comment}{// dimension.}}
+\DoxyCodeLine{224       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{225       IGL\_INLINE Scalar squared\_distance(}
+\DoxyCodeLine{226         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{227         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{228         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{229         \textcolor{keyword}{const} Scalar low\_sqr\_d,}
+\DoxyCodeLine{230         \textcolor{keyword}{const} Scalar up\_sqr\_d,}
+\DoxyCodeLine{231         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{232         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{233       \textcolor{comment}{// Default low\_sqr\_d}}
+\DoxyCodeLine{234       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{235       IGL\_INLINE Scalar squared\_distance(}
+\DoxyCodeLine{236         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{237         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{238         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{239         \textcolor{keyword}{const} Scalar up\_sqr\_d,}
+\DoxyCodeLine{240         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{241         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{242       \textcolor{comment}{// All hits}}
+\DoxyCodeLine{243       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{244       IGL\_INLINE \textcolor{keywordtype}{bool} intersect\_ray(}
+\DoxyCodeLine{245         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{246         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{247         \textcolor{keyword}{const} RowVectorDIMS \& origin,}
+\DoxyCodeLine{248         \textcolor{keyword}{const} RowVectorDIMS \& dir,}
+\DoxyCodeLine{249         std::vector<igl::Hit> \& hits) \textcolor{keyword}{const};}
+\DoxyCodeLine{250       \textcolor{comment}{// First hit}}
+\DoxyCodeLine{251       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{252       IGL\_INLINE \textcolor{keywordtype}{bool} intersect\_ray(}
+\DoxyCodeLine{253         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{254         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{255         \textcolor{keyword}{const} RowVectorDIMS \& origin,}
+\DoxyCodeLine{256         \textcolor{keyword}{const} RowVectorDIMS \& dir,}
+\DoxyCodeLine{257         \mbox{\hyperlink{structigl_1_1_hit}{igl::Hit}} \& hit) \textcolor{keyword}{const};}
+\DoxyCodeLine{258 \textcolor{comment}{//private:}}
+\DoxyCodeLine{259       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{260       IGL\_INLINE \textcolor{keywordtype}{bool} intersect\_ray(}
+\DoxyCodeLine{261         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{262         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{263         \textcolor{keyword}{const} RowVectorDIMS \& origin,}
+\DoxyCodeLine{264         \textcolor{keyword}{const} RowVectorDIMS \& dir,}
+\DoxyCodeLine{265         \textcolor{keyword}{const} Scalar min\_t,}
+\DoxyCodeLine{266         \mbox{\hyperlink{structigl_1_1_hit}{igl::Hit}} \& hit) \textcolor{keyword}{const};}
+\DoxyCodeLine{267 }
+\DoxyCodeLine{268 }
+\DoxyCodeLine{269 \textcolor{keyword}{public}:}
+\DoxyCodeLine{270       \textcolor{comment}{// Compute the squared distance from all query points in P to the}}
+\DoxyCodeLine{271       \textcolor{comment}{// \_closest\_ points on the primitives stored in the AABB hierarchy for}}
+\DoxyCodeLine{272       \textcolor{comment}{// the mesh (V,Ele).}}
+\DoxyCodeLine{273       \textcolor{comment}{//}}
+\DoxyCodeLine{274       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{275       \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{276       \textcolor{comment}{//   Ele  \#Ele by dim list of simplex indices}}
+\DoxyCodeLine{277       \textcolor{comment}{//   P  \#P by dim list of query points}}
+\DoxyCodeLine{278       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{279       \textcolor{comment}{//   sqrD  \#P list of squared distances}}
+\DoxyCodeLine{280       \textcolor{comment}{//   I  \#P list of indices into Ele of closest primitives}}
+\DoxyCodeLine{281       \textcolor{comment}{//   C  \#P by dim list of closest points}}
+\DoxyCodeLine{282       \textcolor{keyword}{template} <}
+\DoxyCodeLine{283         \textcolor{keyword}{typename} DerivedEle,}
+\DoxyCodeLine{284         \textcolor{keyword}{typename} DerivedP, }
+\DoxyCodeLine{285         \textcolor{keyword}{typename} DerivedsqrD, }
+\DoxyCodeLine{286         \textcolor{keyword}{typename} DerivedI, }
+\DoxyCodeLine{287         \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{288       IGL\_INLINE \textcolor{keywordtype}{void} squared\_distance(}
+\DoxyCodeLine{289         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{290         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{291         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedP> \& P,}
+\DoxyCodeLine{292         Eigen::PlainObjectBase<DerivedsqrD> \& sqrD,}
+\DoxyCodeLine{293         Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{294         Eigen::PlainObjectBase<DerivedC> \& C) \textcolor{keyword}{const};}
+\DoxyCodeLine{295 }
+\DoxyCodeLine{296       \textcolor{comment}{// Compute the squared distance from all query points in P already stored}}
+\DoxyCodeLine{297       \textcolor{comment}{// in its own AABB hierarchy to the \_closest\_ points on the primitives}}
+\DoxyCodeLine{298       \textcolor{comment}{// stored in the AABB hierarchy for the mesh (V,Ele).}}
+\DoxyCodeLine{299       \textcolor{comment}{//}}
+\DoxyCodeLine{300       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{301       \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{302       \textcolor{comment}{//   Ele  \#Ele by dim list of simplex indices}}
+\DoxyCodeLine{303       \textcolor{comment}{//   other  AABB hierarchy of another set of primitives (must be points)}}
+\DoxyCodeLine{304       \textcolor{comment}{//   other\_V  \#other\_V by dim list of query points}}
+\DoxyCodeLine{305       \textcolor{comment}{//   other\_Ele  \#other\_Ele by ss list of simplex indices into other\_V}}
+\DoxyCodeLine{306       \textcolor{comment}{//     (must be simple list of points: ss == 1)}}
+\DoxyCodeLine{307       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{308       \textcolor{comment}{//   sqrD  \#P list of squared distances}}
+\DoxyCodeLine{309       \textcolor{comment}{//   I  \#P list of indices into Ele of closest primitives}}
+\DoxyCodeLine{310       \textcolor{comment}{//   C  \#P by dim list of closest points}}
+\DoxyCodeLine{311       \textcolor{keyword}{template} < }
+\DoxyCodeLine{312         \textcolor{keyword}{typename} DerivedEle,}
+\DoxyCodeLine{313         \textcolor{keyword}{typename} Derivedother\_V,}
+\DoxyCodeLine{314         \textcolor{keyword}{typename} Derivedother\_Ele,}
+\DoxyCodeLine{315         \textcolor{keyword}{typename} DerivedsqrD, }
+\DoxyCodeLine{316         \textcolor{keyword}{typename} DerivedI, }
+\DoxyCodeLine{317         \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{318       IGL\_INLINE \textcolor{keywordtype}{void} squared\_distance(}
+\DoxyCodeLine{319         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{320         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{321         \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB<Derivedother\_V,DIM>}} \& other,}
+\DoxyCodeLine{322         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedother\_V> \& other\_V,}
+\DoxyCodeLine{323         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedother\_Ele> \& other\_Ele, }
+\DoxyCodeLine{324         Eigen::PlainObjectBase<DerivedsqrD> \& sqrD,}
+\DoxyCodeLine{325         Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{326         Eigen::PlainObjectBase<DerivedC> \& C) \textcolor{keyword}{const};}
+\DoxyCodeLine{327 \textcolor{keyword}{private}:}
+\DoxyCodeLine{328       \textcolor{keyword}{template} < }
+\DoxyCodeLine{329         \textcolor{keyword}{typename} DerivedEle,}
+\DoxyCodeLine{330         \textcolor{keyword}{typename} Derivedother\_V,}
+\DoxyCodeLine{331         \textcolor{keyword}{typename} Derivedother\_Ele,}
+\DoxyCodeLine{332         \textcolor{keyword}{typename} DerivedsqrD, }
+\DoxyCodeLine{333         \textcolor{keyword}{typename} DerivedI, }
+\DoxyCodeLine{334         \textcolor{keyword}{typename} DerivedC>}
+\DoxyCodeLine{335       IGL\_INLINE Scalar squared\_distance\_helper(}
+\DoxyCodeLine{336         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{337         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{338         \textcolor{keyword}{const} \mbox{\hyperlink{classigl_1_1_a_a_b_b}{AABB<Derivedother\_V,DIM>}} * other,}
+\DoxyCodeLine{339         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedother\_V> \& other\_V,}
+\DoxyCodeLine{340         \textcolor{keyword}{const} Eigen::MatrixBase<Derivedother\_Ele>\& other\_Ele, }
+\DoxyCodeLine{341         \textcolor{keyword}{const} Scalar up\_sqr\_d,}
+\DoxyCodeLine{342         Eigen::PlainObjectBase<DerivedsqrD> \& sqrD,}
+\DoxyCodeLine{343         Eigen::PlainObjectBase<DerivedI> \& I,}
+\DoxyCodeLine{344         Eigen::PlainObjectBase<DerivedC> \& C) \textcolor{keyword}{const};}
+\DoxyCodeLine{345       \textcolor{comment}{// Compute the squared distance to the primitive in this node: assumes}}
+\DoxyCodeLine{346       \textcolor{comment}{// that this is indeed a leaf node.}}
+\DoxyCodeLine{347       \textcolor{comment}{//}}
+\DoxyCodeLine{348       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{349       \textcolor{comment}{//   V  \#V by dim list of vertex positions}}
+\DoxyCodeLine{350       \textcolor{comment}{//   Ele  \#Ele by dim list of simplex indices}}
+\DoxyCodeLine{351       \textcolor{comment}{//   p  dim-\/long query point}}
+\DoxyCodeLine{352       \textcolor{comment}{//   sqr\_d  current minimum distance for this query, see output}}
+\DoxyCodeLine{353       \textcolor{comment}{//   i  current index into Ele of closest point, see output}}
+\DoxyCodeLine{354       \textcolor{comment}{//   c  dim-\/long current closest point, see output}}
+\DoxyCodeLine{355       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{356       \textcolor{comment}{//   sqr\_d   minimum of initial value and squared distance to this}}
+\DoxyCodeLine{357       \textcolor{comment}{//     primitive}}
+\DoxyCodeLine{358       \textcolor{comment}{//   i  possibly updated index into Ele of closest point}}
+\DoxyCodeLine{359       \textcolor{comment}{//   c  dim-\/long possibly updated closest point}}
+\DoxyCodeLine{360       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{361       IGL\_INLINE \textcolor{keywordtype}{void} leaf\_squared\_distance(}
+\DoxyCodeLine{362         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{363         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{364         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{365         \textcolor{keyword}{const} Scalar low\_sqr\_d,}
+\DoxyCodeLine{366         Scalar \& sqr\_d,}
+\DoxyCodeLine{367         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{368         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{369       \textcolor{comment}{// Default low\_sqr\_d}}
+\DoxyCodeLine{370       \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedEle>}
+\DoxyCodeLine{371       IGL\_INLINE \textcolor{keywordtype}{void} leaf\_squared\_distance(}
+\DoxyCodeLine{372         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V,}
+\DoxyCodeLine{373         \textcolor{keyword}{const} Eigen::MatrixBase<DerivedEle> \& Ele, }
+\DoxyCodeLine{374         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{375         Scalar \& sqr\_d,}
+\DoxyCodeLine{376         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{377         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{378       \textcolor{comment}{// If new distance (sqr\_d\_candidate) is less than current distance}}
+\DoxyCodeLine{379       \textcolor{comment}{// (sqr\_d), then update this distance and its associated values}}
+\DoxyCodeLine{380       \textcolor{comment}{// \_in-\/place\_:}}
+\DoxyCodeLine{381       \textcolor{comment}{//}}
+\DoxyCodeLine{382       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{383       \textcolor{comment}{//   p  dim-\/long query point (only used in DEBUG mode)}}
+\DoxyCodeLine{384       \textcolor{comment}{//   sqr\_d  candidate minimum distance for this query, see output}}
+\DoxyCodeLine{385       \textcolor{comment}{//   i  candidate index into Ele of closest point, see output}}
+\DoxyCodeLine{386       \textcolor{comment}{//   c  dim-\/long candidate closest point, see output}}
+\DoxyCodeLine{387       \textcolor{comment}{//   sqr\_d  current minimum distance for this query, see output}}
+\DoxyCodeLine{388       \textcolor{comment}{//   i  current index into Ele of closest point, see output}}
+\DoxyCodeLine{389       \textcolor{comment}{//   c  dim-\/long current closest point, see output}}
+\DoxyCodeLine{390       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{391       \textcolor{comment}{//   sqr\_d   minimum of initial value and squared distance to this}}
+\DoxyCodeLine{392       \textcolor{comment}{//     primitive}}
+\DoxyCodeLine{393       \textcolor{comment}{//   i  possibly updated index into Ele of closest point}}
+\DoxyCodeLine{394       \textcolor{comment}{//   c  dim-\/long possibly updated closest point}}
+\DoxyCodeLine{395       IGL\_INLINE \textcolor{keywordtype}{void} set\_min(}
+\DoxyCodeLine{396         \textcolor{keyword}{const} RowVectorDIMS \& p,}
+\DoxyCodeLine{397         \textcolor{keyword}{const} Scalar sqr\_d\_candidate,}
+\DoxyCodeLine{398         \textcolor{keyword}{const} \textcolor{keywordtype}{int} i\_candidate,}
+\DoxyCodeLine{399         \textcolor{keyword}{const} RowVectorDIMS \& c\_candidate,}
+\DoxyCodeLine{400         Scalar \& sqr\_d,}
+\DoxyCodeLine{401         \textcolor{keywordtype}{int} \& i,}
+\DoxyCodeLine{402         Eigen::PlainObjectBase<RowVectorDIMS> \& c) \textcolor{keyword}{const};}
+\DoxyCodeLine{403 \textcolor{keyword}{public}:}
+\DoxyCodeLine{404       EIGEN\_MAKE\_ALIGNED\_OPERATOR\_NEW}
+\DoxyCodeLine{405     \};}
+\DoxyCodeLine{406 \}}
+\DoxyCodeLine{407 }
+\DoxyCodeLine{408 }
+\DoxyCodeLine{409 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{410 \textcolor{preprocessor}{\#  include "{}AABB.cpp"{}}}
+\DoxyCodeLine{411 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{412 }
+\DoxyCodeLine{413 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

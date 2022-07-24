@@ -1,0 +1,57 @@
+\hypertarget{snap__rounding_8h_source}{}\doxysection{snap\+\_\+rounding.\+h}
+\label{snap__rounding_8h_source}\index{igl/copyleft/cgal/snap\_rounding.h@{igl/copyleft/cgal/snap\_rounding.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_SNAP\_ROUNDING\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_SNAP\_ROUNDING\_H}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{17   \{}
+\DoxyCodeLine{18     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{19     \{}
+\DoxyCodeLine{20       \textcolor{comment}{// SNAP\_ROUNDING Snap a list of possible intersecting segments with}}
+\DoxyCodeLine{21       \textcolor{comment}{// endpoints in any precision to \_the\_ integer grid.}}
+\DoxyCodeLine{22       \textcolor{comment}{//}}
+\DoxyCodeLine{23       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{24       \textcolor{comment}{//   V  \#V by 2 list of vertex positions}}
+\DoxyCodeLine{25       \textcolor{comment}{//   E  \#E by 2 list of segment indices into V}}
+\DoxyCodeLine{26       \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{27       \textcolor{comment}{//   VI  \#VI by 2 list of output integer vertex positions, rounded copies}}
+\DoxyCodeLine{28       \textcolor{comment}{//     of V are always the first \#V vertices}}
+\DoxyCodeLine{29       \textcolor{comment}{//   EI  \#EI by 2 list of segment indices into V, \#EI ≥ \#E}}
+\DoxyCodeLine{30       \textcolor{comment}{//   J  \#EI list of indices into E revealing "{}parent segments"{}}}
+\DoxyCodeLine{31       \textcolor{keyword}{template} <}
+\DoxyCodeLine{32         \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{33         \textcolor{keyword}{typename} DerivedE, }
+\DoxyCodeLine{34         \textcolor{keyword}{typename} DerivedVI, }
+\DoxyCodeLine{35         \textcolor{keyword}{typename} DerivedEI,}
+\DoxyCodeLine{36         \textcolor{keyword}{typename} DerivedJ>}
+\DoxyCodeLine{37       IGL\_INLINE \textcolor{keywordtype}{void} snap\_rounding(}
+\DoxyCodeLine{38         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{39         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedE> \& E,}
+\DoxyCodeLine{40         Eigen::PlainObjectBase<DerivedVI> \& VI,}
+\DoxyCodeLine{41         Eigen::PlainObjectBase<DerivedEI> \& EI,}
+\DoxyCodeLine{42         Eigen::PlainObjectBase<DerivedJ> \& J);}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44   \}}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}snap\_rounding.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

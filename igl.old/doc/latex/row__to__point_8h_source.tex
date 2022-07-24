@@ -1,0 +1,44 @@
+\hypertarget{row__to__point_8h_source}{}\doxysection{row\+\_\+to\+\_\+point.\+h}
+\label{row__to__point_8h_source}\index{igl/copyleft/cgal/row\_to\_point.h@{igl/copyleft/cgal/row\_to\_point.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_COPYLEFT\_CGAL\_ROW\_TO\_POINT\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_COPYLEFT\_CGAL\_ROW\_TO\_POINT\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}../../igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <CGAL/Point\_2.h>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{keyword}{namespace }copyleft}
+\DoxyCodeLine{16   \{}
+\DoxyCodeLine{17     \textcolor{keyword}{namespace }cgal}
+\DoxyCodeLine{18     \{}
+\DoxyCodeLine{19       \textcolor{comment}{// Extract a row from V and treat as a 2D cgal point (only first two}}
+\DoxyCodeLine{20       \textcolor{comment}{// columns of V are used).}}
+\DoxyCodeLine{21       \textcolor{comment}{// }}
+\DoxyCodeLine{22       \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{23       \textcolor{comment}{//   V  \#V by 2 list of vertex positions}}
+\DoxyCodeLine{24       \textcolor{comment}{//   i  row index}}
+\DoxyCodeLine{25       \textcolor{comment}{// Returns 2D cgal point}}
+\DoxyCodeLine{26       \textcolor{keyword}{template} <}
+\DoxyCodeLine{27         \textcolor{keyword}{typename} Kernel,}
+\DoxyCodeLine{28         \textcolor{keyword}{typename} DerivedV>}
+\DoxyCodeLine{29       IGL\_INLINE CGAL::Point\_2<Kernel> row\_to\_point(}
+\DoxyCodeLine{30         \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV> \& V,}
+\DoxyCodeLine{31         \textcolor{keyword}{const} \textcolor{keyword}{typename} DerivedV::Index \& i);}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#  include "{}row\_to\_point.cpp"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

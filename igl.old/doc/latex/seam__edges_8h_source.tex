@@ -1,0 +1,70 @@
+\hypertarget{seam__edges_8h_source}{}\doxysection{seam\+\_\+edges.\+h}
+\label{seam__edges_8h_source}\index{igl/seam\_edges.h@{igl/seam\_edges.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2016 Yotam Gingold <yotam@yotamgingold.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_SEAM\_EDGES\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_SEAM\_EDGES\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Finds all UV-\/space boundaries of a mesh.}}
+\DoxyCodeLine{15   \textcolor{comment}{//}}
+\DoxyCodeLine{16   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{17   \textcolor{comment}{//   V  \#V by dim list of positions of the input mesh.}}
+\DoxyCodeLine{18   \textcolor{comment}{//   TC  \#TC by 2 list of 2D texture coordinates of the input mesh}}
+\DoxyCodeLine{19   \textcolor{comment}{//   F  \#F by 3 list of triange indices into V representing a}}
+\DoxyCodeLine{20   \textcolor{comment}{//     manifold-\/with-\/boundary triangle mesh}}
+\DoxyCodeLine{21   \textcolor{comment}{//   FTC  \#F by 3 list of indices into TC for each corner}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs:}}
+\DoxyCodeLine{23   \textcolor{comment}{//   seams  Edges where the forwards and backwards directions have different}}
+\DoxyCodeLine{24   \textcolor{comment}{//     texture coordinates, as a \#seams-\/by-\/4 matrix of indices. Each row is}}
+\DoxyCodeLine{25   \textcolor{comment}{//     organized as [ forward\_face\_index, forward\_face\_vertex\_index,}}
+\DoxyCodeLine{26   \textcolor{comment}{//     backwards\_face\_index, backwards\_face\_vertex\_index ] such that one side}}
+\DoxyCodeLine{27   \textcolor{comment}{//     of the seam is the edge:}}
+\DoxyCodeLine{28   \textcolor{comment}{//         F[ seams( i, 0 ), seams( i, 1 ) ], F[ seams( i, 0 ), (seams( i, 1 ) + 1) \% 3 ]}}
+\DoxyCodeLine{29   \textcolor{comment}{//     and the other side is the edge:}}
+\DoxyCodeLine{30   \textcolor{comment}{//         F[ seams( i, 2 ), seams( i, 3 ) ], F[ seams( i, 2 ), (seams( i, 3 ) + 1) \% 3 ]}}
+\DoxyCodeLine{31   \textcolor{comment}{//   boundaries  Edges with only one incident triangle, as a \#boundaries-\/by-\/2}}
+\DoxyCodeLine{32   \textcolor{comment}{//     matrix of indices. Each row is organized as }}
+\DoxyCodeLine{33   \textcolor{comment}{//         [ face\_index, face\_vertex\_index ]}}
+\DoxyCodeLine{34   \textcolor{comment}{//     such that the edge is:}}
+\DoxyCodeLine{35   \textcolor{comment}{//         F[ boundaries( i, 0 ), boundaries( i, 1 ) ], F[ boundaries( i, 0 ), (boundaries( i, 1 ) + 1) \% 3 ]}}
+\DoxyCodeLine{36   \textcolor{comment}{//   foldovers  Edges where the two incident triangles fold over each other}}
+\DoxyCodeLine{37   \textcolor{comment}{//     in UV-\/space, as a \#foldovers-\/by-\/4 matrix of indices.}}
+\DoxyCodeLine{38   \textcolor{comment}{//     Each row is organized as [ forward\_face\_index, forward\_face\_vertex\_index,}}
+\DoxyCodeLine{39   \textcolor{comment}{//     backwards\_face\_index, backwards\_face\_vertex\_index ]}}
+\DoxyCodeLine{40   \textcolor{comment}{//     such that one side of the foldover is the edge:}}
+\DoxyCodeLine{41   \textcolor{comment}{//       F[ foldovers( i, 0 ), foldovers( i, 1 ) ], F[ foldovers( i, 0 ), (foldovers( i, 1 ) + 1) \% 3 ]}}
+\DoxyCodeLine{42   \textcolor{comment}{//     and the other side is the edge:}}
+\DoxyCodeLine{43   \textcolor{comment}{//       F[ foldovers( i, 2 ), foldovers( i, 3 ) ], F[ foldovers( i, 2 ), (foldovers( i, 3 ) + 1) \% 3 ]}}
+\DoxyCodeLine{44   \textcolor{keyword}{template} <}
+\DoxyCodeLine{45     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{46     \textcolor{keyword}{typename} DerivedTC,}
+\DoxyCodeLine{47     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{48     \textcolor{keyword}{typename} DerivedFTC,}
+\DoxyCodeLine{49     \textcolor{keyword}{typename} Derivedseams,}
+\DoxyCodeLine{50     \textcolor{keyword}{typename} Derivedboundaries,}
+\DoxyCodeLine{51     \textcolor{keyword}{typename} Derivedfoldovers>}
+\DoxyCodeLine{52   IGL\_INLINE \textcolor{keywordtype}{void} seam\_edges(}
+\DoxyCodeLine{53     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedV>\& V,}
+\DoxyCodeLine{54     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedTC>\& TC,}
+\DoxyCodeLine{55     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedF>\& F,}
+\DoxyCodeLine{56     \textcolor{keyword}{const} Eigen::PlainObjectBase<DerivedFTC>\& FTC,}
+\DoxyCodeLine{57     Eigen::PlainObjectBase<Derivedseams>\& seams,}
+\DoxyCodeLine{58     Eigen::PlainObjectBase<Derivedboundaries>\& boundaries,}
+\DoxyCodeLine{59     Eigen::PlainObjectBase<Derivedfoldovers>\& foldovers);}
+\DoxyCodeLine{60 \}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#  include "{}seam\_edges.cpp"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

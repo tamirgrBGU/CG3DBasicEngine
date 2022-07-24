@@ -1,0 +1,265 @@
+\hypertarget{stb__image_8h_source}{}\doxysection{stb\+\_\+image.\+h}
+\label{stb__image_8h_source}\index{igl/opengl/glfw/stb\_image.h@{igl/opengl/glfw/stb\_image.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{comment}{//}}
+\DoxyCodeLine{3 \textcolor{comment}{// Limitations:}}
+\DoxyCodeLine{4 \textcolor{comment}{//    -\/ no jpeg progressive support}}
+\DoxyCodeLine{5 \textcolor{comment}{//    -\/ non-\/HDR formats support 8-\/bit samples only (jpeg, png)}}
+\DoxyCodeLine{6 \textcolor{comment}{//    -\/ no delayed line count (jpeg) -\/-\/ IJG doesn't support either}}
+\DoxyCodeLine{7 \textcolor{comment}{//    -\/ no 1-\/bit BMP}}
+\DoxyCodeLine{8 \textcolor{comment}{//    -\/ GIF always returns *comp=4}}
+\DoxyCodeLine{9 \textcolor{comment}{//}}
+\DoxyCodeLine{10 \textcolor{comment}{// Basic usage (see HDR discussion below):}}
+\DoxyCodeLine{11 \textcolor{comment}{//    int x,y,n;}}
+\DoxyCodeLine{12 \textcolor{comment}{//    unsigned char *data = stbi\_load(filename, \&x, \&y, \&n, 0);}}
+\DoxyCodeLine{13 \textcolor{comment}{//    // ... process data if not NULL ... }}
+\DoxyCodeLine{14 \textcolor{comment}{//    // ... x = width, y = height, n = \# 8-\/bit components per pixel ...}}
+\DoxyCodeLine{15 \textcolor{comment}{//    // ... replace '0' with '1'..'4' to force that many components per pixel}}
+\DoxyCodeLine{16 \textcolor{comment}{//    // ... but 'n' will always be the number that it would have been if you said 0}}
+\DoxyCodeLine{17 \textcolor{comment}{//    stbi\_image\_free(data)}}
+\DoxyCodeLine{18 \textcolor{comment}{//}}
+\DoxyCodeLine{19 \textcolor{comment}{// Standard parameters:}}
+\DoxyCodeLine{20 \textcolor{comment}{//    int *x       -\/-\/ outputs image width in pixels}}
+\DoxyCodeLine{21 \textcolor{comment}{//    int *y       -\/-\/ outputs image height in pixels}}
+\DoxyCodeLine{22 \textcolor{comment}{//    int *comp    -\/-\/ outputs \# of image components in image file}}
+\DoxyCodeLine{23 \textcolor{comment}{//    int req\_comp -\/-\/ if non-\/zero, \# of image components requested in result}}
+\DoxyCodeLine{24 \textcolor{comment}{//}}
+\DoxyCodeLine{25 \textcolor{comment}{// The return value from an image loader is an 'unsigned char *' which points}}
+\DoxyCodeLine{26 \textcolor{comment}{// to the pixel data. The pixel data consists of *y scanlines of *x pixels,}}
+\DoxyCodeLine{27 \textcolor{comment}{// with each pixel consisting of N interleaved 8-\/bit components; the first}}
+\DoxyCodeLine{28 \textcolor{comment}{// pixel pointed to is top-\/left-\/most in the image. There is no padding between}}
+\DoxyCodeLine{29 \textcolor{comment}{// image scanlines or between pixels, regardless of format. The number of}}
+\DoxyCodeLine{30 \textcolor{comment}{// components N is 'req\_comp' if req\_comp is non-\/zero, or *comp otherwise.}}
+\DoxyCodeLine{31 \textcolor{comment}{// If req\_comp is non-\/zero, *comp has the number of components that \_would\_}}
+\DoxyCodeLine{32 \textcolor{comment}{// have been output otherwise. E.g. if you set req\_comp to 4, you will always}}
+\DoxyCodeLine{33 \textcolor{comment}{// get RGBA output, but you can check *comp to easily see if it's opaque.}}
+\DoxyCodeLine{34 \textcolor{comment}{//}}
+\DoxyCodeLine{35 \textcolor{comment}{// An output image with N components has the following components interleaved}}
+\DoxyCodeLine{36 \textcolor{comment}{// in this order in each pixel:}}
+\DoxyCodeLine{37 \textcolor{comment}{//}}
+\DoxyCodeLine{38 \textcolor{comment}{//     N=\#comp     components}}
+\DoxyCodeLine{39 \textcolor{comment}{//       1           grey}}
+\DoxyCodeLine{40 \textcolor{comment}{//       2           grey, alpha}}
+\DoxyCodeLine{41 \textcolor{comment}{//       3           red, green, blue}}
+\DoxyCodeLine{42 \textcolor{comment}{//       4           red, green, blue, alpha}}
+\DoxyCodeLine{43 \textcolor{comment}{//}}
+\DoxyCodeLine{44 \textcolor{comment}{// If image loading fails for any reason, the return value will be NULL,}}
+\DoxyCodeLine{45 \textcolor{comment}{// and *x, *y, *comp will be unchanged. The function stbi\_failure\_reason()}}
+\DoxyCodeLine{46 \textcolor{comment}{// can be queried for an extremely brief, end-\/user unfriendly explanation}}
+\DoxyCodeLine{47 \textcolor{comment}{// of why the load failed. Define STBI\_NO\_FAILURE\_STRINGS to avoid}}
+\DoxyCodeLine{48 \textcolor{comment}{// compiling these strings at all, and STBI\_FAILURE\_USERMSG to get slightly}}
+\DoxyCodeLine{49 \textcolor{comment}{// more user-\/friendly ones.}}
+\DoxyCodeLine{50 \textcolor{comment}{//}}
+\DoxyCodeLine{51 \textcolor{comment}{// Paletted PNG, BMP, GIF, and PIC images are automatically depalettized.}}
+\DoxyCodeLine{52 \textcolor{comment}{//}}
+\DoxyCodeLine{53 \textcolor{comment}{// ===========================================================================}}
+\DoxyCodeLine{54 \textcolor{comment}{//}}
+\DoxyCodeLine{55 \textcolor{comment}{// iPhone PNG support:}}
+\DoxyCodeLine{56 \textcolor{comment}{//}}
+\DoxyCodeLine{57 \textcolor{comment}{// By default we convert iphone-\/formatted PNGs back to RGB; nominally they}}
+\DoxyCodeLine{58 \textcolor{comment}{// would silently load as BGR, except the existing code should have just}}
+\DoxyCodeLine{59 \textcolor{comment}{// failed on such iPhone PNGs. But you can disable this conversion by}}
+\DoxyCodeLine{60 \textcolor{comment}{// by calling stbi\_convert\_iphone\_png\_to\_rgb(0), in which case}}
+\DoxyCodeLine{61 \textcolor{comment}{// you will always just get the native iphone "{}format"{} through.}}
+\DoxyCodeLine{62 \textcolor{comment}{//}}
+\DoxyCodeLine{63 \textcolor{comment}{// Call stbi\_set\_unpremultiply\_on\_load(1) as well to force a divide per}}
+\DoxyCodeLine{64 \textcolor{comment}{// pixel to remove any premultiplied alpha *only* if the image file explicitly}}
+\DoxyCodeLine{65 \textcolor{comment}{// says there's premultiplied data (currently only happens in iPhone images,}}
+\DoxyCodeLine{66 \textcolor{comment}{// and only if iPhone convert-\/to-\/rgb processing is on).}}
+\DoxyCodeLine{67 \textcolor{comment}{//}}
+\DoxyCodeLine{68 \textcolor{comment}{// ===========================================================================}}
+\DoxyCodeLine{69 \textcolor{comment}{//}}
+\DoxyCodeLine{70 \textcolor{comment}{// HDR image support   (disable by defining STBI\_NO\_HDR)}}
+\DoxyCodeLine{71 \textcolor{comment}{//}}
+\DoxyCodeLine{72 \textcolor{comment}{// stb\_image now supports loading HDR images in general, and currently}}
+\DoxyCodeLine{73 \textcolor{comment}{// the Radiance .HDR file format, although the support is provided}}
+\DoxyCodeLine{74 \textcolor{comment}{// generically. You can still load any file through the existing interface;}}
+\DoxyCodeLine{75 \textcolor{comment}{// if you attempt to load an HDR file, it will be automatically remapped to}}
+\DoxyCodeLine{76 \textcolor{comment}{// LDR, assuming gamma 2.2 and an arbitrary scale factor defaulting to 1;}}
+\DoxyCodeLine{77 \textcolor{comment}{// both of these constants can be reconfigured through this interface:}}
+\DoxyCodeLine{78 \textcolor{comment}{//}}
+\DoxyCodeLine{79 \textcolor{comment}{//     stbi\_hdr\_to\_ldr\_gamma(2.2f);}}
+\DoxyCodeLine{80 \textcolor{comment}{//     stbi\_hdr\_to\_ldr\_scale(1.0f);}}
+\DoxyCodeLine{81 \textcolor{comment}{//}}
+\DoxyCodeLine{82 \textcolor{comment}{// (note, do not use \_inverse\_ constants; stbi\_image will invert them}}
+\DoxyCodeLine{83 \textcolor{comment}{// appropriately).}}
+\DoxyCodeLine{84 \textcolor{comment}{//}}
+\DoxyCodeLine{85 \textcolor{comment}{// Additionally, there is a new, parallel interface for loading files as}}
+\DoxyCodeLine{86 \textcolor{comment}{// (linear) floats to preserve the full dynamic range:}}
+\DoxyCodeLine{87 \textcolor{comment}{//}}
+\DoxyCodeLine{88 \textcolor{comment}{//    float *data = stbi\_loadf(filename, \&x, \&y, \&n, 0);}}
+\DoxyCodeLine{89 \textcolor{comment}{// }}
+\DoxyCodeLine{90 \textcolor{comment}{// If you load LDR images through this interface, those images will}}
+\DoxyCodeLine{91 \textcolor{comment}{// be promoted to floating point values, run through the inverse of}}
+\DoxyCodeLine{92 \textcolor{comment}{// constants corresponding to the above:}}
+\DoxyCodeLine{93 \textcolor{comment}{//}}
+\DoxyCodeLine{94 \textcolor{comment}{//     stbi\_ldr\_to\_hdr\_scale(1.0f);}}
+\DoxyCodeLine{95 \textcolor{comment}{//     stbi\_ldr\_to\_hdr\_gamma(2.2f);}}
+\DoxyCodeLine{96 \textcolor{comment}{//}}
+\DoxyCodeLine{97 \textcolor{comment}{// Finally, given a filename (or an open file or memory block-\/-\/see header}}
+\DoxyCodeLine{98 \textcolor{comment}{// file for details) containing image data, you can query for the "{}most}}
+\DoxyCodeLine{99 \textcolor{comment}{// appropriate"{} interface to use (that is, whether the image is HDR or}}
+\DoxyCodeLine{100 \textcolor{comment}{// not), using:}}
+\DoxyCodeLine{101 \textcolor{comment}{//}}
+\DoxyCodeLine{102 \textcolor{comment}{//     stbi\_is\_hdr(char *filename);}}
+\DoxyCodeLine{103 \textcolor{comment}{//}}
+\DoxyCodeLine{104 \textcolor{comment}{// ===========================================================================}}
+\DoxyCodeLine{105 \textcolor{comment}{//}}
+\DoxyCodeLine{106 \textcolor{comment}{// I/O callbacks}}
+\DoxyCodeLine{107 \textcolor{comment}{//}}
+\DoxyCodeLine{108 \textcolor{comment}{// I/O callbacks allow you to read from arbitrary sources, like packaged}}
+\DoxyCodeLine{109 \textcolor{comment}{// files or some other source. Data read from callbacks are processed}}
+\DoxyCodeLine{110 \textcolor{comment}{// through a small internal buffer (currently 128 bytes) to try to reduce}}
+\DoxyCodeLine{111 \textcolor{comment}{// overhead. }}
+\DoxyCodeLine{112 \textcolor{comment}{//}}
+\DoxyCodeLine{113 \textcolor{comment}{// The three functions you must define are "{}read"{} (reads some bytes of data),}}
+\DoxyCodeLine{114 \textcolor{comment}{// "{}skip"{} (skips some bytes of data), "{}eof"{} (reports if the stream is at the end).}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117 \textcolor{preprocessor}{\#ifndef STBI\_NO\_STDIO}}
+\DoxyCodeLine{118 }
+\DoxyCodeLine{119 \textcolor{preprocessor}{\#if defined(\_MSC\_VER) \&\& \_MSC\_VER >= 0x1400}}
+\DoxyCodeLine{120 \textcolor{preprocessor}{\#define \_CRT\_SECURE\_NO\_WARNINGS }\textcolor{comment}{// suppress bogus warnings about fopen()}}
+\DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{122 }
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{124 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{125 }
+\DoxyCodeLine{126 \textcolor{preprocessor}{\#define STBI\_VERSION 1}}
+\DoxyCodeLine{127 }
+\DoxyCodeLine{128 \textcolor{keyword}{enum}}
+\DoxyCodeLine{129 \{}
+\DoxyCodeLine{130    STBI\_default = 0, \textcolor{comment}{// only used for req\_comp}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{132    STBI\_grey       = 1,}
+\DoxyCodeLine{133    STBI\_grey\_alpha = 2,}
+\DoxyCodeLine{134    STBI\_rgb        = 3,}
+\DoxyCodeLine{135    STBI\_rgb\_alpha  = 4}
+\DoxyCodeLine{136 \};}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} stbi\_uc;}
+\DoxyCodeLine{139 }
+\DoxyCodeLine{140 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{141 \textcolor{keyword}{extern} \textcolor{stringliteral}{"{}C"{}} \{}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{145 \textcolor{comment}{//}}
+\DoxyCodeLine{146 \textcolor{comment}{// PRIMARY API -\/ works on images of any type}}
+\DoxyCodeLine{147 \textcolor{comment}{//}}
+\DoxyCodeLine{148 }
+\DoxyCodeLine{149 \textcolor{comment}{//}}
+\DoxyCodeLine{150 \textcolor{comment}{// load image by filename, open file, or memory buffer}}
+\DoxyCodeLine{151 \textcolor{comment}{//}}
+\DoxyCodeLine{152 }
+\DoxyCodeLine{153 \textcolor{keyword}{extern} stbi\_uc *stbi\_load\_from\_memory(stbi\_uc \textcolor{keyword}{const} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{154 }
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#ifndef STBI\_NO\_STDIO}}
+\DoxyCodeLine{156 \textcolor{keyword}{extern} stbi\_uc *stbi\_load            (\textcolor{keywordtype}{char} \textcolor{keyword}{const} *filename,     \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{157 \textcolor{keyword}{extern} stbi\_uc *stbi\_load\_from\_file  (FILE *f,                  \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{158 \textcolor{comment}{// for stbi\_load\_from\_file, file pointer is left pointing immediately after image}}
+\DoxyCodeLine{159 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{161 \textcolor{keyword}{typedef} \textcolor{keyword}{struct}}
+\DoxyCodeLine{162 \{}
+\DoxyCodeLine{163    int      (*read)  (\textcolor{keywordtype}{void} *user,\textcolor{keywordtype}{char} *data,\textcolor{keywordtype}{int} size);   \textcolor{comment}{// fill 'data' with 'size' bytes.  return number of bytes actually read }}
+\DoxyCodeLine{164    void     (*skip)  (\textcolor{keywordtype}{void} *user,\textcolor{keywordtype}{unsigned} n);            \textcolor{comment}{// skip the next 'n' bytes}}
+\DoxyCodeLine{165    int      (*eof)   (\textcolor{keywordtype}{void} *user);                       \textcolor{comment}{// returns nonzero if we are at end of file/data}}
+\DoxyCodeLine{166 \} \mbox{\hyperlink{structstbi__io__callbacks}{stbi\_io\_callbacks}};}
+\DoxyCodeLine{167 }
+\DoxyCodeLine{168 \textcolor{keyword}{extern} stbi\_uc *stbi\_load\_from\_callbacks  (\mbox{\hyperlink{structstbi__io__callbacks}{stbi\_io\_callbacks}} \textcolor{keyword}{const} *clbk, \textcolor{keywordtype}{void} *user, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170 \textcolor{preprocessor}{\#ifndef STBI\_NO\_HDR}}
+\DoxyCodeLine{171    \textcolor{keyword}{extern} \textcolor{keywordtype}{float} *stbi\_loadf\_from\_memory(stbi\_uc \textcolor{keyword}{const} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173 \textcolor{preprocessor}{   \#ifndef STBI\_NO\_STDIO}}
+\DoxyCodeLine{174    \textcolor{keyword}{extern} \textcolor{keywordtype}{float} *stbi\_loadf            (\textcolor{keywordtype}{char} \textcolor{keyword}{const} *filename,   \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{175    \textcolor{keyword}{extern} \textcolor{keywordtype}{float} *stbi\_loadf\_from\_file  (FILE *f,                \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{176 \textcolor{preprocessor}{   \#endif}}
+\DoxyCodeLine{177    }
+\DoxyCodeLine{178    \textcolor{keyword}{extern} \textcolor{keywordtype}{float} *stbi\_loadf\_from\_callbacks  (\mbox{\hyperlink{structstbi__io__callbacks}{stbi\_io\_callbacks}} \textcolor{keyword}{const} *clbk, \textcolor{keywordtype}{void} *user, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp, \textcolor{keywordtype}{int} req\_comp);}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{180    \textcolor{keyword}{extern} \textcolor{keywordtype}{void}   stbi\_hdr\_to\_ldr\_gamma(\textcolor{keywordtype}{float} gamma);}
+\DoxyCodeLine{181    \textcolor{keyword}{extern} \textcolor{keywordtype}{void}   stbi\_hdr\_to\_ldr\_scale(\textcolor{keywordtype}{float} scale);}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183    \textcolor{keyword}{extern} \textcolor{keywordtype}{void}   stbi\_ldr\_to\_hdr\_gamma(\textcolor{keywordtype}{float} gamma);}
+\DoxyCodeLine{184    \textcolor{keyword}{extern} \textcolor{keywordtype}{void}   stbi\_ldr\_to\_hdr\_scale(\textcolor{keywordtype}{float} scale);}
+\DoxyCodeLine{185 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// STBI\_NO\_HDR}}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{187 \textcolor{comment}{// stbi\_is\_hdr is always defined}}
+\DoxyCodeLine{188 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}    stbi\_is\_hdr\_from\_callbacks(\mbox{\hyperlink{structstbi__io__callbacks}{stbi\_io\_callbacks}} \textcolor{keyword}{const} *clbk, \textcolor{keywordtype}{void} *user);}
+\DoxyCodeLine{189 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}    stbi\_is\_hdr\_from\_memory(stbi\_uc \textcolor{keyword}{const} *buffer, \textcolor{keywordtype}{int} len);}
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#ifndef STBI\_NO\_STDIO}}
+\DoxyCodeLine{191 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_is\_hdr          (\textcolor{keywordtype}{char} \textcolor{keyword}{const} *filename);}
+\DoxyCodeLine{192 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_is\_hdr\_from\_file(FILE *f);}
+\DoxyCodeLine{193 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// STBI\_NO\_STDIO}}
+\DoxyCodeLine{194 }
+\DoxyCodeLine{195 }
+\DoxyCodeLine{196 \textcolor{comment}{// get a VERY brief reason for failure}}
+\DoxyCodeLine{197 \textcolor{comment}{// NOT THREADSAFE}}
+\DoxyCodeLine{198 \textcolor{keyword}{extern} \textcolor{keyword}{const} \textcolor{keywordtype}{char} *stbi\_failure\_reason  (\textcolor{keywordtype}{void}); }
+\DoxyCodeLine{199 }
+\DoxyCodeLine{200 \textcolor{comment}{// free the loaded image -\/-\/ this is just free()}}
+\DoxyCodeLine{201 \textcolor{keyword}{extern} \textcolor{keywordtype}{void}     stbi\_image\_free      (\textcolor{keywordtype}{void} *retval\_from\_stbi\_load);}
+\DoxyCodeLine{202 }
+\DoxyCodeLine{203 \textcolor{comment}{// get image dimensions \& components without fully decoding}}
+\DoxyCodeLine{204 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_info\_from\_memory(stbi\_uc \textcolor{keyword}{const} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp);}
+\DoxyCodeLine{205 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_info\_from\_callbacks(\mbox{\hyperlink{structstbi__io__callbacks}{stbi\_io\_callbacks}} \textcolor{keyword}{const} *clbk, \textcolor{keywordtype}{void} *user, \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp);}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207 \textcolor{preprocessor}{\#ifndef STBI\_NO\_STDIO}}
+\DoxyCodeLine{208 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_info            (\textcolor{keywordtype}{char} \textcolor{keyword}{const} *filename,     \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp);}
+\DoxyCodeLine{209 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}      stbi\_info\_from\_file  (FILE *f,                  \textcolor{keywordtype}{int} *x, \textcolor{keywordtype}{int} *y, \textcolor{keywordtype}{int} *comp);}
+\DoxyCodeLine{210 }
+\DoxyCodeLine{211 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213 }
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215 \textcolor{comment}{// for image formats that explicitly notate that they have premultiplied alpha,}}
+\DoxyCodeLine{216 \textcolor{comment}{// we just return the colors as stored in the file. set this flag to force}}
+\DoxyCodeLine{217 \textcolor{comment}{// unpremultiplication. results are undefined if the unpremultiply overflow.}}
+\DoxyCodeLine{218 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} stbi\_set\_unpremultiply\_on\_load(\textcolor{keywordtype}{int} flag\_true\_if\_should\_unpremultiply);}
+\DoxyCodeLine{219 }
+\DoxyCodeLine{220 \textcolor{comment}{// indicate whether we should process iphone images back to canonical format,}}
+\DoxyCodeLine{221 \textcolor{comment}{// or just pass them through "{}as-\/is"{}}}
+\DoxyCodeLine{222 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} stbi\_convert\_iphone\_png\_to\_rgb(\textcolor{keywordtype}{int} flag\_true\_if\_should\_convert);}
+\DoxyCodeLine{223 }
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225 \textcolor{comment}{// ZLIB client -\/ used by PNG, available for other purposes}}
+\DoxyCodeLine{226 }
+\DoxyCodeLine{227 \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *stbi\_zlib\_decode\_malloc\_guesssize(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} initial\_size, \textcolor{keywordtype}{int} *outlen);}
+\DoxyCodeLine{228 \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *stbi\_zlib\_decode\_malloc(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} *outlen);}
+\DoxyCodeLine{229 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}   stbi\_zlib\_decode\_buffer(\textcolor{keywordtype}{char} *obuffer, \textcolor{keywordtype}{int} olen, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *ibuffer, \textcolor{keywordtype}{int} ilen);}
+\DoxyCodeLine{230 }
+\DoxyCodeLine{231 \textcolor{keyword}{extern} \textcolor{keywordtype}{char} *stbi\_zlib\_decode\_noheader\_malloc(\textcolor{keyword}{const} \textcolor{keywordtype}{char} *buffer, \textcolor{keywordtype}{int} len, \textcolor{keywordtype}{int} *outlen);}
+\DoxyCodeLine{232 \textcolor{keyword}{extern} \textcolor{keywordtype}{int}   stbi\_zlib\_decode\_noheader\_buffer(\textcolor{keywordtype}{char} *obuffer, \textcolor{keywordtype}{int} olen, \textcolor{keyword}{const} \textcolor{keywordtype}{char} *ibuffer, \textcolor{keywordtype}{int} ilen);}
+\DoxyCodeLine{233 }
+\DoxyCodeLine{234 }
+\DoxyCodeLine{235 \textcolor{comment}{// define faster low-\/level operations (typically SIMD support)}}
+\DoxyCodeLine{236 \textcolor{preprocessor}{\#ifdef STBI\_SIMD}}
+\DoxyCodeLine{237 \textcolor{keyword}{typedef} void (*stbi\_idct\_8x8)(stbi\_uc *out, \textcolor{keywordtype}{int} out\_stride, \textcolor{keywordtype}{short} data[64], \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{short} *dequantize);}
+\DoxyCodeLine{238 \textcolor{comment}{// compute an integer IDCT on "{}input"{}}}
+\DoxyCodeLine{239 \textcolor{comment}{//     input[x] = data[x] * dequantize[x]}}
+\DoxyCodeLine{240 \textcolor{comment}{//     write results to 'out': 64 samples, each run of 8 spaced by 'out\_stride'}}
+\DoxyCodeLine{241 \textcolor{comment}{//                             CLAMP results to 0..255}}
+\DoxyCodeLine{242 \textcolor{keyword}{typedef} void (*stbi\_YCbCr\_to\_RGB\_run)(stbi\_uc *output, stbi\_uc \textcolor{keyword}{const}  *y, stbi\_uc \textcolor{keyword}{const} *cb, stbi\_uc \textcolor{keyword}{const} *cr, \textcolor{keywordtype}{int} count, \textcolor{keywordtype}{int} step);}
+\DoxyCodeLine{243 \textcolor{comment}{// compute a conversion from YCbCr to RGB}}
+\DoxyCodeLine{244 \textcolor{comment}{//     'count' pixels}}
+\DoxyCodeLine{245 \textcolor{comment}{//     write pixels to 'output'; each pixel is 'step' bytes (either 3 or 4; if 4, write '255' as 4th), order R,G,B}}
+\DoxyCodeLine{246 \textcolor{comment}{//     y: Y input channel}}
+\DoxyCodeLine{247 \textcolor{comment}{//     cb: Cb input channel; scale/biased to be 0..255}}
+\DoxyCodeLine{248 \textcolor{comment}{//     cr: Cr input channel; scale/biased to be 0..255}}
+\DoxyCodeLine{249 }
+\DoxyCodeLine{250 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} stbi\_install\_idct(stbi\_idct\_8x8 func);}
+\DoxyCodeLine{251 \textcolor{keyword}{extern} \textcolor{keywordtype}{void} stbi\_install\_YCbCr\_to\_RGB(stbi\_YCbCr\_to\_RGB\_run func);}
+\DoxyCodeLine{252 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// STBI\_SIMD}}
+\DoxyCodeLine{253 }
+\DoxyCodeLine{254 }
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#ifdef \_\_cplusplus}}
+\DoxyCodeLine{256 \}}
+\DoxyCodeLine{257 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259 \textcolor{comment}{//}}
+\DoxyCodeLine{260 \textcolor{comment}{//}}
+
+\end{DoxyCode}

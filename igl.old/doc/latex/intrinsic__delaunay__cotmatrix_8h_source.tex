@@ -1,0 +1,57 @@
+\hypertarget{intrinsic__delaunay__cotmatrix_8h_source}{}\doxysection{intrinsic\+\_\+delaunay\+\_\+cotmatrix.\+h}
+\label{intrinsic__delaunay__cotmatrix_8h_source}\index{igl/intrinsic\_delaunay\_cotmatrix.h@{igl/intrinsic\_delaunay\_cotmatrix.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2018 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_INTRINSIC\_DELAUNAY\_COTMATRIX\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_INTRINSIC\_DELAUNAY\_COTMATRIX\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <Eigen/Core>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <Eigen/Sparse>}}
+\DoxyCodeLine{13 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \textcolor{comment}{// INTRINSIC\_DELAUNAY\_COTMATRIX Computes the discrete cotangent Laplacian of a}}
+\DoxyCodeLine{16   \textcolor{comment}{// mesh after converting it into its intrinsic Delaunay triangulation (see,}}
+\DoxyCodeLine{17   \textcolor{comment}{// e.g., [Fisher et al. 2007].}}
+\DoxyCodeLine{18   \textcolor{comment}{//}}
+\DoxyCodeLine{19   \textcolor{comment}{// Inputs:}}
+\DoxyCodeLine{20   \textcolor{comment}{//   V  \#V by dim list of mesh vertex positions}}
+\DoxyCodeLine{21   \textcolor{comment}{//   F  \#F by 3 list of mesh elements (triangles or tetrahedra)}}
+\DoxyCodeLine{22   \textcolor{comment}{// Outputs: }}
+\DoxyCodeLine{23   \textcolor{comment}{//   L  \#V by \#V cotangent matrix, each row i corresponding to V(i,:)}}
+\DoxyCodeLine{24   \textcolor{comment}{//   l\_intrinsic  \#F by 3 list of intrinsic edge-\/lengths used to compute L}}
+\DoxyCodeLine{25   \textcolor{comment}{//   F\_intrinsic  \#F by 3 list of intrinsic face indices used to compute L}}
+\DoxyCodeLine{26   \textcolor{comment}{//}}
+\DoxyCodeLine{27   \textcolor{comment}{// See also: intrinsic\_delaunay\_triangulation, cotmatrix, cotmatrix\_intrinsic}}
+\DoxyCodeLine{28   \textcolor{keyword}{template} <}
+\DoxyCodeLine{29     \textcolor{keyword}{typename} DerivedV, }
+\DoxyCodeLine{30     \textcolor{keyword}{typename} DerivedF, }
+\DoxyCodeLine{31     \textcolor{keyword}{typename} Scalar,}
+\DoxyCodeLine{32     \textcolor{keyword}{typename} Derivedl\_intrinsic,}
+\DoxyCodeLine{33     \textcolor{keyword}{typename} DerivedF\_intrinsic>}
+\DoxyCodeLine{34   IGL\_INLINE \textcolor{keywordtype}{void} intrinsic\_delaunay\_cotmatrix(}
+\DoxyCodeLine{35     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{36     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{37     Eigen::SparseMatrix<Scalar>\& L,}
+\DoxyCodeLine{38     Eigen::PlainObjectBase<Derivedl\_intrinsic> \& l\_intrinsic,}
+\DoxyCodeLine{39     Eigen::PlainObjectBase<DerivedF\_intrinsic> \& F\_intrinsic);}
+\DoxyCodeLine{40   \textcolor{keyword}{template} <\textcolor{keyword}{typename} DerivedV, \textcolor{keyword}{typename} DerivedF, \textcolor{keyword}{typename} Scalar>}
+\DoxyCodeLine{41   IGL\_INLINE \textcolor{keywordtype}{void} intrinsic\_delaunay\_cotmatrix(}
+\DoxyCodeLine{42     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedV> \& V, }
+\DoxyCodeLine{43     \textcolor{keyword}{const} Eigen::MatrixBase<DerivedF> \& F, }
+\DoxyCodeLine{44     Eigen::SparseMatrix<Scalar>\& L);}
+\DoxyCodeLine{45 \}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#  include "{}intrinsic\_delaunay\_cotmatrix.cpp"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

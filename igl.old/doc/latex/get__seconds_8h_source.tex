@@ -1,0 +1,44 @@
+\hypertarget{get__seconds_8h_source}{}\doxysection{get\+\_\+seconds.\+h}
+\label{get__seconds_8h_source}\index{igl/get\_seconds.h@{igl/get\_seconds.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{comment}{// This file is part of libigl, a simple c++ geometry processing library.}}
+\DoxyCodeLine{2 \textcolor{comment}{// }}
+\DoxyCodeLine{3 \textcolor{comment}{// Copyright (C) 2013 Alec Jacobson <alecjacobson@gmail.com>}}
+\DoxyCodeLine{4 \textcolor{comment}{// }}
+\DoxyCodeLine{5 \textcolor{comment}{// This Source Code Form is subject to the terms of the Mozilla Public License }}
+\DoxyCodeLine{6 \textcolor{comment}{// v. 2.0. If a copy of the MPL was not distributed with this file, You can }}
+\DoxyCodeLine{7 \textcolor{comment}{// obtain one at http://mozilla.org/MPL/2.0/.}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#ifndef IGL\_GET\_SECONDS\_H}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#define IGL\_GET\_SECONDS\_H}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include "{}igl\_inline.h"{}}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{keyword}{namespace }igl}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \textcolor{comment}{// Return the current time in seconds since program start}}
+\DoxyCodeLine{15   \textcolor{comment}{// }}
+\DoxyCodeLine{16   \textcolor{comment}{// Example:}}
+\DoxyCodeLine{17   \textcolor{comment}{//    const auto \& tictoc = []()}}
+\DoxyCodeLine{18   \textcolor{comment}{//    \{}}
+\DoxyCodeLine{19   \textcolor{comment}{//      static double t\_start = igl::get\_seconds();}}
+\DoxyCodeLine{20   \textcolor{comment}{//      double diff = igl::get\_seconds()-\/t\_start;}}
+\DoxyCodeLine{21   \textcolor{comment}{//      t\_start += diff;}}
+\DoxyCodeLine{22   \textcolor{comment}{//      return diff;}}
+\DoxyCodeLine{23   \textcolor{comment}{//    \};}}
+\DoxyCodeLine{24   \textcolor{comment}{//    tictoc();}}
+\DoxyCodeLine{25   \textcolor{comment}{//    ... // part 1}}
+\DoxyCodeLine{26   \textcolor{comment}{//    cout<<"{}part 1: "{}<<tictoc()<<endl;}}
+\DoxyCodeLine{27   \textcolor{comment}{//    ... // part 2}}
+\DoxyCodeLine{28   \textcolor{comment}{//    cout<<"{}part 2: "{}<<tictoc()<<endl;}}
+\DoxyCodeLine{29   \textcolor{comment}{//    ... // etc}}
+\DoxyCodeLine{30   IGL\_INLINE \textcolor{keywordtype}{double} get\_seconds();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \}}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#ifndef IGL\_STATIC\_LIBRARY}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#  include "{}get\_seconds.cpp"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
