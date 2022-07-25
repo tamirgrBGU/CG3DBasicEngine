@@ -14,17 +14,6 @@ else()
   include(LibiglDownloadExternal)
 endif()
 
-### Download data
-#igl_download_tutorial_data()
-
-### Output directories
-if(MSVC)
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR})
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR})
-else()
-  set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "../")
-endif()
-
 # Store location of tutorial/shared directory
 #set(TUTORIAL_SHARED_PATH ${LIBIGL_EXTERNAL}/../tutorial/data CACHE PATH "location of shared tutorial resources")
 #add_library(tutorials INTERFACE)

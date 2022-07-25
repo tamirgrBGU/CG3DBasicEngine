@@ -61,20 +61,21 @@ void Assignment3::Init()
 	SetShapeMaterial(2, 2);
 	SetShapeMaterial(5, 2);
 	SetShapeMaterial(6, 0);
-	pickedShape = 0;
+	selected_data_index = 0;
 	float s = 60;
 	ShapeTransformation(scaleAll, s,0);
-	pickedShape = 1;
+	selected_data_index = 1;
 	ShapeTransformation(xTranslate, 10,0);
 
-	pickedShape = 5;
+	selected_data_index = 5;
 	ShapeTransformation(xTranslate, -10,0);
-	pickedShape = 6;
+	selected_data_index = 6;
 	ShapeTransformation(zTranslate, -1.1,0);
-	pickedShape = -1;
+	selected_data_index = -1;
 	SetShapeStatic(0);
 	SetShapeStatic(6);
 	MyTranslate(Eigen::Vector3d(0, 0, -7.0), true);
+	selected_data_index = 0;
 
 	//SetShapeViewport(6, 1);
 //	ReadPixel(); //uncomment when you are reading from the z-buffer
@@ -94,7 +95,7 @@ void Assignment3::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
 	s->SetUniformMat4f("Model", Model);
 	if (data_list[shapeIndx]->GetMaterial() >= 0 && !materials.empty())
 	{
-//		materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
+//		materials[shapes[selected_data_index]->GetMaterial()]->Bind(textures);
 		BindMaterial(s, data_list[shapeIndx]->GetMaterial());
 	}
 	if (shaderIndx == 0)
@@ -106,7 +107,7 @@ void Assignment3::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
 	
 	
 
-	//s->SetUniform1i("sampler2", materials[shapes[pickedShape]->GetMaterial()]->GetSlot(1));
+	//s->SetUniform1i("sampler2", materials[shapes[selected_data_index]->GetMaterial()]->GetSlot(1));
 	//s->SetUniform4f("lightDirection", 0.0f , 0.0f, -1.0f, 0.0f);
 //	if(shaderIndx == 0)
 //		s->SetUniform4f("lightColor",r/255.0f, g/255.0f, b/255.0f,1.0f);

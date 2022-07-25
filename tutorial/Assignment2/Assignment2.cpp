@@ -15,7 +15,7 @@ static void printMat(const Eigen::Matrix4d& mat)
 
 Assignment2::Assignment2()
 {
-	SceneParser("data/scenes/scene3.txt",&scnData);
+	SceneParser("data/scenes/scene1.txt",&scnData);
 	xResolution = 800;
 	yResolution = 800;
 	//x = 0.5f;
@@ -47,9 +47,9 @@ void Assignment2::Init()
 	AddShape(Plane, -1, TRIANGLES,0);
 	SetShapeShader(0,1);
 	SetShapeMaterial(0, 0);
-	// pickedShape = 0;
+	// selected_data_index = 0;
 	// ShapeTransformation(zTranslate,-5,0);
-	// pickedShape = -1;
+	// selected_data_index = -1;
 	SetShapeStatic(0);
 		
 	//SetShapeViewport(6, 1);
@@ -84,7 +84,7 @@ void Assignment2::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
 	s->SetUniform4i("sizes", scnData.sizes[0], scnData.sizes[1], scnData.sizes[2], scnData.sizes[3]);
 	if (data_list[shapeIndx]->GetMaterial() >= 0 && !materials.empty())
 	{
-//		materials[shapes[pickedShape]->GetMaterial()]->Bind(textures);
+//		materials[shapes[selected_data_index]->GetMaterial()]->Bind(textures);
 		BindMaterial(s, data_list[shapeIndx]->GetMaterial());
 	}
 	// if (shaderIndx == 0)
@@ -96,7 +96,7 @@ void Assignment2::Update(const Eigen::Matrix4f& Proj, const Eigen::Matrix4f& Vie
 	
 	
 
-	//s->SetUniform1i("sampler2", materials[shapes[pickedShape]->GetMaterial()]->GetSlot(1));
+	//s->SetUniform1i("sampler2", materials[shapes[selected_data_index]->GetMaterial()]->GetSlot(1));
 	//s->SetUniform4f("lightDirection", 0.0f , 0.0f, -1.0f, 0.0f);
 //	if(shaderIndx == 0)
 //		s->SetUniform4f("lightColor",r/255.0f, g/255.0f, b/255.0f,1.0f);
@@ -212,7 +212,7 @@ float Assignment2::Intersection(Eigen::Vector3f sourcePoint)
 
 void Assignment2::RotateEye(float amt, bool upDown)
 {
-	//pickedShape = 0;
+	//selected_data_index = 0;
 	if (upDown)
 	{
 		data_list[0]->MyRotate(Eigen::Vector3d(1, 0, 0), amt, 0);

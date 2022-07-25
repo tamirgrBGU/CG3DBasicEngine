@@ -9,7 +9,7 @@ HunterGate(
 		SHA1 "5d68bcca78eee347239ca5f4d34f4b6c12683154"
 )
 
-project(EnigeRework)
+project(EngineRework)
 
 # Detects whether this is a top-level project
 get_directory_property(LIBIGL_PARENT_DIR PARENT_DIRECTORY)
@@ -51,6 +51,8 @@ endif()
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/Configurations.cmake)
 
 ### conditionally compile certain modules depending on libraries found on the system
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)

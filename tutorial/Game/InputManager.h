@@ -142,15 +142,15 @@
 				break;
 			case GLFW_KEY_1:
 				std::cout << "picked 1\n";
-				scn->pickedShape = 1;
+				scn->selected_data_index = 1;
 				break;
 			case GLFW_KEY_2:
 				std::cout << "picked 2\n";
-				scn->pickedShape = 2;
+				scn->selected_data_index = 2;
 				break;
 			case GLFW_KEY_3:
 				std::cout << "picked 3\n";
-				scn->pickedShape = 3;
+				scn->selected_data_index = 3;
 				break;
 			default:
 				break;
